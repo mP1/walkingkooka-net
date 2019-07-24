@@ -45,6 +45,13 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
+     * {@see AcceptHeaderValueHandler}
+     */
+    static HeaderValueHandler<Accept> accept() {
+        return AcceptHeaderValueHandler.INSTANCE;
+    }
+
+    /**
      * {@see AcceptCharsetHeaderValueHandler}
      */
     static HeaderValueHandler<AcceptCharset> acceptCharset() {
@@ -196,13 +203,6 @@ abstract class HeaderValueHandler<T> {
      */
     static HeaderValueHandler<MediaType> mediaType() {
         return MediaTypeHeaderValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see MediaTypeListHeaderValueHandler}
-     */
-    static HeaderValueHandler<List<MediaType>> mediaTypeList() {
-        return MediaTypeListHeaderValueHandler.INSTANCE;
     }
 
     /**

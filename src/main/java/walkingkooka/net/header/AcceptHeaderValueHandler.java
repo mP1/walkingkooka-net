@@ -19,28 +19,26 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueHandler} that converts a {@link String} into many {@link MediaType}.
+ * A {@link HeaderValueHandler} that converts a {@link String} into an {@link Accept}.
  */
-final class MediaTypeListHeaderValueHandler extends NonStringHeaderValueHandler<List<MediaType>> {
+final class AcceptHeaderValueHandler extends NonStringHeaderValueHandler<Accept> {
 
     /**
      * Singleton
      */
-    final static MediaTypeListHeaderValueHandler INSTANCE = new MediaTypeListHeaderValueHandler();
+    final static AcceptHeaderValueHandler INSTANCE = new AcceptHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private MediaTypeListHeaderValueHandler() {
+    private AcceptHeaderValueHandler() {
         super();
     }
 
     @Override
-    List<MediaType> parse0(final String text, final Name name) {
-        return MediaType.parseList(text);
+    Accept parse0(final String text, final Name name) {
+        return Accept.with(MediaType.parseList(text));
     }
 
     @Override
@@ -49,8 +47,8 @@ final class MediaTypeListHeaderValueHandler extends NonStringHeaderValueHandler<
     }
 
     @Override
-    String toText0(final List<MediaType> values, final Name name) {
-        return HeaderValue.toHeaderTextList(values, SEPARATOR);
+    String toText0(final Accept accept, final Name name) {
+        return accept.toHeaderText();
     }
 
     @Override

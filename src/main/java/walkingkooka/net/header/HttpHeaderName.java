@@ -130,9 +130,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept: text/html, application/xhtml+xml, application/xml;q=0.9, * /*;q=0.8
      * </pre>
      */
-    public final static HttpHeaderName<List<MediaType>> ACCEPT = registerConstant("Accept",
+    public final static HttpHeaderName<Accept> ACCEPT = registerConstant("Accept",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.mediaTypeList());
+            HeaderValueHandler.accept());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Charset</code>
