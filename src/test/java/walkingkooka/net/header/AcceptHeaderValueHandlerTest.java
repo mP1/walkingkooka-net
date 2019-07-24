@@ -21,12 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MediaTypeListHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<MediaTypeListHeaderValueHandler, List<MediaType>> {
+public final class AcceptHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<AcceptHeaderValueHandler, Accept> {
 
     private final static String TEXT = "type1/subType1; p1=v1, type2/subType2";
 
@@ -36,9 +34,9 @@ public final class MediaTypeListHeaderValueHandlerTest extends
     }
 
     @Test
-    public void testContentType() {
+    public void testParseMultipleMediaTypes() {
         this.parseAndToTextAndCheck(TEXT,
-                Lists.of(this.mediaType1(), this.mediaType2()));
+                Accept.with(Lists.of(this.mediaType1(), this.mediaType2())));
     }
 
     @Test
@@ -64,12 +62,12 @@ public final class MediaTypeListHeaderValueHandlerTest extends
     }
 
     @Override
-    MediaTypeListHeaderValueHandler handler() {
-        return MediaTypeListHeaderValueHandler.INSTANCE;
+    AcceptHeaderValueHandler handler() {
+        return AcceptHeaderValueHandler.INSTANCE;
     }
 
     @Override
-    HttpHeaderName<List<MediaType>> name() {
+    HttpHeaderName<Accept> name() {
         return HttpHeaderName.ACCEPT;
     }
 
@@ -79,22 +77,22 @@ public final class MediaTypeListHeaderValueHandlerTest extends
     }
 
     @Override
-    List<MediaType> value() {
-        return MediaType.parseList("type1/sub1;p1=v1,type2/sub2;p2=v2");
+    Accept value() {
+        return Accept.with(MediaType.parseList("type1/sub1;p1=v1,type2/sub2;p2=v2"));
     }
 
     @Override
     String valueType() {
-        return this.listValueType(MediaType.class);
+        return this.valueType(Accept.class);
     }
 
     @Override
     String handlerToString() {
-        return "List<MediaType>";
+        return Accept.class.getSimpleName();
     }
 
     @Override
-    public Class<MediaTypeListHeaderValueHandler> type() {
-        return MediaTypeListHeaderValueHandler.class;
+    public Class<AcceptHeaderValueHandler> type() {
+        return AcceptHeaderValueHandler.class;
     }
 }

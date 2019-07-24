@@ -244,7 +244,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testHeaderValueScopeAccept() {
         this.headerValueAndCheck(HttpHeaderName.ACCEPT,
-                MediaType.parseList("text/html, application/xhtml+xml"));
+                Accept.parse("text/html, application/xhtml+xml"));
     }
 
     @Test
@@ -310,9 +310,9 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testToValueAcceptString() {
         this.toValueAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
-                Lists.of(
+                Accept.with(Lists.of(
                         MediaType.with("text", "html"),
-                        MediaType.with("application", "xhtml+xml")));
+                        MediaType.with("application", "xhtml+xml"))));
     }
 
     @Test
