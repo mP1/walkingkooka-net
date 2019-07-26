@@ -30,7 +30,7 @@ public final class AcceptHeaderValueHandlerTest extends
 
     @Override
     public String typeNamePrefix() {
-        return MediaType.class.getSimpleName();
+        return Accept.class.getSimpleName();
     }
 
     @Test

@@ -43,7 +43,7 @@ final class AcceptHeaderValueHandler extends NonStringHeaderValueHandler<Accept>
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, MediaType.class, name);
+        this.checkType(value, Accept.class, name);
     }
 
     @Override
@@ -53,6 +53,6 @@ final class AcceptHeaderValueHandler extends NonStringHeaderValueHandler<Accept>
 
     @Override
     public String toString() {
-        return toStringListOf(MediaType.class);
+        return this.toStringType(Accept.class);
     }
 }
