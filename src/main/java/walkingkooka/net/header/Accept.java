@@ -102,9 +102,14 @@ public final class Accept extends HeaderValue2<List<MediaType>> {
     public static Accept with(final List<MediaType> values) {
         Objects.requireNonNull(values, "values");
 
-        return new Accept(values.stream()
+        final List<MediaType> copy = values.stream()
                 .map(v -> Objects.requireNonNull(v, "values includes null"))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if (copy.isEmpty()) {
+            throw new IllegalArgumentException("Media types empty");
+        }
+
+        return new Accept(copy);
     }
 
     /**

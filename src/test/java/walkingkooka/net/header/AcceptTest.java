@@ -46,7 +46,7 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), "image/bmp, image/gif;q=0.5");
+        this.toStringAndCheck(this.createHeaderValue(), "image/bmp, image/gif; q=0.5");
     }
 
     // helpers..........................................................................................................
