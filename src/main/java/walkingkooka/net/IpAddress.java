@@ -20,7 +20,7 @@ package walkingkooka.net;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.UsesToStringBuilder;
 import walkingkooka.Value;
-import walkingkooka.compare.Comparables;
+import walkingkooka.compare.Comparators;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.Serializable;
@@ -103,13 +103,13 @@ abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined,
     // Comparable
 
     final int compare0(final IpAddress address) {
-        int result = Comparables.EQUAL;
+        int result = Comparators.EQUAL;
 
         final byte[] components = this.components;
         final byte[] otherComponents = address.components;
         for (int i = 0; i < components.length; i++) {
             result = IpAddress.toUnsignedInt(components[i]) - IpAddress.toUnsignedInt(otherComponents[i]);
-            if (Comparables.EQUAL != result) {
+            if (Comparators.EQUAL != result) {
                 break;
             }
         }

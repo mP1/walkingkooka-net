@@ -1025,7 +1025,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testCompareEqualsCaseInsignificant() {
-        this.compareToAndCheckEqual(HostAddress.with(HOST.toUpperCase()));
+        this.compareToAndCheckEquals(HostAddress.with(HOST.toUpperCase()));
     }
 
     // toString...................................................................................................
