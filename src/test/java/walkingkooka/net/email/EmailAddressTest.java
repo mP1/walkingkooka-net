@@ -1651,7 +1651,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testCompareEqualsHostDifferentCase() {
-        this.compareToAndCheckEqual(EmailAddress.parse("user@EXAMPLE.COM"));
+        this.compareToAndCheckEquals(EmailAddress.parse("user@EXAMPLE.COM"));
     }
 
     @Test
