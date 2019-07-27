@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface HttpMethodVisitorTesting<V extends HttpMethodVisitor> extends VisitorTesting<V, HttpMethod> {
 
