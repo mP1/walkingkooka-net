@@ -26,7 +26,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.visit.Visitable;
+import walkingkooka.visit.Visitable;
 
 import java.io.Serializable;
 import java.util.Objects;

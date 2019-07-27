@@ -22,7 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.nio.charset.Charset;
 import java.util.Optional;

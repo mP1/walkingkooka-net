@@ -18,7 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeUrlVisitor extends UrlVisitor implements Fake {
 

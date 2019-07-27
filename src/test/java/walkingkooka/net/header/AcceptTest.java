@@ -17,15 +17,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.*;
-import walkingkooka.collect.list.*;
-import walkingkooka.collect.map.*;
-import walkingkooka.test.*;
-import walkingkooka.type.*;
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ParseStringTesting;
+import walkingkooka.type.JavaVisibility;
 
-import java.util.*;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaType>>
         implements ParseStringTesting<Accept> {

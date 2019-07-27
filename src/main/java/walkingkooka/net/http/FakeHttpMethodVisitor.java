@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeHttpMethodVisitor extends HttpMethodVisitor {
     @Override
