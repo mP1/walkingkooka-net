@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
@@ -24,6 +25,12 @@ import walkingkooka.type.JavaVisibility;
 
 public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName>,
         TypeNameTesting<HeaderParameterName> {
+
+    @Test
+    @Override
+    public void testAllMethodsVisibility() {
+        this.allMethodsVisibilityCheck("parameterValueOrFail");
+    }
 
     @Override
     public Class<HeaderParameterName> type() {
