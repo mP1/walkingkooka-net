@@ -35,10 +35,14 @@ final public class CookieMaxAge extends CookieDeletion {
                         new CookieMaxAge(seconds);
     }
 
+    static CookieMaxAge constant(final int seconds) {
+        return new CookieMaxAge(seconds);
+    }
+
     /**
-     * Private constructor use factory, only constants use this ctor directly.
+     * Private constructor
      */
-    CookieMaxAge(final int seconds) {
+    private CookieMaxAge(final int seconds) {
         super();
         this.seconds = seconds;
     }

@@ -113,9 +113,9 @@ public final class Accept extends HeaderValue2<List<MediaType>> {
     }
 
     /**
-     * Package private ctor use factory. Only called directly by factory or {@link AcceptEncodingHeaderValueParser}
+     * Private ctor
      */
-    Accept(final List<MediaType> values) {
+    private Accept(final List<MediaType> values) {
         super(values);
     }
 

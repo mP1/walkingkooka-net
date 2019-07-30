@@ -78,7 +78,7 @@ final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParamet
         final AcceptEncodingHeaderValueParser parser = new AcceptEncodingHeaderValueParser(text);
         parser.parse();
         parser.encodings.sort(HasQFactorWeight.qFactorDescendingComparator());
-        return new AcceptEncoding(Lists.readOnly(parser.encodings));
+        return AcceptEncoding.with(parser.encodings);
     }
 
     private AcceptEncodingHeaderValueParser(final String text) {

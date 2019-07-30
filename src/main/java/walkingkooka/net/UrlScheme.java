@@ -118,9 +118,9 @@ public final class UrlScheme extends NetName
     }
 
     /**
-     * package private constructor.
+     * Private constructor.
      */
-    UrlScheme(final String name) {
+    private UrlScheme(final String name) {
         super(name);
         this.nameWithSlashes = name.toLowerCase() + "://";
     }

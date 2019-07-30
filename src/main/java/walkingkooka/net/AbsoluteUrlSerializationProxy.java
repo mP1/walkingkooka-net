@@ -23,7 +23,11 @@ import java.util.Optional;
 
 final class AbsoluteUrlSerializationProxy implements SerializationProxy {
 
-    AbsoluteUrlSerializationProxy(final AbsoluteUrl url) {
+    static AbsoluteUrlSerializationProxy with(final AbsoluteUrl url) {
+        return new AbsoluteUrlSerializationProxy(url);
+    }
+
+    private AbsoluteUrlSerializationProxy(final AbsoluteUrl url) {
         this.scheme = url.scheme;
         this.credentials = url.credentials.orElse(null);
         this.host = url.host;

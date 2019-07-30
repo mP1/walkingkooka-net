@@ -54,9 +54,9 @@ public final class UrlCredentials implements HashCodeEqualsDefined, Serializable
     }
 
     /**
-     * package private constructor.
+     * Private constructor.
      */
-    UrlCredentials(final String user, final String password) {
+    private UrlCredentials(final String user, final String password) {
         super();
         this.user = user;
         this.password = password;

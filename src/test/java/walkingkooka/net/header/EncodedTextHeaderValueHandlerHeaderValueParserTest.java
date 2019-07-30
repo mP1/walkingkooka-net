@@ -95,7 +95,7 @@ public final class EncodedTextHeaderValueHandlerHeaderValueParserTest extends He
     }
 
     private EncodedTextHeaderValueHandlerHeaderValueParser createHeaderParser() {
-        return new EncodedTextHeaderValueHandlerHeaderValueParser("text", LABEL);
+        return EncodedTextHeaderValueHandlerHeaderValueParser.with("text", LABEL);
     }
 
     @Override

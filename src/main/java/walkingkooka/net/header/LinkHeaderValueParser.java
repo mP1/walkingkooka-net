@@ -37,8 +37,7 @@ final class LinkHeaderValueParser extends HeaderValueParserWithParameters<Link,
         return parser.links;
     }
 
-    // @VisibleForTesting
-    LinkHeaderValueParser(final String text) {
+    private LinkHeaderValueParser(final String text) {
         super(text);
     }
 

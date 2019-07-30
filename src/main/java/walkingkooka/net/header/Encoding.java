@@ -103,7 +103,7 @@ public final class Encoding extends HeaderValue2<String>
     /**
      * Private use factory.
      */
-    Encoding(final String value) {
+    private Encoding(final String value) {
         super(value);
     }
 
