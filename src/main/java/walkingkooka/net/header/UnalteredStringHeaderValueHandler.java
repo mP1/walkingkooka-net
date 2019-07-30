@@ -30,9 +30,9 @@ final class UnalteredStringHeaderValueHandler extends StringHeaderValueHandler {
     final static UnalteredStringHeaderValueHandler INSTANCE = new UnalteredStringHeaderValueHandler();
 
     /**
-     * Package private to limit sub classing.
+     * Private ctor use singleton
      */
-    UnalteredStringHeaderValueHandler() {
+    private UnalteredStringHeaderValueHandler() {
         super();
     }
 

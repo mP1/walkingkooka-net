@@ -38,7 +38,7 @@ final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParamete
         final AcceptCharsetHeaderValueParser parser = new AcceptCharsetHeaderValueParser(text);
         parser.parse();
         parser.charsets.sort(HasQFactorWeight.qFactorDescendingComparator());
-        return new AcceptCharset(Lists.readOnly(parser.charsets));
+        return AcceptCharset.with(parser.charsets);
     }
 
     private AcceptCharsetHeaderValueParser(final String text) {

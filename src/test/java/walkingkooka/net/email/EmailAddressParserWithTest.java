@@ -25,7 +25,7 @@ public final class EmailAddressParserWithTest extends EmailAddressParserTestCase
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(new EmailAddressParserWith(), "EmailAddress.with");
+        this.toStringAndCheck(EmailAddressParserWith.with(), "EmailAddress.with");
     }
 
     @Override

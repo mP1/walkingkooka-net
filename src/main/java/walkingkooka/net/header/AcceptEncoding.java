@@ -59,9 +59,9 @@ public final class AcceptEncoding extends HeaderValue2<List<EncodingWithParamete
     }
 
     /**
-     * Package private ctor use factory. Only called directly by factory or {@link AcceptEncodingHeaderValueParser}
+     * Private ctor
      */
-    AcceptEncoding(final List<EncodingWithParameters> values) {
+    private AcceptEncoding(final List<EncodingWithParameters> values) {
         super(values);
     }
 

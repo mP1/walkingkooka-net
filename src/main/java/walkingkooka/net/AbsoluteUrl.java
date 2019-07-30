@@ -306,7 +306,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
      */
     // @VisibleForTesting
     final Object writeReplace() {
-        return new AbsoluteUrlSerializationProxy(this);
+        return AbsoluteUrlSerializationProxy.with(this);
     }
 
     private final static long serialVersionUID = 1L;

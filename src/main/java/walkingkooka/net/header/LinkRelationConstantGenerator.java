@@ -55,6 +55,10 @@ final class LinkRelationConstantGenerator {
                 .apply(document, context());
     }
 
+    private LinkRelationConstantGenerator() {
+        super();
+    }
+
     private static BufferedReader file() {
         return new BufferedReader(new InputStreamReader(LinkRelationConstantGenerator.class.getResourceAsStream("link-relations.xml")));
     }

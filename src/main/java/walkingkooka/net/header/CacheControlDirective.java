@@ -140,9 +140,9 @@ public final class CacheControlDirective<T> implements HeaderValue {
     }
 
     /**
-     * Private use constant or factory
+     * Private ctor use factory or constant
      */
-    CacheControlDirective(final CacheControlDirectiveName<T> name, final Optional<T> parameter) {
+    private CacheControlDirective(final CacheControlDirectiveName<T> name, final Optional<T> parameter) {
         super();
         this.name = name;
         this.parameter = parameter;

@@ -55,7 +55,7 @@ public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> 
     /**
      * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderValueParser}
      */
-    AcceptCharset(final List<CharsetHeaderValue> values) {
+    private AcceptCharset(final List<CharsetHeaderValue> values) {
         super(values);
     }
 

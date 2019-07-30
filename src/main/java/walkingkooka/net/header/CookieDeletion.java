@@ -30,12 +30,12 @@ abstract public class CookieDeletion implements HashCodeEqualsDefined {
     /**
      * The value of age when this cookie is marked to be deleted.
      */
-    public final static CookieMaxAge DELETED = new CookieMaxAge(0);
+    public final static CookieMaxAge DELETED = CookieMaxAge.constant(0);
 
     /**
      * The value of age when this cookie is marked as a session only cookie
      */
-    public final static CookieMaxAge SESSION_ONLY = new CookieMaxAge(-1);
+    public final static CookieMaxAge SESSION_ONLY = CookieMaxAge.constant(-1);
 
     /**
      * {@see CookieExpires}

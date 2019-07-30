@@ -82,9 +82,9 @@ public final class AcceptLanguage extends HeaderValue2<List<LanguageWithParamete
     }
 
     /**
-     * Package private ctor use factory. Only called directly by factory or {@link AcceptEncodingHeaderValueParser}
+     * Private ctor
      */
-    AcceptLanguage(final List<LanguageWithParameters> values) {
+    private AcceptLanguage(final List<LanguageWithParameters> values) {
         super(values);
     }
 

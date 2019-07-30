@@ -28,8 +28,12 @@ final class EncodedTextHeaderValueHandlerHeaderValueParser extends HeaderValuePa
         return parser.encodedText;
     }
 
+    static EncodedTextHeaderValueHandlerHeaderValueParser with(final String text, final String label) {
+        return new EncodedTextHeaderValueHandlerHeaderValueParser(text, label);
+    }
+
     // @VisibleForTesting
-    EncodedTextHeaderValueHandlerHeaderValueParser(final String text, final String label) {
+    private EncodedTextHeaderValueHandlerHeaderValueParser(final String text, final String label) {
         super(text);
         this.label = label;
     }
