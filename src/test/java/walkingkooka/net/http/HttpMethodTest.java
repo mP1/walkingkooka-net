@@ -158,7 +158,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
             if (false == constant.getType().equals(HttpMethod.class)) {
                 continue;
             }
-            assertTrue(JavaVisibility.PUBLIC.is(constant), constant + " is NOT public");
+            assertTrue(JavaVisibility.PUBLIC == JavaVisibility.of(constant), constant + " is NOT public");
             assertTrue(FieldAttributes.STATIC.is(constant), constant + " is NOT static");
 
             methods.add((HttpMethod) constant.get(null));
