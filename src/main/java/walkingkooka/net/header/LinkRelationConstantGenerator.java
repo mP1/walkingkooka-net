@@ -17,10 +17,10 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -69,7 +69,7 @@ final class LinkRelationConstantGenerator {
                 LinkRelationConstantGenerator::record,
                 LinkRelationConstantGenerator::functions,
                 Converters.fake(),
-                DecimalNumberContexts.fake(),
+                ConverterContexts.fake(),
                 XmlNode.class);
     }
 
