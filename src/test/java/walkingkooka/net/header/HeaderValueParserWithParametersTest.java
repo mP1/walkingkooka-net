@@ -29,153 +29,153 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
 
     @Test
     public void testParseQuotedFails() {
-        this.parseInvalidCharacterFails("\"quoted\"", '"');
+        this.parseStringInvalidCharacterFails("\"quoted\"", '"');
     }
 
     @Test
     public void testParseParameterSeparatorFails() {
-        this.parseMissingValueFails(";", 0);
+        this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
     public void testParseValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public void testParseKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testParseValue() {
-        this.parseAndCheck("v", "[value-v]v");
+        this.parseStringAndCheck("v", "[value-v]v");
     }
 
     @Test
     public void testParseWildcard() {
-        this.parseAndCheck("*", "[wildcard]*");
+        this.parseStringAndCheck("*", "[wildcard]*");
     }
 
     @Test
     public void testParseSlash() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
     public void testParseValueSpace() {
-        this.parseAndCheck("v ", "[value-v]v");
+        this.parseStringAndCheck("v ", "[value-v]v");
     }
 
     @Test
     public void testParseValueTab() {
-        this.parseAndCheck("v\t", "[value-v]v");
+        this.parseStringAndCheck("v\t", "[value-v]v");
     }
 
     @Test
     public void testParseValueCrNlSpace() {
-        this.parseAndCheck("v\r\n ", "[value-v]v");
+        this.parseStringAndCheck("v\r\n ", "[value-v]v");
     }
 
     @Test
     public void testParseValueCrNlTab() {
-        this.parseAndCheck("v\r\n\t", "[value-v]v");
+        this.parseStringAndCheck("v\r\n\t", "[value-v]v");
     }
 
     @Test
     public void testParseValueCrFails() {
-        this.parseInvalidCharacterFails("v\r");
+        this.parseStringInvalidCharacterFails("v\r");
     }
 
     @Test
     public void testParseValueCrNlFails() {
-        this.parseInvalidCharacterFails("v\r\n");
+        this.parseStringInvalidCharacterFails("v\r\n");
     }
 
     @Test
     public void testParseValueCrNlNonWhitespaceFails() {
-        this.parseInvalidCharacterFails("v\r\n!");
+        this.parseStringInvalidCharacterFails("v\r\n!");
     }
 
     @Test
     public void testParseValueParameterSeparator() {
-        this.parseAndCheck("v;", "[value-v]v");
+        this.parseStringAndCheck("v;", "[value-v]v");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("v;;", 2);
+        this.parseStringInvalidCharacterFails("v;;", 2);
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameFails() {
-        this.parseMissingParameterValueFails("v;p");
+        this.parseStringMissingParameterValueFails("v;p");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterInvalidCharacterFails() {
-        this.parseInvalidCharacterFails("v;p\0");
+        this.parseStringInvalidCharacterFails("v;p\0");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorFails() {
-        this.parseMissingParameterValueFails("v;p=");
+        this.parseStringMissingParameterValueFails("v;p=");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorSpaceFails() {
-        this.parseMissingParameterValueFails("v;p= ");
+        this.parseStringMissingParameterValueFails("v;p= ");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorTabFails() {
-        this.parseMissingParameterValueFails("v;p=\t");
+        this.parseStringMissingParameterValueFails("v;p=\t");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorCrFails() {
-        this.parseInvalidCharacterFails("v;p=\r");
+        this.parseStringInvalidCharacterFails("v;p=\r");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorCrNlFails() {
-        this.parseInvalidCharacterFails("v;p=\r\n");
+        this.parseStringInvalidCharacterFails("v;p=\r\n");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorCrNlNonSpaceFails() {
-        this.parseInvalidCharacterFails("v;p=\r\nq");
+        this.parseStringInvalidCharacterFails("v;p=\r\nq");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorUnquotedParameterValue() {
-        this.parseAndCheck("v;p=u", "[value-v][parameter-name-p][parameter-value-unquoted-u]v; p=u");
+        this.parseStringAndCheck("v;p=u", "[value-v][parameter-name-p][parameter-value-unquoted-u]v; p=u");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorKeyValueSeparatorUnquotedParameterValueFails() {
         final String text = "v;p==u";
-        this.parseInvalidCharacterFails(text, text.indexOf('=') + 1);
+        this.parseStringInvalidCharacterFails(text, text.indexOf('=') + 1);
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorUnquotedParameterValueParameterSeparator() {
-        this.parseAndCheck("v;p=u;", "[value-v][parameter-name-p][parameter-value-unquoted-u]v; p=u");
+        this.parseStringAndCheck("v;p=u;", "[value-v][parameter-name-p][parameter-value-unquoted-u]v; p=u");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorUnquotedParameterValueValueSeparatorFails() {
-        this.parseInvalidCharacterFails("v;p=u,");
+        this.parseStringInvalidCharacterFails("v;p=u,");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorQuotedParameterValueNonAscii() {
-        this.parseInvalidCharacterFails("v;p=\"\0\"", '\0');
+        this.parseStringInvalidCharacterFails("v;p=\"\0\"", '\0');
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorQuotedParameterValueNonAscii2() {
-        this.parseInvalidCharacterFails("v;p=\"\u0080\"", '\u0080');
+        this.parseStringInvalidCharacterFails("v;p=\"\u0080\"", '\u0080');
     }
 
     @Test
@@ -185,52 +185,52 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorQuotedParameterValue() {
-        this.parseAndCheck("v;p=\"q\"", "[value-v][parameter-name-p][parameter-value-quoted-q]v; p=q");
+        this.parseStringAndCheck("v;p=\"q\"", "[value-v][parameter-name-p][parameter-value-quoted-q]v; p=q");
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorQuotedParameterValueQuotedParameterValueFails() {
         final String text = "v;p=\"q\"\"r\"";
-        this.parseInvalidCharacterFails(text, text.indexOf('r') - 1);
+        this.parseStringInvalidCharacterFails(text, text.indexOf('r') - 1);
     }
 
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorParameterValueParameterSeparatorParameterNameKeyValueSeparatorParameterValue() {
-        this.parseAndCheck("v;p=\"q\";r=\"s\"",
+        this.parseStringAndCheck("v;p=\"q\";r=\"s\"",
                 "[value-v][parameter-name-p][parameter-value-quoted-q][parameter-name-r][parameter-value-quoted-s]v; p=q; r=s");
     }
 
     @Test
     public void testParseValueValueSeparatorValue() {
-        this.parseAndCheck("v,w",
+        this.parseStringAndCheck("v,w",
                 "[value-v]v[value-w]w");
     }
 
     @Test
     public void testParseValueValueSeparatorValueValueSeparatorValue() {
-        this.parseAndCheck("v,w,x",
+        this.parseStringAndCheck("v,w,x",
                 "[value-v]v[value-w]w[value-x]x");
     }
 
     @Test
     public void testParseValueParametersValueSeparatorValueValueSeparatorValue() {
-        this.parseAndCheck("v;p=q,w,x",
+        this.parseStringAndCheck("v;p=q,w,x",
                 "[value-v][parameter-name-p][parameter-value-unquoted-q]v; p=q[value-w]w[value-x]x");
     }
 
     @Test
     public void testParseWildcardValueSeparatorValue() {
-        this.parseAndCheck("*,v",
+        this.parseStringAndCheck("*,v",
                 "[wildcard]*[value-v]v");
     }
 
     @Test
     public void testParseWildcardValueSeparatorParameterNameKeyValueSeparatorParameterValue() {
-        this.parseAndCheck("*;p=q",
+        this.parseStringAndCheck("*;p=q",
                 "[wildcard][parameter-name-p][parameter-value-unquoted-q]*; p=q");
     }
 
-    private void parseAndCheck(final String text,
+    private void parseStringAndCheck(final String text,
                                final String events) {
         final StringBuilder recorded = new StringBuilder();
 
@@ -293,7 +293,7 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
     }
 
     @Override
-    public Void parse(final String text) {
+    public Void parseString(final String text) {
         new HeaderValueParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>>(text) {
 
             @Override

@@ -35,21 +35,21 @@ public final class HttpMethodListHeaderValueHandlerTest extends
 
     @Test
     public void testParseGet() {
-        this.parseAndCheck2("GET", HttpMethod.GET);
+        this.parseStringAndCheck2("GET", HttpMethod.GET);
     }
 
     @Test
     public void testParseGetPost() {
-        this.parseAndCheck2("GET,POST", HttpMethod.GET, HttpMethod.POST);
+        this.parseStringAndCheck2("GET,POST", HttpMethod.GET, HttpMethod.POST);
     }
 
     @Test
     public void testParseGetWhitespacePost() {
-        this.parseAndCheck2("GET,  POST", HttpMethod.GET, HttpMethod.POST);
+        this.parseStringAndCheck2("GET,  POST", HttpMethod.GET, HttpMethod.POST);
     }
 
-    private void parseAndCheck2(final String headerValue, final HttpMethod... methods) {
-        this.parseAndCheck(headerValue, Lists.of(methods));
+    private void parseStringAndCheck2(final String headerValue, final HttpMethod... methods) {
+        this.parseStringAndCheck(headerValue, Lists.of(methods));
     }
 
     @Test

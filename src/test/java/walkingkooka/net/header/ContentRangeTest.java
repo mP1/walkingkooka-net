@@ -317,17 +317,10 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
                 Optional.of(456L)));
     }
 
-    // parse ......................................................................................................
+    // parseString......................................................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentRange.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
+    public void testParseStringEmptyFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             ContentRange.parse("");
         });
@@ -335,62 +328,62 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseUnitUnknownFails() {
-        this.parseFails("b", "Missing unit from \"b\"");
+        this.parseStringFails("b", "Missing unit from \"b\"");
     }
 
     @Test
     public void testParseUnitInvalidFails() {
-        this.parseFails("bytes-0-100/*", '-');
+        this.parseStringFails("bytes-0-100/*", '-');
     }
 
     @Test
     public void testParseUnitLowerBoundInvalidFails() {
-        this.parseFails("bytes 0/", '/');
+        this.parseStringFails("bytes 0/", '/');
     }
 
     @Test
     public void testParseInvalidLowerBoundCharacterFails() {
-        this.parseFails("bytes ?0-100/*", '?');
+        this.parseStringFails("bytes ?0-100/*", '?');
     }
 
     @Test
     public void testParseInvalidLowerBoundCharacterFails2() {
-        this.parseFails("bytes 1?0-100/*", '?');
+        this.parseStringFails("bytes 1?0-100/*", '?');
     }
 
     @Test
     public void testParseMissingRangeSeparatorFails() {
-        this.parseFails("bytes 100?200/*", '?');
+        this.parseStringFails("bytes 100?200/*", '?');
     }
 
     @Test
     public void testParseInvalidUpperBoundCharacterFails() {
-        this.parseFails("bytes 100-?00/*", '?');
+        this.parseStringFails("bytes 100-?00/*", '?');
     }
 
     @Test
     public void testParseInvalidUpperBoundCharacterFails2() {
-        this.parseFails("bytes 100-2?00/*", '?');
+        this.parseStringFails("bytes 100-2?00/*", '?');
     }
 
     @Test
     public void testParseInvalidSizeCharacterFails() {
-        this.parseFails("bytes 100-200/?*", '?');
+        this.parseStringFails("bytes 100-200/?*", '?');
     }
 
     @Test
     public void testParseInvalidSizeCharacterFails2() {
-        this.parseFails("bytes 100-200/1?", '?');
+        this.parseStringFails("bytes 100-200/1?", '?');
     }
 
     @Test
     public void testParseInvalidSizeCharacterFails3() {
-        this.parseFails("bytes 100-200/1*", '*');
+        this.parseStringFails("bytes 100-200/1*", '*');
     }
 
     @Test
     public void testParseMissingRange() {
-        this.parseAndCheck("bytes */*",
+        this.parseStringAndCheck("bytes */*",
                 UNIT,
                 ContentRange.NO_RANGE,
                 ContentRange.NO_SIZE);
@@ -398,7 +391,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseMissingRangeWithFileSize() {
-        this.parseAndCheck("bytes */789",
+        this.parseStringAndCheck("bytes */789",
                 UNIT,
                 ContentRange.NO_RANGE,
                 SIZE);
@@ -406,7 +399,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseSizeMissing() {
-        this.parseAndCheck("bytes 123-456/*",
+        this.parseStringAndCheck("bytes 123-456/*",
                 UNIT,
                 this.range(),
                 ContentRange.NO_SIZE);
@@ -414,7 +407,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseSizePresent() {
-        this.parseAndCheck("bytes 123-456/789",
+        this.parseStringAndCheck("bytes 123-456/789",
                 UNIT,
                 this.range(),
                 SIZE);
@@ -422,7 +415,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseSmallRange() {
-        this.parseAndCheck("bytes 1-2/3",
+        this.parseStringAndCheck("bytes 1-2/3",
                 UNIT,
                 this.range(1, 2),
                 Optional.of(3L));
@@ -430,25 +423,25 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseTab() {
-        this.parseAndCheck("bytes\t123-456/789",
+        this.parseStringAndCheck("bytes\t123-456/789",
                 UNIT,
                 this.range(),
                 SIZE);
     }
 
-    private void parseFails(final String text, final char invalid) {
-        this.parseFails(text,
+    private void parseStringFails(final String text, final char invalid) {
+        this.parseStringFails(text,
                 new InvalidCharacterException(text, text.indexOf(invalid)).getMessage());
     }
 
-    private void parseFails(final String text, final String message) {
+    private void parseStringFails(final String text, final String message) {
         final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             ContentRange.parse(text);
         });
         checkMessage(expected, message);
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final RangeHeaderValueUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
@@ -580,7 +573,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     // ParseStringTesting ........................................................................................
 
     @Override
-    public ContentRange parse(final String text) {
+    public ContentRange parseString(final String text) {
         return ContentRange.parse(text);
     }
 }

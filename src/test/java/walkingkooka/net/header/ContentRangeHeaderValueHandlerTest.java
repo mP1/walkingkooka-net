@@ -34,7 +34,7 @@ public final class ContentRangeHeaderValueHandlerTest extends
 
     @Test
     public void testParseRangeHeader() {
-        this.parseAndCheck(TEXT, this.contentRange());
+        this.parseStringAndCheck(TEXT, this.contentRange());
     }
 
     @Test

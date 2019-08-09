@@ -110,7 +110,7 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
 
     @Test
     public void testParse() {
-        this.parseAndCheck("no-cache, no-store, max-age=123",
+        this.parseStringAndCheck("no-cache, no-store, max-age=123",
                 CacheControl.with(
                         Lists.of(CacheControlDirective.NO_CACHE,
                                 CacheControlDirective.NO_STORE,
@@ -182,7 +182,7 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
     // ParseStringTesting ..............................................................................................
 
     @Override
-    public CacheControl parse(final String text) {
+    public CacheControl parseString(final String text) {
         return CacheControl.parse(text);
     }
 }

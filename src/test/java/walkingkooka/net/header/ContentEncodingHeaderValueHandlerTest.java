@@ -27,33 +27,33 @@ public final class ContentEncodingHeaderValueHandlerTest extends NonStringHeader
 
     @Test
     public void testParse() {
-        this.parseAndCheck2("gzip",
+        this.parseStringAndCheck2("gzip",
                 Encoding.GZIP);
     }
 
     @Test
     public void testParse2() {
-        this.parseAndCheck2("GZIP",
+        this.parseStringAndCheck2("GZIP",
                 Encoding.GZIP);
     }
 
     @Test
     public void testParseCommaSeparated() {
-        this.parseAndCheck2("gzip,deflate",
+        this.parseStringAndCheck2("gzip,deflate",
                 Encoding.GZIP,
                 Encoding.DEFLATE);
     }
 
     @Test
     public void testParseWhitespaceCommaSeparated() {
-        this.parseAndCheck2("gzip, deflate,  br",
+        this.parseStringAndCheck2("gzip, deflate,  br",
                 Encoding.GZIP,
                 Encoding.DEFLATE,
                 Encoding.BR);
     }
 
-    private void parseAndCheck2(final String text, final Encoding... encodings) {
-        this.parseAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
+    private void parseStringAndCheck2(final String text, final Encoding... encodings) {
+        this.parseStringAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
     }
 
     @Test

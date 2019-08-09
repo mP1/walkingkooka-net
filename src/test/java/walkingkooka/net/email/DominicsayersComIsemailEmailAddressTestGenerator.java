@@ -91,7 +91,7 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
         // print tests one by one
         for (final Entry<String, TestDetails> idAndTest : tests.entrySet()) {
             final TestDetails test = idAndTest.getValue();
-            final String valid = test.valid ? "parseSuccessful" : "parseFails2";
+            final String valid = test.valid ? "parseSuccessful" : "parseStringFails2";
             final String comment = test.comment;
             final String email = test.email;
 

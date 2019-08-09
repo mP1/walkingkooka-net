@@ -29,16 +29,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
 
     // parseRelative..........................................................................................
 
-    @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RelativeUrl.parseRelative0(null);
-        });
-    }
-
     @Override
-    public void testParseEmptyFails() {
-        throw new UnsupportedOperationException();
+    public void testParseStringEmptyFails() {
     }
 
     @Test
@@ -163,7 +155,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     // ParseStringTesting ..............................................................................................
 
     @Override
-    public RelativeUrl parse(final String text) {
+    public RelativeUrl parseString(final String text) {
         return RelativeUrl.parseRelative0(text);
     }
 

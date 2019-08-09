@@ -66,7 +66,7 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
 
     @Test
     public void testParse() {
-        this.parseAndCheck("UTF-8;bcd=123 ",
+        this.parseStringAndCheck("UTF-8;bcd=123 ",
                 AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8).setParameters(Maps.of(CharsetHeaderValueParameterName.with("bcd"), "123")))));
     }
 
@@ -116,7 +116,7 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     // ParseStringTesting ........................................................................................
 
     @Override
-    public AcceptCharset parse(final String text) {
+    public AcceptCharset parseString(final String text) {
         return AcceptCharset.parse(text);
     }
 

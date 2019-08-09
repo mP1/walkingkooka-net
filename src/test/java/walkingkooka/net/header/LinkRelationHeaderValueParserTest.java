@@ -26,31 +26,31 @@ public final class LinkRelationHeaderValueParserTest extends HeaderValueParserTe
 
     @Test
     public void testTokenSeparatorFails() {
-        this.parseInvalidCharacterFails(";");
+        this.parseStringInvalidCharacterFails(";");
     }
 
     @Test
     public void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testMultiValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public void testWildcardFails() {
-        this.parseInvalidCharacterFails("*");
+        this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Override
-    public List<LinkRelation<?>> parse(final String text) {
+    public List<LinkRelation<?>> parseString(final String text) {
         return LinkRelationHeaderValueParser.parseLinkRelationList(text);
     }
 

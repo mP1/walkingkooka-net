@@ -28,19 +28,19 @@ public final class AcceptEncodingHeaderValueHandlerTest extends NonStringHeaderV
 
     @Test
     public void testParseToken() {
-        this.parseAndCheck2("gzip",
+        this.parseStringAndCheck2("gzip",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testParseTokenToken() {
-        this.parseAndCheck2("gzip; q=0.5, *",
+        this.parseStringAndCheck2("gzip; q=0.5, *",
                 EncodingWithParameters.WILDCARD_ENCODING,
                 EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
-    private void parseAndCheck2(final String text, final EncodingWithParameters... encodings) {
-        this.parseAndCheck(text, AcceptEncoding.with(Lists.of(encodings)));
+    private void parseStringAndCheck2(final String text, final EncodingWithParameters... encodings) {
+        this.parseStringAndCheck(text, AcceptEncoding.with(Lists.of(encodings)));
     }
 
     @Test

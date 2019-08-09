@@ -43,22 +43,16 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Test
-    public void testIsWildcard() {
-        this.isWildcardAndCheck(false);
-    }
-
-    @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            IfRange.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
+    @Override
+    public void testParseStringEmptyFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             IfRange.parse("");
         });
+    }
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
     }
 
     @Test
@@ -71,21 +65,21 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     @Test
     public void testParseETag() {
         final ETag etag = ETagValidator.WEAK.setValue("abc");
-        this.parseAndCheck(etag.toHeaderText(),
+        this.parseStringAndCheck(etag.toHeaderText(),
                 IfRange.with(etag));
     }
 
     @Test
     public void testParseLastModified() {
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
-        this.parseAndCheck(HttpHeaderName.LAST_MODIFIED.headerText(lastModified),
+        this.parseStringAndCheck(HttpHeaderName.LAST_MODIFIED.headerText(lastModified),
                 IfRange.with(lastModified));
     }
 
     // ParseStringTesting ........................................................................................
 
     @Override
-    public IfRange<?> parse(final String text) {
+    public IfRange<?> parseString(final String text) {
         return IfRange.parse(text);
     }
 

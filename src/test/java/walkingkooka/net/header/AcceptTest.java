@@ -84,7 +84,7 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
     // ParseStringTesting ..............................................................................................
 
     @Override
-    public Accept parse(final String text) {
+    public Accept parseString(final String text) {
         return Accept.parse(text);
     }
 

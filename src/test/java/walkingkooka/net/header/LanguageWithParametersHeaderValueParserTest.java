@@ -23,16 +23,16 @@ public final class LanguageWithParametersHeaderValueParserTest extends AcceptLan
 
     @Test
     public void testLanguageTagValueSeparatorFails() {
-        this.parseInvalidCharacterFails("en,");
+        this.parseStringInvalidCharacterFails("en,");
     }
 
     @Override
-    void parseAndCheck2(final String text, final LanguageWithParameters expected) {
-        this.parseAndCheck(text, expected);
+    void parseStringAndCheck2(final String text, final LanguageWithParameters expected) {
+        this.parseStringAndCheck(text, expected);
     }
 
     @Override
-    public LanguageWithParameters parse(final String text) {
+    public LanguageWithParameters parseString(final String text) {
         return LanguageWithParametersHeaderValueParser.parseLanguage(text);
     }
 

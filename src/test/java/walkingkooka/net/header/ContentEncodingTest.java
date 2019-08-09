@@ -76,7 +76,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testParse() {
-        this.parseAndCheck("gzip, deflate, br",
+        this.parseStringAndCheck("gzip, deflate, br",
                 this.createHeaderValue(Encoding.parse("gzip"),
                         Encoding.parse("deflate"),
                         Encoding.parse("br")));
@@ -84,7 +84,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testParseExtraWhitespace() {
-        this.parseAndCheck("gzip,  deflate,  br",
+        this.parseStringAndCheck("gzip,  deflate,  br",
                 this.createHeaderValue(Encoding.parse("gzip"),
                         Encoding.with("deflate"),
                         Encoding.with("br")));
@@ -161,7 +161,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
     // ParseStringTesting...............................................................................................
 
     @Override
-    public ContentEncoding parse(final String text) {
+    public ContentEncoding parseString(final String text) {
         return ContentEncoding.parse(text);
     }
 }

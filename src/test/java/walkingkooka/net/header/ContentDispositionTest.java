@@ -86,7 +86,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testParse() {
-        this.parseAndCheck("attachment; filename=\"abc.jpg\"",
+        this.parseStringAndCheck("attachment; filename=\"abc.jpg\"",
                 ContentDispositionType.ATTACHMENT.setParameters(Maps.of(ContentDispositionParameterName.FILENAME, ContentDispositionFileName.notEncoded("abc.jpg"))));
     }
 
@@ -243,7 +243,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     // ParseStringTesting ........................................................................................
 
     @Override
-    public ContentDisposition parse(final String text) {
+    public ContentDisposition parseString(final String text) {
         return ContentDisposition.parse(text);
     }
 }

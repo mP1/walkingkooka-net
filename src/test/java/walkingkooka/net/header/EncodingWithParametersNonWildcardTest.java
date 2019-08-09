@@ -109,19 +109,19 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
 
     @Test
     public void testParse() {
-        this.parseAndCheck("gzip",
+        this.parseStringAndCheck("gzip",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testParseExtraWhitespace() {
-        this.parseAndCheck("gzip ",
+        this.parseStringAndCheck("gzip ",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testParseTokenParameters() {
-        this.parseAndCheck("abc;qrs=xyz",
+        this.parseStringAndCheck("abc;qrs=xyz",
                 EncodingWithParameters.with("abc").setParameters(Maps.of(EncodingParameterName.with("qrs"), "xyz")));
     }
 

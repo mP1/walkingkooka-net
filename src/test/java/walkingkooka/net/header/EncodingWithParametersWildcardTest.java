@@ -71,13 +71,13 @@ public final class EncodingWithParametersWildcardTest extends EncodingWithParame
 
     @Test
     public void testParseWildcard() {
-        this.parseAndCheck("*",
+        this.parseStringAndCheck("*",
                 EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testParseWhitespaceTokenWhitespace() {
-        this.parseAndCheck(" * ",
+        this.parseStringAndCheck(" * ",
                 EncodingWithParameters.WILDCARD_ENCODING);
     }
 

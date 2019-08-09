@@ -174,7 +174,7 @@ public abstract class EncodingWithParametersTestCase<A extends EncodingWithParam
     // ParsingStringTest................................................................................................
 
     @Override
-    public EncodingWithParameters parse(final String text) {
+    public EncodingWithParameters parseString(final String text) {
         return EncodingWithParameters.parse(text);
     }
 

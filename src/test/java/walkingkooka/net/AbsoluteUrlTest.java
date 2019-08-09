@@ -416,7 +416,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseMissingSchemeFails() {
-        this.parseFails("example.com", IllegalArgumentException.class);
+        this.parseStringFails("example.com", IllegalArgumentException.class);
     }
 
     @Test
@@ -481,7 +481,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseCredentialsMissingPasswordFails() {
-        this.parseFails("\"http://abc@example.com", IllegalArgumentException.class);
+        this.parseStringFails("\"http://abc@example.com", IllegalArgumentException.class);
     }
 
     @Test
@@ -694,7 +694,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     // ParseStringTesting ..............................................................................................
 
     @Override
-    public AbsoluteUrl parse(final String text) {
+    public AbsoluteUrl parseString(final String text) {
         return AbsoluteUrl.parseAbsolute0(text);
     }
 

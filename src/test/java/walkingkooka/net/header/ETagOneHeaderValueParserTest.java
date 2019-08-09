@@ -23,31 +23,31 @@ public final class ETagOneHeaderValueParserTest extends ETagHeaderValueParserTes
 
     @Test
     public void testValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public final void testSeparatorFails() {
-        this.parseInvalidCharacterFails("\"ABC\",", ',');
+        this.parseStringInvalidCharacterFails("\"ABC\",", ',');
     }
 
     @Test
     public final void testSeparatorWhitespaceFails() {
-        this.parseInvalidCharacterFails("\"ABC\", ", ',');
+        this.parseStringInvalidCharacterFails("\"ABC\", ", ',');
     }
 
     @Test
     public final void testWeakSeparatorWhitespaceFails() {
-        this.parseInvalidCharacterFails("W/\"ABC\", ", ',');
+        this.parseStringInvalidCharacterFails("W/\"ABC\", ", ',');
     }
 
     @Test
     public void testManyTags() {
-        this.parseInvalidCharacterFails("\"A\",\"B\"", ',');
+        this.parseStringInvalidCharacterFails("\"A\",\"B\"", ',');
     }
 
     @Override
-    public ETag parse(final String text) {
+    public ETag parseString(final String text) {
         return ETagOneHeaderValueParser.parseOne(text);
     }
 

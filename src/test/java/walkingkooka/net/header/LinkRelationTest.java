@@ -63,7 +63,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Test
     public void testParse() {
-        this.parseAndCheck("self http://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("http://example.com")));
+        this.parseStringAndCheck("self http://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("http://example.com")));
     }
 
     @Override
@@ -98,7 +98,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     // ParseStringTesting ........................................................................................
 
     @Override
-    public List<LinkRelation<?>> parse(final String text) {
+    public List<LinkRelation<?>> parseString(final String text) {
         return LinkRelation.parse(text);
     }
 }

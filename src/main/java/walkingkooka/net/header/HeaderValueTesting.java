@@ -62,12 +62,12 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
     V createHeaderValue();
 
     //@Override
-    default RuntimeException parseFailedExpected(final RuntimeException expected) {
+    default RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return new HeaderValueException(expected.getMessage(), expected);
     }
 
     //@Override
-    default Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    default Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return HeaderValueException.class;
     }
 

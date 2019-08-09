@@ -23,57 +23,57 @@ public final class EncodingHeaderValueParserTest extends HeaderValueParserTestCa
 
     @Test
     public void testWhitespaceFails() {
-        this.parseInvalidCharacterFails(" ");
+        this.parseStringInvalidCharacterFails(" ");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("ab/c", '/');
+        this.parseStringInvalidCharacterFails("ab/c", '/');
     }
 
     @Test
     public void testCommentFails() {
-        this.parseCommentFails("(abc)", 0);
+        this.parseStringCommentFails("(abc)", 0);
     }
 
     @Test
     public void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=", '=');
+        this.parseStringInvalidCharacterFails("=", '=');
     }
 
     @Test
     public void testTokenCommentFails() {
-        this.parseCommentFails("gzip(abc)", 4);
+        this.parseStringCommentFails("gzip(abc)", 4);
     }
 
     @Test
     public void testQuotedTextFails() {
-        this.parseInvalidCharacterFails("\"quoted text 123\"", 0);
+        this.parseStringInvalidCharacterFails("\"quoted text 123\"", 0);
     }
 
     @Test
     public void testToken() {
-        this.parseAndCheck("gzip",
+        this.parseStringAndCheck("gzip",
                 Encoding.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
-        this.parseInvalidCharacterFails("gzip;q=0.5", ';');
+        this.parseStringInvalidCharacterFails("gzip;q=0.5", ';');
     }
 
     @Test
     public void testWildcard() {
-        this.parseInvalidCharacterFails("*");
+        this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
     public void testTokenCommaToken() {
-        this.parseInvalidCharacterFails("gzip,deflate", ',');
+        this.parseStringInvalidCharacterFails("gzip,deflate", ',');
     }
 
     @Override
-    public Encoding parse(final String text) {
+    public Encoding parseString(final String text) {
         return EncodingHeaderValueParser.parseEncoding(text);
     }
 

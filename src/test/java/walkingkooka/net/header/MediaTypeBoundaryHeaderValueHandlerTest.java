@@ -36,7 +36,7 @@ public final class MediaTypeBoundaryHeaderValueHandlerTest extends
 
     @Test
     public void testParseWithQuotes() {
-        this.parseAndCheck("\"abcdef\"",
+        this.parseStringAndCheck("\"abcdef\"",
                 MediaTypeBoundary.with("abcdef"));
     }
 

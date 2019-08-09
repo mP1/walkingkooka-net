@@ -34,7 +34,7 @@ public final class LocalDateTimeHeaderValueHandlerTest extends
 
     @Test
     public void testDate() {
-        this.parseAndCheck(TEXT, VALUE);
+        this.parseStringAndCheck(TEXT, VALUE);
     }
 
     @Test

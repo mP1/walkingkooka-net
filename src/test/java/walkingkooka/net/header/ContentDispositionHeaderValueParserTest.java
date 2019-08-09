@@ -32,239 +32,239 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testWildcardFails() {
-        this.parseInvalidCharacterFails("*");
+        this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
     public void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";", 0);
+        this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
     public void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
     public void testValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public void testType() {
-        this.parseAndCheck("A", "A");
+        this.parseStringAndCheck("A", "A");
     }
 
     @Test
     public void testTypeSeparatorFails() {
-        this.parseMissingValueFails("A,");
+        this.parseStringMissingValueFails("A,");
     }
 
     @Test
     public void testTypeSeparatorSpaceFails() {
-        this.parseMissingValueFails("A, ");
+        this.parseStringMissingValueFails("A, ");
     }
 
     @Test
     public void testTypeSeparatorTabFails() {
-        this.parseMissingValueFails("A,\t");
+        this.parseStringMissingValueFails("A,\t");
     }
 
     @Test
     public void testTypeInvalidCharacterFails() {
-        this.parseInvalidCharacterFails("A<");
+        this.parseStringInvalidCharacterFails("A<");
     }
 
     @Test
     public void testTypeInvalidCharacterFails2() {
-        this.parseInvalidCharacterFails("ABC<");
+        this.parseStringInvalidCharacterFails("ABC<");
     }
 
     @Test
     public void testTypeEqualsFails() {
-        this.parseMissingParameterValueFails("A;b=");
+        this.parseStringMissingParameterValueFails("A;b=");
     }
 
     @Test
     public void testTypeSpaceEqualsFails() {
-        this.parseMissingParameterValueFails("A;b =");
+        this.parseStringMissingParameterValueFails("A;b =");
     }
 
     @Test
     public void testTypeTabEqualsFails() {
-        this.parseMissingParameterValueFails("A;b =");
+        this.parseStringMissingParameterValueFails("A;b =");
     }
 
     @Test
     public void testTypeSpaceTabSpaceTabEqualsFails() {
-        this.parseMissingParameterValueFails("A;b \t \t=");
+        this.parseStringMissingParameterValueFails("A;b \t \t=");
     }
 
     @Test
     public void testTypeEqualsSpaceFails() {
-        parseMissingParameterValueFails("A;b= ");
+        parseStringMissingParameterValueFails("A;b= ");
     }
 
     @Test
     public void testTypeEqualsTabFails() {
-        parseMissingParameterValueFails("A;b=\t");
+        parseStringMissingParameterValueFails("A;b=\t");
     }
 
     @Test
     public void testTypeEqualsCrNlSpaceFails() {
-        parseMissingParameterValueFails("A;b=\r\n ");
+        parseStringMissingParameterValueFails("A;b=\r\n ");
     }
 
     @Test
     public void testTypeEqualsCrNlTabFails() {
-        parseMissingParameterValueFails("A;b=\r\n\t");
+        parseStringMissingParameterValueFails("A;b=\r\n\t");
     }
 
     @Test
     public void testTypeParameterSeparatorSeparatorFails() {
-        this.parseInvalidCharacterFails("A;;", 2);
+        this.parseStringInvalidCharacterFails("A;;", 2);
     }
 
     @Test
     public void testType2() {
-        this.parseAndCheck("ABC", "ABC");
+        this.parseStringAndCheck("ABC", "ABC");
     }
 
     @Test
     public void testTypeSpace() {
-        this.parseAndCheck("A ", "A");
+        this.parseStringAndCheck("A ", "A");
     }
 
     @Test
     public void testTypeTab() {
-        this.parseAndCheck("A\t", "A");
+        this.parseStringAndCheck("A\t", "A");
     }
 
     @Test
     public void testTypeCrFails() {
-        this.parseInvalidCharacterFails("A\r");
+        this.parseStringInvalidCharacterFails("A\r");
     }
 
     @Test
     public void testTypeCrNlFails() {
-        this.parseInvalidCharacterFails("A\r\n");
+        this.parseStringInvalidCharacterFails("A\r\n");
     }
 
     @Test
     public void testTypeCrNlNonWhitespaceFails() {
-        this.parseInvalidCharacterFails("A\r\n.");
+        this.parseStringInvalidCharacterFails("A\r\n.");
     }
 
     @Test
     public void testTypeCrNlSpace() {
-        this.parseAndCheck("A\r\n ", "A");
+        this.parseStringAndCheck("A\r\n ", "A");
     }
 
     @Test
     public void testTypeCrNlTab() {
-        this.parseAndCheck("A\r\n\t", "A");
+        this.parseStringAndCheck("A\r\n\t", "A");
     }
 
     @Test
     public void testTypeSpaceTabSpaceTab() {
-        this.parseAndCheck("A \t \t", "A");
+        this.parseStringAndCheck("A \t \t", "A");
     }
 
     @Test
     public void testTypeSeparator() {
-        this.parseAndCheck("A;", "A");
+        this.parseStringAndCheck("A;", "A");
     }
 
     @Test
     public void testTypeSeparatorSpace() {
-        this.parseAndCheck("A; ", "A");
+        this.parseStringAndCheck("A; ", "A");
     }
 
     @Test
     public void testTypeSeparatorTab() {
-        this.parseAndCheck("A;\t", "A");
+        this.parseStringAndCheck("A;\t", "A");
     }
 
     @Test
     public void testTypeParameterSeparatorEqualsFails() {
-        this.parseInvalidCharacterFails("A;=");
+        this.parseStringInvalidCharacterFails("A;=");
     }
 
     @Test
     public void testTypeParameterNameInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b>=c", '>');
+        this.parseStringInvalidCharacterFails("A;b>=c", '>');
     }
 
     @Test
     public void testTypeParameterNameSpaceInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b >=c", '>');
+        this.parseStringInvalidCharacterFails("A;b >=c", '>');
     }
 
     @Test
     public void testTypeParameterNameTabInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b\t>=c", '>');
+        this.parseStringInvalidCharacterFails("A;b\t>=c", '>');
     }
 
     @Test
     public void testTypeParameterNameEqualsInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b=\0c", '\0');
+        this.parseStringInvalidCharacterFails("A;b=\0c", '\0');
     }
 
     @Test
     public void testTypeMultiValueSeparatorFails() {
-        this.parseMissingValueFails("A,");
+        this.parseStringMissingValueFails("A,");
     }
 
     @Test
     public void testTypeParameterNameEqualsParameterValue() {
-        this.parseAndCheck("A;b=c",
+        this.parseStringAndCheck("A;b=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameSpaceEqualsParameterValue() {
-        this.parseAndCheck("A;b =c",
+        this.parseStringAndCheck("A;b =c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameTabEqualsParameterValue() {
-        this.parseAndCheck("A;b\t=c",
+        this.parseStringAndCheck("A;b\t=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameSpaceTabSpaceTabEqualsParameterValue() {
-        this.parseAndCheck("A;b \t \t=c",
+        this.parseStringAndCheck("A;b \t \t=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsSpaceParameterValue() {
-        this.parseAndCheck("A;b= c",
+        this.parseStringAndCheck("A;b= c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsTabParameterValue() {
-        this.parseAndCheck("A;b=\tc",
+        this.parseStringAndCheck("A;b=\tc",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsSpaceTabSpaceTabParameterValue() {
-        this.parseAndCheck("A;b= \t \tc",
+        this.parseStringAndCheck("A;b= \t \tc",
                 "A",
                 "b", "c");
     }
@@ -272,97 +272,97 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
     @Test
     public void testTypeParameterQuotedParameterValue() {
         final String text = "A;b=c\"d\"";
-        this.parseInvalidCharacterFails(text, text.indexOf('d') - 1);
+        this.parseStringInvalidCharacterFails(text, text.indexOf('d') - 1);
     }
 
     @Test
     public void testTypeParameterNameEqualsQuotedParameterValue() {
-        this.parseAndCheck("A;b=\"c\"",
+        this.parseStringAndCheck("A;b=\"c\"",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterValueInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b=c>", '>');
+        this.parseStringInvalidCharacterFails("A;b=c>", '>');
     }
 
     @Test
     public void testTypeParameterValueSpaceInvalidCharFails() {
-        this.parseInvalidCharacterFails("A;b=c Q", 'Q');
+        this.parseStringInvalidCharacterFails("A;b=c Q", 'Q');
     }
 
     @Test
     public void testTypeParameterValueSpaceInvalidCharFails2() {
-        this.parseInvalidCharacterFails("A;b=c >", '>');
+        this.parseStringInvalidCharacterFails("A;b=c >", '>');
     }
 
     @Test
     public void testTypeParameterSpace() {
-        this.parseAndCheck("A;bcd=123 ",
+        this.parseStringAndCheck("A;bcd=123 ",
                 "A",
                 "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSeparator() {
-        this.parseAndCheck("A;bcd=123;",
+        this.parseStringAndCheck("A;bcd=123;",
                 "A",
                 "bcd", "123");
     }
 
     @Test
     public void testTypeParameterTab() {
-        this.parseAndCheck("A;bcd=123\t",
+        this.parseStringAndCheck("A;bcd=123\t",
                 "A",
                 "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSpaceTabSpaceTab() {
-        this.parseAndCheck("A;bcd=123 \t \t",
+        this.parseStringAndCheck("A;bcd=123 \t \t",
                 "A",
                 "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSeparatorSpaceParameter() {
-        this.parseAndCheck("A; b=c",
+        this.parseStringAndCheck("A; b=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeParameterSeparatorTabParameter() {
-        this.parseAndCheck("A;\tb=c",
+        this.parseStringAndCheck("A;\tb=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeSpaceParameterSeparatorParameter() {
-        this.parseAndCheck("A ;b=c",
+        this.parseStringAndCheck("A ;b=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeSpaceParameterSeparatorSpaceParameter() {
-        this.parseAndCheck("A ; b=c",
+        this.parseStringAndCheck("A ; b=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeTabParameterSeparatorTabParameter() {
-        this.parseAndCheck("A\t;\tb=c",
+        this.parseStringAndCheck("A\t;\tb=c",
                 "A",
                 "b", "c");
     }
 
     @Test
     public void testTypeSpaceTabSpaceTabParameterSeparatorSpaceTabParameter() {
-        this.parseAndCheck("A \t \t; \t \tb=c",
+        this.parseStringAndCheck("A \t \t; \t \tb=c",
                 "A",
                 "b", "c");
     }
@@ -370,19 +370,19 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
     @Test
     public void testTypeParameterSeparatorParameterNameFails() {
         final String text = "A;b=c;D";
-        this.parseMissingParameterValueFails(text);
+        this.parseStringMissingParameterValueFails(text);
     }
 
     @Test
     public void testTypeParameter() {
-        this.parseAndCheck("V1;p1=v1;",
+        this.parseStringAndCheck("V1;p1=v1;",
                 "V1",
                 "p1", "v1");
     }
 
     @Test
     public void testTypeParameterSeparatorParameter() {
-        this.parseAndCheck("V1;p1=v1;p2=v2",
+        this.parseStringAndCheck("V1;p1=v1;p2=v2",
                 "V1",
                 "p1", "v1",
                 "p2", "v2");
@@ -390,7 +390,7 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testTypeParameterWhitespaceSeparatorParameter() {
-        this.parseAndCheck("V1;p1=v1 ;p2=v2",
+        this.parseStringAndCheck("V1;p1=v1 ;p2=v2",
                 "V1",
                 "p1", "v1",
                 "p2", "v2");
@@ -398,7 +398,7 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testTypeParameterParameterSeparatorWhitespaceParameter() {
-        this.parseAndCheck("V1;p1=v1; p2=v2",
+        this.parseStringAndCheck("V1;p1=v1; p2=v2",
                 "V1",
                 "p1", "v1",
                 "p2", "v2");
@@ -413,13 +413,13 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testCreationDateInvalidFails() {
-        this.parseFails("V; creation-date=123",
+        this.parseStringFails("V; creation-date=123",
                 "Failed to convert \"creation-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
     public void testCreationDate() {
-        this.parseAndCheck("attachment; creation-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
+        this.parseStringAndCheck("attachment; creation-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
                 "attachment",
                 "creation-date",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
@@ -429,18 +429,18 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testFilenameMissingFails() {
-        this.parseFails("V; filename=\"\"",
+        this.parseStringFails("V; filename=\"\"",
                 "Failed to convert \"filename\" value \"\"\"\", message: name is empty");
     }
 
     @Test
     public void testFilenameMissingFails2() {
-        this.parseMissingParameterValueFails("V; filename=");
+        this.parseStringMissingParameterValueFails("V; filename=");
     }
 
     @Test
     public void testFilename() {
-        this.parseAndCheck("attachment; filename=readme.txt",
+        this.parseStringAndCheck("attachment; filename=readme.txt",
                 "attachment",
                 "filename",
                 ContentDispositionFileName.notEncoded("readme.txt"));
@@ -448,7 +448,7 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testFilenameQuoted() {
-        this.parseAndCheck("attachment; filename=\"readme.txt\"",
+        this.parseStringAndCheck("attachment; filename=\"readme.txt\"",
                 "attachment",
                 "filename",
                 ContentDispositionFileName.notEncoded("readme.txt"));
@@ -458,7 +458,7 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testFilenameStar() {
-        this.parseAndCheck("attachment; filename*=UTF-8'en'abc%20123.txt",
+        this.parseStringAndCheck("attachment; filename*=UTF-8'en'abc%20123.txt",
                 "attachment",
                 "filename*",
                 ContentDispositionFileName.encoded(
@@ -471,13 +471,13 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testModificationDateInvalidFails() {
-        this.parseFails("V; modification-date=123",
+        this.parseStringFails("V; modification-date=123",
                 "Failed to convert \"modification-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
     public void testModificationDate() {
-        this.parseAndCheck("attachment; modification-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
+        this.parseStringAndCheck("attachment; modification-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
                 "attachment",
                 "modification-date",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
@@ -487,13 +487,13 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testReadDateInvalidFails() {
-        this.parseFails("V; read-date=123",
+        this.parseStringFails("V; read-date=123",
                 "Failed to convert \"read-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
     public void testReadDate() {
-        this.parseAndCheck("attachment; read-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
+        this.parseStringAndCheck("attachment; read-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
                 "attachment",
                 "read-date",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
@@ -503,13 +503,13 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
 
     @Test
     public void testSizeInvalidFails() {
-        this.parseFails("V; size=A",
+        this.parseStringFails("V; size=A",
                 "Failed to convert \"size\" value \"A\", message: For input string: \"A\"");
     }
 
     @Test
     public void testSize() {
-        this.parseAndCheck("attachment; size=123",
+        this.parseStringAndCheck("attachment; size=123",
                 "attachment",
                 "size",
                 123L);
@@ -518,35 +518,35 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
     // helpers...................................................................................................
 
     @Override
-    public ContentDisposition parse(final String text) {
+    public ContentDisposition parseString(final String text) {
         return ContentDispositionHeaderValueParser.parseContentDisposition(text);
     }
 
-    private void parseAndCheck(final String headerValue, final String type) {
-        this.parseAndCheck(headerValue, type, ContentDisposition.NO_PARAMETERS);
+    private void parseStringAndCheck(final String headerValue, final String type) {
+        this.parseStringAndCheck(headerValue, type, ContentDisposition.NO_PARAMETERS);
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String type,
                                final String parameterName, final Object parameterValue) {
-        this.parseAndCheck(headerValue, type, Maps.of(ContentDispositionParameterName.with(parameterName), parameterValue));
+        this.parseStringAndCheck(headerValue, type, Maps.of(ContentDispositionParameterName.with(parameterName), parameterValue));
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String type,
                                final String parameterName1, final Object parameterValue1,
                                final String parameterName2, final Object parameterValue2) {
-        this.parseAndCheck(headerValue,
+        this.parseStringAndCheck(headerValue,
                 type,
                 Maps.of(ContentDispositionParameterName.with(parameterName1), parameterValue1,
                         ContentDispositionParameterName.with(parameterName2), parameterValue2));
     }
 
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String type,
                                final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        this.parseAndCheck(headerValue,
+        this.parseStringAndCheck(headerValue,
                 ContentDispositionType.with(type).setParameters(parameters));
     }
 

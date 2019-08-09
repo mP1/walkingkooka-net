@@ -32,12 +32,12 @@ public final class EmailAddressParserTryParseTest extends EmailAddressParserTest
     }
 
     @Override
-    void parse(final String text) {
+    void parseString(final String text) {
         EmailAddressParserTryParse.tryParse(text);
     }
 
     @Override
-    void parseFails(final String text) {
+    void parseStringFails(final String text) {
         assertEquals(Optional.empty(),
                 EmailAddressParserTryParse.tryParse(text),
                 () -> "parse " + CharSequences.quoteAndEscape(text));

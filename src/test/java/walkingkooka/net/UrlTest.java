@@ -31,7 +31,7 @@ public final class UrlTest implements ClassTesting2<Url>,
         ParseStringTesting<Url> {
 
     @Override
-    public void testParseEmptyFails() {
+    public void testParseStringEmptyFails() {
         throw new UnsupportedOperationException();
     }
 
@@ -39,28 +39,28 @@ public final class UrlTest implements ClassTesting2<Url>,
     public void testParseAbsoluteUrl() {
         final String text = "http://example.com";
 
-        this.parseAndCheck(text, Url.parseAbsolute(text));
+        this.parseStringAndCheck(text, Url.parseAbsolute(text));
     }
 
     @Test
     public void testParseDataUrl() {
         final DataUrl url = Url.data(Optional.of(MediaType.TEXT_PLAIN), Binary.with("abc123".getBytes(Charset.defaultCharset())));
 
-        this.parseAndCheck(url.value(), Url.parseData(url.value()));
+        this.parseStringAndCheck(url.value(), Url.parseData(url.value()));
     }
 
     @Test
     public void testParseRelativeUrl() {
         final String text = "/path123?query456";
 
-        this.parseAndCheck(text, Url.parseRelative(text));
+        this.parseStringAndCheck(text, Url.parseRelative(text));
     }
 
     @Test
     public void testParseRelativeUrlEmpty() {
         final String text = "";
 
-        this.parseAndCheck(text, Url.parseRelative(text));
+        this.parseStringAndCheck(text, Url.parseRelative(text));
     }
 
     @Override
@@ -76,17 +76,17 @@ public final class UrlTest implements ClassTesting2<Url>,
     // ParseStringTesting ........................................................................................
 
     @Override
-    public Url parse(final String text) {
+    public Url parseString(final String text) {
         return Url.parse(text);
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 

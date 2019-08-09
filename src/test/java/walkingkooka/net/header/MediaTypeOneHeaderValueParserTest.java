@@ -25,21 +25,21 @@ public final class MediaTypeOneHeaderValueParserTest extends MediaTypeHeaderValu
         MediaType> {
     @Test
     public void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";", 0);
+        this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
     public void testTypeSlashSubTypeValueSeparatorFails() {
-        this.parseInvalidCharacterFails("type/subtype,");
+        this.parseStringInvalidCharacterFails("type/subtype,");
     }
 
     @Test
     public void testTypeSlashSubTypeParameterSeparatorParameterNameKeyValueSeparatorParameterValueValueSeparatorFails() {
-        this.parseInvalidCharacterFails("type/subtype;p=v,");
+        this.parseStringInvalidCharacterFails("type/subtype;p=v,");
     }
 
     @Override
-    final void parseAndCheck(final String text,
+    final void parseStringAndCheck(final String text,
                              final String type,
                              final String subtype,
                              final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -47,7 +47,7 @@ public final class MediaTypeOneHeaderValueParserTest extends MediaTypeHeaderValu
     }
 
     @Override
-    public MediaType parse(final String text) {
+    public MediaType parseString(final String text) {
         return MediaTypeOneHeaderValueParser.parseMediaType(text);
     }
 

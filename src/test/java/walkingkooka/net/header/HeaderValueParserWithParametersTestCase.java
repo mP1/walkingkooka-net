@@ -28,6 +28,6 @@ public abstract class HeaderValueParserWithParametersTestCase<P extends HeaderVa
 
     @Test
     public final void testCommentFails() {
-        this.parseCommentFails("(comment-123)", 0);
+        this.parseStringCommentFails("(comment-123)", 0);
     }
 }

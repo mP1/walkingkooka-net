@@ -53,19 +53,19 @@ public final class QuotedStringHeaderValueHandlerTest extends StringHeaderValueH
 
     @Test
     public void testParse() {
-        this.parseAndCheck("\"abc\"", "abc");
+        this.parseStringAndCheck("\"abc\"", "abc");
     }
 
     @Test
     public void testParseWithBackslashSupportedEscapedDoubleQuote() {
-        this.parseAndCheck(this.handlerSupportingBackslashes(),
+        this.parseStringAndCheck(this.handlerSupportingBackslashes(),
                 "\"a\\\"bc\"",
                 "a\"bc");
     }
 
     @Test
     public void testParseWithBackslashSupportedEscapedBackslash() {
-        this.parseAndCheck(this.handlerSupportingBackslashes(),
+        this.parseStringAndCheck(this.handlerSupportingBackslashes(),
                 "\"a\\\\bc\"",
                 "a\\bc");
     }
@@ -107,7 +107,7 @@ public final class QuotedStringHeaderValueHandlerTest extends StringHeaderValueH
         final String text = "\"a\\\"bc\"";
         final String value = "a\"bc";
 
-        this.parseAndCheck(handler, text, value);
+        this.parseStringAndCheck(handler, text, value);
         this.toTextAndCheck(handler, value, text);
     }
 

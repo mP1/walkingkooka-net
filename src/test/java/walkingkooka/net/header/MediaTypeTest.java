@@ -425,34 +425,34 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testParse() {
-        this.parseAndCheck("type1/subtype1",
+        this.parseStringAndCheck("type1/subtype1",
                 MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testParseWithUnquotedParameter() {
-        this.parseAndCheck("type1/subtype1;abc=def",
+        this.parseStringAndCheck("type1/subtype1;abc=def",
                 MediaType.with("type1", "subtype1")
                         .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "def")));
     }
 
     @Test
     public void testParseWithQuotedParameter() {
-        this.parseAndCheck("type1/subtype1;abc=\"d,\\\\ef\"",
+        this.parseStringAndCheck("type1/subtype1;abc=\"d,\\\\ef\"",
                 MediaType.with("type1", "subtype1")
                         .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "d,\\ef")));
     }
 
     @Test
     public void testParseWithBoundary() {
-        this.parseAndCheck("type1/subtype1;boundary=def",
+        this.parseStringAndCheck("type1/subtype1;boundary=def",
                 MediaType.with("type1", "subtype1")
                         .setParameters(Maps.of(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))));
     }
 
     @Test
     public void testParseWithTitleStar() {
-        this.parseAndCheck("type1/subtype1;title*=UTF-8''abc%20123",
+        this.parseStringAndCheck("type1/subtype1;title*=UTF-8''abc%20123",
                 MediaType.with("type1", "subtype1")
                         .setParameters(Maps.of(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
     }
@@ -460,7 +460,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     // ParseStringTesting ........................................................................................
 
     @Override
-    public MediaType parse(final String text) {
+    public MediaType parseString(final String text) {
         return MediaType.parse(text);
     }
 

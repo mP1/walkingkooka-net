@@ -31,84 +31,84 @@ public final class MediaTypeListHeaderValueParserTest extends MediaTypeHeaderVal
 
     @Test
     public void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";", 0);
+        this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
     public void testTypeSlashSubTypeValueSeparatorSeparatorFails() {
-        this.parseMissingValueFails("type/subtype,");
+        this.parseStringMissingValueFails("type/subtype,");
     }
 
     @Test
     public void testTypeSlashSubTypeValueSeparatorWhitespaceFails() {
-        this.parseMissingValueFails("type/subtype, ");
+        this.parseStringMissingValueFails("type/subtype, ");
     }
 
     @Test
     public void testTypeSlashSubParametersValueSeparatorFails() {
-        this.parseMissingValueFails("type/subtype;parameter123=value456,");
+        this.parseStringMissingValueFails("type/subtype;parameter123=value456,");
     }
 
     @Test
     public void testTypeSubTypeWhitespace() {
-        this.parseAndCheck2("type1/subtype1 ",
+        this.parseStringAndCheck2("type1/subtype1 ",
                 MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testTypeSubTypeCommaWhitespaceTypeSubType() {
-        this.parseAndCheck2("type1/subtype1, type2/subtype2",
+        this.parseStringAndCheck2("type1/subtype1, type2/subtype2",
                 MediaType.with("type1", "subtype1"),
                 MediaType.with("type2", "subtype2"));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaWhitespaceTypeSubType2() {
-        this.parseAndCheck2("type1/subtype1;p1=v1, type2/subtype2",
+        this.parseStringAndCheck2("type1/subtype1;p1=v1, type2/subtype2",
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
                 MediaType.with("type2", "subtype2"));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaTypeSubTypeParameter() {
-        this.parseAndCheck2("type1/subtype1;p1=v1,type2/subtype2;p2=v2",
+        this.parseStringAndCheck2("type1/subtype1;p1=v1,type2/subtype2;p2=v2",
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
                 MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaWhitespaceTypeSubTypeParameter() {
-        this.parseAndCheck2("type1/subtype1;p1=v1, type2/subtype2;p2=v2",
+        this.parseStringAndCheck2("type1/subtype1;p1=v1, type2/subtype2;p2=v2",
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
                 MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testTypeSubTypeWhitespaceParameterCommaWhitespaceTypeSubTypeWhitespaceParameter() {
-        this.parseAndCheck2("type1/subtype1; p1=v1, type2/subtype2; p2=v2",
+        this.parseStringAndCheck2("type1/subtype1; p1=v1, type2/subtype2; p2=v2",
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
                 MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testSortedByQFactor() {
-        this.parseAndCheck2("type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
+        this.parseStringAndCheck2("type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
                 MediaType.with("type2", "subtype2").setParameters(this.parameters("q", 1.0f)),
                 MediaType.with("type3", "subtype3").setParameters(this.parameters("q", 0.5f)),
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
     @Override
-    final void parseAndCheck(final String text,
+    final void parseStringAndCheck(final String text,
                              final String type,
                              final String subtype,
                              final Map<MediaTypeParameterName<?>, Object> parameters) {
-        parseAndCheckOne(text, type, subtype, parameters);
-        parseAndCheckRepeated(text, type, subtype, parameters);
-        parseAndCheckSeveral(text, type, subtype, parameters);
+        parseStringAndCheckOne(text, type, subtype, parameters);
+        parseStringAndCheckRepeated(text, type, subtype, parameters);
+        parseStringAndCheckSeveral(text, type, subtype, parameters);
     }
 
-    private void parseAndCheckOne(final String text,
+    private void parseStringAndCheckOne(final String text,
                                   final String type,
                                   final String subtype,
                                   final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -117,7 +117,7 @@ public final class MediaTypeListHeaderValueParserTest extends MediaTypeHeaderVal
         this.check(result.get(0), type, subtype, parameters);
     }
 
-    private void parseAndCheckRepeated(final String text,
+    private void parseStringAndCheckRepeated(final String text,
                                        final String type,
                                        final String subtype,
                                        final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -128,7 +128,7 @@ public final class MediaTypeListHeaderValueParserTest extends MediaTypeHeaderVal
         this.check(result.get(1), type, subtype, parameters);
     }
 
-    private void parseAndCheckSeveral(final String text,
+    private void parseStringAndCheckSeveral(final String text,
                                       final String type,
                                       final String subtype,
                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -144,14 +144,14 @@ public final class MediaTypeListHeaderValueParserTest extends MediaTypeHeaderVal
         this.check(result.get(3), type, subtype, parameters);
     }
 
-    private void parseAndCheck2(final String text, final MediaType... mediaTypes) {
+    private void parseStringAndCheck2(final String text, final MediaType... mediaTypes) {
         assertEquals(Lists.of(mediaTypes),
                 MediaTypeListHeaderValueParser.parseMediaTypeList(text),
                 "Incorrect result parsing " + CharSequences.quote(text));
     }
 
     @Override
-    public List<MediaType> parse(final String text) {
+    public List<MediaType> parseString(final String text) {
         return listReadOnlyCheck(MediaTypeListHeaderValueParser.parseMediaTypeList(text));
     }
 

@@ -140,19 +140,19 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
 
     @Test
     public void testParse() {
-        this.parseAndCheck("en",
+        this.parseStringAndCheck("en",
                 LanguageWithParameters.with(this.en()));
     }
 
     @Test
     public void testParseWithParameters() {
-        this.parseAndCheck("en; abc=123",
+        this.parseStringAndCheck("en; abc=123",
                 LanguageWithParameters.with(this.en())
                         .setParameters(Maps.of(LanguageParameterName.with("abc"), "123")));
     }
 
     @Override
-    public LanguageWithParameters parse(final String text) {
+    public LanguageWithParameters parseString(final String text) {
         return LanguageWithParameters.parse(text);
     }
 

@@ -31,38 +31,38 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck2("*", LanguageWithParameters.WILDCARD);
+        this.parseStringAndCheck2("*", LanguageWithParameters.WILDCARD);
     }
 
     @Test
     public final void testWildcardKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("*;=");
+        this.parseStringInvalidCharacterFails("*;=");
     }
 
     @Test
     public final void testWildcardKeyValueSeparatorFails2() {
-        this.parseInvalidCharacterFails("*; =");
+        this.parseStringInvalidCharacterFails("*; =");
     }
 
     @Test
     public final void testWildcardParameterNameFails() {
-        this.parseMissingParameterValueFails("*; parameter");
+        this.parseStringMissingParameterValueFails("*; parameter");
     }
 
     @Test
     public final void testWildcardParameterNameKeyValueSeparatorFails() {
-        this.parseMissingParameterValueFails("*; parameter=");
+        this.parseStringMissingParameterValueFails("*; parameter=");
     }
 
     @Test
     public final void testWildcardQWeightInvalidValueFails() {
-        this.parseFails("*; q=ABC",
+        this.parseStringFails("*; q=ABC",
                 "Failed to convert \"q\" value \"ABC\", message: For input string: \"ABC\"");
     }
 
     @Test
     public final void testWildcardWithQWeight() {
-        this.parseAndCheck2("*; q=0.75",
+        this.parseStringAndCheck2("*; q=0.75",
                 LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
     }
 
@@ -71,25 +71,25 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
         final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.with("a"), "b",
                 LanguageParameterName.with("c"), "d");
 
-        this.parseAndCheck2("*; a=b; c=d",
+        this.parseStringAndCheck2("*; a=b; c=d",
                 LanguageWithParameters.WILDCARD.setParameters(parameters));
     }
 
     @Test
     public final void testLanguage_en() {
-        this.parseAndCheck2("en", LanguageWithParameters.with(LanguageName.with("en")));
+        this.parseStringAndCheck2("en", LanguageWithParameters.with(LanguageName.with("en")));
     }
 
     @Test
     public final void testLanguage_de_CH() {
-        this.parseAndCheck2("de-CH", LanguageWithParameters.with(LanguageName.with("de-CH")));
+        this.parseStringAndCheck2("de-CH", LanguageWithParameters.with(LanguageName.with("de-CH")));
     }
 
-    abstract void parseAndCheck2(final String text, final LanguageWithParameters expected);
+    abstract void parseStringAndCheck2(final String text, final LanguageWithParameters expected);
 
     @Test
     public final void testQuotedFails() {
-        this.parseFails("\"quoted\"", InvalidCharacterException.class);
+        this.parseStringFails("\"quoted\"", InvalidCharacterException.class);
     }
 
     @Override
