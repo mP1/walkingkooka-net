@@ -24,77 +24,77 @@ public final class ContentLanguageHeaderValueParserTest extends HeaderValueParse
 
     @Test
     public void testWhitespaceFails() {
-        this.parseMissingValueFails("  ");
+        this.parseStringMissingValueFails("  ");
     }
 
     @Test
     public void testCommentFails() {
-        this.parseCommentFails("(abc)", 0);
+        this.parseStringCommentFails("(abc)", 0);
     }
 
     @Test
     public void testParametersFails() {
-        this.parseInvalidCharacterFails("en;x=1", ';');
+        this.parseStringInvalidCharacterFails("en;x=1", ';');
     }
 
     @Test
     public void testQuotedTextFails() {
-        this.parseInvalidCharacterFails("\"hello\"", 0);
+        this.parseStringInvalidCharacterFails("\"hello\"", 0);
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("ab/c", '/');
+        this.parseStringInvalidCharacterFails("ab/c", '/');
     }
 
     @Test
     public void testWildcardFails() {
-        this.parseInvalidCharacterFails("*", '*');
+        this.parseStringInvalidCharacterFails("*", '*');
     }
 
     @Test
     public void testTokenCommaWildcardFails() {
-        this.parseInvalidCharacterFails("abc, *, def", '*');
+        this.parseStringInvalidCharacterFails("abc, *, def", '*');
     }
 
     @Test
     public void testTokenCommentFails() {
-        this.parseCommentFails("en(abc)", 2);
+        this.parseStringCommentFails("en(abc)", 2);
     }
 
     @Test
     public void testTokenSeparatorFails() {
-        this.parseInvalidCharacterFails("abc;", ';');
+        this.parseStringInvalidCharacterFails("abc;", ';');
     }
 
     @Test
     public void testToken() {
-        this.parseAndCheck2("en",
+        this.parseStringAndCheck2("en",
                 this.en());
     }
 
     @Test
     public void testTokenWhitespace() {
-        this.parseAndCheck2("en ",
+        this.parseStringAndCheck2("en ",
                 this.en());
     }
 
     @Test
     public void testWhitespaceToken() {
-        this.parseAndCheck2(" en",
+        this.parseStringAndCheck2(" en",
                 this.en());
     }
 
     @Test
     public void testTokenCommaToken() {
-        this.parseAndCheck2("en,fr",
+        this.parseStringAndCheck2("en,fr",
                 this.en(),
                 this.fr());
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
-        this.parseAndCheck2("en, fr,  gr",
+        this.parseStringAndCheck2("en, fr,  gr",
                 this.en(),
                 this.fr(),
                 this.gr());
@@ -112,12 +112,12 @@ public final class ContentLanguageHeaderValueParserTest extends HeaderValueParse
         return LanguageName.with("gr");
     }
 
-    private void parseAndCheck2(final String text, final LanguageName...languages) {
-        this.parseAndCheck(text, ContentLanguage.with(Lists.of(languages)));
+    private void parseStringAndCheck2(final String text, final LanguageName...languages) {
+        this.parseStringAndCheck(text, ContentLanguage.with(Lists.of(languages)));
     }
 
     @Override
-    public ContentLanguage parse(final String text) {
+    public ContentLanguage parseString(final String text) {
         return ContentLanguageHeaderValueParser.parseContentLanguage(text);
     }
 

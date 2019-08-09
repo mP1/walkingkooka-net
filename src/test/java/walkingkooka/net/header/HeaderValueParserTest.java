@@ -291,112 +291,112 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
     @Test
     public void testParseSlash() {
-        this.parseAndCheck("/", "[slash]");
+        this.parseStringAndCheck("/", "[slash]");
     }
 
     @Test
     public void testParseWildcard() {
-        this.parseAndCheck("*", "[wildcard]");
+        this.parseStringAndCheck("*", "[wildcard]");
     }
 
     @Test
     public void testParseWildcardWildcard() {
-        this.parseAndCheck("**", "[wildcard][wildcard]");
+        this.parseStringAndCheck("**", "[wildcard][wildcard]");
     }
 
     @Test
     public void testParseToken() {
-        this.parseAndCheck("1", "[token-1]");
+        this.parseStringAndCheck("1", "[token-1]");
     }
 
     @Test
     public void testParseToken2() {
-        this.parseAndCheck("123", "[token-123]");
+        this.parseStringAndCheck("123", "[token-123]");
     }
 
     @Test
     public void testParseTokenWildcardToken() {
-        this.parseAndCheck("123*456", "[token-123][wildcard][token-456]");
+        this.parseStringAndCheck("123*456", "[token-123][wildcard][token-456]");
     }
 
     @Test
     public void testParseTokenSlashToken() {
-        this.parseAndCheck("123/456", "[token-123][slash][token-456]");
+        this.parseStringAndCheck("123/456", "[token-123][slash][token-456]");
     }
 
     @Test
     public void testParseSpaceToken() {
-        this.parseAndCheck(" 1", "[ws][token-1]");
+        this.parseStringAndCheck(" 1", "[ws][token-1]");
     }
 
     @Test
     public void testParseTabToken() {
-        this.parseAndCheck("\t1", "[ws][token-1]");
+        this.parseStringAndCheck("\t1", "[ws][token-1]");
     }
 
     @Test
     public void testParseCrNlSpaceToken() {
-        this.parseAndCheck("\r\n 1", "[ws][token-1]");
+        this.parseStringAndCheck("\r\n 1", "[ws][token-1]");
     }
 
     @Test
     public void testParseCrNlTabToken() {
-        this.parseAndCheck("\r\n 1", "[ws][token-1]");
+        this.parseStringAndCheck("\r\n 1", "[ws][token-1]");
     }
 
     @Test
     public void testParseSpaceTabCrNlSpaceTabToken() {
-        this.parseAndCheck(" \t\r\n \t1", "[ws][token-1]");
+        this.parseStringAndCheck(" \t\r\n \t1", "[ws][token-1]");
     }
 
     @Test
     public void testParseTokenSpace() {
-        this.parseAndCheck("1 ", "[token-1][ws]");
+        this.parseStringAndCheck("1 ", "[token-1][ws]");
     }
 
     @Test
     public void testParseTokenTab() {
-        this.parseAndCheck("1\t", "[token-1][ws]");
+        this.parseStringAndCheck("1\t", "[token-1][ws]");
     }
 
     @Test
     public void testParseTokenCrNlSpace() {
-        this.parseAndCheck("1\r\n ", "[token-1][ws]");
+        this.parseStringAndCheck("1\r\n ", "[token-1][ws]");
     }
 
     @Test
     public void testParseTokenCrNlTab() {
-        this.parseAndCheck("1\r\n\t", "[token-1][ws]");
+        this.parseStringAndCheck("1\r\n\t", "[token-1][ws]");
     }
 
     @Test
     public void testParseTokenTokenSeparator() {
-        this.parseAndCheck("1;", "[token-1][token-separator]");
+        this.parseStringAndCheck("1;", "[token-1][token-separator]");
     }
 
     @Test
     public void testParseTokenTokenSeparatorToken() {
-        this.parseAndCheck("1;23", "[token-1][token-separator][token-23]");
+        this.parseStringAndCheck("1;23", "[token-1][token-separator][token-23]");
     }
 
     @Test
     public void testParseQuotedToken() {
-        this.parseAndCheck("\"1\"", "[quoted-1]");
+        this.parseStringAndCheck("\"1\"", "[quoted-1]");
     }
 
     @Test
     public void testParseQuotedTokenTokenSeparator() {
-        this.parseAndCheck("\"1\",", "[quoted-1][multi]");
+        this.parseStringAndCheck("\"1\",", "[quoted-1][multi]");
     }
 
     @Test
     public void testParseQuotedTokenQuotedToken() {
-        this.parseAndCheck("\"1\"\"23\"", "[quoted-1][quoted-23]");
+        this.parseStringAndCheck("\"1\"\"23\"", "[quoted-1][quoted-23]");
     }
 
     @Test
     public void testParseQuotedTokenSlashWildcardToken() {
-        this.parseAndCheck("\"1\"/*23", "[quoted-1][slash][wildcard][token-23]");
+        this.parseStringAndCheck("\"1\"/*23", "[quoted-1][slash][wildcard][token-23]");
     }
 
     @Test
@@ -424,50 +424,50 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
     @Test
     public void testParseCommentWithContent() {
-        this.parseAndCheck("(abc123)", "[comment-abc123]");
+        this.parseStringAndCheck("(abc123)", "[comment-abc123]");
     }
 
     @Test
     public void testParseCommentEmpty() {
-        this.parseAndCheck("()", "[comment-]");
+        this.parseStringAndCheck("()", "[comment-]");
     }
 
     @Test
     public void testParseCommentSingleQuote() {
-        this.parseAndCheck("('abc')", "[comment-'abc']");
+        this.parseStringAndCheck("('abc')", "[comment-'abc']");
     }
 
     @Test
     public void testParseCommentDoubleQuote() {
-        this.parseAndCheck("(\"abc\")", "[comment-\"abc\"]");
+        this.parseStringAndCheck("(\"abc\")", "[comment-\"abc\"]");
     }
 
     @Test
     public void testParseCommentSingleQuoteDoubleQuote() {
-        this.parseAndCheck("('abc'\"def\")", "[comment-'abc'\"def\"]");
+        this.parseStringAndCheck("('abc'\"def\")", "[comment-'abc'\"def\"]");
     }
 
     @Test
     public void testParseCommentComment() {
-        this.parseAndCheck("(abc)(123)", "[comment-abc][comment-123]");
+        this.parseStringAndCheck("(abc)(123)", "[comment-abc][comment-123]");
     }
 
     @Test
     public void testParseTokenComment() {
-        this.parseAndCheck("1(abc)", "[token-1][comment-abc]");
+        this.parseStringAndCheck("1(abc)", "[token-1][comment-abc]");
     }
 
     @Test
     public void testParseTokenTokenSeparatorComment() {
-        this.parseAndCheck("1;(abc)", "[token-1][token-separator][comment-abc]");
+        this.parseStringAndCheck("1;(abc)", "[token-1][token-separator][comment-abc]");
     }
 
     @Test
     public void testParseTokenCommentTokenComment() {
-        this.parseAndCheck("1(abc)2(def)", "[token-1][comment-abc][token-2][comment-def]");
+        this.parseStringAndCheck("1(abc)2(def)", "[token-1][comment-abc][token-2][comment-def]");
     }
 
-    private void parseAndCheck(final String text, final String events) {
+    private void parseStringAndCheck(final String text, final String events) {
         final StringBuilder recorded = new StringBuilder();
 
         new HeaderValueParser(text) {
@@ -541,7 +541,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
     // helpers.................................................................................................
 
     @Override
-    public Void parse(final String text) {
+    public Void parseString(final String text) {
         new TestHeaderValueParser(text);
         return null;
     }

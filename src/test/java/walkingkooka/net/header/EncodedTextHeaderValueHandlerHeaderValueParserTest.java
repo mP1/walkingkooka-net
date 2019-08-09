@@ -28,7 +28,7 @@ public final class EncodedTextHeaderValueHandlerHeaderValueParserTest extends He
 
     @Test
     public void testParse() {
-        this.parseAndCheck("UTF-8''abc%20123", EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"));
+        this.parseStringAndCheck("UTF-8''abc%20123", EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"));
     }
 
     @Test
@@ -104,7 +104,7 @@ public final class EncodedTextHeaderValueHandlerHeaderValueParserTest extends He
     }
 
     @Override
-    public EncodedText parse(final String text) {
+    public EncodedText parseString(final String text) {
         return EncodedTextHeaderValueHandlerHeaderValueParser.parseEncodedText(text, LABEL);
     }
 

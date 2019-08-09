@@ -27,7 +27,7 @@ public final class ContentLanguageHeaderValueHandlerTest extends NonStringHeader
 
     @Test
     public void testParse() {
-        this.parseAndCheck("en", ContentLanguage.with(Lists.of(this.en())));
+        this.parseStringAndCheck("en", ContentLanguage.with(Lists.of(this.en())));
     }
 
     @Test

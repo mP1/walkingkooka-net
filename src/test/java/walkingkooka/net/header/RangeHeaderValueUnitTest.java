@@ -37,7 +37,7 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
 
     @Test
     public void testParseUnknownFails() {
-        this.parseFails("unknown", IllegalArgumentException.class);
+        this.parseStringFails("unknown", IllegalArgumentException.class);
     }
 
     @Test
@@ -58,7 +58,7 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     // ParseStringTesting ........................................................................................
 
     @Override
-    public RangeHeaderValueUnit parse(final String text) {
+    public RangeHeaderValueUnit parseString(final String text) {
         return RangeHeaderValueUnit.parse(text);
     }
 

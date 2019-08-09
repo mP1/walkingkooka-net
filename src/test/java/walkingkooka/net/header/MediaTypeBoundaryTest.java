@@ -104,12 +104,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testParseUnquoted() {
-        this.parseAndCheck("abc", MediaTypeBoundary.with("abc"));
+        this.parseStringAndCheck("abc", MediaTypeBoundary.with("abc"));
     }
 
     @Test
     public void testParseQuoted() {
-        this.parseAndCheck("\"abc\"", MediaTypeBoundary.with("abc"));
+        this.parseStringAndCheck("\"abc\"", MediaTypeBoundary.with("abc"));
     }
 
     // toHeaderText........................................................................................................
@@ -283,7 +283,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     // ParseStringTesting ........................................................................................
 
     @Override
-    public MediaTypeBoundary parse(final String text) {
+    public MediaTypeBoundary parseString(final String text) {
         return MediaTypeBoundary.parse(text);
     }
 }

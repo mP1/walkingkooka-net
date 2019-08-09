@@ -29,12 +29,12 @@ public final class EmailAddressParserWithTest extends EmailAddressParserTestCase
     }
 
     @Override
-    void parse(final String text) {
+    void parseString(final String text) {
         EmailAddressParserWith.parseOrFail(text);
     }
 
     @Override
-    void parseFails(final String text) {
+    void parseStringFails(final String text) {
         assertThrows(RuntimeException.class, () -> {
             EmailAddressParserWith.parseOrFail(text);
         });

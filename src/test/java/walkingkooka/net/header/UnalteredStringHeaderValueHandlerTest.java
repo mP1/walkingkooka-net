@@ -35,32 +35,32 @@ public final class UnalteredStringHeaderValueHandlerTest extends StringHeaderVal
     public void testParseAsciiControlCharacters() {
         IntStream.range(0, 31)
                 .filter(i -> i != '\t')
-                .forEach(i -> this.parseAndCheck2("" + Character.toChars(i)));
+                .forEach(i -> this.parseStringAndCheck2("" + Character.toChars(i)));
     }
 
     @Test
     public void testParseNonControlCharacters() {
         IntStream.range(32, 256)
-                .forEach(i -> this.parseAndCheck2( "" + Character.toChars(i)));
+                .forEach(i -> this.parseStringAndCheck2( "" + Character.toChars(i)));
     }
 
     @Test
     public void testParseIncludingComments() {
-        this.parseAndCheck2("Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0");
+        this.parseStringAndCheck2("Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0");
     }
 
     @Test
     public void testParseSurroundedWhitespaceKept() {
-        this.parseAndCheck2(" a b c ");
+        this.parseStringAndCheck2(" a b c ");
     }
 
     @Test
     public void testParseDoubleQuoted() {
-        this.parseAndCheck2("\"abc\"");
+        this.parseStringAndCheck2("\"abc\"");
     }
 
-    private void parseAndCheck2(final String text) {
-        this.parseAndCheck(text, text);
+    private void parseStringAndCheck2(final String text) {
+        this.parseStringAndCheck(text, text);
     }
 
     @Test

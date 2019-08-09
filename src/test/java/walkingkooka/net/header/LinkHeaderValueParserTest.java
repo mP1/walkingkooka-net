@@ -28,67 +28,67 @@ public final class LinkHeaderValueParserTest extends HeaderValueParserTestCase<L
 
     @Test
     public void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testMultiValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
     public void testWildcardFails() {
-        this.parseInvalidCharacterFails("*");
+        this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
     public void testMissingValueFails() {
-        this.parseMissingValueFails("<", 1);
+        this.parseStringMissingValueFails("<", 1);
     }
 
     @Test
     public void testInvalidValueFails() {
-        this.parseInvalidCharacterFails("http://example.com", 0);
+        this.parseStringInvalidCharacterFails("http://example.com", 0);
     }
 
     @Test
     public void testLinkAbsoluteUrl() {
-        this.parseAndCheck2("<http://example.com>",
+        this.parseStringAndCheck2("<http://example.com>",
                 Link.with(Url.parse("http://example.com")));
     }
 
     @Test
     public void testLinkRelativeUrl() {
-        this.parseAndCheck2("</path/file>",
+        this.parseStringAndCheck2("</path/file>",
                 this.link());
     }
 
     @Test
     public void testLinkTypeParameter() {
-        this.parseAndCheck2("</path/file>; type=text/plain",
+        this.parseStringAndCheck2("</path/file>; type=text/plain",
                 this.link(LinkParameterName.TYPE, MediaType.TEXT_PLAIN));
     }
 
     @Test
     public void testLinkRelParameter() {
-        this.parseAndCheck2("</path/file>; rel=prev",
+        this.parseStringAndCheck2("</path/file>; rel=prev",
                 this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV)));
     }
 
     @Test
     public void testLinkRelParameterUrlValue() {
-        this.parseAndCheck2("</path/file>; rel=http://example.com",
+        this.parseStringAndCheck2("</path/file>; rel=http://example.com",
                 this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("http://example.com"))));
     }
 
     @Test
     public void testLinkRelParameterMultipleValues() {
-        this.parseAndCheck2("</path/file>; rel=\"prev next\"",
+        this.parseStringAndCheck2("</path/file>; rel=\"prev next\"",
                 this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV, LinkRelation.NEXT)));
     }
 
@@ -100,12 +100,12 @@ public final class LinkHeaderValueParserTest extends HeaderValueParserTestCase<L
         return this.link().setParameters(Maps.of(parameterName, parameterValue));
     }
 
-    private void parseAndCheck2(final String text, final Link... links) {
-        this.parseAndCheck(text, Lists.of(links));
+    private void parseStringAndCheck2(final String text, final Link... links) {
+        this.parseStringAndCheck(text, Lists.of(links));
     }
 
     @Override
-    public List<Link> parse(final String text) {
+    public List<Link> parseString(final String text) {
         return LinkHeaderValueParser.parseLink(text);
     }
 

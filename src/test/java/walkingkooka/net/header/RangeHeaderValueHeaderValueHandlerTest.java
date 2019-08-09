@@ -33,7 +33,7 @@ public final class RangeHeaderValueHeaderValueHandlerTest extends
 
     @Test
     public void testParseRangeHeader() {
-        this.parseAndCheck(TEXT, this.range());
+        this.parseStringAndCheck(TEXT, this.range());
     }
 
     @Test

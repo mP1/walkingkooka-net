@@ -37,57 +37,53 @@ public abstract class HeaderValueParserTestCase<P extends HeaderValueParser, V> 
         super();
     }
 
-    // parse ...........................................................................................
+    // parse ...........................................................................................................
 
-    final void parseCommentFails(final String text, final int pos) {
-        this.parseFails(text,
-                this.parseFailedExpected(new CommentHeaderValueException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
+    final void parseStringCommentFails(final String text, final int pos) {
+        this.parseStringFails(text,
+                this.parseStringFailedExpected(new CommentHeaderValueException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
     }
 
     final void parseMissingClosingQuoteFails(final String text) {
-        this.parseFails(text, HeaderValueParser.missingClosingQuote(text));
+        this.parseStringFails(text, HeaderValueParser.missingClosingQuote(text));
     }
 
-    final void parseMissingValueFails(final String text) {
-        this.parseMissingValueFails(text, text.length());
+    final void parseStringMissingValueFails(final String text) {
+        this.parseStringMissingValueFails(text, text.length());
     }
 
-    final void parseMissingValueFails(final String text, final int pos) {
-        this.parseFails(text,
+    final void parseStringMissingValueFails(final String text, final int pos) {
+        this.parseStringFails(text,
                 HeaderValueParser.emptyToken(this.valueLabel(), pos, text));
     }
 
     abstract String valueLabel();
 
-    final void parseMissingParameterNameFails(final String text) {
-        this.parseMissingParameterNameFails(text, text.length());
-    }
-
-    final void parseMissingParameterNameFails(final String text, final int pos) {
-        this.parseFails(text,
+    final void parseStringMissingParameterNameFails(final String text, final int pos) {
+        this.parseStringFails(text,
                 HeaderValueParser.missingParameterName(pos, text));
     }
 
-    final void parseMissingParameterValueFails(final String text) {
-        this.parseMissingParameterValueFails(text, text.length());
+    final void parseStringMissingParameterValueFails(final String text) {
+        this.parseStringMissingParameterValueFails(text, text.length());
     }
 
-    final void parseMissingParameterValueFails(final String text, final int pos) {
-        this.parseFails(text,
+    final void parseStringMissingParameterValueFails(final String text, final int pos) {
+        this.parseStringFails(text,
                 HeaderValueParser.missingParameterValue(pos, text));
     }
 
-    final void parseFails(final String text, final String message) {
-        this.parseFails(text, new HeaderValueException(message));
+    final void parseStringFails(final String text, final String message) {
+        this.parseStringFails(text, new HeaderValueException(message));
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return new HeaderValueException(expected.getMessage(), expected);
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return HeaderValueException.class;
     }
 

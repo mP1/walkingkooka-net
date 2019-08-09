@@ -263,32 +263,32 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testParseLinkWithMedia() {
-        this.parseAndCheck("<http://example.com>;media=\"abc 123\"",
+        this.parseStringAndCheck("<http://example.com>;media=\"abc 123\"",
                 this.createLink().setParameters(Maps.of(LinkParameterName.MEDIA, "abc 123")));
     }
 
     @Test
     public void testParseLinkWithMethod() {
-        this.parseAndCheck("<http://example.com>;method=GET",
+        this.parseStringAndCheck("<http://example.com>;method=GET",
                 this.createLink().setParameters(Maps.of(LinkParameterName.METHOD, HttpMethod.GET)));
     }
 
     @Test
     public void testParseLinkWithType() {
-        this.parseAndCheck("<http://example.com>;type=text/plain",
+        this.parseStringAndCheck("<http://example.com>;type=text/plain",
                 this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
     }
 
     @Test
     public void testParseSeveralLinks() {
-        this.parseAndCheck("<http://example.com>;rel=previous, <http://example2.com>",
+        this.parseStringAndCheck("<http://example.com>;rel=previous, <http://example2.com>",
                 this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))),
                 Link.with(Url.parse("http://example2.com"))
         );
     }
 
-    private void parseAndCheck(final String text, final Link... links) {
-        this.parseAndCheck(text, Lists.of(links));
+    private void parseStringAndCheck(final String text, final Link... links) {
+        this.parseStringAndCheck(text, Lists.of(links));
     }
 
     // helpers.......................................................................................
@@ -339,7 +339,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // ParseStringTesting ........................................................................................
 
     @Override
-    public List<Link> parse(final String text) {
+    public List<Link> parseString(final String text) {
         return Link.parse(text);
     }
 

@@ -57,13 +57,13 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
 
     @Test
     public void testParse() {
-        this.parseAndCheck("en, fr",
+        this.parseStringAndCheck("en, fr",
                 this.createHeaderValue(this.en(), this.fr()));
     }
 
     @Test
     public void testParseExtraWhitespace() {
-        this.parseAndCheck("en,  fr,  gr",
+        this.parseStringAndCheck("en,  fr,  gr",
                 this.createHeaderValue(this.en(), this.fr(), this.gr()));
     }
 
@@ -144,7 +144,7 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
     // ParseStringTesting...............................................................................................
 
     @Override
-    public ContentLanguage parse(final String text) {
+    public ContentLanguage parseString(final String text) {
         return ContentLanguage.parse(text);
     }
 }

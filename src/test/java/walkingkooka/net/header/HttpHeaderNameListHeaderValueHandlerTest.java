@@ -34,21 +34,21 @@ public final class HttpHeaderNameListHeaderValueHandlerTest extends
 
     @Test
     public void testParse() {
-        this.parseAndCheck2("Accept", HttpHeaderName.ACCEPT);
+        this.parseStringAndCheck2("Accept", HttpHeaderName.ACCEPT);
     }
 
     @Test
     public void testParse2() {
-        this.parseAndCheck2("Accept,Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
+        this.parseStringAndCheck2("Accept,Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
     }
 
     @Test
     public void testParseTokenWhitespaceToken() {
-        this.parseAndCheck2("Accept, Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
+        this.parseStringAndCheck2("Accept, Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
     }
 
-    private void parseAndCheck2(final String value, final HttpHeaderName<?>... headers) {
-        this.parseAndCheck(value, Lists.of(headers));
+    private void parseStringAndCheck2(final String value, final HttpHeaderName<?>... headers) {
+        this.parseStringAndCheck(value, Lists.of(headers));
     }
 
     @Test

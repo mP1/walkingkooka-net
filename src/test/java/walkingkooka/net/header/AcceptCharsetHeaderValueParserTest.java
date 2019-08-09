@@ -30,324 +30,324 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";", 0);
+        this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
     public void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
     public void testValueSeparatorFails() {
-        this.parseInvalidCharacterFails(",");
+        this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
     public void testCharsetSeparatorFails() {
-        this.parseMissingValueFails("utf-8,");
+        this.parseStringMissingValueFails("utf-8,");
     }
 
     @Test
     public void testCharsetSeparatorSpaceFails() {
-        this.parseFails("utf-8, ", "Missing charset at 7 in \"utf-8, \"");
+        this.parseStringFails("utf-8, ", "Missing charset at 7 in \"utf-8, \"");
     }
 
     @Test
     public void testCharsetSeparatorTabFails() {
-        this.parseFails("utf-8,\t", "Missing charset at 7 in \"utf-8,\\t\"");
+        this.parseStringFails("utf-8,\t", "Missing charset at 7 in \"utf-8,\\t\"");
     }
 
     @Test
     public void testCharsetInvalidInitialCharacterFails() {
-        this.parseInvalidCharacterFails("!utf-8", '!');
+        this.parseStringInvalidCharacterFails("!utf-8", '!');
     }
 
     @Test
     public void testCharsetInvalidPartCharacterFails() {
-        this.parseInvalidCharacterFails("utf\08", '\0');
+        this.parseStringInvalidCharacterFails("utf\08", '\0');
     }
 
     @Test
     public void testCharset() {
-        this.parseAndCheck("utf-8", "utf-8");
+        this.parseStringAndCheck("utf-8", "utf-8");
     }
 
     @Test
     public void testCharsetInvalidCharacterFails2() {
-        this.parseInvalidCharacterFails("UTF-8BC<");
+        this.parseStringInvalidCharacterFails("UTF-8BC<");
     }
 
     @Test
     public void testWildcard() {
-        this.parseAndCheck("*", CharsetHeaderValue.WILDCARD_VALUE);
+        this.parseStringAndCheck("*", CharsetHeaderValue.WILDCARD_VALUE);
     }
 
     @Test
     public void testWildcardInvalidFails() {
-        this.parseInvalidCharacterFails("*1");
+        this.parseStringInvalidCharacterFails("*1");
     }
 
     @Test
     public void testWildcardInvalidFails2() {
-        this.parseInvalidCharacterFails("*u");
+        this.parseStringInvalidCharacterFails("*u");
     }
 
     @Test
     public void testWildcardWildcardFails() {
-        this.parseInvalidCharacterFails("**");
+        this.parseStringInvalidCharacterFails("**");
     }
 
     @Test
     public void testCharsetEqualsFails() {
-        this.parseMissingParameterValueFails("UTF-8;b=");
+        this.parseStringMissingParameterValueFails("UTF-8;b=");
     }
 
     @Test
     public void testCharsetSpaceEqualsFails() {
-        this.parseMissingParameterValueFails("UTF-8;b =");
+        this.parseStringMissingParameterValueFails("UTF-8;b =");
     }
 
     @Test
     public void testCharsetTabEqualsFails() {
-        this.parseMissingParameterValueFails("UTF-8;b =");
+        this.parseStringMissingParameterValueFails("UTF-8;b =");
     }
 
     @Test
     public void testCharsetSpaceTabSpaceTabEqualsFails() {
-        this.parseMissingParameterValueFails("UTF-8;b \t \t=");
+        this.parseStringMissingParameterValueFails("UTF-8;b \t \t=");
     }
 
     @Test
     public void testCharsetEqualsSpaceFails() {
-        this.parseMissingParameterValueFails("UTF-8;b= ");
+        this.parseStringMissingParameterValueFails("UTF-8;b= ");
     }
 
     @Test
     public void testCharsetEqualsTabFails() {
-        this.parseMissingParameterValueFails("UTF-8;b=\t");
+        this.parseStringMissingParameterValueFails("UTF-8;b=\t");
     }
 
     @Test
     public void testCharsetEqualsCrNlSpaceFails() {
-        this.parseMissingParameterValueFails("UTF-8;b=\r\n ");
+        this.parseStringMissingParameterValueFails("UTF-8;b=\r\n ");
     }
 
     @Test
     public void testCharsetEqualsCrNlTabFails() {
-        this.parseMissingParameterValueFails("UTF-8;b=\r\n\t");
+        this.parseStringMissingParameterValueFails("UTF-8;b=\r\n\t");
     }
 
     @Test
     public void testCharsetParameterTokenSeparatorTokenSeparatorFails() {
-        this.parseInvalidCharacterFails("UTF-8;;", 6);
+        this.parseStringInvalidCharacterFails("UTF-8;;", 6);
     }
 
     @Test
     public void testCharset2() {
-        this.parseAndCheck("utf-16", "utf-16");
+        this.parseStringAndCheck("utf-16", "utf-16");
     }
 
     @Test
     public void testCharsetSpace() {
-        this.parseAndCheck("utf-8 ", "utf-8");
+        this.parseStringAndCheck("utf-8 ", "utf-8");
     }
 
     @Test
     public void testCharsetTab() {
-        this.parseAndCheck("utf-8\t", "utf-8");
+        this.parseStringAndCheck("utf-8\t", "utf-8");
     }
 
     @Test
     public void testCharsetCrNlSpace() {
-        this.parseAndCheck("utf-8\r\n ", "utf-8");
+        this.parseStringAndCheck("utf-8\r\n ", "utf-8");
     }
 
     @Test
     public void testCharsetCrNlTab() {
-        this.parseAndCheck("utf-8\r\n\t", "utf-8");
+        this.parseStringAndCheck("utf-8\r\n\t", "utf-8");
     }
 
     @Test
     public void testCharsetSpaceTabCrNlSpaceTab() {
-        this.parseAndCheck("UTF-8 \t\r\n \t", "UTF-8");
+        this.parseStringAndCheck("UTF-8 \t\r\n \t", "UTF-8");
     }
 
     @Test
     public void testCharsetSeparator() {
-        this.parseAndCheck("UTF-8;", "UTF-8");
+        this.parseStringAndCheck("UTF-8;", "UTF-8");
     }
 
     @Test
     public void testCharsetSeparatorSpace() {
-        this.parseAndCheck("UTF-8; ", "UTF-8");
+        this.parseStringAndCheck("UTF-8; ", "UTF-8");
     }
 
     @Test
     public void testCharsetSeparatorTab() {
-        this.parseAndCheck("UTF-8;\t", "UTF-8");
+        this.parseStringAndCheck("UTF-8;\t", "UTF-8");
     }
 
     @Test
     public void testCharsetParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("UTF-8;=", 6);
+        this.parseStringInvalidCharacterFails("UTF-8;=", 6);
     }
 
     @Test
     public void testCharsetParameterNameInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b>=c", '>');
+        this.parseStringInvalidCharacterFails("UTF-8;b>=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameSpaceInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b >=c", '>');
+        this.parseStringInvalidCharacterFails("UTF-8;b >=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameTabInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b\t>=c", '>');
+        this.parseStringInvalidCharacterFails("UTF-8;b\t>=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameEqualsInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b=\0c", '\0');
+        this.parseStringInvalidCharacterFails("UTF-8;b=\0c", '\0');
     }
 
     @Test
     public void testCharsetParameterNameEqualsParameterValue() {
-        this.parseAndCheck("UTF-8;b=c",
+        this.parseStringAndCheck("UTF-8;b=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameSpaceEqualsParameterValue() {
-        this.parseAndCheck("UTF-8;b =c",
+        this.parseStringAndCheck("UTF-8;b =c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameTabEqualsParameterValue() {
-        this.parseAndCheck("UTF-8;b\t=c",
+        this.parseStringAndCheck("UTF-8;b\t=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameSpaceTabSpaceTabEqualsParameterValue() {
-        this.parseAndCheck("UTF-8;b \t \t=c",
+        this.parseStringAndCheck("UTF-8;b \t \t=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameEqualsSpaceParameterValue() {
-        this.parseAndCheck("UTF-8;b= c",
+        this.parseStringAndCheck("UTF-8;b= c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameEqualsTabParameterValue() {
-        this.parseAndCheck("UTF-8;b=\tc",
+        this.parseStringAndCheck("UTF-8;b=\tc",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterNameEqualsSpaceTabSpaceTabParameterValue() {
-        this.parseAndCheck("UTF-8;b= \t \tc",
+        this.parseStringAndCheck("UTF-8;b= \t \tc",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterValueInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b=c>", '>');
+        this.parseStringInvalidCharacterFails("UTF-8;b=c>", '>');
     }
 
     @Test
     public void testCharsetParameterValueSpaceInvalidCharFails() {
-        this.parseInvalidCharacterFails("UTF-8;b=c Q", 'Q');
+        this.parseStringInvalidCharacterFails("UTF-8;b=c Q", 'Q');
     }
 
     @Test
     public void testCharsetParameterValueSpaceInvalidCharFails2() {
-        this.parseInvalidCharacterFails("UTF-8;b=c >", '>');
+        this.parseStringInvalidCharacterFails("UTF-8;b=c >", '>');
     }
 
     @Test
     public void testCharsetParameterSpace() {
-        this.parseAndCheck("UTF-8;bcd=123 ",
+        this.parseStringAndCheck("UTF-8;bcd=123 ",
                 "UTF-8",
                 "bcd", "123");
     }
 
     @Test
     public void testCharsetParameterSeparator() {
-        this.parseAndCheck("UTF-8;bcd=123;",
+        this.parseStringAndCheck("UTF-8;bcd=123;",
                 "UTF-8",
                 "bcd", "123");
     }
 
     @Test
     public void testCharsetParameterTab() {
-        this.parseAndCheck("UTF-8;bcd=123\t",
+        this.parseStringAndCheck("UTF-8;bcd=123\t",
                 "UTF-8",
                 "bcd", "123");
     }
 
     @Test
     public void testCharsetParameterSpaceTabSpaceTab() {
-        this.parseAndCheck("UTF-8;bcd=123 \t \t",
+        this.parseStringAndCheck("UTF-8;bcd=123 \t \t",
                 "UTF-8",
                 "bcd", "123");
     }
 
     @Test
     public void testCharsetParameterSeparatorSpaceParameter() {
-        this.parseAndCheck("UTF-8; b=c",
+        this.parseStringAndCheck("UTF-8; b=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetParameterSeparatorTabParameter() {
-        this.parseAndCheck("UTF-8;\tb=c",
+        this.parseStringAndCheck("UTF-8;\tb=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetSpaceParameterSeparatorParameter() {
-        this.parseAndCheck("UTF-8 ;b=c",
+        this.parseStringAndCheck("UTF-8 ;b=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetSpaceParameterSeparatorSpaceParameter() {
-        this.parseAndCheck("UTF-8 ; b=c",
+        this.parseStringAndCheck("UTF-8 ; b=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetTabParameterSeparatorTabParameter() {
-        this.parseAndCheck("UTF-8\t;\tb=c",
+        this.parseStringAndCheck("UTF-8\t;\tb=c",
                 "UTF-8",
                 "b", "c");
     }
 
     @Test
     public void testCharsetSpaceTabSpaceTabParameterSeparatorSpaceTabParameter() {
-        this.parseAndCheck("UTF-8 \t \t; \t \tb=c",
+        this.parseStringAndCheck("UTF-8 \t \t; \t \tb=c",
                 "UTF-8",
                 "b", "c");
     }
@@ -355,31 +355,31 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
     @Test
     public void testCharsetParameterNameQuotedParameterValueQuotedParameterValueFails() {
         final String text = "UTF-8;b=\"c\"\"d\"";
-        this.parseInvalidCharacterFails(text, text.indexOf('d') - 1);
+        this.parseStringInvalidCharacterFails(text, text.indexOf('d') - 1);
     }
 
     @Test
     public void testCharsetParameterSeparatorParameterNameFails() {
-        this.parseMissingParameterValueFails("UTF-8;b=c;D");
+        this.parseStringMissingParameterValueFails("UTF-8;b=c;D");
     }
 
     @Test
     public void testCharsetParameter() {
-        this.parseAndCheck("utf-8;p1=v1;",
+        this.parseStringAndCheck("utf-8;p1=v1;",
                 "utf-8",
                 "p1", "v1");
     }
 
     @Test
     public void testCharsetParameterQuotedValue() {
-        this.parseAndCheck("utf-8;p1=\"v1\";",
+        this.parseStringAndCheck("utf-8;p1=\"v1\";",
                 "utf-8",
                 "p1", "v1");
     }
 
     @Test
     public void testCharsetParameterSeparatorParameter() {
-        this.parseAndCheck("utf-8;p1=v1;p2=v2",
+        this.parseStringAndCheck("utf-8;p1=v1;p2=v2",
                 "utf-8",
                 "p1", "v1",
                 "p2", "v2");
@@ -387,7 +387,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testCharsetParameterWhitespaceSeparatorParameter() {
-        this.parseAndCheck("utf-8;p1=v1 ;p2=v2",
+        this.parseStringAndCheck("utf-8;p1=v1 ;p2=v2",
                 "utf-8",
                 "p1", "v1",
                 "p2", "v2");
@@ -395,7 +395,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testCharsetParameterParameterSeparatorWhitespaceParameter() {
-        this.parseAndCheck("utf-8;p1=v1; p2=v2",
+        this.parseStringAndCheck("utf-8;p1=v1; p2=v2",
                 "utf-8",
                 "p1", "v1",
                 "p2", "v2");
@@ -403,7 +403,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testCharsetSeparatorCharset() {
-        this.parseAndCheck("utf-8,utf-16;",
+        this.parseStringAndCheck("utf-8,utf-16;",
                 this.charsetHeaderValue("utf-8"),
                 this.charsetHeaderValue("utf-16"));
     }
@@ -412,13 +412,13 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testQInvalidValueFails() {
-        this.parseFails("utf-8; q=X",
+        this.parseStringFails("utf-8; q=X",
                 "Failed to convert \"q\" value \"X\", message: For input string: \"X\"");
     }
 
     @Test
     public void testQ() {
-        this.parseAndCheck("utf-8; q=0.75",
+        this.parseStringAndCheck("utf-8; q=0.75",
                 "utf-8",
                 "q",
                 0.75f);
@@ -426,7 +426,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testCharsetSeparatorCharsetQSorted() {
-        this.parseAndCheck("utf-8; q=0.5, utf-16; q=0.75",
+        this.parseStringAndCheck("utf-8; q=0.5, utf-16; q=0.75",
                 this.charsetHeaderValue("utf-16", "q", 0.75f),
                 this.charsetHeaderValue("utf-8", "q", 0.5f));
     }
@@ -434,38 +434,38 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
     // helpers...................................................................................................
 
     @Override
-    public AcceptCharset parse(final String text) {
+    public AcceptCharset parseString(final String text) {
         return AcceptCharsetHeaderValueParser.parseAcceptCharset(text);
     }
 
-    private void parseAndCheck(final String headerValue, final String charset) {
-        this.parseAndCheck(headerValue, charset, CharsetHeaderValue.NO_PARAMETERS);
+    private void parseStringAndCheck(final String headerValue, final String charset) {
+        this.parseStringAndCheck(headerValue, charset, CharsetHeaderValue.NO_PARAMETERS);
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String charset,
                                final String parameterName, final Object parameterValue) {
-        this.parseAndCheck(headerValue, charset, this.parameters(parameterName, parameterValue));
+        this.parseStringAndCheck(headerValue, charset, this.parameters(parameterName, parameterValue));
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String charset,
                                final String parameterName1, final Object parameterValue1,
                                final String parameterName2, final Object parameterValue2) {
-        this.parseAndCheck(headerValue,
+        this.parseStringAndCheck(headerValue,
                 charset,
                 parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
-    private void parseAndCheck(final String headerValue,
+    private void parseStringAndCheck(final String headerValue,
                                final String charset,
                                final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        this.parseAndCheck(headerValue,
+        this.parseStringAndCheck(headerValue,
                 CharsetHeaderValue.with(CharsetName.with(charset)).setParameters(parameters));
     }
 
-    private void parseAndCheck(final String headerValue, final CharsetHeaderValue... values) {
-        this.parseAndCheck(headerValue, AcceptCharset.with(Lists.of(values)));
+    private void parseStringAndCheck(final String headerValue, final CharsetHeaderValue... values) {
+        this.parseStringAndCheck(headerValue, AcceptCharset.with(Lists.of(values)));
     }
 
     private CharsetHeaderValue charsetHeaderValue(final String charset) {

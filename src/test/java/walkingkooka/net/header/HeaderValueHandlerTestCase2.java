@@ -114,25 +114,25 @@ public abstract class HeaderValueHandlerTestCase2<C extends HeaderValueHandler<T
     }
 
     final void parseAndToTextAndCheck(final String text, final T value) {
-        this.parseAndCheck(text, value);
+        this.parseStringAndCheck(text, value);
         this.toTextAndCheck(value, text);
     }
 
-    final void parseAndCheck(final String value, final T expected) {
-        this.parseAndCheck(value, this.name(), expected);
+    final void parseStringAndCheck(final String value, final T expected) {
+        this.parseStringAndCheck(value, this.name(), expected);
     }
 
     abstract Name name();
 
-    final void parseAndCheck(final String value, final Name name, final T expected) {
-        this.parseAndCheck(this.handler(), value, name, expected);
+    final void parseStringAndCheck(final String value, final Name name, final T expected) {
+        this.parseStringAndCheck(this.handler(), value, name, expected);
     }
 
-    final void parseAndCheck(final C handler, final String value, final T expected) {
-        this.parseAndCheck(handler, value, this.name(), expected);
+    final void parseStringAndCheck(final C handler, final String value, final T expected) {
+        this.parseStringAndCheck(handler, value, this.name(), expected);
     }
 
-    final void parseAndCheck(final C handler, final String value, final Name name, final T expected) {
+    final void parseStringAndCheck(final C handler, final String value, final Name name, final T expected) {
         assertEquals(expected,
                 handler.parse(value, name),
                 () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));

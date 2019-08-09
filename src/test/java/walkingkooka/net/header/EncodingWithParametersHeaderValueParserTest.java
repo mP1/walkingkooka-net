@@ -24,84 +24,84 @@ public final class EncodingWithParametersHeaderValueParserTest extends HeaderVal
 
     @Test
     public void testWhitespaceFails() {
-        this.parseMissingValueFails("  ");
+        this.parseStringMissingValueFails("  ");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("ab/c", '/');
+        this.parseStringInvalidCharacterFails("ab/c", '/');
     }
 
     @Test
     public void testCommentFails() {
-        this.parseCommentFails("(abc)", 0);
+        this.parseStringCommentFails("(abc)", 0);
     }
 
     @Test
     public void testTokenCommentFails() {
-        this.parseCommentFails("gzip(abc)", 4);
+        this.parseStringCommentFails("gzip(abc)", 4);
     }
 
     @Test
     public void testQuotedTextFails() {
-        this.parseInvalidCharacterFails("\"quoted text 123\"", 0);
+        this.parseStringInvalidCharacterFails("\"quoted text 123\"", 0);
     }
 
     @Test
     public void testTokenQuotedTextFails() {
-        this.parseInvalidCharacterFails("abc \"quoted text 123\"", '"');
+        this.parseStringInvalidCharacterFails("abc \"quoted text 123\"", '"');
     }
 
     @Test
     public void testToken() {
-        this.parseAndCheck("gzip",
+        this.parseStringAndCheck("gzip",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
-        this.parseAndCheck("gzip ",
+        this.parseStringAndCheck("gzip ",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
-        this.parseAndCheck(" gzip",
+        this.parseStringAndCheck(" gzip",
                 EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
-        this.parseAndCheck("gzip;q=0.5",
+        this.parseStringAndCheck("gzip;q=0.5",
                 EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
-        this.parseAndCheck("gzip;q=0.5;abc=xyz",
+        this.parseStringAndCheck("gzip;q=0.5;abc=xyz",
                 EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
                         EncodingParameterName.with("abc"), "xyz")));
     }
 
     @Test
     public void testWildcard() {
-        this.parseAndCheck("*",
+        this.parseStringAndCheck("*",
                 EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardParameter() {
-        this.parseAndCheck("*;q=0.5",
+        this.parseStringAndCheck("*;q=0.5",
                 EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public void testTokenCommaToken() {
-        this.parseInvalidCharacterFails("gzip,deflate", ',');
+        this.parseStringInvalidCharacterFails("gzip,deflate", ',');
     }
 
     @Override
-    public EncodingWithParameters parse(final String text) {
+    public EncodingWithParameters parseString(final String text) {
         return EncodingWithParametersHeaderValueParser.parseEncoding(text);
     }
 

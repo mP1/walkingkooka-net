@@ -90,7 +90,7 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
 
     @Test
     public void testParse() {
-        this.parseAndCheck("en, *;q=0.5",
+        this.parseStringAndCheck("en, *;q=0.5",
                 AcceptLanguage.with(Lists.of(LanguageWithParameters.parse("en"),
                 LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)))));
     }
@@ -147,7 +147,7 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
     // ParseStringTesting ........................................................................................
 
     @Override
-    public AcceptLanguage parse(final String text) {
+    public AcceptLanguage parseString(final String text) {
         return AcceptLanguage.parse(text);
     }
 

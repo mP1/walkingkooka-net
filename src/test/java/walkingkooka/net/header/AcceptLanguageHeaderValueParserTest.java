@@ -26,14 +26,14 @@ public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrL
 
     @Test
     public void testMultipleLanguages() {
-        this.parseAndCheck3("en-US,en;q=0.5",
+        this.parseStringAndCheck3("en-US,en;q=0.5",
                 this.language("en-US"),
                 this.language("en", 0.5f));
     }
 
     @Test
     public void testMultipleLanguagesSorted() {
-        this.parseAndCheck3("de;q=0.75,fr;q=0.25,en;q=0.5",
+        this.parseStringAndCheck3("de;q=0.75,fr;q=0.25,en;q=0.5",
                 this.language("de", 0.75f),
                 this.language("en", 0.5f),
                 this.language("fr", 0.25f));
@@ -48,18 +48,18 @@ public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrL
         return LanguageWithParameters.with(LanguageName.with(language));
     }
 
-    private void parseAndCheck3(final String text,
+    private void parseStringAndCheck3(final String text,
                                 final LanguageWithParameters... languages) {
-        this.parseAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
+        this.parseStringAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
     }
 
     @Override
-    void parseAndCheck2(final String text, final LanguageWithParameters language) {
-        this.parseAndCheck3(text, language);
+    void parseStringAndCheck2(final String text, final LanguageWithParameters language) {
+        this.parseStringAndCheck3(text, language);
     }
 
     @Override
-    public AcceptLanguage parse(final String text) {
+    public AcceptLanguage parseString(final String text) {
         return AcceptLanguageHeaderValueParser.parseAcceptLanguage(text);
     }
 

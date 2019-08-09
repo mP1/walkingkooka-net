@@ -24,88 +24,88 @@ public final class ContentEncodingHeaderValueParserTest extends HeaderValueParse
 
     @Test
     public void testWhitespaceFails() {
-        this.parseMissingValueFails("  ");
+        this.parseStringMissingValueFails("  ");
     }
 
     @Test
     public void testCommentFails() {
-        this.parseCommentFails("(abc)", 0);
+        this.parseStringCommentFails("(abc)", 0);
     }
 
     @Test
     public void testParametersFails() {
-        this.parseInvalidCharacterFails("gzip;x=1", ';');
+        this.parseStringInvalidCharacterFails("gzip;x=1", ';');
     }
 
     @Test
     public void testQuotedTextFails() {
-        this.parseInvalidCharacterFails("\"hello\"", 0);
+        this.parseStringInvalidCharacterFails("\"hello\"", 0);
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("ab/c", '/');
+        this.parseStringInvalidCharacterFails("ab/c", '/');
     }
 
     @Test
     public void testWildcardFails() {
-        this.parseInvalidCharacterFails("*", '*');
+        this.parseStringInvalidCharacterFails("*", '*');
     }
 
     @Test
     public void testTokenCommaWildcardFails() {
-        this.parseInvalidCharacterFails("abc, *, def", '*');
+        this.parseStringInvalidCharacterFails("abc, *, def", '*');
     }
 
     @Test
     public void testTokenCommentFails() {
-        this.parseCommentFails("gzip(abc)", 4);
+        this.parseStringCommentFails("gzip(abc)", 4);
     }
 
     @Test
     public void testTokenSeparatorFails() {
-        this.parseInvalidCharacterFails("abc;", ';');
+        this.parseStringInvalidCharacterFails("abc;", ';');
     }
 
     @Test
     public void testToken() {
-        this.parseAndCheck2("gzip",
+        this.parseStringAndCheck2("gzip",
                 Encoding.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
-        this.parseAndCheck2("gzip ",
+        this.parseStringAndCheck2("gzip ",
                 Encoding.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
-        this.parseAndCheck2(" gzip",
+        this.parseStringAndCheck2(" gzip",
                 Encoding.GZIP);
     }
 
     @Test
     public void testTokenCommaToken() {
-        this.parseAndCheck2("gzip,deflate",
+        this.parseStringAndCheck2("gzip,deflate",
                 Encoding.GZIP,
                 Encoding.DEFLATE);
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
-        this.parseAndCheck2("gzip, deflate,  br",
+        this.parseStringAndCheck2("gzip, deflate,  br",
                 Encoding.GZIP,
                 Encoding.DEFLATE,
                 Encoding.BR);
     }
 
-    private void parseAndCheck2(final String text, final Encoding...encodings) {
-        this.parseAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
+    private void parseStringAndCheck2(final String text, final Encoding...encodings) {
+        this.parseStringAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
     }
 
     @Override
-    public ContentEncoding parse(final String text) {
+    public ContentEncoding parseString(final String text) {
         return ContentEncodingHeaderValueParser.parseContentEncoding(text);
     }
 

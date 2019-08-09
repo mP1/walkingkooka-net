@@ -30,62 +30,62 @@ public abstract class ETagHeaderValueParserTestCase<P extends ETagHeaderValuePar
 
     @Test
     public final void testParameterSeparatorFails() {
-        this.parseInvalidCharacterFails(";");
+        this.parseStringInvalidCharacterFails(";");
     }
 
     @Test
     public final void testKeyValueSeparatorFails() {
-        this.parseInvalidCharacterFails("=");
+        this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
     public void testSlashFails() {
-        this.parseInvalidCharacterFails("/");
+        this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
     public final void testCommentFails() {
-        this.parseCommentFails("(comment-abc123)", 0);
+        this.parseStringCommentFails("(comment-abc123)", 0);
     }
 
     @Test
     public final void testInvalidInitialFails2() {
-        this.parseInvalidCharacterFails("w");
+        this.parseStringInvalidCharacterFails("w");
     }
 
     @Test
     public final void testInvalidInitialFails3() {
-        this.parseInvalidCharacterFails("0");
+        this.parseStringInvalidCharacterFails("0");
     }
 
     @Test
     public final void testInvalidQuotedCharacterFails() {
-        this.parseInvalidCharacterFails("\"abc\0\"", '\0');
+        this.parseStringInvalidCharacterFails("\"abc\0\"", '\0');
     }
 
     @Test
     public final void testInvalidQuotedCharacterFails2() {
-        this.parseInvalidCharacterFails("W/\"abc\0\"", '\0');
+        this.parseStringInvalidCharacterFails("W/\"abc\0\"", '\0');
     }
 
     @Test
     public final void testWFails() {
-        this.parseFails("W", ETagHeaderValueParser.incompleteWeakIndicator("W"));
+        this.parseStringFails("W", ETagHeaderValueParser.incompleteWeakIndicator("W"));
     }
 
     @Test
     public final void testWeaknessWithoutQuotedValueFails() {
-        this.parseMissingValueFails("W/");
+        this.parseStringMissingValueFails("W/");
     }
 
     @Test
     public final void testWeakInvalidFails() {
-        this.parseInvalidCharacterFails("WA");
+        this.parseStringInvalidCharacterFails("WA");
     }
 
     @Test
     public final void testWeakInvalidFails2() {
-        this.parseInvalidCharacterFails("W0");
+        this.parseStringInvalidCharacterFails("W0");
     }
 
     @Test
@@ -105,50 +105,50 @@ public abstract class ETagHeaderValueParserTestCase<P extends ETagHeaderValuePar
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck("*", ETag.wildcard());
+        this.parseStringAndCheck("*", ETag.wildcard());
     }
 
     @Test
     public final void testValue() {
-        this.parseAndCheck("\"a\"", "a");
+        this.parseStringAndCheck("\"a\"", "a");
     }
 
     @Test
     public final void testValue2() {
-        this.parseAndCheck("\"0\"", "0");
+        this.parseStringAndCheck("\"0\"", "0");
     }
 
     @Test
     public final void testValue3() {
-        this.parseAndCheck("\"0123456789ABCDEF\"", "0123456789ABCDEF");
+        this.parseStringAndCheck("\"0123456789ABCDEF\"", "0123456789ABCDEF");
     }
 
     @Test
     public final void testWeakValue() {
-        this.parseAndCheck("W/\"a\"", "a", ETagValidator.WEAK);
+        this.parseStringAndCheck("W/\"a\"", "a", ETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue2() {
-        this.parseAndCheck("W/\"0\"", "0", ETagValidator.WEAK);
+        this.parseStringAndCheck("W/\"0\"", "0", ETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue3() {
-        this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", ETagValidator.WEAK);
+        this.parseStringAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", ETagValidator.WEAK);
     }
 
     @Test
     public final void testValueCommentFails() {
-        this.parseCommentFails("*(comment-abc123)", 1);
+        this.parseStringCommentFails("*(comment-abc123)", 1);
     }
 
-    final void parseAndCheck(final String text, final String value) {
-        this.parseAndCheck(text, value, ETagValidator.STRONG);
+    final void parseStringAndCheck(final String text, final String value) {
+        this.parseStringAndCheck(text, value, ETagValidator.STRONG);
     }
 
-    final void parseAndCheck(final String text, final String value, final ETagValidator validator) {
-        this.parseAndCheck(text, ETag.with(value, validator));
+    final void parseStringAndCheck(final String text, final String value, final ETagValidator validator) {
+        this.parseStringAndCheck(text, ETag.with(value, validator));
     }
 
     @Override

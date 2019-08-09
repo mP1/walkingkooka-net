@@ -53,18 +53,18 @@ public final class EncodingTest extends HeaderValueTestCase<Encoding>
 
     @Test
     public void testParse() {
-        this.parseAndCheck("gzip",
+        this.parseStringAndCheck("gzip",
                 Encoding.GZIP);
     }
 
     @Test
     public void testParseExtraWhitespaceFails() {
-        this.parseFails("gzip ", InvalidCharacterException.class);
+        this.parseStringFails("gzip ", InvalidCharacterException.class);
     }
 
     @Test
     public void testParseTokenParametersFails() {
-        this.parseFails("abc;qrs=xyz", InvalidCharacterException.class);
+        this.parseStringFails("abc;qrs=xyz", InvalidCharacterException.class);
     }
 
     @Test
@@ -154,7 +154,7 @@ public final class EncodingTest extends HeaderValueTestCase<Encoding>
     // ParseStringTesting................................................................................................
 
     @Override
-    public Encoding parse(final String text) {
+    public Encoding parseString(final String text) {
         return Encoding.parse(text);
     }
 }

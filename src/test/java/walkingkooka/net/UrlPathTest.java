@@ -38,18 +38,18 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         SerializationTesting<UrlPath> {
 
     @Test
-    public void testParseEmpty() {
-        this.parseAndCheck("", UrlPath.EMPTY);
+    public void testParseStringEmpty() {
+        this.parseStringAndCheck("", UrlPath.EMPTY);
     }
 
     @Override
-    public void testParseEmptyFails() {
+    public void testParseStringEmptyFails() {
         // ignored
     }
 
     @Test
     public void testParseRoot() {
-        assertSame(UrlPath.ROOT, this.parseAndCheck("/", UrlPath.ROOT));
+        assertSame(UrlPath.ROOT, this.parseStringAndCheck("/", UrlPath.ROOT));
     }
 
     @Test
@@ -204,17 +204,17 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     // ParseStringTesting ........................................................................................
 
     @Override
-    public UrlPath parse(final String text) {
+    public UrlPath parseString(final String text) {
         return UrlPath.parse(text);
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 

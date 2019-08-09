@@ -58,32 +58,32 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
 
     @Test
     public void testParseNonDataUrlFails() {
-        this.parseFails("http://example.com", IllegalArgumentException.class);
+        this.parseStringFails("http://example.com", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseNonBase64Fails() {
-        this.parseFails("data:text/plain;unsupported,XYZ123", IllegalArgumentException.class);
+        this.parseStringFails("data:text/plain;unsupported,XYZ123", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseMissingBinaryFails() {
-        this.parseFails("data:text/plain;base64", IllegalArgumentException.class);
+        this.parseStringFails("data:text/plain;base64", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseWithContentTypeBase64AndEncoded() {
-        this.parseAndCheck("data:text/plain;base64,YWJjMTIz", this.createUrl());
+        this.parseStringAndCheck("data:text/plain;base64,YWJjMTIz", this.createUrl());
     }
 
     @Test
     public void testParseWithContentTypeAndEncoded() {
-        this.parseAndCheck("data:text/plain,YWJjMTIz", this.createUrl());
+        this.parseStringAndCheck("data:text/plain,YWJjMTIz", this.createUrl());
     }
 
     @Test
     public void testParseWithoutContentType() {
-        this.parseAndCheck("data:;base64,YWJjMTIz", DataUrl.with(Optional.empty(), this.binary()));
+        this.parseStringAndCheck("data:;base64,YWJjMTIz", DataUrl.with(Optional.empty(), this.binary()));
     }
 
     // UrlVisitor......................................................................................................
@@ -146,7 +146,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     // ParseStringTesting...............................................................................................
 
     @Override
-    public DataUrl parse(final String text) {
+    public DataUrl parseString(final String text) {
         return DataUrl.parseData0(text);
     }
 

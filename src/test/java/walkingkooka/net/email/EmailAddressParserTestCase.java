@@ -32,42 +32,42 @@ public abstract class EmailAddressParserTestCase<P extends EmailAddressParser> i
 
     @Test
     public final void testValid() {
-        this.parse("user@example.com");
+        this.parseString("user@example.com");
     }
 
-    abstract void parse(final String text);
+    abstract void parseString(final String text);
 
     @Test
     public final void testEmailTooLongFails() {
-        this.parseFails("user1234567890@example" + CharSequences.repeating('0', 255));
+        this.parseStringFails("user1234567890@example" + CharSequences.repeating('0', 255));
     }
 
     @Test
     public final void testMissingUserFails() {
-        this.parseFails("@example.com");
+        this.parseStringFails("@example.com");
     }
 
     @Test
     public final void testUserNameTooLongFails() {
-        this.parseFails("user" + CharSequences.repeating('0', 100) + "@example.com");
+        this.parseStringFails("user" + CharSequences.repeating('0', 100) + "@example.com");
     }
 
     @Test
     public final void testMissingHostFails() {
-        this.parseFails("user@");
+        this.parseStringFails("user@");
     }
 
     @Test
     public final void testMissingHostFails2() {
-        this.parseFails("user");
+        this.parseStringFails("user");
     }
 
     @Test
     public final void testInvalidCharacterFails() {
-        this.parseFails("user@:example.com");
+        this.parseStringFails("user@:example.com");
     }
 
-    abstract void parseFails(final String text);
+    abstract void parseStringFails(final String text);
 
     // ClassTesting.....................................................................................................
 

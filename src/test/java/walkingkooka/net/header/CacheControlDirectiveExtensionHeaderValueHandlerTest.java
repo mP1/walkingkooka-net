@@ -37,12 +37,12 @@ public final class CacheControlDirectiveExtensionHeaderValueHandlerTest extends
 
     @Test
     public void testParseNumber() {
-        this.parseAndCheck("123", 123L);
+        this.parseStringAndCheck("123", 123L);
     }
 
     @Test
     public void testParseText() {
-        this.parseAndCheck("abc", "abc");
+        this.parseStringAndCheck("abc", "abc");
     }
 
     @Test

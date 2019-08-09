@@ -29,7 +29,7 @@ public final class ETagHeaderValueHandlerTest extends
 
     @Test
     public void testParse() {
-        this.parseAndCheck("W/\"123\"", ETag.with("123", ETagValidator.WEAK));
+        this.parseStringAndCheck("W/\"123\"", ETag.with("123", ETagValidator.WEAK));
     }
 
     @Test

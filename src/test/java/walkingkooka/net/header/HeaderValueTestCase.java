@@ -30,12 +30,12 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> implements Clas
     }
 
     @Override
-    public final RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return new HeaderValueException(expected.getMessage(), expected);
     }
 
     @Override
-    public final Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return HeaderValueException.class;
     }
 }

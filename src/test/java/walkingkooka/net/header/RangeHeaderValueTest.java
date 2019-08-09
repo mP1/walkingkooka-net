@@ -174,60 +174,60 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testParseWithInvalidUnitFails() {
-        this.parseFails2("invalid=0-100");
+        this.parseStringFails2("invalid=0-100");
     }
 
     @Test
     public void testParseWithNoneUnitFails() {
-        this.parseFails2("none=0-100");
+        this.parseStringFails2("none=0-100");
     }
 
     @Test
     public void testParseWithOverlapFails() {
-        this.parseFails2("bytes=100-150,200-250,225-300");
+        this.parseStringFails2("bytes=100-150,200-250,225-300");
     }
 
     @Test
     public void testParseWithOverlapFails2() {
-        this.parseFails2("bytes=100-150,200-250,225-");
+        this.parseStringFails2("bytes=100-150,200-250,225-");
     }
 
     @Test
     public void testParseWithOverlapFails3() {
-        this.parseFails2("bytes=-150,200-250,125-175");
+        this.parseStringFails2("bytes=-150,200-250,125-175");
     }
 
     @Test
     public void testParseRangeMissingStartFails() {
-        this.parseFails2("bytes=-99");
+        this.parseStringFails2("bytes=-99");
     }
 
     @Test
     public void testParseRangeMissingStartFails2() {
-        this.parseFails2("bytes=98-99,-50");
+        this.parseStringFails2("bytes=98-99,-50");
     }
 
-    private void parseFails2(final String text) {
-        this.parseFails(text, HeaderValueException.class);
+    private void parseStringFails2(final String text) {
+        this.parseStringFails(text, HeaderValueException.class);
     }
 
     @Test
     public void testParseOpenRange() {
-        this.parseAndCheck("bytes=123-",
+        this.parseStringAndCheck("bytes=123-",
                 UNIT,
                 this.rangeGte123());
     }
 
     @Test
     public void testParseClosedRange() {
-        this.parseAndCheck("bytes=123-456",
+        this.parseStringAndCheck("bytes=123-456",
                 UNIT,
                 this.rangeGte123().and(this.rangeLte456()));
     }
 
     @Test
     public void testParseClosedCommaRangeOpen() {
-        this.parseAndCheck("bytes=123-456,789-",
+        this.parseStringAndCheck("bytes=123-456,789-",
                 UNIT,
                 this.rangeGte123().and(this.rangeLte456()),
                 this.rangeGte789());
@@ -235,7 +235,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testParseClosedCommaWhitespaceRangeOpen() {
-        this.parseAndCheck("bytes=123-456, 789-",
+        this.parseStringAndCheck("bytes=123-456, 789-",
                 UNIT,
                 this.rangeGte123().and(this.rangeLte456()),
                 this.rangeGte789());
@@ -243,7 +243,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testParseClosedCommaWhitespaceRangeOpen2() {
-        this.parseAndCheck("bytes=123-456,  789-",
+        this.parseStringAndCheck("bytes=123-456,  789-",
                 UNIT,
                 this.rangeGte123().and(this.rangeLte456()),
                 this.rangeGte789());
@@ -251,23 +251,23 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testParseClosedCommaRangeClosed() {
-        this.parseAndCheck("bytes=123-456,789-1000",
+        this.parseStringAndCheck("bytes=123-456,789-1000",
                 UNIT,
                 this.rangeGte123().and(this.rangeLte456()),
                 this.rangeGte789().and(this.rangeLte1000()));
     }
 
     @SafeVarargs
-    private final void parseAndCheck(final String text,
+    private final void parseStringAndCheck(final String text,
                                      final RangeHeaderValueUnit unit,
                                      final Range<Long>... values) {
-        this.parseAndCheck(text, RangeHeaderValue.with(unit, Lists.of(values)));
+        this.parseStringAndCheck(text, RangeHeaderValue.with(unit, Lists.of(values)));
     }
 
     // ParseStringTesting ........................................................................................
 
     @Override
-    public RangeHeaderValue parse(final String text) {
+    public RangeHeaderValue parseString(final String text) {
         return RangeHeaderValue.parse(text);
     }
 
