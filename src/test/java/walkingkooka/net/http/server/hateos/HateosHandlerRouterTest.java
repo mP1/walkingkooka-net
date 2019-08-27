@@ -48,6 +48,8 @@ import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
@@ -389,7 +391,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                               },
                 "/api/resource1//self",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.OK.setMessage("GET resource successful"),
                 this.httpEntity("{\n" +
                         "  \"id\": \"127\",\n" +
@@ -454,7 +456,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                               },
                 "/api/resource1/1f/self",
                 contentType,
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.OK.setMessage("GET resource successful"),
                 this.httpEntity("{\n" +
                         "  \"id\": \"127\",\n" +
@@ -482,7 +484,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 HttpMethod.GET,
                 "/api/resource1/1f/self",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.NO_CONTENT.setMessage("GET resource successful"),
                 this.httpEntity("", this.contentType()));
     }
@@ -502,7 +504,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 HttpMethod.POST,
                 "/api/resource1/1f/self",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.NO_CONTENT.setMessage("POST resource successful"),
                 this.httpEntity("", this.contentType()));
     }
@@ -522,7 +524,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 HttpMethod.PUT,
                 "/api/resource1/1f/self",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.NO_CONTENT.setMessage("PUT resource successful"),
                 this.httpEntity("", this.contentType()));
     }
@@ -542,7 +544,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 HttpMethod.DELETE,
                 "/api/resource1/1f/self",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.NO_CONTENT.setMessage("DELETE resource successful"),
                 this.httpEntity("", this.contentType()));
     }
@@ -562,7 +564,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 HttpMethod.DELETE,
                 "/api/resource1/1f/self/extra-ignored-path",
                 this.contentType(),
-                RESOURCE_IN.toJsonNode().toString(),
+                this.toJson(RESOURCE_IN),
                 HttpStatusCode.NO_CONTENT.setMessage("DELETE resource successful"),
                 this.httpEntity("", this.contentType()));
     }
@@ -797,7 +799,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 responseResource,
                 url,
                 contentType,
-                requestResource.map(r -> r.toJsonNode().toString()).orElse(""),
+                requestResource.map(this::toJson).orElse(""),
                 status,
                 responseBody);
     }
@@ -870,18 +872,21 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
     @Override
     public HateosHandlerRouter<JsonNode> createRouter() {
         final HateosHandlerRouterBuilder<JsonNode> builder = this.builder();
-        //builder.add(this.resourceName1(), this.relation1(), new FakeHateosGetHandler<String, JsonNode>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
     }
 
     private HateosHandlerRouterBuilder<JsonNode> builder() {
         return HateosHandlerRouterBuilder.with(
                 this.base(),
-                HateosContentType.json());
+                this.hateosContentType());
     }
 
     private AbsoluteUrl base() {
         return Url.parseAbsolute("http://www.example.com/api");
+    }
+
+    private MediaType contentType() {
+        return this.hateosContentType().contentType();
     }
 
     private HateosResourceName resourceName1() {
@@ -896,12 +901,8 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
         return LinkRelation.SELF;
     }
 
-    private LinkRelation<?> relation2() {
-        return LinkRelation.NEXT;
-    }
-
-    private MediaType contentType() {
-        return HateosContentType.json().contentType();
+    private HateosContentType<JsonNode> hateosContentType() {
+        return HateosContentType.json(this.fromJsonNodeContext(), this.toJsonNodeContext());
     }
 
     private MediaType contentTypeUtf16() {
@@ -917,12 +918,24 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
             final byte[] bytes = this.bytes(body, contentType);
 
             final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-            headers.put(HttpHeaderName.CONTENT_TYPE, HateosContentType.json().contentType().setCharset(charsetName));
+            headers.put(HttpHeaderName.CONTENT_TYPE, this.contentType().setCharset(charsetName));
             headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes(body, contentType).length));
 
             entities = new HttpEntity[]{HttpEntity.with(headers, Binary.with(bytes))};
         }
         return entities;
+    }
+
+    private String toJson(final HateosResource<?> resource) {
+        return this.toJsonNodeContext().toJsonNode(resource).toString();
+    }
+
+    private FromJsonNodeContext fromJsonNodeContext() {
+        return FromJsonNodeContext.basic();
+    }
+
+    private ToJsonNodeContext toJsonNodeContext() {
+        return ToJsonNodeContext.basic();
     }
 
     private void routeAndCheck(final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper,

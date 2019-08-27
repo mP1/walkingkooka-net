@@ -24,7 +24,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.tree.json.HasJsonNodeStringTesting;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
@@ -34,7 +34,7 @@ import java.util.function.Predicate;
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         HashCodeEqualsDefinedTesting<U>,
-        HasJsonNodeStringTesting<U>,
+        JsonNodeMappingTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,
         SerializationTesting<U>,
@@ -63,10 +63,10 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         return this.createUrl();
     }
 
-    // HasJsonNodeTesting...............................................................................................
+    // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public final U createHasJsonNode() {
+    public final U createJsonNodeMappingValue() {
         return this.createUrl();
     }
 

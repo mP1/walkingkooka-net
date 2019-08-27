@@ -22,15 +22,36 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCase<HateosContentTypeJsonNode, JsonNode> {
 
     @Test
+    public void testWithNullFromJsonNodeContextFails() {
+        this.withFails(null, this.toJsonNodeContext());
+    }
+
+    @Test
+    public void testWithNullToJsonNodeContextFails() {
+        this.withFails(this.fromJsonNodeContext(), null);
+    }
+
+    private void withFails(final FromJsonNodeContext fromJsonNodeContext,
+                           final ToJsonNodeContext toJsonNodeContext) {
+        assertThrows(NullPointerException.class, () -> {
+            HateosContentTypeJsonNode.with(fromJsonNodeContext, toJsonNodeContext);
+        });
+    }
+
+    @Test
     public void testFromNode() {
         final TestHateosResource resource = TestHateosResource.with(BigInteger.valueOf(123));
-        this.fromNodeAndCheck(resource.toJsonNode().toString(),
+        this.fromNodeAndCheck(resource.toJsonNode(this.toJsonNodeContext()).toString(),
                 TestHateosResource.class,
                 resource);
     }
@@ -40,7 +61,9 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
         final TestHateosResource resource1 = TestHateosResource.with(BigInteger.valueOf(123));
         final TestHateosResource resource2 = TestHateosResource.with(BigInteger.valueOf(234));
 
-        this.fromNodeListAndCheck("[" + resource1.toJsonNode() + "," + resource2.toJsonNode() + "]",
+        final ToJsonNodeContext context = this.toJsonNodeContext();
+
+        this.fromNodeListAndCheck("[" + resource1.toJsonNode(context) + "," + resource2.toJsonNode(context) + "]",
                 TestHateosResource.class,
                 resource1, resource2);
     }
@@ -132,7 +155,15 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
 
     @Override
     HateosContentTypeJsonNode hateosContentType() {
-        return HateosContentTypeJsonNode.INSTANCE;
+        return HateosContentTypeJsonNode.with(this.fromJsonNodeContext(), this.toJsonNodeContext());
+    }
+
+    private FromJsonNodeContext fromJsonNodeContext() {
+        return FromJsonNodeContext.basic();
+    }
+
+    private ToJsonNodeContext toJsonNodeContext() {
+        return ToJsonNodeContext.basic();
     }
 
     @Override

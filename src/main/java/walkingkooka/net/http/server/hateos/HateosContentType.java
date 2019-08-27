@@ -23,6 +23,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -38,8 +40,10 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
     /**
      * Selects JSON formatted request and response bodies.
      */
-    public static HateosContentType<JsonNode> json() {
-        return HateosContentTypeJsonNode.INSTANCE;
+    public static HateosContentType<JsonNode> json(final FromJsonNodeContext fromJsonNodeContext,
+                                                   final ToJsonNodeContext toJsonNodeContext) {
+        return HateosContentTypeJsonNode.with(fromJsonNodeContext,
+                toJsonNodeContext);
     }
 
     /**

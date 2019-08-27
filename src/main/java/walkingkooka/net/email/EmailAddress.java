@@ -22,8 +22,10 @@ import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -38,7 +40,6 @@ import java.util.Optional;
 final public class EmailAddress implements Value<String>,
         Comparable<EmailAddress>,
         HashCodeEqualsDefined,
-        HasJsonNode,
         Serializable {
 
     /**
@@ -127,25 +128,26 @@ final public class EmailAddress implements Value<String>,
 
     private final HostAddress host;
 
-    // HasJsonNode...............................................................................
+    // JsonNodeContext..................................................................................................
 
     /**
      * Accepts a json string holding an email.
      */
-    static EmailAddress fromJsonNode(final JsonNode node) {
+    static EmailAddress fromJsonNode(final JsonNode node,
+                                     final FromJsonNodeContext context) {
         Objects.requireNonNull(node, "node");
 
         return parse(node.stringValueOrFail());
     }
 
-    @Override
-    public JsonNode toJsonNode() {
+    public JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.string(this.toString());
     }
 
     static {
-        HasJsonNode.register("email",
+        JsonNodeContext.register("email",
                 EmailAddress::fromJsonNode,
+                EmailAddress::toJsonNode,
                 EmailAddress.class);
     }
 

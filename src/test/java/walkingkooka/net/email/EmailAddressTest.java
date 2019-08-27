@@ -30,8 +30,9 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
@@ -45,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         ComparableTesting<EmailAddress>,
         HashCodeEqualsDefinedTesting<EmailAddress>,
-        HasJsonNodeStringTesting<EmailAddress>,
+        JsonNodeMappingTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
         ThrowableTesting,
@@ -1715,16 +1716,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         return this.createObject();
     }
 
-    // HasJsonNodeTesting......................................................................................
+    // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public EmailAddress createHasJsonNode() {
+    public EmailAddress createJsonNodeMappingValue() {
         return this.createObject();
     }
 
     @Override
-    public final EmailAddress fromJsonNode(final JsonNode from) {
-        return EmailAddress.fromJsonNode(from);
+    public final EmailAddress fromJsonNode(final JsonNode from,
+                                           final FromJsonNodeContext context) {
+        return EmailAddress.fromJsonNode(from, context);
     }
 
     // ParseStringTesting ..................................................................................................

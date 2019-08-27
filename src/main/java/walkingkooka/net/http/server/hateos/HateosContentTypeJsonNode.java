@@ -31,16 +31,18 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -48,16 +50,22 @@ import java.util.stream.Collectors;
  */
 final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
 
-    /**
-     * Singleton
-     */
-    final static HateosContentTypeJsonNode INSTANCE = new HateosContentTypeJsonNode();
+    final static HateosContentTypeJsonNode with(final FromJsonNodeContext fromJsonNodeContext,
+                                                final ToJsonNodeContext toJsonNodeContext) {
+        Objects.requireNonNull(fromJsonNodeContext, "fromJsonNodeContext");
+        Objects.requireNonNull(toJsonNodeContext, "toJsonNodeContext");
+
+        return new HateosContentTypeJsonNode(fromJsonNodeContext, toJsonNodeContext);
+    }
 
     /**
      * Private ctor use singleton.
      */
-    private HateosContentTypeJsonNode() {
+    private HateosContentTypeJsonNode(final FromJsonNodeContext fromJsonNodeContext,
+                                      final ToJsonNodeContext toJsonNodeContext) {
         super();
+        this.fromJsonNodeContext = fromJsonNodeContext;
+        this.toJsonNodeContext = toJsonNodeContext;
     }
 
     @Override
@@ -74,8 +82,8 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
     <R extends HateosResource<?>> R fromNode(final String text,
                                              final DocumentBuilder documentBuilder,
                                              final Class<R> resourceType) {
-        return JsonNode.parse(text)
-                .fromJsonNode(resourceType);
+        return this.fromJsonNodeContext.fromJsonNode(JsonNode.parse(text),
+                resourceType);
     }
 
     /**
@@ -85,8 +93,11 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
     <R extends HateosResource<?>> List<R> fromNodeList(final String text,
                                                        final DocumentBuilder documentBuilder,
                                                        final Class<R> resourceType) {
-        return JsonNode.parse(text).fromJsonNodeList(resourceType);
+        return this.fromJsonNodeContext.fromJsonNodeList(JsonNode.parse(text),
+                resourceType);
     }
+
+    private final FromJsonNodeContext fromJsonNodeContext;
 
     /**
      * The format for hateos urls is base + "/" + resource name + "/" + id + "/" + link relation
@@ -115,7 +126,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
     @Override
     String toTextValue(final Object value,
                        final DocumentBuilder documentBuilder) {
-        return HasJsonNode.toJsonNodeObject(value).toString();
+        return this.toJsonNodeContext.toJsonNode(value).toString();
     }
 
     @Override
@@ -137,7 +148,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                                                             final AbsoluteUrl base,
                                                             final HateosResourceName resourceName,
                                                             final Collection<LinkRelation<?>> linkRelations) {
-        final JsonNode node = resource.toJsonNode();
+        final JsonNode node = this.toJsonNodeContext.toJsonNode(resource);
         return node.isObject() ?
                 this.addLinks0(resource, node.objectOrFail(), method, base, resourceName, linkRelations) :
                 node;
@@ -150,6 +161,8 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                                                              final AbsoluteUrl base,
                                                              final HateosResourceName resourceName,
                                                              final Collection<LinkRelation<?>> linkRelations) {
+        final ToJsonNodeContext context = this.toJsonNodeContext;
+
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
@@ -169,7 +182,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                     pathAndResourceNameAndId.append(UrlPathName.with(relation.value().toString()))))
                     .setParameters(parameters);
 
-            links = links.appendChild(link.toJsonNode());
+            links = links.appendChild(context.toJsonNode(link));
         }
 
         return object.set(LINKS, links);
@@ -189,6 +202,8 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
         }
         return b.toString();
     }
+
+    private final ToJsonNodeContext toJsonNodeContext;
 
     @Override
     public String toString() {

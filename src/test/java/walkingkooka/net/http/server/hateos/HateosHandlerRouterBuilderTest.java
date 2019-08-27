@@ -27,6 +27,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
@@ -164,7 +166,7 @@ public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTes
     }
 
     private HateosContentType<JsonNode> contentType() {
-        return HateosContentType.json();
+        return HateosContentType.json(FromJsonNodeContext.basic(), ToJsonNodeContext.basic());
     }
 
     private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper() {
