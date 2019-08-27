@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.HasId;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
@@ -26,7 +25,6 @@ import walkingkooka.tree.xml.XmlNode;
  * Interface to be implemented by all values/entites that are registered with a {@link HateosResourceName}.
  */
 public interface HateosResource<I> extends HasId<I>,
-        HasJsonNode,
         HasXmlNode,
         HasHateosLinkId {
 

@@ -19,6 +19,9 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -145,11 +148,12 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         return RelativeUrl.class;
     }
 
-    // HasJsonNodeTesting...............................................................................................
+    // JsonNodeMapTesting...............................................................................................
 
     @Override
-    public RelativeUrl fromJsonNode(final JsonNode node) {
-        return Url.fromJsonNodeRelative(node);
+    public RelativeUrl fromJsonNode(final JsonNode node,
+                                    final FromJsonNodeContext context) {
+        return Url.fromJsonNodeRelative(node, context);
     }
 
     // ParseStringTesting ..............................................................................................

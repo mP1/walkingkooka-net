@@ -18,9 +18,11 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
@@ -33,10 +35,6 @@ import java.util.Optional;
  * The id type is {@link BigInteger} just to be different from {@link String}.
  */
 public final class TestHateosResource extends FakeHateosResource<Optional<BigInteger>> {
-
-    static TestHateosResource fromJsonNode(final JsonNode node) {
-        return with(node.objectOrFail().getOrFail(ID).fromJsonNode(BigInteger.class));
-    }
 
     static TestHateosResource with(final BigInteger id) {
         return new TestHateosResource(id);
@@ -59,13 +57,28 @@ public final class TestHateosResource extends FakeHateosResource<Optional<BigInt
         return Integer.toHexString(this.id.intValueExact());
     }
 
-    @Override
-    public JsonNode toJsonNode() {
+    // JsonNodeContext...................................................................................................
+
+    static TestHateosResource fromJsonNode(final JsonNode node,
+                                           final FromJsonNodeContext context) {
+        return with(context.fromJsonNode(node.objectOrFail().getOrFail(ID), BigInteger.class));
+    }
+
+    JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.object()
-                .set(ID, HasJsonNode.toJsonNodeObject(this.id));
+                .set(ID, context.toJsonNode(this.id));
     }
 
     private final static JsonNodeName ID = JsonNodeName.with("id");
+
+    static {
+        JsonNodeContext.register("test-HateosResource",
+                TestHateosResource::fromJsonNode,
+                TestHateosResource::toJsonNode,
+                TestHateosResource.class);
+    }
+
+    // toXmlNode........................................................................................................
 
     @Override
     public XmlNode toXmlNode() {
@@ -84,9 +97,7 @@ public final class TestHateosResource extends FakeHateosResource<Optional<BigInt
         }
     }
 
-    static {
-        HasJsonNode.register(TestHateosResource.class.getName(), TestHateosResource::fromJsonNode, TestHateosResource.class);
-    }
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

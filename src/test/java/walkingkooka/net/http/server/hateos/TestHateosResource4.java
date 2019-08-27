@@ -19,13 +19,12 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.xml.XmlNode;
 
 public final class TestHateosResource4 extends FakeHateosResource<String> {
-
-    static TestHateosResource4 fromJsonNode(final JsonNode node) {
-        return with(node.stringValueOrFail());
-    }
 
     static TestHateosResource4 with(final String id) {
         return new TestHateosResource4(id);
@@ -43,15 +42,32 @@ public final class TestHateosResource4 extends FakeHateosResource<String> {
 
     private final String id;
 
-    @Override
-    public JsonNode toJsonNode() {
+    // JsonNodeContext..................................................................................................
+
+    static TestHateosResource4 fromJsonNode(final JsonNode node,
+                                            final FromJsonNodeContext context) {
+        return with(node.stringValueOrFail());
+    }
+
+    JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.string(this.id);
     }
+
+    static {
+        JsonNodeContext.register("test-HateosResource4",
+                TestHateosResource4::fromJsonNode,
+                TestHateosResource4::toJsonNode,
+                TestHateosResource4.class);
+    }
+
+    // toXmlNode........................................................................................................
 
     @Override
     public XmlNode toXmlNode() {
         throw new UnsupportedOperationException();
     }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

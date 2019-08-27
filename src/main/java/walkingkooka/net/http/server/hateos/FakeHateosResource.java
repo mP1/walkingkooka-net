@@ -33,11 +33,6 @@ public class FakeHateosResource<I> implements HateosResource<I> {
     }
 
     @Override
-    public JsonNode toJsonNode() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public XmlNode toXmlNode() {
         throw new UnsupportedOperationException();
     }

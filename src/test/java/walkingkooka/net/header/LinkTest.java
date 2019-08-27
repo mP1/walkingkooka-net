@@ -26,10 +26,11 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.JavaVisibility;
 
@@ -46,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         LinkParameterName<?>>
-        implements HasJsonNodeTesting<Link>,
+        implements JsonNodeMappingTesting<Link>,
         ParseStringTesting<List<Link>> {
 
     @Test
@@ -343,15 +344,16 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         return Link.parse(text);
     }
 
-    // HasJsonNodeTesting..................................................................
+    // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public Link createHasJsonNode() {
+    public Link createJsonNodeMappingValue() {
         return this.createLink();
     }
 
     @Override
-    public Link fromJsonNode(final JsonNode from) {
-        return Link.fromJsonNode(from);
+    public Link fromJsonNode(final JsonNode from,
+                             final FromJsonNodeContext context) {
+        return Link.fromJsonNode(from, context);
     }
 }

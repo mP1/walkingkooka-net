@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.nio.charset.Charset;
@@ -136,11 +137,12 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         return Binary.with("abc123".getBytes(Charset.defaultCharset()));
     }
 
-    // HasJsonNodeTesting...............................................................................................
+    // JsonNodeMapTesting...............................................................................................
 
     @Override
-    public DataUrl fromJsonNode(final JsonNode node) {
-        return Url.fromJsonNodeData(node);
+    public DataUrl fromJsonNode(final JsonNode node,
+                                final FromJsonNodeContext context) {
+        return Url.fromJsonNodeData(node, context);
     }
 
     // ParseStringTesting...............................................................................................
