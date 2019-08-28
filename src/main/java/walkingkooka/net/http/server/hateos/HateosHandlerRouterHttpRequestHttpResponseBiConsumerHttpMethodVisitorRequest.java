@@ -316,28 +316,6 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
         return resource;
     }
 
-    /**
-     * Using the given request resource text (request body) read that into a {@link List list} of {@link HateosResource resources}.
-     */
-    <R extends HateosResource<?>> List<R> resourcesListOrBadRequest(final String requestText,
-                                                                    final HateosContentType<N> hateosContentType,
-                                                                    final Class<R> resourceType,
-                                                                    final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
-        List<R> resources;
-
-        if (requestText.isEmpty()) {
-            resources = Lists.empty();
-        } else {
-            try {
-                resources = hateosContentType.fromNodeList(requestText, null, resourceType);
-            } catch (final Exception cause) {
-                request.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
-                resources = null;
-            }
-        }
-        return resources;
-    }
-
     // error reporting.............................................................................................
 
     final void badRequest(final String message) {
