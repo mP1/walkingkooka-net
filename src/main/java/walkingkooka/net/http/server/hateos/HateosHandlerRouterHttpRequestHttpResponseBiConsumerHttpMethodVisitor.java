@@ -28,14 +28,13 @@ import walkingkooka.tree.Node;
 /**
  * Handles dispatching a request, defaulting to unsupported methods to a method not allowed response.
  */
-final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N extends Node<N, ?, ?, ?>,
-        H extends HateosContentType<N>> extends HttpMethodVisitor {
+final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N extends Node<N, ?, ?, ?>> extends HttpMethodVisitor {
 
     static <N extends Node<N, ?, ?, ?>,
             H extends HateosContentType<N>> void accept(final HttpRequest request,
                                                         final HttpResponse response,
                                                         final HateosHandlerRouter<N> router) {
-        final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N, H> visitor = new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor(request,
+        final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N> visitor = new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor(request,
                 response,
                 router);
         visitor.accept(request.method());

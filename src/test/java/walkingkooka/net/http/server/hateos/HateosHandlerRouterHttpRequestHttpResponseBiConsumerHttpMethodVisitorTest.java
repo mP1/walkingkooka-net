@@ -33,7 +33,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?, ?>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?>> {
 
     @Test
     public void testTraceFails() {
@@ -83,7 +83,7 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMetho
     }
 
     @Override
-    public HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?, ?> createVisitor() {
+    public HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?> createVisitor() {
         return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(null, null, null);
     }
 
@@ -97,7 +97,7 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMetho
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?, ?>> type() {
+    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?>> type() {
         return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.class);
     }
 
