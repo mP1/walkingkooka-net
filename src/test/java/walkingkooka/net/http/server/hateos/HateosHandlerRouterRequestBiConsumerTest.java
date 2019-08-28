@@ -40,7 +40,7 @@ import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerRouterRequestBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterRequestBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
+public final class HateosHandlerRouterRequestBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterRequestBiConsumer<JsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -88,7 +88,7 @@ public final class HateosHandlerRouterRequestBiConsumerTest extends HateosHandle
     }
 
     @Override
-    public Class<HateosHandlerRouterRequestBiConsumer<JsonNode, HateosContentTypeJsonNode>> type() {
+    public Class<HateosHandlerRouterRequestBiConsumer<JsonNode>> type() {
         return Cast.to(HateosHandlerRouterRequestBiConsumer.class);
     }
 

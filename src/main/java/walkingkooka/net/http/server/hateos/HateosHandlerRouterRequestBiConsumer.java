@@ -30,16 +30,13 @@ import java.util.function.BiConsumer;
  * A {@link BiConsumer} which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerRouterBuilder}.
  */
-final class HateosHandlerRouterRequestBiConsumer<N extends Node<N, ?, ?, ?>,
-        H extends HateosContentType<N>>
-        implements BiConsumer<HttpRequest, HttpResponse> {
+final class HateosHandlerRouterRequestBiConsumer<N extends Node<N, ?, ?, ?>> implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
      * Factory called by {@link HateosHandlerRouter#route}
      */
-    static <N extends Node<N, ?, ?, ?>,
-            H extends HateosContentType<N>> HateosHandlerRouterRequestBiConsumer<N, H> with(final HateosHandlerRouter<N> router) {
-        return new HateosHandlerRouterRequestBiConsumer<N, H>(router);
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterRequestBiConsumer<N> with(final HateosHandlerRouter<N> router) {
+        return new HateosHandlerRouterRequestBiConsumer<>(router);
     }
 
     /**
