@@ -120,15 +120,6 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
         return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
-    /**
-     * Converts the count to text holding JSON.
-     */
-    @Override
-    String toTextValue(final Object value,
-                       final DocumentBuilder documentBuilder) {
-        return this.toJsonNodeContext.toJsonNode(value).toString();
-    }
-
     @Override
     <R extends HateosResource<?>> String toTextList(final List<R> resources,
                                                     final DocumentBuilder documentBuilder,
