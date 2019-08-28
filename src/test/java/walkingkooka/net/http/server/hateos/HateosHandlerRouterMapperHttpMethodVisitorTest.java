@@ -17,10 +17,27 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpMethodVisitorTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
-public final class HateosHandlerRouterMapperHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterMapperHttpMethodVisitor> {
+import java.math.BigInteger;
+import java.util.function.Function;
+
+public final class HateosHandlerRouterMapperHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterMapperHttpMethodVisitor>,
+        ToStringTesting<HateosHandlerRouterMapperHttpMethodVisitor> {
+
+    @Test
+    public void testToString() {
+        final Function<String, BigInteger> parser = BigInteger::new;
+
+        final HateosHandlerRouterMapper<?, ?, ?> mapper = HateosHandlerRouterMapper.with(parser,
+                TestHateosResource.class,
+                TestHateosResource2.class);
+        this.toStringAndCheck(new HateosHandlerRouterMapperHttpMethodVisitor<>(mapper), mapper.toString());
+    }
+
     @Override
     public HateosHandlerRouterMapperHttpMethodVisitor createVisitor() {
         return new HateosHandlerRouterMapperHttpMethodVisitor<>(null);
