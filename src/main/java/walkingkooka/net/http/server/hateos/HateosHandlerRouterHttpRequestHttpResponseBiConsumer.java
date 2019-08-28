@@ -67,11 +67,6 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
         }
     }
 
-    static void methodNotAllowed(final String message,
-                                 final HttpResponse response) {
-        response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(message));
-    }
-
     private final HateosHandlerRouter<N> router;
 
     @Override
