@@ -19,16 +19,22 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.RecordingHttpResponse;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
@@ -36,7 +42,8 @@ import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>>
+        implements ToStringTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -74,6 +81,16 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest exte
                 () -> request.toString());
     }
 
+    @Test
+    public void testToString() {
+        final HateosHandlerRouter<?> router = HateosHandlerRouter.with(Url.parseAbsolute("http://example.com"),
+                HateosContentType.json(FromJsonNodeContexts.fake(), ToJsonNodeContexts.fake()),
+                Maps.empty());
+
+        this.toStringAndCheck(HateosHandlerRouterHttpRequestHttpResponseBiConsumer.with(router),
+                router.toString());
+    }
+
     @Override
     public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> type() {
         return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumer.class);
@@ -86,7 +103,7 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest exte
 
     @Override
     String typeNamePrefix2() {
-        return "HttpRequestHttpResponse";
+        return HttpRequest.class.getSimpleName() + HttpResponse.class.getSimpleName();
     }
 
     @Override
