@@ -17,14 +17,36 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethodVisitor;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequests;
+import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.BiConsumer;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequestTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequestTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>>
+        implements ToStringTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>> {
+
+    @Test
+    public void testToString() {
+        final HateosHandlerRouter<?> router = HateosHandlerRouter.with(Url.parseAbsolute("http://example.com"),
+                HateosContentType.json(FromJsonNodeContexts.fake(), ToJsonNodeContexts.fake()),
+                Maps.empty());
+        this.toStringAndCheck(HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest.with(router,
+                HttpRequests.fake(),
+                HttpResponses.fake()),
+                router.toString());
+    }
 
     @Override
     public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>> type() {
@@ -38,7 +60,7 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMetho
 
     @Override
     String typeNamePrefix2() {
-        return "HttpRequestHttpResponse";
+        return HttpRequest.class.getSimpleName() + HttpResponse.class.getSimpleName();
     }
 
     @Override
