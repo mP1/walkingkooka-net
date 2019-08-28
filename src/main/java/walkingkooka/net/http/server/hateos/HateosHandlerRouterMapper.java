@@ -297,7 +297,7 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
                                                                      final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<?> request) {
         final HateosHandlerRouterMapperHttpMethodVisitor<I, R, S> visitor = HateosHandlerRouterMapperHttpMethodVisitor.with(this);
         visitor.accept(request.request.method());
-        final HateosHandler<I, R, S> mapping = visitor.mapping;
+        final HateosHandler<I, R, S> mapping = visitor.handler;
 
         if (null == mapping) {
             request.methodNotAllowed(resourceName, linkRelation);

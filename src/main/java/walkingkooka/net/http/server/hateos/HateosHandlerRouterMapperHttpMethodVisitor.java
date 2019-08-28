@@ -24,7 +24,7 @@ import walkingkooka.net.http.HttpMethodVisitor;
 import java.util.Optional;
 
 /**
- * Uses a {@link walkingkooka.net.http.HttpMethod} to find the matching {@link HateosHandler}.
+ * A {@link HttpMethodVisitor} that selects the corresponding {@link HateosHandler} for the visited {@link walkingkooka.net.http.HttpMethod}.
  */
 final class HateosHandlerRouterMapperHttpMethodVisitor<I extends Comparable<I>,
         R extends HateosResource<Optional<I>>,
@@ -44,33 +44,33 @@ final class HateosHandlerRouterMapperHttpMethodVisitor<I extends Comparable<I>,
 
     @Override
     protected void visitGet() {
-        this.mapping = this.mapper.get;
+        this.handler = this.mapper.get;
     }
 
     @Override
     protected void visitPost() {
-        this.mapping = this.mapper.post;
+        this.handler = this.mapper.post;
     }
 
     @Override
     protected void visitPut() {
-        this.mapping = this.mapper.put;
+        this.handler = this.mapper.put;
     }
 
     @Override
     protected void visitDelete() {
-        this.mapping = this.mapper.delete;
+        this.handler = this.mapper.delete;
     }
 
     private final HateosHandlerRouterMapper<I, R, S> mapper;
 
-    HateosHandler<I, R, S> mapping;
+    HateosHandler<I, R, S> handler;
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.mapper)
-                .value(this.mapping)
+                .value(this.handler)
                 .build();
     }
 }
