@@ -59,7 +59,8 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
         Objects.requireNonNull(response, "response");
 
         try {
-            HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.accept(request, response, this.router);
+            HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.with(request, response, this.router)
+                    .accept(request.method());
         } catch (final UnsupportedOperationException unsupported) {
             response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(unsupported.getMessage()));
         } catch (final IllegalArgumentException badRequest) {

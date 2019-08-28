@@ -30,14 +30,13 @@ import walkingkooka.tree.Node;
  */
 final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N extends Node<N, ?, ?, ?>> extends HttpMethodVisitor {
 
-    static <N extends Node<N, ?, ?, ?>,
-            H extends HateosContentType<N>> void accept(final HttpRequest request,
-                                                        final HttpResponse response,
-                                                        final HateosHandlerRouter<N> router) {
-        final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<N> visitor = new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor(request,
+    static <N extends Node<N, ?, ?, ?>>
+    HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor with(final HttpRequest request,
+                                                                               final HttpResponse response,
+                                                                               final HateosHandlerRouter<N> router) {
+        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor(request,
                 response,
                 router);
-        visitor.accept(request.method());
     }
 
     HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor(final HttpRequest request,
