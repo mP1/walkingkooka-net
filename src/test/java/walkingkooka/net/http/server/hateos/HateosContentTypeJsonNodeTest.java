@@ -23,7 +23,9 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 
 import java.math.BigInteger;
 
@@ -159,11 +161,11 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContext.basic();
+        return FromJsonNodeContexts.basic();
     }
 
     private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContext.basic();
+        return ToJsonNodeContexts.basic();
     }
 
     @Override
