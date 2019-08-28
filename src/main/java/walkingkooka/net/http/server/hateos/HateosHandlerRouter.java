@@ -86,7 +86,7 @@ final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
         Objects.requireNonNull(parameters, "parameters");
 
         return Optional.ofNullable(-1 != consumeBasePath(parameters) ?
-                HateosHandlerRouterHttpRequestHttpResponseBiConsumer.with(this) :
+                HateosHandlerRouterRequestBiConsumer.with(this) :
                 null);
     }
 

@@ -33,7 +33,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?>> {
+public final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<?>> {
 
     @Test
     public void testTraceFails() {
@@ -65,7 +65,7 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMetho
         final RecordingHttpResponse response = HttpResponses.recording();
         final HateosHandlerRouter<?> router = null; // too hard to mock
 
-        new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(request, response, router).accept(method);
+        new HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<>(request, response, router).accept(method);
 
         assertEquals(Optional.of(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(method.toString())),
                 response.status(),
@@ -78,27 +78,27 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMetho
         final HttpResponse response = HttpResponses.fake();
         final HateosHandlerRouter<?> router = null; // too hard to mock
 
-        this.toStringAndCheck(new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(request, response, router),
+        this.toStringAndCheck(new HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<>(request, response, router),
                 request + " " + response);
     }
 
     @Override
-    public HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?> createVisitor() {
-        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(null, null, null);
+    public HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<?> createVisitor() {
+        return new HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<>(null, null, null);
     }
 
     // TypeNameTesting...................................................................................................
 
     @Override
     public String typeNamePrefix() {
-        return HateosHandlerRouterHttpRequestHttpResponseBiConsumer.class.getSimpleName();
+        return HateosHandlerRouterRequestBiConsumer.class.getSimpleName();
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?>> type() {
-        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.class);
+    public Class<HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<?>> type() {
+        return Cast.to(HateosHandlerRouterRequestBiConsumerHttpMethodVisitor.class);
     }
 
     @Override

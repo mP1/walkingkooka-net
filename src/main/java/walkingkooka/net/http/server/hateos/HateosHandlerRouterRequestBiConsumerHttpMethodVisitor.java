@@ -18,7 +18,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Binary;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.AcceptCharset;
@@ -30,6 +30,7 @@ import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpMethodVisitor;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -41,36 +42,84 @@ import walkingkooka.tree.Node;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
- * {@link HateosHandlerRouterBuilder}.
+ * Handles dispatching a request, defaulting to unsupported methods to a method not allowed response.
  */
-final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N extends Node<N, ?, ?, ?>> {
+final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node<N, ?, ?, ?>> extends HttpMethodVisitor {
 
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> with(final HateosHandlerRouter<N> router,
-                                                                                                                             final HttpRequest request,
-                                                                                                                             final HttpResponse response) {
-        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<>(router, request, response);
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterRequestBiConsumerHttpMethodVisitor with(final HttpRequest request,
+                                                                                                   final HttpResponse response,
+                                                                                                   final HateosHandlerRouter<N> router) {
+        return new HateosHandlerRouterRequestBiConsumerHttpMethodVisitor(request,
+                response,
+                router);
     }
 
-    /**
-     * Package private ctor use factory.
-     */
-    private HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest(final HateosHandlerRouter<N> router,
-                                                                                         final HttpRequest request,
-                                                                                         final HttpResponse response) {
+    HateosHandlerRouterRequestBiConsumerHttpMethodVisitor(final HttpRequest request,
+                                                          final HttpResponse response,
+                                                          final HateosHandlerRouter<N> router) {
         super();
-        this.router = router;
         this.request = request;
-        this.parameters = request.routingParameters();
         this.response = response;
+        this.router = router;
+    }
+
+    @Override
+    protected void visitHead() {
+        this.methodNotAllowed(HttpMethod.HEAD);
+    }
+
+    @Override
+    protected void visitGet() {
+        this.execute();
+    }
+
+    @Override
+    protected void visitPost() {
+        this.execute();
+    }
+
+    @Override
+    protected void visitPut() {
+        this.execute();
+    }
+
+    @Override
+    protected void visitDelete() {
+        this.execute();
+    }
+
+    @Override
+    protected void visitTrace() {
+        this.methodNotAllowed(HttpMethod.TRACE);
+    }
+
+    @Override
+    protected void visitOptions() {
+        this.methodNotAllowed(HttpMethod.OPTIONS);
+    }
+
+    @Override
+    protected void visitConnect() {
+        this.methodNotAllowed(HttpMethod.CONNECT);
+    }
+
+    @Override
+    protected void visitPatch() {
+        this.methodNotAllowed(HttpMethod.PATCH);
+    }
+
+    @Override
+    protected void visitUnknown(final HttpMethod method) {
+        this.methodNotAllowed(method);
     }
 
     final void execute() {
+        this.parameters = request.routingParameters();
+
         Loop:
 
         do {
@@ -144,6 +193,15 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
                     idOrRange,
                     pathIndex);
         } while (false);
+    }
+
+    /**
+     * Fetches the path component at the path index or returns null.
+     */
+    private String pathComponentOrNull(final int pathIndex) {
+        return HttpRequestAttributes.pathComponent(pathIndex).parameterValue(this.parameters)
+                .map(v -> v.value())
+                .orElse(null);
     }
 
     // ID MISSING.............................................................................................................
@@ -299,8 +357,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
      */
     <RR extends HateosResource<?>> Optional<RR> resourceOrBadRequest(final String requestText,
                                                                      final HateosContentType<N> hateosContentType,
-                                                                     final Class<RR> resourceType,
-                                                                     final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
+                                                                     final Class<RR> resourceType) {
         Optional<RR> resource;
 
         if (requestText.isEmpty()) {
@@ -309,14 +366,14 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
             try {
                 resource = Optional.of(hateosContentType.fromNode(requestText, null, resourceType));
             } catch (final Exception cause) {
-                request.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
+                this.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
                 resource = null;
             }
         }
         return resource;
     }
 
-    // error reporting.............................................................................................
+    // error reporting..................................................................................................
 
     final void badRequest(final String message) {
         this.setStatus(HttpStatusCode.BAD_REQUEST, message);
@@ -378,28 +435,29 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
         this.response.setStatus(statusCode.setMessage(message));
     }
 
+    private void methodNotAllowed(final HttpMethod method) {
+        this.response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(method.value()));
+    }
+
     HateosContentType<N> hateosContentType() {
         return this.router.contentType;
     }
 
+    final HttpRequest request;
+    final HttpResponse response;
     final HateosHandlerRouter<N> router;
 
-    final HttpRequest request;
-
     /**
-     * Fetches the path component at the path index or returns null.
+     * Only set when a valid request is dispatched.
      */
-    private String pathComponentOrNull(final int pathIndex) {
-        return HttpRequestAttributes.pathComponent(pathIndex).parameterValue(this.parameters)
-                .map(v -> v.value())
-                .orElse(null);
-    }
-
-    final Map<HttpRequestAttribute<?>, Object> parameters;
-    final HttpResponse response;
+    Map<HttpRequestAttribute<?>, Object> parameters;
 
     @Override
-    public final String toString() {
-        return this.router.toString();
+    public String toString() {
+        return ToStringBuilder.empty()
+                .value(this.router)
+                .value(this.request)
+                .value(this.response)
+                .build();
     }
 }

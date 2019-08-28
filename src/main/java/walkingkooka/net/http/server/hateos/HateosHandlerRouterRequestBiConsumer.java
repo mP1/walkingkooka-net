@@ -27,10 +27,10 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
- * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
+ * A {@link BiConsumer} which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerRouterBuilder}.
  */
-final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>,
+final class HateosHandlerRouterRequestBiConsumer<N extends Node<N, ?, ?, ?>,
         H extends HateosContentType<N>>
         implements BiConsumer<HttpRequest, HttpResponse> {
 
@@ -38,20 +38,20 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
      * Factory called by {@link HateosHandlerRouter#route}
      */
     static <N extends Node<N, ?, ?, ?>,
-            H extends HateosContentType<N>> HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N, H> with(final HateosHandlerRouter<N> router) {
-        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N, H>(router);
+            H extends HateosContentType<N>> HateosHandlerRouterRequestBiConsumer<N, H> with(final HateosHandlerRouter<N> router) {
+        return new HateosHandlerRouterRequestBiConsumer<N, H>(router);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerRouter<N> router) {
+    private HateosHandlerRouterRequestBiConsumer(final HateosHandlerRouter<N> router) {
         super();
         this.router = router;
     }
 
     /**
-     * Tests the method and calls the matching {@link HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest}.
+     * Dispatches the request to {@link HateosHandlerRouterRequestBiConsumerHttpMethodVisitor}.
      */
     @Override
     public void accept(final HttpRequest request, final HttpResponse response) {
@@ -59,7 +59,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
         Objects.requireNonNull(response, "response");
 
         try {
-            HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.with(request, response, this.router)
+            HateosHandlerRouterRequestBiConsumerHttpMethodVisitor.with(request, response, this.router)
                     .accept(request.method());
         } catch (final UnsupportedOperationException unsupported) {
             response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(unsupported.getMessage()));
