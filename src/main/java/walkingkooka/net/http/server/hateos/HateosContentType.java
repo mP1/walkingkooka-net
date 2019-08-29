@@ -49,8 +49,8 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
     /**
      * Selects XML formatted request and response bodies.
      */
-    public static HateosContentType<XmlNode> xml() {
-        return HateosContentTypeXmlNode.INSTANCE;
+    public static HateosContentType<XmlNode> xml(final DocumentBuilder builder) {
+        return HateosContentTypeXmlNode.with(builder);
     }
 
     /**
@@ -66,38 +66,26 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
     public abstract MediaType contentType();
 
     /**
-     * Reads a resource object from its {@link Node} representation.
+     * Reads a resource object from its {@link String text} representation.
      */
     abstract <R extends HateosResource<?>> R fromNode(final String text,
-                                                      final DocumentBuilder documentBuilder,
                                                       final Class<R> resourceType);
 
     /**
-     * Reads a list of resource objects from their {@link Node} representation.
+     * Reads a list of resource objects from their {@link String text} representation.
      */
     abstract <R extends HateosResource<?>> List<R> fromNodeList(final String text,
-                                                                final DocumentBuilder documentBuilder,
                                                                 final Class<R> resourceType);
 
     /**
-     * Adds links to the resource, converts it to a text.
+     * Converts it to a text.
      */
-    abstract <R extends HateosResource<?>> String toText(final R resource,
-                                                         final DocumentBuilder documentBuilder,
-                                                         final HttpMethod method,
-                                                         final AbsoluteUrl base,
-                                                         final HateosResourceName resourceName,
-                                                         final Collection<LinkRelation<?>> linkRelations);
+    abstract String toText(final HateosResource<?> resource);
 
     /**
-     * Adds links to the resource, converts it to a text.
+     * Converts the resources to a text.
      */
-    abstract <R extends HateosResource<?>> String toTextList(final List<R> resource,
-                                                             final DocumentBuilder documentBuilder,
-                                                             final HttpMethod method,
-                                                             final AbsoluteUrl base,
-                                                             final HateosResourceName resourceName,
-                                                             final Collection<LinkRelation<?>> linkRelations);
+    abstract String toTextList(final List<HateosResource<?>> resources);
 
     abstract public String toString();
 }

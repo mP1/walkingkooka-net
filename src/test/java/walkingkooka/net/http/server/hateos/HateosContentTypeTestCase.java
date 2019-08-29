@@ -20,9 +20,7 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -31,7 +29,6 @@ import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +62,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                                 final TestHateosResource resource) {
         assertEquals(resource,
                 this.hateosContentType()
-                        .fromNode(text, this.documentBuilder(), resourceType),
+                        .fromNode(text, resourceType),
                 () -> "fromNode failed: " + text);
     }
 
@@ -74,42 +71,23 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                                     final TestHateosResource... resources) {
         assertEquals(Lists.of(resources),
                 this.hateosContentType()
-                        .fromNodeList(text, this.documentBuilder(), resourceType),
+                        .fromNodeList(text, resourceType),
                 () -> "fromNodeList failed: " + text);
     }
 
-    final <R extends HateosResource<?>> void toTextAndCheck(final R resource,
-                                                            final Collection<LinkRelation<?>> linkRelations,
-                                                            final String text) {
-        final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
-        final HateosResourceName resourceName = HateosResourceName.with("test");
-
+    final void toTextAndCheck(final HateosResource<?> resource,
+                              final String text) {
         assertEquals(text,
-                this.hateosContentType()
-                        .toText(resource,
-                                this.documentBuilder(),
-                                HttpMethod.PUT,
-                                base,
-                                resourceName,
-                                linkRelations),
-                () -> "toText failed: " + resource + " PUT " + base + " " + resourceName + " " + linkRelations);
+                this.hateosContentType().toText(resource),
+                () -> "toText failed: " + resource);
     }
 
-    final <R extends HateosResource<?>> void toTextListAndCheck(final List<R> resources,
-                                                                final Collection<LinkRelation<?>> linkRelations,
-                                                                final String text) {
-        final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
-        final HateosResourceName resourceName = HateosResourceName.with("test");
+    final void toTextListAndCheck(final List<HateosResource<?>> resources,
+                                  final String text) {
 
         assertEquals(text,
-                this.hateosContentType()
-                        .toTextList(resources,
-                                this.documentBuilder(),
-                                HttpMethod.PUT,
-                                base,
-                                resourceName,
-                                linkRelations),
-                () -> "toTextList failed: " + resources + " PUT " + base + " " + resourceName + " " + linkRelations);
+                this.hateosContentType().toTextList(resources),
+                () -> "toTextList failed: " + resources);
     }
 
     abstract C hateosContentType();
@@ -126,14 +104,14 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
         }
     }
 
-    // ClassTesting.....................................................................................
+    // ClassTesting.....................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    // TypeNameTesting ................................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     public final String typeNamePrefix() {

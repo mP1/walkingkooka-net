@@ -33,48 +33,32 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     @Test
     public void testFromNodeFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.hateosContentType().fromNode("<test1/>", documentBuilder(), TestHateosResource.class);
+            this.hateosContentType().fromNode("<test1/>", TestHateosResource.class);
         });
     }
 
     @Test
     public void testFromNodeListFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.hateosContentType().fromNodeList("<test1/>", documentBuilder(), TestHateosResource.class);
+            this.hateosContentType().fromNodeList("<test1/>", TestHateosResource.class);
         });
     }
 
     @Test
     public void testToText() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
-                Lists.of(LinkRelation.SELF),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/></links></test1>");
-    }
-
-    @Test
-    public void testToTextNonSelfLinkRelation() {
-        this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
-                Lists.of(LinkRelation.ITEM),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/></links></test1>");
-    }
-
-    @Test
-    public void testToTextSeveralLinks() {
-        this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
-                Lists.of(LinkRelation.ITEM, LinkRelation.ABOUT),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/7b/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id></test1>");
     }
 
     @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
-                Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id><links><link href=\"http://example.com/api/test/6f\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/6f/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1><test1><id>222</id><links><link href=\"http://example.com/api/test/de\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/de/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1></list>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id></test1><test1><id>222</id></test1></list>");
     }
 
     @Override
     HateosContentTypeXmlNode hateosContentType() {
-        return HateosContentTypeXmlNode.INSTANCE;
+        return HateosContentTypeXmlNode.with(documentBuilder());
     }
 
     @Override
@@ -86,6 +70,8 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     String expectedToString() {
         return "XML";
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<HateosContentTypeXmlNode> type() {

@@ -73,85 +73,18 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     @Test
     public void testToText() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
-                Lists.of(LinkRelation.SELF),
                 "{\n" +
-                        "  \"id\": \"123\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/7b\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
+                        "  \"id\": \"123\"\n" +
                         "}");
-    }
-
-    @Test
-    public void testToTextDashNotEscaped() {
-        this.toTextAndCheck(TestHateosResource3.with("abc-def"),
-                Lists.of(LinkRelation.SELF),
-                "{\n" +
-                        "  \"id\": \"abc-def\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/abc-def\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}");
-    }
-
-    @Test
-    public void testToTextBackslashNotEscaped() {
-        this.toTextAndCheck(TestHateosResource3.with("abc\\def"),
-                Lists.of(LinkRelation.SELF),
-                "{\n" +
-                        "  \"id\": \"abc\\\\def\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/abc\\\\def\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}");
-    }
-
-    @Test
-    public void testToTextLinksSkippedForNonObject() {
-        this.toTextAndCheck(TestHateosResource4.with("abc123"),
-                Lists.of(LinkRelation.SELF),
-                "\"abc123\"");
     }
 
     @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
-                Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
                 "[{\n" +
-                        "  \"id\": \"111\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/6f\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }, {\n" +
-                        "    \"href\": \"http://example.com/api/test/6f/about\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"about\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
+                        "  \"id\": \"111\"\n" +
                         "}, {\n" +
-                        "  \"id\": \"222\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/de\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }, {\n" +
-                        "    \"href\": \"http://example.com/api/test/de/about\",\n" +
-                        "    \"method\": \"PUT\",\n" +
-                        "    \"rel\": \"about\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
+                        "  \"id\": \"222\"\n" +
                         "}]");
     }
 
@@ -177,6 +110,8 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     String expectedToString() {
         return "JSON";
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<HateosContentTypeJsonNode> type() {

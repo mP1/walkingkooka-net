@@ -17,18 +17,20 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
-public final class HateosHandlerRouter2Test implements ClassTesting2<HateosHandlerRouter2<?>> {
-    @Override
-    public Class<HateosHandlerRouter2<?>> type() {
-        return Cast.to(HateosHandlerRouter2.class);
+public abstract class HateosHandlerResourceMappingTestCase2<T> extends HateosHandlerResourceMappingTestCase<T>
+        implements ToStringTesting<T> {
+
+    HateosHandlerResourceMappingTestCase2() {
+        super();
     }
 
+    // ClassVisibility..................................................................................................
+
     @Override
-    public JavaVisibility typeVisibility() {
+    public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
