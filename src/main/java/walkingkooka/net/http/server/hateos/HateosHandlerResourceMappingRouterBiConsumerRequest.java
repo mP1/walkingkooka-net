@@ -29,8 +29,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.HttpMethodVisitor;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -48,77 +46,27 @@ import java.util.Optional;
 /**
  * Handles dispatching a request, defaulting to unsupported methods to a method not allowed response.
  */
-final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node<N, ?, ?, ?>> extends HttpMethodVisitor {
+final class HateosHandlerResourceMappingRouterBiConsumerRequest {
 
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterRequestBiConsumerHttpMethodVisitor with(final HttpRequest request,
-                                                                                                   final HttpResponse response,
-                                                                                                   final HateosHandlerRouter<N> router) {
-        return new HateosHandlerRouterRequestBiConsumerHttpMethodVisitor(request,
+    static HateosHandlerResourceMappingRouterBiConsumerRequest with(final HttpRequest request,
+                                                                    final HttpResponse response,
+                                                                    final HateosHandlerResourceMappingRouter router) {
+        return new HateosHandlerResourceMappingRouterBiConsumerRequest(request,
                 response,
                 router);
     }
 
-    HateosHandlerRouterRequestBiConsumerHttpMethodVisitor(final HttpRequest request,
-                                                          final HttpResponse response,
-                                                          final HateosHandlerRouter<N> router) {
+    private HateosHandlerResourceMappingRouterBiConsumerRequest(final HttpRequest request,
+                                                                final HttpResponse response,
+                                                                final HateosHandlerResourceMappingRouter router) {
         super();
         this.request = request;
         this.response = response;
         this.router = router;
     }
 
-    @Override
-    protected void visitHead() {
-        this.methodNotAllowed(HttpMethod.HEAD);
-    }
-
-    @Override
-    protected void visitGet() {
-        this.execute();
-    }
-
-    @Override
-    protected void visitPost() {
-        this.execute();
-    }
-
-    @Override
-    protected void visitPut() {
-        this.execute();
-    }
-
-    @Override
-    protected void visitDelete() {
-        this.execute();
-    }
-
-    @Override
-    protected void visitTrace() {
-        this.methodNotAllowed(HttpMethod.TRACE);
-    }
-
-    @Override
-    protected void visitOptions() {
-        this.methodNotAllowed(HttpMethod.OPTIONS);
-    }
-
-    @Override
-    protected void visitConnect() {
-        this.methodNotAllowed(HttpMethod.CONNECT);
-    }
-
-    @Override
-    protected void visitPatch() {
-        this.methodNotAllowed(HttpMethod.PATCH);
-    }
-
-    @Override
-    protected void visitUnknown(final HttpMethod method) {
-        this.methodNotAllowed(method);
-    }
-
-    final void execute() {
-        this.parameters = request.routingParameters();
+    final void dispatch() {
+        this.parameters = this.request.routingParameters();
 
         Loop:
 
@@ -130,7 +78,7 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                 break;
             }
 
-            // extract resource name......................................................................................
+            // extract resource name....................................................................................
             final String resourceNameString = this.pathComponentOrNull(pathIndex);
             if (CharSequences.isNullOrEmpty(resourceNameString)) {
                 this.badRequest("Missing resource name");
@@ -145,7 +93,7 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                 break;
             }
 
-            // id or range ..............................................................................................
+            // id or range .............................................................................................
             final String idOrRange = this.pathComponentOrNull(pathIndex + 1);
             if (CharSequences.isNullOrEmpty(idOrRange)) {
                 this.idMissing(resourceName, pathIndex);
@@ -204,20 +152,20 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                 .orElse(null);
     }
 
-    // ID MISSING.............................................................................................................
+    // ID MISSING.......................................................................................................
 
     private void idMissing(final HateosResourceName resourceName,
                            final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
-            if (null != mapper) {
-                mapper.handleId0(resourceName, Optional.empty(), linkRelation, this);
+            final HateosHandlerResourceMapping<?, ?, ?> mapping = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapping) {
+                mapping.handleId0(Optional.empty(), linkRelation, this);
             }
         }
     }
 
-    // ID.............................................................................................................
+    // ID...............................................................................................................
 
     private void id(final HateosResourceName resourceName,
                     final String id,
@@ -231,26 +179,26 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
     private void id0(final HateosResourceName resourceName,
                      final String idText,
                      final LinkRelation<?> linkRelation) {
-        final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
-        if (null != mapper) {
-            mapper.handleId(resourceName, idText, linkRelation, this);
+        final HateosHandlerResourceMapping<?, ?, ?> mapping = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != mapping) {
+            mapping.handleId(idText, linkRelation, this);
         }
     }
 
-    // WILDCARD.............................................................................................................
+    // WILDCARD.........................................................................................................
 
     private void wildcard(final HateosResourceName resourceName,
                           final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
-            if (null != mapper) {
-                mapper.handleIdRange(resourceName, linkRelation, this);
+            final HateosHandlerResourceMapping<?, ?, ?> mapping = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapping) {
+                mapping.handleIdRange(linkRelation, this);
             }
         }
     }
 
-    // COLLECTION.....................................................................................................
+    // COLLECTION.......................................................................................................
 
     /**
      * Dispatches a collection resource request, but with the range outstanding and unparsed.
@@ -262,18 +210,18 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                             final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
-            if (null != mapper) {
-                mapper.handleIdRange(resourceName,
-                        begin,
+            final HateosHandlerResourceMapping<?, ?, ?> mapping = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapping) {
+                mapping.handleIdRange(begin,
                         end,
                         rangeText,
-                        linkRelation, this);
+                        linkRelation,
+                        this);
             }
         }
     }
 
-    // HELPERS ......................................................................................................
+    // HELPERS .........................................................................................................
 
     /**
      * If not empty parse the relation otherwise return a default of {@link LinkRelation#SELF}, a null indicates an invalid relation.
@@ -291,7 +239,7 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                     relation = LinkRelation.with(relationString);
                 } catch (final RuntimeException invalid) {
                     relation = null;
-                    badRequest("Invalid link relation " + CharSequences.quoteAndEscape(relationString));
+                    this.badRequest("Invalid link relation " + CharSequences.quoteAndEscape(relationString));
                 }
             }
         }
@@ -329,7 +277,6 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
                     b.append(buffer, 0, fill);
                 }
 
-                // TODO need a DocumentBuilder factory to support XML
                 text = b.toString();
             } catch (final IOException cause) {
                 this.badRequest("Invalid content: " + cause.getMessage());
@@ -341,22 +288,22 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
     }
 
     /**
-     * Locates the {@link HateosHandlerRouterMapper} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
+     * Locates the {@link HateosHandlerResourceMapping} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
      */
-    private HateosHandlerRouterMapper<?, ?, ?> handlersOrResponseNotFound(final HateosResourceName resourceName,
-                                                                          final LinkRelation<?> linkRelation) {
-        final HateosHandlerRouterMapper<?, ?, ?> mapper = this.router.mappers.get(HateosHandlerRouterKey.with(resourceName, linkRelation));
-        if (null == mapper) {
+    private HateosHandlerResourceMapping<?, ?, ?> handlersOrResponseNotFound(final HateosResourceName resourceName,
+                                                                             final LinkRelation<?> linkRelation) {
+        final HateosHandlerResourceMapping<?, ?, ?> mapping = this.router.resourceNameToMappings.get(resourceName);
+        if (null == mapping) {
             this.notFound(resourceName, linkRelation);
         }
-        return mapper;
+        return mapping;
     }
 
     /**
      * Using the given request resource text (request body) read that into an {@link Optional optional} {@link HateosResource resource}.
      */
     <RR extends HateosResource<?>> Optional<RR> resourceOrBadRequest(final String requestText,
-                                                                     final HateosContentType<N> hateosContentType,
+                                                                     final HateosContentType<?> hateosContentType,
                                                                      final Class<RR> resourceType) {
         Optional<RR> resource;
 
@@ -364,7 +311,7 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
             resource = Optional.empty();
         } else {
             try {
-                resource = Optional.of(hateosContentType.fromNode(requestText, null, resourceType));
+                resource = Optional.of(hateosContentType.fromNode(requestText, resourceType));
             } catch (final Exception cause) {
                 this.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
                 resource = null;
@@ -419,7 +366,7 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
             throw new NotAcceptableHeaderException("AcceptCharset " + acceptCharset + " doesnt contain supported charset");
         }
 
-        final HateosContentType<N> hateosContentType = this.hateosContentType();
+        final HateosContentType<?> hateosContentType = this.hateosContentType();
         final MediaType contentType = hateosContentType.contentType();
 
         final byte[] contentBytes = content.getBytes(charset.get());
@@ -435,17 +382,13 @@ final class HateosHandlerRouterRequestBiConsumerHttpMethodVisitor<N extends Node
         this.response.setStatus(statusCode.setMessage(message));
     }
 
-    private void methodNotAllowed(final HttpMethod method) {
-        this.response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(method.value()));
-    }
-
-    HateosContentType<N> hateosContentType() {
+    HateosContentType<?> hateosContentType() {
         return this.router.contentType;
     }
 
     final HttpRequest request;
     final HttpResponse response;
-    final HateosHandlerRouter<N> router;
+    final HateosHandlerResourceMappingRouter router;
 
     /**
      * Only set when a valid request is dispatched.

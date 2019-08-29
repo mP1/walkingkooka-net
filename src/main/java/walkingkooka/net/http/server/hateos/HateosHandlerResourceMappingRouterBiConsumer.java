@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
@@ -27,22 +26,21 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
- * A {@link BiConsumer} which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
- * {@link HateosHandlerRouterBuilder}.
+ * A {@link BiConsumer} which examines the request and then dispatches to the selected {@link HateosHandler}.
  */
-final class HateosHandlerRouterRequestBiConsumer<N extends Node<N, ?, ?, ?>> implements BiConsumer<HttpRequest, HttpResponse> {
+final class HateosHandlerResourceMappingRouterBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
-     * Factory called by {@link HateosHandlerRouter#route}
+     * Factory called by {@link HateosHandlerResourceMappingRouter#route}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterRequestBiConsumer<N> with(final HateosHandlerRouter<N> router) {
-        return new HateosHandlerRouterRequestBiConsumer<>(router);
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerResourceMappingRouterBiConsumer with(final HateosHandlerResourceMappingRouter router) {
+        return new HateosHandlerResourceMappingRouterBiConsumer(router);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerRouterRequestBiConsumer(final HateosHandlerRouter<N> router) {
+    private HateosHandlerResourceMappingRouterBiConsumer(final HateosHandlerResourceMappingRouter router) {
         super();
         this.router = router;
     }
@@ -56,16 +54,18 @@ final class HateosHandlerRouterRequestBiConsumer<N extends Node<N, ?, ?, ?>> imp
         Objects.requireNonNull(response, "response");
 
         try {
-            HateosHandlerRouterRequestBiConsumerHttpMethodVisitor.with(request, response, this.router)
-                    .accept(request.method());
+            HateosHandlerResourceMappingRouterBiConsumerRequest.with(request, response, this.router)
+                    .dispatch();
         } catch (final UnsupportedOperationException unsupported) {
             response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(unsupported.getMessage()));
         } catch (final IllegalArgumentException badRequest) {
             response.setStatus(HttpStatusCode.BAD_REQUEST.setMessageOrDefault(badRequest.getMessage()));
+        } catch (final RuntimeException internal) {
+            response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.setMessageOrDefault(internal.getMessage()));
         }
     }
 
-    private final HateosHandlerRouter<N> router;
+    private final HateosHandlerResourceMappingRouter router;
 
     @Override
     public String toString() {

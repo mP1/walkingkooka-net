@@ -17,31 +17,16 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.UrlPath;
-import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.Link;
-import walkingkooka.net.header.LinkParameterName;
-import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
-import javax.xml.parsers.DocumentBuilder;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -80,7 +65,6 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      */
     @Override
     <R extends HateosResource<?>> R fromNode(final String text,
-                                             final DocumentBuilder documentBuilder,
                                              final Class<R> resourceType) {
         return this.fromJsonNodeContext.fromJsonNode(JsonNode.parse(text),
                 resourceType);
@@ -91,7 +75,6 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      */
     @Override
     <R extends HateosResource<?>> List<R> fromNodeList(final String text,
-                                                       final DocumentBuilder documentBuilder,
                                                        final Class<R> resourceType) {
         return this.fromJsonNodeContext.fromJsonNodeList(JsonNode.parse(text),
                 resourceType);
@@ -111,78 +94,18 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * </pre>
      */
     @Override
-    <R extends HateosResource<?>> String toText(final R resource,
-                                                final DocumentBuilder documentBuilder,
-                                                final HttpMethod method,
-                                                final AbsoluteUrl base,
-                                                final HateosResourceName resourceName,
-                                                final Collection<LinkRelation<?>> linkRelations) {
-        return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
+    String toText(final HateosResource<?> resource) {
+        return this.toJsonText(this.toJsonNodeContext.toJsonNode(resource));
     }
 
     @Override
-    <R extends HateosResource<?>> String toTextList(final List<R> resources,
-                                                    final DocumentBuilder documentBuilder,
-                                                    final HttpMethod method,
-                                                    final AbsoluteUrl base,
-                                                    final HateosResourceName resourceName,
-                                                    final Collection<LinkRelation<?>> linkRelations) {
-        return toJsonText(
+    String toTextList(final List<HateosResource<?>> resources) {
+        return this.toJsonText(
                 JsonNode.array().setChildren(resources.
                         stream()
-                        .map(r -> addLinks(r, method, base, resourceName, linkRelations))
+                        .map(this.toJsonNodeContext::toJsonNode)
                         .collect(Collectors.toList())));
     }
-
-    private <R extends HateosResource<?>> JsonNode addLinks(final R resource,
-                                                            final HttpMethod method,
-                                                            final AbsoluteUrl base,
-                                                            final HateosResourceName resourceName,
-                                                            final Collection<LinkRelation<?>> linkRelations) {
-        final JsonNode node = this.toJsonNodeContext.toJsonNode(resource);
-        return node.isObject() ?
-                this.addLinks0(resource, node.objectOrFail(), method, base, resourceName, linkRelations) :
-                node;
-
-    }
-
-    private <R extends HateosResource<?>> JsonNode addLinks0(final R resource,
-                                                             final JsonObjectNode object,
-                                                             final HttpMethod method,
-                                                             final AbsoluteUrl base,
-                                                             final HateosResourceName resourceName,
-                                                             final Collection<LinkRelation<?>> linkRelations) {
-        final ToJsonNodeContext context = this.toJsonNodeContext;
-
-        // base + resource name.
-        final UrlPath pathAndResourceNameAndId = base.path()
-                .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(resource.hateosLinkId()));
-
-        JsonArrayNode links = JsonNode.array();
-
-        for (LinkRelation<?> relation : linkRelations) {
-            // TODO add support for title/title* and hreflang
-            final Map<LinkParameterName<?>, Object> parameters = Maps.ordered();
-            parameters.put(LinkParameterName.METHOD, method);
-            parameters.put(LinkParameterName.REL, Lists.of(relation));
-            parameters.put(LinkParameterName.TYPE, CONTENT_TYPE);
-
-            final Link link = Link.with(base.setPath(LinkRelation.SELF == relation ?
-                    pathAndResourceNameAndId :
-                    pathAndResourceNameAndId.append(UrlPathName.with(relation.value().toString()))))
-                    .setParameters(parameters);
-
-            links = links.appendChild(context.toJsonNode(link));
-        }
-
-        return object.set(LINKS, links);
-    }
-
-    /**
-     * The property that receives the actual links.
-     */
-    private final static JsonNodeName LINKS = JsonNodeName.with("_links");
 
     private String toJsonText(final JsonNode node) {
         final StringBuilder b = new StringBuilder();
