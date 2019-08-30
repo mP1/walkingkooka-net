@@ -42,7 +42,10 @@ import java.util.function.Function;
  */
 public final class HateosHandlerResourceMapping<I extends Comparable<I>, R extends HateosResource<Optional<I>>, S extends HateosResource<Range<I>>> {
 
-    static <I extends Comparable<I>, R extends HateosResource<Optional<I>>, S extends HateosResource<Range<I>>> HateosHandlerResourceMapping<I, R, S> with(
+    /**
+     * Creates a new {@link HateosHandlerResourceMapping}
+     */
+    public static <I extends Comparable<I>, R extends HateosResource<Optional<I>>, S extends HateosResource<Range<I>>> HateosHandlerResourceMapping<I, R, S> with(
             final HateosResourceName resourceName,
             final Function<String, I> stringToId,
             final Class<R> resourceType,
@@ -59,6 +62,9 @@ public final class HateosHandlerResourceMapping<I extends Comparable<I>, R exten
                 Maps.empty());
     }
 
+    /**
+     * Private ctor use factory.
+     */
     private HateosHandlerResourceMapping(final HateosResourceName resourceName,
                                          final Function<String, I> stringToId,
                                          final Class<R> resourceType,
