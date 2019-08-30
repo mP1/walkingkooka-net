@@ -47,7 +47,7 @@
 
         <dependency>
             <groupId>com.github.mP1</groupId>
-            <artifactId>walkingkooka</artifactId>
+            <artifactId>walkingkooka-route</artifactId>
             <version>master-SNAPSHOT</version>
         </dependency>
 
