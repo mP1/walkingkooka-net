@@ -89,7 +89,7 @@ public final class TestHateosResource extends FakeHateosResource<Optional<BigInt
             factory.setExpandEntityReferences(false);
 
             final XmlDocument document = XmlNode.createDocument(factory.newDocumentBuilder());
-            return document.createElement(XmlName.element("test1"))
+            return document.createElement(XmlName.element("test-hateos-resource-1"))
                     .appendChild(document.createElement(XmlName.element("id"))
                             .appendChild(document.createText(this.id.toString())));
         } catch (final Exception cause) {
