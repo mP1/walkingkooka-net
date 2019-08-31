@@ -20,7 +20,6 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.xml.XmlNode;
 

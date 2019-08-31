@@ -51,8 +51,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -849,10 +847,6 @@ public final class HateosHandlerResourceMappingRouterTest extends HateosHandlerR
 
     private FromJsonNodeContext fromJsonNodeContext() {
         return FromJsonNodeContexts.basic();
-    }
-
-    private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic();
     }
 
     // ClassTesting.....................................................................................................

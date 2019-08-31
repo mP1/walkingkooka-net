@@ -18,6 +18,9 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.type.JavaVisibility;
 
 public abstract class HateosHandlerResourceMappingTestCase2<T> extends HateosHandlerResourceMappingTestCase<T>
@@ -25,6 +28,14 @@ public abstract class HateosHandlerResourceMappingTestCase2<T> extends HateosHan
 
     HateosHandlerResourceMappingTestCase2() {
         super();
+    }
+
+    final ToJsonNodeContext toJsonNodeContext() {
+        return ToJsonNodeContexts.basic(this::objectPostProcessor);
+    }
+
+    private JsonObjectNode objectPostProcessor(final Object value, JsonObjectNode object) {
+        return object;
     }
 
     // ClassVisibility..................................................................................................
