@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.compare.Range;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
@@ -30,49 +29,53 @@ import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.math.BigInteger;
+import java.util.Optional;
 
-public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteger>> {
+/**
+ * The id type is {@link BigInteger} just to be different from {@link String}.
+ */
+public final class TestHateosResource3 extends FakeHateosResource<Optional<BigInteger>> {
 
-    static TestHateosResource2 with(final Range<BigInteger> id) {
-        return new TestHateosResource2(id);
+    static TestHateosResource3 with(final BigInteger id) {
+        return new TestHateosResource3(id);
     }
 
-    private TestHateosResource2(final Range<BigInteger> id) {
+    private TestHateosResource3(final BigInteger id) {
         super();
         this.id = id;
     }
 
     @Override
-    public Range<BigInteger> id() {
-        return this.id;
+    public Optional<BigInteger> id() {
+        return Optional.ofNullable(this.id);
     }
 
-    private final Range<BigInteger> id;
+    private final BigInteger id;
 
     @Override
     public String hateosLinkId() {
-        return HasHateosLinkId.rangeHateosLinkId(this.id, (v) -> v.toString(16));
+        return Integer.toHexString(this.id.intValueExact());
     }
 
     // JsonNodeContext...................................................................................................
 
-    static TestHateosResource2 fromJsonNode(final JsonNode node,
+    static TestHateosResource3 fromJsonNode(final JsonNode node,
                                             final FromJsonNodeContext context) {
-        return with(context.fromJsonNodeWithType(node.objectOrFail().getOrFail(ID)));
+        return with(context.fromJsonNode(node.objectOrFail().getOrFail(ID), BigInteger.class));
     }
 
     JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.object()
-                .set(ID, context.toJsonNodeWithType(this.id()));
+                .set(ID, context.toJsonNode(this.id));
     }
 
     private final static JsonNodeName ID = JsonNodeName.with("id");
 
     static {
-        JsonNodeContext.register("test-HateosResource2",
-                TestHateosResource2::fromJsonNode,
-                TestHateosResource2::toJsonNode,
-                TestHateosResource2.class);
+        JsonNodeContext.register("test-HateosResource3",
+                TestHateosResource3::fromJsonNode,
+                TestHateosResource3::toJsonNode,
+                TestHateosResource3.class);
     }
 
     // toXmlNode........................................................................................................
@@ -86,7 +89,7 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
             factory.setExpandEntityReferences(false);
 
             final XmlDocument document = XmlNode.createDocument(factory.newDocumentBuilder());
-            return document.createElement(XmlName.element("test-hateos-resource-2"))
+            return document.createElement(XmlName.element("test-hateos-resource-3"))
                     .appendChild(document.createElement(XmlName.element("id"))
                             .appendChild(document.createText(this.id.toString())));
         } catch (final Exception cause) {
@@ -98,20 +101,20 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.id().hashCode();
     }
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof TestHateosResource2 && equals0(Cast.to(other));
+        return this == other || other instanceof TestHateosResource3 && equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TestHateosResource2 other) {
-        return this.id.equals(other.id);
+    private boolean equals0(final TestHateosResource3 other) {
+        return this.id().equals(other.id());
     }
 
     @Override
     public String toString() {
-        return this.id.toString();
+        return this.id().toString();
     }
 }

@@ -46,13 +46,13 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     @Test
     public void testToText() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id></test1>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test-hateos-resource-1><id>123</id></test-hateos-resource-1>");
     }
 
     @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id></test1><test1><id>222</id></test1></list>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test-hateos-resource-1><id>111</id></test-hateos-resource-1><test-hateos-resource-1><id>222</id></test-hateos-resource-1></list>");
     }
 
     @Override

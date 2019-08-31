@@ -31,13 +31,13 @@ import walkingkooka.tree.xml.XmlNode;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.math.BigInteger;
 
-public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteger>> {
+public final class TestHateosResource4 extends FakeHateosResource<Range<BigInteger>> {
 
-    static TestHateosResource2 with(final Range<BigInteger> id) {
-        return new TestHateosResource2(id);
+    static TestHateosResource4 with(final Range<BigInteger> id) {
+        return new TestHateosResource4(id);
     }
 
-    private TestHateosResource2(final Range<BigInteger> id) {
+    private TestHateosResource4(final Range<BigInteger> id) {
         super();
         this.id = id;
     }
@@ -56,7 +56,7 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
 
     // JsonNodeContext...................................................................................................
 
-    static TestHateosResource2 fromJsonNode(final JsonNode node,
+    static TestHateosResource4 fromJsonNode(final JsonNode node,
                                             final FromJsonNodeContext context) {
         return with(context.fromJsonNodeWithType(node.objectOrFail().getOrFail(ID)));
     }
@@ -69,10 +69,10 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
     private final static JsonNodeName ID = JsonNodeName.with("id");
 
     static {
-        JsonNodeContext.register("test-HateosResource2",
-                TestHateosResource2::fromJsonNode,
-                TestHateosResource2::toJsonNode,
-                TestHateosResource2.class);
+        JsonNodeContext.register("test-HateosResource4",
+                TestHateosResource4::fromJsonNode,
+                TestHateosResource4::toJsonNode,
+                TestHateosResource4.class);
     }
 
     // toXmlNode........................................................................................................
@@ -86,7 +86,7 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
             factory.setExpandEntityReferences(false);
 
             final XmlDocument document = XmlNode.createDocument(factory.newDocumentBuilder());
-            return document.createElement(XmlName.element("test-hateos-resource-2"))
+            return document.createElement(XmlName.element("test-hateos-resource-4"))
                     .appendChild(document.createElement(XmlName.element("id"))
                             .appendChild(document.createText(this.id.toString())));
         } catch (final Exception cause) {
@@ -103,10 +103,10 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof TestHateosResource2 && equals0(Cast.to(other));
+        return this == other || other instanceof TestHateosResource4 && equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TestHateosResource2 other) {
+    private boolean equals0(final TestHateosResource4 other) {
         return this.id.equals(other.id);
     }
 

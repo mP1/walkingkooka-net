@@ -29,12 +29,15 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -112,6 +115,8 @@ public final class HateosHandlerResourceMapping<I extends Comparable<I>, R exten
      */
     final Map<HateosHandlerResourceMappingLinkRelationHttpMethod, HateosHandler<I, R, S>> relationAndMethodToHandlers;
 
+    // HateosHandlerResourceMappingRouter...............................................................................
+
     /**
      * Creates a {@link Router} from the provided {@link HateosHandlerResourceMapping mappings}.
      */
@@ -119,6 +124,19 @@ public final class HateosHandlerResourceMapping<I extends Comparable<I>, R exten
                                                                                                 final HateosContentType<?> contentType,
                                                                                                 final Set<HateosHandlerResourceMapping<?, ?, ?>> mappings) {
         return HateosHandlerResourceMappingRouter.with(base, contentType, mappings);
+    }
+
+    /**
+     * Creates a {@link BiFunction} which will add links to {@link Class hateos values} when they are marshalled to JSON.
+     */
+    public static BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor(final AbsoluteUrl base,
+                                                                                         final Set<HateosHandlerResourceMapping<?, ?, ?>> mappings,
+                                                                                         final Map<HateosResourceName, Class<?>> resourceNameToTypes,
+                                                                                         final ToJsonNodeContext context) {
+        return HateosHandlerResourceMappingObjectPostProcessorBiFunction.with(base,
+                mappings,
+                resourceNameToTypes,
+                context);
     }
 
     final HateosResourceName resourceName;
