@@ -49,6 +49,7 @@ import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 
@@ -846,7 +847,11 @@ public final class HateosHandlerResourceMappingRouterTest extends HateosHandlerR
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContexts.basic();
+        return FromJsonNodeContexts.basic(this::objectPreProcessor);
+    }
+
+    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
+        return object;
     }
 
     // ClassTesting.....................................................................................................
