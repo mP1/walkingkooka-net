@@ -26,24 +26,24 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
  */
-final class HttpRequestAttributeRoutingBuilderParameterValuePredicate implements Predicate<List<String>>,
+final class HttpRequestAttributeRoutingParameterValuePredicate implements Predicate<List<String>>,
         HashCodeEqualsDefined {
 
     /**
-     * Creates a new {@link HttpRequestAttributeRoutingBuilderParameterValuePredicate}.
+     * Creates a new {@link HttpRequestAttributeRoutingParameterValuePredicate}.
      */
-    static HttpRequestAttributeRoutingBuilderParameterValuePredicate with(final Predicate<String> predicate) {
-        return new HttpRequestAttributeRoutingBuilderParameterValuePredicate(predicate);
+    static HttpRequestAttributeRoutingParameterValuePredicate with(final Predicate<String> predicate) {
+        return new HttpRequestAttributeRoutingParameterValuePredicate(predicate);
     }
 
     /**
      * Private ctor
      */
-    private HttpRequestAttributeRoutingBuilderParameterValuePredicate(final Predicate<String> predicate) {
+    private HttpRequestAttributeRoutingParameterValuePredicate(final Predicate<String> predicate) {
         this.predicate = predicate;
     }
 
-    // Predicate ......................................................................................................
+    // Predicate .......................................................................................................
 
     @Override
     public boolean test(final List<String> values) {
@@ -54,7 +54,7 @@ final class HttpRequestAttributeRoutingBuilderParameterValuePredicate implements
 
     private final Predicate<String> predicate;
 
-    // Object ......................................................................................................
+    // Object ..........................................................................................................
 
     @Override
     public int hashCode() {
@@ -64,11 +64,11 @@ final class HttpRequestAttributeRoutingBuilderParameterValuePredicate implements
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpRequestAttributeRoutingBuilderParameterValuePredicate &&
+                other instanceof HttpRequestAttributeRoutingParameterValuePredicate &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HttpRequestAttributeRoutingBuilderParameterValuePredicate other) {
+    private boolean equals0(final HttpRequestAttributeRoutingParameterValuePredicate other) {
         return this.predicate.equals(other.predicate);
     }
 

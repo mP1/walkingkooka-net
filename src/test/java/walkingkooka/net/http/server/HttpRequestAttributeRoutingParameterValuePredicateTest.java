@@ -28,9 +28,9 @@ import walkingkooka.type.JavaVisibility;
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest implements ClassTesting2<HttpRequestAttributeRoutingBuilderParameterValuePredicate>,
-        PredicateTesting2<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>,
-        HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
+public final class HttpRequestAttributeRoutingParameterValuePredicateTest implements ClassTesting2<HttpRequestAttributeRoutingParameterValuePredicate>,
+        PredicateTesting2<HttpRequestAttributeRoutingParameterValuePredicate, List<String>>,
+        HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingParameterValuePredicate> {
 
     private final static String VALUE = "value123";
 
@@ -61,7 +61,7 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
 
     @Test
     public void testEqualsDifferentPredicate() {
-        this.checkNotEquals(HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.fake()));
+        this.checkNotEquals(HttpRequestAttributeRoutingParameterValuePredicate.with(Predicates.fake()));
     }
 
     @Test
@@ -69,27 +69,31 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
         this.toStringAndCheck(this.createPredicate(), this.wrappedPredicate().toString());
     }
 
+    // PredicateTesting.................................................................................................
+
     @Override
-    public HttpRequestAttributeRoutingBuilderParameterValuePredicate createPredicate() {
-        return HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(this.wrappedPredicate());
+    public HttpRequestAttributeRoutingParameterValuePredicate createObject() {
+        return this.createPredicate();
+    }
+
+    @Override
+    public HttpRequestAttributeRoutingParameterValuePredicate createPredicate() {
+        return HttpRequestAttributeRoutingParameterValuePredicate.with(this.wrappedPredicate());
     }
 
     private Predicate<String> wrappedPredicate() {
         return Predicates.is(VALUE);
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
-    public Class<HttpRequestAttributeRoutingBuilderParameterValuePredicate> type() {
-        return HttpRequestAttributeRoutingBuilderParameterValuePredicate.class;
+    public Class<HttpRequestAttributeRoutingParameterValuePredicate> type() {
+        return HttpRequestAttributeRoutingParameterValuePredicate.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public HttpRequestAttributeRoutingBuilderParameterValuePredicate createObject() {
-        return this.createPredicate();
     }
 }
