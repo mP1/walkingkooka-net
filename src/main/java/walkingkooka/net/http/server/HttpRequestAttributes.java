@@ -52,10 +52,10 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
             HttpRequest::transport);
 
     /**
-     * {@see UrlPathNameHttpRequestAttribute}
+     * {@see HttpRequestAttributeUrlPathName}
      */
     public static HttpRequestAttribute<UrlPathName> pathComponent(final int index) {
-        return UrlPathNameHttpRequestAttribute.with(index);
+        return HttpRequestAttributeUrlPathName.with(index);
     }
 
     /**

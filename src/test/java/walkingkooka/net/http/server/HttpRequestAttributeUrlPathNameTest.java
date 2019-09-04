@@ -34,31 +34,31 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<UrlPathNameHttpRequestAttribute>,
-        HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute>,
-        ToStringTesting<UrlPathNameHttpRequestAttribute> {
+public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<HttpRequestAttributeUrlPathName>,
+        HashCodeEqualsDefinedTesting<HttpRequestAttributeUrlPathName>,
+        ToStringTesting<HttpRequestAttributeUrlPathName> {
 
     @Test
     public void testInvalidIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            UrlPathNameHttpRequestAttribute.with(-1);
+            HttpRequestAttributeUrlPathName.with(-1);
         });
     }
 
     @Test
     public void testCache() {
-        assertSame(UrlPathNameHttpRequestAttribute.with(0), UrlPathNameHttpRequestAttribute.with(0));
+        assertSame(HttpRequestAttributeUrlPathName.with(0), HttpRequestAttributeUrlPathName.with(0));
     }
 
     @Test
     public void testUncached() {
-        final int index = UrlPathNameHttpRequestAttribute.CONSTANT_COUNT;
-        assertNotSame(UrlPathNameHttpRequestAttribute.with(index), UrlPathNameHttpRequestAttribute.with(index));
+        final int index = HttpRequestAttributeUrlPathName.CONSTANT_COUNT;
+        assertNotSame(HttpRequestAttributeUrlPathName.with(index), HttpRequestAttributeUrlPathName.with(index));
     }
 
     @Test
     public void testParameterValueRequest() {
-        final UrlPathNameHttpRequestAttribute name = UrlPathNameHttpRequestAttribute.with(2);
+        final HttpRequestAttributeUrlPathName name = HttpRequestAttributeUrlPathName.with(2);
 
         assertEquals(Optional.of(UrlPathName.with("path2")),
                 name.parameterValue(new FakeHttpRequest() {
@@ -71,7 +71,7 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
 
     @Test
     public void testParameterValueMap() {
-        final UrlPathNameHttpRequestAttribute name = UrlPathNameHttpRequestAttribute.with(2);
+        final HttpRequestAttributeUrlPathName name = HttpRequestAttributeUrlPathName.with(2);
         final UrlPathName value = UrlPathName.with("path2");
 
         assertEquals(Optional.of(value),
@@ -80,25 +80,25 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
 
     @Test
     public void testEqualsDifferent() {
-        this.checkNotEquals(UrlPathNameHttpRequestAttribute.with(1));
+        this.checkNotEquals(HttpRequestAttributeUrlPathName.with(1));
     }
 
     @Test
     public void testSameUncached() {
-        final int index = UrlPathNameHttpRequestAttribute.CONSTANT_COUNT + 1;
+        final int index = HttpRequestAttributeUrlPathName.CONSTANT_COUNT + 1;
         this.checkEqualsAndHashCode(
-                UrlPathNameHttpRequestAttribute.with(index),
-                UrlPathNameHttpRequestAttribute.with(index));
+                HttpRequestAttributeUrlPathName.with(index),
+                HttpRequestAttributeUrlPathName.with(index));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(UrlPathNameHttpRequestAttribute.with(0), "path-0");
+        this.toStringAndCheck(HttpRequestAttributeUrlPathName.with(0), "path-0");
     }
 
     @Override
-    public Class<UrlPathNameHttpRequestAttribute> type() {
-        return UrlPathNameHttpRequestAttribute.class;
+    public Class<HttpRequestAttributeUrlPathName> type() {
+        return HttpRequestAttributeUrlPathName.class;
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
     }
 
     @Override
-    public UrlPathNameHttpRequestAttribute createObject() {
-        return UrlPathNameHttpRequestAttribute.with(0);
+    public HttpRequestAttributeUrlPathName createObject() {
+        return HttpRequestAttributeUrlPathName.with(0);
     }
 }
