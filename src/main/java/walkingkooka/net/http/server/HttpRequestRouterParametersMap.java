@@ -65,8 +65,8 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
         Object value = null;
 
         if (key instanceof HttpRequestAttribute) {
-            if (key instanceof UrlPathNameHttpRequestAttribute) {
-                value = this.pathNameOrNull(UrlPathNameHttpRequestAttribute.class.cast(key).index);
+            if (key instanceof HttpRequestAttributeUrlPathName) {
+                value = this.pathNameOrNull(HttpRequestAttributeUrlPathName.class.cast(key).index);
             } else {
                 final HttpRequestAttribute<?> attribute = HttpRequestAttribute.class.cast(key);
                 value = attribute

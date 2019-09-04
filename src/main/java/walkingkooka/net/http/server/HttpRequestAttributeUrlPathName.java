@@ -27,18 +27,18 @@ import java.util.stream.IntStream;
 /**
  * A key to a url path component ({@link walkingkooka.net.UrlPathName}.
  */
-final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute<UrlPathName>, HashCodeEqualsDefined {
+final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlPathName>, HashCodeEqualsDefined {
 
     /**
-     * Factory that returns a {@link UrlPathNameHttpRequestAttribute}.
+     * Factory that returns a {@link HttpRequestAttributeUrlPathName}.
      */
-    static UrlPathNameHttpRequestAttribute with(final int index) {
+    static HttpRequestAttributeUrlPathName with(final int index) {
         if (index < 0) {
             throw new IllegalArgumentException("Index " + index + " < 0");
         }
         return index < CONSTANT_COUNT ?
                 CACHE[index] :
-                new UrlPathNameHttpRequestAttribute(index);
+                new HttpRequestAttributeUrlPathName(index);
     }
 
     /**
@@ -49,14 +49,14 @@ final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute<UrlP
     /**
      * Fills the cache with instances.
      */
-    private final static UrlPathNameHttpRequestAttribute[] CACHE = IntStream.range(0, CONSTANT_COUNT)
-            .mapToObj(i -> new UrlPathNameHttpRequestAttribute(i))
-            .toArray(i -> new UrlPathNameHttpRequestAttribute[i]);
+    private final static HttpRequestAttributeUrlPathName[] CACHE = IntStream.range(0, CONSTANT_COUNT)
+            .mapToObj(i -> new HttpRequestAttributeUrlPathName(i))
+            .toArray(i -> new HttpRequestAttributeUrlPathName[i]);
 
     /**
      * Private ctor use factory.
      */
-    private UrlPathNameHttpRequestAttribute(final int index) {
+    private HttpRequestAttributeUrlPathName(final int index) {
         super();
         this.index = index;
     }
@@ -92,11 +92,11 @@ final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute<UrlP
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof UrlPathNameHttpRequestAttribute &&
+                other instanceof HttpRequestAttributeUrlPathName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final UrlPathNameHttpRequestAttribute other) {
+    private boolean equals0(final HttpRequestAttributeUrlPathName other) {
         return this.index == other.index;
     }
 
