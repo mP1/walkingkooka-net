@@ -42,8 +42,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2<RouterHttpRequestParametersMapEntrySet>,
-        SetTesting<RouterHttpRequestParametersMapEntrySet,
+public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2<HttpRequestRouterParametersMapEntrySet>,
+        SetTesting<HttpRequestRouterParametersMapEntrySet,
                 Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
@@ -186,16 +186,16 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
     // helpers ...........................................................................................
 
     @Override
-    public RouterHttpRequestParametersMapEntrySet createSet() {
+    public HttpRequestRouterParametersMapEntrySet createSet() {
         return this.createSet(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 
-    private RouterHttpRequestParametersMapEntrySet createSet(final HttpTransport transport,
+    private HttpRequestRouterParametersMapEntrySet createSet(final HttpTransport transport,
                                                              final HttpMethod method,
                                                              final HttpProtocolVersion version,
                                                              final RelativeUrl url,
                                                              final Map<HttpHeaderName<?>, Object> headers) {
-        return RouterHttpRequestParametersMapEntrySet.with(RouterHttpRequestParametersMap.with(this.request(transport,
+        return HttpRequestRouterParametersMapEntrySet.with(HttpRequestRouterParametersMap.with(this.request(transport,
                 method,
                 version,
                 url,
@@ -252,8 +252,8 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMapEntrySet> type() {
-        return RouterHttpRequestParametersMapEntrySet.class;
+    public Class<HttpRequestRouterParametersMapEntrySet> type() {
+        return HttpRequestRouterParametersMapEntrySet.class;
     }
 
     @Override

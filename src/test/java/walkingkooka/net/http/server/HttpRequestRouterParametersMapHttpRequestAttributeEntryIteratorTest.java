@@ -32,10 +32,10 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest implements ClassTesting2<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>,
+public final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
         IteratorTesting,
-        ToStringTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>,
-        TypeNameTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> {
+        ToStringTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
+        TypeNameTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
     private final static HttpMethod METHOD = HttpMethod.HEAD;
@@ -64,7 +64,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
     private void iterateAndCheck(final HttpTransport transport,
                                  final HttpMethod method,
                                  final HttpProtocolVersion version) {
-        final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator(transport, method, version);
+        final HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator(transport, method, version);
 
         this.hasNextCheckTrue(iterator, "iterator should have 3 entries");
         this.checkNext(iterator, HttpRequestAttributes.TRANSPORT, transport);
@@ -79,7 +79,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
         this.nextFails(iterator);
     }
 
-    private void checkNext(final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator,
+    private void checkNext(final HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator iterator,
                            final HttpRequestAttributes key,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
@@ -94,7 +94,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
 
     @Test
     public void testToString2() {
-        final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator();
+        final HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator();
         iterator.next();
         this.toStringAndCheck(iterator, HttpRequestAttributes.METHOD + "=" + METHOD);
     }
@@ -104,14 +104,14 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
         this.toStringAndCheck(this.createIterator(), "TRANSPORT=UNSECURED");
     }
 
-    private RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
+    private HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator createIterator() {
         return this.createIterator(TRANSPORT, METHOD, PROTOCOL);
     }
 
-    private RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator(final HttpTransport transport,
+    private HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator createIterator(final HttpTransport transport,
                                                                                            final HttpMethod method,
                                                                                            final HttpProtocolVersion version) {
-        return RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.with(this.request(transport, method, version));
+        return HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator.with(this.request(transport, method, version));
     }
 
     private HttpRequest request(final HttpTransport transport,
@@ -137,8 +137,8 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> type() {
-        return RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.class;
+    public Class<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator> type() {
+        return HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator.class;
     }
 
     @Override
@@ -148,7 +148,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
 
     @Override
     public String typeNamePrefix() {
-        return RouterHttpRequestParametersMap.class.getSimpleName();
+        return HttpRequestRouterParametersMap.class.getSimpleName();
     }
 
     @Override
