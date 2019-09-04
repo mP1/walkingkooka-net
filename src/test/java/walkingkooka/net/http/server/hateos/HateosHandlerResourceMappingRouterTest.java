@@ -755,7 +755,7 @@ public final class HateosHandlerResourceMappingRouterTest extends HateosHandlerR
                 contentType,
                 body);
         final RecordingHttpResponse response = HttpResponses.recording();
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> handle = router.route(request.routingParameters());
+        final Optional<BiConsumer<HttpRequest, HttpResponse>> handle = router.route(request.routerParameters());
         handle.ifPresent(h -> h.accept(request, response));
 
         final HttpResponse expected = HttpResponses.recording();

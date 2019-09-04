@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A {@link Map} view of a {@link HttpRequest#routingParameters()}.
+ * A {@link Map} view of a {@link HttpRequest#routerParameters()}.
  */
 final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttribute<?>, Object> {
 

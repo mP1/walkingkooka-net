@@ -33,7 +33,7 @@ public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesti
 
     @Test
     default void testRoutingParameters() {
-        final Map<HttpRequestAttribute<?>, Object> routingParameters = this.createRequest().routingParameters();
+        final Map<HttpRequestAttribute<?>, Object> routingParameters = this.createRequest().routerParameters();
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.METHOD), "method absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.TRANSPORT), "transport absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION), "protocol absent");

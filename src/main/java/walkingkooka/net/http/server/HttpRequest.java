@@ -79,9 +79,9 @@ public interface HttpRequest extends HasHeaders {
     List<String> parameterValues(final HttpRequestParameterName parameterName);
 
     /**
-     * Returns a {@link Map} of all parameters.
+     * Returns a {@link Map} of all {@link HttpRequestAttribute} parameters.
      */
-    default Map<HttpRequestAttribute<?>, Object> routingParameters() {
+    default Map<HttpRequestAttribute<?>, Object> routerParameters() {
         return HttpRequestRouterParametersMap.with(this);
     }
 }
