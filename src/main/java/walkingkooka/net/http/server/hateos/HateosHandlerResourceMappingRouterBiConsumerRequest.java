@@ -66,7 +66,7 @@ final class HateosHandlerResourceMappingRouterBiConsumerRequest {
     }
 
     final void dispatch() {
-        this.parameters = this.request.routingParameters();
+        this.parameters = this.request.routerParameters();
 
         Loop:
 
