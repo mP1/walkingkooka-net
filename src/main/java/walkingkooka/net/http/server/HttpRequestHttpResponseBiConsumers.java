@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.routing.Router;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.nio.file.Path;
@@ -34,6 +35,14 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
                                                                   final Path fileBase,
                                                                   final Function<FileResponse, MediaType> contentTypeIdentifier) {
         return DirectoryHttpRequestHttpResponseBiConsumer.with(urlPathBase, fileBase, contentTypeIdentifier);
+    }
+
+    /**
+     * {@see RouterBiConsumer}
+     */
+    public static BiConsumer<HttpRequest, HttpResponse> router(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
+                                                               final BiConsumer<HttpRequest, HttpResponse> notFound) {
+        return RouterBiConsumer.with(router, notFound);
     }
 
     /**
