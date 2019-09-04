@@ -35,10 +35,10 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest implements IteratorTesting,
-        ClassTesting2<RouterHttpRequestParametersMapHttpHeaderEntryIterator>,
-        ToStringTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator>,
-        TypeNameTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator> {
+public final class HttpRequestRouterParametersMapHttpHeaderEntryIteratorTest implements IteratorTesting,
+        ClassTesting2<HttpRequestRouterParametersMapHttpHeaderEntryIterator>,
+        ToStringTesting<HttpRequestRouterParametersMapHttpHeaderEntryIterator>,
+        TypeNameTesting<HttpRequestRouterParametersMapHttpHeaderEntryIterator> {
 
     private final static HttpHeaderName<Long> CONTENT_LENGTH = HttpHeaderName.CONTENT_LENGTH;
     private final static Long CONTENT_LENGTH_VALUE = 123L;
@@ -113,7 +113,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
                                  final Object... headerValues) {
         assertEquals(headerNames.size(), headerValues.length, "headerNames count != headerValues count");
 
-        final RouterHttpRequestParametersMapHttpHeaderEntryIterator iterator = this.createIterator(headers);
+        final HttpRequestRouterParametersMapHttpHeaderEntryIterator iterator = this.createIterator(headers);
 
         for (int i = 0; i < headerNames.size(); i++) {
             if (checkHasNext) {
@@ -126,7 +126,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
         this.nextFails(iterator);
     }
 
-    private void checkNext(final RouterHttpRequestParametersMapHttpHeaderEntryIterator iterator,
+    private void checkNext(final HttpRequestRouterParametersMapHttpHeaderEntryIterator iterator,
                            final HttpHeaderName<?> header,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
@@ -137,11 +137,11 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
     @Test
     public void testToString() {
         final Iterator<Entry<HttpHeaderName<?>, Object>> iterator = Iterators.fake();
-        this.toStringAndCheck(RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
+        this.toStringAndCheck(HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
     }
 
-    private RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator(final Map<HttpHeaderName<?>, Object> headers) {
-        return RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(headers.entrySet().iterator());
+    private HttpRequestRouterParametersMapHttpHeaderEntryIterator createIterator(final Map<HttpHeaderName<?>, Object> headers) {
+        return HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(headers.entrySet().iterator());
     }
 
     private Map<HttpHeaderName<?>, Object> headers2() {
@@ -149,8 +149,8 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMapHttpHeaderEntryIterator> type() {
-        return RouterHttpRequestParametersMapHttpHeaderEntryIterator.class;
+    public Class<HttpRequestRouterParametersMapHttpHeaderEntryIterator> type() {
+        return HttpRequestRouterParametersMapHttpHeaderEntryIterator.class;
     }
 
     @Override
@@ -160,7 +160,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
 
     @Override
     public String typeNamePrefix() {
-        return RouterHttpRequestParametersMap.class.getSimpleName();
+        return HttpRequestRouterParametersMap.class.getSimpleName();
     }
 
     @Override

@@ -33,10 +33,10 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implements ClassTesting2<RouterHttpRequestParametersMapCookiesEntryIterator>,
+public final class HttpRequestRouterParametersMapCookiesEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapCookiesEntryIterator>,
         IteratorTesting,
-        ToStringTesting<RouterHttpRequestParametersMapCookiesEntryIterator>,
-        TypeNameTesting<RouterHttpRequestParametersMapCookiesEntryIterator> {
+        ToStringTesting<HttpRequestRouterParametersMapCookiesEntryIterator>,
+        TypeNameTesting<HttpRequestRouterParametersMapCookiesEntryIterator> {
 
     private final static ClientCookie COOKIE1 = Cookie.client(CookieName.with("a"), "1");
     private final static ClientCookie COOKIE2 = Cookie.client(CookieName.with("b"), "2");
@@ -67,7 +67,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implem
     }
 
     private void iterateAndCheck(final boolean checkHasNext, final ClientCookie... cookies) {
-        final RouterHttpRequestParametersMapCookiesEntryIterator iterator = this.createIterator(cookies);
+        final HttpRequestRouterParametersMapCookiesEntryIterator iterator = this.createIterator(cookies);
 
         for (int i = 0; i < cookies.length; i++) {
             if (checkHasNext) {
@@ -80,7 +80,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implem
         this.nextFails(iterator);
     }
 
-    private void checkNext(final RouterHttpRequestParametersMapCookiesEntryIterator iterator,
+    private void checkNext(final HttpRequestRouterParametersMapCookiesEntryIterator iterator,
                            final ClientCookie cookie) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
         assertEquals(cookie.name(), entry.getKey(), "key");
@@ -94,18 +94,18 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implem
 
     @Test
     public void testToStringEmpty() {
-        final RouterHttpRequestParametersMapCookiesEntryIterator iterator = this.createIterator(COOKIE1);
+        final HttpRequestRouterParametersMapCookiesEntryIterator iterator = this.createIterator(COOKIE1);
         iterator.next();
         this.toStringAndCheck(iterator, "");
     }
 
-    private RouterHttpRequestParametersMapCookiesEntryIterator createIterator(final ClientCookie... cookies) {
-        return RouterHttpRequestParametersMapCookiesEntryIterator.with(Lists.of(cookies));
+    private HttpRequestRouterParametersMapCookiesEntryIterator createIterator(final ClientCookie... cookies) {
+        return HttpRequestRouterParametersMapCookiesEntryIterator.with(Lists.of(cookies));
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMapCookiesEntryIterator> type() {
-        return RouterHttpRequestParametersMapCookiesEntryIterator.class;
+    public Class<HttpRequestRouterParametersMapCookiesEntryIterator> type() {
+        return HttpRequestRouterParametersMapCookiesEntryIterator.class;
     }
 
     @Override
@@ -115,7 +115,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implem
 
     @Override
     public String typeNamePrefix() {
-        return RouterHttpRequestParametersMap.class.getSimpleName();
+        return HttpRequestRouterParametersMap.class.getSimpleName();
     }
 
     @Override

@@ -29,25 +29,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The {@link Map#entrySet()} for {@link RouterHttpRequestParametersMap}.
+ * The {@link Map#entrySet()} for {@link HttpRequestRouterParametersMap}.
  */
-final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>> {
+final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>> {
 
     static {
-        Sets.registerImmutableType(RouterHttpRequestParametersMapEntrySet.class);
+        Sets.registerImmutableType(HttpRequestRouterParametersMapEntrySet.class);
     }
 
     /**
-     * Factory only called by {@link RouterHttpRequestParametersMap}.
+     * Factory only called by {@link HttpRequestRouterParametersMap}.
      */
-    static RouterHttpRequestParametersMapEntrySet with(final RouterHttpRequestParametersMap map) {
-        return new RouterHttpRequestParametersMapEntrySet(map);
+    static HttpRequestRouterParametersMapEntrySet with(final HttpRequestRouterParametersMap map) {
+        return new HttpRequestRouterParametersMapEntrySet(map);
     }
 
     /**
      * Private ctor
      */
-    private RouterHttpRequestParametersMapEntrySet(final RouterHttpRequestParametersMap map) {
+    private HttpRequestRouterParametersMapEntrySet(final HttpRequestRouterParametersMap map) {
         super();
         this.map = map;
     }
@@ -55,18 +55,18 @@ final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<Htt
     @Override
     public Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator() {
         // attributes, path, url-parameters, headers, cookies, request parameters
-        final RouterHttpRequestParametersMap map = this.map;
+        final HttpRequestRouterParametersMap map = this.map;
         final HttpRequest request = map.request;
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> attributes = RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.with(request);
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> attributes = HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator.with(request);
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = RouterHttpRequestParametersMapPathComponentEntryIterator.with(map.pathNames());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = HttpRequestRouterParametersMapPathComponentEntryIterator.with(map.pathNames());
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> urlParameterNames = Cast.to(map.urlParameters().entrySet().iterator());
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(HttpHeaderName.COOKIE.headerValue(request.headers()).orElse(ClientCookie.NO_COOKIES));
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = HttpRequestRouterParametersMapCookiesEntryIterator.with(HttpHeaderName.COOKIE.headerValue(request.headers()).orElse(ClientCookie.NO_COOKIES));
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 
@@ -82,7 +82,7 @@ final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<Htt
         return this.map.size();
     }
 
-    private final RouterHttpRequestParametersMap map;
+    private final HttpRequestRouterParametersMap map;
 
     @Override
     public String toString() {

@@ -28,13 +28,13 @@ import java.util.Map.Entry;
  * An {@link Iterator} entry view of all {@link walkingkooka.net.header.HttpHeaderName} and the typed values and not
  * always {@link String}.
  */
-final class RouterHttpRequestParametersMapHttpHeaderEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
+final class HttpRequestRouterParametersMapHttpHeaderEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
-    static RouterHttpRequestParametersMapHttpHeaderEntryIterator with(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
-        return new RouterHttpRequestParametersMapHttpHeaderEntryIterator(headerAndValues);
+    static HttpRequestRouterParametersMapHttpHeaderEntryIterator with(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
+        return new HttpRequestRouterParametersMapHttpHeaderEntryIterator(headerAndValues);
     }
 
-    private RouterHttpRequestParametersMapHttpHeaderEntryIterator(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
+    private HttpRequestRouterParametersMapHttpHeaderEntryIterator(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
         super();
         this.headerAndValues = headerAndValues;
     }

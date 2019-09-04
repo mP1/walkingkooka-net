@@ -105,6 +105,6 @@ final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute<UrlP
         return "path-" + this.index;
     }
 
-    // shared with RouterHttpRequestParametersMap
+    // shared with HttpRequestRouterParametersMap
     final int index;
 }

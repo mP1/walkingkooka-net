@@ -28,13 +28,13 @@ import java.util.NoSuchElementException;
 /**
  * An {@link Iterator} entry view of all {@link ClientCookie cookies}.
  */
-final class RouterHttpRequestParametersMapCookiesEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
+final class HttpRequestRouterParametersMapCookiesEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
-    static RouterHttpRequestParametersMapCookiesEntryIterator with(final List<ClientCookie> cookies) {
-        return new RouterHttpRequestParametersMapCookiesEntryIterator(cookies);
+    static HttpRequestRouterParametersMapCookiesEntryIterator with(final List<ClientCookie> cookies) {
+        return new HttpRequestRouterParametersMapCookiesEntryIterator(cookies);
     }
 
-    private RouterHttpRequestParametersMapCookiesEntryIterator(final List<ClientCookie> cookies) {
+    private HttpRequestRouterParametersMapCookiesEntryIterator(final List<ClientCookie> cookies) {
         super();
         this.cookies = cookies;
     }

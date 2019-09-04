@@ -43,8 +43,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class RouterHttpRequestParametersMapTest implements ClassTesting2<RouterHttpRequestParametersMap>,
-        MapTesting2<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
+public final class HttpRequestRouterParametersMapTest implements ClassTesting2<HttpRequestRouterParametersMap>,
+        MapTesting2<HttpRequestRouterParametersMap, HttpRequestAttribute<?>, Object> {
 
     @Test
     public void testContainsAndGet() {
@@ -130,7 +130,7 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
     }
 
     @Override
-    public RouterHttpRequestParametersMap createMap() {
+    public HttpRequestRouterParametersMap createMap() {
         return this.createMap(transport(),
                 this.method(),
                 this.url(),
@@ -167,13 +167,13 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
         return HttpRequest.NO_PARAMETERS;
     }
 
-    private RouterHttpRequestParametersMap createMap(final HttpTransport transport,
+    private HttpRequestRouterParametersMap createMap(final HttpTransport transport,
                                                      final HttpMethod method,
                                                      final RelativeUrl url,
                                                      final HttpProtocolVersion protocolVersion,
                                                      final Map<HttpHeaderName<?>, Object> headers,
                                                      final Map<HttpRequestParameterName, List<String>> parameters) {
-        return RouterHttpRequestParametersMap.with(new FakeHttpRequest() {
+        return HttpRequestRouterParametersMap.with(new FakeHttpRequest() {
 
             @Override
             public HttpTransport transport() {
@@ -213,8 +213,8 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMap> type() {
-        return RouterHttpRequestParametersMap.class;
+    public Class<HttpRequestRouterParametersMap> type() {
+        return HttpRequestRouterParametersMap.class;
     }
 
     @Override

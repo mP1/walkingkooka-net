@@ -32,25 +32,25 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A {@link Map} view of a {@link HttpRequest}.
+ * A {@link Map} view of a {@link HttpRequest#routingParameters()}.
  */
-final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttribute<?>, Object> {
+final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttribute<?>, Object> {
 
     static {
-        Maps.registerImmutableType(RouterHttpRequestParametersMap.class);
+        Maps.registerImmutableType(HttpRequestRouterParametersMap.class);
     }
 
     /**
      * Factory that creates a map of parameters from a {@link HttpRequest}.
      */
-    static RouterHttpRequestParametersMap with(final HttpRequest request) {
-        return new RouterHttpRequestParametersMap(request);
+    static HttpRequestRouterParametersMap with(final HttpRequest request) {
+        return new HttpRequestRouterParametersMap(request);
     }
 
     /**
      * Private ctor use factory.
      */
-    private RouterHttpRequestParametersMap(final HttpRequest request) {
+    private HttpRequestRouterParametersMap(final HttpRequest request) {
         super();
         this.request = request;
     }
@@ -118,7 +118,7 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
         return this.entrySet;
     }
 
-    private final RouterHttpRequestParametersMapEntrySet entrySet = RouterHttpRequestParametersMapEntrySet.with(this);
+    private final HttpRequestRouterParametersMapEntrySet entrySet = HttpRequestRouterParametersMapEntrySet.with(this);
 
     @Override
     public int size() {

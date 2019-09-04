@@ -30,10 +30,10 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest implements ClassTesting2<RouterHttpRequestParametersMapPathComponentEntryIterator>,
+public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapPathComponentEntryIterator>,
         IteratorTesting,
-        ToStringTesting<RouterHttpRequestParametersMapPathComponentEntryIterator>,
-        TypeNameTesting<RouterHttpRequestParametersMapPathComponentEntryIterator> {
+        ToStringTesting<HttpRequestRouterParametersMapPathComponentEntryIterator>,
+        TypeNameTesting<HttpRequestRouterParametersMapPathComponentEntryIterator> {
 
     private final static UrlPathName NAME1 = UrlPathName.with("a");
     private final static UrlPathName NAME2 = UrlPathName.with("b");
@@ -70,7 +70,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
     }
 
     private void iterateAndCheck(final boolean checkHasNext, final UrlPathName... names) {
-        final RouterHttpRequestParametersMapPathComponentEntryIterator iterator = this.createIterator(names);
+        final HttpRequestRouterParametersMapPathComponentEntryIterator iterator = this.createIterator(names);
 
         for (int i = 0; i < names.length; i++) {
             if (checkHasNext) {
@@ -83,7 +83,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
         this.nextFails(iterator);
     }
 
-    private void checkNext(final RouterHttpRequestParametersMapPathComponentEntryIterator iterator,
+    private void checkNext(final HttpRequestRouterParametersMapPathComponentEntryIterator iterator,
                            final int position,
                            final UrlPathName name) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
@@ -98,18 +98,18 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
 
     @Test
     public void testToStringEmpty() {
-        final RouterHttpRequestParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
+        final HttpRequestRouterParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
         iterator.next();
         this.toStringAndCheck(iterator, "");
     }
 
-    private RouterHttpRequestParametersMapPathComponentEntryIterator createIterator(final UrlPathName... names) {
-        return RouterHttpRequestParametersMapPathComponentEntryIterator.with(names);
+    private HttpRequestRouterParametersMapPathComponentEntryIterator createIterator(final UrlPathName... names) {
+        return HttpRequestRouterParametersMapPathComponentEntryIterator.with(names);
     }
 
     @Override
-    public Class<RouterHttpRequestParametersMapPathComponentEntryIterator> type() {
-        return RouterHttpRequestParametersMapPathComponentEntryIterator.class;
+    public Class<HttpRequestRouterParametersMapPathComponentEntryIterator> type() {
+        return HttpRequestRouterParametersMapPathComponentEntryIterator.class;
     }
 
     @Override
@@ -119,7 +119,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
 
     @Override
     public String typeNamePrefix() {
-        return RouterHttpRequestParametersMap.class.getSimpleName();
+        return HttpRequestRouterParametersMap.class.getSimpleName();
     }
 
     @Override

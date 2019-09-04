@@ -23,19 +23,19 @@ import java.util.Map.Entry;
 /**
  * An {@link Iterator} over all {@link HttpRequestAttributes} values as {@link Entry}.
  */
-final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
+final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
     /**
      * Factory
      */
-    static RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator with(final HttpRequest request) {
-        return new RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator(request);
+    static HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator with(final HttpRequest request) {
+        return new HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator(request);
     }
 
     /**
      * Private ctor use factory
      */
-    private RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator(final HttpRequest request) {
+    private HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator(final HttpRequest request) {
         super();
         this.request = request;
     }
