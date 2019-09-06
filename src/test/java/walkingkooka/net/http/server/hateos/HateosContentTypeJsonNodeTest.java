@@ -102,11 +102,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic(this::objectPostProcessor);
-    }
-
-    private JsonObjectNode objectPostProcessor(final Object value, JsonObjectNode object) {
-        return object;
+        return ToJsonNodeContexts.basic();
     }
 
     @Override

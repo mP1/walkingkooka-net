@@ -31,11 +31,7 @@ public abstract class HateosHandlerResourceMappingTestCase2<T> extends HateosHan
     }
 
     final ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic(this::objectPostProcessor);
-    }
-
-    private JsonObjectNode objectPostProcessor(final Object value, JsonObjectNode object) {
-        return object;
+        return ToJsonNodeContexts.basic();
     }
 
     // ClassVisibility..................................................................................................
