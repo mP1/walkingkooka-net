@@ -17,10 +17,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
@@ -28,7 +25,6 @@ import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilder;
-import java.util.Collection;
 import java.util.List;
 
 /**

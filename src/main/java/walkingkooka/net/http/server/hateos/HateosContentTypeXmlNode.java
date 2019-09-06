@@ -17,19 +17,9 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.UrlPath;
-import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.Link;
-import walkingkooka.net.header.LinkParameterName;
-import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpServerException;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
 
@@ -40,9 +30,7 @@ import javax.xml.transform.TransformerFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
