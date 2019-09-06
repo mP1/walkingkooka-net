@@ -847,11 +847,7 @@ public final class HateosHandlerResourceMappingRouterTest extends HateosHandlerR
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContexts.basic(this::objectPreProcessor);
-    }
-
-    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
+        return FromJsonNodeContexts.basic();
     }
 
     // ClassTesting.....................................................................................................
