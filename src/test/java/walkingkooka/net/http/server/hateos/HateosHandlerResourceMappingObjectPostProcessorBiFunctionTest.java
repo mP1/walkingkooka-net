@@ -133,7 +133,8 @@ public final class HateosHandlerResourceMappingObjectPostProcessorBiFunctionTest
     private void toJsonNodeAndCheck(final Object resource,
                                     final JsonNode json) {
         assertEquals(json,
-                ToJsonNodeContexts.basic(this.createBiFunction()).toJsonNode(resource),
+                ToJsonNodeContexts.basic()
+                        .setObjectPostProcessor(this.createBiFunction()).toJsonNode(resource),
                 () -> resource.toString());
     }
 
