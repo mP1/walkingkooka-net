@@ -11,9 +11,6 @@ paradigms, including:
 - Headers: Rich header abstractions for most commonly used http headers.
 - Http: Abstractions for numerous components of Http.
 - HttpServer: A functional HTTP Server that leverages other abstractions in this project.
-- Hateos: Automatic JSON and XML marshalling of requests and responses and addition of links for registered hateos
-  resources within a JSON response.
-
 
 
 ## Headers
