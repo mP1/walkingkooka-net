@@ -21,6 +21,7 @@ import org.eclipse.jetty.server.Server;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
@@ -33,6 +34,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.HttpServerException;
 
+import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Map;
@@ -45,17 +47,20 @@ import java.util.stream.Collectors;
  */
 public final class JettyHttpServer implements HttpServer {
 
-    public static JettyHttpServer with(final IpPort port,
+    public static JettyHttpServer with(final HostAddress host,
+                                       final IpPort port,
                                        final BiConsumer<HttpRequest, HttpResponse> handler) {
+        Objects.requireNonNull(host, "host");
         Objects.requireNonNull(port, "port");
         Objects.requireNonNull(handler, "handler");
 
-        return new JettyHttpServer(port, handler);
+        return new JettyHttpServer(host, port, handler);
     }
 
-    private JettyHttpServer(final IpPort port,
+    private JettyHttpServer(final HostAddress host,
+                            final IpPort port,
                             final BiConsumer<HttpRequest, HttpResponse> handler) {
-        final Server server = new Server(port.value());
+        final Server server = new Server(new InetSocketAddress(host.value(), port.value()));
         server.setHandler(JettyHttpServerHandler.with(handler));
         this.server = server;
     }
@@ -86,14 +91,16 @@ public final class JettyHttpServer implements HttpServer {
     }
 
     public static void main(final String[] args) throws Exception {
-        if (args.length != 1) {
-            throw new Exception("Required 1 arguments <port> got " + Arrays.toString(args));
+        if (args.length != 2) {
+            throw new Exception("Required 2 arguments <host> <port> got " + Arrays.toString(args));
         }
 
-        final IpPort port = IpPort.with(Integer.parseInt(args[0]));
-        System.out.println("Port: " + port);
+        final HostAddress host = HostAddress.with(args[0]);
+        final IpPort port = IpPort.with(Integer.parseInt(args[1]));
 
-        final JettyHttpServer server = JettyHttpServer.with(port, JettyHttpServer::handle);
+        final JettyHttpServer server = JettyHttpServer.with(host,
+                port,
+                JettyHttpServer::handle);
 
         try {
             server.start();
