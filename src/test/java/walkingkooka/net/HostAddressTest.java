@@ -18,9 +18,8 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
@@ -39,8 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
-        ComparableTesting<HostAddress>,
-        HashCodeEqualsDefinedTesting<HostAddress>,
+        ComparableTesting2<HostAddress>,
         SerializationTesting<HostAddress>,
         ThrowableTesting,
         ToStringTesting<HostAddress> {

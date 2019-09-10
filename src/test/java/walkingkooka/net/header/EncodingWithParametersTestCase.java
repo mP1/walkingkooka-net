@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public abstract class EncodingWithParametersTestCase<A extends EncodingWithParameters> extends HeaderValueWithParametersTestCase<EncodingWithParameters, EncodingParameterName<?>>
-        implements ComparableTesting<EncodingWithParameters>,
+        implements ComparableTesting2<EncodingWithParameters>,
         ParseStringTesting<EncodingWithParameters>,
         PredicateTesting2<EncodingWithParameters, ContentEncoding> {
 

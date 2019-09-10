@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringBuilder;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary>
-        implements ComparableTesting<MediaTypeBoundary>,
+        implements ComparableTesting2<MediaTypeBoundary>,
         ParseStringTesting<MediaTypeBoundary> {
 
     // with ................................................................................................

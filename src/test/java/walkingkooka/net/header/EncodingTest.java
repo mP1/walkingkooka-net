@@ -19,14 +19,14 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class EncodingTest extends HeaderValueTestCase<Encoding>
-        implements ComparableTesting<Encoding>,
+        implements ComparableTesting2<Encoding>,
         ParseStringTesting<Encoding> {
 
     // constants ......................................................................................................

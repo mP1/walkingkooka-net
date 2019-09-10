@@ -23,7 +23,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<HttpRequestAttributeUrlPathName>,
-        HashCodeEqualsDefinedTesting<HttpRequestAttributeUrlPathName>,
+        HashCodeEqualsDefinedTesting2<HttpRequestAttributeUrlPathName>,
         ToStringTesting<HttpRequestAttributeUrlPathName> {
 
     @Test

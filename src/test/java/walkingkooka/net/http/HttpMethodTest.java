@@ -19,7 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.header.HeaderValueTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         HeaderValueTesting<HttpMethod>,
-        ComparableTesting<HttpMethod>,
+        ComparableTesting2<HttpMethod>,
         ConstantsTesting<HttpMethod> {
 
     @Test

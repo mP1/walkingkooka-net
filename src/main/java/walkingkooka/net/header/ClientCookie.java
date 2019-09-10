@@ -175,7 +175,12 @@ final public class ClientCookie extends Cookie {
         //
     }
 
-    // Object .................................................................
+    // Object ..........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.value);
+    }
 
     @Override
     boolean canBeEqual(final Object other) {

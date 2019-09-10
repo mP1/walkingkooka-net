@@ -29,7 +29,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.JavaVisibility;
@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
-        HashCodeEqualsDefinedTesting<HttpEntity>,
+        HashCodeEqualsDefinedTesting2<HttpEntity>,
         ToStringTesting<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;

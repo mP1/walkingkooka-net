@@ -274,10 +274,15 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
         return true;
     }
 
-    // Object ............................................................................................
+    // Object ..........................................................................................................
 
     @Override
-    public final boolean equals(final Object other) {
+    public int hashCode() {
+        return Objects.hash(this.charset, this.language, this.value);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
         return this == other ||
                 other instanceof EncodedText &&
                         this.equals0(Cast.to(other));
