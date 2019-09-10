@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
@@ -85,5 +86,12 @@ final class LinkRelationRegular extends LinkRelation<String> {
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof LinkRelationRegular;
+    }
+
+    // Comparable.......................................................................................................
+
+    @Override
+    int comparePriority() {
+        return COMPARE_PRIORITY_REGULAR;
     }
 }

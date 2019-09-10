@@ -42,7 +42,7 @@ public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends
     }
 
     @Test
-    public final void testEqualsDifferentValue() {
+    public void testEqualsDifferentValue() {
         this.checkNotEquals(this.createHeaderValue(this.differentValue()));
     }
 
