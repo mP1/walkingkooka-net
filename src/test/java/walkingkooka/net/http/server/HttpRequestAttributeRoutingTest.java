@@ -200,23 +200,16 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     // path UrlPathName, Predicate .....................................................................................
 
     @Test
-    public void testPathPredicateNegativePathComponentIndexFails() {
+    public void testPathNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createRouting().path(null, Predicates.fake());
-        });
-    }
-
-    @Test
-    public void testPathPredicateNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().path(UrlPath.EMPTY, null);
+            this.createRouting().path(null);
         });
     }
 
     @Test
     public void testPathPredicateEmptyPath() {
         final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        assertSame(routing, routing.path(UrlPath.EMPTY, Predicates.fake()));
+        assertSame(routing, routing.path(UrlPath.EMPTY));
 
         this.checkAttributes(routing, Maps.empty());
     }
@@ -224,7 +217,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     @Test
     public void testPathPredicatePath() {
         final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("/1a/2b"), Predicates.never());
+        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("/1a/2b"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -239,7 +232,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     @Test
     public void testPathPredicatePathWithoutLeadingSlash() {
         final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/2b"), Predicates.never());
+        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/2b"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -254,13 +247,14 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     @Test
     public void testPathPredicatePathWithWildcard() {
         final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/*/3c"), HttpRequestAttributeRouting.PATH_REMOVE_WILDCARDS);
+        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/*/3c"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
                 Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                        HttpRequestAttributes.pathComponent(2), HttpRequestAttributeRoutingWildcardPredicate.INSTANCE,
                         HttpRequestAttributes.pathComponent(3), Predicates.is(UrlPathName.with("3c"))));
 
         this.check(routing);
@@ -585,7 +579,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     @Test
     public void testPathBuildAndRoute() {
         final Router<HttpRequestAttribute<?>, String> router = this.router(this.createRouting()
-                .path(UrlPath.parse("/path1/path2"), HttpRequestAttributeRouting.PATH_REMOVE_WILDCARDS));
+                .path(UrlPath.parse("/path1/path2")));
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
@@ -832,8 +826,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
                         .protocolVersion(HttpProtocolVersion.VERSION_1_0)
                         .method(HttpMethod.GET)
                         .method(HttpMethod.POST)
-                        .path(UrlPath.parse("/a1/b2/c3"), HttpRequestAttributeRouting.PATH_REMOVE_WILDCARDS),
-                "GET POST PROTOCOL_VERSION=HTTP/1.0, path-1=a1, path-2=b2, path-3=c3");
+                        .path(UrlPath.parse("/a1/b2/c3/*")),
+                "GET POST PROTOCOL_VERSION=HTTP/1.0, path-1=a1, path-2=b2, path-3=c3, path-4=*");
     }
 
     // helpers..........................................................................................................

@@ -123,24 +123,19 @@ final public class HttpRequestAttributeRouting<T> implements Builder<Routing<Htt
     // path ............................................................................................................
 
     /**
-     * A {@link Predicate} that matches wildcard files within a path.
+     * Adds all path components with support for wildcards. A wildcard simply matches any path components value that is present.
      */
-    public final static Predicate<UrlPathName> PATH_REMOVE_WILDCARDS = Predicates.is(UrlPathName.with("*"));
-
-    /**
-     * Adds all path components that are NOT matched by the {@link Predicate skip}.
-     */
-    public HttpRequestAttributeRouting<T> path(final UrlPath path,
-                                               final Predicate<UrlPathName> skip) {
+    public HttpRequestAttributeRouting<T> path(final UrlPath path) {
         Objects.requireNonNull(path, "path");
-        Objects.requireNonNull(skip, "skip");
 
         HttpRequestAttributeRouting<T> that = this;
 
         int i = 0;
         for (UrlPathName name : path) {
             if (0 != i) {
-                if (false == skip.test(name)) {
+                if (WILDCARD.equals(name)) {
+                    that = that.pathComponent(i, HttpRequestAttributeRoutingWildcardPredicate.INSTANCE);
+                } else {
                     that = that.pathComponent(i, name);
                 }
             }
@@ -149,6 +144,12 @@ final public class HttpRequestAttributeRouting<T> implements Builder<Routing<Htt
 
         return that;
     }
+
+    /**
+     * A wildcard path component.
+     */
+    private final static UrlPathName WILDCARD = UrlPathName.with("*");
+
 
     /**
      * Adds a requirement for a particular path component by name.
