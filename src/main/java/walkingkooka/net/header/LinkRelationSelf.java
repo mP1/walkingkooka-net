@@ -17,52 +17,49 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.compare.Comparators;
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.Url;
-
 /**
- * Holds a link relation that holds a URN (AbsoluteUrl) value.
+ * Holds a link relation with text and not url.<br>
+ * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
-final class LinkRelationUrl extends LinkRelation<AbsoluteUrl> {
+final class LinkRelationSelf extends LinkRelation<String> {
 
     /**
-     * Returns a {@link LinkRelation}
+     * Unconditionally creates a {@link LinkRelationSelf}
      */
-    static LinkRelationUrl url(final String value) {
-        return new LinkRelationUrl(Url.parseAbsolute(value));
+    final static LinkRelationSelf create() {
+        return new LinkRelationSelf();
     }
 
     /**
-     * Package private to limit sub classing, use a constant or factory.
+     * Private use instance.
      */
-    private LinkRelationUrl(final AbsoluteUrl value) {
-        super(value);
+    private LinkRelationSelf() {
+        super("self");
     }
 
     @Override
     public boolean isUrl() {
-        return true;
+        return false;
     }
 
     // HeaderValue ....................................................................................................
 
     @Override
-    public final String toHeaderText() {
-        return this.value().toString();
+    public String toHeaderText() {
+        return this.value();
     }
 
     // HeaderValue2 ............................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LinkRelationUrl;
+        return other instanceof LinkRelationSelf;
     }
 
     // Comparable.......................................................................................................
 
     @Override
     int comparePriority() {
-        return COMPARE_PRIORITY_URL;
+        return COMPARE_PRIORITY_SELF;
     }
 }

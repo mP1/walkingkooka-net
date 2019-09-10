@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Comparators;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -427,7 +428,7 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
     /**
      * Conveys an identifier for the link's context.
      */
-    public final static LinkRelation<String> SELF = registerConstant("self");
+    public final static LinkRelation<String> SELF = registerConstant(LinkRelationSelf.create());
 
     /**
      * Indicates a URI that can be used to retrieve a service document.<br>When used in an Atom document, this relation type specifies Atom Publishing Protocol service documents by default. Requested by James Snell.
@@ -513,9 +514,15 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
      * Registers a constant.
      */
     private static LinkRelation<String> registerConstant(final String text) {
-        final LinkRelation<String> linkRelation = LinkRelationRegular.regular(text);
-        CONSTANTS.put(text, linkRelation);
-        return linkRelation;
+        return registerConstant(LinkRelationRegular.regular(text));
+    }
+
+    /**
+     * Registers a constant. This method is required to register {@link #SELF} all other constants use {@link #registerConstant(String).}
+     */
+    private static LinkRelation<String> registerConstant(final LinkRelation<String> relation) {
+        CONSTANTS.put(relation.value, relation);
+        return relation;
     }
 
     /**
@@ -558,6 +565,13 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
     }
 
     /**
+     * Only returns true if {@link #SELF}
+     */
+    public final boolean isSelf() {
+        return this == SELF;
+    }
+
+    /**
      * Returns true if the value is an absolute url.
      */
     abstract public boolean isUrl();
@@ -586,10 +600,27 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
         return true;
     }
 
-    // Comparable...........................................................................................................
+    // Comparable.......................................................................................................
 
+    /**
+     * Sorts {@link #SELF} then regular then {@link LinkRelation} with links, each group in alphabetical order
+     */
     @Override
     public final int compareTo(final LinkRelation<?> other) {
-        return this.toHeaderText().compareTo(other.toHeaderText());
+        final int compare = this.comparePriority() - other.comparePriority();
+
+        // if priorities are same compare headerText form otherwise priority sort is enough
+        return Comparators.EQUAL == compare ?
+                this.toHeaderText().compareTo(other.toHeaderText()) :
+                compare;
     }
+
+    final static int COMPARE_PRIORITY_SELF = 0;
+    final static int COMPARE_PRIORITY_REGULAR = COMPARE_PRIORITY_SELF + 1;
+    final static int COMPARE_PRIORITY_URL = COMPARE_PRIORITY_REGULAR + 1;
+
+    /**
+     * Used to sort SELF then REGULAR then URL
+     */
+    abstract int comparePriority();
 }

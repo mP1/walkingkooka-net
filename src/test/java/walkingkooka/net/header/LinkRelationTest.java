@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -29,7 +30,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
-        implements ParseStringTesting<List<LinkRelation<?>>> {
+        implements ComparableTesting,
+        ParseStringTesting<List<LinkRelation<?>>> {
 
     private final static String TEXT = "abc123";
     private final static String URL_TEXT = "http://example.com";
@@ -64,6 +66,71 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Test
     public void testParse() {
         this.parseStringAndCheck("self http://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("http://example.com")));
+    }
+
+    @Test
+    public void testSortSelfBeforeRegular() {
+        this.compareToArraySortAndCheck(LinkRelation.SELF,
+                LinkRelation.ABOUT,
+                LinkRelation.BOOKMARK,
+                LinkRelation.CONTENTS,
+                LinkRelation.SELF,
+                LinkRelation.ABOUT,
+                LinkRelation.BOOKMARK,
+                LinkRelation.CONTENTS);
+    }
+
+    @Test
+    public void testSortSelfBeforeRegular2() {
+        this.compareToArraySortAndCheck(LinkRelation.BOOKMARK,
+                LinkRelation.CONTENTS,
+                LinkRelation.SELF,
+                LinkRelation.ABOUT,
+                LinkRelation.SELF,
+                LinkRelation.ABOUT,
+                LinkRelation.BOOKMARK,
+                LinkRelation.CONTENTS);
+    }
+
+    @Test
+    public void testSortRegularBeforeHyperlinked() {
+        final LinkRelation<?> about = LinkRelation.ABOUT;
+        final LinkRelation<?> bookmark = LinkRelation.BOOKMARK;
+        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+
+        this.compareToArraySortAndCheck(bookmark, url, about,
+                about, bookmark, url);
+    }
+
+    @Test
+    public void testSortRegularBeforeHyperlinked2() {
+        final LinkRelation<?> about = LinkRelation.ABOUT;
+        final LinkRelation<?> custom = LinkRelation.with("custom123");
+        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+
+        this.compareToArraySortAndCheck(url, custom, about,
+                about, custom, url);
+    }
+
+    @Test
+    public void testSortSelfBeforeHyperlinked() {
+        final LinkRelation<?> self = LinkRelation.SELF;
+        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+
+        this.compareToArraySortAndCheck(url, self,
+                self, url);
+    }
+
+    @Test
+    public void testSortSelfThenRegularThenHyperlinked() {
+        final LinkRelation<?> about = LinkRelation.ABOUT;
+        final LinkRelation<?> bookmark = LinkRelation.BOOKMARK;
+        final LinkRelation<?> self = LinkRelation.SELF;
+        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+        final LinkRelation<?> url2 = LinkRelation.with("http://example2.com");
+
+        this.compareToArraySortAndCheck(url2, bookmark, about, self, url,
+                self, about, bookmark, url, url2);
     }
 
     @Override
