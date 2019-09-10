@@ -19,7 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
-        HashCodeEqualsDefinedTesting<HttpStatus>,
+        HashCodeEqualsDefinedTesting2<HttpStatus>,
         ToStringTesting<HttpStatus> {
 
     // constants

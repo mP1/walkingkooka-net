@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 
 import java.util.Arrays;
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Mixin interface with helpers to assist testing of {@link HeaderValue} implementations.
  */
-public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqualsDefinedTesting<V>,
+public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqualsDefinedTesting2<V>,
         ToStringTesting<V> {
 
     @Test

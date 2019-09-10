@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +33,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
         EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
                 HttpHeaderName<?>,
                 Object>,
-        HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> {
+        HashCodeEqualsDefinedTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> {
 
     private final static String HEADER_NAME = "content-length";
     private final static Long CONTENT_LENGTH = 123L;

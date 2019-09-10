@@ -18,7 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements ClassTesting2<A>,
-        ComparableTesting<A>,
+        ComparableTesting2<A>,
         SerializationTesting<A>,
         ToStringTesting<A>,
         TypeNameTesting<A> {

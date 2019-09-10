@@ -21,10 +21,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
@@ -44,8 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
-        ComparableTesting<EmailAddress>,
-        HashCodeEqualsDefinedTesting<EmailAddress>,
+        ComparableTesting2<EmailAddress>,
         JsonNodeMappingTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,

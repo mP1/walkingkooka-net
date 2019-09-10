@@ -18,7 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
@@ -33,7 +33,7 @@ import java.util.function.Predicate;
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
-        HashCodeEqualsDefinedTesting<U>,
+        HashCodeEqualsDefinedTesting2<U>,
         JsonNodeMappingTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,

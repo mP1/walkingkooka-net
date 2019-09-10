@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 
 public final class HttpRequestAttributeRoutingParameterValuePredicateTest implements ClassTesting2<HttpRequestAttributeRoutingParameterValuePredicate>,
         PredicateTesting2<HttpRequestAttributeRoutingParameterValuePredicate, List<String>>,
-        HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingParameterValuePredicate> {
+        HashCodeEqualsDefinedTesting2<HttpRequestAttributeRoutingParameterValuePredicate> {
 
     private final static String VALUE = "value123";
 

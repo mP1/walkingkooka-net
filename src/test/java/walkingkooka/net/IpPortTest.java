@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class IpPortTest implements ClassTesting2<IpPort>,
         ConstantsTesting<IpPort>,
-        ComparableTesting<IpPort>,
+        ComparableTesting2<IpPort>,
         SerializationTesting<IpPort>,
         ToStringTesting<IpPort> {
 

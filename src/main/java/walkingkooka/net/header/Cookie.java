@@ -312,7 +312,10 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
         return false;
     }
 
-    // Object .............................................................................
+    // Object ..........................................................................................................
+
+    @Override
+    public abstract int hashCode();
 
     @Override
     public final boolean equals(final Object other) {

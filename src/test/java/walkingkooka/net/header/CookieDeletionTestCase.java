@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 
 public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined>
         implements ClassTesting2<D>,
-        HashCodeEqualsDefinedTesting<D>,
+        HashCodeEqualsDefinedTesting2<D>,
         IsMethodTesting<D>,
         ToStringTesting<D> {
 
