@@ -116,17 +116,44 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
 
     @Test
     public void testGetPath() {
-        this.getAndCheck(HttpRequestAttributes.pathComponent(1), UrlPathName.with("path"));
+        this.getPathAndCheck(1, "path-1a");
     }
 
     @Test
     public void testGetPath2() {
-        this.getAndCheck(HttpRequestAttributes.pathComponent(2), UrlPathName.with("file"));
+        this.getPathAndCheck(2, "file-2b");
+    }
+
+    private void getPathAndCheck(final int pathComponent,
+                                 final String expected) {
+        this.getPathAndCheck(this.createMap(),
+                pathComponent,
+                expected);
     }
 
     @Test
     public void testSize() {
         this.sizeAndCheck(this.createMap(), 11);
+    }
+
+    @Test
+    public void testUrlNormalized() {
+        final HttpRequestRouterParametersMap map = this.createMap(transport(),
+                this.method(),
+                Url.parseRelative("/a1/b2/./deleted-by-double-dot-after/../c3"),
+                this.protocolVersion(),
+                this.headers(),
+                this.parameters());
+        this.getPathAndCheck(map, 0, "");
+        this.getPathAndCheck(map, 1, "a1");
+        this.getPathAndCheck(map, 2, "b2");
+        this.getPathAndCheck(map, 3, "c3");
+    }
+
+    private void getPathAndCheck(final HttpRequestRouterParametersMap map,
+                                 final int pathComponent,
+                                 final String expected) {
+        this.getAndCheck(map, HttpRequestAttributes.pathComponent(pathComponent), UrlPathName.with(expected));
     }
 
     @Override
@@ -148,7 +175,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
     }
 
     private RelativeUrl url() {
-        return Url.parseRelative("/path/file?param1=value1A&param1=value1B&param2=value2"); // 3 + 2
+        return Url.parseRelative("/path-1a/file-2b?param1=value1A&param1=value1B&param2=value2"); // 3 + 2
     }
 
     private HttpProtocolVersion protocolVersion() {

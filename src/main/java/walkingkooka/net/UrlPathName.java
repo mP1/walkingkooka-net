@@ -69,7 +69,17 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         super(name);
     }
 
-    // NetName........................................................................................................
+    /**
+     * Returns true if this name is normalized.
+     */
+    boolean isNormalized() {
+        final String name = this.name;
+        return name.length() != 0 &&
+                false == name.equals(".") &&
+                false == name.equals("..");
+    }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
@@ -87,7 +97,7 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
      * Dumps the {@link String value} adding quotes if necessary.
      */
     @Override
-    public final String toString() {
+    public String toString() {
         return CharSequences.quoteIfNecessary(this.name).toString();
     }
 
