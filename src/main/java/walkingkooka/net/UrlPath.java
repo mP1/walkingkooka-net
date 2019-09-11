@@ -123,11 +123,6 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
         return new UrlPath(path.toString(), name, Optional.of(this));
     }
 
-    /**
-     * Thrown when attempting to add the root name to this {@link UrlPath}.
-     */
-    final static String CANNOT_APPEND_ROOT_NAME = "Cannot append root name.";
-
     @Override
     public UrlPath append(final UrlPath path) {
         Objects.requireNonNull(path, "path");
