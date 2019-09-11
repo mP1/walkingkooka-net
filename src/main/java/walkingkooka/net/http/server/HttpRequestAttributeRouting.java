@@ -150,7 +150,6 @@ final public class HttpRequestAttributeRouting<T> implements Builder<Routing<Htt
      */
     private final static UrlPathName WILDCARD = UrlPathName.with("*");
 
-
     /**
      * Adds a requirement for a particular path component by name.
      */
@@ -160,7 +159,8 @@ final public class HttpRequestAttributeRouting<T> implements Builder<Routing<Htt
     }
 
     /**
-     * Adds a predicate for a path component.
+     * Adds a {@link Predicate} for a path component. Note the {@link Predicate} must be <code>null</code> safe, because nulls
+     * will be passed with the path component is absent from the request.
      */
     public HttpRequestAttributeRouting<T> pathComponent(final int pathComponent,
                                                         final Predicate<UrlPathName> predicate) {
