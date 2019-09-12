@@ -173,6 +173,18 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<
      * <li>Dot segments <code>.</code> are removed</li>
      * <li>Double dot segments <code>..</code> cause the parent to be removed</li>
      * </ul>
+     * <br>
+     * <a href="https://en.wikipedia.org/wiki/URI_normalization">URI normalization</a>
+     * <pre>
+     * Removing dot-segments. Dot-segments . and .. in the path component of the URI should be removed by applying the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
+     * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
+     *
+     * Converting an empty path to a "/" path. In presence of an authority component, an empty path component should be normalized to a path component of "/".[7] Example:
+     * http://example.com → http://example.com/
+     *
+     * Removing duplicate slashes Paths which include two adjacent slashes could be converted to one. Example:
+     * http://example.com/foo//bar.html → http://example.com/foo/bar.html
+     * </pre>
      */
     public abstract UrlPath normalize();
 
