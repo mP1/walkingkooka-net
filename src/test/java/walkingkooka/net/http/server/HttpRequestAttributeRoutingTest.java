@@ -34,8 +34,9 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.routing.RouteMappings;
 import walkingkooka.routing.Router;
-import walkingkooka.routing.RouterBuilder;
+import walkingkooka.routing.*;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -49,19 +50,10 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRoutingTest implements ClassTesting2<HttpRequestAttributeRouting<String>>,
-        ToStringTesting<HttpRequestAttributeRouting<String>> {
+public final class HttpRequestAttributeRoutingTest implements ClassTesting2<HttpRequestAttributeRouting>,
+        ToStringTesting<HttpRequestAttributeRouting> {
 
     private final static String TARGET = "target123";
-
-    // with.............................................................................................................
-
-    @Test
-    public void testWithNullTargetFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpRequestAttributeRouting.with(null);
-        });
-    }
 
     // transport .......................................................................................................
 
@@ -74,10 +66,10 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testTransport() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
 
         final HttpTransport transport = HttpTransport.UNSECURED;
-        final HttpRequestAttributeRouting<String> routing2 = routing.transport(transport).transport(transport);
+        final HttpRequestAttributeRouting routing2 = routing.transport(transport).transport(transport);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2, HttpTransport.UNSECURED);
@@ -89,9 +81,9 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testTransportDifferent() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
 
-        final HttpRequestAttributeRouting<String> routing2 = routing.transport(HttpTransport.UNSECURED)
+        final HttpRequestAttributeRouting routing2 = routing.transport(HttpTransport.UNSECURED)
                 .transport(HttpTransport.SECURED);
         assertNotSame(routing, routing2);
 
@@ -113,9 +105,9 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testMethod() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
 
-        final HttpRequestAttributeRouting<String> routing2 = routing.method(HttpMethod.GET);
+        final HttpRequestAttributeRouting routing2 = routing.method(HttpMethod.GET);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -127,9 +119,9 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testMethodMultiple() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
 
-        final HttpRequestAttributeRouting<String> routing2 = routing.method(HttpMethod.GET)
+        final HttpRequestAttributeRouting routing2 = routing.method(HttpMethod.GET)
                 .method(HttpMethod.POST)
                 .method(HttpMethod.PUT);
         assertNotSame(routing, routing2);
@@ -152,10 +144,10 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testProtocolVersion() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
 
-        final HttpRequestAttributeRouting<String> routing2 = routing.protocolVersion(version);
+        final HttpRequestAttributeRouting routing2 = routing.protocolVersion(version);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -167,10 +159,10 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testProtocolVersionMultipleSame() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
 
-        final HttpRequestAttributeRouting<String> routing2 = routing.protocolVersion(version)
+        final HttpRequestAttributeRouting routing2 = routing.protocolVersion(version)
                 .protocolVersion(version);
         assertNotSame(routing, routing2);
 
@@ -185,7 +177,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     public void testProtocolVersionMultipleDifferentFails() {
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .protocolVersion(version);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -208,7 +200,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testPathPredicateEmptyPath() {
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
+        final HttpRequestAttributeRouting routing = this.createRouting();
         assertSame(routing, routing.path(UrlPath.EMPTY));
 
         this.checkAttributes(routing, Maps.empty());
@@ -216,8 +208,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testPathPredicatePath() {
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("/1a/2b"));
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.path(UrlPath.parse("/1a/2b"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -231,8 +223,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testPathPredicatePathWithoutLeadingSlash() {
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/2b"));
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.path(UrlPath.parse("1a/2b"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -246,8 +238,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testPathPredicatePathWithWildcard() {
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.path(UrlPath.parse("1a/*/3c"));
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.path(UrlPath.parse("1a/*/3c"));
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -290,8 +282,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     public void testPathComponent() {
         final Predicate<UrlPathName> predicate = Predicates.fake();
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.pathComponent(0, predicate);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.pathComponent(0, predicate);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -306,8 +298,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     public void testPathComponentRepeated() {
         final Predicate<UrlPathName> predicate = Predicates.fake();
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.pathComponent(0, predicate)
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.pathComponent(0, predicate)
                 .pathComponent(0, predicate);
         assertNotSame(routing, routing2);
 
@@ -340,8 +332,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpHeaderName<String> headerName = HttpHeaderName.CONNECTION;
         final Predicate<String> predicate = Predicates.is("value");
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.header(headerName, predicate);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.header(headerName, predicate);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -372,8 +364,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final CookieName cookieName = this.cookieName();
         final Predicate<ClientCookie> predicate = Predicates.is(Cookie.client(cookieName, "value456"));
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.cookie(cookieName, predicate);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.cookie(cookieName, predicate);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -446,8 +438,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     private void queryStringAndCheck(final String queryString,
                                      final Predicate<String> ignoreValue,
                                      final Map<?, ?> expected) {
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.queryString(UrlQueryString.with(queryString), ignoreValue);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.queryString(UrlQueryString.with(queryString), ignoreValue);
 
         assertNotSame(routing, routing2);
 
@@ -478,8 +470,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameterName = this.parameterName();
         final Predicate<String> predicate = Predicates.is("value");
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.parameter(parameterName, predicate);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.parameter(parameterName, predicate);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -510,8 +502,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameterName = this.parameterName();
         final String value = "value123";
 
-        final HttpRequestAttributeRouting<?> routing = this.createRouting();
-        final HttpRequestAttributeRouting<?> routing2 = routing.parameterAndValue(parameterName, value);
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.parameterAndValue(parameterName, value);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -532,7 +524,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testBuild() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .transport(HttpTransport.SECURED)
                 .method(HttpMethod.GET)
                 .protocolVersion(HttpProtocolVersion.VERSION_1_0);
@@ -553,7 +545,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     @Test
     public void testMethodsBuildAndRoute() {
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .transport(HttpTransport.SECURED)
                 .method(HttpMethod.GET)
                 .method(HttpMethod.POST)
@@ -605,7 +597,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final UrlPathName path1 = UrlPathName.with("path1");
         final UrlPathName path2 = UrlPathName.with("path2");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .pathComponent(1, path1)
                 .pathComponent(2, path2);
 
@@ -632,7 +624,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpHeaderName<String> headerName1 = HttpHeaderName.with("header111").stringValues();
         final HttpHeaderName<String> headerName2 = HttpHeaderName.with("header222").stringValues();
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .header(headerName1, (c) -> null != c && c.contains("1"))
                 .header(headerName2, (c) -> null != c && c.contains("2"));
 
@@ -658,7 +650,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final String headerValue1 = "value1";
         final String headerValue2 = "value2";
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .headerAndValue(headerName1, headerValue1)
                 .headerAndValue(headerName2, headerValue2);
 
@@ -681,7 +673,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final CookieName cookieName1 = CookieName.with("cookie111");
         final CookieName cookieName2 = CookieName.with("cookie222");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .cookie(cookieName1, (c) -> null != c && c.value().contains("1"))
                 .cookie(cookieName2, (c) -> null != c && c.value().contains("2"));
 
@@ -704,7 +696,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .parameterAndValue(parameter1, "value1")
                 .parameterAndValue(parameter2, "value2");
 
@@ -727,7 +719,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .queryString(UrlQueryString.with("parameter1=a1&parameter2=b2"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
@@ -749,7 +741,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .queryString(UrlQueryString.with("parameter1=a1&parameter2=*"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
@@ -771,7 +763,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
-        final HttpRequestAttributeRouting<String> routing = this.createRouting()
+        final HttpRequestAttributeRouting routing = this.createRouting()
                 .parameter(parameter1, (v) -> null != v && v.contains("1"))
                 .parameter(parameter2, (v) -> null != v && v.contains("2"));
 
@@ -789,10 +781,10 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         this.routeAndCheck(router, parameters);
     }
 
-    private Router<HttpRequestAttribute<?>, String> router(final HttpRequestAttributeRouting<String> routing) {
-        return RouterBuilder.<HttpRequestAttribute<?>, String>empty()
-                .add(routing.build())
-                .build();
+    private Router<HttpRequestAttribute<?>, String> router(final HttpRequestAttributeRouting routing) {
+        return RouteMappings.<HttpRequestAttribute<?>, String>empty()
+                .add(routing.build(), TARGET)
+                .router();
     }
 
     private void routeAndCheck(final Router<HttpRequestAttribute<?>, String> router,
@@ -832,8 +824,8 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
 
     // helpers..........................................................................................................
 
-    public HttpRequestAttributeRouting<String> createRouting() {
-        return HttpRequestAttributeRouting.with(TARGET);
+    public HttpRequestAttributeRouting createRouting() {
+        return HttpRequestAttributeRouting.empty();
     }
 
     private CookieName cookieName() {
@@ -844,27 +836,27 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
         return HttpRequestParameterName.with("parameter");
     }
 
-    private void check(final HttpRequestAttributeRouting<?> routing) {
+    private void check(final HttpRequestAttributeRouting routing) {
         this.checkTransports(routing);
         this.checkMethods(routing);
         this.checkAttributes(routing, Maps.empty());
     }
 
-    private void checkTransports(final HttpRequestAttributeRouting<?> routing,
+    private void checkTransports(final HttpRequestAttributeRouting routing,
                                  final HttpTransport... transports) {
         assertEquals(Sets.of(transports),
                 routing.transports,
                 "transports");
     }
 
-    private void checkMethods(final HttpRequestAttributeRouting<?> routing,
+    private void checkMethods(final HttpRequestAttributeRouting routing,
                               final HttpMethod... methods) {
         assertEquals(Sets.of(methods),
                 routing.methods,
                 "methods");
     }
 
-    private void checkAttributes(final HttpRequestAttributeRouting<?> routing,
+    private void checkAttributes(final HttpRequestAttributeRouting routing,
                                  final Map<?, ?> expected) {
         assertEquals(expected,
                 routing.attributes,
@@ -874,7 +866,7 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HttpRequestAttributeRouting<String>> type() {
+    public Class<HttpRequestAttributeRouting> type() {
         return Cast.to(HttpRequestAttributeRouting.class);
     }
 
