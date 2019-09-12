@@ -33,7 +33,6 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.routing.Routing;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -300,6 +299,9 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
                 new HttpRequestAttributeRouting(this.transports, this.methods, copy);
     }
 
+    /**
+     * Factory used to create an empty {@link Map} prior to populating with attributes.
+     */
     private static Map<HttpRequestAttribute<?>, Predicate<?>> map() {
         return Maps.ordered();
     }
@@ -313,7 +315,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
     // build ............................................................................................................
 
     /**
-     * Builds a {@link Routing} from the captured {@link HttpRequestAttribute attributes}.
+     * Builds a {@link Map} from the added {@link HttpRequestAttribute attributes}.
      */
     @Override
     public Map<HttpRequestAttribute<?>, Predicate<?>> build() throws BuilderException {
