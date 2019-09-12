@@ -528,7 +528,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
         this.checkPortAbsent(url);
-        this.checkPath(url, UrlPath.parse("path123"));
+        this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.with("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }

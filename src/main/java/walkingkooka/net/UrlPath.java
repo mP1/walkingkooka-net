@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link Path} which may be part of a {@link Url} after the host and port but before any present query string or anchor.
  */
-public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<UrlPath>, HashCodeEqualsDefined, Serializable {
+public abstract class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<UrlPath>, HashCodeEqualsDefined, Serializable {
 
     /**
      * {@link PathSeparator} instance
@@ -39,17 +39,35 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
     /**
      * Constant used to indicate no parent.
      */
-    private final static Optional<UrlPath> NO_PARENT = Optional.empty();
+    final static Optional<UrlPath> NO_PARENT = Optional.empty();
 
     /**
      * Singleton {@link UrlPath} with a {@link PathSeparator#string()}.
      */
-    public final static UrlPath ROOT = new UrlPath(UrlPath.SEPARATOR.string(), UrlPathName.ROOT, NO_PARENT);
+    public final static UrlPath ROOT = UrlPathRoot.root();
+
+    final static Optional<UrlPath> ROOT_PARENT = Optional.of(ROOT);
 
     /**
      * Singleton {@link UrlPath} with an empty {@link String path}.
      */
-    public final static UrlPath EMPTY = new UrlPath("", UrlPathName.ROOT, NO_PARENT);
+    public final static UrlPath EMPTY = UrlPathEmpty.empty();
+
+    final static Optional<UrlPath> EMPTY_PARENT = Optional.of(EMPTY);
+
+    static UrlPathLeafNormalized normalized(final String path,
+                                            final UrlPathName name,
+                                            final Optional<UrlPath> parent) {
+        return UrlPathLeafNormalized.withNormalized(path, name, parent);
+    }
+
+    static UrlPathLeafUnnormalized unnormalized(final String path,
+                                                final UrlPathName name,
+                                                final Optional<UrlPath> parent) {
+        return UrlPathLeafUnnormalized.withUnnormalized(path, name, parent);
+    }
+
+    // parse............................................................................................................
 
     /**
      * Creates a new {@link UrlPath}. Note that the entire ancestor hierarchy is created while breaking the path up into components.
@@ -68,26 +86,29 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
      * Parses and creates the path chain.
      */
     private static UrlPath parse0(final String value) {
+        final boolean slash = value.charAt(0) == SEPARATOR.character();
         return parse1(value,
-                value.charAt(0) == SEPARATOR.character() ? 1 : 0,
-                ROOT);
+                slash ? 1 : 0,
+                slash ? ROOT : EMPTY);
     }
 
-    private static UrlPath parse1(final String value, final int start, final UrlPath parent) {
+    private static UrlPath parse1(final String value,
+                                  final int start,
+                                  final UrlPath parent) {
         UrlPath path = parent;
 
         final char separator = SEPARATOR.character();
         final int length = value.length();
-        int s = start;
+        int begin = start;
 
         for (; ; ) {
-            final int end = value.indexOf(separator, s);
+            final int end = value.indexOf(separator, begin);
             if (-1 == end) {
-                path = path.append(UrlPathName.with(value.substring(s, length)));
+                path = path.append(UrlPathName.with(value.substring(begin, length)));
                 break;
             }
-            path = path.append(UrlPathName.with(value.substring(s, end)));
-            s = end + 1;
+            path = path.append(UrlPathName.with(value.substring(begin, end)));
+            begin = end + 1;
             if (start >= length) {
                 break;
             }
@@ -97,150 +118,98 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
     }
 
     /**
-     * Private constructor
+     * Package private to limit sub classing.
      */
-    private UrlPath(final String path, final UrlPathName name, final Optional<UrlPath> parent) {
+    UrlPath() {
         super();
-
-        this.path = path;
-        this.name = name;
-        this.parent = parent;
     }
-
-    // Path
-
-    @Override
-    public UrlPath append(final UrlPathName name) {
-        Objects.requireNonNull(name, "name");
-
-        final StringBuilder path = new StringBuilder();
-        if (false == this.isRoot()) {
-            path.append(this.path);
-        }
-        path.append(UrlPath.SEPARATOR.character());
-        path.append(name.value());
-
-        return new UrlPath(path.toString(), name, Optional.of(this));
-    }
-
-    @Override
-    public UrlPath append(final UrlPath path) {
-        Objects.requireNonNull(path, "path");
-
-        UrlPath result = this;
-
-        for (; ; ) {
-            if (this.isEmpty()) {
-                result = path;
-                break;
-            }
-            // ignore $path if its empty or root.
-            if (path.isRoot() || path.isEmpty()) {
-                break;
-            }
-            if (this.isRoot()) {
-                result = path;
-                break;
-            }
-            result = parse1(this.path + path.value(),
-                    this.path.length() + 1,
-                    this);
-            break;
-        }
-
-        return result;
-    }
-
-    @Override
-    public UrlPathName name() {
-        return this.name;
-    }
-
-    transient private final UrlPathName name;
-
-    @Override
-    public Optional<UrlPath> parent() {
-        return this.parent;
-    }
-
-    private transient final Optional<UrlPath> parent;
-
-    @Override
-    public String value() {
-        return this.path;
-    }
-
-    private final String path;
 
     /**
      * {@link PathSeparator} getter.
      */
     @Override
-    public PathSeparator separator() {
+    public final PathSeparator separator() {
         return UrlPath.SEPARATOR;
     }
 
     @Override
-    public boolean isRoot() {
-        return this == UrlPath.ROOT;
+    public final UrlPath append(final UrlPathName name) {
+        Objects.requireNonNull(name, "name");
+
+        return this.appendName(name, this);
     }
 
-    /**
-     * Tests if this path is empty.
-     */
-    private boolean isEmpty() {
-        return this == UrlPath.EMPTY;
+    abstract UrlPath appendName(final UrlPathName name, final UrlPath parent);
+
+    @Override
+    public final UrlPath append(final UrlPath path) {
+        Objects.requireNonNull(path, "path");
+
+        return this.appendPath(path);
     }
+
+    abstract UrlPath appendPath(final UrlPath path);
+
+    abstract UrlPath appendTo(final UrlPathLeaf leaf);
 
     /**
      * Adds a query string to this path returning a {@link RelativeUrl}
      */
-    public RelativeUrl addQueryString(final UrlQueryString queryString) {
+    public final RelativeUrl addQueryString(final UrlQueryString queryString) {
         Objects.requireNonNull(queryString, "queryString");
 
         return Url.relative(this, queryString, UrlFragment.EMPTY);
     }
 
-    // Comparable......................................................................................................
+    /**
+     * Returns true if this path is normalized.
+     */
+    public abstract boolean isNormalized();
+
+    /**
+     * Returns a {@link UrlPath} that performs the following normalization rules.
+     * <ul>
+     * <li>An empty path is replaced with "/"</li>
+     * <li>Dot segments <code>.</code> are removed</li>
+     * <li>Double dot segments <code>..</code> cause the parent to be removed</li>
+     * </ul>
+     */
+    public abstract UrlPath normalize();
+
+    /**
+     * Returns the parent of this path or itself if its a root.
+     */
+    abstract UrlPath parentOrSelf();
+
+    // Comparable........................................................................................................
 
     @Override
-    public int compareTo(final UrlPath path) {
-        return this.path.compareTo(path.path);
+    public final int hashCode() {
+        return this.value().hashCode();
     }
 
-    // Object.........................................................................................................
-
     @Override
-    public int hashCode() {
-        return this.path.hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                 other instanceof UrlPath &&
                         this.equals0((UrlPath) other);
     }
 
     private boolean equals0(final UrlPath other) {
-        return this.path.equals(other.path);
+        return this.value().equals(other.value());
     }
+
+    // Comparable........................................................................................................
 
     @Override
-    public final String toString() {
-        final StringBuilder b = new StringBuilder();
-        this.toString0(b);
-        return b.toString();
-    }
-
-    void toString0(final StringBuilder b) {
-        b.append(this.path);
+    public final int compareTo(final UrlPath path) {
+        return this.toString().compareTo(path.toString());
     }
 
     // Serialization....................................................................................................
 
-    private Object readResolve() {
-        return UrlPath.parse(this.path);
+    final Object readResolve() {
+        return UrlPath.parse(this.toString());
     }
 
     private final static long serialVersionUID = 1L;

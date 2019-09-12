@@ -260,7 +260,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     public final String toString() {
         final StringBuilder b = new StringBuilder();
         this.toString0(b);
-        this.path.toString0(b);
+        b.append(this.path);
         this.query.toString0(b);
         this.fragment.toString0(b);
         return b.toString();
