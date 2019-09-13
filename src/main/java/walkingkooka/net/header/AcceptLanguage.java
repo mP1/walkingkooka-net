@@ -59,12 +59,13 @@ import java.util.stream.Collectors;
  *       user agent might suggest in such a case to add "en" to get the
  *       best matching behavior.
  * </pre>
+ * Note the {@link LanguageWithParameters} value is not sorted and appear in the original header text order.
  */
 public final class AcceptLanguage extends HeaderValue2<List<LanguageWithParameters>>
         implements Predicate<ContentLanguage> {
 
     /**
-     * Parses a header value that contains one or more encodings.
+     * Parses a header value that contains one or more languages.
      */
     public static AcceptLanguage parse(final String text) {
         return AcceptLanguageHeaderValueParser.parseAcceptLanguage(text);
