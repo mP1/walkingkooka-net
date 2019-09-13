@@ -22,7 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.routing.Router;
+import walkingkooka.route.Router;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;

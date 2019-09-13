@@ -19,7 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.routing.Router;
+import walkingkooka.route.Router;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.nio.file.Path;
