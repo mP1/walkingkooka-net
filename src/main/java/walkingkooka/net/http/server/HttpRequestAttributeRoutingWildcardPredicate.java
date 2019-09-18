@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.function.Predicate;
 
@@ -26,7 +27,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} used by {@link HttpRequestAttributeRouting#path(UrlPath)} which provides support for matching
  * wildcard path components. It will return true for any non null {@link UrlPathName}.
  */
-final class HttpRequestAttributeRoutingWildcardPredicate implements Predicate<UrlPathName> {
+final class HttpRequestAttributeRoutingWildcardPredicate implements Predicate<UrlPathName>, HashCodeEqualsDefined {
 
     /**
      * Singleton

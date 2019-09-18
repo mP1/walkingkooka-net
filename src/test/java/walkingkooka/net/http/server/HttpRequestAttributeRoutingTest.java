@@ -36,8 +36,6 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
@@ -49,8 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRoutingTest implements ClassTesting2<HttpRequestAttributeRouting>,
-        ToStringTesting<HttpRequestAttributeRouting> {
+public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRouting> {
 
     private final static String TARGET = "target123";
 
@@ -872,5 +869,12 @@ public final class HttpRequestAttributeRoutingTest implements ClassTesting2<Http
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

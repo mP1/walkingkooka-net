@@ -19,14 +19,8 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
-public final class HttpRequestAttributeRoutingWildcardPredicateTest implements PredicateTesting2<HttpRequestAttributeRoutingWildcardPredicate, UrlPathName>,
-        ClassTesting2<HttpRequestAttributeRoutingWildcardPredicate>,
-        ToStringTesting<HttpRequestAttributeRoutingWildcardPredicate> {
+public final class HttpRequestAttributeRoutingWildcardPredicateTest extends HttpRequestAttributeRoutingTestCase2<HttpRequestAttributeRoutingWildcardPredicate, UrlPathName> {
 
     @Override
     public void testTestNullFails() {
@@ -57,15 +51,14 @@ public final class HttpRequestAttributeRoutingWildcardPredicateTest implements P
         this.toStringAndCheck(this.createPredicate(), "*");
     }
 
+    // PredicateTesting.................................................................................................
+
     @Override
     public HttpRequestAttributeRoutingWildcardPredicate createPredicate() {
         return HttpRequestAttributeRoutingWildcardPredicate.INSTANCE;
     }
 
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<HttpRequestAttributeRoutingWildcardPredicate> type() {
