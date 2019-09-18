@@ -30,7 +30,7 @@ final class MediaTypeListHeaderValueParser extends MediaTypeHeaderValueParser {
     static List<MediaType> parseMediaTypeList(final String text) {
         final MediaTypeListHeaderValueParser parser = new MediaTypeListHeaderValueParser(text);
         parser.parse();
-        parser.list.sort(HasQualityFactor.qFactorDescendingComparator());
+        parser.list.sort(HasQualityFactor.qualityFactorDescendingComparator());
         return Lists.readOnly(parser.list);
     }
 

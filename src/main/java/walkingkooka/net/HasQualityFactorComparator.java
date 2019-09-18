@@ -44,12 +44,12 @@ final class HasQualityFactorComparator<T extends HasQualityFactor> implements Co
     }
 
     @Override
-    public int compare(final T weight, final T weight2) {
-        return -Float.compare(qFactor(weight), qFactor(weight2));
+    public int compare(final T has, final T has2) {
+        return -Float.compare(qFactor(has), qFactor(has2));
     }
 
-    private float qFactor(final T weight) {
-        return weight.qualityFactoryOrDefault();
+    private float qFactor(final T has) {
+        return has.qualityFactorOrDefault();
     }
 
     @Override

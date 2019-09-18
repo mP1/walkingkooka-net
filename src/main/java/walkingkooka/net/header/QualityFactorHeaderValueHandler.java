@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueHandler} that parses a header text into a q weights and verifies the value is within the
+ * A {@link HeaderValueHandler} that parses a header text into a quality weights and verifies the value is within the
  * accept range of 0.0 and 1.0 (inclusive).
  */
 final class QualityFactorHeaderValueHandler extends NonStringHeaderValueHandler<Float> {
@@ -50,7 +50,7 @@ final class QualityFactorHeaderValueHandler extends NonStringHeaderValueHandler<
     // https://restfulapi.net/q-parameter-in-http-accept-header/
     private float checkValue(final float value) {
         if (value < 0 || value > 1.0) {
-            throw new HeaderValueException("Q weight " + value + " must be bewteen 0.0 and 1.0");
+            throw new HeaderValueException("Q factor " + value + " must be bewteen 0.0 and 1.0");
         }
         return value;
     }

@@ -115,10 +115,10 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
     // parameters ...............................................................................................
 
     /**
-     * Retrieves the q-weight for this value.
+     * Retrieves the quality factor for this value.
      */
     public final Optional<Float> qualityFactor() {
-        return this.qFactorWeight(CharsetHeaderValueParameterName.Q);
+        return this.qualityFactor(CharsetHeaderValueParameterName.Q);
     }
 
     // replace .................................................................................................
