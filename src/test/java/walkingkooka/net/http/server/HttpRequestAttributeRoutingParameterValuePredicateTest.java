@@ -19,18 +19,12 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class HttpRequestAttributeRoutingParameterValuePredicateTest implements ClassTesting2<HttpRequestAttributeRoutingParameterValuePredicate>,
-        PredicateTesting2<HttpRequestAttributeRoutingParameterValuePredicate, List<String>>,
-        HashCodeEqualsDefinedTesting2<HttpRequestAttributeRoutingParameterValuePredicate> {
+public final class HttpRequestAttributeRoutingParameterValuePredicateTest extends HttpRequestAttributeRoutingTestCase2<HttpRequestAttributeRoutingParameterValuePredicate, List<String>> {
 
     private final static String VALUE = "value123";
 
@@ -72,11 +66,6 @@ public final class HttpRequestAttributeRoutingParameterValuePredicateTest implem
     // PredicateTesting.................................................................................................
 
     @Override
-    public HttpRequestAttributeRoutingParameterValuePredicate createObject() {
-        return this.createPredicate();
-    }
-
-    @Override
     public HttpRequestAttributeRoutingParameterValuePredicate createPredicate() {
         return HttpRequestAttributeRoutingParameterValuePredicate.with(this.wrappedPredicate());
     }
@@ -90,10 +79,5 @@ public final class HttpRequestAttributeRoutingParameterValuePredicateTest implem
     @Override
     public Class<HttpRequestAttributeRoutingParameterValuePredicate> type() {
         return HttpRequestAttributeRoutingParameterValuePredicate.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
