@@ -33,8 +33,7 @@ final public class LanguageParameterName<V> extends HeaderParameterName<V> imple
     /**
      * The q factor weight parameter.
      */
-    public final static LanguageParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
-            HeaderValueHandler.qWeight());
+    public final static LanguageParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link LanguageParameterName}
