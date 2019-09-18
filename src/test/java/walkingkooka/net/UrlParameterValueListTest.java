@@ -18,18 +18,19 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.ListTesting;
+import walkingkooka.collect.list.ListTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
-        ListTesting<UrlParameterValueList, String> {
+        ListTesting2<UrlParameterValueList, String> {
 
     @Test
     public void testEmpty() {
         this.isEmptyAndCheck(UrlParameterValueList.empty(), true);
     }
 
+    @Test
     public void testNotEmpty() {
         final UrlParameterValueList list = UrlParameterValueList.empty();
 

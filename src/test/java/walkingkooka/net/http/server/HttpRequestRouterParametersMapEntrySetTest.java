@@ -19,7 +19,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.SetTesting;
+import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlParameterName;
@@ -43,8 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2<HttpRequestRouterParametersMapEntrySet>,
-        SetTesting<HttpRequestRouterParametersMapEntrySet,
-                Entry<HttpRequestAttribute<?>, Object>> {
+        SetTesting2<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");
