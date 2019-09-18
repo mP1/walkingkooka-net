@@ -248,7 +248,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     // setParameters ..........................................................................................
 
     @Test
-    public void testSetParametersInvalidQWeight() {
+    public void testSetParametersInvalidQFactor() {
         assertThrows(HeaderValueException.class, () -> {
             this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q, -1.0f));
         });
@@ -396,7 +396,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testQParameterPresent() {
-        this.qFactorWeightAndCheck(this.mediaType()
+        this.qualityFactorAndCheck(this.mediaType()
                         .setParameters(parameters(MediaTypeParameterName.Q.value(), 0.5f)),
                 0.5f);
     }
@@ -410,15 +410,15 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testQParameterAbsent() {
-        this.qFactorWeightAndCheck(this.mediaType(), MediaType.QUALITY_FACTOR_EMPTY);
+        this.qualityFactorAndCheck(this.mediaType(), MediaType.QUALITY_FACTOR_EMPTY);
     }
 
-    private void qFactorWeightAndCheck(final MediaType type, final float weight) {
-        qFactorWeightAndCheck(type, Optional.of(weight));
+    private void qualityFactorAndCheck(final MediaType type, final float quality) {
+        qualityFactorAndCheck(type, Optional.of(quality));
     }
 
-    private void qFactorWeightAndCheck(final MediaType type, final Optional<Float> weight) {
-        assertEquals(weight, type.qualityFactor(), () -> type + " q weight");
+    private void qualityFactorAndCheck(final MediaType type, final Optional<Float> quality) {
+        assertEquals(quality, type.qualityFactor(), () -> type + " quality factor");
     }
 
     // parse .........................................................................

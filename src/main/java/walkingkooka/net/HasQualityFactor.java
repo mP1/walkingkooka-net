@@ -17,17 +17,19 @@
 
 package walkingkooka.net;
 
+import walkingkooka.net.header.HeaderValue;
+
 import java.util.Optional;
 
 /**
- * Provides a getter to retrieve the q factor.
+ * Provides a getter to retrieve the q (quality factor). Mostly implemented by {@link HeaderValue} that also have parameters.
  */
 public interface HasQualityFactor {
 
     /**
      * {@see HasQualityFactorComparator}
      */
-    static <T extends HasQualityFactor> HasQualityFactorComparator<T> qFactorDescendingComparator() {
+    static <T extends HasQualityFactor> HasQualityFactorComparator<T> qualityFactorDescendingComparator() {
         return HasQualityFactorComparator.instance();
     }
 
@@ -38,8 +40,9 @@ public interface HasQualityFactor {
 
     /**
      * Retrieves the q (quality factor) or defaults to 1.0 if absent.
+     * Retrieves the q factor or defaults to {@link #DEFAULT_WEIGHT} when absent.
      */
-    default Float qualityFactoryOrDefault() {
+    default Float qualityFactorOrDefault() {
         return this.qualityFactor().orElse(DEFAULT_WEIGHT);
     }
 

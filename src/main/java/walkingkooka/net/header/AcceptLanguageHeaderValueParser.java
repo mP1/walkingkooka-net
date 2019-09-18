@@ -67,7 +67,7 @@ final class AcceptLanguageHeaderValueParser extends AcceptLanguageOrLanguageHead
         parser.parse();
 
         final List<LanguageWithParameters> languages = parser.languages;
-        languages.sort(HasQualityFactor.qFactorDescendingComparator());
+        languages.sort(HasQualityFactor.qualityFactorDescendingComparator());
         return AcceptLanguage.with(languages);
     }
 
