@@ -19,11 +19,27 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract templated class for {@link HeaderValue} that hold a single typed {@link Value}.
  */
 abstract class HeaderValue2<V> implements HeaderValue, Value<V> {
+
+    static <V> List<V> nonEmptyImmutableList(final List<V> list,
+                                             final String label) {
+        Objects.requireNonNull(list, label);
+        final List<V> copy = Lists.immutable(list);
+        copy.stream()
+                .forEach(v -> Objects.requireNonNull(v, label + " includes null"));
+        if(copy.isEmpty()) {
+            throw new IllegalArgumentException("Empty " + label);
+        }
+        return copy;
+    }
 
     /**
      * Package private to limit sub-classing.
