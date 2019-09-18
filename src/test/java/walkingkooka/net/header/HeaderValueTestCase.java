@@ -17,16 +17,38 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.Value;
+import walkingkooka.collect.list.ListTesting;
 import walkingkooka.test.ClassTesting2;
+
+import java.util.List;
 
 /**
  * Base class for all {@link HeaderValue} in this package.
  */
 public abstract class HeaderValueTestCase<V extends HeaderValue> implements ClassTesting2<V>,
-        HeaderValueTesting<V> {
+        HeaderValueTesting<V>,
+        ListTesting {
 
     HeaderValueTestCase() {
         super();
+    }
+
+    /**
+     * {@link HeaderValue} that implement {@link Value} should have read only {@link List}.
+     */
+    @Test
+    public final void testValueIfListReadOnly() {
+        final V headerValue = this.createHeaderValue();
+        if(headerValue instanceof Value) {
+            final Object value = Value.class.cast(headerValue).value();
+            if(value instanceof List) {
+                final List<?> list = Cast.to(value);
+                this.addFails(list, null);
+            }
+        }
     }
 
     @Override

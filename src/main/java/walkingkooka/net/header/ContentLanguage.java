@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -58,13 +57,7 @@ public final class ContentLanguage extends HeaderValue2<List<LanguageName>> {
      * Factory that creates a new {@link ContentLanguage}
      */
     public static ContentLanguage with(final List<LanguageName> languages) {
-        Objects.requireNonNull(languages, "languages");
-
-        final List<LanguageName> copy = languages.stream()
-                .map(v -> Objects.requireNonNull(v, "languages includes null"))
-                .collect(Collectors.toList());
-
-        return new ContentLanguage(copy);
+        return new ContentLanguage(nonEmptyImmutableList(languages, "languages"));
     }
 
     /**

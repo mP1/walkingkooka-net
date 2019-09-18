@@ -19,9 +19,7 @@ package walkingkooka.net.header;
 
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Charset"></a>
@@ -45,11 +43,7 @@ public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> 
      * Factory that creates a new {@link AcceptCharset}
      */
     public static AcceptCharset with(final List<CharsetHeaderValue> values) {
-        Objects.requireNonNull(values, "values");
-
-        return new AcceptCharset(values.stream()
-                .map(v -> Objects.requireNonNull(v, "values includes null"))
-                .collect(Collectors.toList()));
+        return new AcceptCharset(nonEmptyImmutableList(values, "charsets"));
     }
 
     /**

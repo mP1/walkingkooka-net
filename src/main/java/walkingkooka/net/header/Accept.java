@@ -18,8 +18,6 @@
 package walkingkooka.net.header;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"></a>
@@ -99,17 +97,8 @@ public final class Accept extends HeaderValue2<List<MediaType>> {
     /**
      * Factory that creates a new {@link Accept}
      */
-    public static Accept with(final List<MediaType> values) {
-        Objects.requireNonNull(values, "values");
-
-        final List<MediaType> copy = values.stream()
-                .map(v -> Objects.requireNonNull(v, "values includes null"))
-                .collect(Collectors.toList());
-        if (copy.isEmpty()) {
-            throw new IllegalArgumentException("Media types empty");
-        }
-
-        return new Accept(copy);
+    public static Accept with(final List<MediaType> mediaTypes) {
+        return new Accept(nonEmptyImmutableList(mediaTypes, "media types"));
     }
 
     /**

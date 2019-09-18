@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"></a>
@@ -74,12 +73,8 @@ public final class AcceptLanguage extends HeaderValue2<List<LanguageWithParamete
     /**
      * Factory that creates a new {@link AcceptLanguage}
      */
-    public static AcceptLanguage with(final List<LanguageWithParameters> values) {
-        Objects.requireNonNull(values, "values");
-
-        return new AcceptLanguage(values.stream()
-                .map(v -> Objects.requireNonNull(v, "values includes null"))
-                .collect(Collectors.toList()));
+    public static AcceptLanguage with(final List<LanguageWithParameters> languages) {
+        return new AcceptLanguage(nonEmptyImmutableList(languages, "languages"));
     }
 
     /**

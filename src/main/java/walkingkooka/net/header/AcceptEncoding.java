@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * The accept encoding header.
@@ -50,12 +49,8 @@ public final class AcceptEncoding extends HeaderValue2<List<EncodingWithParamete
     /**
      * Factory that creates a new {@link AcceptEncoding}
      */
-    public static AcceptEncoding with(final List<EncodingWithParameters> values) {
-        Objects.requireNonNull(values, "values");
-
-        return new AcceptEncoding(values.stream()
-                .map(v -> Objects.requireNonNull(v, "values includes null"))
-                .collect(Collectors.toList()));
+    public static AcceptEncoding with(final List<EncodingWithParameters> encodings) {
+        return new AcceptEncoding(nonEmptyImmutableList(encodings, "encodings"));
     }
 
     /**
