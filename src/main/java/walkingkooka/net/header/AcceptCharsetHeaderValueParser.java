@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
 
 import java.util.List;
@@ -37,7 +37,7 @@ final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParamete
     static AcceptCharset parseAcceptCharset(final String text) {
         final AcceptCharsetHeaderValueParser parser = new AcceptCharsetHeaderValueParser(text);
         parser.parse();
-        parser.charsets.sort(HasQFactorWeight.qFactorDescendingComparator());
+        parser.charsets.sort(HasQualityFactor.qFactorDescendingComparator());
         return AcceptCharset.with(parser.charsets);
     }
 

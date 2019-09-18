@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.serialize.SerializationProxy;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -53,7 +53,7 @@ import java.util.function.Predicate;
 final public class MediaType extends HeaderValueWithParameters2<MediaType,
         MediaTypeParameterName<?>,
         String>
-        implements HasQFactorWeight,
+        implements HasQualityFactor,
         Predicate<MediaType>,
         Serializable {
 
@@ -342,7 +342,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     /**
      * Retrieves the q-weight for this value.
      */
-    public final Optional<Float> qFactorWeight() {
+    public final Optional<Float> qualityFactor() {
         return this.qFactorWeight(MediaTypeParameterName.Q_FACTOR);
     }
 

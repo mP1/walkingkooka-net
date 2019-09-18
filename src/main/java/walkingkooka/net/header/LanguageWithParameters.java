@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 
 import java.util.Map;
 import java.util.Objects;
@@ -30,7 +30,7 @@ import java.util.function.Predicate;
  */
 public final class LanguageWithParameters extends HeaderValueWithParameters2<LanguageWithParameters, LanguageParameterName<?>, LanguageName>
         implements Predicate<LanguageName>,
-        HasQFactorWeight {
+        HasQualityFactor {
 
     /**
      * No parameters constant.
@@ -139,12 +139,12 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
         return this.value.isWildcard();
     }
 
-    // HasQFactorWeight................................................................................................
+    // HasQualityFactor................................................................................................
 
     /**
      * Retrieves the q-weight for this value.
      */
-    public Optional<Float> qFactorWeight() {
+    public Optional<Float> qualityFactor() {
         return this.qFactorWeight(LanguageParameterName.Q_FACTOR);
     }
 

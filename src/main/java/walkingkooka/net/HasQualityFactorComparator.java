@@ -22,24 +22,24 @@ import walkingkooka.Cast;
 import java.util.Comparator;
 
 /**
- * A {@link Comparator} that may be used to compare or sort two {@link HasQFactorWeight} highest to lowest.
+ * A {@link Comparator} that may be used to compare or sort two {@link HasQualityFactor} highest to lowest.
  */
-final class QFactorWeightComparator<T extends HasQFactorWeight> implements Comparator<T> {
+final class HasQualityFactorComparator<T extends HasQualityFactor> implements Comparator<T> {
 
     /**
      * Type safe singleton getter
      */
-    static <T extends HasQFactorWeight> QFactorWeightComparator<T> instance() {
+    static <T extends HasQualityFactor> HasQualityFactorComparator<T> instance() {
         return Cast.to(INSTANCE);
     }
 
     @SuppressWarnings("rawtypes")
-    private final static QFactorWeightComparator INSTANCE = new QFactorWeightComparator();
+    private final static HasQualityFactorComparator INSTANCE = new HasQualityFactorComparator();
 
     /**
      * Private ctor
      */
-    private QFactorWeightComparator() {
+    private HasQualityFactorComparator() {
         super();
     }
 
@@ -49,11 +49,11 @@ final class QFactorWeightComparator<T extends HasQFactorWeight> implements Compa
     }
 
     private float qFactor(final T weight) {
-        return weight.qFactorWeightOrDefault();
+        return weight.qualityFactoryOrDefault();
     }
 
     @Override
     public String toString() {
-        return "QFactor";
+        return "QualityFactor";
     }
 }

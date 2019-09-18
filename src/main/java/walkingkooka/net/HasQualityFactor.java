@@ -22,25 +22,25 @@ import java.util.Optional;
 /**
  * Provides a getter to retrieve the q factor.
  */
-public interface HasQFactorWeight {
+public interface HasQualityFactor {
 
     /**
-     * {@see QFactorWeightComparator}
+     * {@see HasQualityFactorComparator}
      */
-    static <T extends HasQFactorWeight> QFactorWeightComparator<T> qFactorDescendingComparator() {
-        return QFactorWeightComparator.instance();
+    static <T extends HasQualityFactor> HasQualityFactorComparator<T> qFactorDescendingComparator() {
+        return HasQualityFactorComparator.instance();
     }
 
     /**
      * Gets the q factor weight.
      */
-    Optional<Float> qFactorWeight();
+    Optional<Float> qualityFactor();
 
     /**
      * Retrieves the q factor weight or defaults to 1.0 if absent.
      */
-    default Float qFactorWeightOrDefault() {
-        return this.qFactorWeight().orElse(DEFAULT_WEIGHT);
+    default Float qualityFactoryOrDefault() {
+        return this.qualityFactor().orElse(DEFAULT_WEIGHT);
     }
 
     float DEFAULT_WEIGHT = 1.0f;
@@ -48,5 +48,5 @@ public interface HasQFactorWeight {
     /**
      * Constant when q factor weight is absent.
      */
-    Optional<Float> Q_FACTOR_WEIGHT_ABSENT = Optional.empty();
+    Optional<Float> QUALITY_FACTOR_EMPTY = Optional.empty();
 }
