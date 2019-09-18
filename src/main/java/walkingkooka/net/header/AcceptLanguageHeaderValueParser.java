@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ final class AcceptLanguageHeaderValueParser extends AcceptLanguageOrLanguageHead
         parser.parse();
 
         final List<LanguageWithParameters> languages = parser.languages;
-        languages.sort(HasQFactorWeight.qFactorDescendingComparator());
+        languages.sort(HasQualityFactor.qFactorDescendingComparator());
         return AcceptLanguage.with(languages);
     }
 

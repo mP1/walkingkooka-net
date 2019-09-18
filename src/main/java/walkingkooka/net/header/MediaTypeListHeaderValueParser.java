@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ final class MediaTypeListHeaderValueParser extends MediaTypeHeaderValueParser {
     static List<MediaType> parseMediaTypeList(final String text) {
         final MediaTypeListHeaderValueParser parser = new MediaTypeListHeaderValueParser(text);
         parser.parse();
-        parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
+        parser.list.sort(HasQualityFactor.qFactorDescendingComparator());
         return Lists.readOnly(parser.list);
     }
 

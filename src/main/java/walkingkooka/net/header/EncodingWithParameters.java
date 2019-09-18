@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
@@ -34,7 +34,7 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
         EncodingParameterName<?>,
         String>
         implements Comparable<EncodingWithParameters>,
-        HasQFactorWeight,
+        HasQualityFactor,
         Predicate<ContentEncoding> {
 
     /**
@@ -154,10 +154,10 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
      */
     public abstract boolean isWildcard();
 
-    // HasQFactorWeight................................................................................................
+    // HasQualityFactor................................................................................................
 
     @Override
-    public Optional<Float> qFactorWeight() {
+    public Optional<Float> qualityFactor() {
         return EncodingParameterName.Q_FACTOR.parameterValue(this);
     }
 

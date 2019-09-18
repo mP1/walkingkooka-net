@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.HasQualityFactor;
 
 import java.util.Map;
 import java.util.Objects;
@@ -30,7 +30,7 @@ import java.util.Optional;
  */
 final public class CharsetHeaderValue extends HeaderValueWithParameters2<CharsetHeaderValue,
         CharsetHeaderValueParameterName<?>,
-        CharsetName> implements HasQFactorWeight {
+        CharsetName> implements HasQualityFactor {
 
     /**
      * No parameters.
@@ -117,7 +117,7 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
     /**
      * Retrieves the q-weight for this value.
      */
-    public final Optional<Float> qFactorWeight() {
+    public final Optional<Float> qualityFactor() {
         return this.qFactorWeight(CharsetHeaderValueParameterName.Q_FACTOR);
     }
 

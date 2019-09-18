@@ -24,8 +24,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
-public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorWeightComparator<MediaType>>,
-        ComparatorTesting<QFactorWeightComparator<MediaType>, MediaType> {
+public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQualityFactorComparator<MediaType>>,
+        ComparatorTesting<HasQualityFactorComparator<MediaType>, MediaType> {
 
     @Test
     public void testLeftHigherQFactor() {
@@ -65,17 +65,17 @@ public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorW
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createComparator(), "QFactor");
+        this.toStringAndCheck(this.createComparator(), "QualityFactor");
     }
 
     @Override
-    public QFactorWeightComparator<MediaType> createComparator() {
-        return QFactorWeightComparator.instance();
+    public HasQualityFactorComparator<MediaType> createComparator() {
+        return HasQualityFactorComparator.instance();
     }
 
     @Override
-    public Class<QFactorWeightComparator<MediaType>> type() {
-        return Cast.to(QFactorWeightComparator.class);
+    public Class<HasQualityFactorComparator<MediaType>> type() {
+        return Cast.to(HasQualityFactorComparator.class);
     }
 
     @Override
