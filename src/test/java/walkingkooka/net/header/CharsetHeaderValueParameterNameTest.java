@@ -64,8 +64,8 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(CharsetHeaderValueParameterName.Q_FACTOR,
-                CharsetHeaderValueParameterName.with(CharsetHeaderValueParameterName.Q_FACTOR.value()));
+        assertSame(CharsetHeaderValueParameterName.Q,
+                CharsetHeaderValueParameterName.with(CharsetHeaderValueParameterName.Q.value()));
     }
 
     // parameter value......................................................................................
@@ -78,7 +78,7 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testParameterValuePresent() {
-        final CharsetHeaderValueParameterName<Float> parameter = CharsetHeaderValueParameterName.Q_FACTOR;
+        final CharsetHeaderValueParameterName<Float> parameter = CharsetHeaderValueParameterName.Q;
         final float value = 0.5f;
 
         this.parameterValueAndCheckPresent(parameter,
@@ -88,14 +88,14 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     private CharsetHeaderValue charsetHeaderValue() {
         return CharsetHeaderValue.with(CharsetName.UTF_8)
-                .setParameters(Maps.of(CharsetHeaderValueParameterName.Q_FACTOR, 0.5f));
+                .setParameters(Maps.of(CharsetHeaderValueParameterName.Q, 0.5f));
     }
 
     // toValue...........................................................................................
 
     @Test
     public void testToValueQFactor() {
-        this.toValueAndCheck(CharsetHeaderValueParameterName.Q_FACTOR,
+        this.toValueAndCheck(CharsetHeaderValueParameterName.Q,
                 "0.5",
                 0.5f);
     }

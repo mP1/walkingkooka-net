@@ -145,7 +145,7 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
      * Retrieves the q-weight for this value.
      */
     public Optional<Float> qualityFactor() {
-        return this.qFactorWeight(LanguageParameterName.Q_FACTOR);
+        return this.qFactorWeight(LanguageParameterName.Q);
     }
 
     // HasHeaderScope ....................................................................................................

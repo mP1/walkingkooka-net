@@ -50,7 +50,7 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
     /**
      * The q (quality factor) parameter.
      */
-    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static MediaTypeParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
      * The title star parameter.

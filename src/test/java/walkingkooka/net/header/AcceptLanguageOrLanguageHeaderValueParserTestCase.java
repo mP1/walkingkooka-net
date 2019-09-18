@@ -63,7 +63,7 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
     @Test
     public final void testWildcardWithQWeight() {
         this.parseStringAndCheck2("*; q=0.75",
-                LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
+                LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
     }
 
     @Test

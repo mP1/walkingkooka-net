@@ -32,12 +32,12 @@ public interface HasQualityFactor {
     }
 
     /**
-     * Gets the q factor weight.
+     * Gets the q (quality factor).
      */
     Optional<Float> qualityFactor();
 
     /**
-     * Retrieves the q factor weight or defaults to 1.0 if absent.
+     * Retrieves the q (quality factor) or defaults to 1.0 if absent.
      */
     default Float qualityFactoryOrDefault() {
         return this.qualityFactor().orElse(DEFAULT_WEIGHT);
@@ -46,7 +46,7 @@ public interface HasQualityFactor {
     float DEFAULT_WEIGHT = 1.0f;
 
     /**
-     * Constant when q factor weight is absent.
+     * Constant when q (quality factor) is absent.
      */
     Optional<Float> QUALITY_FACTOR_EMPTY = Optional.empty();
 }

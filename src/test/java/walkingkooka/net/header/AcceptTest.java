@@ -58,7 +58,7 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
 
     @Override
     List<MediaType> value() {
-        return Lists.of(MediaType.IMAGE_BMP, MediaType.IMAGE_GIF.setParameters(Maps.of(MediaTypeParameterName.Q_FACTOR, 0.5f)));
+        return Lists.of(MediaType.IMAGE_BMP, MediaType.IMAGE_GIF.setParameters(Maps.of(MediaTypeParameterName.Q, 0.5f)));
     }
 
     @Override

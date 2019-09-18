@@ -64,19 +64,19 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(EncodingParameterName.Q_FACTOR, EncodingParameterName.with(EncodingParameterName.Q_FACTOR.value()));
+        assertSame(EncodingParameterName.Q, EncodingParameterName.with(EncodingParameterName.Q.value()));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(EncodingParameterName.Q_FACTOR, EncodingWithParameters.BR);
+        this.parameterValueAndCheckAbsent(EncodingParameterName.Q, EncodingWithParameters.BR);
     }
 
     @Test
     public void testParameterValuePresent() {
-        final EncodingParameterName<Float> parameter = EncodingParameterName.Q_FACTOR;
+        final EncodingParameterName<Float> parameter = EncodingParameterName.Q;
         final EncodingWithParameters encoding = EncodingWithParameters.nonWildcard("xyz", Maps.of(parameter, 0.75f));
 
         this.parameterValueAndCheckPresent(parameter, encoding, 0.75f);
@@ -95,7 +95,7 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testToValueQFactor() {
-        this.toValueAndCheck(EncodingParameterName.Q_FACTOR,
+        this.toValueAndCheck(EncodingParameterName.Q,
                 "0.75",
                 0.75f);
     }

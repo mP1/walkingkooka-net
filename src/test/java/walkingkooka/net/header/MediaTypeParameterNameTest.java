@@ -57,28 +57,28 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(MediaTypeParameterName.Q_FACTOR,
-                MediaTypeParameterName.with(MediaTypeParameterName.Q_FACTOR.value()));
+        assertSame(MediaTypeParameterName.Q,
+                MediaTypeParameterName.with(MediaTypeParameterName.Q.value()));
     }
 
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
-        final String differentCase = MediaTypeParameterName.Q_FACTOR.value().toUpperCase();
-        assertNotEquals(differentCase, MediaTypeParameterName.Q_FACTOR.value());
-        assertSame(MediaTypeParameterName.Q_FACTOR, MediaTypeParameterName.with(differentCase));
+        final String differentCase = MediaTypeParameterName.Q.value().toUpperCase();
+        assertNotEquals(differentCase, MediaTypeParameterName.Q.value());
+        assertSame(MediaTypeParameterName.Q, MediaTypeParameterName.with(differentCase));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(MediaTypeParameterName.Q_FACTOR,
+        this.parameterValueAndCheckAbsent(MediaTypeParameterName.Q,
                 this.mediaType());
     }
 
     @Test
     public void testParameterValuePresent() {
-        final MediaTypeParameterName<Float> parameter = MediaTypeParameterName.Q_FACTOR;
+        final MediaTypeParameterName<Float> parameter = MediaTypeParameterName.Q;
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,

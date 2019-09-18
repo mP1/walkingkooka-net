@@ -118,7 +118,7 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     }
 
     final Map<LanguageParameterName<?>, Object> parametersWithQFactor() {
-        return Maps.of(LanguageParameterName.Q_FACTOR, 0.75f);
+        return Maps.of(LanguageParameterName.Q, 0.75f);
     }
 
     @Test
@@ -167,7 +167,7 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     public void testToHeaderTextListWithParameters() {
         this.toHeaderTextListAndCheck("en; q=0.75",
                 this.en()
-                        .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
+                        .setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
     }
 
     @Test

@@ -73,13 +73,13 @@ public final class EncodingWithParametersHeaderValueParserTest extends HeaderVal
     @Test
     public void testTokenParameter() {
         this.parseStringAndCheck("gzip;q=0.5",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseStringAndCheck("gzip;q=0.5;abc=xyz",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f,
                         EncodingParameterName.with("abc"), "xyz")));
     }
 
@@ -92,7 +92,7 @@ public final class EncodingWithParametersHeaderValueParserTest extends HeaderVal
     @Test
     public void testWildcardParameter() {
         this.parseStringAndCheck("*;q=0.5",
-                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
     }
 
     @Test

@@ -37,9 +37,9 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
                     AcceptCharsetHeaderValueParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
-     * The q factor weight parameter.
+     * The q (quality factor) parameter.
      */
-    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static CharsetHeaderValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link CharsetHeaderValueParameterName}

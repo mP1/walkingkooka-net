@@ -96,7 +96,7 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
 
     @Test
     public void testTestContentEncodingSameIgnoresParameters() {
-        this.testTrue(EncodingWithParametersNonWildcard.with("XYZ").setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
+        this.testTrue(EncodingWithParametersNonWildcard.with("XYZ").setParameters(Maps.of(EncodingParameterName.Q, 0.5f)),
                 ContentEncoding.parse("XYZ"));
     }
 

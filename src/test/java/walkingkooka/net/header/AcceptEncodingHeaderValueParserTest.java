@@ -74,13 +74,13 @@ public final class AcceptEncodingHeaderValueParserTest extends HeaderValueParser
     @Test
     public void testTokenParameter() {
         this.parseStringAndCheck2("gzip;q=0.5",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseStringAndCheck2("gzip;q=0.5;abc=xyz",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f,
                         EncodingParameterName.with("abc"), "xyz")));
     }
 
@@ -93,7 +93,7 @@ public final class AcceptEncodingHeaderValueParserTest extends HeaderValueParser
     @Test
     public void testWildcardParameter() {
         this.parseStringAndCheck2("*;q=0.5",
-                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
     }
 
     @Test
@@ -129,15 +129,15 @@ public final class AcceptEncodingHeaderValueParserTest extends HeaderValueParser
     public void testSortedByQFactor() {
         this.parseStringAndCheck2("gzip;q=0.8, deflate, br;q=0.9",
                 EncodingWithParameters.DEFLATE,
-                EncodingWithParameters.BR.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.9f)),
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
+                EncodingWithParameters.BR.setParameters(Maps.of(EncodingParameterName.Q, 0.9f)),
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.8f)));
     }
 
     @Test
     public void testSortedByQFactor2() {
         this.parseStringAndCheck2("gzip;q=0.8, deflate;q=1.0",
-                EncodingWithParameters.DEFLATE.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 1.0f)),
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
+                EncodingWithParameters.DEFLATE.setParameters(Maps.of(EncodingParameterName.Q, 1.0f)),
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.8f)));
     }
 
     private void parseStringAndCheck2(final String text,

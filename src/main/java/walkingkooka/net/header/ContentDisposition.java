@@ -35,7 +35,7 @@ public final class ContentDisposition extends HeaderValueWithParameters2<Content
     public final static Map<ContentDispositionParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * Parses a header value into tokens, which aill also be sorted using their q factor weights.
+     * Parses a header value into tokens, which aill also be sorted using their q (quality factor).
      * <pre>
      * Content-Disposition: inline
      * Content-Disposition: attachment

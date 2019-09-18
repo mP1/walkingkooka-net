@@ -250,7 +250,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testSetParametersInvalidQWeight() {
         assertThrows(HeaderValueException.class, () -> {
-            this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q_FACTOR, -1.0f));
+            this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q, -1.0f));
         });
     }
 
@@ -347,7 +347,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testSetCharsetDifferent2() {
         final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.CHARSET, CharsetName.UTF_8,
-                MediaTypeParameterName.Q_FACTOR, 0.5f);
+                MediaTypeParameterName.Q, 0.5f);
 
         final MediaType with8 = MediaType.TEXT_PLAIN.setParameters(parameters);
 
@@ -357,7 +357,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         assertNotSame(with8, with16);
 
         final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.of(MediaTypeParameterName.CHARSET, utf16,
-                MediaTypeParameterName.Q_FACTOR, 0.5f);
+                MediaTypeParameterName.Q, 0.5f);
 
         this.check(with16,
                 "text",
@@ -372,7 +372,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetCharset2() {
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.Q_FACTOR, 0.5f);
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.Q, 0.5f);
         final MediaType without = MediaType.TEXT_PLAIN.setParameters(parameters);
 
         final CharsetName charset = CharsetName.UTF_16;
@@ -384,7 +384,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 "text",
                 "plain",
                 Maps.of(MediaTypeParameterName.CHARSET, charset,
-                        MediaTypeParameterName.Q_FACTOR, 0.5f));
+                        MediaTypeParameterName.Q, 0.5f));
 
         this.check(without,
                 "text",
@@ -397,14 +397,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testQParameterPresent() {
         this.qFactorWeightAndCheck(this.mediaType()
-                        .setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), 0.5f)),
+                        .setParameters(parameters(MediaTypeParameterName.Q.value(), 0.5f)),
                 0.5f);
     }
 
     @Test
     public void testQParameterPresentInvalidFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qualityFactor();
+            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "XYZ")).qualityFactor();
         });
     }
 
