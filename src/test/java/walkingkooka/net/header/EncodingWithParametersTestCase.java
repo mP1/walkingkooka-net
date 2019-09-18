@@ -56,7 +56,7 @@ public abstract class EncodingWithParametersTestCase<A extends EncodingWithParam
     public final void testSetParametersDifferent() {
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
-        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
+        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q, 0.5f);
         final EncodingWithParameters different = acceptEncoding.setParameters(parameters);
         assertNotSame(parameters, different);
 
@@ -84,7 +84,7 @@ public abstract class EncodingWithParametersTestCase<A extends EncodingWithParam
     @Test
     public final void testHeaderTextWithParameters() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(EncodingWithParameters.with(text).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toHeaderTextAndCheck(EncodingWithParameters.with(text).setParameters(Maps.of(EncodingParameterName.Q, 0.5f)),
                 text + "; q=0.5");
     }
 
@@ -97,12 +97,12 @@ public abstract class EncodingWithParametersTestCase<A extends EncodingWithParam
 
     @Test
     public final void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createHeaderValueWithParameters().setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+        this.checkNotEquals(this.createHeaderValueWithParameters().setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
     }
 
     @Test
     public final void testEqualsParameters() {
-        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
+        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q, 0.5f);
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
         this.checkEqualsAndHashCode(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
@@ -116,7 +116,7 @@ public abstract class EncodingWithParametersTestCase<A extends EncodingWithParam
     @Test
     public final void testToStringWithParameters() {
         final String value = this.value();
-        this.toStringAndCheck(EncodingWithParameters.with(value).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toStringAndCheck(EncodingWithParameters.with(value).setParameters(Maps.of(EncodingParameterName.Q, 0.5f)),
                 value + "; q=0.5");
     }
 

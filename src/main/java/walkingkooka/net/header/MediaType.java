@@ -343,7 +343,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      * Retrieves the q-weight for this value.
      */
     public final Optional<Float> qualityFactor() {
-        return this.qFactorWeight(MediaTypeParameterName.Q_FACTOR);
+        return this.qFactorWeight(MediaTypeParameterName.Q);
     }
 
     // replace .......................................................................

@@ -50,12 +50,12 @@ public final class AcceptLanguageHeaderValueHandlerTest extends
 
     private LanguageWithParameters en_10() {
         return LanguageWithParameters.with(LanguageName.with("en"))
-                .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 1.0f));
+                .setParameters(Maps.of(LanguageParameterName.Q, 1.0f));
     }
 
     private LanguageWithParameters en_au_05() {
         return LanguageWithParameters.with(LanguageName.with("en-au"))
-                .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f));
+                .setParameters(Maps.of(LanguageParameterName.Q, 0.5f));
     }
 
     @Override

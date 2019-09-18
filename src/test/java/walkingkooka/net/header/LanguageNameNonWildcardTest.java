@@ -78,7 +78,7 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testTestSameTrueWithDifferentParameters() {
-        this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)),
+        this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q, 0.5f)),
                 LanguageName.with(this.nameText()));
     }
 

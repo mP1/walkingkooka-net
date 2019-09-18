@@ -158,7 +158,7 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
 
     @Override
     public Optional<Float> qualityFactor() {
-        return EncodingParameterName.Q_FACTOR.parameterValue(this);
+        return EncodingParameterName.Q.parameterValue(this);
     }
 
     // HasHeaderScope .................................................................................................

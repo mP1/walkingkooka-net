@@ -41,7 +41,7 @@ public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrL
 
     private LanguageWithParameters language(final String language, final float qFactor) {
         return this.language(language)
-                .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, qFactor));
+                .setParameters(Maps.of(LanguageParameterName.Q, qFactor));
     }
 
     private LanguageWithParameters language(final String language) {

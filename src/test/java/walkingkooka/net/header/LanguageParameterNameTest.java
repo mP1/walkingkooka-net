@@ -43,28 +43,28 @@ final public class LanguageParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(LanguageParameterName.Q_FACTOR,
-                LanguageParameterName.with(LanguageParameterName.Q_FACTOR.value()));
+        assertSame(LanguageParameterName.Q,
+                LanguageParameterName.with(LanguageParameterName.Q.value()));
     }
 
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
-        final String differentCase = LanguageParameterName.Q_FACTOR.value().toUpperCase();
-        assertNotEquals(differentCase, LanguageParameterName.Q_FACTOR.value());
-        assertSame(LanguageParameterName.Q_FACTOR, LanguageParameterName.with(differentCase));
+        final String differentCase = LanguageParameterName.Q.value().toUpperCase();
+        assertNotEquals(differentCase, LanguageParameterName.Q.value());
+        assertSame(LanguageParameterName.Q, LanguageParameterName.with(differentCase));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(LanguageParameterName.Q_FACTOR,
+        this.parameterValueAndCheckAbsent(LanguageParameterName.Q,
                 this.languageTag());
     }
 
     @Test
     public void testParameterValuePresent() {
-        final LanguageParameterName<Float> parameter = LanguageParameterName.Q_FACTOR;
+        final LanguageParameterName<Float> parameter = LanguageParameterName.Q;
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,

@@ -31,9 +31,9 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
     );
 
     /**
-     * The q factor weight parameter.
+     * The q (quality factor) parameter.
      */
-    public final static EncodingParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static EncodingParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link EncodingParameterName}

@@ -143,7 +143,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     @Test
     public void testEqualsDifferentParameterValue() {
         this.checkNotEquals(CharsetHeaderValue.with(VALUE)
-                .setParameters(this.parameters(CharsetHeaderValueParameterName.Q_FACTOR, Q + 0.5f)));
+                .setParameters(this.parameters(CharsetHeaderValueParameterName.Q, Q + 0.5f)));
     }
 
     @Test
