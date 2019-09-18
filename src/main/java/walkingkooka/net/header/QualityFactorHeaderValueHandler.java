@@ -23,17 +23,17 @@ import walkingkooka.naming.Name;
  * A {@link HeaderValueHandler} that parses a header text into a q weights and verifies the value is within the
  * accept range of 0.0 and 1.0 (inclusive).
  */
-final class QWeightHeaderValueHandler extends NonStringHeaderValueHandler<Float> {
+final class QualityFactorHeaderValueHandler extends NonStringHeaderValueHandler<Float> {
 
     /**
      * Singleton
      */
-    final static QWeightHeaderValueHandler INSTANCE = new QWeightHeaderValueHandler();
+    final static QualityFactorHeaderValueHandler INSTANCE = new QualityFactorHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private QWeightHeaderValueHandler() {
+    private QualityFactorHeaderValueHandler() {
         super();
     }
 
@@ -62,6 +62,6 @@ final class QWeightHeaderValueHandler extends NonStringHeaderValueHandler<Float>
 
     @Override
     public String toString() {
-        return "QWeight";
+        return "QualityFactor";
     }
 }

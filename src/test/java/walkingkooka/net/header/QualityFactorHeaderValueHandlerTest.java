@@ -21,12 +21,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class QWeightHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<QWeightHeaderValueHandler, Float> {
+public final class QualityFactorHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<QualityFactorHeaderValueHandler, Float> {
 
     @Override
     public String typeNamePrefix() {
-        return "QWeight";
+        return "QualityFactor";
     }
 
     @Test
@@ -59,8 +59,8 @@ public final class QWeightHeaderValueHandlerTest extends
     }
 
     @Override
-    QWeightHeaderValueHandler handler() {
-        return QWeightHeaderValueHandler.INSTANCE;
+    QualityFactorHeaderValueHandler handler() {
+        return QualityFactorHeaderValueHandler.INSTANCE;
     }
 
     @Override
@@ -85,11 +85,11 @@ public final class QWeightHeaderValueHandlerTest extends
 
     @Override
     String handlerToString() {
-        return "QWeight";
+        return "QualityFactor";
     }
 
     @Override
-    public Class<QWeightHeaderValueHandler> type() {
-        return QWeightHeaderValueHandler.class;
+    public Class<QualityFactorHeaderValueHandler> type() {
+        return QualityFactorHeaderValueHandler.class;
     }
 }

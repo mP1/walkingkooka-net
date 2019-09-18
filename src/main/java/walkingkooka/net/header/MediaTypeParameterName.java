@@ -48,9 +48,9 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
     public final static MediaTypeParameterName<CharsetName> CHARSET = CONSTANTS.register("charset", HeaderValueHandler.charsetName());
 
     /**
-     * The q factor weight parameter.
+     * The q (quality factor) parameter.
      */
-    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qWeight());
+    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
      * The title star parameter.

@@ -244,10 +244,10 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
-     * {@see QWeightHeaderValueHandler}
+     * {@see QualityFactorHeaderValueHandler}
      */
-    static HeaderValueHandler<Float> qWeight() {
-        return QWeightHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<Float> qualityFactor() {
+        return QualityFactorHeaderValueHandler.INSTANCE;
     }
 
     /**
