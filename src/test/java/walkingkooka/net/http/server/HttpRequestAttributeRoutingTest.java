@@ -36,10 +36,10 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
+import walkingkooka.route.RouterTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +47,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRouting> {
+public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRouting>
+        implements RouterTesting {
 
     private final static String TARGET = "target123";
 
@@ -536,7 +537,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(HttpRequestAttributes.HTTP_PROTOCOL_VERSION, HttpProtocolVersion.VERSION_1_0);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -558,10 +559,10 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(HttpRequestAttributes.HTTP_PROTOCOL_VERSION, HttpProtocolVersion.VERSION_1_0);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
 
         parameters.put(HttpRequestAttributes.METHOD, HttpMethod.POST);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -581,7 +582,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(HttpRequestAttributes.pathComponent(2), path2);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
 
         parameters.put(HttpRequestAttributes.pathComponent(1), path2);
         parameters.put(HttpRequestAttributes.pathComponent(2), path1);
@@ -608,7 +609,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(HttpRequestAttributes.pathComponent(2), path2);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
 
         parameters.put(HttpRequestAttributes.pathComponent(1), path2);
         parameters.put(HttpRequestAttributes.pathComponent(2), path1);
@@ -635,7 +636,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(headerName2, "value2");
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -661,7 +662,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(headerName2, headerValue2);
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -684,7 +685,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(cookieName2, ClientCookie.client(cookieName2, "value2"));
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -707,7 +708,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(parameter2, Lists.of("999", "value2"));
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -729,7 +730,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(parameter2, Lists.of("b2", "wrong"));
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     @Test
@@ -748,7 +749,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(parameter2, Lists.of("99"));
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
 
         parameters.put(parameter1, Lists.of("wrong"));
         this.routeFails(router, parameters);
@@ -774,7 +775,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.routeFails(router, parameters);
 
         parameters.put(parameter2, Lists.of("999", "value2"));
-        this.routeAndCheck(router, parameters);
+        this.routeAndCheck2(router, parameters);
     }
 
     private Router<HttpRequestAttribute<?>, String> router(final HttpRequestAttributeRouting routing) {
@@ -783,18 +784,9 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
                 .router();
     }
 
-    private void routeAndCheck(final Router<HttpRequestAttribute<?>, String> router,
+    private void routeAndCheck2(final Router<HttpRequestAttribute<?>, String> router,
                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals(Optional.of(TARGET),
-                router.route(parameters),
-                "Routing of parameters=" + parameters + " failed");
-    }
-
-    private void routeFails(final Router<HttpRequestAttribute<?>, String> router,
-                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals(Optional.empty(),
-                router.route(parameters),
-                "Routing of parameters=" + parameters + " should have failed");
+        this.routeAndCheck(router, parameters, TARGET);
     }
 
     // toString.........................................................................................................
@@ -875,6 +867,6 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Override
     public final String typeNameSuffix() {
-        return "";
+        return "Routing";
     }
 }
