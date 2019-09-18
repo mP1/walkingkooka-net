@@ -40,13 +40,13 @@ final class HttpRequestRouterParametersMapPathComponentEntryIterator implements 
 
     @Override
     public boolean hasNext() {
-        return this.position < this.pathNames.length;
+        return this.position <= this.pathNames.length;
     }
 
     @Override
     public Entry<HttpRequestAttribute<?>, Object> next() {
         final int position = this.position;
-        if (position >= this.pathNames.length) {
+        if (position > this.pathNames.length) {
             throw new NoSuchElementException();
         }
         this.position = 1 + position;
@@ -55,13 +55,20 @@ final class HttpRequestRouterParametersMapPathComponentEntryIterator implements 
     }
 
     private Entry<HttpRequestAttribute<?>, Object> entry(final int position) {
-        return Maps.entry(
-                HttpRequestAttributes.pathComponent(position),
-                this.pathNames[position]);
+        final UrlPathName[] pathNames = this.pathNames;
+
+        return 0 == position ?
+                Maps.entry(HttpRequestAttributes.PATH_COMPONENT_COUNT, pathNames.length) :
+                Maps.entry(
+                        HttpRequestAttributes.pathComponent(position - 1),
+                        pathNames[position - 1]);
     }
 
     private final UrlPathName[] pathNames;
 
+    /**
+     * 0 returns the {@link HttpRequestAttributes#PATH_COMPONENT_COUNT} and remaining positions indicate the {@link HttpRequestAttributes#pathComponent(int)}.
+     */
     private int position = 0;
 
     @Override
@@ -69,7 +76,7 @@ final class HttpRequestRouterParametersMapPathComponentEntryIterator implements 
         final int position = this.position;
         final UrlPathName[] pathNames = this.pathNames;
 
-        return position < pathNames.length ?
+        return position <= pathNames.length ?
                 this.entry(position).toString() :
                 "";
     }

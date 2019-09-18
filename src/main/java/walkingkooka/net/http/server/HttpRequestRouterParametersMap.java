@@ -127,6 +127,7 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
     public int size() {
         if (-1 == this.size) {
             this.size = HttpRequestAttributes.size() +
+                    1 + // = HttpRequestParameters#PATH_COMPONENT_COUNT
                     this.pathNames().length +
                     this.urlParameters().size() +
                     this.cookieCount() +

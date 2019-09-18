@@ -19,6 +19,8 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.CookieName;
@@ -69,13 +71,33 @@ public final class HttpRequestAttributesTest implements ClassTesting2<HttpReques
     }
 
     @Test
+    public void testParameterValuePathComponentCount() {
+        this.parameterValueAndCheck(new FakeHttpRequest() {
+                    @Override
+                    public RelativeUrl url() {
+                        return Url.parseRelative("/path1/path2/path3/path4");
+                    }
+                }.routerParameters(),
+                HttpRequestAttributes.PATH_COMPONENT_COUNT,
+                5);
+    }
+
+    @Test
     public void testParameterValueTransport() {
         this.parameterValueAndCheck(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED);
         this.parameterValueAndCheck(HttpRequestAttributes.TRANSPORT, HttpTransport.UNSECURED);
     }
 
-    private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter, final T value) {
-        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.of(parameter, value);
+    private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter,
+                                            final T value) {
+        this.parameterValueAndCheck(Maps.of(parameter, value),
+                parameter,
+                value);
+    }
+
+    private <T> void parameterValueAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                            final HttpRequestAttribute<T> parameter,
+                                            final T value) {
         assertEquals(Optional.of(value), parameter.parameterValue(parameters), () -> parameters.toString());
     }
 

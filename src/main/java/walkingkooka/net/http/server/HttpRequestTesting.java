@@ -37,6 +37,7 @@ public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesti
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.METHOD), "method absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.TRANSPORT), "transport absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION), "protocol absent");
+        assertNotEquals(null, routingParameters.get(HttpRequestAttributes.PATH_COMPONENT_COUNT), "HttpRequestAttributes.PATH_COMPONENT_COUNT");
     }
 
     R createRequest();

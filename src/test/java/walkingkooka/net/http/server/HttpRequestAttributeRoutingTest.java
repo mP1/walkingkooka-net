@@ -617,6 +617,23 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     }
 
     @Test
+    public void testPathComponentCountBuildAndRoute() {
+        final Router<HttpRequestAttribute<?>, String> router = this.router(this.createRouting()
+                .pathComponentCount(i -> i == 3));
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
+
+        parameters.put(HttpRequestAttributes.PATH_COMPONENT_COUNT, 2);
+        this.routeFails(router, parameters);
+
+        parameters.put(HttpRequestAttributes.PATH_COMPONENT_COUNT, 3);
+        this.routeAndCheck2(router, parameters);
+
+        parameters.put(HttpRequestAttributes.PATH_COMPONENT_COUNT, 4);
+        this.routeFails(router, parameters);
+    }
+
+    @Test
     public void testHeaderBuildAndRoute() {
         final HttpHeaderName<String> headerName1 = HttpHeaderName.with("header111").stringValues();
         final HttpHeaderName<String> headerName2 = HttpHeaderName.with("header222").stringValues();

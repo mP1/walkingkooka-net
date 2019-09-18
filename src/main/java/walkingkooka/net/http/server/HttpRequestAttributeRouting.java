@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 /**
@@ -166,6 +167,18 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
             throw new IllegalArgumentException("Invalid path component " + pathComponent + " < 0");
         }
         return this.addAttribute(HttpRequestAttributes.pathComponent(pathComponent), predicate);
+    }
+
+    // path component count ............................................................................................
+
+    /**
+     * Adds a {@link Predicate} for the path component count. This may be used to match an exact path.
+     * <pre>
+     * HttpRequestAttributeRouting.path("/a1/b2").pathComponentCount(IntPredicate.equals(3)).
+     * </pre>
+     */
+    public HttpRequestAttributeRouting pathComponentCount(final IntPredicate predicate) {
+        return this.addAttribute(HttpRequestAttributes.PATH_COMPONENT_COUNT, HttpRequestAttributeRoutingPathComponentCountPredicate.with(predicate));
     }
 
     // header ..........................................................................................................
