@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.net.RelativeUrl;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -71,47 +73,47 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
 
     @Test
     public void testSize() {
-        this.sizeAndCheck(this.createSet(), 3 + 3 + 2 + 2 + HEADERS.size() + COOKIES.size());
+        this.sizeAndCheck(this.createSet(), 3 + 3 + 1 + 2 + 2 + HEADERS.size() + COOKIES.size());
     }
 
     @Test
     public void testIteratorWithParametersHeadersAndCookies() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
+        this.iteratorAndCheck2(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 
     @Test
     public void testIteratorHeadersAndCookies() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/path1/file2.html", HEADERS);
+        this.iteratorAndCheck2(TRANSPORT, METHOD, PROTOCOL, "/path1/file2.html", HEADERS);
     }
 
     @Test
     public void testIteratorNoPath() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/", HEADERS);
+        this.iteratorAndCheck2(TRANSPORT, METHOD, PROTOCOL, "/", HEADERS);
     }
 
     @Test
     public void testIteratorNoPath2() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "", HEADERS);
+        this.iteratorAndCheck2(TRANSPORT, METHOD, PROTOCOL, "", HEADERS);
     }
 
     @Test
     public void testIteratorNoHeaders() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HttpRequest.NO_HEADERS);
+        this.iteratorAndCheck2(TRANSPORT, METHOD, PROTOCOL, URL, HttpRequest.NO_HEADERS);
     }
 
-    private void iteratorAndCheck(final HttpTransport transport,
-                                  final HttpMethod method,
-                                  final HttpProtocolVersion version,
-                                  final String url,
-                                  final Map<HttpHeaderName<?>, Object> headers) {
-        this.iteratorAndCheck(transport, method, version, Url.parseRelative(url), headers);
+    private void iteratorAndCheck2(final HttpTransport transport,
+                                   final HttpMethod method,
+                                   final HttpProtocolVersion version,
+                                   final String url,
+                                   final Map<HttpHeaderName<?>, Object> headers) {
+        this.iteratorAndCheck2(transport, method, version, Url.parseRelative(url), headers);
     }
 
-    private void iteratorAndCheck(final HttpTransport transport,
-                                  final HttpMethod method,
-                                  final HttpProtocolVersion version,
-                                  final RelativeUrl url,
-                                  final Map<HttpHeaderName<?>, Object> headers) {
+    private void iteratorAndCheck2(final HttpTransport transport,
+                                   final HttpMethod method,
+                                   final HttpProtocolVersion version,
+                                   final RelativeUrl url,
+                                   final Map<HttpHeaderName<?>, Object> headers) {
         final Set<Entry<HttpRequestAttribute<?>, Object>> set = this.createSet(transport,
                 method,
                 version,
@@ -122,13 +124,20 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, method);
         this.checkEntry(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, version);
 
+        // path-component-count
+        final int pathComponentCount = Long.valueOf(StreamSupport.stream(url.path().spliterator(), false)
+                .count())
+                .intValue();
+
+        this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT, pathComponentCount);
+
         // paths
         int i = 0;
         for (UrlPathName name : url.path()) {
             this.checkEntry(iterator, HttpRequestAttributes.pathComponent(i), name);
             i++;
         }
-        int entryCount = 3 + i; // 3 = transport, method, protocolversion
+        int entryCount = 3 + 1 + i; // 3 = transport, method, protocolversion + path-component-count + path-components
 
         final Map<UrlParameterName, List<String>> urlParameters = url.query().parameters();
         for (UrlParameterName name : urlParameters.keySet()) {

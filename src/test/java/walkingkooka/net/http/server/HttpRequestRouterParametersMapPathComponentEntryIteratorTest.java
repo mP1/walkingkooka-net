@@ -69,8 +69,14 @@ public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest 
         this.iterateAndCheck(false, NAME2, NAME1);
     }
 
-    private void iterateAndCheck(final boolean checkHasNext, final UrlPathName... names) {
+    private void iterateAndCheck(final boolean checkHasNext,
+                                 final UrlPathName... names) {
         final HttpRequestRouterParametersMapPathComponentEntryIterator iterator = this.createIterator(names);
+        this.hasNextCheckTrue(iterator);
+
+        final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
+        assertEquals(HttpRequestAttributes.PATH_COMPONENT_COUNT, entry.getKey(), "key");
+        assertEquals(names.length, entry.getValue(), "value");
 
         for (int i = 0; i < names.length; i++) {
             if (checkHasNext) {
@@ -93,12 +99,20 @@ public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest 
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createIterator(NAME1), "path-0=a");
+        this.toStringAndCheck(this.createIterator(NAME1), "PATH_COMPONENT_COUNT=1");
+    }
+
+    @Test
+    public void testToStringAfterPathComponent() {
+        final HttpRequestRouterParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
+        iterator.next();
+        this.toStringAndCheck(iterator, "path-0=a");
     }
 
     @Test
     public void testToStringEmpty() {
         final HttpRequestRouterParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
+        iterator.next();
         iterator.next();
         this.toStringAndCheck(iterator, "");
     }

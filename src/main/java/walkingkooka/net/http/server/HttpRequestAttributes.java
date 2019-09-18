@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpMethod;
@@ -27,6 +28,7 @@ import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 /**
  * A {@link HttpRequestAttribute} to be used as a key for several misc {@link HttpRequest} attributes.
@@ -44,6 +46,18 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
      */
     public final static HttpRequestAttributes<HttpProtocolVersion> HTTP_PROTOCOL_VERSION = new HttpRequestAttributes<HttpProtocolVersion>("PROTOCOL_VERSION",
             HttpRequest::protocolVersion);
+
+    /**
+     * A {@link HttpRequestAttribute} that contains the path component count
+     */
+    public final static HttpRequestAttributes<Integer> PATH_COMPONENT_COUNT = new HttpRequestAttributes<>("PATH_COMPONENT_COUNT",
+            HttpRequestAttributes::pathComponentCount);
+
+    private static Integer pathComponentCount(final HttpRequest request) {
+        return Long.valueOf(StreamSupport.stream(Iterables.iterator(request.url().path().iterator()).spliterator(), false)
+                .count())
+                .intValue();
+    }
 
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#transport()}

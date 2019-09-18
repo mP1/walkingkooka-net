@@ -39,6 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -58,6 +59,14 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
         this.checkEntry(iterator, HttpRequestAttributes.TRANSPORT, this.transport());
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, this.method());
         this.checkEntry(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, this.protocolVersion());
+
+        // path-component-count
+        final int pathComponentCount = Long.valueOf(StreamSupport.stream(this.url().path().spliterator(), false)
+                .count())
+                .intValue();
+
+        this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT,
+                pathComponentCount);
 
         // paths
         int i = 0;
@@ -133,7 +142,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
 
     @Test
     public void testSize() {
-        this.sizeAndCheck(this.createMap(), 11);
+        this.sizeAndCheck(this.createMap(), 12);
     }
 
     @Test
