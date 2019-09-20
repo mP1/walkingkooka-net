@@ -17,20 +17,22 @@
 
 package walkingkooka.net.header;
 
+import jdk.jfr.ContentType;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 
 /**
  * A {@link HeaderValueWithParameters} that represents a single charset name with optional parameters.
  */
-final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptCharsetValue,
-        AcceptCharsetValueParameterName<?>,
-        CharsetName> implements HasQualityFactor {
+final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
+        implements HasQualityFactor,
+        Predicate<CharsetName> {
 
     /**
      * No parameters.
@@ -180,5 +182,12 @@ final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptC
     @Override
     boolean canBeEquals(final Object other) {
         return other instanceof AcceptCharsetValue;
+    }
+
+    // Predicate........................................................................................................
+
+    @Override
+    public boolean test(final CharsetName charsetName) {
+        return this.value.test(charsetName);
     }
 }

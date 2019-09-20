@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
@@ -27,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestCase<AcceptCharsetValue,
-        AcceptCharsetValueParameterName<?>> {
+public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestCase<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>
+        implements PredicateTesting {
 
     private final static CharsetName VALUE = CharsetName.UTF_8;
     private final static String PARAMETER_VALUE = "v1";
@@ -125,7 +126,28 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
                 VALUE + "; p1=v1; p2=v2");
     }
 
-    // isWildcard ..................................................................................................
+    // Predicate. ......................................................................................................
+
+    @Test
+    public void testTestCharsetNameTrue() {
+        final CharsetName charsetName = CharsetName.with("UTF-16");
+
+        this.testTrue(AcceptCharsetValue.with(charsetName),
+                charsetName);
+    }
+
+    @Test
+    public void testTestCharsetNameTrue2() {
+        this.testTrue(AcceptCharsetValue.with(CharsetName.with("utf-16")), CharsetName.with("UTF-16"));
+    }
+
+    @Test
+    public void testTestCharsetNameFalse() {
+        this.testFalse(AcceptCharsetValue.with(CharsetName.with("UTF-8")),
+                CharsetName.with("UTF-16"));
+    }
+
+    // isWildcard ......................................................................................................
 
     @Test
     public void testIsWildcard() {
@@ -269,6 +291,8 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     public boolean isResponse() {
         return true;
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<AcceptCharsetValue> type() {
