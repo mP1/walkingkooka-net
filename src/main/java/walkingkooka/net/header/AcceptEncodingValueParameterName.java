@@ -20,10 +20,10 @@ package walkingkooka.net.header;
 /**
  * The name of any parameter that accompanies a accept-encoding header
  */
-final public class EncodingParameterName<V> extends HeaderParameterName<V> implements Comparable<EncodingParameterName<?>> {
+final public class AcceptEncodingValueParameterName<V> extends HeaderParameterName<V> implements Comparable<AcceptEncodingValueParameterName<?>> {
 
-    private final static HeaderParameterNameConstants<EncodingParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            EncodingParameterName::new,
+    private final static HeaderParameterNameConstants<AcceptEncodingValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            AcceptEncodingValueParameterName::new,
             HeaderValueHandler.quotedUnquotedString(
                     AcceptEncodingHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
@@ -33,27 +33,27 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
     /**
      * The q (quality factor) parameter.
      */
-    public final static EncodingParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptEncodingValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
-     * Factory that creates a {@link EncodingParameterName}
+     * Factory that creates a {@link AcceptEncodingValueParameterName}
      */
-    public static EncodingParameterName<?> with(final String name) {
+    public static AcceptEncodingValueParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private EncodingParameterName(final String value,
-                                  final HeaderValueHandler<V> handler) {
+    private AcceptEncodingValueParameterName(final String value,
+                                             final HeaderValueHandler<V> handler) {
         super(value, handler);
     }
 
     // Comparable......................................................................................................
 
     @Override
-    public int compareTo(final EncodingParameterName<?> other) {
+    public int compareTo(final AcceptEncodingValueParameterName<?> other) {
         return this.compareTo0(other);
     }
 
@@ -61,6 +61,6 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof EncodingParameterName;
+        return other instanceof AcceptEncodingValueParameterName;
     }
 }

@@ -24,26 +24,26 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EncodingWithParametersNonWildcardTest extends EncodingWithParametersTestCase<EncodingWithParametersNonWildcard> {
+public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValueTestCase<AcceptEncodingValueNonWildcard> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            EncodingWithParameters.with(null);
+            AcceptEncodingValue.with(null);
         });
     }
 
     @Test
     public void testWithEmptyValueFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            EncodingWithParameters.with("");
+            AcceptEncodingValue.with("");
         });
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            EncodingWithParameters.with("\u001f");
+            AcceptEncodingValue.with("\u001f");
         });
     }
 
@@ -55,54 +55,54 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
     @Test
     public void testWith2() {
         final String text = "unknown";
-        this.checkValue(EncodingWithParameters.with(text),
+        this.checkValue(AcceptEncodingValue.with(text),
                 text,
-                EncodingWithParameters.NO_PARAMETERS);
+                AcceptEncodingValue.NO_PARAMETERS);
     }
 
     // constants ......................................................................................................
 
     @Test
     public void testWithExistingGzipNoParametersConstant() {
-        final EncodingWithParameters constant = EncodingWithParameters.GZIP;
-        assertSame(constant, EncodingWithParameters.with("gzip"));
+        final AcceptEncodingValue constant = AcceptEncodingValue.GZIP;
+        assertSame(constant, AcceptEncodingValue.with("gzip"));
     }
 
     @Test
     public void testWithExistingBrConstant() {
-        final EncodingWithParameters constant = EncodingWithParameters.BR;
-        assertSame(constant, EncodingWithParameters.with("BR"));
+        final AcceptEncodingValue constant = AcceptEncodingValue.BR;
+        assertSame(constant, AcceptEncodingValue.with("BR"));
     }
 
     @Test
     public void testWithExistingCompressConstantCaseInsignificant() {
-        final EncodingWithParameters constant = EncodingWithParameters.COMPRESS;
-        assertSame(constant, EncodingWithParameters.with("compRESS"));
+        final AcceptEncodingValue constant = AcceptEncodingValue.COMPRESS;
+        assertSame(constant, AcceptEncodingValue.with("compRESS"));
     }
 
     // test.............................................................................................................
 
     @Test
     public void testTestContentEncodingSame() {
-        this.testTrue(EncodingWithParametersNonWildcard.with("GZIP"),
+        this.testTrue(AcceptEncodingValueNonWildcard.with("GZIP"),
                 ContentEncoding.GZIP);
     }
 
     @Test
     public void testTestContentEncodingDifferentCase() {
-        this.testTrue(EncodingWithParametersNonWildcard.with("XYZ"),
+        this.testTrue(AcceptEncodingValueNonWildcard.with("XYZ"),
                 ContentEncoding.parse("xyz"));
     }
 
     @Test
     public void testTestContentEncodingSameIgnoresParameters() {
-        this.testTrue(EncodingWithParametersNonWildcard.with("XYZ").setParameters(Maps.of(EncodingParameterName.Q, 0.5f)),
+        this.testTrue(AcceptEncodingValueNonWildcard.with("XYZ").setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)),
                 ContentEncoding.parse("XYZ"));
     }
 
     @Test
     public void testTestContentEncodingDifferent() {
-        this.testFalse(EncodingWithParametersNonWildcard.with("DEFLATE"), ContentEncoding.GZIP);
+        this.testFalse(AcceptEncodingValueNonWildcard.with("DEFLATE"), ContentEncoding.GZIP);
     }
 
     // parse............................................................................................................
@@ -110,45 +110,45 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
     @Test
     public void testParse() {
         this.parseStringAndCheck("gzip",
-                EncodingWithParameters.GZIP);
+                AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testParseExtraWhitespace() {
         this.parseStringAndCheck("gzip ",
-                EncodingWithParameters.GZIP);
+                AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testParseTokenParameters() {
         this.parseStringAndCheck("abc;qrs=xyz",
-                EncodingWithParameters.with("abc").setParameters(Maps.of(EncodingParameterName.with("qrs"), "xyz")));
+                AcceptEncodingValue.with("abc").setParameters(Maps.of(AcceptEncodingValueParameterName.with("qrs"), "xyz")));
     }
 
     @Test
     public void testHeaderText2() {
         final String text = "identity";
-        this.toHeaderTextAndCheck(EncodingWithParameters.with(text), text);
+        this.toHeaderTextAndCheck(AcceptEncodingValue.with(text), text);
     }
 
     // equals ..........................................................................................................
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(EncodingWithParameters.with("different"));
+        this.checkNotEquals(AcceptEncodingValue.with("different"));
     }
 
     // Comparison ......................................................................................................
 
     @Test
     public void testCompareLess() {
-        this.compareToAndCheckLess(EncodingWithParameters.DEFLATE, EncodingWithParameters.GZIP);
+        this.compareToAndCheckLess(AcceptEncodingValue.DEFLATE, AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testCompareLessCaseInsignificant() {
-        this.compareToAndCheckLess(EncodingWithParameters.with("abc"),
-                EncodingWithParameters.with("XYZ"));
+        this.compareToAndCheckLess(AcceptEncodingValue.with("abc"),
+                AcceptEncodingValue.with("XYZ"));
     }
 
     // toString ........................................................................................................
@@ -156,16 +156,16 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
     @Test
     public void testToString2() {
         final String text = "compress";
-        this.toStringAndCheck(EncodingWithParameters.with(text), text);
+        this.toStringAndCheck(AcceptEncodingValue.with(text), text);
     }
 
     @Override
-    public EncodingWithParametersNonWildcard createHeaderValueWithParameters() {
+    public AcceptEncodingValueNonWildcard createHeaderValueWithParameters() {
         return this.createHeaderValue(this.value());
     }
 
-    private EncodingWithParametersNonWildcard createHeaderValue(final String value) {
-        return EncodingWithParameters.nonWildcard(value, EncodingWithParametersNonWildcard.NO_PARAMETERS);
+    private AcceptEncodingValueNonWildcard createHeaderValue(final String value) {
+        return AcceptEncodingValue.nonWildcard(value, AcceptEncodingValueNonWildcard.NO_PARAMETERS);
     }
 
     @Override
@@ -174,7 +174,7 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
     }
 
     @Override
-    Class<EncodingWithParametersNonWildcard> encodingType() {
-        return EncodingWithParametersNonWildcard.class;
+    Class<AcceptEncodingValueNonWildcard> encodingType() {
+        return AcceptEncodingValueNonWildcard.class;
     }
 }

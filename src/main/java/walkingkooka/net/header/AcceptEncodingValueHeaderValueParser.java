@@ -68,15 +68,15 @@ import walkingkooka.predicate.character.CharPredicate;
  *       work and are not permitted with x-gzip or x-compress.
  * </pre>
  */
-final class EncodingWithParametersHeaderValueParser extends HeaderValueParserWithParameters<EncodingWithParameters, EncodingParameterName<?>> {
+final class AcceptEncodingValueHeaderValueParser extends HeaderValueParserWithParameters<AcceptEncodingValue, AcceptEncodingValueParameterName<?>> {
 
-    static EncodingWithParameters parseEncoding(final String text) {
-        final EncodingWithParametersHeaderValueParser parser = new EncodingWithParametersHeaderValueParser(text);
+    static AcceptEncodingValue parseEncoding(final String text) {
+        final AcceptEncodingValueHeaderValueParser parser = new AcceptEncodingValueHeaderValueParser(text);
         parser.parse();
         return parser.encoding;
     }
 
-    private EncodingWithParametersHeaderValueParser(final String text) {
+    private AcceptEncodingValueHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -86,46 +86,46 @@ final class EncodingWithParametersHeaderValueParser extends HeaderValueParserWit
     }
 
     @Override
-    EncodingWithParameters wildcardValue() {
+    AcceptEncodingValue wildcardValue() {
         this.position++; // consume star
-        return EncodingWithParameters.WILDCARD_ENCODING;
+        return AcceptEncodingValue.WILDCARD_ENCODING;
     }
 
     @Override
-    EncodingWithParameters value() {
-        return EncodingWithParameters.with(this.token(RFC2045TOKEN));
+    AcceptEncodingValue value() {
+        return AcceptEncodingValue.with(this.token(RFC2045TOKEN));
     }
 
     @Override
     void missingValue() {
-        this.failEmptyToken("EncodingWithParameters");
+        this.failEmptyToken("AcceptEncodingValue");
     }
 
     @Override
-    EncodingParameterName<?> parameterName() {
-        return this.parameterName(PARAMETER_NAME, EncodingParameterName::with);
+    AcceptEncodingValueParameterName<?> parameterName() {
+        return this.parameterName(PARAMETER_NAME, AcceptEncodingValueParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    String quotedParameterValue(final EncodingParameterName<?> parameterName) {
+    String quotedParameterValue(final AcceptEncodingValueParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
-    String unquotedParameterValue(final EncodingParameterName<?> parameterName) {
+    String unquotedParameterValue(final AcceptEncodingValueParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    void valueComplete(final EncodingWithParameters encoding) {
+    void valueComplete(final AcceptEncodingValue encoding) {
         this.encoding = encoding;
     }
 
-    private EncodingWithParameters encoding;
+    private AcceptEncodingValue encoding;
 }

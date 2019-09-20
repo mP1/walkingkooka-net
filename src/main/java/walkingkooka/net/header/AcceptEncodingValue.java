@@ -30,17 +30,17 @@ import java.util.function.Predicate;
 /**
  * An individual encoding belonging to a {@link AcceptEncoding}.
  */
-public abstract class EncodingWithParameters extends HeaderValueWithParameters2<EncodingWithParameters,
-        EncodingParameterName<?>,
+public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<AcceptEncodingValue,
+        AcceptEncodingValueParameterName<?>,
         String>
-        implements Comparable<EncodingWithParameters>,
+        implements Comparable<AcceptEncodingValue>,
         HasQualityFactor,
         Predicate<ContentEncoding> {
 
     /**
      * A map holding no parameters.
      */
-    public final static Map<EncodingParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<AcceptEncodingValueParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
      * {@see CaseSensitivity}
@@ -50,58 +50,58 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     /**
      * Holds all constants.
      */
-    final static Map<String, EncodingWithParametersNonWildcard> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
+    final static Map<String, AcceptEncodingValueNonWildcard> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
 
     /**
-     * Holds a {@link EncodingWithParameters} for br.
+     * Holds a {@link AcceptEncodingValue} for br.
      */
-    public final static EncodingWithParameters BR = registerConstant("br");
+    public final static AcceptEncodingValue BR = registerConstant("br");
 
     /**
-     * Holds a {@link EncodingWithParameters} for deflate
+     * Holds a {@link AcceptEncodingValue} for deflate
      */
-    public final static EncodingWithParameters COMPRESS = registerConstant("compress");
+    public final static AcceptEncodingValue COMPRESS = registerConstant("compress");
 
     /**
-     * Holds a {@link EncodingWithParameters} for deflate.
+     * Holds a {@link AcceptEncodingValue} for deflate.
      */
-    public final static EncodingWithParameters DEFLATE = registerConstant("deflate");
+    public final static AcceptEncodingValue DEFLATE = registerConstant("deflate");
 
     /**
-     * Holds a {@link EncodingWithParameters} for gzip.
+     * Holds a {@link AcceptEncodingValue} for gzip.
      */
-    public final static EncodingWithParameters GZIP = registerConstant("gzip");
+    public final static AcceptEncodingValue GZIP = registerConstant("gzip");
 
     /**
-     * Holds a {@link EncodingWithParameters} for identity.
+     * Holds a {@link AcceptEncodingValue} for identity.
      */
-    public final static EncodingWithParameters IDENTITY = registerConstant("identity");
+    public final static AcceptEncodingValue IDENTITY = registerConstant("identity");
 
     /**
-     * Holds a {@link EncodingWithParameters wildcard}
+     * Holds a {@link AcceptEncodingValue wildcard}
      */
-    public final static EncodingWithParameters WILDCARD_ENCODING = EncodingWithParametersWildcard.with(NO_PARAMETERS);
+    public final static AcceptEncodingValue WILDCARD_ENCODING = AcceptEncodingValueWildcard.with(NO_PARAMETERS);
 
     /**
      * Creates and then registers the constant.
      */
-    static private EncodingWithParameters registerConstant(final String text) {
-        final EncodingWithParametersNonWildcard contentType = nonWildcard(text, NO_PARAMETERS);
+    static private AcceptEncodingValue registerConstant(final String text) {
+        final AcceptEncodingValueNonWildcard contentType = nonWildcard(text, NO_PARAMETERS);
         CONSTANTS.put(text, contentType);
         return contentType;
     }
 
     /**
-     * Parses text into a {@link EncodingWithParameters}.
+     * Parses text into a {@link AcceptEncodingValue}.
      */
-    public static EncodingWithParameters parse(final String text) {
-        return EncodingWithParametersHeaderValueParser.parseEncoding(text);
+    public static AcceptEncodingValue parse(final String text) {
+        return AcceptEncodingValueHeaderValueParser.parseEncoding(text);
     }
 
     /**
-     * {@see EncodingWithParameters}
+     * {@see AcceptEncodingValue}
      */
-    public static EncodingWithParameters with(final String value) {
+    public static AcceptEncodingValue with(final String value) {
         return "*".equals(value) ?
                 wildcard(NO_PARAMETERS) :
                 nonWildcard(checkValue(value), NO_PARAMETERS);
@@ -110,30 +110,30 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     private static String checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value,
                 "value",
-                EncodingWithParametersHeaderValueParser.RFC2045TOKEN);
+                AcceptEncodingValueHeaderValueParser.RFC2045TOKEN);
         return value;
     }
 
     /**
-     * {@see EncodingWithParametersNonWildcard}
+     * {@see AcceptEncodingValueNonWildcard}
      */
-    static EncodingWithParametersNonWildcard nonWildcard(final String value,
-                                                         final Map<EncodingParameterName<?>, Object> parameters) {
-        return EncodingWithParametersNonWildcard.with(value, checkParameters(parameters));
+    static AcceptEncodingValueNonWildcard nonWildcard(final String value,
+                                                      final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+        return AcceptEncodingValueNonWildcard.with(value, checkParameters(parameters));
     }
 
     /**
-     * {@see EncodingWithParametersWildcard}
+     * {@see AcceptEncodingValueWildcard}
      */
-    static EncodingWithParametersWildcard wildcard(final Map<EncodingParameterName<?>, Object> parameters) {
-        return EncodingWithParametersWildcard.with(checkParameters(parameters));
+    static AcceptEncodingValueWildcard wildcard(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+        return AcceptEncodingValueWildcard.with(checkParameters(parameters));
     }
 
     /**
      * Package private to limit sub classing.
      */
-    EncodingWithParameters(final String value,
-                           final Map<EncodingParameterName<?>, Object> parameters) {
+    AcceptEncodingValue(final String value,
+                        final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -158,7 +158,7 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
 
     @Override
     public Optional<Float> qualityFactor() {
-        return EncodingParameterName.Q.parameterValue(this);
+        return AcceptEncodingValueParameterName.Q.parameterValue(this);
     }
 
     // HasHeaderScope .................................................................................................
@@ -204,7 +204,7 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     // Comparable......................................................................................................
 
     @Override
-    public final int compareTo(final EncodingWithParameters other) {
+    public final int compareTo(final AcceptEncodingValue other) {
         return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
     }
 }
