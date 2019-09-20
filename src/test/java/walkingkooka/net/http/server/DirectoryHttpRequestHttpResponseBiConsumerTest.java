@@ -144,6 +144,27 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     }
 
     @Test
+    public void testFileUrlRequiresNormalization() throws IOException {
+        final HttpRequest request = this.request("/deleted/../files/server/" + FILE1, null);
+        final RecordingHttpResponse response = HttpResponses.recording();
+
+        this.createBiConsumer()
+                .accept(request, response);
+
+        final RecordingHttpResponse expected = HttpResponses.recording();
+        expected.setStatus(HttpStatusCode.OK.status());
+
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.LAST_MODIFIED, this.fileLastModified1());
+        headers.put(HttpHeaderName.CONTENT_LENGTH, this.contentLength1());
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+
+        expected.addEntity(HttpEntity.with(headers, this.content1()));
+
+        assertEquals(expected, response, "request: " + request);
+    }
+
+    @Test
     public void testFile2WithoutIfNotModified() throws IOException {
         final HttpRequest request = this.request("/files/server/" + FILE2, null);
         final RecordingHttpResponse response = HttpResponses.recording();
