@@ -73,7 +73,7 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
     @Test
     public void testParameterValueAbsent() {
         this.parameterValueAndCheckAbsent(AcceptCharsetValueParameterName.with("absent-parameter"),
-                this.charsetHeaderValue());
+                this.acceptCharsetValue());
     }
 
     @Test
@@ -82,11 +82,11 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
         final float value = 0.5f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.charsetHeaderValue(),
+                this.acceptCharsetValue(),
                 value);
     }
 
-    private AcceptCharsetValue charsetHeaderValue() {
+    private AcceptCharsetValue acceptCharsetValue() {
         return AcceptCharsetValue.with(CharsetName.UTF_8)
                 .setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f));
     }
