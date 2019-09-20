@@ -18,8 +18,6 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.compare.ComparableTesting;
-import walkingkooka.compare.ComparableTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

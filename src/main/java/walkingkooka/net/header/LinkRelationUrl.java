@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.compare.Comparators;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 

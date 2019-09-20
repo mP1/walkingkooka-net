@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
