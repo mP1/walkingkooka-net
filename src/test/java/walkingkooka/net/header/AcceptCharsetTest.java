@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,7 +31,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<AcceptCharsetValue>>
-        implements ParseStringTesting<AcceptCharset> {
+        implements ParseStringTesting<AcceptCharset>,
+        PredicateTesting {
 
     // charset...................................................................................................
 
@@ -70,7 +72,49 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
                 AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
     }
 
-    // helpers.......................................................................................................
+    // Predicate........................................................................................................
+
+    @Test
+    public void testTestCharsetMissingFromContentType() {
+        this.testFalse(AcceptCharset.parse("UTF-8"), MediaType.TEXT_HTML);
+    }
+
+    @Test
+    public void testTestCharsetPresentTrue() {
+        this.testTrue(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-8"));
+    }
+
+    @Test
+    public void testTestCharsetDifferentFalse() {
+        this.testFalse(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-16"));
+    }
+
+    @Test
+    public void testTestCharsetPresentTrueIgnoresOtherMediaTypeParameters() {
+        this.testTrue(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-8;a1=b2"));
+    }
+
+    @Test
+    public void testTestCharsetLastAcceptCharsetValueMatchTrue() {
+        this.testTrue(AcceptCharset.parse("UTF32,UTF16,UTF-8"), MediaType.parse("text/plain;charset=UTF-8"));
+    }
+
+    @Test
+    public void testTestCharsetAbsentFalse() {
+        this.testFalse(AcceptCharset.parse("US-ASCII,UTF8"), MediaType.parse("text/plain;charset=UTF-16"));
+    }
+
+    @Test
+    public void testTestCharsetIncludesParametersFalse() {
+        this.testFalse(AcceptCharset.parse("US-ASCII;q=0.7"), MediaType.parse("text/plain;charset=UTF-8"));
+    }
+
+    @Test
+    public void testTestCharsetIncludesParametersTrue() {
+        this.testTrue(AcceptCharset.parse("UTF8;q=0.7"), MediaType.parse("text/plain;charset=UTF-8"));
+    }
+
+    // helpers..........................................................................................................
 
     @Override
     AcceptCharset createHeaderValue(final List<AcceptCharsetValue> value) {
