@@ -77,7 +77,9 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
         Objects.requireNonNull(response, "response");
 
         // extract path and verify is valid.
-        final UrlPath fullPath = request.url().path();
+        final UrlPath fullPath = request.url()
+                .path()
+                .normalize();
         final UrlPath pathBase = this.pathBase;
 
         final String fullPathString = fullPath.value();
