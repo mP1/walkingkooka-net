@@ -52,7 +52,7 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
     public final void testSetParameters() {
         final L name = this.createName(this.nameText());
         final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.Q, 0.5f);
-        final LanguageWithParameters language = name.setParameters(parameters);
+        final AcceptLanguageValue language = name.setParameters(parameters);
         assertSame(name, language.value(), "value");
         assertEquals(parameters, language.parameters(), "parameters");
     }

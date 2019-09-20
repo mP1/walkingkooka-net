@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguage, List<LanguageWithParameters>>
+public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
         implements ParseStringTesting<AcceptLanguage>,
         PredicateTesting2<AcceptLanguage, ContentLanguage> {
 
@@ -43,17 +43,17 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(acceptLanguage(LanguageWithParameters.WILDCARD), ContentLanguage.parse("en"));
+        this.testTrue(acceptLanguage(AcceptLanguageValue.WILDCARD), ContentLanguage.parse("en"));
     }
 
     @Test
     public void testTestWildcard2() {
-        this.testTrue(acceptLanguage(LanguageWithParameters.WILDCARD), ContentLanguage.parse("fr"));
+        this.testTrue(acceptLanguage(AcceptLanguageValue.WILDCARD), ContentLanguage.parse("fr"));
     }
 
     @Test
     public void testTestDifferentWildcard() {
-        this.testTrue(acceptLanguage(this.en(), LanguageWithParameters.WILDCARD), ContentLanguage.parse("abc"));
+        this.testTrue(acceptLanguage(this.en(), AcceptLanguageValue.WILDCARD), ContentLanguage.parse("abc"));
     }
 
     @Test
@@ -91,37 +91,37 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
     @Test
     public void testParse() {
         this.parseStringAndCheck("en, *;q=0.5",
-                AcceptLanguage.with(Lists.of(LanguageWithParameters.parse("en"),
-                LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.5f)))));
+                AcceptLanguage.with(Lists.of(AcceptLanguageValue.parse("en"),
+                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.5f)))));
     }
 
     // helpers..........................................................................................................
 
     @Override
-    AcceptLanguage createHeaderValue(final List<LanguageWithParameters> value) {
+    AcceptLanguage createHeaderValue(final List<AcceptLanguageValue> value) {
         return AcceptLanguage.with(value);
     }
 
-    private AcceptLanguage acceptLanguage(final LanguageWithParameters... value) {
+    private AcceptLanguage acceptLanguage(final AcceptLanguageValue... value) {
         return this.createHeaderValue(Lists.of(value));
     }
 
     @Override
-    List<LanguageWithParameters> value() {
-        return Lists.of(LanguageWithParameters.parse("en"), LanguageWithParameters.parse("fr"));
+    List<AcceptLanguageValue> value() {
+        return Lists.of(AcceptLanguageValue.parse("en"), AcceptLanguageValue.parse("fr"));
     }
 
-    private LanguageWithParameters en() {
-        return LanguageWithParameters.parse("en");
+    private AcceptLanguageValue en() {
+        return AcceptLanguageValue.parse("en");
     }
 
-    private LanguageWithParameters fr() {
-        return LanguageWithParameters.parse("fr");
+    private AcceptLanguageValue fr() {
+        return AcceptLanguageValue.parse("fr");
     }
 
     @Override
-    List<LanguageWithParameters> differentValue() {
-        return Lists.of(LanguageWithParameters.with(LanguageName.with("diff")));
+    List<AcceptLanguageValue> differentValue() {
+        return Lists.of(AcceptLanguageValue.with(LanguageName.with("diff")));
     }
 
     @Override

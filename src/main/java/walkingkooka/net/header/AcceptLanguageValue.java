@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 /**
  * Holds a Language with parameters within a accept-language header.
  */
-public final class LanguageWithParameters extends HeaderValueWithParameters2<LanguageWithParameters, LanguageParameterName<?>, LanguageName>
+public final class AcceptLanguageValue extends HeaderValueWithParameters2<AcceptLanguageValue, LanguageParameterName<?>, LanguageName>
         implements Predicate<LanguageName>,
         HasQualityFactor {
 
@@ -38,39 +38,39 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
     public final static Map<LanguageParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * A {@link LanguageWithParameters} wildcard without any parameters.
+     * A {@link AcceptLanguageValue} wildcard without any parameters.
      */
-    public final static LanguageWithParameters WILDCARD = new LanguageWithParameters(LanguageName.WILDCARD, NO_PARAMETERS);
+    public final static AcceptLanguageValue WILDCARD = new AcceptLanguageValue(LanguageName.WILDCARD, NO_PARAMETERS);
 
     /**
-     * Factory that creates a new {@link LanguageWithParameters}
+     * Factory that creates a new {@link AcceptLanguageValue}
      */
-    public static LanguageWithParameters with(final LanguageName value) {
+    public static AcceptLanguageValue with(final LanguageName value) {
         checkValue(value);
 
         return value.isWildcard() ?
                 WILDCARD :
-                new LanguageWithParameters(value, NO_PARAMETERS);
+                new AcceptLanguageValue(value, NO_PARAMETERS);
     }
 
     /**
      * Parsers a header value holding a single tag.
      */
-    public static LanguageWithParameters parse(final String text) {
-        return LanguageWithParametersHeaderValueParser.parseLanguage(text);
+    public static AcceptLanguageValue parse(final String text) {
+        return AcceptLanguageValueHeaderValueParser.parseLanguage(text);
     }
 
     /**
      * Private ctor use factory methods.
      */
-    private LanguageWithParameters(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
+    private AcceptLanguageValue(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
     // Predicate.......................................................................................................
 
     /**
-     * Only returns true if the {@link LanguageName} satisfies this {@link LanguageWithParameters}.
+     * Only returns true if the {@link LanguageName} satisfies this {@link AcceptLanguageValue}.
      */
     @Override
     public boolean test(final LanguageName language) {
@@ -88,9 +88,9 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
     // value............................................................................................................
 
     /**
-     * Would be setter that returns a {@link LanguageWithParameters} with the given value creating a new instance as necessary.
+     * Would be setter that returns a {@link AcceptLanguageValue} with the given value creating a new instance as necessary.
      */
-    public LanguageWithParameters setValue(final LanguageName value) {
+    public AcceptLanguageValue setValue(final LanguageName value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -104,20 +104,20 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
 
     // replace ........................................................................................................
 
-    private LanguageWithParameters replace(final LanguageName value) {
+    private AcceptLanguageValue replace(final LanguageName value) {
         return this.replace0(value, this.parameters);
     }
 
     @Override
-    LanguageWithParameters replace(final Map<LanguageParameterName<?>, Object> parameters) {
+    AcceptLanguageValue replace(final Map<LanguageParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 
-    private LanguageWithParameters replace0(final LanguageName name,
-                                            final Map<LanguageParameterName<?>, Object> parameters) {
+    private AcceptLanguageValue replace0(final LanguageName name,
+                                         final Map<LanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
                 WILDCARD :
-                new LanguageWithParameters(name, parameters);
+                new AcceptLanguageValue(name, parameters);
     }
 
     // headerValue........................................................................................................
@@ -174,7 +174,7 @@ public final class LanguageWithParameters extends HeaderValueWithParameters2<Lan
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof LanguageWithParameters;
+        return other instanceof AcceptLanguageValue;
     }
 
     @Override

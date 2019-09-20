@@ -30,27 +30,27 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LanguageWithParametersTest extends HeaderValueWithParametersTestCase<LanguageWithParameters,
+public final class AcceptLanguageValueTest extends HeaderValueWithParametersTestCase<AcceptLanguageValue,
         LanguageParameterName<?>>
-        implements ParseStringTesting<LanguageWithParameters>,
-        PredicateTesting2<LanguageWithParameters, LanguageName> {
+        implements ParseStringTesting<AcceptLanguageValue>,
+        PredicateTesting2<AcceptLanguageValue, LanguageName> {
 
     @Test
     public void testWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            LanguageWithParameters.with(null);
+            AcceptLanguageValue.with(null);
         });
     }
 
     @Test
     public void testWith() {
-        final LanguageWithParameters language = LanguageWithParameters.with(this.en());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
         this.check(language);
     }
 
     @Test
     public void testWithCached() {
-        assertSame(LanguageWithParameters.with(LanguageName.WILDCARD), LanguageWithParameters.with(LanguageName.WILDCARD));
+        assertSame(AcceptLanguageValue.with(LanguageName.WILDCARD), AcceptLanguageValue.with(LanguageName.WILDCARD));
     }
 
     //setValue..........................................................................................................
@@ -58,62 +58,62 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     @Test
     public void testSetValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            LanguageWithParameters.WILDCARD.setValue(null);
+            AcceptLanguageValue.WILDCARD.setValue(null);
         });
     }
 
     @Test
     public void testSetValueSame() {
-        final LanguageWithParameters language = LanguageWithParameters.WILDCARD;
+        final AcceptLanguageValue language = AcceptLanguageValue.WILDCARD;
         assertSame(language, language.setValue(LanguageName.WILDCARD));
     }
 
     @Test
     public void testSetValueSame2() {
-        final LanguageWithParameters language = LanguageWithParameters.with(this.en());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
         assertSame(language, language.setValue(this.en()));
     }
 
     @Test
     public void testSetValueDifferent() {
-        final LanguageWithParameters language = LanguageWithParameters.WILDCARD;
+        final AcceptLanguageValue language = AcceptLanguageValue.WILDCARD;
         final LanguageName name = this.fr();
-        final LanguageWithParameters different = language.setValue(name);
+        final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
 
-        this.check(different, name, LanguageWithParameters.NO_PARAMETERS);
+        this.check(different, name, AcceptLanguageValue.NO_PARAMETERS);
     }
 
     @Test
     public void testSetValueDifferent2() {
-        final LanguageWithParameters language = LanguageWithParameters.with(this.en());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
         final LanguageName name = this.fr();
-        final LanguageWithParameters different = language.setValue(name);
+        final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
 
-        this.check(different, name, LanguageWithParameters.NO_PARAMETERS);
+        this.check(different, name, AcceptLanguageValue.NO_PARAMETERS);
     }
 
     @Test
     public void testSetValueDifferentWithParameters() {
-        final LanguageWithParameters language = LanguageWithParameters.with(this.en()).setParameters(this.parametersWithQFactor());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en()).setParameters(this.parametersWithQFactor());
         final LanguageName name = this.fr();
-        final LanguageWithParameters different = language.setValue(name);
+        final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
         this.check(different, name, this.parametersWithQFactor());
     }
 
-    private void check(final LanguageWithParameters language) {
-        this.check(language, this.en(), LanguageWithParameters.NO_PARAMETERS);
+    private void check(final AcceptLanguageValue language) {
+        this.check(language, this.en(), AcceptLanguageValue.NO_PARAMETERS);
     }
 
     // setParameters....................................................................................................
 
     @Test
     public final void testSetParameterDifferent() {
-        final LanguageWithParameters language = this.createHeaderValueWithParameters();
+        final AcceptLanguageValue language = this.createHeaderValueWithParameters();
         final Map<LanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
-        final LanguageWithParameters different = language.setParameters(parameters);
+        final AcceptLanguageValue different = language.setParameters(parameters);
         this.check(different, this.en(), parameters);
     }
 
@@ -123,13 +123,13 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
 
     @Test
     public void testSetParametersDifferentAndBack() {
-        assertSame(LanguageWithParameters.WILDCARD,
-                LanguageWithParameters.WILDCARD
+        assertSame(AcceptLanguageValue.WILDCARD,
+                AcceptLanguageValue.WILDCARD
                         .setParameters(this.parametersWithQFactor())
-                        .setParameters(LanguageWithParameters.NO_PARAMETERS));
+                        .setParameters(AcceptLanguageValue.NO_PARAMETERS));
     }
 
-    final void check(final LanguageWithParameters language,
+    final void check(final AcceptLanguageValue language,
                      final LanguageName value,
                      final Map<LanguageParameterName<?>, Object> parameters) {
         assertEquals(value, language.value(), "value");
@@ -141,26 +141,26 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     @Test
     public void testParse() {
         this.parseStringAndCheck("en",
-                LanguageWithParameters.with(this.en()));
+                AcceptLanguageValue.with(this.en()));
     }
 
     @Test
     public void testParseWithParameters() {
         this.parseStringAndCheck("en; abc=123",
-                LanguageWithParameters.with(this.en())
+                AcceptLanguageValue.with(this.en())
                         .setParameters(Maps.of(LanguageParameterName.with("abc"), "123")));
     }
 
     @Override
-    public LanguageWithParameters parseString(final String text) {
-        return LanguageWithParameters.parse(text);
+    public AcceptLanguageValue parseString(final String text) {
+        return AcceptLanguageValue.parse(text);
     }
 
     // toHeaderTextList................................................................................................
 
     @Test
     public void testToHeaderTextList() {
-        this.toHeaderTextAndCheck(LanguageWithParameters.with(this.en()), "en");
+        this.toHeaderTextAndCheck(AcceptLanguageValue.with(this.en()), "en");
     }
 
     @Test
@@ -173,34 +173,34 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     @Test
     public void testToHeaderTextListWildcard() {
         this.toHeaderTextListAndCheck("*",
-                LanguageWithParameters.WILDCARD);
+                AcceptLanguageValue.WILDCARD);
     }
 
     // test ............................................................................................................
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(LanguageWithParameters.WILDCARD, this.en());
+        this.testTrue(AcceptLanguageValue.WILDCARD, this.en());
     }
 
     @Test
     public void testTestWildcardNonWildcardFails2() {
-        this.testTrue(LanguageWithParameters.WILDCARD, this.fr());
+        this.testTrue(AcceptLanguageValue.WILDCARD, this.fr());
     }
 
     @Test
     public void testTestNonWildcardNonWildcard() {
-        this.testTrue(LanguageWithParameters.with(this.en()), this.en());
+        this.testTrue(AcceptLanguageValue.with(this.en()), this.en());
     }
 
     @Test
     public void testTestNonWildcardNonWildcard2() {
-        this.testFalse(LanguageWithParameters.with(this.en()), this.fr());
+        this.testFalse(AcceptLanguageValue.with(this.en()), this.fr());
     }
 
     @Override
-    public LanguageWithParameters createHeaderValueWithParameters() {
-        return LanguageWithParameters.with(this.en());
+    public AcceptLanguageValue createHeaderValueWithParameters() {
+        return AcceptLanguageValue.with(this.en());
     }
 
     private LanguageName en() {
@@ -232,8 +232,8 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     }
 
     @Override
-    public Class<LanguageWithParameters> type() {
-        return LanguageWithParameters.class;
+    public Class<AcceptLanguageValue> type() {
+        return AcceptLanguageValue.class;
     }
 
     @Override
@@ -244,7 +244,7 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
     // PredicateTesting2................................................................................................
 
     @Override
-    public LanguageWithParameters createPredicate() {
+    public AcceptLanguageValue createPredicate() {
         return this.createHeaderValueWithParameters();
     }
 
@@ -252,7 +252,7 @@ public final class LanguageWithParametersTest extends HeaderValueWithParametersT
 
     @Override
     public String typeNamePrefix() {
-        return "Language";
+        return AcceptLanguage.class.getSimpleName() + "Value";
     }
 
     @Override

@@ -48,13 +48,13 @@ public final class AcceptLanguageHeaderValueHandlerTest extends
         });
     }
 
-    private LanguageWithParameters en_10() {
-        return LanguageWithParameters.with(LanguageName.with("en"))
+    private AcceptLanguageValue en_10() {
+        return AcceptLanguageValue.with(LanguageName.with("en"))
                 .setParameters(Maps.of(LanguageParameterName.Q, 1.0f));
     }
 
-    private LanguageWithParameters en_au_05() {
-        return LanguageWithParameters.with(LanguageName.with("en-au"))
+    private AcceptLanguageValue en_au_05() {
+        return AcceptLanguageValue.with(LanguageName.with("en-au"))
                 .setParameters(Maps.of(LanguageParameterName.Q, 0.5f));
     }
 

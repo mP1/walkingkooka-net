@@ -20,15 +20,15 @@ package walkingkooka.net.header;
 /**
  * A parser that knows how to parse either a wildcard or language with or without parameters.
  */
-final class LanguageWithParametersHeaderValueParser extends AcceptLanguageOrLanguageHeaderValueParser {
+final class AcceptLanguageValueHeaderValueParser extends AcceptLanguageOrAcceptLanguageValueHeaderValueParser {
 
-    static LanguageWithParameters parseLanguage(final String text) {
-        final LanguageWithParametersHeaderValueParser parser = new LanguageWithParametersHeaderValueParser(text);
+    static AcceptLanguageValue parseLanguage(final String text) {
+        final AcceptLanguageValueHeaderValueParser parser = new AcceptLanguageValueHeaderValueParser(text);
         parser.parse();
         return parser.language;
     }
 
-    private LanguageWithParametersHeaderValueParser(final String text) {
+    private AcceptLanguageValueHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -38,9 +38,9 @@ final class LanguageWithParametersHeaderValueParser extends AcceptLanguageOrLang
     }
 
     @Override
-    void valueComplete(final LanguageWithParameters language) {
+    void valueComplete(final AcceptLanguageValue language) {
         this.language = language;
     }
 
-    private LanguageWithParameters language;
+    private AcceptLanguageValue language;
 }

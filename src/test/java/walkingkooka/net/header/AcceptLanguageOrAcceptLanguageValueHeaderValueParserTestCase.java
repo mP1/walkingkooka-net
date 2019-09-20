@@ -23,15 +23,15 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extends AcceptLanguageOrLanguageHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
+public abstract class AcceptLanguageOrAcceptLanguageValueHeaderValueParserTestCase<P extends AcceptLanguageOrAcceptLanguageValueHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
 
-    AcceptLanguageOrLanguageHeaderValueParserTestCase() {
+    AcceptLanguageOrAcceptLanguageValueHeaderValueParserTestCase() {
         super();
     }
 
     @Test
     public final void testWildcard() {
-        this.parseStringAndCheck2("*", LanguageWithParameters.WILDCARD);
+        this.parseStringAndCheck2("*", AcceptLanguageValue.WILDCARD);
     }
 
     @Test
@@ -63,7 +63,7 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
     @Test
     public final void testWildcardWithQWeight() {
         this.parseStringAndCheck2("*; q=0.75",
-                LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
+                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
     }
 
     @Test
@@ -72,20 +72,20 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
                 LanguageParameterName.with("c"), "d");
 
         this.parseStringAndCheck2("*; a=b; c=d",
-                LanguageWithParameters.WILDCARD.setParameters(parameters));
+                AcceptLanguageValue.WILDCARD.setParameters(parameters));
     }
 
     @Test
     public final void testLanguage_en() {
-        this.parseStringAndCheck2("en", LanguageWithParameters.with(LanguageName.with("en")));
+        this.parseStringAndCheck2("en", AcceptLanguageValue.with(LanguageName.with("en")));
     }
 
     @Test
     public final void testLanguage_de_CH() {
-        this.parseStringAndCheck2("de-CH", LanguageWithParameters.with(LanguageName.with("de-CH")));
+        this.parseStringAndCheck2("de-CH", AcceptLanguageValue.with(LanguageName.with("de-CH")));
     }
 
-    abstract void parseStringAndCheck2(final String text, final LanguageWithParameters expected);
+    abstract void parseStringAndCheck2(final String text, final AcceptLanguageValue expected);
 
     @Test
     public final void testQuotedFails() {
@@ -94,6 +94,6 @@ public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extend
 
     @Override
     final String valueLabel() {
-        return AcceptLanguageOrLanguageHeaderValueParser.LANGUAGE;
+        return AcceptLanguageOrAcceptLanguageValueHeaderValueParser.LANGUAGE;
     }
 }

@@ -58,9 +58,9 @@ import java.util.function.Predicate;
  *       user agent might suggest in such a case to add "en" to get the
  *       best matching behavior.
  * </pre>
- * Note the {@link LanguageWithParameters} value is not sorted and appear in the original header text order.
+ * Note the {@link AcceptLanguageValue} value is not sorted and appear in the original header text order.
  */
-public final class AcceptLanguage extends HeaderValue2<List<LanguageWithParameters>>
+public final class AcceptLanguage extends HeaderValue2<List<AcceptLanguageValue>>
         implements Predicate<ContentLanguage> {
 
     /**
@@ -73,14 +73,14 @@ public final class AcceptLanguage extends HeaderValue2<List<LanguageWithParamete
     /**
      * Factory that creates a new {@link AcceptLanguage}
      */
-    public static AcceptLanguage with(final List<LanguageWithParameters> languages) {
+    public static AcceptLanguage with(final List<AcceptLanguageValue> languages) {
         return new AcceptLanguage(nonEmptyImmutableList(languages, "languages"));
     }
 
     /**
      * Private ctor
      */
-    private AcceptLanguage(final List<LanguageWithParameters> values) {
+    private AcceptLanguage(final List<AcceptLanguageValue> values) {
         super(values);
     }
 

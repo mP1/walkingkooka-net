@@ -72,8 +72,8 @@ final public class LanguageParameterNameTest extends HeaderParameterNameTestCase
                 value);
     }
 
-    private LanguageWithParameters languageTag() {
-        return LanguageWithParameters.WILDCARD;
+    private AcceptLanguageValue languageTag() {
+        return AcceptLanguageValue.WILDCARD;
     }
 
     @Override

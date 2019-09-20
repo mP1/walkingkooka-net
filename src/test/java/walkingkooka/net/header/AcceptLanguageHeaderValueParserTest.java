@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrLanguageHeaderValueParserTestCase<AcceptLanguageHeaderValueParser,
+public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrAcceptLanguageValueHeaderValueParserTestCase<AcceptLanguageHeaderValueParser,
         AcceptLanguage> {
 
     @Test
@@ -39,22 +39,22 @@ public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrL
                 this.language("fr", 0.25f));
     }
 
-    private LanguageWithParameters language(final String language, final float qFactor) {
+    private AcceptLanguageValue language(final String language, final float qFactor) {
         return this.language(language)
                 .setParameters(Maps.of(LanguageParameterName.Q, qFactor));
     }
 
-    private LanguageWithParameters language(final String language) {
-        return LanguageWithParameters.with(LanguageName.with(language));
+    private AcceptLanguageValue language(final String language) {
+        return AcceptLanguageValue.with(LanguageName.with(language));
     }
 
     private void parseStringAndCheck3(final String text,
-                                final LanguageWithParameters... languages) {
+                                final AcceptLanguageValue... languages) {
         this.parseStringAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
     }
 
     @Override
-    void parseStringAndCheck2(final String text, final LanguageWithParameters language) {
+    void parseStringAndCheck2(final String text, final AcceptLanguageValue language) {
         this.parseStringAndCheck3(text, language);
     }
 
