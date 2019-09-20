@@ -28,61 +28,61 @@ import java.util.Optional;
 /**
  * A {@link HeaderValueWithParameters} that represents a single charset name with optional parameters.
  */
-final public class CharsetHeaderValue extends HeaderValueWithParameters2<CharsetHeaderValue,
-        CharsetHeaderValueParameterName<?>,
+final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptCharsetValue,
+        AcceptCharsetValueParameterName<?>,
         CharsetName> implements HasQualityFactor {
 
     /**
      * No parameters.
      */
-    public final static Map<CharsetHeaderValueParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<AcceptCharsetValueParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     // MediaType constants.................................................................................................
 
     /**
      * Holds all constants.
      */
-    private final static Map<CharsetName, CharsetHeaderValue> CONSTANTS = Maps.sorted();
+    private final static Map<CharsetName, AcceptCharsetValue> CONSTANTS = Maps.sorted();
 
     /**
-     * Holds a {@link CharsetHeaderValue} that matches all {@link CharsetHeaderValue text types}.
+     * Holds a {@link AcceptCharsetValue} that matches all {@link AcceptCharsetValue text types}.
      */
-    public final static CharsetHeaderValue WILDCARD_VALUE = registerConstant(CharsetName.WILDCARD_CHARSET);
+    public final static AcceptCharsetValue WILDCARD_VALUE = registerConstant(CharsetName.WILDCARD_CHARSET);
 
     /**
      * Creates and then registers the constant.
      */
-    static private CharsetHeaderValue registerConstant(final CharsetName charsetName) {
-        final CharsetHeaderValue charsetHeaderValue = new CharsetHeaderValue(charsetName, NO_PARAMETERS);
-        CONSTANTS.put(charsetName, charsetHeaderValue);
+    static private AcceptCharsetValue registerConstant(final CharsetName charsetName) {
+        final AcceptCharsetValue acceptCharsetValue = new AcceptCharsetValue(charsetName, NO_PARAMETERS);
+        CONSTANTS.put(charsetName, acceptCharsetValue);
 
-        return charsetHeaderValue;
+        return acceptCharsetValue;
     }
 
     /**
-     * Creates a {@link CharsetHeaderValue} using the already broken type and sub types. It is not possible to pass parameters with or without values.
+     * Creates a {@link AcceptCharsetValue} using the already broken type and sub types. It is not possible to pass parameters with or without values.
      */
-    public static CharsetHeaderValue with(final CharsetName charsetName) {
+    public static AcceptCharsetValue with(final CharsetName charsetName) {
         checkValue(charsetName);
 
-        final CharsetHeaderValue charsetHeaderValue = CONSTANTS.get(charsetName);
-        return null != charsetHeaderValue ?
-                charsetHeaderValue :
-                new CharsetHeaderValue(charsetName, NO_PARAMETERS);
+        final AcceptCharsetValue acceptCharsetValue = CONSTANTS.get(charsetName);
+        return null != acceptCharsetValue ?
+                acceptCharsetValue :
+                new AcceptCharsetValue(charsetName, NO_PARAMETERS);
     }
 
     /**
      * Factory method called by various setters and parsers, that tries to match constants before creating an actual new
      * instance.
      */
-    private static CharsetHeaderValue withParameters(final CharsetName charset,
-                                                     final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        final CharsetHeaderValue result = parameters.isEmpty() ?
+    private static AcceptCharsetValue withParameters(final CharsetName charset,
+                                                     final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
+        final AcceptCharsetValue result = parameters.isEmpty() ?
                 CONSTANTS.get(charset) :
                 null;
         return null != result ?
                 result :
-                new CharsetHeaderValue(charset, parameters);
+                new AcceptCharsetValue(charset, parameters);
     }
 
     // ctor ...................................................................................................
@@ -90,8 +90,8 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
     /**
      * Private constructor
      */
-    private CharsetHeaderValue(final CharsetName charsetName,
-                               final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+    private AcceptCharsetValue(final CharsetName charsetName,
+                               final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         super(charsetName, parameters);
     }
 
@@ -100,7 +100,7 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
     /**
      * Would be setter that returns an instance with the new {@link CharsetName}, creating a new instance if required.
      */
-    public CharsetHeaderValue setValue(final CharsetName charsetName) {
+    public AcceptCharsetValue setValue(final CharsetName charsetName) {
         checkValue(charsetName);
 
         return this.value.equals(charsetName) ?
@@ -118,19 +118,19 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
      * Retrieves the quality factor for this value.
      */
     public final Optional<Float> qualityFactor() {
-        return this.qualityFactor(CharsetHeaderValueParameterName.Q);
+        return this.qualityFactor(AcceptCharsetValueParameterName.Q);
     }
 
     // replace .................................................................................................
 
     @Override
-    CharsetHeaderValue replace(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+    AcceptCharsetValue replace(final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         return this.replace(this.value, parameters);
     }
 
-    private CharsetHeaderValue replace(final CharsetName charsetName,
-                                       final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        return CharsetHeaderValue.withParameters(charsetName, parameters);
+    private AcceptCharsetValue replace(final CharsetName charsetName,
+                                       final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
+        return AcceptCharsetValue.withParameters(charsetName, parameters);
     }
 
     // HeaderValue................................................................................................................
@@ -179,6 +179,6 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof CharsetHeaderValue;
+        return other instanceof AcceptCharsetValue;
     }
 }

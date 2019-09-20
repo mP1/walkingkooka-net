@@ -30,7 +30,7 @@ import java.util.Optional;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> {
+public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>> {
 
     /**
      * Parses a header value that contains one or more charsets.
@@ -42,19 +42,19 @@ public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> 
     /**
      * Factory that creates a new {@link AcceptCharset}
      */
-    public static AcceptCharset with(final List<CharsetHeaderValue> values) {
+    public static AcceptCharset with(final List<AcceptCharsetValue> values) {
         return new AcceptCharset(nonEmptyImmutableList(values, "charsets"));
     }
 
     /**
      * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderValueParser}
      */
-    private AcceptCharset(final List<CharsetHeaderValue> values) {
+    private AcceptCharset(final List<AcceptCharsetValue> values) {
         super(values);
     }
 
     /**
-     * Finds the first system supported {@link Charset}. This assumes the {@link CharsetHeaderValue} have already been
+     * Finds the first system supported {@link Charset}. This assumes the {@link AcceptCharsetValue} have already been
      * sorted by q factors, thus order implies importance.
      */
     public Optional<Charset> charset() {

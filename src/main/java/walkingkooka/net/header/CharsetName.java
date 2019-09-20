@@ -219,10 +219,10 @@ public abstract class CharsetName extends HeaderNameValue
     // setParameters.......................................................................................
 
     /**
-     * Factory that creates a {@link CharsetHeaderValue} combining this charset and the given parameters.
+     * Factory that creates a {@link AcceptCharsetValue} combining this charset and the given parameters.
      */
-    public final CharsetHeaderValue setParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        return CharsetHeaderValue.with(this).setParameters(parameters);
+    public final AcceptCharsetValue setParameters(final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
+        return AcceptCharsetValue.with(this).setParameters(parameters);
     }
 
     // HeaderValue ....................................................................................................

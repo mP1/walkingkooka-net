@@ -24,13 +24,13 @@ import walkingkooka.naming.Name;
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class CharsetHeaderValueParameterName<V> extends HeaderParameterName<V>
-        implements Comparable<CharsetHeaderValueParameterName<?>> {
+final public class AcceptCharsetValueParameterName<V> extends HeaderParameterName<V>
+        implements Comparable<AcceptCharsetValueParameterName<?>> {
 
     // constants
 
-    private final static HeaderParameterNameConstants<CharsetHeaderValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            CharsetHeaderValueParameterName::new,
+    private final static HeaderParameterNameConstants<AcceptCharsetValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            AcceptCharsetValueParameterName::new,
             HeaderValueHandler.quotedUnquotedString(
                     AcceptCharsetHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     false,
@@ -39,19 +39,19 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
     /**
      * The q (quality factor) parameter.
      */
-    public final static CharsetHeaderValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptCharsetValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
-     * Factory that creates a {@link CharsetHeaderValueParameterName}
+     * Factory that creates a {@link AcceptCharsetValueParameterName}
      */
-    public static CharsetHeaderValueParameterName<?> with(final String name) {
+    public static AcceptCharsetValueParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private CharsetHeaderValueParameterName(final String value,
+    private AcceptCharsetValueParameterName(final String value,
                                             final HeaderValueHandler<V> handler) {
         super(value, handler);
     }
@@ -59,7 +59,7 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
     // Comparable..................................................................................................
 
     @Override
-    public int compareTo(final CharsetHeaderValueParameterName<?> other) {
+    public int compareTo(final AcceptCharsetValueParameterName<?> other) {
         return this.compareTo0(other);
     }
 
@@ -67,6 +67,6 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof CharsetHeaderValueParameterName;
+        return other instanceof AcceptCharsetValueParameterName;
     }
 }

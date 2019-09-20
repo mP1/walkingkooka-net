@@ -234,7 +234,7 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
                                final String events) {
         final StringBuilder recorded = new StringBuilder();
 
-        new HeaderValueParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>>(text) {
+        new HeaderValueParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>(text) {
 
             @Override
             boolean allowMultipleValues() {
@@ -242,42 +242,42 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
             }
 
             @Override
-            CharsetHeaderValue wildcardValue() {
+            AcceptCharsetValue wildcardValue() {
                 recorded.append("[wildcard]");
                 this.position++;
-                return CharsetHeaderValue.WILDCARD_VALUE;
+                return AcceptCharsetValue.WILDCARD_VALUE;
             }
 
             @Override
-            CharsetHeaderValue value() {
+            AcceptCharsetValue value() {
                 final String text = this.token(CharPredicates.letterOrDigit());
                 recorded.append("[value-" + text + "]");
-                return CharsetHeaderValue.with(CharsetName.with(text));
+                return AcceptCharsetValue.with(CharsetName.with(text));
             }
 
             @Override
-            CharsetHeaderValueParameterName<?> parameterName() {
+            AcceptCharsetValueParameterName<?> parameterName() {
                 final String text = this.token(CharPredicates.letterOrDigit());
                 recorded.append("[parameter-name-" + text + "]");
-                return CharsetHeaderValueParameterName.with(text);
+                return AcceptCharsetValueParameterName.with(text);
             }
 
             @Override
-            String quotedParameterValue(CharsetHeaderValueParameterName<?> parameterName) {
+            String quotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 final String text = this.quotedText(CharPredicates.letterOrDigit(), false);
                 recorded.append("[parameter-value-quoted-" + text.substring(1, text.length() - 1) + ']');
                 return text;
             }
 
             @Override
-            String unquotedParameterValue(CharsetHeaderValueParameterName<?> parameterName) {
+            String unquotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 final String text = this.token(CharPredicates.letterOrDigit());
                 recorded.append("[parameter-value-unquoted-" + text + ']');
                 return text;
             }
 
             @Override
-            void valueComplete(final CharsetHeaderValue value) {
+            void valueComplete(final AcceptCharsetValue value) {
                 recorded.append(value.toString());
             }
 
@@ -294,7 +294,7 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
 
     @Override
     public Void parseString(final String text) {
-        new HeaderValueParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>>(text) {
+        new HeaderValueParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>(text) {
 
             @Override
             boolean allowMultipleValues() {
@@ -302,32 +302,32 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
             }
 
             @Override
-            CharsetHeaderValue wildcardValue() {
-                return this.token(CharPredicates.letterOrDigit(), s -> CharsetHeaderValue.with(CharsetName.with(s)));
+            AcceptCharsetValue wildcardValue() {
+                return this.token(CharPredicates.letterOrDigit(), s -> AcceptCharsetValue.with(CharsetName.with(s)));
             }
 
             @Override
-            CharsetHeaderValue value() {
-                return this.token(CharPredicates.letterOrDigit(), s -> CharsetHeaderValue.with(CharsetName.with(s)));
+            AcceptCharsetValue value() {
+                return this.token(CharPredicates.letterOrDigit(), s -> AcceptCharsetValue.with(CharsetName.with(s)));
             }
 
             @Override
-            CharsetHeaderValueParameterName<?> parameterName() {
-                return CharsetHeaderValueParameterName.with(this.token(CharPredicates.letterOrDigit()));
+            AcceptCharsetValueParameterName<?> parameterName() {
+                return AcceptCharsetValueParameterName.with(this.token(CharPredicates.letterOrDigit()));
             }
 
             @Override
-            String quotedParameterValue(CharsetHeaderValueParameterName<?> parameterName) {
+            String quotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 return this.quotedText(CharPredicates.letterOrDigit(), false);
             }
 
             @Override
-            String unquotedParameterValue(CharsetHeaderValueParameterName<?> parameterName) {
+            String unquotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 return this.token(CharPredicates.letterOrDigit());
             }
 
             @Override
-            void valueComplete(final CharsetHeaderValue value) {
+            void valueComplete(final AcceptCharsetValue value) {
 
             }
 

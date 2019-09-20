@@ -85,7 +85,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     @Test
     public void testWildcard() {
-        this.parseStringAndCheck("*", CharsetHeaderValue.WILDCARD_VALUE);
+        this.parseStringAndCheck("*", AcceptCharsetValue.WILDCARD_VALUE);
     }
 
     @Test
@@ -439,7 +439,7 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
     }
 
     private void parseStringAndCheck(final String headerValue, final String charset) {
-        this.parseStringAndCheck(headerValue, charset, CharsetHeaderValue.NO_PARAMETERS);
+        this.parseStringAndCheck(headerValue, charset, AcceptCharsetValue.NO_PARAMETERS);
     }
 
     private void parseStringAndCheck(final String headerValue,
@@ -459,42 +459,42 @@ public final class AcceptCharsetHeaderValueParserTest extends HeaderValueParserW
 
     private void parseStringAndCheck(final String headerValue,
                                final String charset,
-                               final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+                               final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         this.parseStringAndCheck(headerValue,
-                CharsetHeaderValue.with(CharsetName.with(charset)).setParameters(parameters));
+                AcceptCharsetValue.with(CharsetName.with(charset)).setParameters(parameters));
     }
 
-    private void parseStringAndCheck(final String headerValue, final CharsetHeaderValue... values) {
+    private void parseStringAndCheck(final String headerValue, final AcceptCharsetValue... values) {
         this.parseStringAndCheck(headerValue, AcceptCharset.with(Lists.of(values)));
     }
 
-    private CharsetHeaderValue charsetHeaderValue(final String charset) {
-        return CharsetHeaderValue.with(CharsetName.with(charset));
+    private AcceptCharsetValue charsetHeaderValue(final String charset) {
+        return AcceptCharsetValue.with(CharsetName.with(charset));
     }
 
-    private CharsetHeaderValue charsetHeaderValue(final String charset,
+    private AcceptCharsetValue charsetHeaderValue(final String charset,
                                                   final String parameterName,
                                                   final Object parameterValue) {
-        return CharsetHeaderValue.with(CharsetName.with(charset))
+        return AcceptCharsetValue.with(CharsetName.with(charset))
                 .setParameters(this.parameters(parameterName, parameterValue));
     }
 
-    private Map<CharsetHeaderValueParameterName<?>, Object> parameters(final String name,
+    private Map<AcceptCharsetValueParameterName<?>, Object> parameters(final String name,
                                                                        final Object value) {
-        return this.parameters(CharsetHeaderValueParameterName.with(name), value);
+        return this.parameters(AcceptCharsetValueParameterName.with(name), value);
     }
 
-    private Map<CharsetHeaderValueParameterName<?>, Object> parameters(final CharsetHeaderValueParameterName<?> name,
+    private Map<AcceptCharsetValueParameterName<?>, Object> parameters(final AcceptCharsetValueParameterName<?> name,
                                                                        final Object value) {
         return Maps.of(name, value);
     }
 
-    private Map<CharsetHeaderValueParameterName<?>, Object> parameters(
+    private Map<AcceptCharsetValueParameterName<?>, Object> parameters(
             final String parameterName1, final Object parameterValue1,
             final String parameterName2, final Object parameterValue2) {
-        return Maps.of(CharsetHeaderValueParameterName.with(parameterName1),
+        return Maps.of(AcceptCharsetValueParameterName.with(parameterName1),
                 parameterValue1,
-                CharsetHeaderValueParameterName.with(parameterName2),
+                AcceptCharsetValueParameterName.with(parameterName2),
                 parameterValue2);
     }
 
