@@ -108,6 +108,8 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
         );
     }
 
+    // accept...........................................................................................................
+
     @Test
     public void testFileNotFound() {
         final HttpRequest request = this.request("/files/server/file-not-found", null);
@@ -119,7 +121,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
         final RecordingHttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_FOUND.status());
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
 
     @Test
@@ -140,7 +142,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
         expected.addEntity(HttpEntity.with(headers, this.content1()));
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
 
     @Test
@@ -161,7 +163,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
         expected.addEntity(HttpEntity.with(headers, this.content1()));
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
 
     @Test
@@ -182,7 +184,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
         expected.addEntity(HttpEntity.with(headers, this.content2()));
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
 
     @Test
@@ -203,7 +205,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
         expected.addEntity(HttpEntity.with(headers, this.content1()));
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
 
     @Test
@@ -220,13 +222,25 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
                 HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN),
                 HttpEntity.NO_BODY));
 
-        assertEquals(expected, response, "request: " + request);
+        this.checkResponse(request, response, expected);
     }
+
+    private void checkResponse(final HttpRequest request,
+                               final RecordingHttpResponse response,
+                               final RecordingHttpResponse expected) {
+        assertEquals(expected,
+                response,
+                () -> "request: " + request);
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createBiConsumer(), FILE_BASE_DIR.toString());
     }
+
+    // helpers..........................................................................................................
 
     private DirectoryHttpRequestHttpResponseBiConsumer createBiConsumer() {
         return DirectoryHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), FILE_BASE_DIR, CONTENT_TYPE_IDENTIFIER);
