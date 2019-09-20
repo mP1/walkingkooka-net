@@ -60,13 +60,13 @@ import java.util.List;
  *       best matching behavior.
  * </pre>
  */
-final class AcceptLanguageHeaderValueParser extends AcceptLanguageOrLanguageHeaderValueParser {
+final class AcceptLanguageHeaderValueParser extends AcceptLanguageOrAcceptLanguageValueHeaderValueParser {
 
     static AcceptLanguage parseAcceptLanguage(final String text) {
         final AcceptLanguageHeaderValueParser parser = new AcceptLanguageHeaderValueParser(text);
         parser.parse();
 
-        final List<LanguageWithParameters> languages = parser.languages;
+        final List<AcceptLanguageValue> languages = parser.languages;
         languages.sort(HasQualityFactor.qualityFactorDescendingComparator());
         return AcceptLanguage.with(languages);
     }
@@ -81,9 +81,9 @@ final class AcceptLanguageHeaderValueParser extends AcceptLanguageOrLanguageHead
     }
 
     @Override
-    void valueComplete(final LanguageWithParameters language) {
+    void valueComplete(final AcceptLanguageValue language) {
         this.languages.add(language);
     }
 
-    private final List<LanguageWithParameters> languages = Lists.array();
+    private final List<AcceptLanguageValue> languages = Lists.array();
 }

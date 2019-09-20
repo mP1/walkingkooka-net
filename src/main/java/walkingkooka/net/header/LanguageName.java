@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Holds a LanguageName only when combined with parameters creates a {@link LanguageWithParameters} header value.
+ * Holds a LanguageName only when combined with parameters creates a {@link AcceptLanguageValue} header value.
  */
 public abstract class LanguageName extends HeaderNameValue implements Comparable<LanguageName>,
         Predicate<LanguageName> {
@@ -64,10 +64,10 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     }
 
     /**
-     * Factory that creates a {@link LanguageWithParameters} with the given parameters.
+     * Factory that creates a {@link AcceptLanguageValue} with the given parameters.
      */
-    public final LanguageWithParameters setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
-        return LanguageWithParameters.with(this)
+    public final AcceptLanguageValue setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
+        return AcceptLanguageValue.with(this)
                 .setParameters(parameters);
     }
 
