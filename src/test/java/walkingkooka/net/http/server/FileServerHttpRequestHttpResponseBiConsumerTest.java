@@ -47,8 +47,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<DirectoryHttpRequestHttpResponseBiConsumer>,
-        ToStringTesting<DirectoryHttpRequestHttpResponseBiConsumer> {
+public final class FileServerHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<FileServerHttpRequestHttpResponseBiConsumer>,
+        ToStringTesting<FileServerHttpRequestHttpResponseBiConsumer> {
 
     private final static String FILE1 = "file1.txt";
     private final static String FILE2 = "dir/file2";
@@ -77,7 +77,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     @Test
     public void testWithUrlNullUrlPathBaseFails() {
         assertThrows(NullPointerException.class, () -> {
-                    DirectoryHttpRequestHttpResponseBiConsumer.with(null, FILE_BASE_DIR, CONTENT_TYPE_IDENTIFIER);
+                    FileServerHttpRequestHttpResponseBiConsumer.with(null, FILE_BASE_DIR, CONTENT_TYPE_IDENTIFIER);
                 }
         );
     }
@@ -85,7 +85,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     @Test
     public void testWithNullFilePathBaseFails2() {
         assertThrows(NullPointerException.class, () -> {
-                    DirectoryHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), null, CONTENT_TYPE_IDENTIFIER);
+                    FileServerHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), null, CONTENT_TYPE_IDENTIFIER);
                 }
         );
     }
@@ -93,7 +93,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     @Test
     public void testWithNullContentTypeIdentifierFails2() {
         assertThrows(NullPointerException.class, () -> {
-                    DirectoryHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), null, CONTENT_TYPE_IDENTIFIER);
+                    FileServerHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), null, CONTENT_TYPE_IDENTIFIER);
                 }
         );
     }
@@ -101,7 +101,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     @Test
     public void testWithPathBaseNotExistingFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-                    DirectoryHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(),
+                    FileServerHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(),
                             Paths.get(FILE_BASE_DIR.toString(), "doesnt-exist"),
                             CONTENT_TYPE_IDENTIFIER);
                 }
@@ -146,6 +146,29 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     }
 
     @Test
+    public void testFileRequestIfNotModifiedIgnored() throws IOException {
+        final LocalDateTime lastModified = this.fileLastModified1();
+
+        final HttpRequest request = this.request("/files/server/" + FILE1, lastModified);
+        final RecordingHttpResponse response = HttpResponses.recording();
+
+        this.createBiConsumer()
+                .accept(request, response);
+
+        final RecordingHttpResponse expected = HttpResponses.recording();
+        expected.setStatus(HttpStatusCode.OK.status());
+
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.LAST_MODIFIED, lastModified);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, this.contentLength1());
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+
+        expected.addEntity(HttpEntity.with(headers, this.content1()));
+
+        this.checkResponse(request, response, expected);
+    }
+
+    @Test
     public void testFileUrlRequiresNormalization() throws IOException {
         final HttpRequest request = this.request("/deleted/../files/server/" + FILE1, null);
         final RecordingHttpResponse response = HttpResponses.recording();
@@ -167,7 +190,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     }
 
     @Test
-    public void testFile2WithoutIfNotModified() throws IOException {
+    public void testFile2() throws IOException {
         final HttpRequest request = this.request("/files/server/" + FILE2, null);
         final RecordingHttpResponse response = HttpResponses.recording();
 
@@ -208,23 +231,6 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
         this.checkResponse(request, response, expected);
     }
 
-    @Test
-    public void testFileIfNotModified() throws IOException {
-        final HttpRequest request = this.request("/files/server/" + FILE1, this.fileLastModified1());
-        final RecordingHttpResponse response = HttpResponses.recording();
-        this.createBiConsumer()
-                .accept(request, response);
-
-        final RecordingHttpResponse expected = HttpResponses.recording();
-        expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-
-        expected.addEntity(HttpEntity.with(Maps.of(HttpHeaderName.LAST_MODIFIED, this.fileLastModified1(),
-                HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN),
-                HttpEntity.NO_BODY));
-
-        this.checkResponse(request, response, expected);
-    }
-
     private void checkResponse(final HttpRequest request,
                                final RecordingHttpResponse response,
                                final RecordingHttpResponse expected) {
@@ -242,8 +248,8 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
     // helpers..........................................................................................................
 
-    private DirectoryHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return DirectoryHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), FILE_BASE_DIR, CONTENT_TYPE_IDENTIFIER);
+    private FileServerHttpRequestHttpResponseBiConsumer createBiConsumer() {
+        return FileServerHttpRequestHttpResponseBiConsumer.with(this.urlPathBase(), FILE_BASE_DIR, CONTENT_TYPE_IDENTIFIER);
     }
 
     private UrlPath urlPathBase() {
@@ -313,8 +319,8 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     }
 
     @Override
-    public Class<DirectoryHttpRequestHttpResponseBiConsumer> type() {
-        return DirectoryHttpRequestHttpResponseBiConsumer.class;
+    public Class<FileServerHttpRequestHttpResponseBiConsumer> type() {
+        return FileServerHttpRequestHttpResponseBiConsumer.class;
     }
 
     @Override

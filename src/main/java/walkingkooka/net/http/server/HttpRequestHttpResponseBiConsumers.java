@@ -29,12 +29,12 @@ import java.util.function.Function;
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
 
     /**
-     * {@see DirectoryHttpRequestHttpResponseBiConsumer}
+     * {@see FileServerHttpRequestHttpResponseBiConsumer}
      */
-    public static BiConsumer<HttpRequest, HttpResponse> directory(final UrlPath urlPathBase,
-                                                                  final Path fileBase,
-                                                                  final Function<FileResponse, MediaType> contentTypeIdentifier) {
-        return DirectoryHttpRequestHttpResponseBiConsumer.with(urlPathBase, fileBase, contentTypeIdentifier);
+    public static BiConsumer<HttpRequest, HttpResponse> fileServer(final UrlPath urlPathBase,
+                                                                   final Path fileBase,
+                                                                   final Function<FileResponse, MediaType> contentTypeIdentifier) {
+        return FileServerHttpRequestHttpResponseBiConsumer.with(urlPathBase, fileBase, contentTypeIdentifier);
     }
 
     /**

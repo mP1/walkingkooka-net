@@ -35,21 +35,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
- * Serves all files under the given directory. If a file exists and the if-last-modified header in the request matches a 304
- * NOT_MODIFIED will be returned with an empty body. The content-type, last-modified headers will always be added to the response,
- * and a content-length when the body contains the file content.
+ * Serves all files under the given directory, adding content-type, content-length and last-modified headers and body.
  */
-final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class FileServerHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
-    static DirectoryHttpRequestHttpResponseBiConsumer with(final UrlPath pathBase,
-                                                           final Path fileBase,
-                                                           final Function<FileResponse, MediaType> contentTypeIdentifier) {
+    static FileServerHttpRequestHttpResponseBiConsumer with(final UrlPath pathBase,
+                                                            final Path fileBase,
+                                                            final Function<FileResponse, MediaType> contentTypeIdentifier) {
         Objects.requireNonNull(pathBase, "pathBase");
         Objects.requireNonNull(fileBase, "fileBase");
         Objects.requireNonNull(contentTypeIdentifier, "contentTypeIdentifier");
@@ -59,12 +56,12 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
             throw new IllegalArgumentException("File base " + CharSequences.quoteAndEscape(directory.getAbsolutePath()) + " directory does not exist.");
         }
 
-        return new DirectoryHttpRequestHttpResponseBiConsumer(pathBase, fileBase, contentTypeIdentifier);
+        return new FileServerHttpRequestHttpResponseBiConsumer(pathBase, fileBase, contentTypeIdentifier);
     }
 
-    private DirectoryHttpRequestHttpResponseBiConsumer(final UrlPath pathBase,
-                                                       final Path fileBase,
-                                                       final Function<FileResponse, MediaType> contentTypeIdentifier) {
+    private FileServerHttpRequestHttpResponseBiConsumer(final UrlPath pathBase,
+                                                        final Path fileBase,
+                                                        final Function<FileResponse, MediaType> contentTypeIdentifier) {
         super();
         this.pathBase = pathBase;
         this.fileBase = fileBase;
@@ -95,12 +92,20 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
         if (fileFile.isFile()) {
             final LocalDateTime fileLastModified = this.fileLastModified(filePath);
 
-            // if last modified header present check if matches file.last modified
-            HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request)
-                    .filter(header -> fileLastModifiedTest(header, fileLastModified))
-                    .ifPresentOrElse(
-                            (ifModifiedSince) -> this.notModified(fileLastModified, filePathInfo, response),
-                            () -> this.modified(fileLastModified, fileFile, response));
+            try (final InputStream fileInput = new FileInputStream(fileFile)) {
+                final Binary content = Binary.with(InputStreams.readAllBytes(fileInput));
+
+                final FileResponse fileResponse = FileResponse.with(fileFile.getName(), content);
+
+                response.setStatus(HttpStatusCode.OK.status());
+                response.addEntity(HttpEntity.with(
+                        Maps.of(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(content.size()),
+                                HttpHeaderName.CONTENT_TYPE, this.contentTypeIdentifier.apply(fileResponse),
+                                HttpHeaderName.LAST_MODIFIED, fileLastModified),
+                        content));
+            } catch (final IOException unable) {
+                throw new HttpServerException("Failed to read file " + CharSequences.quoteAndEscape(filePath.toString()), unable);
+            }
         } else {
             response.setStatus(HttpStatusCode.NOT_FOUND.status());
         }
@@ -115,14 +120,6 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
     }
 
     /**
-     * Returns true if the file last modified and last modified header match.
-     */
-    private static boolean fileLastModifiedTest(final LocalDateTime ifModifiedSince,
-                                                final LocalDateTime fileLastModified) {
-        return ifModifiedSince.isEqual(fileLastModified);
-    }
-
-    /**
      * The path base, which is used to extract the path component which will be used to locate the file.
      */
     private final UrlPath pathBase;
@@ -133,46 +130,8 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
     private final Path fileBase;
 
     /**
-     * Sets a not-modified response with the last-modified header set to the filesystem file last modified.
+     * Used to guess or determine the {@link MediaType} of a file being served.
      */
-    private void notModified(final LocalDateTime fileLastModified,
-                             final String filename,
-                             final HttpResponse response) {
-        response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-
-        final Binary content = HttpEntity.NO_BODY;
-        response.addEntity(HttpEntity.with(this.headers(fileLastModified, FileResponse.with(filename, content)), content));
-    }
-
-    /**
-     * Creates a response with an OK, with the last-modified and content-length and file content as then body.
-     */
-    private void modified(final LocalDateTime fileLastModified,
-                          final File file,
-                          final HttpResponse response) {
-        try (final InputStream fileInput = new FileInputStream(file)) {
-            final Binary content = Binary.with(InputStreams.readAllBytes(fileInput));
-
-            final Map<HttpHeaderName<?>, Object> headers = this.headers(fileLastModified, FileResponse.with(file.getName(), content));
-            headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(content.size()));
-
-            response.setStatus(HttpStatusCode.OK.status());
-            response.addEntity(HttpEntity.with(headers, content));
-        } catch (final IOException unable) {
-            throw new HttpServerException("Failed to read file " + CharSequences.quoteAndEscape(file.toPath().toString()), unable);
-        }
-    }
-
-    private Map<HttpHeaderName<?>, Object> headers(final LocalDateTime fileLastModified,
-                                                   final FileResponse fileResponse) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-
-        headers.put(HttpHeaderName.LAST_MODIFIED, fileLastModified);
-        headers.put(HttpHeaderName.CONTENT_TYPE, this.contentTypeIdentifier.apply(fileResponse));
-
-        return headers;
-    }
-
     private final Function<FileResponse, MediaType> contentTypeIdentifier;
 
     @Override
