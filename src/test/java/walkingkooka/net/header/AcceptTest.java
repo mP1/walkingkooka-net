@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -28,7 +29,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaType>>
-        implements ParseStringTesting<Accept> {
+        implements ParseStringTesting<Accept>,
+        PredicateTesting {
 
     @Test
     public void testWithNullFails() {
@@ -43,6 +45,55 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
             Accept.with(Lists.empty());
         });
     }
+
+    // Predicate........................................................................................................
+
+    @Test
+    public void testAcceptWildcardWildcard() {
+        this.testTrue(Accept.parse("*/*"), MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testAcceptIncludesWildcardWildcard() {
+        this.testTrue(Accept.parse("text/custom,*/*"), MediaType.IMAGE_BMP);
+    }
+
+    @Test
+    public void testAcceptSubTypeWildcardTypeMatched() {
+        this.testTrue(Accept.parse("text/*"), MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testAcceptSubTypeWildcardTypeUnmatched() {
+        this.testFalse(Accept.parse("text/*"), MediaType.IMAGE_BMP);
+    }
+
+    @Test
+    public void testAcceptUnmatched() {
+        this.testFalse(Accept.parse("text/plain,text/html"), MediaType.TEXT_RICHTEXT);
+    }
+
+    @Test
+    public void testAcceptUnmatched2() {
+        this.testFalse(Accept.parse("text/plain,image/bmp"), MediaType.with("text", "bmp"));
+    }
+
+    @Test
+    public void testAcceptParametersIgnored() {
+        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testAcceptParametersIgnored2() {
+        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_HTML);
+    }
+
+    @Test
+    public void testAcceptParametersIgnored3() {
+        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_HTML.setParameters(Maps.of(MediaTypeParameterName.Q, 0.5f)));
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {

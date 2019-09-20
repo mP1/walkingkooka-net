@@ -18,6 +18,8 @@
 package walkingkooka.net.header;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"></a>
@@ -85,7 +87,7 @@ import java.util.List;
  *       this default set ought to be configurable by the user.
  * </pre>
  */
-public final class Accept extends HeaderValue2<List<MediaType>> {
+public final class Accept extends HeaderValue2<List<MediaType>> implements Predicate<MediaType> {
 
     /**
      * Parses a header value that contains {@link Accept}
@@ -140,5 +142,18 @@ public final class Accept extends HeaderValue2<List<MediaType>> {
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof Accept;
+    }
+
+    // Predicate........................................................................................................
+
+    /**
+     * Returns true if the given {@link MediaType} is matched by any of the values.
+     */
+    @Override
+    public boolean test(final MediaType contentType) {
+        Objects.requireNonNull(contentType, "contentType");
+
+        return this.value.stream()
+                .anyMatch(m -> m.test(contentType));
     }
 }
