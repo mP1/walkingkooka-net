@@ -18,15 +18,20 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.type.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N> {
+public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N>
+        implements PredicateTesting2<N, CharsetName> {
 
     CharsetNameTestCase() {
         super();
+    }
+
+    @Override
+    public final void testTypeNaming() {
     }
 
     @Test
@@ -34,28 +39,13 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
         this.isWildcardAndCheck(CharsetNameWildcard.class.equals(this.type()));
     }
 
-    // matches.......................................................
+    // Predicate........................................................................................................
 
     @Test
-    public final void testMatchesWildcardFails() {
+    public final void testTestWildcardFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.createCharsetName().matches(CharsetName.WILDCARD_CHARSET);
+            this.createCharsetName().test(CharsetName.WILDCARD_CHARSET);
         });
-    }
-
-    final void matches(final CharsetName contentType,
-                       final boolean matches) {
-        this.matches(this.createCharsetName(),
-                contentType,
-                matches);
-    }
-
-    final void matches(final CharsetName charsetName,
-                       final CharsetName contentType,
-                       final boolean matches) {
-        assertEquals(matches,
-                charsetName.matches(contentType),
-                charsetName + " matches " + contentType);
     }
 
     @Test
@@ -75,8 +65,6 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     abstract N createCharsetName();
 
-    abstract String headerText();
-
     abstract String charsetNameToString();
 
     @Override
@@ -94,8 +82,17 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
         return true;
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // PredicateTesting.................................................................................................
+
+    @Override
+    public final N createPredicate() {
+        return this.createCharsetName();
     }
 }

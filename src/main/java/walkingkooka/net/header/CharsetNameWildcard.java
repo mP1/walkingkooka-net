@@ -50,18 +50,20 @@ final class CharsetNameWildcard extends CharsetName {
         return true;
     }
 
+    // Predicate........................................................................................................
+
     @Override
-    boolean matches0(final CharsetName contentType) {
+    boolean test0(final CharsetName contentType) {
         throw new HeaderValueException(HttpHeaderName.ACCEPT_CHARSET + " " + MediaTypeParameterName.CHARSET + "=" + WILDCARD);
     }
 
     @Override
-    boolean matches1(final CharsetNameSupportedCharset contentType) {
+    boolean test1(final CharsetNameSupportedCharset contentType) {
         return true;
     }
 
     @Override
-    boolean matches1(final CharsetNameUnsupportedCharset contentType) {
+    boolean test1(final CharsetNameUnsupportedCharset contentType) {
         return false;
     }
 }

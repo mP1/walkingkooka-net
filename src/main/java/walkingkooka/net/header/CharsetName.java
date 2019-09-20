@@ -28,6 +28,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Holds a charset header value, with a property available to retrieve a JDK charset implementation if one exists.<br>
@@ -48,7 +49,8 @@ import java.util.Optional;
  */
 public abstract class CharsetName extends HeaderNameValue
         implements HeaderValue,
-        Comparable<CharsetName> {
+        Comparable<CharsetName>,
+        Predicate<CharsetName> {
 
     /**
      * Constant when there is no charset.
@@ -189,33 +191,6 @@ public abstract class CharsetName extends HeaderNameValue
      */
     public abstract boolean isWildcard();
 
-    /**
-     * Tests if this {@link CharsetName} is a match for the given, including wildcard matches.
-     * Typically all values of {@link HttpHeaderName#ACCEPT_CHARSET} are called until a match
-     * against a content-type {@link CharsetName}.
-     */
-    public final boolean matches(final CharsetName contentType) {
-        Objects.requireNonNull(contentType, "contentType");
-
-        return contentType.matches0(this);
-    }
-
-    /**
-     * Sub classes must include the following statement which will result in a double dispatch.
-     * <pre>
-     * possible.matches1(this)
-     * </pre>
-     */
-    abstract boolean matches0(final CharsetName possible);
-
-    abstract boolean matches1(final CharsetNameSupportedCharset contentType);
-
-    abstract boolean matches1(final CharsetNameUnsupportedCharset contentType);
-
-    final boolean matches1(final CharsetNameWildcard contentType) {
-        return NeverError.unhandledCase(contentType);
-    }
-
     // setParameters.......................................................................................
 
     /**
@@ -274,4 +249,29 @@ public abstract class CharsetName extends HeaderNameValue
     public CaseSensitivity caseSensitivity() {
         return CASE_SENSITIVITY;
     }
+
+    // Predicate........................................................................................................
+
+    /**
+     * Tests if this {@link CharsetName} is a match for the given, including wildcard matches.
+     * Typically all values of {@link HttpHeaderName#ACCEPT_CHARSET} are called until a match
+     * against a content-type {@link CharsetName}.
+     */
+    public final boolean test(final CharsetName contentType) {
+        Objects.requireNonNull(contentType, "contentType");
+
+        return contentType.test0(this);
+    }
+
+    /**
+     * Sub classes must include the following statement which will result in a double dispatch.
+     * <pre>
+     * possible.test1(this)
+     * </pre>
+     */
+    abstract boolean test0(final CharsetName possible);
+
+    abstract boolean test1(final CharsetNameSupportedCharset contentType);
+
+    abstract boolean test1(final CharsetNameUnsupportedCharset contentType);
 }
