@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
-public final class EncodingWithParametersHeaderValueParserTest extends HeaderValueParserTestCase<EncodingWithParametersHeaderValueParser, EncodingWithParameters> {
+public final class AcceptEncodingValueHeaderValueParserTest extends HeaderValueParserTestCase<AcceptEncodingValueHeaderValueParser, AcceptEncodingValue> {
 
     @Test
     public void testWhitespaceFails() {
@@ -55,44 +55,44 @@ public final class EncodingWithParametersHeaderValueParserTest extends HeaderVal
     @Test
     public void testToken() {
         this.parseStringAndCheck("gzip",
-                EncodingWithParameters.GZIP);
+                AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseStringAndCheck("gzip ",
-                EncodingWithParameters.GZIP);
+                AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseStringAndCheck(" gzip",
-                EncodingWithParameters.GZIP);
+                AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
         this.parseStringAndCheck("gzip;q=0.5",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
+                AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseStringAndCheck("gzip;q=0.5;abc=xyz",
-                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q, 0.5f,
-                        EncodingParameterName.with("abc"), "xyz")));
+                AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f,
+                        AcceptEncodingValueParameterName.with("abc"), "xyz")));
     }
 
     @Test
     public void testWildcard() {
         this.parseStringAndCheck("*",
-                EncodingWithParameters.WILDCARD_ENCODING);
+                AcceptEncodingValue.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardParameter() {
         this.parseStringAndCheck("*;q=0.5",
-                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q, 0.5f)));
+                AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     @Test
@@ -101,17 +101,17 @@ public final class EncodingWithParametersHeaderValueParserTest extends HeaderVal
     }
 
     @Override
-    public EncodingWithParameters parseString(final String text) {
-        return EncodingWithParametersHeaderValueParser.parseEncoding(text);
+    public AcceptEncodingValue parseString(final String text) {
+        return AcceptEncodingValueHeaderValueParser.parseEncoding(text);
     }
 
     @Override
     String valueLabel() {
-        return "EncodingWithParameters";
+        return "AcceptEncodingValue";
     }
 
     @Override
-    public Class<EncodingWithParametersHeaderValueParser> type() {
-        return EncodingWithParametersHeaderValueParser.class;
+    public Class<AcceptEncodingValueHeaderValueParser> type() {
+        return AcceptEncodingValueHeaderValueParser.class;
     }
 }

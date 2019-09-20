@@ -22,24 +22,24 @@ import java.util.Map;
 /**
  * An encoding wildcard that may appear within accept-encoding header
  */
-final class EncodingWithParametersWildcard extends EncodingWithParameters {
+final class AcceptEncodingValueWildcard extends AcceptEncodingValue {
 
     /**
      * Singleton without parameters/
      */
-    final static EncodingWithParametersWildcard INSTANCE = new EncodingWithParametersWildcard(NO_PARAMETERS);
+    final static AcceptEncodingValueWildcard INSTANCE = new AcceptEncodingValueWildcard(NO_PARAMETERS);
 
-    static EncodingWithParametersWildcard with(final Map<EncodingParameterName<?>, Object> parameters) {
-        return new EncodingWithParametersWildcard(parameters);
+    static AcceptEncodingValueWildcard with(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+        return new AcceptEncodingValueWildcard(parameters);
     }
 
-    private EncodingWithParametersWildcard(final Map<EncodingParameterName<?>, Object> parameters) {
+    private AcceptEncodingValueWildcard(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         super("*", parameters);
     }
 
     @Override
-    EncodingWithParameters replace(final Map<EncodingParameterName<?>, Object> parameters) {
-        return new EncodingWithParametersWildcard(parameters);
+    AcceptEncodingValue replace(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+        return new AcceptEncodingValueWildcard(parameters);
     }
 
     @Override
@@ -61,6 +61,6 @@ final class EncodingWithParametersWildcard extends EncodingWithParameters {
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof EncodingWithParametersWildcard;
+        return other instanceof AcceptEncodingValueWildcard;
     }
 }

@@ -36,7 +36,7 @@ import java.util.function.Predicate;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-public final class AcceptEncoding extends HeaderValue2<List<EncodingWithParameters>>
+public final class AcceptEncoding extends HeaderValue2<List<AcceptEncodingValue>>
         implements Predicate<ContentEncoding> {
 
     /**
@@ -49,14 +49,14 @@ public final class AcceptEncoding extends HeaderValue2<List<EncodingWithParamete
     /**
      * Factory that creates a new {@link AcceptEncoding}
      */
-    public static AcceptEncoding with(final List<EncodingWithParameters> encodings) {
+    public static AcceptEncoding with(final List<AcceptEncodingValue> encodings) {
         return new AcceptEncoding(nonEmptyImmutableList(encodings, "encodings"));
     }
 
     /**
      * Private ctor
      */
-    private AcceptEncoding(final List<EncodingWithParameters> values) {
+    private AcceptEncoding(final List<AcceptEncodingValue> values) {
         super(values);
     }
 

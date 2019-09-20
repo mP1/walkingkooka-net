@@ -26,34 +26,34 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class EncodingParameterNameTest extends HeaderParameterNameTestCase<EncodingParameterName<?>,
-        EncodingParameterName<?>> {
+final public class AcceptEncodingValueParameterNameTest extends HeaderParameterNameTestCase<AcceptEncodingValueParameterName<?>,
+        AcceptEncodingValueParameterName<?>> {
 
     @Test
     public void testControlCharacterFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            EncodingParameterName.with("parameter\u0001;");
+            AcceptEncodingValueParameterName.with("parameter\u0001;");
         });
     }
 
     @Test
     public void testSpaceFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            EncodingParameterName.with("parameter ");
+            AcceptEncodingValueParameterName.with("parameter ");
         });
     }
 
     @Test
     public void testTabFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            EncodingParameterName.with("parameter\t");
+            AcceptEncodingValueParameterName.with("parameter\t");
         });
     }
 
     @Test
     public void testNonAsciiFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            EncodingParameterName.with("parameter\u0100;");
+            AcceptEncodingValueParameterName.with("parameter\u0100;");
         });
     }
 
@@ -64,29 +64,29 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(EncodingParameterName.Q, EncodingParameterName.with(EncodingParameterName.Q.value()));
+        assertSame(AcceptEncodingValueParameterName.Q, AcceptEncodingValueParameterName.with(AcceptEncodingValueParameterName.Q.value()));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(EncodingParameterName.Q, EncodingWithParameters.BR);
+        this.parameterValueAndCheckAbsent(AcceptEncodingValueParameterName.Q, AcceptEncodingValue.BR);
     }
 
     @Test
     public void testParameterValuePresent() {
-        final EncodingParameterName<Float> parameter = EncodingParameterName.Q;
-        final EncodingWithParameters encoding = EncodingWithParameters.nonWildcard("xyz", Maps.of(parameter, 0.75f));
+        final AcceptEncodingValueParameterName<Float> parameter = AcceptEncodingValueParameterName.Q;
+        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard("xyz", Maps.of(parameter, 0.75f));
 
         this.parameterValueAndCheckPresent(parameter, encoding, 0.75f);
     }
 
     @Test
     public void testParameterValuePresent2() {
-        final EncodingParameterName<?> parameter = EncodingParameterName.with("abc");
+        final AcceptEncodingValueParameterName<?> parameter = AcceptEncodingValueParameterName.with("abc");
         final String value = "parameter-value-xyz";
-        final EncodingWithParameters encoding = EncodingWithParameters.nonWildcard("xyz", Maps.of(parameter, value));
+        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard("xyz", Maps.of(parameter, value));
 
         this.parameterValueAndCheckPresent(parameter, encoding, Cast.to(value));
     }
@@ -95,25 +95,25 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testToValueQFactor() {
-        this.toValueAndCheck(EncodingParameterName.Q,
+        this.toValueAndCheck(AcceptEncodingValueParameterName.Q,
                 "0.75",
                 0.75f);
     }
 
     @Test
     public void testToValueString() {
-        this.toValueAndCheck(Cast.to(EncodingParameterName.with("xyz")),
+        this.toValueAndCheck(Cast.to(AcceptEncodingValueParameterName.with("xyz")),
                 "abc",
                 "abc");
     }
 
     @Override
-    public EncodingParameterName<Object> createName(final String name) {
-        return Cast.to(EncodingParameterName.with(name));
+    public AcceptEncodingValueParameterName<Object> createName(final String name) {
+        return Cast.to(AcceptEncodingValueParameterName.with(name));
     }
 
     @Override
-    public Class<EncodingParameterName<?>> type() {
-        return Cast.to(EncodingParameterName.class);
+    public Class<AcceptEncodingValueParameterName<?>> type() {
+        return Cast.to(AcceptEncodingValueParameterName.class);
     }
 }
