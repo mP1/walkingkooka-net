@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.net.RelativeUrl;
