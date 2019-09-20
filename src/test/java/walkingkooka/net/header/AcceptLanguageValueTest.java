@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptLanguageValueTest extends HeaderValueWithParametersTestCase<AcceptLanguageValue,
-        LanguageParameterName<?>>
+        AcceptLanguageParameterName<?>>
         implements ParseStringTesting<AcceptLanguageValue>,
         PredicateTesting2<AcceptLanguageValue, LanguageName> {
 
@@ -112,13 +112,13 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     @Test
     public final void testSetParameterDifferent() {
         final AcceptLanguageValue language = this.createHeaderValueWithParameters();
-        final Map<LanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
+        final Map<AcceptLanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
         final AcceptLanguageValue different = language.setParameters(parameters);
         this.check(different, this.en(), parameters);
     }
 
-    final Map<LanguageParameterName<?>, Object> parametersWithQFactor() {
-        return Maps.of(LanguageParameterName.Q, 0.75f);
+    final Map<AcceptLanguageParameterName<?>, Object> parametersWithQFactor() {
+        return Maps.of(AcceptLanguageParameterName.Q, 0.75f);
     }
 
     @Test
@@ -131,7 +131,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
 
     final void check(final AcceptLanguageValue language,
                      final LanguageName value,
-                     final Map<LanguageParameterName<?>, Object> parameters) {
+                     final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         assertEquals(value, language.value(), "value");
         this.checkParameters(language, parameters);
     }
@@ -148,7 +148,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     public void testParseWithParameters() {
         this.parseStringAndCheck("en; abc=123",
                 AcceptLanguageValue.with(this.en())
-                        .setParameters(Maps.of(LanguageParameterName.with("abc"), "123")));
+                        .setParameters(Maps.of(AcceptLanguageParameterName.with("abc"), "123")));
     }
 
     @Override
@@ -167,7 +167,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     public void testToHeaderTextListWithParameters() {
         this.toHeaderTextListAndCheck("en; q=0.75",
                 this.en()
-                        .setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
+                        .setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
     }
 
     @Test
@@ -212,8 +212,8 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     }
 
     @Override
-    LanguageParameterName<?> parameterName() {
-        return LanguageParameterName.with("xyz");
+    AcceptLanguageParameterName<?> parameterName() {
+        return AcceptLanguageParameterName.with("xyz");
     }
 
     @Override

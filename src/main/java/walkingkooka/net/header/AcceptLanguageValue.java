@@ -28,14 +28,14 @@ import java.util.function.Predicate;
 /**
  * Holds a Language with parameters within a accept-language header.
  */
-public final class AcceptLanguageValue extends HeaderValueWithParameters2<AcceptLanguageValue, LanguageParameterName<?>, LanguageName>
+public final class AcceptLanguageValue extends HeaderValueWithParameters2<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
         implements Predicate<LanguageName>,
         HasQualityFactor {
 
     /**
      * No parameters constant.
      */
-    public final static Map<LanguageParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<AcceptLanguageParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
      * A {@link AcceptLanguageValue} wildcard without any parameters.
@@ -63,7 +63,7 @@ public final class AcceptLanguageValue extends HeaderValueWithParameters2<Accept
     /**
      * Private ctor use factory methods.
      */
-    private AcceptLanguageValue(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
+    private AcceptLanguageValue(final LanguageName value, final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -109,12 +109,12 @@ public final class AcceptLanguageValue extends HeaderValueWithParameters2<Accept
     }
 
     @Override
-    AcceptLanguageValue replace(final Map<LanguageParameterName<?>, Object> parameters) {
+    AcceptLanguageValue replace(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 
     private AcceptLanguageValue replace0(final LanguageName name,
-                                         final Map<LanguageParameterName<?>, Object> parameters) {
+                                         final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
                 WILDCARD :
                 new AcceptLanguageValue(name, parameters);
@@ -145,7 +145,7 @@ public final class AcceptLanguageValue extends HeaderValueWithParameters2<Accept
      * Retrieves the quality factor for this value.
      */
     public Optional<Float> qualityFactor() {
-        return this.qualityFactor(LanguageParameterName.Q);
+        return this.qualityFactor(AcceptLanguageParameterName.Q);
     }
 
     // HasHeaderScope ....................................................................................................

@@ -20,10 +20,10 @@ package walkingkooka.net.header;
 /**
  * The name of any parameter that accompanies a language-tag.
  */
-final public class LanguageParameterName<V> extends HeaderParameterName<V> implements Comparable<LanguageParameterName<?>> {
+final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V> implements Comparable<AcceptLanguageParameterName<?>> {
 
-    private final static HeaderParameterNameConstants<LanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            LanguageParameterName::new,
+    private final static HeaderParameterNameConstants<AcceptLanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            AcceptLanguageParameterName::new,
             HeaderValueHandler.quotedUnquotedString(
                     AcceptLanguageOrAcceptLanguageValueHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
@@ -33,27 +33,27 @@ final public class LanguageParameterName<V> extends HeaderParameterName<V> imple
     /**
      * The q (quality factor) parameter.
      */
-    public final static LanguageParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptLanguageParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
 
     /**
-     * Factory that creates a {@link LanguageParameterName}
+     * Factory that creates a {@link AcceptLanguageParameterName}
      */
-    public static LanguageParameterName<?> with(final String name) {
+    public static AcceptLanguageParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private LanguageParameterName(final String value,
-                                  final HeaderValueHandler<V> handler) {
+    private AcceptLanguageParameterName(final String value,
+                                        final HeaderValueHandler<V> handler) {
         super(value, handler);
     }
 
     // Comparable......................................................................................................
 
     @Override
-    public int compareTo(final LanguageParameterName<?> other) {
+    public int compareTo(final AcceptLanguageParameterName<?> other) {
         return this.compareTo0(other);
     }
 
@@ -61,6 +61,6 @@ final public class LanguageParameterName<V> extends HeaderParameterName<V> imple
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageParameterName;
+        return other instanceof AcceptLanguageParameterName;
     }
 }

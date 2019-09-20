@@ -63,13 +63,13 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderValueParserTestCa
     @Test
     public final void testWildcardWithQWeight() {
         this.parseStringAndCheck2("*; q=0.75",
-                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.75f)));
+                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
     }
 
     @Test
     public final void testWildcardWithParameters() {
-        final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.with("a"), "b",
-                LanguageParameterName.with("c"), "d");
+        final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(AcceptLanguageParameterName.with("a"), "b",
+                AcceptLanguageParameterName.with("c"), "d");
 
         this.parseStringAndCheck2("*; a=b; c=d",
                 AcceptLanguageValue.WILDCARD.setParameters(parameters));
