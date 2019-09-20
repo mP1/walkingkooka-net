@@ -26,34 +26,34 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNameTestCase<CharsetHeaderValueParameterName<?>,
-        CharsetHeaderValueParameterName<?>> {
+final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNameTestCase<AcceptCharsetValueParameterName<?>,
+        AcceptCharsetValueParameterName<?>> {
 
     @Test
     public void testControlCharacterFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            CharsetHeaderValueParameterName.with("parameter\u0001;");
+            AcceptCharsetValueParameterName.with("parameter\u0001;");
         });
     }
 
     @Test
     public void testSpaceFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            CharsetHeaderValueParameterName.with("parameter ");
+            AcceptCharsetValueParameterName.with("parameter ");
         });
     }
 
     @Test
     public void testTabFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            CharsetHeaderValueParameterName.with("parameter\t");
+            AcceptCharsetValueParameterName.with("parameter\t");
         });
     }
 
     @Test
     public void testNonAsciiFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            CharsetHeaderValueParameterName.with("parameter\u0100;");
+            AcceptCharsetValueParameterName.with("parameter\u0100;");
         });
     }
 
@@ -64,21 +64,21 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(CharsetHeaderValueParameterName.Q,
-                CharsetHeaderValueParameterName.with(CharsetHeaderValueParameterName.Q.value()));
+        assertSame(AcceptCharsetValueParameterName.Q,
+                AcceptCharsetValueParameterName.with(AcceptCharsetValueParameterName.Q.value()));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(CharsetHeaderValueParameterName.with("absent-parameter"),
+        this.parameterValueAndCheckAbsent(AcceptCharsetValueParameterName.with("absent-parameter"),
                 this.charsetHeaderValue());
     }
 
     @Test
     public void testParameterValuePresent() {
-        final CharsetHeaderValueParameterName<Float> parameter = CharsetHeaderValueParameterName.Q;
+        final AcceptCharsetValueParameterName<Float> parameter = AcceptCharsetValueParameterName.Q;
         final float value = 0.5f;
 
         this.parameterValueAndCheckPresent(parameter,
@@ -86,34 +86,34 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
                 value);
     }
 
-    private CharsetHeaderValue charsetHeaderValue() {
-        return CharsetHeaderValue.with(CharsetName.UTF_8)
-                .setParameters(Maps.of(CharsetHeaderValueParameterName.Q, 0.5f));
+    private AcceptCharsetValue charsetHeaderValue() {
+        return AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f));
     }
 
     // toValue...........................................................................................
 
     @Test
     public void testToValueQFactor() {
-        this.toValueAndCheck(CharsetHeaderValueParameterName.Q,
+        this.toValueAndCheck(AcceptCharsetValueParameterName.Q,
                 "0.5",
                 0.5f);
     }
 
     @Test
     public void testToValueString() {
-        this.toValueAndCheck(Cast.to(CharsetHeaderValueParameterName.with("xyz")),
+        this.toValueAndCheck(Cast.to(AcceptCharsetValueParameterName.with("xyz")),
                 "abc",
                 "abc");
     }
 
     @Override
-    public CharsetHeaderValueParameterName<Object> createName(final String name) {
-        return Cast.to(CharsetHeaderValueParameterName.with(name));
+    public AcceptCharsetValueParameterName<Object> createName(final String name) {
+        return Cast.to(AcceptCharsetValueParameterName.with(name));
     }
 
     @Override
-    public Class<CharsetHeaderValueParameterName<?>> type() {
-        return Cast.to(CharsetHeaderValueParameterName.class);
+    public Class<AcceptCharsetValueParameterName<?>> type() {
+        return Cast.to(AcceptCharsetValueParameterName.class);
     }
 }

@@ -122,10 +122,10 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
 
     @Test
     public void testSetParameters() {
-        final CharsetHeaderValue headerValue = CharsetName.UTF_8
-                .setParameters(CharsetHeaderValue.NO_PARAMETERS);
+        final AcceptCharsetValue headerValue = CharsetName.UTF_8
+                .setParameters(AcceptCharsetValue.NO_PARAMETERS);
         assertEquals(CharsetName.UTF_8, headerValue.value(), "charset");
-        assertEquals(CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters(), "parameters");
+        assertEquals(AcceptCharsetValue.NO_PARAMETERS, headerValue.parameters(), "parameters");
     }
 
     @Test

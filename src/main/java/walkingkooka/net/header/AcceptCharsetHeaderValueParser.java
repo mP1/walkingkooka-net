@@ -32,7 +32,7 @@ import java.util.List;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>> {
+final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>> {
 
     static AcceptCharset parseAcceptCharset(final String text) {
         final AcceptCharsetHeaderValueParser parser = new AcceptCharsetHeaderValueParser(text);
@@ -46,14 +46,14 @@ final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParamete
     }
 
     @Override
-    CharsetHeaderValue wildcardValue() {
+    AcceptCharsetValue wildcardValue() {
         this.position++;
-        return CharsetHeaderValue.WILDCARD_VALUE;
+        return AcceptCharsetValue.WILDCARD_VALUE;
     }
 
     @Override
-    CharsetHeaderValue value() {
-        return CharsetHeaderValue.with(this.charsetName());
+    AcceptCharsetValue value() {
+        return AcceptCharsetValue.with(this.charsetName());
     }
 
     private CharsetName charsetName() {
@@ -79,28 +79,28 @@ final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParamete
     }
 
     @Override
-    CharsetHeaderValueParameterName<?> parameterName() {
-        return this.parameterName(PARAMETER_NAME, CharsetHeaderValueParameterName::with);
+    AcceptCharsetValueParameterName<?> parameterName() {
+        return this.parameterName(PARAMETER_NAME, AcceptCharsetValueParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    String quotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
+    String quotedParameterValue(final AcceptCharsetValueParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
-    String unquotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
+    String unquotedParameterValue(final AcceptCharsetValueParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    void valueComplete(final CharsetHeaderValue value) {
+    void valueComplete(final AcceptCharsetValue value) {
         this.charsets.add(value);
     }
 
@@ -112,5 +112,5 @@ final class AcceptCharsetHeaderValueParser extends HeaderValueParserWithParamete
     /**
      * Aggregates all charsets.
      */
-    private final List<CharsetHeaderValue> charsets = Lists.array();
+    private final List<AcceptCharsetValue> charsets = Lists.array();
 }

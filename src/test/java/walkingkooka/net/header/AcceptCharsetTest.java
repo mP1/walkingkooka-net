@@ -29,7 +29,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<CharsetHeaderValue>>
+public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<AcceptCharsetValue>>
         implements ParseStringTesting<AcceptCharset> {
 
     // charset...................................................................................................
@@ -42,14 +42,14 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     @Test
     public void testCharset2() {
         this.charsetAndCheck(
-                this.createHeaderValue(CharsetHeaderValue.with(CharsetName.UTF_8)),
+                this.createHeaderValue(AcceptCharsetValue.with(CharsetName.UTF_8)),
                 CharsetName.UTF_8.charset());
     }
 
     @Test
     public void testCharsetWithout() {
         this.charsetAndCheck(
-                this.createHeaderValue(CharsetHeaderValue.with(CharsetName.with("X-custom"))));
+                this.createHeaderValue(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset) {
@@ -67,30 +67,30 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     @Test
     public void testParse() {
         this.parseStringAndCheck("UTF-8;bcd=123 ",
-                AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8).setParameters(Maps.of(CharsetHeaderValueParameterName.with("bcd"), "123")))));
+                AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
     }
 
     // helpers.......................................................................................................
 
     @Override
-    AcceptCharset createHeaderValue(final List<CharsetHeaderValue> value) {
+    AcceptCharset createHeaderValue(final List<AcceptCharsetValue> value) {
         return AcceptCharset.with(value);
     }
 
-    private AcceptCharset createHeaderValue(final CharsetHeaderValue... value) {
+    private AcceptCharset createHeaderValue(final AcceptCharsetValue... value) {
         return this.createHeaderValue(Lists.of(value));
     }
 
         @Override
-    List<CharsetHeaderValue> value() {
-        return Lists.of(CharsetHeaderValue.with(CharsetName.with("X-custom")),
-                CharsetHeaderValue.with(CharsetName.UTF_8),
-                CharsetHeaderValue.with(CharsetName.UTF_16));
+    List<AcceptCharsetValue> value() {
+        return Lists.of(AcceptCharsetValue.with(CharsetName.with("X-custom")),
+                AcceptCharsetValue.with(CharsetName.UTF_8),
+                AcceptCharsetValue.with(CharsetName.UTF_16));
     }
 
     @Override
-    List<CharsetHeaderValue> differentValue() {
-        return Lists.of(CharsetHeaderValue.with(CharsetName.UTF_16));
+    List<AcceptCharsetValue> differentValue() {
+        return Lists.of(AcceptCharsetValue.with(CharsetName.UTF_16));
     }
 
     @Override

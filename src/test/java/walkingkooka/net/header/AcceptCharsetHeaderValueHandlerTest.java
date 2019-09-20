@@ -37,7 +37,7 @@ public final class AcceptCharsetHeaderValueHandlerTest extends
     public void testContentType() {
         final String charset = Charset.forName("utf8").name();
         this.parseAndToTextAndCheck2(charset,
-                CharsetHeaderValue.with(CharsetName.with(charset)));
+                AcceptCharsetValue.with(CharsetName.with(charset)));
     }
 
     @Test
@@ -48,10 +48,10 @@ public final class AcceptCharsetHeaderValueHandlerTest extends
                 charsetName.charset(),
                 "charsetName must have no charset");
         this.parseAndToTextAndCheck2(charset,
-                CharsetHeaderValue.with(CharsetName.with(charset)));
+                AcceptCharsetValue.with(CharsetName.with(charset)));
     }
 
-    private void parseAndToTextAndCheck2(final String text, final CharsetHeaderValue... values) {
+    private void parseAndToTextAndCheck2(final String text, final AcceptCharsetValue... values) {
         this.parseAndToTextAndCheck(text, AcceptCharset.with(Lists.of(values)));
     }
 
@@ -72,7 +72,7 @@ public final class AcceptCharsetHeaderValueHandlerTest extends
 
     @Override
     AcceptCharset value() {
-        return AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8)));
+        return AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8)));
     }
 
     @Override
