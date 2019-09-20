@@ -66,7 +66,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     /**
      * Factory that creates a {@link AcceptLanguageValue} with the given parameters.
      */
-    public final AcceptLanguageValue setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
+    public final AcceptLanguageValue setParameters(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return AcceptLanguageValue.with(this)
                 .setParameters(parameters);
     }

@@ -26,13 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class LanguageParameterNameTest extends HeaderParameterNameTestCase<LanguageParameterName<?>,
-        LanguageParameterName<?>> {
+final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTestCase<AcceptLanguageParameterName<?>,
+        AcceptLanguageParameterName<?>> {
 
     @Test
     public void testWithIncludesWhitespaceFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            LanguageParameterName.with("paramet er");
+            AcceptLanguageParameterName.with("paramet er");
         });
     }
 
@@ -43,28 +43,28 @@ final public class LanguageParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(LanguageParameterName.Q,
-                LanguageParameterName.with(LanguageParameterName.Q.value()));
+        assertSame(AcceptLanguageParameterName.Q,
+                AcceptLanguageParameterName.with(AcceptLanguageParameterName.Q.value()));
     }
 
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
-        final String differentCase = LanguageParameterName.Q.value().toUpperCase();
-        assertNotEquals(differentCase, LanguageParameterName.Q.value());
-        assertSame(LanguageParameterName.Q, LanguageParameterName.with(differentCase));
+        final String differentCase = AcceptLanguageParameterName.Q.value().toUpperCase();
+        assertNotEquals(differentCase, AcceptLanguageParameterName.Q.value());
+        assertSame(AcceptLanguageParameterName.Q, AcceptLanguageParameterName.with(differentCase));
     }
 
     // parameter value......................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(LanguageParameterName.Q,
+        this.parameterValueAndCheckAbsent(AcceptLanguageParameterName.Q,
                 this.languageTag());
     }
 
     @Test
     public void testParameterValuePresent() {
-        final LanguageParameterName<Float> parameter = LanguageParameterName.Q;
+        final AcceptLanguageParameterName<Float> parameter = AcceptLanguageParameterName.Q;
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,
@@ -77,12 +77,12 @@ final public class LanguageParameterNameTest extends HeaderParameterNameTestCase
     }
 
     @Override
-    public LanguageParameterName<Object> createName(final String name) {
-        return Cast.to(LanguageParameterName.with(name));
+    public AcceptLanguageParameterName<Object> createName(final String name) {
+        return Cast.to(AcceptLanguageParameterName.with(name));
     }
 
     @Override
-    public Class<LanguageParameterName<?>> type() {
-        return Cast.to(LanguageParameterName.class);
+    public Class<AcceptLanguageParameterName<?>> type() {
+        return Cast.to(AcceptLanguageParameterName.class);
     }
 }

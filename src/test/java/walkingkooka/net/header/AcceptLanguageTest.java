@@ -92,7 +92,7 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
     public void testParse() {
         this.parseStringAndCheck("en, *;q=0.5",
                 AcceptLanguage.with(Lists.of(AcceptLanguageValue.parse("en"),
-                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q, 0.5f)))));
+                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)))));
     }
 
     // helpers..........................................................................................................

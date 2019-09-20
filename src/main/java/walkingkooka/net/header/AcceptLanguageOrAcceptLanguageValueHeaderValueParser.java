@@ -22,7 +22,7 @@ import walkingkooka.predicate.character.CharPredicate;
 /**
  * Base class for a parser of language.
  */
-abstract class AcceptLanguageOrAcceptLanguageValueHeaderValueParser extends HeaderValueParserWithParameters<AcceptLanguageValue, LanguageParameterName<?>> {
+abstract class AcceptLanguageOrAcceptLanguageValueHeaderValueParser extends HeaderValueParserWithParameters<AcceptLanguageValue, AcceptLanguageParameterName<?>> {
 
     AcceptLanguageOrAcceptLanguageValueHeaderValueParser(final String text) {
         super(text);
@@ -42,21 +42,21 @@ abstract class AcceptLanguageOrAcceptLanguageValueHeaderValueParser extends Head
     private final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;
 
     @Override
-    final LanguageParameterName<?> parameterName() {
-        return this.parameterName(PARAMETER_NAME, LanguageParameterName::with);
+    final AcceptLanguageParameterName<?> parameterName() {
+        return this.parameterName(PARAMETER_NAME, AcceptLanguageParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    final String quotedParameterValue(final LanguageParameterName<?> parameterName) {
+    final String quotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
-    final String unquotedParameterValue(final LanguageParameterName<?> parameterName) {
+    final String unquotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
