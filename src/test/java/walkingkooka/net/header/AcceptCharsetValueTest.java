@@ -45,7 +45,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWith() {
-        final AcceptCharsetValue charset = this.charsetHeaderValue();
+        final AcceptCharsetValue charset = this.acceptCharsetValue();
         this.check(charset);
     }
 
@@ -54,19 +54,19 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     @Test
     public void testSetValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.charsetHeaderValue().setValue(null);
+            this.acceptCharsetValue().setValue(null);
         });
     }
 
     @Test
     public void testSetValueSame() {
-        final AcceptCharsetValue charset = this.charsetHeaderValue();
+        final AcceptCharsetValue charset = this.acceptCharsetValue();
         assertSame(charset, charset.setValue(VALUE));
     }
 
     @Test
     public void testSetValueDifferent() {
-        final AcceptCharsetValue charset = this.charsetHeaderValue();
+        final AcceptCharsetValue charset = this.acceptCharsetValue();
         final CharsetName value = CharsetName.with("different");
         this.check(charset.setValue(value), value, this.parameters());
         this.check(charset);
@@ -77,13 +77,13 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     @Test
     public void testSetParametersInvalidParameterValueFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.charsetHeaderValue().setParameters(this.parameters("Q", "INVALID!"));
+            this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!"));
         });
     }
 
     @Test
     public void testSetParametersDifferent() {
-        final AcceptCharsetValue charset = this.charsetHeaderValue();
+        final AcceptCharsetValue charset = this.acceptCharsetValue();
         final Map<AcceptCharsetValueParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(charset.setParameters(parameters), VALUE, parameters);
         this.check(charset);
@@ -114,7 +114,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(this.charsetHeaderValue(),
+        this.toHeaderTextAndCheck(this.acceptCharsetValue(),
                 VALUE + "; p1=v1");
     }
 
@@ -163,7 +163,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.charsetHeaderValue(),
+        this.toStringAndCheck(this.acceptCharsetValue(),
                 VALUE + "; p1=v1");
     }
 
@@ -201,10 +201,10 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Override
     public AcceptCharsetValue createHeaderValueWithParameters() {
-        return this.charsetHeaderValue();
+        return this.acceptCharsetValue();
     }
 
-    private AcceptCharsetValue charsetHeaderValue() {
+    private AcceptCharsetValue acceptCharsetValue() {
         return AcceptCharsetValue.with(VALUE).setParameters(this.parameters());
     }
 
@@ -244,15 +244,15 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
         return Maps.of(name1, value1, name2, value2);
     }
 
-    private void check(final AcceptCharsetValue charsetHeaderValue) {
-        this.check(charsetHeaderValue, VALUE, charsetHeaderValue.parameters());
+    private void check(final AcceptCharsetValue acceptCharsetValue) {
+        this.check(acceptCharsetValue, VALUE, acceptCharsetValue.parameters());
     }
 
-    private void check(final AcceptCharsetValue charsetHeaderValue,
+    private void check(final AcceptCharsetValue acceptCharsetValue,
                        final CharsetName value,
                        final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
-        assertEquals(value, charsetHeaderValue.value(), "value");
-        this.checkParameters(charsetHeaderValue, parameters);
+        assertEquals(value, acceptCharsetValue.value(), "value");
+        this.checkParameters(acceptCharsetValue, parameters);
     }
 
     @Override
