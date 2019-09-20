@@ -17,8 +17,13 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.compare.Comparators;
+import walkingkooka.text.CaseSensitivity;
+
 import java.nio.charset.Charset;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A {@link CharsetName} holding a supported/known {@link Charset}.
@@ -58,10 +63,20 @@ final class CharsetNameSupportedCharset extends CharsetName {
         return possible.test1(this);
     }
 
+    /**
+     * If the names match (ignoring case) or any alias exists in the other returns true.
+     */
     @Override
     boolean test1(final CharsetNameSupportedCharset contentType) {
-        return this.charset.contains(contentType.charset);
+        final Set<String> contentTypeAliases = contentType.charset.aliases();
+
+        return CHARSET_NAME_COMPARATOR.compare(this.charset.name(), contentType.name) == Comparators.EQUAL ||
+                this.charset.aliases()
+                        .stream()
+                        .anyMatch(contentTypeAliases::contains);
     }
+
+    private final static Comparator<String> CHARSET_NAME_COMPARATOR = CaseSensitivity.SENSITIVE.comparator();
 
     @Override
     boolean test1(final CharsetNameUnsupportedCharset contentType) {
