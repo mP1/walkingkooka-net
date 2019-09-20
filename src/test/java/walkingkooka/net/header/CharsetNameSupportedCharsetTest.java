@@ -25,13 +25,12 @@ import java.nio.charset.Charset;
 public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<CharsetNameSupportedCharset> {
 
     @Test
-    public final void testCharsetSupported() {
-        this.matches(CharsetName.UTF_8,
-                true);
+    public final void testTestCharsetSupportedTrue() {
+        this.testTrue(CharsetName.UTF_8);
     }
 
     @Test
-    public final void testCharsetSupported2() {
+    public final void testTestCharsetSupported2() {
         final Charset utf8 = Charset.forName("utf-8");
         final Charset unsupported = Charset.availableCharsets()
                 .values()
@@ -40,25 +39,18 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
                 .findFirst()
                 .get();
 
-        this.matches(CharsetName.with(utf8.name()),
-                CharsetName.with(unsupported.name()),
-                false);
+        this.testFalse(CharsetName.with(utf8.name()),
+                CharsetName.with(unsupported.name()));
     }
 
     @Test
-    public final void testCharsetUnsupported() {
-        this.matches(CharsetNameUnsupportedCharset.unsupportedCharset("x-unsupported"),
-                false);
+    public final void testTestCharsetUnsupportedFalse() {
+        this.testFalse(CharsetNameUnsupportedCharset.unsupportedCharset("x-unsupported"));
     }
 
     @Override
     CharsetNameSupportedCharset createCharsetName() {
         return Cast.to(CharsetName.UTF_8);
-    }
-
-    @Override
-    String headerText() {
-        return "utf-8";
     }
 
     @Override

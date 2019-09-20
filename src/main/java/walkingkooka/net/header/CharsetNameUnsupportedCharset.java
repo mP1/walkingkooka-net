@@ -46,18 +46,20 @@ final class CharsetNameUnsupportedCharset extends CharsetName {
         return false;
     }
 
+    // Predicate........................................................................................................
+
     @Override
-    boolean matches0(final CharsetName possible) {
-        return possible.matches1(this);
+    boolean test0(final CharsetName possible) {
+        return possible.test1(this);
     }
 
     @Override
-    boolean matches1(final CharsetNameSupportedCharset contentType) {
+    boolean test1(final CharsetNameSupportedCharset contentType) {
         return false;
     }
 
     @Override
-    boolean matches1(final CharsetNameUnsupportedCharset contentType) {
+    boolean test1(final CharsetNameUnsupportedCharset contentType) {
         return false;
     }
 }

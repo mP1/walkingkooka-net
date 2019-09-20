@@ -24,32 +24,23 @@ public final class CharsetNameUnsupportedCharsetTest extends CharsetNameTestCase
     private final static String NAME = "unsupported";
 
     @Test
-    public final void testCharsetSupported() {
-        this.matches(this.createCharsetName(),
-                CharsetName.UTF_8,
-                false);
+    public final void testTestCharsetSupportedFalse() {
+        this.testFalse(CharsetName.UTF_8);
     }
 
     @Test
-    public final void testCharsetUnsupported() {
-        this.matches(CharsetNameUnsupportedCharset.unsupportedCharset("unsupported-2"),
-                false);
+    public final void testTestCharsetUnsupportedFalse() {
+        this.testFalse(CharsetNameUnsupportedCharset.unsupportedCharset("unsupported-2"));
     }
 
     @Test
-    public final void testCharsetUnsupported2() {
-        this.matches(this.createCharsetName(),
-                false);
+    public final void testTestCharsetUnsupported2() {
+        this.testFalse(this.createCharsetName());
     }
 
     @Override
     CharsetNameUnsupportedCharset createCharsetName() {
         return CharsetNameUnsupportedCharset.unsupportedCharset(NAME);
-    }
-
-    @Override
-    String headerText() {
-        return NAME;
     }
 
     @Override
