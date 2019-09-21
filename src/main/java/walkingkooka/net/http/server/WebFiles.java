@@ -17,7 +17,15 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
+import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.type.PublicStaticHelper;
+
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public final class WebFiles implements PublicStaticHelper {
 
@@ -26,6 +34,17 @@ public final class WebFiles implements PublicStaticHelper {
      */
     public static WebFile fake() {
         return new FakeWebFile();
+    }
+
+    /**
+     * {@see FileSystemWebFile}
+     */
+    public static WebFile file(final Path path,
+                               final BiFunction<String, Binary, MediaType> contentTypeGuesser,
+                               final Function<Binary, Optional<ETag>> etagComputer) {
+        return FileSystemWebFile.with(path,
+                contentTypeGuesser,
+                etagComputer);
     }
 
     /**
