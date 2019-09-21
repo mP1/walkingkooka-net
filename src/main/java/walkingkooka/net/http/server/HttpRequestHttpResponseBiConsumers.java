@@ -17,25 +17,16 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.route.Router;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.nio.file.Path;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
-
-    /**
-     * {@see FileServerHttpRequestHttpResponseBiConsumer}
-     */
-    public static BiConsumer<HttpRequest, HttpResponse> fileServer(final UrlPath urlPathBase,
-                                                                   final Path fileBase,
-                                                                   final Function<FileResponse, MediaType> contentTypeIdentifier) {
-        return FileServerHttpRequestHttpResponseBiConsumer.with(urlPathBase, fileBase, contentTypeIdentifier);
-    }
 
     /**
      * {@see RouterBiConsumer}
@@ -43,6 +34,14 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     public static BiConsumer<HttpRequest, HttpResponse> router(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
                                                                final BiConsumer<HttpRequest, HttpResponse> notFound) {
         return RouterBiConsumer.with(router, notFound);
+    }
+
+    /**
+     * {@see WebFileHttpRequestHttpResponseBiConsumer}
+     */
+    public static BiConsumer<HttpRequest, HttpResponse> webFile(final UrlPath basePath,
+                                                                final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
+        return WebFileHttpRequestHttpResponseBiConsumer.with(basePath, files);
     }
 
     /**
