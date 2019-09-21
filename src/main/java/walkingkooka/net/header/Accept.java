@@ -87,7 +87,8 @@ import java.util.function.Predicate;
  *       this default set ought to be configurable by the user.
  * </pre>
  */
-public final class Accept extends HeaderValue2<List<MediaType>> implements Predicate<MediaType> {
+public final class Accept extends HeaderValue2<List<MediaType>> implements Predicate<MediaType>,
+        HasQualityFactorSortedValues<MediaType> {
 
     /**
      * Parses a header value that contains {@link Accept}

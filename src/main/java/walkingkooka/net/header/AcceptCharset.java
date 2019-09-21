@@ -33,7 +33,8 @@ import java.util.function.Predicate;
  * </pre>
  */
 public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
-        implements Predicate<MediaType> {
+        implements Predicate<MediaType>,
+        HasQualityFactorSortedValues<AcceptCharsetValue> {
 
     /**
      * Parses a header value that contains one or more charsets.
