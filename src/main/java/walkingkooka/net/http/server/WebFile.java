@@ -32,25 +32,25 @@ public interface WebFile {
     /**
      * Returns the file last modified {@link LocalDateTime}.
      */
-    LocalDateTime lastModified() throws HttpServerException;
+    LocalDateTime lastModified() throws WebFileException;
 
     /**
      * The {@link MediaType} for the file content.
      */
-    MediaType contentType() throws HttpServerException;
+    MediaType contentType() throws WebFileException;
 
     /**
      * Returns the content length in bytes.
      */
-    long contentSize() throws HttpServerException;
+    long contentSize() throws WebFileException;
 
     /**
      * Returns a read once {@link InputStream} holding the file content.
      */
-    InputStream content() throws HttpServerException;
+    InputStream content() throws WebFileException;
 
     /**
      * Returns an optionally computed {@link ETag}.
      */
-    Optional<ETag> etag() throws HttpServerException;
+    Optional<ETag> etag() throws WebFileException;
 }
