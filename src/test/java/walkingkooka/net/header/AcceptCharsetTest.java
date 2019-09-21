@@ -31,7 +31,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<AcceptCharsetValue>>
-        implements ParseStringTesting<AcceptCharset>,
+        implements HasQualityFactorSortedValuesTesting,
+        ParseStringTesting<AcceptCharset>,
         PredicateTesting {
 
     // charset...................................................................................................
@@ -62,6 +63,20 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
         assertEquals(expected,
                 acceptCharset.charset(),
                 acceptCharset + " .charset()");
+    }
+
+    // HasQualityFactorSortedValuesTesting..............................................................................
+
+    @Test
+    public void testQualityFactorSort() {
+        final AcceptCharset accept = AcceptCharset.parse("UTF8;q=1.0,UTF16;q=0.75");
+        this.qualitySortedValuesAndCheck(accept, accept.value());
+    }
+
+    @Test
+    public void testQualityFactorSort2() {
+        this.qualitySortedValuesAndCheck(AcceptCharset.parse("UTF8;q=0.5,UTF16"),
+                AcceptCharset.parse("UTF16,UTF8;q=0.5").value());
     }
 
     // parse.......................................................................................................

@@ -37,7 +37,8 @@ import java.util.function.Predicate;
  * </pre>
  */
 public final class AcceptEncoding extends HeaderValue2<List<AcceptEncodingValue>>
-        implements Predicate<ContentEncoding> {
+        implements Predicate<ContentEncoding>,
+        HasQualityFactorSortedValues<AcceptEncodingValue> {
 
     /**
      * Parses a header value that contains one or more encodings.

@@ -29,7 +29,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
-        implements ParseStringTesting<AcceptEncoding>,
+        implements HasQualityFactorSortedValuesTesting,
+        ParseStringTesting<AcceptEncoding>,
         PredicateTesting2<AcceptEncoding, ContentEncoding> {
 
     @Test
@@ -37,6 +38,20 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
         assertThrows(NullPointerException.class, () -> {
            AcceptEncoding.with(null);
         });
+    }
+
+    // HasQualityFactorSortedValuesTesting..............................................................................
+
+    @Test
+    public void testQualityFactorSort() {
+        final AcceptEncoding accept = AcceptEncoding.parse("a;q=1.0,b");
+        this.qualitySortedValuesAndCheck(accept, accept.value());
+    }
+
+    @Test
+    public void testQualityFactorSort2() {
+        this.qualitySortedValuesAndCheck(AcceptEncoding.parse("a;q=0.5,b,c;q=0.75,d;q=1.0"),
+                AcceptEncoding.parse("b,d;q=1.0,a;q=0.5,c;q=0.75").value());
     }
 
     // predicate.......................................................................................................

@@ -29,7 +29,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
-        implements ParseStringTesting<AcceptLanguage>,
+        implements HasQualityFactorSortedValuesTesting,
+        ParseStringTesting<AcceptLanguage>,
         PredicateTesting2<AcceptLanguage, ContentLanguage> {
 
     @Test
@@ -37,6 +38,20 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
         assertThrows(NullPointerException.class, () -> {
            AcceptLanguage.with(null);
         });
+    }
+
+    // HasQualityFactorSortedValuesTesting..............................................................................
+
+    @Test
+    public void testQualityFactorSort() {
+        final AcceptLanguage accept = AcceptLanguage.parse("en;q=1.0,fr;q=0.75");
+        this.qualitySortedValuesAndCheck(accept, accept.value());
+    }
+
+    @Test
+    public void testQualityFactorSort2() {
+        this.qualitySortedValuesAndCheck(AcceptLanguage.parse("de;q=0.5,en,fr;q=0.25,gr;q=1.0"),
+                AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25").value());
     }
 
     // predicate.......................................................................................................

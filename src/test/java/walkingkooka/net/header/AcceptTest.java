@@ -29,7 +29,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaType>>
-        implements ParseStringTesting<Accept>,
+        implements HasQualityFactorSortedValuesTesting,
+        ParseStringTesting<Accept>,
         PredicateTesting {
 
     @Test
@@ -44,6 +45,20 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
         assertThrows(IllegalArgumentException.class, () -> {
             Accept.with(Lists.empty());
         });
+    }
+
+    // HasQualityFactorSortedValuesTesting..............................................................................
+
+    @Test
+    public void testQualityFactorSort() {
+        final Accept accept = Accept.parse("a/a;q=1.0,b/b;q=0.75");
+        this.qualitySortedValuesAndCheck(accept, accept.value());
+    }
+
+    @Test
+    public void testQualityFactorSort2() {
+        this.qualitySortedValuesAndCheck(Accept.parse("a/a;q=0.5,b/b,c/c;q=0.25,d/d;q=1.0"),
+                Accept.parse("b/b,d/d;q=1.0,a/a;q=0.5,c/c;q=0.25").value());
     }
 
     // Predicate........................................................................................................
