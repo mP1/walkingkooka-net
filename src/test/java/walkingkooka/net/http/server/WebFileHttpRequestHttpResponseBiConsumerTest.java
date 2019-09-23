@@ -154,6 +154,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final RecordingHttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
+        expected.addEntity(HttpEntity.EMPTY);
 
         this.checkResponse(request, response, expected);
     }
