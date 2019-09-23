@@ -171,6 +171,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     private void notFound(final HttpStatus status,
                           final HttpResponse response) {
         response.setStatus(status);
+        response.addEntity(HttpEntity.EMPTY);
     }
 
     @Override
