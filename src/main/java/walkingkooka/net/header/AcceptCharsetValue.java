@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import jdk.jfr.ContentType;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
 
