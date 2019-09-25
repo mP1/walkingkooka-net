@@ -21,15 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestParametersMapTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMap>,
-        MapTesting2<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
+public final class HttpServletRequestHttpRequestParametersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMap>
+        implements MapTesting2<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -128,10 +126,5 @@ public final class HttpServletRequestHttpRequestParametersMapTest implements Cla
     @Override
     public Class<HttpServletRequestHttpRequestParametersMap> type() {
         return HttpServletRequestHttpRequestParametersMap.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

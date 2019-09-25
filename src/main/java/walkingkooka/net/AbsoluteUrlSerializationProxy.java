@@ -17,7 +17,7 @@
 
 package walkingkooka.net;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 
 import java.util.Optional;
 

@@ -21,9 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -31,8 +29,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest
-        implements ClassTesting2<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry>,
-        EntryTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry, HttpRequestParameterName, List<String>>,
+        extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry>
+        implements EntryTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry, HttpRequestParameterName, List<String>>,
         HashCodeEqualsDefinedTesting2<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> {
 
     private final static String KEY = "parameter1";
@@ -88,10 +86,5 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     @Override
     public String typeNamePrefix() {
         return HttpServletRequestHttpRequestParametersMapEntrySet.class.getSimpleName();
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

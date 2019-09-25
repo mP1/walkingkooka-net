@@ -18,20 +18,18 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.iterator.IteratorTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest implements ClassTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>,
-        IteratorTesting,
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>
+        implements IteratorTesting,
         ToStringTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>,
         TypeNameTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> {
 
@@ -92,7 +90,12 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest i
 
             @Override
             public Enumeration<String> getHeaderNames() {
-                return Enumerations.array(new Object[]{HEADER1.value(), HEADER2.value()});
+                return enumeration(HEADER1.value(), HEADER2.value());
+            }
+
+            @Override
+            public String toString() {
+                return Lists.of(HEADER1, HEADER2).toString();
             }
         };
     }
@@ -100,11 +103,6 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest i
     @Override
     public Class<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

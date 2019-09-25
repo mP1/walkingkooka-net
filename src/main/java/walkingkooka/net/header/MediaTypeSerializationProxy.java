@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 
 final class MediaTypeSerializationProxy implements SerializationProxy {
 

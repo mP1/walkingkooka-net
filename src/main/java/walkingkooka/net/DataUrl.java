@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
