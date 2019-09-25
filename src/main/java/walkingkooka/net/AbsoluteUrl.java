@@ -17,7 +17,7 @@
 
 package walkingkooka.net;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.text.CharSequences;
 
 import java.net.MalformedURLException;

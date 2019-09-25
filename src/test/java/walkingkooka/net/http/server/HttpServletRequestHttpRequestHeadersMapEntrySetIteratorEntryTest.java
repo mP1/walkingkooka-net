@@ -20,19 +20,15 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest
-        implements ClassTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>,
-        EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
-                HttpHeaderName<?>,
-                Object>,
+        extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>
+    implements EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry, HttpHeaderName<?>, Object>,
         HashCodeEqualsDefinedTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> {
 
     private final static String HEADER_NAME = "content-length";
@@ -117,11 +113,6 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
                         return value;
                     }
                 });
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

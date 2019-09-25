@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;

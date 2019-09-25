@@ -18,14 +18,11 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -33,8 +30,8 @@ import java.util.Enumeration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestHeadersMapTest implements ClassTesting2<HttpServletRequestHttpRequestHeadersMap>,
-        MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMap>
+    implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Long VALUE1 = 111L;
@@ -122,7 +119,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest implements ClassT
 
             @Override
             public Enumeration<String> getHeaderNames() {
-                return Enumerations.array(new Object[]{HEADER1.value(), HEADER2.value()});
+                return enumeration(HEADER1.value(), HEADER2.value());
             }
         };
     }
@@ -130,10 +127,5 @@ public final class HttpServletRequestHttpRequestHeadersMapTest implements ClassT
     @Override
     public Class<HttpServletRequestHttpRequestHeadersMap> type() {
         return HttpServletRequestHttpRequestHeadersMap.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

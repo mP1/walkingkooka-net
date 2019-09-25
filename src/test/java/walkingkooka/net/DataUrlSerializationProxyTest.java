@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
-import walkingkooka.io.serialize.SerializationProxyTesting;
+import walkingkooka.io.SerializationProxyTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;

@@ -18,7 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.Binary;
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.net.header.MediaType;
 
 import java.util.Optional;
