@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/mP1/walkingkooka-net.svg?branch=master)](https://travis-ci.com/mP1/walkingkooka-net.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka-net/badge.svg?branch=master)](https://coveralls.io/github/mP1/walkingkooka-net?branch=master)
 
 # Basic Project
