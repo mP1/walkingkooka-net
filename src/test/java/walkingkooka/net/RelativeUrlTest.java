@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -149,9 +149,9 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     // JsonNodeMapTesting...............................................................................................
 
     @Override
-    public RelativeUrl fromJsonNode(final JsonNode node,
-                                    final FromJsonNodeContext context) {
-        return Url.fromJsonNodeRelative(node, context);
+    public RelativeUrl unmarshall(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
+        return Url.unmarshallRelative(node, context);
     }
 
     // ParseStringTesting ..............................................................................................

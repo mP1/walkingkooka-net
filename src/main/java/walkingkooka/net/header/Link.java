@@ -25,10 +25,10 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlAttributeName;
 import walkingkooka.tree.xml.XmlDocument;
@@ -163,8 +163,8 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * Accepts a json object with a single required property href.
      */
-    static Link fromJsonNode(final JsonNode node,
-                             final FromJsonNodeContext context) {
+    static Link unmarshall(final JsonNode node,
+                           final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         String href = null;
@@ -174,17 +174,17 @@ final public class Link extends HeaderValueWithParameters2<Link,
             switch (name.value()) {
                 case "href":
                     if (!child.isString()) {
-                        throw new FromJsonNodeException("Property " + name + " is not a String=" + node, node);
+                        throw new JsonNodeUnmarshallException("Property " + name + " is not a String=" + node, node);
                     }
                     href = JsonStringNode.class.cast(child).value();
                     break;
                 default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
             }
         }
 
         if (null == href) {
-            FromJsonNodeContext.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
+            JsonNodeUnmarshallContext.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
         }
         return Link.with(Url.parse(href));
     }
@@ -192,7 +192,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * Builds the json representation of this link, with the value assigned to HREF attribute.
      */
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
+    JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObjectNode json = JsonNode.object()
                 .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
 
@@ -215,8 +215,8 @@ final public class Link extends HeaderValueWithParameters2<Link,
 
     static {
         JsonNodeContext.register("link",
-                Link::fromJsonNode,
-                Link::toJsonNode,
+                Link::unmarshall,
+                Link::marshall,
                 Link.class);
     }
 

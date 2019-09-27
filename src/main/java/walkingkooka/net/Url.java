@@ -25,9 +25,9 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visitable;
 
 import java.io.Serializable;
@@ -193,50 +193,50 @@ public abstract class Url implements HashCodeEqualsDefined,
     /**
      * Accepts a json string holding an {@link Url}.
      */
-    static Url fromJsonNode(final JsonNode node,
-                            final FromJsonNodeContext context) {
-        return fromJsonNode0(node, Url::parse);
+    static Url unmarshall(final JsonNode node,
+                          final JsonNodeUnmarshallContext context) {
+        return unmarshall0(node, Url::parse);
     }
 
     /**
      * Accepts a json string holding an {@link AbsoluteUrl}.
      */
-    static AbsoluteUrl fromJsonNodeAbsolute(final JsonNode node,
-                                            final FromJsonNodeContext context) {
-        return fromJsonNode0(node, Url::parseAbsolute);
+    static AbsoluteUrl unmarshallAbsolute(final JsonNode node,
+                                          final JsonNodeUnmarshallContext context) {
+        return unmarshall0(node, Url::parseAbsolute);
     }
 
     /**
      * Accepts a json string holding an {@link DataUrl}.
      */
-    static DataUrl fromJsonNodeData(final JsonNode node,
-                                    final FromJsonNodeContext context) {
-        return fromJsonNode0(node, Url::parseData);
+    static DataUrl unmarshallData(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
+        return unmarshall0(node, Url::parseData);
     }
 
     /**
      * Accepts a json string holding an {@link RelativeUrl}.
      */
-    static RelativeUrl fromJsonNodeRelative(final JsonNode node,
-                                            final FromJsonNodeContext context) {
-        return fromJsonNode0(node, Url::parseRelative);
+    static RelativeUrl unmarshallRelative(final JsonNode node,
+                                          final JsonNodeUnmarshallContext context) {
+        return unmarshall0(node, Url::parseRelative);
     }
 
-    private static <U extends Url> U fromJsonNode0(final JsonNode node,
-                                                   final Function<String, U> parse) {
+    private static <U extends Url> U unmarshall0(final JsonNode node,
+                                                 final Function<String, U> parse) {
         Objects.requireNonNull(node, "node");
 
         return parse.apply(node.stringValueOrFail());
     }
 
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
+    JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.string(this.value());
     }
 
     static {
         JsonNodeContext.register("url",
-                Url::fromJsonNode,
-                Url::toJsonNode,
+                Url::unmarshall,
+                Url::marshall,
                 Url.class,
                 AbsoluteUrl.class,
                 DataUrl.class,

@@ -23,9 +23,9 @@ import walkingkooka.net.HostAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -133,21 +133,21 @@ final public class EmailAddress implements Value<String>,
     /**
      * Accepts a json string holding an email.
      */
-    static EmailAddress fromJsonNode(final JsonNode node,
-                                     final FromJsonNodeContext context) {
+    static EmailAddress unmarshall(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         return parse(node.stringValueOrFail());
     }
 
-    public JsonNode toJsonNode(final ToJsonNodeContext context) {
+    public JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.string(this.toString());
     }
 
     static {
         JsonNodeContext.register("email",
-                EmailAddress::fromJsonNode,
-                EmailAddress::toJsonNode,
+                EmailAddress::unmarshall,
+                EmailAddress::marshall,
                 EmailAddress.class);
     }
 
