@@ -30,8 +30,8 @@ import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         ComparableTesting2<EmailAddress>,
-        JsonNodeMappingTesting<EmailAddress>,
+        JsonNodeMarshallingTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
         ThrowableTesting,
@@ -204,8 +204,8 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     private <T extends RuntimeException> void parseStringFails2(final String email,
-                                                          final Class<T> thrown,
-                                                          final String message) {
+                                                                final Class<T> thrown,
+                                                                final String message) {
         final T expected = assertThrows(thrown, () -> {
             EmailAddress.parse(email);
         });
@@ -1626,17 +1626,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         return null != string ? string : "";
     }
 
-    // toJsonNode ......................................................................................................
+    // marshall ......................................................................................................
 
     @Test
-    public void testFromJsonNodeInvalidEmailFails() {
-        this.fromJsonNodeFails(JsonNode.string("!"), IllegalArgumentException.class);
+    public void testUnmarshallInvalidEmailFails() {
+        this.unmarshallFails(JsonNode.string("!"), IllegalArgumentException.class);
     }
 
     @Test
-    public void testFromJsonNode() {
+    public void testUnmarshall() {
         final String address = "user@example.com";
-        this.fromJsonNodeAndCheck(JsonNode.string(address), EmailAddress.parse(address));
+        this.unmarshallAndCheck(JsonNode.string(address), EmailAddress.parse(address));
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -1722,9 +1722,9 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     @Override
-    public final EmailAddress fromJsonNode(final JsonNode from,
-                                           final FromJsonNodeContext context) {
-        return EmailAddress.fromJsonNode(from, context);
+    public final EmailAddress unmarshall(final JsonNode from,
+                                         final JsonNodeUnmarshallContext context) {
+        return EmailAddress.unmarshall(from, context);
     }
 
     // ParseStringTesting ..................................................................................................

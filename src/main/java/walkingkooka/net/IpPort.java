@@ -17,7 +17,6 @@
 
 package walkingkooka.net;
 
-import walkingkooka.Throwables;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 
@@ -165,7 +164,7 @@ public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, 
             server = new ServerSocket(0);
             port = IpPort.with(server.getLocalPort());
         } catch (final Exception cause) {
-            throw new IllegalStateException(Throwables.message("Unable to discover free port", cause), cause);
+            throw new IllegalStateException("Unable to discover free port", cause);
         } finally {
             if (null != server) {
                 try {

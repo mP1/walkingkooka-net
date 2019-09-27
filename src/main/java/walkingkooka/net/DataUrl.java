@@ -84,15 +84,15 @@ public final class DataUrl extends Url {
                                                         final int binaryStart) {
         int contentTypeEnd = binaryStart;
         final int base64Start = url.indexOf(';', CONTENT_TYPE_START);
-        if(-1 != base64Start) {
+        if (-1 != base64Start) {
             final String base64 = url.substring(base64Start, binaryStart);
-            if(!";base64".equals(base64)) {
+            if (!";base64".equals(base64)) {
                 throw new IllegalArgumentException("Data url encoding " + CharSequences.quoteAndEscape(base64) + " invalid in " + CharSequences.quoteAndEscape(url));
             }
             contentTypeEnd = base64Start;
         }
 
-        return CONTENT_TYPE_START != contentTypeEnd?
+        return CONTENT_TYPE_START != contentTypeEnd ?
                 Optional.of(complainIfWithParameters(MediaType.parse(url.substring(CONTENT_TYPE_START, contentTypeEnd)))) :
                 Optional.empty();
     }

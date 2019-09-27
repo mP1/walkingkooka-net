@@ -29,8 +29,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.JavaVisibility;
 
@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         LinkParameterName<?>>
-        implements JsonNodeMappingTesting<Link>,
+        implements JsonNodeMarshallingTesting<Link>,
         ParseStringTesting<List<Link>> {
 
     @Test
@@ -148,66 +148,66 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                 Link.with(Url.parse("http://example2.com")));
     }
 
-    // toJsonNode .....................................................................................................
+    // marshall .....................................................................................................
 
     @Test
-    public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
+    public void testUnmarshallBooleanFails() {
+        this.unmarshallFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
+    public void testUnmarshallNumberFails() {
+        this.unmarshallFails(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeStringFails() {
-        this.fromJsonNodeFails(JsonNode.string("fails!"), JsonNodeException.class);
+    public void testUnmarshallStringFails() {
+        this.unmarshallFails(JsonNode.string("fails!"), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
+    public void testUnmarshallArrayFails() {
+        this.unmarshallFails(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeObjectEmptyFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
+    public void testUnmarshallObjectEmptyFails() {
+        this.unmarshallFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeHrefNonStringFails() {
-        this.fromJsonNodeFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)),
+    public void testUnmarshallHrefNonStringFails() {
+        this.unmarshallFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)),
                 JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeUnknownPropertyFails() {
-        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)),
+    public void testUnmarshallUnknownPropertyFails() {
+        this.unmarshallFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)),
                 JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonLink() {
         final String href = "http://example.com";
-        this.fromJsonNodeAndCheck(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.string(href)),
+        this.unmarshallAndCheck(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.string(href)),
                 Link.with(Url.parse(href)));
     }
 
     @Test
-    public void testToJsonNode() {
-        this.toJsonNodeAndCheck2("<http://example.com>",
+    public void testMarshall() {
+        this.marshallAndCheck2("<http://example.com>",
                 "{\"href\": \"http://example.com\"}");
     }
 
     @Test
-    public void testToJsonNodeRel() {
-        this.toJsonNodeAndCheck2("<http://example.com>;type=text/plain;rel=previous",
+    public void testMarshallRel() {
+        this.marshallAndCheck2("<http://example.com>;type=text/plain;rel=previous",
                 "{\"href\": \"http://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
     }
 
-    private void toJsonNodeAndCheck2(final String link, final String json) {
-        this.toJsonNodeAndCheck(Link.parse(link).get(0), json);
+    private void marshallAndCheck2(final String link, final String json) {
+        this.marshallAndCheck(Link.parse(link).get(0), json);
     }
 
     // toXmlNode .......................................................................................
@@ -352,8 +352,8 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Override
-    public Link fromJsonNode(final JsonNode from,
-                             final FromJsonNodeContext context) {
-        return Link.fromJsonNode(from, context);
+    public Link unmarshall(final JsonNode from,
+                           final JsonNodeUnmarshallContext context) {
+        return Link.unmarshall(from, context);
     }
 }

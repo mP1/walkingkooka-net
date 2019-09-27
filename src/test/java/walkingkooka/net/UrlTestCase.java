@@ -24,7 +24,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
@@ -34,7 +34,7 @@ import java.util.function.Predicate;
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         HashCodeEqualsDefinedTesting2<U>,
-        JsonNodeMappingTesting<U>,
+        JsonNodeMarshallingTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,
         SerializationTesting<U>,
