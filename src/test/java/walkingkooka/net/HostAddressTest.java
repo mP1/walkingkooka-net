@@ -20,7 +20,6 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
@@ -39,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
         ComparableTesting2<HostAddress>,
-        SerializationTesting<HostAddress>,
         ThrowableTesting,
         ToStringTesting<HostAddress> {
 
@@ -1071,17 +1069,5 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     @Override
     public HostAddress createComparable() {
         return this.createObject();
-    }
-
-    // SerializableTesting..........................................................................................
-
-    @Override
-    public HostAddress serializableInstance() {
-        return HostAddress.with("example.com");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

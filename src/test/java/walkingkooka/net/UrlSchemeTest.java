@@ -21,7 +21,6 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
-        NameTesting2<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
+        NameTesting2<UrlScheme, UrlScheme> {
 
     @Override
     public void testTypeNaming() {
@@ -151,15 +150,5 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public UrlScheme serializableInstance() {
-        return UrlScheme.with("custom");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

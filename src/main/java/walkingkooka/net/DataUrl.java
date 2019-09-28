@@ -19,7 +19,6 @@ package walkingkooka.net;
 
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -196,16 +195,4 @@ public final class DataUrl extends Url {
     public String toString() {
         return this.value();
     }
-
-    // Serializable.....................................................................................................
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    // @VisibleForTesting
-    final Object writeReplace() {
-        return DataUrlSerializationProxy.with(this);
-    }
-
-    private final static long serialVersionUID = 1L;
 }

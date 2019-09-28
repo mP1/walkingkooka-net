@@ -19,9 +19,9 @@ package walkingkooka.net.header;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.NodeSelectorContext;

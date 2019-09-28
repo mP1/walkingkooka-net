@@ -21,13 +21,13 @@ package walkingkooka.net;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * The fragment within a {@link Url}.
  */
-public final class UrlFragment implements Value<String>, HashCodeEqualsDefined, Serializable {
+public final class UrlFragment implements Value<String>,
+        HashCodeEqualsDefined {
 
     /**
      * An empty or absent fragment.
@@ -90,12 +90,4 @@ public final class UrlFragment implements Value<String>, HashCodeEqualsDefined, 
             b.append(this.value);
         }
     }
-
-    // Serializable
-
-    private Object readResolve() {
-        return this.value.length() == 0 ? UrlFragment.EMPTY : this;
-    }
-
-    private static final long serialVersionUID = 1;
 }

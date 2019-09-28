@@ -25,7 +25,6 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
@@ -46,7 +45,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         ComparableTesting2<EmailAddress>,
         JsonNodeMarshallingTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
-        SerializationTesting<EmailAddress>,
         ThrowableTesting,
         ToStringTesting<EmailAddress> {
 
@@ -1742,17 +1740,5 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
-    }
-
-    // SerializationTesting ..................................................................................................
-
-    @Override
-    public EmailAddress serializableInstance() {
-        return EmailAddress.parse("user@example.com");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

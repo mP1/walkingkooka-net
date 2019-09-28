@@ -154,8 +154,4 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
     void toString0(final StringBuilder b) {
         // no additional properties to add.
     }
-
-    // Serializable
-
-    private final static long serialVersionUID = 1L;
 }

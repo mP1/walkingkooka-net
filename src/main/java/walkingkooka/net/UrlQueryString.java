@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
@@ -36,8 +35,8 @@ import java.util.Optional;
  * The query string component within a {@link Url}. Methods are available to retrieve the first parameter value, or all parameter values
  * or to view all parameters as a {@link Map}.
  */
-public final class UrlQueryString
-        implements Value<String>, HashCodeEqualsDefined, Serializable {
+public final class UrlQueryString implements Value<String>,
+        HashCodeEqualsDefined {
 
     /**
      * An empty {@link UrlQueryString} with no length or parameters.
@@ -379,16 +378,4 @@ public final class UrlQueryString
             b.append(queryString);
         }
     }
-
-    // Serializable....................................................................................................
-
-    /**
-     * Keeps {@link #EMPTY} a singleton
-     */
-    private Object readResolve() {
-        final String value = this.queryString;
-        return value.length() == 0 ? UrlQueryString.EMPTY : UrlQueryString.with(value);
-    }
-
-    private static final long serialVersionUID = -7394957571250582689L;
 }

@@ -112,7 +112,4 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
     public int compareTo(final Ip6Address other) {
         return this.compare0(other);
     }
-
-    // Serializable
-    private static final long serialVersionUID = 1;
 }

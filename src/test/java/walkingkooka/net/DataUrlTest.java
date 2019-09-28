@@ -152,12 +152,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         return DataUrl.parseData0(text);
     }
 
-    // SerializableTesting...............................................................................................
-
-    @Override
-    public DataUrl serializableInstance() {
-        return this.createUrl();
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<DataUrl> type() {

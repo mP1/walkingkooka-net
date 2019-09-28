@@ -164,9 +164,4 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
     public Class<Ip4Address> type() {
         return Ip4Address.class;
     }
-
-    @Override
-    public Ip4Address serializableInstance() {
-        return Ip4Address.with(new byte[]{1, 2, 3, 4});
-    }
 }

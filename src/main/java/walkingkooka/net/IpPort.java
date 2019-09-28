@@ -21,7 +21,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.ServerSocket;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +30,8 @@ import java.util.Optional;
  * Value class that holds a valid ip port. <br>
  * The constants are taken from <a href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers></a>}.
  */
-public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, Serializable {
+public final class IpPort implements Comparable<IpPort>,
+        HashCodeEqualsDefined {
 
     /**
      * Useful constant when creating an {@link AbsoluteUrl}.
@@ -240,8 +240,4 @@ public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, 
         b.append(Url.HOST_PORT_SEPARATOR.character());
         b.append(this.value);
     }
-
-    // Serializable ..................................................................................................
-
-    private final static long serialVersionUID = 1L;
 }

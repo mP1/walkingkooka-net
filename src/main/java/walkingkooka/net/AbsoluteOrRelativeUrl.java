@@ -267,8 +267,4 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     }
 
     abstract void toString0(final StringBuilder b);
-
-    // Serializable
-
-    private final static long serialVersionUID = 1L;
 }

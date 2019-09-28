@@ -19,7 +19,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -27,7 +26,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -50,12 +48,9 @@ import java.util.function.Predicate;
  * message/External-body is not case-sensitive.)
  * </pre>
  */
-final public class MediaType extends HeaderValueWithParameters2<MediaType,
-        MediaTypeParameterName<?>,
-        String>
+final public class MediaType extends HeaderValueWithParameters2<MediaType, MediaTypeParameterName<?>, String>
         implements HasQualityFactor,
-        Predicate<MediaType>,
-        Serializable {
+        Predicate<MediaType>{
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
@@ -470,23 +465,4 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     boolean equals1(final String value, final String otherValue) {
         return CASE_SENSITIVITY.equals(this.value, otherValue);
     }
-
-    // Serializable.....................................................................................................
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    // @VisibleForTesting
-    final Object writeReplace() {
-        return MediaTypeSerializationProxy.with(this);
-    }
-
-    /**
-     * Should never be called expect a serialization proxy
-     */
-    private Object readResolve() {
-        throw new UnsupportedOperationException();
-    }
-
-    private final static long serialVersionUID = 1L;
 }

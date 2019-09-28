@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
@@ -37,8 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
         implements ParseStringTesting<MediaType>,
-        PredicateTesting2<MediaType, MediaType>,
-        SerializationTesting<MediaType> {
+        PredicateTesting2<MediaType, MediaType> {
 
     // constants
 
@@ -771,17 +769,5 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // SerializationTesting.............................................................................................
-
-    @Override
-    public MediaType serializableInstance() {
-        return this.mediaType();
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

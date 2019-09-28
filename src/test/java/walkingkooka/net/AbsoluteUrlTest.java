@@ -699,17 +699,4 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     public AbsoluteUrl parseString(final String text) {
         return AbsoluteUrl.parseAbsolute0(text);
     }
-
-    // SerializationTesting.............................................................................................
-
-    @Override
-    public AbsoluteUrl serializableInstance() {
-        return Url.absolute(UrlScheme.HTTP, //
-                Optional.of(UrlCredentials.with("user", "pass")), //
-                HostAddress.with("host"), //
-                Optional.of(IpPort.HTTP), //
-                UrlPath.parse("/path"), //
-                UrlQueryString.with("query"),//
-                UrlFragment.with("fragment123"));
-    }
 }

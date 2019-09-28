@@ -26,7 +26,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
@@ -42,8 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlPathTest implements ClassTesting2<UrlPath>,
         IteratorTesting,
         PathTesting<UrlPath, UrlPathName>,
-        ParseStringTesting<UrlPath>,
-        SerializationTesting<UrlPath> {
+        ParseStringTesting<UrlPath> {
 
     // appendName.......................................................................................................
 
@@ -516,13 +514,6 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         assertEquals(true, normalized.isNormalized(), () -> "normalized " + path);
     }
 
-    // constants........................................................................................................
-
-    @Test
-    public void testConstantsAreSingleton() throws Exception {
-        this.constantsAreSingletons();
-    }
-
     // equals/compare....................................................................................................
 
     @Test
@@ -601,18 +592,6 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Override
     public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
-    }
-
-    // SerializationTesting ............................................................................................
-
-    @Override
-    public UrlPath serializableInstance() {
-        return UrlPath.parse("/path/to");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     // ClassTestCase ...................................................................................................

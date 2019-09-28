@@ -21,7 +21,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ import java.util.Optional;
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication>Mozilla HTTP Authentication</a>
  */
-public final class UrlCredentials implements HashCodeEqualsDefined, Serializable {
+public final class UrlCredentials implements HashCodeEqualsDefined {
 
     /**
      * A constant useful for a url without credentials.
@@ -110,8 +109,4 @@ public final class UrlCredentials implements HashCodeEqualsDefined, Serializable
         this.toString0(b);
         b.append(SUFFIX);
     }
-
-    // Serializable
-
-    private final static long serialVersionUID = 1L;
 }
