@@ -160,11 +160,4 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     public RelativeUrl parseString(final String text) {
         return RelativeUrl.parseRelative0(text);
     }
-
-    // SerializationTesting ............................................................................................
-
-    @Override
-    public RelativeUrl serializableInstance() {
-        return Url.relative(UrlPath.parse("/path"), UrlQueryString.with("query"), UrlFragment.with("fragment123"));
-    }
 }

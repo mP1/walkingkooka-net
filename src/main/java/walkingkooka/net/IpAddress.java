@@ -23,13 +23,14 @@ import walkingkooka.Value;
 import walkingkooka.compare.Comparators;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Base class for either {@link Ip4Address} or {@link Ip6Address}.
  */
-abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined, Serializable, UsesToStringBuilder {
+abstract public class IpAddress implements Value<byte[]>,
+        HashCodeEqualsDefined,
+        UsesToStringBuilder {
 
     /**
      * {@see IpAddress4}
@@ -119,7 +120,4 @@ abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined,
     private static int toUnsignedInt(final byte value) {
         return 0xFF & value;
     }
-
-    // Serializable
-    private static final long serialVersionUID = -2798442840934849995L;
 }

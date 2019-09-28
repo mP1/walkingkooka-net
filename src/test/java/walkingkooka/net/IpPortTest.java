@@ -22,7 +22,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -40,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class IpPortTest implements ClassTesting2<IpPort>,
         ConstantsTesting<IpPort>,
         ComparableTesting2<IpPort>,
-        SerializationTesting<IpPort>,
         ToStringTesting<IpPort> {
 
     @Test
@@ -112,26 +110,6 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     @Override
     public Set<IpPort> intentionalDuplicateConstants() {
         return Sets.empty();
-    }
-
-    @Test
-    public void testHttpSingleton() throws Exception {
-        this.serializeSingletonAndCheck(IpPort.HTTP);
-    }
-
-    @Test
-    public void testHttpsSingleton() throws Exception {
-        this.serializeSingletonAndCheck(IpPort.HTTPS);
-    }
-
-    @Override
-    public IpPort serializableInstance() {
-        return IpPort.with(65000);
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     private final static int PORT = 80;

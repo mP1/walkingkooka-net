@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -33,8 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
-        NameTesting<UrlPathName, UrlPathName>,
-        SerializationTesting<UrlPathName> {
+        NameTesting<UrlPathName, UrlPathName> {
 
     @Override
     public void testEmptyFails() {
@@ -101,11 +99,6 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         assertEquals(CharSequences.quote(string).toString(), name.toString());
     }
 
-    @Test
-    public void testRootIsSingleton() throws Exception {
-        this.serializeSingletonAndCheck(UrlPathName.ROOT);
-    }
-
     @Override
     public UrlPathName createName(final String name) {
         return UrlPathName.with(name);
@@ -139,15 +132,5 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public UrlPathName serializableInstance() {
-        return UrlPathName.with("name");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

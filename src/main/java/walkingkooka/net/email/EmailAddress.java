@@ -27,7 +27,6 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,8 +38,7 @@ import java.util.Optional;
  */
 final public class EmailAddress implements Value<String>,
         Comparable<EmailAddress>,
-        HashCodeEqualsDefined,
-        Serializable {
+        HashCodeEqualsDefined {
 
     /**
      * Tries to parse the email or returns an {@link Optional#empty()}.
@@ -186,8 +184,4 @@ final public class EmailAddress implements Value<String>,
         }
         return result;
     }
-
-    // Serializable....................................................................................................
-
-    private final static long serialVersionUID = 1L;
 }

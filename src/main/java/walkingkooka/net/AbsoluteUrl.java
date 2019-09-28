@@ -17,7 +17,6 @@
 
 package walkingkooka.net;
 
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.text.CharSequences;
 
 import java.net.MalformedURLException;
@@ -300,16 +299,4 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
             p.toString0(b);
         });
     }
-
-    // Serializable
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    // @VisibleForTesting
-    final Object writeReplace() {
-        return AbsoluteUrlSerializationProxy.with(this);
-    }
-
-    private final static long serialVersionUID = 1L;
 }

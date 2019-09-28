@@ -24,7 +24,6 @@ import walkingkooka.naming.NameTesting;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
 
@@ -37,8 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
-        NameTesting<UrlParameterName, UrlParameterName>,
-        SerializationTesting<UrlParameterName> {
+        NameTesting<UrlParameterName, UrlParameterName> {
 
     @Override
     public void testEmptyFails() {
@@ -190,15 +188,5 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public UrlParameterName serializableInstance() {
-        return UrlParameterName.with("name");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

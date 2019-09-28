@@ -21,7 +21,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -37,7 +36,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         JsonNodeMarshallingTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,
-        SerializationTesting<U>,
         ToStringTesting<U>,
         TypeNameTesting<U> {
 
@@ -102,13 +100,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     @Override
     public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
-    }
-
-    // SerializationTesting.............................................................................................
-
-    @Override
-    public final boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     // TypeNameTesting .................................................................................................

@@ -24,16 +24,13 @@ import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
 /**
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  */
-public final class UrlScheme extends NetName
-        implements Comparable<UrlScheme>,
-        Serializable {
+public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
 
     // constants
 
@@ -174,16 +171,4 @@ public final class UrlScheme extends NetName
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    // Serializable....................................................................................................
-
-    private final static long serialVersionUID = 1L;
-
-    /**
-     * Keeps constants singletons
-     */
-    private Object readResolve() {
-        final UrlScheme constant = UrlScheme.CONSTANTS.get(this.name);
-        return null != constant ? constant : this;
-    }
 }

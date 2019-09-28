@@ -30,7 +30,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visitable;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -39,7 +38,6 @@ import java.util.function.Function;
  * Base class with getters that return the common components of a {@link Url}.
  */
 public abstract class Url implements HashCodeEqualsDefined,
-        Serializable,
         Value<String>,
         Visitable {
 
@@ -183,10 +181,6 @@ public abstract class Url implements HashCodeEqualsDefined,
     final <U extends Url> U cast() {
         return Cast.to(this);
     }
-
-    // Serializable
-
-    private final static long serialVersionUID = 1L;
 
     // JsonNodeContext..................................................................................................
 

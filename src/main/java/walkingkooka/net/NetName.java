@@ -19,14 +19,10 @@ package walkingkooka.net;
 
 import walkingkooka.naming.Name;
 
-import java.io.Serializable;
-
 /**
  * Abstract base class for all {@link Name} in this package.
  */
-abstract class NetName implements Name, Serializable {
-
-    private final static long serialVersionUID = 1L;
+abstract class NetName implements Name {
 
     /**
      * Package private constructor

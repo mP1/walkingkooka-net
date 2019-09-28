@@ -23,8 +23,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
-
 /**
  * A {@link Value} that represent a host address which may be a name or ip address in dot form etc. Note the actual address is only validated for
  * syntactical correctness no network query is ever attempted. <br>
@@ -32,8 +30,7 @@ import java.io.Serializable;
  */
 public final class HostAddress implements Value<String>,
         Comparable<HostAddress>,
-        HashCodeEqualsDefined,
-        Serializable {
+        HashCodeEqualsDefined {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
@@ -699,8 +696,4 @@ public final class HostAddress implements Value<String>,
     public int compareTo(final HostAddress other) {
         return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
     }
-
-    // Serializable.........................................................................................
-
-    private final static long serialVersionUID = 1L;
 }

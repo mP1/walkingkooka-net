@@ -20,7 +20,6 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
@@ -31,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements ClassTesting2<A>,
         ComparableTesting2<A>,
-        SerializationTesting<A>,
         ToStringTesting<A>,
         TypeNameTesting<A> {
 
@@ -74,11 +72,6 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> imp
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public final boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     // TypeNameTesting .........................................................................................

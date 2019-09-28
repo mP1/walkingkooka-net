@@ -21,7 +21,6 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         HashCodeEqualsDefinedTesting2<UrlCredentials>,
-        SerializationTesting<UrlCredentials>,
         ToStringTesting<UrlCredentials> {
 
     private final static String USER = "user123";
@@ -89,17 +87,5 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Override
     public UrlCredentials createObject() {
         return UrlCredentials.with(USER, PASSWORD);
-    }
-
-    // SerializationTesting.................................................................................................
-
-    @Override
-    public UrlCredentials serializableInstance() {
-        return UrlCredentials.with("user123", "password456");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

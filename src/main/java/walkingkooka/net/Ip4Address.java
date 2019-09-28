@@ -135,7 +135,4 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
     public int compareTo(final Ip4Address other) {
         return this.compare0(other);
     }
-
-    // Serializable
-    private static final long serialVersionUID = 1;
 }

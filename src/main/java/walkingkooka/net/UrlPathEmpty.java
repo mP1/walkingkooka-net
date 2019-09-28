@@ -93,8 +93,4 @@ final class UrlPathEmpty extends UrlPath {
     public String toString() {
         return "";
     }
-
-    // Serialization....................................................................................................
-
-    private final static long serialVersionUID = 1L;
 }
