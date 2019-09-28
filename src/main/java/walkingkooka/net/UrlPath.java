@@ -165,7 +165,9 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     /**
      * Returns true if this path is normalized.
      */
-    public abstract boolean isNormalized();
+    public final boolean isNormalized() {
+        return this instanceof UrlPathLeafNormalized || this instanceof UrlPathRoot;
+    }
 
     /**
      * Returns a {@link UrlPath} that performs the following normalization rules.

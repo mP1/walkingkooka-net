@@ -73,11 +73,6 @@ final class UrlPathEmpty extends UrlPath {
     }
 
     @Override
-    public boolean isNormalized() {
-        return false;
-    }
-
-    @Override
     public UrlPath normalize() {
         return ROOT;
     }

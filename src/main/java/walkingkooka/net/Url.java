@@ -157,17 +157,23 @@ public abstract class Url implements HashCodeEqualsDefined,
     /**
      * Only {@link AbsoluteUrl} returns true.
      */
-    public abstract boolean isAbsolute();
+    public final boolean isAbsolute() {
+        return this instanceof AbsoluteUrl;
+    }
 
     /**
      * Only {@link DataUrl} returns true.
      */
-    public abstract boolean isData();
+    public final boolean isData() {
+        return this instanceof DataUrl;
+    }
 
     /**
      * Only {@link RelativeUrl} returns true
      */
-    public abstract boolean isRelative();
+    public final boolean isRelative() {
+        return this instanceof RelativeUrl;
+    }
 
     // UrlVisitor........................................................................................................
 

@@ -148,16 +148,6 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         return this.setFragment0(fragment).cast();
     }
 
-    @Override
-    public boolean isRelative() {
-        return false;
-    }
-
-    @Override
-    public boolean isAbsolute() {
-        return true;
-    }
-
     /**
      * Unconditionally creates a new {@link AbsoluteUrl}
      */

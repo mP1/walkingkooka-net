@@ -286,12 +286,16 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * Only {@link ClientCookie} returns true.
      */
-    abstract public boolean isClient();
+    public final boolean isClient() {
+        return this instanceof ClientCookie;
+    }
 
     /**
      * Only {@link ServerCookie} returns true.
      */
-    abstract public boolean isServer();
+    public final boolean isServer() {
+        return this instanceof ServerCookie;
+    }
 
     /**
      * The name of the {@link HttpHeaderName} used to encode this cookie.

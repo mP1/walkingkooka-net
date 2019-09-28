@@ -153,23 +153,6 @@ public final class DataUrl extends Url {
 
     private final Binary binary;
 
-    // isXXX............................................................................................................
-
-    @Override
-    public boolean isAbsolute() {
-        return false;
-    }
-
-    @Override
-    public boolean isData() {
-        return true;
-    }
-
-    @Override
-    public boolean isRelative() {
-        return false;
-    }
-
     // UrlVisitor........................................................................................................
 
     @Override

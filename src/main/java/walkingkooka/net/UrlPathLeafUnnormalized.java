@@ -46,11 +46,6 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
     }
 
     @Override
-    public boolean isNormalized() {
-        return false;
-    }
-
-    @Override
     public UrlPath normalize() {
         UrlPath normalized = ROOT;
 

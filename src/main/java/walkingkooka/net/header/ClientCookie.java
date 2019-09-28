@@ -119,22 +119,6 @@ final public class ClientCookie extends Cookie {
     }
 
     /**
-     * Always returns this.
-     */
-    @Override
-    public boolean isClient() {
-        return true;
-    }
-
-    /**
-     * Always returns null.
-     */
-    @Override
-    public boolean isServer() {
-        return false;
-    }
-
-    /**
      * Always returns {@link HttpHeaderName#COOKIE}.
      */
     @Override
