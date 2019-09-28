@@ -685,7 +685,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         return AbsoluteUrl.class;
     }
 
-    // JsonNodeMapTesting...............................................................................................
+    // JsonNodeMarshallTesting .........................................................................................
 
     @Override
     public AbsoluteUrl unmarshall(final JsonNode node,

@@ -146,7 +146,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         return RelativeUrl.class;
     }
 
-    // JsonNodeMapTesting...............................................................................................
+    // JsonNodeMarshallTesting .........................................................................................
 
     @Override
     public RelativeUrl unmarshall(final JsonNode node,

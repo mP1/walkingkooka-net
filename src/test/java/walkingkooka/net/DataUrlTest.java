@@ -137,7 +137,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         return Binary.with("abc123".getBytes(Charset.defaultCharset()));
     }
 
-    // JsonNodeMapTesting...............................................................................................
+    // JsonNodeMarshallTesting .........................................................................................
 
     @Override
     public DataUrl unmarshall(final JsonNode node,
