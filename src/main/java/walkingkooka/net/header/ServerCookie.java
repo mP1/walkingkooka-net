@@ -388,24 +388,6 @@ final public class ServerCookie extends Cookie {
         Objects.requireNonNull(version, "version");
     }
 
-    // isXXX..........................................................................................................
-
-    /**
-     * Always returns false.
-     */
-    @Override
-    public boolean isClient() {
-        return false;
-    }
-
-    /**
-     * Always returns true.
-     */
-    @Override
-    public boolean isServer() {
-        return true;
-    }
-
     /**
      * Always returns {@link HttpHeaderName#SET_COOKIE}.
      */

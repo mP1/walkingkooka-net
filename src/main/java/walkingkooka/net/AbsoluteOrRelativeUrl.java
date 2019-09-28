@@ -138,20 +138,6 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
         this.fragment = fragment;
     }
 
-    // type safe casters
-
-    /**
-     * Only {@link RelativeUrl} returns true
-     */
-    public abstract boolean isRelative();
-
-    /**
-     * Only {@link AbsoluteUrl} returns true.
-     */
-    public abstract boolean isAbsolute();
-
-    // properties
-
     /**
      * Would be setter that attempts to set or replace the absolute url only properties. This has the added benefit
      * of being useful and able to convert a relative url to an absolute url.
@@ -243,13 +229,6 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
      * Factory that creates a new {@link AbsoluteOrRelativeUrl}
      */
     abstract AbsoluteOrRelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
-
-    // Object...........................................................................................................
-
-    @Override
-    public final boolean isData() {
-        return false;
-    }
 
     // Object...........................................................................................................
 

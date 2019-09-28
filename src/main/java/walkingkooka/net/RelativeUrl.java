@@ -91,16 +91,6 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
         return new RelativeUrl(path, query, fragment);
     }
 
-    @Override
-    public boolean isRelative() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbsolute() {
-        return false;
-    }
-
     /**
      * Would be setter that attempts to set or replace the absolute url only properties. This has the added benefit
      * of being useful and able to convert a relative url to an absolute url.

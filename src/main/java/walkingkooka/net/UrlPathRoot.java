@@ -78,11 +78,6 @@ final class UrlPathRoot extends UrlPath {
     }
 
     @Override
-    public boolean isNormalized() {
-        return true;
-    }
-
-    @Override
     public UrlPath normalize() {
         return this;
     }
