@@ -64,6 +64,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.mP1</groupId>
+            <artifactId>walkingkooka-tree-xml</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
