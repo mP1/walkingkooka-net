@@ -137,7 +137,7 @@ public final class JettyHttpServer implements HttpServer {
                         b.append("  ");
                         b.append(key);
                         b.append('=');
-                        b.append(value.stream().collect(Collectors.joining(", ")));
+                        b.append(String.join(", ", value));
                         b.append('\n');
                     });
 
