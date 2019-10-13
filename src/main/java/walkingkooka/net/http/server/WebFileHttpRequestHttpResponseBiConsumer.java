@@ -150,7 +150,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     }
 
     private Map<HttpHeaderName<?>, Object> headers(final WebFile file) {
-        final Long contentSize = Long.valueOf(file.contentSize());
+        final Long contentSize = file.contentSize();
 
         return file.etag()
                 .map( etag ->

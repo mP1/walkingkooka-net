@@ -42,7 +42,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
     @Test
     public void testAddEntityContentLengthSetBefore() {
         final byte[] bytes = new byte[]{1, 2, 3};
-        this.addEntityAndCheck(Long.valueOf(bytes.length),
+        this.addEntityAndCheck((long) bytes.length,
                 bytes);
     }
 
@@ -73,7 +73,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         }
         final Binary bodyBinary = Binary.with(body);
         response.addEntity(HttpEntity.with(headers, bodyBinary));
-        assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), bodyBinary)),
+        assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, (long) body.length), bodyBinary)),
                 added,
                 "added entity");
     }
