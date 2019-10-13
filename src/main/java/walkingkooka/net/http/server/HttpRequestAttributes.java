@@ -103,7 +103,7 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
         if (position >= VALUES.length) {
             throw new NoSuchElementException();
         }
-        final HttpRequestAttributes key = VALUES[position];
+        final HttpRequestAttributes<?> key = VALUES[position];
         return Maps.entry(key, key.parameterValue(request).get());
     }
 
