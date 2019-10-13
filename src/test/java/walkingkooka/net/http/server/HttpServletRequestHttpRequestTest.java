@@ -30,7 +30,6 @@ import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;

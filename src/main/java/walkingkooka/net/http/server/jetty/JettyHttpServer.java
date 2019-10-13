@@ -40,7 +40,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 
 /**
  * A {@link HttpServer} that uses an embedded JETTY servlet container.
