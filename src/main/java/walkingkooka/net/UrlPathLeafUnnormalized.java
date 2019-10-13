@@ -49,9 +49,7 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
     public UrlPath normalize() {
         UrlPath normalized = ROOT;
 
-        for (Iterator<UrlPathName> names = this.iterator(); names.hasNext(); ) {
-            final UrlPathName name = names.next();
-
+        for (final UrlPathName name : this) {
             switch (name.value()) {
                 case "":
                     break;
