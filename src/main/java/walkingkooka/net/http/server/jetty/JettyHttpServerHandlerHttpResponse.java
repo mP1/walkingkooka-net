@@ -86,7 +86,7 @@ final class JettyHttpServerHandlerHttpResponse implements HttpResponse {
         }
     }
 
-    private static MediaType copyHeaders(final HttpEntity entity, final HttpServletResponse response) throws IOException {
+    private static MediaType copyHeaders(final HttpEntity entity, final HttpServletResponse response) {
         MediaType contentType = null;
 
         for(Entry<HttpHeaderName<?>, ?> headerAndValues : entity.headers().entrySet()) {

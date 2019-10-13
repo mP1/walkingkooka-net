@@ -197,7 +197,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
                     }
 
                     @Override
-                    public int read() throws IOException {
+                    public int read() {
                         return bytes.read();
                     }
                 };
