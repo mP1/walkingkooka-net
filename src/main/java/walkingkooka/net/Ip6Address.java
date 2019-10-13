@@ -55,7 +55,7 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
             throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + copy.length + "=" + Arrays.toString(components));
         }
 
-        return new Ip6Address(components);
+        return new Ip6Address(copy);
     }
 
     /**
