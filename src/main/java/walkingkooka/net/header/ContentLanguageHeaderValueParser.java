@@ -111,5 +111,5 @@ final class ContentLanguageHeaderValueParser extends HeaderValueParser {
         this.failInvalidCharacter();
     }
 
-    private List<LanguageName> languages = Lists.array();
+    private final List<LanguageName> languages = Lists.array();
 }
