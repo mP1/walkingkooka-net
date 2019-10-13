@@ -45,6 +45,7 @@ final public class ServerCookie extends Cookie {
      * Set-Cookie: LSID=DQAAAK�Eaem_vYg; Domain=docs.foo.com; Path=/accounts; Expires=Wed, 13-Jan-2021 22:23:01 GMT; Secure; HttpOnly
      * </pre>
      */
+    @SuppressWarnings("UnnecessaryLocalVariable")
     static ServerCookie parseHeader(final String header) {
         Objects.requireNonNull(header, "header");
 
