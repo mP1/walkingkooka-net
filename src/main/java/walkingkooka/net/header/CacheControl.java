@@ -217,7 +217,7 @@ public final class CacheControl extends HeaderValue2<List<CacheControlDirective<
         return HeaderValue.toHeaderTextList(this.value, SEPARATOR);
     }
 
-    final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

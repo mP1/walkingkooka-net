@@ -67,7 +67,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     /**
      * The {@link HttpHeaderName}.
      */
-    final static HttpHeaderName<IfRange<?>> HEADER_NAME = HttpHeaderName.IF_RANGE;
+    private final static HttpHeaderName<IfRange<?>> HEADER_NAME = HttpHeaderName.IF_RANGE;
 
     /**
      * Parses an if-range header into an {@link IfRange}.

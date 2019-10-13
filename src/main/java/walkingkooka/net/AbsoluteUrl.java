@@ -171,7 +171,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 new AbsoluteUrl(scheme, this.credentials, this.host, this.port, this.path, this.query, this.fragment);
     }
 
-    final UrlScheme scheme;
+    private final UrlScheme scheme;
 
     /**
      * Returns the credentials with this URL.
@@ -188,7 +188,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 new AbsoluteUrl(this.scheme, credentials, this.host, this.port, this.path, this.query, this.fragment);
     }
 
-    final Optional<UrlCredentials> credentials;
+    private final Optional<UrlCredentials> credentials;
 
     /**
      * Retrieves the {@link HostAddress} embedded within this URL.
@@ -205,7 +205,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
     }
 
-    final HostAddress host;
+    private final HostAddress host;
 
     /**
      * Retrieves the {@link IpPort} within this URL. Note this value is never null and if not present in the URL will have the default for the scheme.
@@ -222,7 +222,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 new AbsoluteUrl(this.scheme, this.credentials, this.host, port, this.path, this.query, this.fragment);
     }
 
-    final Optional<IpPort> port;
+    private final Optional<IpPort> port;
 
     @Override
     public AbsoluteUrl set(final UrlScheme scheme,

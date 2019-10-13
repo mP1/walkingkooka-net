@@ -57,7 +57,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     /**
      * The line ending used in http requests/responses.
      */
-    public final static LineEnding LINE_ENDING = LineEnding.CRNL;
+    private final static LineEnding LINE_ENDING = LineEnding.CRNL;
 
     /**
      * The separator that follows a header name and comes before a any values.

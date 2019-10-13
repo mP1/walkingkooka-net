@@ -192,7 +192,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * Builds the json representation of this link, with the value assigned to HREF attribute.
      */
-    JsonNode marshall(final JsonNodeMarshallContext context) {
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObjectNode json = JsonNode.object()
                 .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
 

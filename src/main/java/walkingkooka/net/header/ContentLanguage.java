@@ -76,7 +76,7 @@ public final class ContentLanguage extends HeaderValue2<List<LanguageName>> {
                 .collect(Collectors.joining(SEPARATOR));
     }
 
-    final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

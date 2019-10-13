@@ -193,8 +193,8 @@ public abstract class Url implements HashCodeEqualsDefined,
     /**
      * Accepts a json string holding an {@link Url}.
      */
-    static Url unmarshall(final JsonNode node,
-                          final JsonNodeUnmarshallContext context) {
+    private static Url unmarshall(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
         return unmarshall0(node, Url::parse);
     }
 
@@ -229,7 +229,7 @@ public abstract class Url implements HashCodeEqualsDefined,
         return parse.apply(node.stringValueOrFail());
     }
 
-    JsonNode marshall(final JsonNodeMarshallContext context) {
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.string(this.value());
     }
 

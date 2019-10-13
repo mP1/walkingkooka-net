@@ -43,14 +43,14 @@ abstract class UrlPathLeaf extends UrlPath {
         return this.name;
     }
 
-    transient final UrlPathName name;
+    private transient final UrlPathName name;
 
     @Override
     public final Optional<UrlPath> parent() {
         return this.parent;
     }
 
-    transient final Optional<UrlPath> parent;
+    private transient final Optional<UrlPath> parent;
 
     @Override
     public final String value() {
