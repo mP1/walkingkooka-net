@@ -66,8 +66,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
 
     @Override
     final ContentDispositionFileNameNotEncoded computeWithoutPath() {
-        final String value = this.name;
-        final String without = removePathIfNecessaryOrNull(value);
+        final String without = removePathIfNecessaryOrNull(this.name);
         
         return null == without ?
                 this :
