@@ -102,7 +102,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
     private Map<HttpHeaderName<?>, Object> headers() {
         return Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
-                HttpHeaderName.CONTENT_LENGTH, 0L + CONTENT_LENGTH,
+                HttpHeaderName.CONTENT_LENGTH, (long)CONTENT_LENGTH,
                 HttpHeaderName.SERVER, "Server 123");
     }
 
