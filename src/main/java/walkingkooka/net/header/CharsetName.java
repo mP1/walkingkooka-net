@@ -60,6 +60,7 @@ public abstract class CharsetName extends HeaderNameValue
     /**
      * The {@link CharsetName} holding a wildcard.
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static CharsetName WILDCARD_CHARSET = CharsetNameWildcard.INSTANCE;
 
     /**
