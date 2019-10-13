@@ -84,7 +84,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         // content type, content-length
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)body.length);
 
         return new HttpEntity(headers, Binary.with(body));
     }

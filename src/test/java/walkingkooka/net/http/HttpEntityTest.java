@@ -420,7 +420,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final byte[] body = text.getBytes(CharsetName.UTF_8.charset().get());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)body.length);
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
 
         this.check(HttpEntity.text(contentType, text),

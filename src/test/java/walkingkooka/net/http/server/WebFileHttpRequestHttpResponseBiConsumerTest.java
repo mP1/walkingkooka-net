@@ -172,7 +172,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT1.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
 
         expected.addEntity(HttpEntity.with(headers, CONTENT1));
@@ -193,7 +193,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT1.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
 
         expected.addEntity(HttpEntity.with(headers, CONTENT1));
@@ -214,7 +214,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT2.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT2.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2);
         headers.put(HttpHeaderName.E_TAG, ETAG2);
 
@@ -236,7 +236,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT1.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
 
         expected.addEntity(HttpEntity.with(headers, HttpEntity.NO_BODY));
@@ -257,7 +257,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT1.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
 
         expected.addEntity(HttpEntity.with(headers, CONTENT1));
@@ -278,7 +278,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
         headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(CONTENT2.size()));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT2.size());
         headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2);
         headers.put(HttpHeaderName.E_TAG, ETAG2);
 

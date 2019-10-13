@@ -149,7 +149,7 @@ public final class JettyHttpServer implements HttpServer {
             final Map<HttpHeaderName<?>, Object> headers = Maps.of(
                     HttpHeaderName.SERVER, "JettyServer",
                     HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
-                    HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes.length));
+                    HttpHeaderName.CONTENT_LENGTH, (long)bytes.length);
 
             res.addEntity(HttpEntity.with(headers, Binary.with(bytes)));
 

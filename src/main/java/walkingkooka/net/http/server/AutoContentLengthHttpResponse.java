@@ -78,7 +78,7 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
                         HttpHeaderName.CONTENT_LENGTH + "=" + responseContentLength);
             }
         } else {
-            add = add.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(contentLength));
+            add = add.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength);
         }
         this.response.addEntity(add);
     }
