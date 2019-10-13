@@ -232,7 +232,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @SafeVarargs
-    private final void parseStringAndCheck(final String text,
+    private void parseStringAndCheck(final String text,
                                      final RangeHeaderValueUnit unit,
                                      final Range<Long>... values) {
         this.parseStringAndCheck(text, RangeHeaderValue.with(unit, Lists.of(values)));
@@ -278,9 +278,9 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @SafeVarargs
-    private final void toHeaderTextAndCheck(final String headerText,
-                                            final RangeHeaderValueUnit unit,
-                                            final Range<Long>... ranges) {
+    private void toHeaderTextAndCheck(final String headerText,
+                                      final RangeHeaderValueUnit unit,
+                                      final Range<Long>... ranges) {
         this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
     }
 
@@ -324,9 +324,9 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @SafeVarargs
-    private final void toStringAndCheck(final String toString,
-                                        final RangeHeaderValueUnit unit,
-                                        final Range<Long>... ranges) {
+    private void toStringAndCheck(final String toString,
+                                  final RangeHeaderValueUnit unit,
+                                  final Range<Long>... ranges) {
         this.toStringAndCheck(this.range(unit, ranges), toString);
     }
 
@@ -335,8 +335,8 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @SafeVarargs
-    private final RangeHeaderValue range(final RangeHeaderValueUnit unit,
-                                         final Range<Long>... ranges) {
+    private RangeHeaderValue range(final RangeHeaderValueUnit unit,
+                                   final Range<Long>... ranges) {
         return RangeHeaderValue.with(unit, Lists.of(ranges));
     }
 
