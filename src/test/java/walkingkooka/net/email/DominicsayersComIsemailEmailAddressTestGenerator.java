@@ -170,7 +170,7 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
      * Returns the text for the first element in the {@link NodeList}.
      */
     private static String textContent(final NodeList list) {
-        return ((Element) list.item(0)).getTextContent().trim();
+        return list.item(0).getTextContent().trim();
     }
 
     /**
