@@ -177,32 +177,32 @@ abstract class FakeHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public boolean authenticate(HttpServletResponse httpServletResponse) throws IOException, ServletException {
+    public boolean authenticate(HttpServletResponse httpServletResponse) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void login(final String s, final String s1) throws ServletException {
+    public void login(final String s, final String s1) {
 
     }
 
     @Override
-    public void logout() throws ServletException {
+    public void logout() {
 
     }
 
     @Override
-    public Collection<Part> getParts() throws IOException, ServletException {
+    public Collection<Part> getParts() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Part getPart(final String s) throws IOException, ServletException {
+    public Part getPart(final String s) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T extends HttpUpgradeHandler> T upgrade(final Class<T> aClass) throws IOException, ServletException {
+    public <T extends HttpUpgradeHandler> T upgrade(final Class<T> aClass) {
         throw new UnsupportedOperationException();
     }
 
@@ -222,7 +222,7 @@ abstract class FakeHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public void setCharacterEncoding(final String s) throws UnsupportedEncodingException {
+    public void setCharacterEncoding(final String s) {
         throw new UnsupportedOperationException();
     }
 
@@ -242,7 +242,7 @@ abstract class FakeHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public ServletInputStream getInputStream() throws IOException {
+    public ServletInputStream getInputStream() {
         throw new UnsupportedOperationException();
     }
 
@@ -287,7 +287,7 @@ abstract class FakeHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public BufferedReader getReader() throws IOException {
+    public BufferedReader getReader() {
         throw new UnsupportedOperationException();
     }
 
