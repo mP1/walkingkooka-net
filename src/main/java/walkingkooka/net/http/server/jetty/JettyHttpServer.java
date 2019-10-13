@@ -121,13 +121,11 @@ public final class JettyHttpServer implements HttpServer {
             b.append("headers\n");
 
             req.headers()
-                    .entrySet()
-                    .forEach((kv) -> {
-                        final HttpHeaderName<?> header = kv.getKey();
+                    .forEach((header, value) -> {
                         b.append("  ");
                         b.append(header);
                         b.append(": ");
-                        b.append(header.headerText(Cast.to(kv.getValue())));
+                        b.append(header.headerText(Cast.to(value)));
                         b.append('\n');
                     });
 
@@ -135,12 +133,11 @@ public final class JettyHttpServer implements HttpServer {
             b.append("parameters\n");
 
             req.parameters()
-                    .entrySet()
-                    .forEach((kv) -> {
+                    .forEach((key, value) -> {
                         b.append("  ");
-                        b.append(kv.getKey());
+                        b.append(key);
                         b.append('=');
-                        b.append(kv.getValue().stream().collect(Collectors.joining(", ")));
+                        b.append(value.stream().collect(Collectors.joining(", ")));
                         b.append('\n');
                     });
 
