@@ -33,7 +33,7 @@ abstract class HeaderValue2<V> implements HeaderValue, Value<V> {
                                              final String label) {
         Objects.requireNonNull(list, label);
         final List<V> copy = Lists.immutable(list);
-        copy.stream()
+        copy
                 .forEach(v -> Objects.requireNonNull(v, label + " includes null"));
         if(copy.isEmpty()) {
             throw new IllegalArgumentException("Empty " + label);
