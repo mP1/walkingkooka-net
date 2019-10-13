@@ -574,7 +574,7 @@ public final class CacheControlHeaderValueParserTest extends HeaderValueParserTe
     }
 
     private void parseStringAndCheck3(final String text,
-                                final CacheControlDirective... directives) {
+                                      final CacheControlDirective<?>... directives) {
         this.parseStringAndCheck(text, CacheControl.with(Lists.of(directives)));
     }
 
