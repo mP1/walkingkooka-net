@@ -464,7 +464,7 @@ abstract class HeaderValueParser {
      * </pre>
      */
     final void skipComment() {
-        this.position = HeaderComments.COMMENT_TEXT.consume(this.text, this.position);
+        this.position = HeaderComments.consume(this.text, this.position);
     }
 
     // helpers ..................................................................................
