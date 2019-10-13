@@ -50,8 +50,8 @@ final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlP
      * Fills the cache with instances.
      */
     private final static HttpRequestAttributeUrlPathName[] CACHE = IntStream.range(0, CONSTANT_COUNT)
-            .mapToObj(i -> new HttpRequestAttributeUrlPathName(i))
-            .toArray(i -> new HttpRequestAttributeUrlPathName[i]);
+            .mapToObj(HttpRequestAttributeUrlPathName::new)
+            .toArray(HttpRequestAttributeUrlPathName[]::new);
 
     /**
      * Private ctor use factory.

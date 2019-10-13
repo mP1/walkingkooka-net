@@ -53,7 +53,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertEquals(Sets.of(HttpHeaderName.E_TAG, HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
                 HttpHeaderName.CONSTANTS.values()
                 .stream()
-                .filter(h -> h.isConditional())
+                .filter(HttpHeaderName::isConditional)
                 .collect(Collectors.toCollection(Sets::sorted)));
     }
 
@@ -154,7 +154,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testAcceptConstantsRequest() {
         this.constantScopeCheck("accept-",
                 "accept-ranges",
-                (h) -> h.isRequest(),
+                HttpHeaderName::isRequest,
                 true,
                 "isRequest");
     }
@@ -163,7 +163,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testAcceptConstantsResponse() {
         this.constantScopeCheck("accept-",
                 "accept-ranges",
-                (h) -> h.isResponse(),
+                HttpHeaderName::isResponse,
                 false,
                 "isResponse");
     }
@@ -172,7 +172,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testContentConstantsRequest() {
         this.constantScopeCheck("content-",
                 "",
-                (h) -> h.isRequest(),
+                HttpHeaderName::isRequest,
                 true,
                 "isRequest");
     }
@@ -181,7 +181,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testContentConstantsResponse() {
         this.constantScopeCheck("content-",
                 "",
-                (h) -> h.isResponse(),
+                HttpHeaderName::isResponse,
                 true,
                 "isResponse");
     }
@@ -220,9 +220,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testStringValuesNonStringHeaderFails() {
-        assertThrows(HttpHeaderNameTypeParameterHeaderException.class, () -> {
-            HttpHeaderName.CONTENT_LENGTH.stringValues();
-        });
+        assertThrows(HttpHeaderNameTypeParameterHeaderException.class, HttpHeaderName.CONTENT_LENGTH::stringValues);
     }
 
     // headerValue.........................................................................

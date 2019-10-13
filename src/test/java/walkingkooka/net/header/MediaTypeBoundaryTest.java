@@ -151,7 +151,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
-        assertEquals(delimiter, boundary.multipartBoundaryDelimiter(), () -> boundary.toString());
+        assertEquals(delimiter, boundary.multipartBoundaryDelimiter(), boundary::toString);
     }
 
     // generate ....................................................................................................

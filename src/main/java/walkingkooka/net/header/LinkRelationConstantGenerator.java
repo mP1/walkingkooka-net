@@ -98,7 +98,7 @@ final class LinkRelationConstantGenerator {
     private static void record0(final XmlElement element) {
         final List<XmlNode> children = element.children()
                 .stream()
-                .filter(e -> e.isElement())
+                .filter(XmlNode::isElement)
                 .collect(Collectors.toList());
 
         final String value = children.get(0).text();

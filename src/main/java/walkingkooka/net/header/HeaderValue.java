@@ -45,7 +45,7 @@ public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
         Objects.requireNonNull(separator, "separator");
 
         return headerValues.stream()
-                .map(t -> t.toHeaderText())
+                .map(HeaderValue::toHeaderText)
                 .collect(Collectors.joining(separator));
     }
 

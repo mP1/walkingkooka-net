@@ -56,7 +56,7 @@ final class HttpMethodListHeaderValueHandler extends NonStringHeaderValueHandler
     @Override
     String toText0(final List<HttpMethod> value, final Name name) {
         return value.stream()
-                .map(m -> m.value())
+                .map(HttpMethod::value)
                 .collect(Collectors.joining(", "));
     }
 
