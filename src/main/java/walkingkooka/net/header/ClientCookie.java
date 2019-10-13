@@ -67,8 +67,7 @@ final public class ClientCookie extends Cookie {
         final List<ClientCookie> cookies = Lists.array();
         final String[] tokens = header.split(PARAMETER_SEPARATOR.string());
 
-        for (int i = 0; i < tokens.length; i++) {
-            final String token = tokens[i];
+        for (final String token : tokens) {
             final int nameEnd = token.indexOf(nameValueSeparator);
             cookies.add(Cookie.client(//
                     CookieName.with(token.substring(0, -1 == nameEnd ? token.length() : nameEnd).trim()), // name
