@@ -176,7 +176,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
                     if (!child.isString()) {
                         throw new JsonNodeUnmarshallException("Property " + name + " is not a String=" + node, node);
                     }
-                    href = JsonStringNode.class.cast(child).value();
+                    href = child.cast(JsonStringNode.class).value();
                     break;
                 default:
                     JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);

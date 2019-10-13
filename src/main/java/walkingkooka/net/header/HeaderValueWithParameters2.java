@@ -104,7 +104,7 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
      * Package private helper because not all sub classes need this.
      */
     final Optional<Float> qualityFactor(final P parameter) {
-        return Optional.ofNullable(Float.class.cast(this.parameters().get(parameter)));
+        return Optional.ofNullable((Float)this.parameters().get(parameter));
     }
 
     // headerValue..................................................................................................

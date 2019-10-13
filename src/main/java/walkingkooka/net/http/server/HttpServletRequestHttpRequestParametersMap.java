@@ -48,7 +48,7 @@ final class HttpServletRequestHttpRequestParametersMap extends AbstractMap<HttpR
     @Override
     public boolean containsKey(final Object key) {
         return key instanceof HttpRequestParameterName &&
-                this.containsKey0(HttpRequestParameterName.class.cast(key));
+                this.containsKey0((HttpRequestParameterName) key);
     }
 
     private boolean containsKey0(final HttpRequestParameterName key) {
@@ -75,7 +75,7 @@ final class HttpServletRequestHttpRequestParametersMap extends AbstractMap<HttpR
     @Override
     public List<String> getOrDefault(final Object key, final List<String> defaultValue) {
         return key instanceof HttpRequestParameterName ?
-                this.getOrDefault0(HttpRequestParameterName.class.cast(key), defaultValue) :
+                this.getOrDefault0((HttpRequestParameterName) key, defaultValue) :
                 defaultValue;
     }
 

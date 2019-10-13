@@ -76,12 +76,12 @@ public enum HttpHeaderScope {
         Objects.requireNonNull(value, "value");
 
         if (value instanceof HasHeaderScope) {
-            if (this.isNotAcceptable(HasHeaderScope.class.cast(value))) {
+            if (this.isNotAcceptable((HasHeaderScope) value)) {
                 this.failInvalidHeader(name, value);
             }
         }
         if (value instanceof List) {
-            final List<?> list = List.class.cast(value);
+            final List<?> list = (List<?>) value;
             if (list.stream()
                     .anyMatch(this::isNotAcceptable)) {
                 this.failInvalidHeader(name, value);
@@ -91,7 +91,7 @@ public enum HttpHeaderScope {
 
     private boolean isNotAcceptable(final Object has) {
         return has instanceof HasHeaderScope &&
-                this.isNotAcceptable(HasHeaderScope.class.cast(has));
+                this.isNotAcceptable((HasHeaderScope) has);
     }
 
     abstract boolean isNotAcceptable(final HasHeaderScope other);
