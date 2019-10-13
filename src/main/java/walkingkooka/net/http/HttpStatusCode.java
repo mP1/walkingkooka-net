@@ -254,7 +254,7 @@ public enum HttpStatusCode {
         this.status = HttpStatus.with(this, this.message);
 
         // all redirects except for multiple choices require a location header.
-        this.requiredHttpHeaders = this.isNotMultipleChoicesAndDirect(code, category) ?
+        this.requiredHttpHeaders = isNotMultipleChoicesAndDirect(code, category) ?
                 Sets.of(HttpHeaderName.LOCATION) :
                 Sets.of(requiredHttpHeaders);
     }
