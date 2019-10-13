@@ -27,7 +27,7 @@ final class UrlPathRoot extends UrlPath {
     /**
      * Used to create the {@link UrlPath#ROOT} constant
      */
-    final static UrlPathRoot root() {
+    static UrlPathRoot root() {
         return new UrlPathRoot();
     }
 

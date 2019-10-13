@@ -26,7 +26,7 @@ final class LinkRelationSelf extends LinkRelation<String> {
     /**
      * Unconditionally creates a {@link LinkRelationSelf}
      */
-    final static LinkRelationSelf create() {
+    static LinkRelationSelf create() {
         return new LinkRelationSelf();
     }
 
