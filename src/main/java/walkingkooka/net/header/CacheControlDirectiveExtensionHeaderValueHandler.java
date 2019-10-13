@@ -70,18 +70,18 @@ final class CacheControlDirectiveExtensionHeaderValueHandler extends NonStringHe
     @Override
     String toText0(final Object value, final Name name) {
         return value instanceof Long ?
-                this.toTextLong(Long.class.cast(value), name) :
+                this.toTextLong((long)value, name) :
                 value instanceof String ?
-                        this.toTextString(String.class.cast(value), name) :
+                        this.toTextString((String)value, name) :
                         this.failInvalidValue(value, name);
     }
 
     private String toTextLong(final Long value, final Name name) {
-        return LONG.toText(Long.class.cast(value), name);
+        return LONG.toText(value, name);
     }
 
     private String toTextString(final String value, final Name name) {
-        return QUOTED_UNQUOTED_STRING.toText(String.class.cast(value), name);
+        return QUOTED_UNQUOTED_STRING.toText(value, name);
     }
 
     private String failInvalidValue(final Object value, final Name name) {

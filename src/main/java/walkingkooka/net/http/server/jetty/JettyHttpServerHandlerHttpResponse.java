@@ -96,8 +96,8 @@ final class JettyHttpServerHandlerHttpResponse implements HttpResponse {
             response.addHeader(headerName.value(),
                     headerName.headerText(Cast.to(headerValue)));
 
-            if(HttpHeaderName.CONTENT_TYPE.equals(headerName)) {
-                contentType = MediaType.class.cast(headerName.checkValue(headerValue));
+            if (HttpHeaderName.CONTENT_TYPE.equals(headerName)) {
+                contentType = (MediaType) headerName.checkValue(headerValue);
             }
         }
 

@@ -88,8 +88,8 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
         check(value);
 
         return Cast.to(value instanceof ETag ?
-                IfRangeETag.etag(ETag.class.cast(value)) :
-                IfRangeLastModified.lastModified(LocalDateTime.class.cast(value)));
+                IfRangeETag.etag((ETag) value) :
+                IfRangeLastModified.lastModified((LocalDateTime) value));
     }
 
     /**
