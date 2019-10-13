@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public interface HasQualityFactorSortedValuesTesting extends Testing {
 
+    @SuppressWarnings("unchecked")
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
                                                                           final V... sorted) {
         this.qualitySortedValuesAndCheck(has, Lists.of(sorted));
