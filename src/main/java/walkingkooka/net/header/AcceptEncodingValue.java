@@ -80,6 +80,7 @@ public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<Acc
     /**
      * Holds a {@link AcceptEncodingValue wildcard}
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static AcceptEncodingValue WILDCARD_ENCODING = AcceptEncodingValueWildcard.with(NO_PARAMETERS);
 
     /**

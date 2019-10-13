@@ -41,6 +41,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     /**
      * Returns a wildcard {@link LanguageName}
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static LanguageName WILDCARD = LanguageNameWildcard.INSTANCE;
 
     /**

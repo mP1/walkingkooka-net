@@ -428,6 +428,7 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
     /**
      * Conveys an identifier for the link's context.
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static LinkRelation<String> SELF = registerConstant(LinkRelationSelf.create());
 
     /**

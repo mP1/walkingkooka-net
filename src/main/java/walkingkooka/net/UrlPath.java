@@ -45,6 +45,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     /**
      * Singleton {@link UrlPath} with a {@link PathSeparator#string()}.
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static UrlPath ROOT = UrlPathRoot.root();
 
     final static Optional<UrlPath> ROOT_PARENT = Optional.of(ROOT);
@@ -52,6 +53,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     /**
      * Singleton {@link UrlPath} with an empty {@link String path}.
      */
+    @SuppressWarnings("StaticInitializerReferencesSubClass")
     public final static UrlPath EMPTY = UrlPathEmpty.empty();
 
     final static Optional<UrlPath> EMPTY_PARENT = Optional.of(EMPTY);
