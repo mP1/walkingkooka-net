@@ -94,13 +94,9 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
     UrlPathName[] pathNames() {
         if (null == this.pathNames) {
             final List<UrlPathName> names = Lists.array();
-            final Iterator<UrlPathName> i = this.url()
-                    .path()
-                    .normalize()
-                    .iterator();
 
-            while (i.hasNext()) {
-                names.add(i.next());
+            for (final UrlPathName pathName : this.url().path().normalize()) {
+                names.add(pathName);
             }
             this.pathNames = names.toArray(new UrlPathName[names.size()]);
         }
