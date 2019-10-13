@@ -43,7 +43,7 @@ final class CacheControlDirectiveExtensionHeaderValueHandler extends NonStringHe
      * Try parsing as a {@link Long} and then {@link String}
      */
     @Override
-    Object parse0(final String text, final Name name) throws HeaderValueException, RuntimeException {
+    Object parse0(final String text, final Name name) throws HeaderValueException {
         Object value;
 
         try {
