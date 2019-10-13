@@ -37,9 +37,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
     @Test
     public void testWithNullHeadersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DefaultHeadersHttpResponse.with(null, HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> DefaultHeadersHttpResponse.with(null, HttpResponses.fake()));
     }
 
     @Test

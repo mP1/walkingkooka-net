@@ -39,16 +39,12 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> imp
 
     @Test
     public final void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createAddress(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createAddress(null));
     }
 
     @Test
     public final void testWithEmptyComponentsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createAddress(new byte[0]);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createAddress(new byte[0]));
     }
 
     @Test

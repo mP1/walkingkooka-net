@@ -39,32 +39,24 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MediaTypeBoundary.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            MediaTypeBoundary.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> MediaTypeBoundary.with(""));
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            MediaTypeBoundary.with("abc\"def");
-        });
+        assertThrows(InvalidCharacterException.class, () -> MediaTypeBoundary.with("abc\"def"));
     }
 
     @Test
     public void testWithTooLongFails() {
         final char[] c = new char[MediaTypeBoundary.MAX_LENGTH];
         Arrays.fill(c, 'a');
-        assertThrows(InvalidTextLengthException.class, () -> {
-            MediaTypeBoundary.with(new String(c));
-        });
+        assertThrows(InvalidTextLengthException.class, () -> MediaTypeBoundary.with(new String(c)));
     }
 
     @Test
@@ -158,16 +150,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testGenerateNullBodyFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE);
-        });
+        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE));
     }
 
     @Test
     public void testGenerateNullBoundaryCharacterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MediaTypeBoundary.generate(new byte[0], null);
-        });
+        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.generate(new byte[0], null));
     }
 
     @Test

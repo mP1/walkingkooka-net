@@ -36,9 +36,7 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
 
     @Test
     default void testToValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName().toValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createName().toValue(null));
     }
 
     default <V> void toValueAndCheck(final HeaderName<V> name,
@@ -61,16 +59,12 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
 
     @Test
     default void testCheckValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.checkValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.checkValue(null));
     }
 
     @Test
     default void testCheckValueInvalidTypeFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.checkValue(this);
-        });
+        assertThrows(HeaderValueException.class, () -> this.checkValue(this));
     }
 
     default void checkValue(final Object value) {

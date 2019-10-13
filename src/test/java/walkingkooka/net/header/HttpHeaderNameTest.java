@@ -227,9 +227,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testHeaderValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpHeaderName.ALLOW.headerValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerValue(null));
     }
 
 
@@ -274,16 +272,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testHeaderValueOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpHeaderName.ALLOW.headerValueOrFail(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerValueOrFail(null));
     }
 
     @Test
     public void testHeaderValueOrFailAbsent() {
-        assertThrows(HeaderValueException.class, () -> {
-            HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L));
-        });
+        assertThrows(HeaderValueException.class, () -> HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L)));
     }
 
     @Test
@@ -340,9 +334,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testHeaderTextNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpHeaderName.CONNECTION.headerText(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.CONNECTION.headerText(null));
     }
 
     @Test

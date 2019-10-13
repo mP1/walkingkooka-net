@@ -29,23 +29,17 @@ public final class OffsetDateTimeHeaderValueHandlerTest extends
 
     @Test
     public void testyParseEmptyFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse(""));
     }
 
     @Test
     public void testyParseMissingOpeningDoubleQuoteFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("abc\"");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("abc\""));
     }
 
     @Test
     public void testyParseMissingClosingDoubleQuoteFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("\"abc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("\"abc"));
     }
 
     @Override
@@ -55,10 +49,8 @@ public final class OffsetDateTimeHeaderValueHandlerTest extends
 
     @Test
     public void testDateWithGmtFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            OffsetDateTimeHeaderValueHandler.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
-                    ContentDispositionParameterName.CREATION_DATE);
-        });
+        assertThrows(HeaderValueException.class, () -> OffsetDateTimeHeaderValueHandler.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
+                ContentDispositionParameterName.CREATION_DATE));
     }
 
     @Test

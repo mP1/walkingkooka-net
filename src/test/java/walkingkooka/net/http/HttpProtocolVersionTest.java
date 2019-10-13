@@ -47,9 +47,7 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
 
     @Test
     public void testFromNullVersionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpProtocolVersion.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpProtocolVersion.with(null));
     }
 
     @Test
@@ -69,9 +67,7 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
 
     @Test
     public void testFromUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpProtocolVersion.with("unknown/???");
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpProtocolVersion.with("unknown/???"));
     }
 
     @Test

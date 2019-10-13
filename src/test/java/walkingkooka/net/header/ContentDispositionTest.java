@@ -39,9 +39,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentDisposition.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentDisposition.with(null));
     }
 
     @Test
@@ -53,9 +51,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetTypeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHeaderValueWithParameters().setType(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHeaderValueWithParameters().setType(null));
     }
 
     @Test

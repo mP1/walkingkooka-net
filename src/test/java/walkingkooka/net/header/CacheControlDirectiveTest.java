@@ -35,23 +35,17 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     @Test
     public void testWithNameNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CacheControlDirective.with(null, Optional.empty());
-        });
+        assertThrows(NullPointerException.class, () -> CacheControlDirective.with(null, Optional.empty()));
     }
 
     @Test
     public void testWithParameterNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CacheControlDirective.with(CacheControlDirectiveName.PUBLIC, null);
-        });
+        assertThrows(NullPointerException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.PUBLIC, null));
     }
 
     @Test
     public void testWithParameterInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty());
-        });
+        assertThrows(HeaderValueException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty()));
     }
 
     @Test
@@ -67,17 +61,13 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     @Test
     public void testSetParameterNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CacheControlDirective.NO_STORE.setParameter(null);
-        });
+        assertThrows(NullPointerException.class, () -> CacheControlDirective.NO_STORE.setParameter(null));
     }
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
-                    .setParameter(Optional.empty());
-        });
+        assertThrows(HeaderValueException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
+                .setParameter(Optional.empty()));
     }
 
     @Test

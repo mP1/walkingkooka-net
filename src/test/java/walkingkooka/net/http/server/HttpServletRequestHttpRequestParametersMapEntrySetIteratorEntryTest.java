@@ -49,9 +49,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
 
     @Test
     public void testSetValueFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createEntry().setValue(Lists.empty());
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createEntry().setValue(Lists.empty()));
     }
 
     @Test

@@ -79,9 +79,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
 
     @Test
     public void testHeadersContainsKeyResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            this.createRequest().headers().containsKey(HttpHeaderName.SET_COOKIE);
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> this.createRequest().headers().containsKey(HttpHeaderName.SET_COOKIE));
     }
 
     @Test
@@ -108,9 +106,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
 
     @Test
     public void testHeadersGetResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            this.createRequest().headers().get(HttpHeaderName.SET_COOKIE);
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> this.createRequest().headers().get(HttpHeaderName.SET_COOKIE));
     }
 
     @Test

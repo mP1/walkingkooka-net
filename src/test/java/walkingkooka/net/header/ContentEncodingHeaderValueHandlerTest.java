@@ -58,9 +58,7 @@ public final class ContentEncodingHeaderValueHandlerTest extends NonStringHeader
 
     @Test
     public void testCheckEmptyListFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            ContentEncodingHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_ENCODING);
-        });
+        assertThrows(HeaderValueException.class, () -> ContentEncodingHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_ENCODING));
     }
 
     @Test

@@ -28,9 +28,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Test
     public void testETag() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.createHeaderValue().etag();
-        });
+        assertThrows(HeaderValueException.class, () -> this.createHeaderValue().etag());
     }
 
     @Test

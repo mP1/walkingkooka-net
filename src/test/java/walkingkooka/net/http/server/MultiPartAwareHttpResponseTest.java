@@ -37,9 +37,7 @@ public final class MultiPartAwareHttpResponseTest extends BufferingHttpResponseT
 
     @Test
     public void testWithRequestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MultiPartAwareHttpResponse.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> MultiPartAwareHttpResponse.with(null));
     }
 
     @Test

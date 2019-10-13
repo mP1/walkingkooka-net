@@ -36,16 +36,12 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
 
     @Test
     public void testNullUserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UrlCredentials.with(null, PASSWORD);
-        });
+        assertThrows(NullPointerException.class, () -> UrlCredentials.with(null, PASSWORD));
     }
 
     @Test
     public void testNullPasswordFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UrlCredentials.with(USER, null);
-        });
+        assertThrows(NullPointerException.class, () -> UrlCredentials.with(USER, null));
     }
 
     @Test

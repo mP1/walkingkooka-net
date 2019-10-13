@@ -128,17 +128,13 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
     @Test
     public void testWithUrlNullUrlPathBaseFails() {
-        assertThrows(NullPointerException.class, () -> {
-                    WebFileHttpRequestHttpResponseBiConsumer.with(null, FILES);
-                }
+        assertThrows(NullPointerException.class, () -> WebFileHttpRequestHttpResponseBiConsumer.with(null, FILES)
         );
     }
 
     @Test
     public void testWithNullFilesFails() {
-        assertThrows(NullPointerException.class, () -> {
-                    WebFileHttpRequestHttpResponseBiConsumer.with(this.baseUrlPath(), null);
-                }
+        assertThrows(NullPointerException.class, () -> WebFileHttpRequestHttpResponseBiConsumer.with(this.baseUrlPath(), null)
         );
     }
 

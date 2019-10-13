@@ -46,16 +46,12 @@ public final class ClientCookieListHeaderValueHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.cookie(), null));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.cookie(), null)));
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.cookie(), "WRONG!"));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.cookie(), "WRONG!")));
     }
 
     private ClientCookie cookie() {

@@ -43,10 +43,8 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     @Test
     public void testWithRequestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LastModifiedAwareHttpResponse.with(null,
-                    HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> LastModifiedAwareHttpResponse.with(null,
+                HttpResponses.fake()));
     }
 
     @Test

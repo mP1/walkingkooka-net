@@ -64,20 +64,16 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
 
     @Test
     public void testWithNullRequestFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RangeAwareHttpResponse.with(null,
-                    HttpResponses.fake(),
-                    BOUNDARY_CHARACTERS);
-        });
+        assertThrows(NullPointerException.class, () -> RangeAwareHttpResponse.with(null,
+                HttpResponses.fake(),
+                BOUNDARY_CHARACTERS));
     }
 
     @Test
     public void testWithNullBoundaryCharactersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RangeAwareHttpResponse.with(HttpRequests.fake(),
-                    HttpResponses.fake(),
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> RangeAwareHttpResponse.with(HttpRequests.fake(),
+                HttpResponses.fake(),
+                null));
     }
 
     @Test

@@ -37,9 +37,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createETag().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createETag().setValue(null));
     }
 
     @Test
@@ -49,9 +47,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     @Test
     public final void testSetValueInvalidCharactersFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createETag().setValue(" ");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createETag().setValue(" "));
     }
 
     @Test
@@ -72,9 +68,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     @Test
     public final void testSetValidatorNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createETag().setValidator(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createETag().setValidator(null));
     }
 
     @Test

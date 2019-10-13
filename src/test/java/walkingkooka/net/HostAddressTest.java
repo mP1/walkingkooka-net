@@ -47,9 +47,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HostAddress.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> HostAddress.with(null));
     }
 
     @Test
@@ -104,9 +102,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     }
 
     private void withFails(final String address, final String message) {
-        final Exception expected = assertThrows(RuntimeException.class, () -> {
-            HostAddress.with(address);
-        });
+        final Exception expected = assertThrows(RuntimeException.class, () -> HostAddress.with(address));
         if (null != message) {
             checkMessage(expected, message);
         }

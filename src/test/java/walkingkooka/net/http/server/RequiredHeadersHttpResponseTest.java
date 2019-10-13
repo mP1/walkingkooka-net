@@ -38,10 +38,8 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
 
     @Test
     public void testWithRequestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RequiredHeadersHttpResponse.with(null,
-                    HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> RequiredHeadersHttpResponse.with(null,
+                HttpResponses.fake()));
     }
 
     @Test

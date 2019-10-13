@@ -47,9 +47,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
 
     @Test
     public void testSetFilenameNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentDispositionType.ATTACHMENT.setFilename(null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentDispositionType.ATTACHMENT.setFilename(null));
     }
 
     @Test
@@ -66,9 +64,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
 
     @Test
     public void testSetParametersNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentDispositionType.ATTACHMENT.setParameters(null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentDispositionType.ATTACHMENT.setParameters(null));
     }
 
     @Test

@@ -43,23 +43,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public void testNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl(null, QUERY, FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl(null, QUERY, FRAGMENT));
     }
 
     @Test
     public void testNullQueryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl(PATH, null, FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl(PATH, null, FRAGMENT));
     }
 
     @Test
     public void testNullFragmentFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl(PATH, QUERY, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl(PATH, QUERY, null));
     }
 
     public void testWith() {
@@ -98,9 +92,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testSetPathNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl().setPath(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl().setPath(null));
     }
 
     @Test
@@ -123,9 +115,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testSetQueryNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl().setQuery(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl().setQuery(null));
     }
 
     @Test
@@ -148,9 +138,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testSetFragmentNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createUrl().setFragment(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createUrl().setFragment(null));
     }
 
     @Test

@@ -84,9 +84,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
     private void whitespaceInvalidCharacterFails(final String text,
                                                  final int invalidCharacterPosition) {
-        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
-            this.whitespace(text);
-        });
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> this.whitespace(text));
         checkMessage(expected,
                 new InvalidCharacterException(text, invalidCharacterPosition).getMessage());
     }
@@ -182,44 +180,32 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
     @Test
     public void testEncodedTextEmptyFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.encodedText("");
-        });
+        assertThrows(HeaderValueException.class, () -> this.encodedText(""));
     }
 
     @Test
     public void testEncodedTextCharsetInvalidCharacterFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.encodedText("utf\08");
-        });
+        assertThrows(HeaderValueException.class, () -> this.encodedText("utf\08"));
     }
 
     @Test
     public void testEncodedTextCharsetEmptyFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.encodedText("'en'abc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.encodedText("'en'abc"));
     }
 
     @Test
     public void testEncodedTextLanguageInvalidCharacterFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.encodedText("utf-8'a\0c'abc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.encodedText("utf-8'a\0c'abc"));
     }
 
     @Test
     public void testEncodedTextLanguageUnclosedFails() {
-        assertThrows(InvalidEncodedTextHeaderException.class, () -> {
-            this.encodedText("utf-8'en");
-        });
+        assertThrows(InvalidEncodedTextHeaderException.class, () -> this.encodedText("utf-8'en"));
     }
 
     @Test
     public void testEncodedTextStringInvalidCharacterFails() {
-        assertThrows(InvalidEncodedTextHeaderException.class, () -> {
-            this.encodedText("utf-8''ab ");
-        });
+        assertThrows(InvalidEncodedTextHeaderException.class, () -> this.encodedText("utf-8''ab "));
     }
 
     @Test

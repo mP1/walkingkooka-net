@@ -73,9 +73,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     private void withFails(final Path path,
                            final BiFunction<String, Binary, MediaType> contentTypeGuesser,
                            final Function<Binary, Optional<ETag>> etagComputer) {
-        assertThrows(NullPointerException.class, () -> {
-            FileSystemWebFile.with(path, contentTypeGuesser, etagComputer);
-        });
+        assertThrows(NullPointerException.class, () -> FileSystemWebFile.with(path, contentTypeGuesser, etagComputer));
     }
 
     // WebFile..........................................................................................................

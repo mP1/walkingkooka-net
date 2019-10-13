@@ -50,9 +50,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testTryParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            EmailAddress.tryParse(null);
-        });
+        assertThrows(NullPointerException.class, () -> EmailAddress.tryParse(null));
     }
 
     @Test
@@ -204,9 +202,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     private <T extends RuntimeException> void parseStringFails2(final String email,
                                                                 final Class<T> thrown,
                                                                 final String message) {
-        final T expected = assertThrows(thrown, () -> {
-            EmailAddress.parse(email);
-        });
+        final T expected = assertThrows(thrown, () -> EmailAddress.parse(email));
         expected.printStackTrace();
 
         if (null != message) {
@@ -1609,9 +1605,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     private void parseStringFailsWithComment(final String address, final String comment) {
-        assertThrows(RuntimeException.class, () -> {
-            this.parseString(address);
-        }, "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
+        assertThrows(RuntimeException.class, () -> this.parseString(address), "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
                 + this.makeEmptyIfNull(comment));
 
         // tryParse should return empty

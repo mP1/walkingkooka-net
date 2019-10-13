@@ -283,9 +283,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
     private void consumeFails(final String text,
                               final int position,
                               final String expected) {
-        final Throwable thrown = assertThrows(Exception.class, () -> {
-            HeaderComments.consume(text, position);
-        });
+        final Throwable thrown = assertThrows(Exception.class, () -> HeaderComments.consume(text, position));
 
         checkMessage(thrown, expected);
     }

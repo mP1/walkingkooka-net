@@ -25,9 +25,7 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
 
     @Test
     public void testSetValidatorWeakFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ETagWildcard.instance().setValidator(ETagValidator.WEAK);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ETagWildcard.instance().setValidator(ETagValidator.WEAK));
     }
 
     // test ...........................................................................................

@@ -58,23 +58,17 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testWithNullHeadersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpEntity.with(null, this.body());
-        });
+        assertThrows(NullPointerException.class, () -> HttpEntity.with(null, this.body()));
     }
 
     @Test
     public void testWithInvalidHeaderFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            HttpEntity.with(INVALID_HEADERS, this.body());
-        });
+        assertThrows(HeaderValueException.class, () -> HttpEntity.with(INVALID_HEADERS, this.body()));
     }
 
     @Test
     public void testWithNullBodyFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpEntity.with(HEADERS, null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpEntity.with(HEADERS, null));
     }
 
     @Test
@@ -91,16 +85,12 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testSetHeadersNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setHeaders(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().setHeaders(null));
     }
 
     @Test
     public void testSetHeaderInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.createHttpEntity().setHeaders(INVALID_HEADERS);
-        });
+        assertThrows(HeaderValueException.class, () -> this.createHttpEntity().setHeaders(INVALID_HEADERS));
     }
 
     @Test
@@ -121,23 +111,17 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testAddHeaderNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().addHeader(null, "*value*");
-        });
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().addHeader(null, "*value*"));
     }
 
     @Test
     public void testAddHeaderNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().addHeader(HttpHeaderName.SERVER, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().addHeader(HttpHeaderName.SERVER, null));
     }
 
     @Test
     public void testAddHeaderInvalidValueFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.createHttpEntity().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
-        });
+        assertThrows(HeaderValueException.class, () -> this.createHttpEntity().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*"));
     }
 
     @Test
@@ -177,9 +161,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testRemoveHeaderNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().removeHeader(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().removeHeader(null));
     }
 
     @Test
@@ -204,9 +186,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testSetBodyNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setBody(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().setBody(null));
     }
 
     @Test
@@ -381,34 +361,26 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testTextContentTypeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpEntity.text(null,
-                    this.text());
-        });
+        assertThrows(NullPointerException.class, () -> HttpEntity.text(null,
+                this.text()));
     }
 
     @Test
     public void testTextBodyNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpEntity.text(this.contentType(),
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpEntity.text(this.contentType(),
+                null));
     }
 
     @Test
     public void testTextContentTypeMissingCharsetFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            HttpEntity.text(MediaType.TEXT_PLAIN,
-                    this.text());
-        });
+        assertThrows(HeaderValueException.class, () -> HttpEntity.text(MediaType.TEXT_PLAIN,
+                this.text()));
     }
 
     @Test
     public void testTextContentTypeUnsupportedCharsetFails() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
-                    this.text());
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
+                this.text()));
     }
 
     @Test

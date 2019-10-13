@@ -34,9 +34,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Test
     public void testLastModified() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.createHeaderValue().lastModified();
-        });
+        assertThrows(HeaderValueException.class, () -> this.createHeaderValue().lastModified());
     }
 
     @Override

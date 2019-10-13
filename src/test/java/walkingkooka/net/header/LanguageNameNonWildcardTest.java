@@ -36,23 +36,17 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LanguageNameNonWildcard.nonWildcard(null);
-        });
+        assertThrows(NullPointerException.class, () -> LanguageNameNonWildcard.nonWildcard(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LanguageNameNonWildcard.nonWildcard("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> LanguageNameNonWildcard.nonWildcard(""));
     }
 
     @Test
     public void testWithInvalidLanguageTagNameFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            LanguageNameNonWildcard.nonWildcard("\0xyz");
-        });
+        assertThrows(InvalidCharacterException.class, () -> LanguageNameNonWildcard.nonWildcard("\0xyz"));
     }
 
     @Test

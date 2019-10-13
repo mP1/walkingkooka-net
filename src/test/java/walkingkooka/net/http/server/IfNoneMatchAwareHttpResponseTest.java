@@ -51,10 +51,8 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     @Test
     public void testWithRequestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LastModifiedAwareHttpResponse.with(null,
-                    HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> LastModifiedAwareHttpResponse.with(null,
+                HttpResponses.fake()));
     }
 
     @Test

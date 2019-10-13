@@ -37,9 +37,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UrlQueryString.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> UrlQueryString.with(null));
     }
 
     @Test

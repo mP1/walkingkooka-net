@@ -45,9 +45,7 @@ public final class AcceptEncodingHeaderValueHandlerTest extends NonStringHeaderV
 
     @Test
     public void testCheckEmptyListFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            AcceptEncodingHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.ACCEPT_ENCODING);
-        });
+        assertThrows(HeaderValueException.class, () -> AcceptEncodingHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.ACCEPT_ENCODING));
     }
 
     @Test

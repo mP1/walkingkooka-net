@@ -37,16 +37,12 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
 
     @Test
     public void testWithullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CacheControl.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CacheControl.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CacheControl.with(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> CacheControl.with(Lists.empty()));
     }
 
     @Test
@@ -61,18 +57,14 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
     public void testSetValueNullFails() {
         final CacheControl cacheControl = this.createHeaderValue();
 
-        assertThrows(NullPointerException.class, () -> {
-            cacheControl.setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> cacheControl.setValue(null));
     }
 
     @Test
     public void testSetValuesEmptyFails() {
         final CacheControl cacheControl = this.createHeaderValue();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            cacheControl.setValue(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> cacheControl.setValue(Lists.empty()));
     }
 
     @Test

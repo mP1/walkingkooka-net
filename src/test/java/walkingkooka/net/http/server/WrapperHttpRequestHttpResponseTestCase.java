@@ -30,9 +30,7 @@ public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHt
 
     @Test
     public final void testWithNullRequestFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createResponse(null, HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createResponse(null, HttpResponses.fake()));
     }
 
     // helpers..................................................................................................

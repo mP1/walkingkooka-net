@@ -28,23 +28,17 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AcceptEncodingValue.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptEncodingValue.with(null));
     }
 
     @Test
     public void testWithEmptyValueFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AcceptEncodingValue.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> AcceptEncodingValue.with(""));
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptEncodingValue.with("\u001f");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValue.with("\u001f"));
     }
 
     @Test

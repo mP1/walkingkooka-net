@@ -52,16 +52,12 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
 
     @Test
     public void testPortAboveRangeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IpPort.with(65536);
-        });
+        assertThrows(IllegalArgumentException.class, () -> IpPort.with(65536));
     }
 
     @Test
     public void testPortBelowRangeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IpPort.with(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> IpPort.with(-1));
     }
 
     @Test

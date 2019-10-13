@@ -33,30 +33,22 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionParameterName.with("parameter\u0001;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\u0001;"));
     }
 
     @Test
     public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionParameterName.with("parameter ");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter "));
     }
 
     @Test
     public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionParameterName.with("parameter\t");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\t"));
     }
 
     @Test
     public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionParameterName.with("parameter\u0100;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\u0100;"));
     }
 
     @Test

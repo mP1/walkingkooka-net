@@ -38,44 +38,32 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testWithNullUnitFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RangeHeaderValue.with(null, ranges());
-        });
+        assertThrows(NullPointerException.class, () -> RangeHeaderValue.with(null, ranges()));
     }
 
     @Test
     public void testWithNullRangesFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RangeHeaderValue.with(UNIT, null);
-        });
+        assertThrows(NullPointerException.class, () -> RangeHeaderValue.with(UNIT, null));
     }
 
     @Test
     public void testWithEmptyRangesFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.with(UNIT, Lists.empty());
-        });
+        assertThrows(HeaderValueException.class, () -> RangeHeaderValue.with(UNIT, Lists.empty()));
     }
 
     @Test
     public void testWithOverlappingRangesFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.with(UNIT, this.rangesWithOverlap());
-        });
+        assertThrows(HeaderValueException.class, () -> RangeHeaderValue.with(UNIT, this.rangesWithOverlap()));
     }
 
     @Test
     public void testWithOverlappingRangesFails2() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.with(UNIT, this.rangesWithOverlap2());
-        });
+        assertThrows(HeaderValueException.class, () -> RangeHeaderValue.with(UNIT, this.rangesWithOverlap2()));
     }
 
     @Test
     public void testWithOverlappingRangesFails3() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.with(UNIT, this.rangesWithOverlap3());
-        });
+        assertThrows(HeaderValueException.class, () -> RangeHeaderValue.with(UNIT, this.rangesWithOverlap3()));
     }
 
     public void testWith() {
@@ -87,16 +75,12 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testSetUnitNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.range().setUnit(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.range().setUnit(null));
     }
 
     @Test
     public void testSetUnitNoneFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.range().setUnit(RangeHeaderValueUnit.NONE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.range().setUnit(RangeHeaderValueUnit.NONE));
     }
 
     @Test
@@ -109,37 +93,27 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.range().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.range().setValue(null));
     }
 
     @Test
     public void testSetValueEmptyFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.range().setValue(Lists.empty());
-        });
+        assertThrows(HeaderValueException.class, () -> this.range().setValue(Lists.empty()));
     }
 
     @Test
     public void testSetValueWithOverlapFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.range().setValue(this.rangesWithOverlap());
-        });
+        assertThrows(HeaderValueException.class, () -> this.range().setValue(this.rangesWithOverlap()));
     }
 
     @Test
     public void testSetValueWithOverlapFails2() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.range().setValue(this.rangesWithOverlap2());
-        });
+        assertThrows(HeaderValueException.class, () -> this.range().setValue(this.rangesWithOverlap2()));
     }
 
     @Test
     public void testSetValueWithOverlapFails3() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.range().setValue(this.rangesWithOverlap3());
-        });
+        assertThrows(HeaderValueException.class, () -> this.range().setValue(this.rangesWithOverlap3()));
     }
 
     @Test

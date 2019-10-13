@@ -34,9 +34,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            LinkParameterName.with("paramet er");
-        });
+        assertThrows(InvalidCharacterException.class, () -> LinkParameterName.with("paramet er"));
     }
 
     @Test

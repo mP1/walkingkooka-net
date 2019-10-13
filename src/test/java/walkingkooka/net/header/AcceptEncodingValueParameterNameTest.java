@@ -31,30 +31,22 @@ final public class AcceptEncodingValueParameterNameTest extends HeaderParameterN
 
     @Test
     public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptEncodingValueParameterName.with("parameter\u0001;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\u0001;"));
     }
 
     @Test
     public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptEncodingValueParameterName.with("parameter ");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter "));
     }
 
     @Test
     public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptEncodingValueParameterName.with("parameter\t");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\t"));
     }
 
     @Test
     public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptEncodingValueParameterName.with("parameter\u0100;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\u0100;"));
     }
 
     @Test

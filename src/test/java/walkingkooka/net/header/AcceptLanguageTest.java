@@ -35,9 +35,7 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-           AcceptLanguage.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptLanguage.with(null));
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................

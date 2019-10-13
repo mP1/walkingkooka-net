@@ -285,8 +285,6 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
 
         this.credentials.ifPresent((c) -> c.absoluteUrlToString(b));
         this.host.toString0(b);
-        this.port.ifPresent((p) -> {
-            p.toString0(b);
-        });
+        this.port.ifPresent((p) -> p.toString0(b));
     }
 }

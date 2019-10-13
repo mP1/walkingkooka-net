@@ -49,9 +49,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         final char[] chars = new char[UrlPathName.MAXIMUM_LENGTH + 1];
         Arrays.fill(chars, 'x');
 
-        assertThrows(InvalidTextLengthException.class, () -> {
-            UrlPathName.with(new String(chars));
-        });
+        assertThrows(InvalidTextLengthException.class, () -> UrlPathName.with(new String(chars)));
     }
 
     // Comparable.......................................................................................................

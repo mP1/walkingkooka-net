@@ -35,9 +35,7 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
 
     @Test
     public void testParseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieExpires.parseExpires("invalid!");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CookieExpires.parseExpires("invalid!"));
     }
 
     @Test

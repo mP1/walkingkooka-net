@@ -43,9 +43,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     @Test
     public final void testTestWildcardFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.createCharsetName().test(CharsetName.WILDCARD_CHARSET);
-        });
+        assertThrows(HeaderValueException.class, () -> this.createCharsetName().test(CharsetName.WILDCARD_CHARSET));
     }
 
     @Test

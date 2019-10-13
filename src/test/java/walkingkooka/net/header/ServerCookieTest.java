@@ -46,93 +46,80 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testWithNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    null,
-                    COMMENT,
-                    MAXAGE,
-                    SECURE,
-                    HTTPONLY,
-                    VERSION);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                null,
+                COMMENT,
+                MAXAGE,
+                SECURE,
+                HTTPONLY,
+                VERSION));
     }
 
     @Test
     public void testWithNullCommentFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    PATH,
-                    null,
-                    MAXAGE,
-                    SECURE,
-                    HTTPONLY,
-                    VERSION);
-
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                null,
+                MAXAGE,
+                SECURE,
+                HTTPONLY,
+                VERSION));
     }
 
     @Test
     public void testWithNullDeletionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    PATH,
-                    COMMENT,
-                    null,
-                    SECURE,
-                    HTTPONLY,
-                    VERSION);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                null,
+                SECURE,
+                HTTPONLY,
+                VERSION));
     }
 
     @Test
     public void testWithNullSecureFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    PATH,
-                    COMMENT,
-                    MAXAGE,
-                    null,
-                    HTTPONLY,
-                    VERSION);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                MAXAGE,
+                null,
+                HTTPONLY,
+                VERSION));
     }
 
     @Test
     public void testWithNullHttpOnlyFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    PATH,
-                    COMMENT,
-                    MAXAGE,
-                    SECURE,
-                    null,
-                    VERSION);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                MAXAGE,
+                SECURE,
+                null,
+                VERSION));
     }
 
     @Test
     public void testWithNullVersionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.with(NAME,
-                    VALUE,
-                    DOMAIN,
-                    PATH,
-                    COMMENT,
-                    MAXAGE,
-                    SECURE,
-                    HTTPONLY,
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                MAXAGE,
+                SECURE,
+                HTTPONLY,
+                null));
     }
 
     @Test
@@ -425,9 +412,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testFromNullCookieFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ServerCookie.from(null);
-        });
+        assertThrows(NullPointerException.class, () -> ServerCookie.from(null));
     }
 
     @Test
@@ -492,9 +477,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testToJavaxServletHttpCookieWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCookie().toJavaxServletCookie(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCookie().toJavaxServletCookie(null));
     }
 
     @Test
@@ -538,17 +521,13 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testParseServerHeaderNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Cookie.parseServerHeader(null);
-        });
+        assertThrows(NullPointerException.class, () -> Cookie.parseServerHeader(null));
     }
 
 
     @Test
     public void testParseServerHeaderEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Cookie.parseServerHeader("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Cookie.parseServerHeader(""));
     }
 
     @Test

@@ -29,23 +29,17 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
     @Test
     public void testWithNullCharsetFails() {
-        assertThrows(NullPointerException.class, () -> {
-            EncodedText.with(null, EncodedText.NO_LANGUAGE, "");
-        });
+        assertThrows(NullPointerException.class, () -> EncodedText.with(null, EncodedText.NO_LANGUAGE, ""));
     }
 
     @Test
     public void testWithWildcardCharsetFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            EncodedText.with(CharsetName.WILDCARD_CHARSET, EncodedText.NO_LANGUAGE, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> EncodedText.with(CharsetName.WILDCARD_CHARSET, EncodedText.NO_LANGUAGE, ""));
     }
 
     @Test
     public void testWithNullLanguageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            EncodedText.with(this.charset(), null, "");
-        });
+        assertThrows(NullPointerException.class, () -> EncodedText.with(this.charset(), null, ""));
     }
 
     @Test

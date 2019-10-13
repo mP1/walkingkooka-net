@@ -39,16 +39,12 @@ public final class RouterBiConsumerTest implements ClassTesting2<RouterBiConsume
 
     @Test
     public void testWithNullRouterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RouterBiConsumer.with(null, this.notFound());
-        });
+        assertThrows(NullPointerException.class, () -> RouterBiConsumer.with(null, this.notFound()));
     }
 
     @Test
     public void testWithNotFoundFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RouterBiConsumer.with(this.router(), null);
-        });
+        assertThrows(NullPointerException.class, () -> RouterBiConsumer.with(this.router(), null));
     }
 
     @Test

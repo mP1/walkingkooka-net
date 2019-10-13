@@ -36,23 +36,17 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
 
     @Test
     public void testWithNullMediaTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DataUrl.with(null, this.binary());
-        });
+        assertThrows(NullPointerException.class, () -> DataUrl.with(null, this.binary()));
     }
 
     @Test
     public void testWithMediaTypeWithParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DataUrl.with(Optional.of(this.mediaType().setCharset(CharsetName.UTF_8)), this.binary());
-        });
+        assertThrows(IllegalArgumentException.class, () -> DataUrl.with(Optional.of(this.mediaType().setCharset(CharsetName.UTF_8)), this.binary()));
     }
 
     @Test
     public void testWithNullBinaryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DataUrl.with(Optional.of(this.mediaType()), null);
-        });
+        assertThrows(NullPointerException.class, () -> DataUrl.with(Optional.of(this.mediaType()), null));
     }
 
     // ParseTesting.....................................................................................................

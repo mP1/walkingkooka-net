@@ -53,10 +53,8 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     @Test
     public void testWithRequestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LastModifiedAwareHttpResponse.with(null,
-                    HttpResponses.fake());
-        });
+        assertThrows(NullPointerException.class, () -> LastModifiedAwareHttpResponse.with(null,
+                HttpResponses.fake()));
     }
 
     @Test
