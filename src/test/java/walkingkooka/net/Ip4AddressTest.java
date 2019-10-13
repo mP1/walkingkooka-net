@@ -29,16 +29,12 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
 
     @Test
     public void testMaskNegativeSignificantBitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createAddress().subnet(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createAddress().subnet(-1));
     }
 
     @Test
     public void testMaskTooManySignificantBitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createAddress().subnet(Ip4Address.BIT_COUNT + 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createAddress().subnet(Ip4Address.BIT_COUNT + 1));
     }
 
     @Test

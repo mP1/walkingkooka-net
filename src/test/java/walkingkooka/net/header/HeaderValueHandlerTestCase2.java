@@ -37,18 +37,14 @@ public abstract class HeaderValueHandlerTestCase2<C extends HeaderValueHandler<T
 
     @Test
     public void testInvalidHeaderValueFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.handler().parse(this.invalidHeaderValue(), this.name());
-        });
+        assertThrows(HeaderValueException.class, () -> this.handler().parse(this.invalidHeaderValue(), this.name()));
     }
 
     abstract String invalidHeaderValue();
 
     @Test
     public void testCheckNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.check(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.check(null));
     }
 
     @Test

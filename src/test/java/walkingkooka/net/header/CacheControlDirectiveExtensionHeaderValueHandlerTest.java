@@ -57,11 +57,9 @@ public final class CacheControlDirectiveExtensionHeaderValueHandlerTest extends
 
     @Test
     public void testToTextInvalidValueFail() {
-        assertThrows(HeaderValueException.class, () -> {
-            CacheControlDirectiveExtensionHeaderValueHandler.INSTANCE
-                    .toText(this,
-                            CacheControlDirectiveName.MAX_STALE);
-        });
+        assertThrows(HeaderValueException.class, () -> CacheControlDirectiveExtensionHeaderValueHandler.INSTANCE
+                .toText(this,
+                        CacheControlDirectiveName.MAX_STALE));
     }
 
     @Override

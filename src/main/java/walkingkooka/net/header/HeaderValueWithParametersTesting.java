@@ -32,9 +32,7 @@ public interface HeaderValueWithParametersTesting<V extends HeaderValueWithParam
 
     @Test
     default void testSetParametersNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHeaderValueWithParameters().setParameters(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHeaderValueWithParameters().setParameters(null));
     }
 
     @Test

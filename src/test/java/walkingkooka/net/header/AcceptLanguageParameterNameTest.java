@@ -31,9 +31,7 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptLanguageParameterName.with("paramet er");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptLanguageParameterName.with("paramet er"));
     }
 
     @Test

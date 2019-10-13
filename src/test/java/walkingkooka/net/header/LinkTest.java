@@ -52,9 +52,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Link.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Link.with(null));
     }
 
     @Test
@@ -71,9 +69,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createLink().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createLink().setValue(null));
     }
 
     @Test

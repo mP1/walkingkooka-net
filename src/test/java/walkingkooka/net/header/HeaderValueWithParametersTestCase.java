@@ -35,9 +35,7 @@ public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWit
         assertEquals(parameters,
                 headerValue.parameters(),
                 () -> "parameters " + headerValue);
-        assertThrows(UnsupportedOperationException.class, () -> {
-            headerValue.parameters().put(this.parameterName(), null);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> headerValue.parameters().put(this.parameterName(), null));
     }
 
     /**

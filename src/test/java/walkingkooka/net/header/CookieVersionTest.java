@@ -38,9 +38,7 @@ final public class CookieVersionTest implements ClassTesting2<CookieVersion> {
 
     @Test
     public void testFromInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieVersion.from(2);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CookieVersion.from(2));
     }
 
     @Override

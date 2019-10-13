@@ -59,9 +59,7 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
 
     @Test
     public final void testWildcardFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPredicate().test(LanguageName.WILDCARD);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createPredicate().test(LanguageName.WILDCARD));
     }
 
     final void check(final LanguageName name,

@@ -35,16 +35,12 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Accept.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Accept.with(null));
     }
 
     @Test
     public void testWithEmptyMediaTypesFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Accept.with(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> Accept.with(Lists.empty()));
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................

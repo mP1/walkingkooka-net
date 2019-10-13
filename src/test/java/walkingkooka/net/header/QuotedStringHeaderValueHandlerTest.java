@@ -25,30 +25,22 @@ public final class QuotedStringHeaderValueHandlerTest extends StringHeaderValueH
 
     @Test
     public void testParseControlCharacterFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("a\\0");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("a\\0"));
     }
 
     @Test
     public void testParseNonAsciiFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("a\u0080");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("a\u0080"));
     }
 
     @Test
     public void testParseMissingOpeningDoubleQuoteFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("abc\"");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("abc\""));
     }
 
     @Test
     public void testParseUnsupportedBackslashFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("a\\bc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("a\\bc"));
     }
 
     @Test

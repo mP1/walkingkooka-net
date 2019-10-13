@@ -31,30 +31,22 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptCharsetValueParameterName.with("parameter\u0001;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\u0001;"));
     }
 
     @Test
     public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptCharsetValueParameterName.with("parameter ");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter "));
     }
 
     @Test
     public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptCharsetValueParameterName.with("parameter\t");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\t"));
     }
 
     @Test
     public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            AcceptCharsetValueParameterName.with("parameter\u0100;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\u0100;"));
     }
 
     @Test

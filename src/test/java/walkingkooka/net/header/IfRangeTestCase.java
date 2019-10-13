@@ -50,9 +50,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHeaderValue().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createHeaderValue().setValue(null));
     }
 
     @Test

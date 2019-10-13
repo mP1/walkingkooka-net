@@ -25,16 +25,12 @@ public final class UnquotedStringHeaderValueHandlerTest extends QuotedOrUnquoted
 
     @Test
     public void testParseOpeningDoubleQuoteFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("\"abc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("\"abc"));
     }
 
     @Test
     public void testParseBackslashFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("a\\bc");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("a\\bc"));
     }
 
     @Test

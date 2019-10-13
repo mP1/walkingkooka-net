@@ -46,16 +46,12 @@ public final class ETagListHeaderValueHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.etag(), null));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.etag(), null)));
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.etag(), "WRONG!"));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.etag(), "WRONG!")));
     }
 
     private ETag etag() {

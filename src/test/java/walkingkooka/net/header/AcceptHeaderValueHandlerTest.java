@@ -41,16 +41,12 @@ public final class AcceptHeaderValueHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.mediaType1(), null));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.mediaType1(), null)));
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.check(Lists.of(this.mediaType1(), "WRONG!"));
-        });
+        assertThrows(HeaderValueException.class, () -> this.check(Lists.of(this.mediaType1(), "WRONG!")));
     }
 
     private MediaType mediaType1() {

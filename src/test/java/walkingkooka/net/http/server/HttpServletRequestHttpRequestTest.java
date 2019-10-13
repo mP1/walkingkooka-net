@@ -67,9 +67,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testWithNullHttpServletRequestFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpServletRequestHttpRequest.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpServletRequestHttpRequest.with(null));
     }
 
     @Test

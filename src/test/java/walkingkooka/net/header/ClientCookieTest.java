@@ -70,9 +70,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testFromNullCookieFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ClientCookie.from((javax.servlet.http.Cookie) null);
-        });
+        assertThrows(NullPointerException.class, () -> ClientCookie.from((javax.servlet.http.Cookie) null));
     }
 
     @Test
@@ -107,9 +105,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testParseClientHeaderNulFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Cookie.parseClientHeader(null);
-        });
+        assertThrows(NullPointerException.class, () -> Cookie.parseClientHeader(null));
     }
 
     @Test
@@ -178,9 +174,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testToHeaderTextListNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ClientCookie.toHeaderTextList(null);
-        });
+        assertThrows(NullPointerException.class, () -> ClientCookie.toHeaderTextList(null));
     }
 
     @Test

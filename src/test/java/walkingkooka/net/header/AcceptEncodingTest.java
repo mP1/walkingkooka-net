@@ -35,9 +35,7 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-           AcceptEncoding.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptEncoding.with(null));
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................

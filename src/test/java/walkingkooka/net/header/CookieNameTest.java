@@ -46,107 +46,77 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
      */
     @Test
     public void testIncludeParensOpenFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie(");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie("));
     }
 
     @Test
     public void testIncludeParensCloseFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie)");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie)"));
     }
 
     @Test
     public void testIncludeLessThanFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie<");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie<"));
     }
 
     @Test
     public void testIncludeGreaterThanFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie>");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie>"));
     }
 
     @Test
     public void testIncludeAtSignFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie@");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie@"));
     }
 
     @Test
     public void testIncludeCommaFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie,");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie,"));
     }
 
     @Test
     public void testIncludeSemiColonFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie;");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie;"));
     }
 
     @Test
     public void testIncludeColonFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie:");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie:"));
     }
 
     @Test
     public void testIncludeBackslashFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie\\");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie\\"));
     }
 
     @Test
     public void testIncludeDoubleQuoteFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie\"");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie\""));
     }
 
     @Test
     public void testIncludeForwardSlashFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie/");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie/"));
     }
 
     @Test
     public void testIncludeBracketOpenFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie[");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie["));
     }
 
     @Test
     public void testIncludeBracketCloseFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie]");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie]"));
     }
 
     @Test
     public void testQuestionMarkFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie?");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie?"));
     }
 
     @Test
     public void testEqualsSignFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CookieName.with("cookie=");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CookieName.with("cookie="));
     }
 
     @Test

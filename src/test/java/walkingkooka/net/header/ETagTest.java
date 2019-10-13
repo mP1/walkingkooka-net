@@ -35,23 +35,17 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ETag.with(null, ETagValidator.STRONG);
-        });
+        assertThrows(NullPointerException.class, () -> ETag.with(null, ETagValidator.STRONG));
     }
 
     @Test
     public void testWithInvalidValueCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ETag.with("abc def", ETagValidator.STRONG);
-        });
+        assertThrows(InvalidCharacterException.class, () -> ETag.with("abc def", ETagValidator.STRONG));
     }
 
     @Test
     public void testWithNullWeaknessIndicatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ETag.with(VALUE, null);
-        });
+        assertThrows(NullPointerException.class, () -> ETag.with(VALUE, null));
     }
 
     // toHeaderText...................................................................

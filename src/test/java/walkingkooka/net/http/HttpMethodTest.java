@@ -43,31 +43,22 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpMethod.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpMethod.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpMethod.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with(""));
     }
 
     @Test
     public void testWithWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpMethod.with("   ");
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with("   "));
     }
 
     @Test
     public void testWithNonLetterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpMethod.with("METH1");
-
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with("METH1"));
     }
 
     @Test

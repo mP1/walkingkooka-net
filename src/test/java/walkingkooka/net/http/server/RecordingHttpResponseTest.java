@@ -79,11 +79,9 @@ public final class RecordingHttpResponseTest implements ClassTesting2<RecordingH
         response.setStatus(status);
         response.addEntity(entity);
 
-        assertThrows(AssertionError.class, () -> {
-            this.checkResponse(response, HttpRequests.fake(),
-                    HttpStatusCode.OK.status(),
-                    entity);
-        });
+        assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
+                HttpStatusCode.OK.status(),
+                entity));
     }
 
     @Test
@@ -94,11 +92,9 @@ public final class RecordingHttpResponseTest implements ClassTesting2<RecordingH
         response.setStatus(status);
         response.addEntity(entity);
 
-        assertThrows(AssertionError.class, () -> {
-            this.checkResponse(response, HttpRequests.fake(),
-                    status,
-                    HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 456"), Binary.with(new byte[456])));
-        });
+        assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
+                status,
+                HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 456"), Binary.with(new byte[456]))));
     }
 
     @Test

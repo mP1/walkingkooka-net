@@ -113,23 +113,17 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
 
     @Test
     public void testSetMessageNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HttpStatusCode.OK.setMessage(null);
-        });
+        assertThrows(NullPointerException.class, () -> HttpStatusCode.OK.setMessage(null));
     }
 
     @Test
     public void testSetMessageEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpStatusCode.OK.setMessage("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpStatusCode.OK.setMessage(""));
     }
 
     @Test
     public void testSetMessageWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpStatusCode.OK.setMessage("  ");
-        });
+        assertThrows(IllegalArgumentException.class, () -> HttpStatusCode.OK.setMessage("  "));
     }
 
     @Test

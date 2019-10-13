@@ -46,9 +46,7 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
 
     @Test
     public void testSetCodeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            status().setCode(null);
-        });
+        assertThrows(NullPointerException.class, () -> status().setCode(null));
     }
 
     @Test
@@ -70,16 +68,12 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
 
     @Test
     public void testSetMessageNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            status().setMessage(null);
-        });
+        assertThrows(NullPointerException.class, () -> status().setMessage(null));
     }
 
     @Test
     public void testSetMessageEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            status().setMessage("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> status().setMessage(""));
     }
 
     @Test

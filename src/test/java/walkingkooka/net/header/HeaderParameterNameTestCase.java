@@ -42,16 +42,12 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
 
     @Test
     public final void testParameterValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName().parameterValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createName().parameterValue(null));
     }
 
     @Test
     public final void testParameterValueOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName().parameterValueOrFail(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createName().parameterValueOrFail(null));
     }
 
     final <VV> void parameterValueAndCheckAbsent(final HeaderParameterName<VV> name,

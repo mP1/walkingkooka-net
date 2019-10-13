@@ -58,9 +58,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     @Test
     public void testSetValueFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createEntry().setValue(99L);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createEntry().setValue(99L));
     }
 
     @Test

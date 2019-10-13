@@ -41,60 +41,44 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testWithNullUnitFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentRange.with(null, range(), SIZE);
-        });
+        assertThrows(NullPointerException.class, () -> ContentRange.with(null, range(), SIZE));
     }
 
     @Test
     public void testWithNullRangeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentRange.with(UNIT, null, SIZE);
-        });
+        assertThrows(NullPointerException.class, () -> ContentRange.with(UNIT, null, SIZE));
     }
 
     @Test
     public void testWithNullSizeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentRange.with(UNIT, this.range(), null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentRange.with(UNIT, this.range(), null));
     }
 
     @Test
     public void testWithNegativeRangeLowerFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.with(UNIT, this.range(-1, 123), SIZE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT, this.range(-1, 123), SIZE));
     }
 
     @Test
     public void testWithRangeLowerExclusiveFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.with(UNIT, Optional.of(Range.greaterThan(123L)), SIZE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT, Optional.of(Range.greaterThan(123L)), SIZE));
     }
 
     @Test
     public void testWithRangeUpperBeforeRangeLowerFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.with(UNIT, this.range(10, 9), SIZE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT, this.range(10, 9), SIZE));
     }
 
     @Test
     public void testWithRangeUpperExclusiveFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.with(UNIT,
-                    Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
-                    SIZE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT,
+                Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
+                SIZE));
     }
 
     @Test
     public void testWithNegativeSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.with(UNIT, this.range(), Optional.of(-1L));
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT, this.range(), Optional.of(-1L)));
     }
 
     @Test
@@ -119,16 +103,12 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testSetUnitNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.contentRange().setUnit(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.contentRange().setUnit(null));
     }
 
     @Test
     public void testSetUnitNoneFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.contentRange().setUnit(RangeHeaderValueUnit.NONE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setUnit(RangeHeaderValueUnit.NONE));
     }
 
     @Test
@@ -141,23 +121,17 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testSetRangeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.contentRange().setRange(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.contentRange().setRange(null));
     }
 
     @Test
     public void testSetRangeNegativeLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.contentRange().setRange(this.range(-1, 123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setRange(this.range(-1, 123)));
     }
 
     @Test
     public void testSetRangeUpperLessThanLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.contentRange().setRange(this.range(10, 9));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setRange(this.range(10, 9)));
     }
 
     @Test
@@ -189,16 +163,12 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testSetSizeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.contentRange().setSize(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.contentRange().setSize(null));
     }
 
     @Test
     public void testSetSizeNegativeSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.contentRange().setSize(Optional.of(-1L));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setSize(Optional.of(-1L)));
     }
 
     @Test
@@ -321,9 +291,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseStringEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentRange.parse("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentRange.parse(""));
     }
 
     @Test
@@ -435,9 +403,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     private void parseStringFails(final String text, final String message) {
-        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
-            ContentRange.parse(text);
-        });
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> ContentRange.parse(text));
         checkMessage(expected, message);
     }
 

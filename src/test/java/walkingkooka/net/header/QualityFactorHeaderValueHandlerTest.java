@@ -31,16 +31,12 @@ public final class QualityFactorHeaderValueHandlerTest extends
 
     @Test
     public void testParseNegativeFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("-0.1");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("-0.1"));
     }
 
     @Test
     public void testMoreThanOneFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.parse("1.01");
-        });
+        assertThrows(HeaderValueException.class, () -> this.parse("1.01"));
     }
 
     @Test

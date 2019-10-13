@@ -106,9 +106,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                                       final Map<HttpRequestAttribute<?>, ?> parameters,
                                       final Function<String, ?> converter,
                                       final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            this.createComparable().parameterValueOrFail(parameters, converter);
-        });
+        assertThrows(thrown, () -> this.createComparable().parameterValueOrFail(parameters, converter));
     }
 
     @Test

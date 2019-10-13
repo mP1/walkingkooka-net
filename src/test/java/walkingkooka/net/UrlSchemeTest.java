@@ -76,9 +76,7 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
 
     @Test
     public void testAndHostNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UrlScheme.HTTP.andHost(null);
-        });
+        assertThrows(NullPointerException.class, () -> UrlScheme.HTTP.andHost(null));
     }
 
     @Test

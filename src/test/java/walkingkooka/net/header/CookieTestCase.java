@@ -44,32 +44,24 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     @Test
     public final void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCookie(null, CookieTestCase.VALUE);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCookie(null, CookieTestCase.VALUE));
     }
 
     @Test
     public final void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCookie(CookieTestCase.NAME, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCookie(CookieTestCase.NAME, null));
     }
 
     @Test
     public final void testWithInvalidValueFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createCookie(CookieTestCase.NAME, "  ");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createCookie(CookieTestCase.NAME, "  "));
     }
 
     // setName ......................................................................................
 
     @Test
     public final void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCookie().setName(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCookie().setName(null));
     }
 
     @Test
@@ -82,9 +74,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCookie().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCookie().setValue(null));
     }
 
     @Test

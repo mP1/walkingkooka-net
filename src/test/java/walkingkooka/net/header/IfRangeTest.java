@@ -30,24 +30,18 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            IfRange.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> IfRange.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IfRange.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> IfRange.with(""));
     }
 
     @Test
     @Override
     public void testParseStringEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IfRange.parse("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> IfRange.parse(""));
     }
 
     @Test
@@ -57,9 +51,7 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
 
     @Test
     public void testParseInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            IfRange.parse("\"1234567890abcdef");
-        });
+        assertThrows(HeaderValueException.class, () -> IfRange.parse("\"1234567890abcdef"));
     }
 
     @Test

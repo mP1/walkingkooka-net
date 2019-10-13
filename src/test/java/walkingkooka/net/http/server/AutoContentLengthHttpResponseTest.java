@@ -48,10 +48,8 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
 
     @Test
     public void testAddEntityContentLengthIncorrectFail() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            this.addEntityAndCheck(999L,
-                    new byte[]{1, 2, 3});
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> this.addEntityAndCheck(999L,
+                new byte[]{1, 2, 3}));
     }
 
     private void addEntityAndCheck(final Long contentLength,

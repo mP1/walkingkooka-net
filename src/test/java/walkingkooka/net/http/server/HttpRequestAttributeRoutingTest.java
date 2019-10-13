@@ -56,9 +56,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testTransportNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().transport(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().transport(null));
     }
 
     @Test
@@ -95,9 +93,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testMethodNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().method(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().method(null));
     }
 
     @Test
@@ -134,9 +130,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testProtocolVersionNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().protocolVersion(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().protocolVersion(null));
     }
 
     @Test
@@ -177,9 +171,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestAttributeRouting routing = this.createRouting()
                 .protocolVersion(version);
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            routing.protocolVersion(HttpProtocolVersion.VERSION_1_1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> routing.protocolVersion(HttpProtocolVersion.VERSION_1_1));
 
         this.checkTransports(routing);
         this.checkMethods(routing);
@@ -190,9 +182,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testPathNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().path(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().path(null));
     }
 
     @Test
@@ -253,26 +243,19 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testPathComponentNegativePathComponentIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createRouting().pathComponent(-1, Predicates.fake());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createRouting().pathComponent(-1, Predicates.fake()));
     }
 
     @Test
     public void testPathComponentNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().pathComponent(0, (Predicate<UrlPathName>) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().pathComponent(0, (Predicate<UrlPathName>) null));
     }
 
     @Test
     public void testPathComponentIndexNameRepeatedPathComponentDifferentNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createRouting()
-                    .pathComponent(0, Predicates.fake())
-                    .pathComponent(0, Predicates.fake());
-
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createRouting()
+                .pathComponent(0, Predicates.fake())
+                .pathComponent(0, Predicates.fake()));
     }
 
     @Test
@@ -312,16 +295,12 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testHeaderNullHeaderNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().header(null, Predicates.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().header(null, Predicates.fake()));
     }
 
     @Test
     public void testHeaderNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().header(HttpHeaderName.CONNECTION, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().header(HttpHeaderName.CONNECTION, null));
     }
 
     @Test
@@ -344,16 +323,12 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testCookieNullCookieNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().cookie(null, Predicates.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().cookie(null, Predicates.fake()));
     }
 
     @Test
     public void testCookieNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().cookie(cookieName(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().cookie(cookieName(), null));
     }
 
     @Test
@@ -376,23 +351,17 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testQueryStringNullQueryStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().queryString(null, Predicates.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().queryString(null, Predicates.fake()));
     }
 
     @Test
     public void testQueryStringNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().queryString(UrlQueryString.EMPTY, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().queryString(UrlQueryString.EMPTY, null));
     }
 
     @Test
     public void testQueryStringParameterWithMultipleValueFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createRouting().queryString(UrlQueryString.with("a=1&a=2"), Predicates.fake());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createRouting().queryString(UrlQueryString.with("a=1&a=2"), Predicates.fake()));
     }
 
     @Test
@@ -450,16 +419,12 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testParameterNullParameterNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().parameter(null, Predicates.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().parameter(null, Predicates.fake()));
     }
 
     @Test
     public void testParameterNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().parameter(parameterName(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().parameter(parameterName(), null));
     }
 
     @Test
@@ -482,16 +447,12 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testParameterAndValueNullParameterNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().parameterAndValue(null, "value123");
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().parameterAndValue(null, "value123"));
     }
 
     @Test
     public void testParameterAndValueNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createRouting().parameterAndValue(parameterName(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createRouting().parameterAndValue(parameterName(), null));
     }
 
     @Test
@@ -514,9 +475,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testBuildEmptyFails() {
-        assertThrows(BuilderException.class, () -> {
-            this.createRouting().build();
-        });
+        assertThrows(BuilderException.class, () -> this.createRouting().build());
     }
 
     @Test

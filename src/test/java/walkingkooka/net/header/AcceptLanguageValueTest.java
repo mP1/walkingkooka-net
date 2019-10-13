@@ -37,9 +37,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AcceptLanguageValue.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptLanguageValue.with(null));
     }
 
     @Test
@@ -57,9 +55,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AcceptLanguageValue.WILDCARD.setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptLanguageValue.WILDCARD.setValue(null));
     }
 
     @Test

@@ -88,9 +88,7 @@ public abstract class HeaderValueParserTestCase<P extends HeaderValueParser, V> 
     }
 
     static <TT> List<TT> listReadOnlyCheck(final List<TT> list) {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            list.remove(0);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> list.remove(0));
         return list;
     }
 

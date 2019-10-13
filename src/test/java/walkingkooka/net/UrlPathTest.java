@@ -420,9 +420,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAddQueryStringNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPath().addQueryString(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPath().addQueryString(null));
     }
 
     @Test

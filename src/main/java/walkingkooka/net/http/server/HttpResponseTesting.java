@@ -32,16 +32,12 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
 
     @Test
     default void testSetStatusNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createResponse().setStatus(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createResponse().setStatus(null));
     }
 
     @Test
     default void testAddEntityNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createResponse().addEntity(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createResponse().addEntity(null));
     }
 
     R createResponse();

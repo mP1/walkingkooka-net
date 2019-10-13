@@ -31,23 +31,17 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            MediaTypeParameterName.with("paramet er");
-        });
+        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("paramet er"));
     }
 
     @Test
     public void testWithIncludesEqualSignFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            MediaTypeParameterName.with("parameter=value");
-        });
+        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("parameter=value"));
     }
 
     @Test
     public void testWithIncludesSemiColonFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            MediaTypeParameterName.with("parameter=value;header2");
-        });
+        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("parameter=value;header2"));
     }
 
     @Test

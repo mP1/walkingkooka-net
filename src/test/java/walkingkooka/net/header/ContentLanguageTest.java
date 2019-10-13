@@ -32,9 +32,7 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentLanguage.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentLanguage.with(null));
     }
 
     @Test

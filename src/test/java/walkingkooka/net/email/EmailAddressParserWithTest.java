@@ -35,9 +35,7 @@ public final class EmailAddressParserWithTest extends EmailAddressParserTestCase
 
     @Override
     void parseStringFails(final String text) {
-        assertThrows(RuntimeException.class, () -> {
-            EmailAddressParserWith.parseOrFail(text);
-        });
+        assertThrows(RuntimeException.class, () -> EmailAddressParserWith.parseOrFail(text));
     }
 
     @Override

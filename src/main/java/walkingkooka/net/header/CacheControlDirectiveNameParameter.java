@@ -41,7 +41,7 @@ enum CacheControlDirectiveNameParameter {
     OPTIONAL {
         @Override
         <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
-            value.ifPresent((v) -> {name.handler.check(v, name);});
+            value.ifPresent((v) -> name.handler.check(v, name));
 
             return value;
         }

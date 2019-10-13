@@ -43,54 +43,46 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testWithNullSchemeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteUrl.with(null,
-                    CREDENTIALS,
-                    HOST,
-                    PORT,
-                    PATH,
-                    QUERY,
-                    FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> AbsoluteUrl.with(null,
+                CREDENTIALS,
+                HOST,
+                PORT,
+                PATH,
+                QUERY,
+                FRAGMENT));
     }
 
     @Test
     public void testWithNullCredentialsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteUrl.with(SCHEME,
-                    null,
-                    HOST,
-                    PORT,
-                    PATH,
-                    QUERY,
-                    FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> AbsoluteUrl.with(SCHEME,
+                null,
+                HOST,
+                PORT,
+                PATH,
+                QUERY,
+                FRAGMENT));
     }
 
     @Test
     public void testWithNullHostFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteUrl.with(SCHEME,
-                    CREDENTIALS,
-                    null,
-                    PORT,
-                    PATH,
-                    QUERY,
-                    FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> AbsoluteUrl.with(SCHEME,
+                CREDENTIALS,
+                null,
+                PORT,
+                PATH,
+                QUERY,
+                FRAGMENT));
     }
 
     @Test
     public void testWithoutPortFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteUrl.with(SCHEME,
-                    CREDENTIALS,
-                    HOST,
-                    null,
-                    PATH,
-                    QUERY,
-                    FRAGMENT);
-        });
+        assertThrows(NullPointerException.class, () -> AbsoluteUrl.with(SCHEME,
+                CREDENTIALS,
+                HOST,
+                null,
+                PATH,
+                QUERY,
+                FRAGMENT));
     }
 
     @Test

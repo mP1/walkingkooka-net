@@ -33,9 +33,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ContentEncoding.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ContentEncoding.with(null));
     }
 
     @Test

@@ -39,9 +39,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AcceptCharsetValue.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AcceptCharsetValue.with(null));
     }
 
     @Test
@@ -54,9 +52,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.acceptCharsetValue().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.acceptCharsetValue().setValue(null));
     }
 
     @Test
@@ -77,9 +73,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetParametersInvalidParameterValueFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!"));
-        });
+        assertThrows(HeaderValueException.class, () -> this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!")));
     }
 
     @Test

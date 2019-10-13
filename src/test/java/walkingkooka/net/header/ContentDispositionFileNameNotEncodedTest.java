@@ -30,23 +30,17 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentDispositionFileNameNotEncoded.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContentDispositionFileNameNotEncoded.with(""));
     }
 
     @Test
     public void testWithInvalidCharFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionFileNameNotEncoded.with("\0");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionFileNameNotEncoded.with("\0"));
     }
 
     @Test
     public void testWithBackSlashFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentDispositionFileNameNotEncoded.with("\\path\\to\\file");
-        });
+        assertThrows(InvalidCharacterException.class, () -> ContentDispositionFileNameNotEncoded.with("\\path\\to\\file"));
     }
 
     @Test

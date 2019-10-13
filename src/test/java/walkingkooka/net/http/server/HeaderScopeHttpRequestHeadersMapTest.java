@@ -40,9 +40,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     @Test
     public void testContainsKeyResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            this.createMap().containsKey(HttpHeaderName.SET_COOKIE);
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> this.createMap().containsKey(HttpHeaderName.SET_COOKIE));
     }
 
     @Test
@@ -66,9 +64,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     @Test
     public void testGetResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> {
-            this.createMap().get(HttpHeaderName.SET_COOKIE);
-        });
+        assertThrows(NotAcceptableHeaderException.class, () -> this.createMap().get(HttpHeaderName.SET_COOKIE));
     }
 
     @Test

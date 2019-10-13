@@ -32,9 +32,7 @@ public final class ContentLanguageHeaderValueHandlerTest extends NonStringHeader
 
     @Test
     public void testCheckEmptyListFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            ContentLanguageHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_LANGUAGE);
-        });
+        assertThrows(HeaderValueException.class, () -> ContentLanguageHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_LANGUAGE));
     }
 
     @Test
