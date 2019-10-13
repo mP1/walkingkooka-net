@@ -20,7 +20,6 @@ package walkingkooka.net;
 import walkingkooka.collect.list.Lists;
 
 import java.util.AbstractList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
