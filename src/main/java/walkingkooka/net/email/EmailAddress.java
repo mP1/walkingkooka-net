@@ -138,7 +138,7 @@ final public class EmailAddress implements Value<String>,
         return parse(node.stringValueOrFail());
     }
 
-    public JsonNode marshall(final JsonNodeMarshallContext context) {
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.string(this.toString());
     }
 

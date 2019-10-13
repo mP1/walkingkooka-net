@@ -126,7 +126,7 @@ public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<Acc
     /**
      * {@see AcceptEncodingValueWildcard}
      */
-    static AcceptEncodingValueWildcard wildcard(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+    private static AcceptEncodingValueWildcard wildcard(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         return AcceptEncodingValueWildcard.with(checkParameters(parameters));
     }
 

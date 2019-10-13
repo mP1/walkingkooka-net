@@ -33,7 +33,7 @@ public final class Encoding extends HeaderValue2<String>
     /**
      * {@see CaseSensitivity}
      */
-    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Holds all constants.
