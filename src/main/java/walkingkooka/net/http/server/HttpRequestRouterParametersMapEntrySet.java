@@ -52,6 +52,7 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
         this.map = map;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator() {
         // attributes, path, url-parameters, headers, cookies, request parameters
