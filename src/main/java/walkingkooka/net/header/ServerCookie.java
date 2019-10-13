@@ -413,9 +413,9 @@ final public class ServerCookie extends Cookie {
 
         final javax.servlet.http.Cookie cookie = this.createJavaxServletCookieWithNameAndValue();
 
-        this.domain.ifPresent((d) -> cookie.setDomain(d));
-        this.path.ifPresent((p) -> cookie.setPath(p));
-        this.comment.ifPresent((c) -> cookie.setComment(c));
+        this.domain.ifPresent(cookie::setDomain);
+        this.path.ifPresent(cookie::setPath);
+        this.comment.ifPresent(cookie::setComment);
         this.deletion.ifPresent((d) -> cookie.setMaxAge(d.toMaxAgeSeconds(now)));
 
         cookie.setSecure(this.secure.toJavaxServletCookieSecure());

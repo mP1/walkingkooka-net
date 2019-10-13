@@ -64,8 +64,8 @@ public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
     public Optional<Charset> charset() {
         return this.value().stream()
                 .map(chv -> chv.value().charset())
-                .filter(c -> c.isPresent())
-                .map(c -> c.get())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .findFirst();
     }
 

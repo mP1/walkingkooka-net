@@ -58,7 +58,7 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
 
         assertEquals(expected,
                 response,
-                () -> request.toString());
+                request::toString);
     }
 
     // TypeNameTesting .........................................................................................

@@ -298,7 +298,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     private void namesCheck(final UrlPath path, final UrlPathName... names) {
         assertEquals(Lists.of(names),
                 names(path),
-                () -> path.toString());
+                path::toString);
     }
 
     private List<UrlPathName> names(final UrlPath path) {

@@ -264,12 +264,10 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     }
 
     private void headersAndBodyBytesFail(final HttpEntity entity, final String message) {
-        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> {
-            entity.headersAndBodyBytes();
-        });
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, entity::headersAndBodyBytes);
         assertEquals(message,
                 thrown.getMessage(),
-                () -> entity.toString());
+                entity::toString);
     }
 
     @Test
