@@ -506,7 +506,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
             @Override
             void quotedText() {
                 final String text = this.quotedText(CharPredicates.letterOrDigit(), true);
-                recorded.append("[quoted-" + text.substring(1, text.length() - 1) + ']');
+                recorded.append("[quoted-").append(text, 1, text.length() - 1).append(']');
             }
 
             @Override
@@ -514,12 +514,12 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
                 final int start = this.position + 1;
                 this.skipComment();
 
-                recorded.append("[comment-" + this.text.substring(start, this.position -1) + "]");
+                recorded.append("[comment-").append(this.text, start, this.position - 1).append("]");
             }
 
             @Override
             void token() {
-                recorded.append("[token-" + this.token(CharPredicates.letterOrDigit()) + "]");
+                recorded.append("[token-").append(this.token(CharPredicates.letterOrDigit())).append("]");
             }
 
             @Override

@@ -251,28 +251,28 @@ public final class HeaderValueParserWithParametersTest extends HeaderValueParser
             @Override
             AcceptCharsetValue value() {
                 final String text = this.token(CharPredicates.letterOrDigit());
-                recorded.append("[value-" + text + "]");
+                recorded.append("[value-").append(text).append("]");
                 return AcceptCharsetValue.with(CharsetName.with(text));
             }
 
             @Override
             AcceptCharsetValueParameterName<?> parameterName() {
                 final String text = this.token(CharPredicates.letterOrDigit());
-                recorded.append("[parameter-name-" + text + "]");
+                recorded.append("[parameter-name-").append(text).append("]");
                 return AcceptCharsetValueParameterName.with(text);
             }
 
             @Override
             String quotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 final String text = this.quotedText(CharPredicates.letterOrDigit(), false);
-                recorded.append("[parameter-value-quoted-" + text.substring(1, text.length() - 1) + ']');
+                recorded.append("[parameter-value-quoted-").append(text, 1, text.length() - 1).append(']');
                 return text;
             }
 
             @Override
             String unquotedParameterValue(AcceptCharsetValueParameterName<?> parameterName) {
                 final String text = this.token(CharPredicates.letterOrDigit());
-                recorded.append("[parameter-value-unquoted-" + text + ']');
+                recorded.append("[parameter-value-unquoted-").append(text).append(']');
                 return text;
             }
 
