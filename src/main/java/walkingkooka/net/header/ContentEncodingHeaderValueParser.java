@@ -110,5 +110,5 @@ final class ContentEncodingHeaderValueParser extends HeaderValueParser {
         this.failMissingValue("Content-Encoding");
     }
 
-    private List<Encoding> encodings = Lists.array();
+    private final List<Encoding> encodings = Lists.array();
 }
