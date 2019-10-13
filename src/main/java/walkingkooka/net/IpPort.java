@@ -20,7 +20,6 @@ package walkingkooka.net;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Map;
 import java.util.Objects;
