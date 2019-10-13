@@ -341,7 +341,7 @@ abstract class HeaderValueHandler<T> {
     /**
      * Sub classes parse the {@link String} value.
      */
-    abstract T parse0(final String text, final Name name) throws HeaderValueException, RuntimeException;
+    abstract T parse0(final String text, final Name name) throws HeaderValueException;
 
     // checkValue...........................................................
 
