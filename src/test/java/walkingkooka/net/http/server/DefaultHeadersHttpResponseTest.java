@@ -55,7 +55,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         final int contentLength = 26;
 
         final Map<HttpHeaderName<?>, Object> responseHeaders = Maps.ordered();
-        responseHeaders.put(HttpHeaderName.CONTENT_LENGTH, 0L + contentLength);
+        responseHeaders.put(HttpHeaderName.CONTENT_LENGTH, (long)contentLength);
         responseHeaders.put(HttpHeaderName.LAST_MODIFIED, LocalDateTime.of(2000, 12, 31, 6, 28, 29));
         responseHeaders.put(HttpHeaderName.SERVER, "Replaces original value Server 123");
 
