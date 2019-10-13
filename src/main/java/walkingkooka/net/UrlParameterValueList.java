@@ -45,11 +45,7 @@ final class UrlParameterValueList extends AbstractList<String> {
 
     void removeParameterValues(final String value) {
         // List.remove only removes the FIRST and not all values...
-        for (Iterator<String> i = this.values.iterator(); i.hasNext(); ) {
-            if (i.next().equals(value)) {
-                i.remove();
-            }
-        }
+        this.values.removeIf(s -> s.equals(value));
     }
 
     @Override
