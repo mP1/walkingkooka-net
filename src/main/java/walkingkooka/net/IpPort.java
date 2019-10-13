@@ -159,19 +159,10 @@ public final class IpPort implements Comparable<IpPort>,
      */
     public static IpPort free() {
         IpPort port;
-        ServerSocket server = null;
-        try {
-            server = new ServerSocket(0);
+        try (final ServerSocket server = new ServerSocket(0)) {
             port = IpPort.with(server.getLocalPort());
         } catch (final Exception cause) {
             throw new IllegalStateException("Unable to discover free port", cause);
-        } finally {
-            if (null != server) {
-                try {
-                    server.close();
-                } catch (final IOException ignore) {
-                }
-            }
         }
         return port;
     }
