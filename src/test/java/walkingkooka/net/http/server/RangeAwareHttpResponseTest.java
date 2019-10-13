@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestCase<RangeAwareHttpResponse> {
 
-    private final static Supplier<Byte> BOUNDARY_CHARACTERS = new Supplier<Byte>() {
+    private final static Supplier<Byte> BOUNDARY_CHARACTERS = new Supplier<>() {
         @Override
         public Byte get() {
             return (byte) "0123456789".charAt(this.i++ % 10);

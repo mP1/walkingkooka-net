@@ -60,7 +60,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
                                                              final CacheControlDirectiveNameParameter required,
                                                              final HeaderValueHandler<V> handler,
                                                              final CacheControlDirectiveNameScope scope) {
-        final CacheControlDirectiveName<V> constant = new CacheControlDirectiveName<V>(name, required, handler, scope);
+        final CacheControlDirectiveName<V> constant = new CacheControlDirectiveName<>(name, required, handler, scope);
         CONSTANTS.put(name, constant);
         return constant;
     }

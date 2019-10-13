@@ -62,7 +62,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
         final Optional<T> parameter = Optional.empty();
         name.checkValue(parameter);
 
-        final CacheControlDirective<T> directive = new CacheControlDirective<T>(name, parameter);
+        final CacheControlDirective<T> directive = new CacheControlDirective<>(name, parameter);
         CONSTANTS.put(name, directive);
         return directive;
     }
@@ -127,7 +127,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
         name.checkValue(parameter);
 
         return parameter.isPresent() ?
-                new CacheControlDirective<T>(name, parameter) :
+                new CacheControlDirective<>(name, parameter) :
                 withoutParameter(name, parameter);
     }
 
@@ -136,7 +136,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
         final CacheControlDirective<?> constant = CONSTANTS.get(name);
         return null != constant ?
                 Cast.to(constant) :
-                new CacheControlDirective<T>(name, parameter);
+                new CacheControlDirective<>(name, parameter);
     }
 
     /**
@@ -179,7 +179,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
      * Factory that creates a new {@link CacheControlDirective}
      */
     private CacheControlDirective<T> replace(final Optional<T> parameter) {
-        return new CacheControlDirective<T>(this.name, parameter);
+        return new CacheControlDirective<>(this.name, parameter);
     }
 
     // HasHeaderScope............................................................................................

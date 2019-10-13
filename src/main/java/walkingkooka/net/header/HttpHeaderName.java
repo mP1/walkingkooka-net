@@ -114,7 +114,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                 break;
         }
 
-        final HttpHeaderName<T> httpHeader = new HttpHeaderName<T>(header,
+        final HttpHeaderName<T> httpHeader = new HttpHeaderName<>(header,
                 scope,
                 headerValue,
                 conditional,

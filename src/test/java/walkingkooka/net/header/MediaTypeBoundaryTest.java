@@ -197,7 +197,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     private void generateAndCheck(final byte[] body, final String randomSource, final String boundary) {
-        final Supplier<Byte> boundaryCharcters = new Supplier<Byte>() {
+        final Supplier<Byte> boundaryCharcters = new Supplier<>() {
 
             @Override
             public Byte get() {

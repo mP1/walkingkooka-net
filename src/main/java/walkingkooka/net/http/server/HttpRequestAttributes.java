@@ -38,13 +38,13 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#method()}
      */
-    public final static HttpRequestAttributes<HttpMethod> METHOD = new HttpRequestAttributes<HttpMethod>("METHOD",
+    public final static HttpRequestAttributes<HttpMethod> METHOD = new HttpRequestAttributes<>("METHOD",
             HttpRequest::method);
 
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#protocolVersion()}
      */
-    public final static HttpRequestAttributes<HttpProtocolVersion> HTTP_PROTOCOL_VERSION = new HttpRequestAttributes<HttpProtocolVersion>("PROTOCOL_VERSION",
+    public final static HttpRequestAttributes<HttpProtocolVersion> HTTP_PROTOCOL_VERSION = new HttpRequestAttributes<>("PROTOCOL_VERSION",
             HttpRequest::protocolVersion);
 
     /**
@@ -62,7 +62,7 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#transport()}
      */
-    public final static HttpRequestAttributes<HttpTransport> TRANSPORT = new HttpRequestAttributes<HttpTransport>("TRANSPORT",
+    public final static HttpRequestAttributes<HttpTransport> TRANSPORT = new HttpRequestAttributes<>("TRANSPORT",
             HttpRequest::transport);
 
     /**
