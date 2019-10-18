@@ -17,13 +17,12 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 /**
  * Represents an invalid label length such as an ip with long string of zeros
  */
-final class HostAddressInvalidLengthProblem extends HostAddressProblem implements HashCodeEqualsDefined {
+final class HostAddressInvalidLengthProblem extends HostAddressProblem {
 
     static HostAddressInvalidLengthProblem with(final int at) {
         return new HostAddressInvalidLengthProblem(at);

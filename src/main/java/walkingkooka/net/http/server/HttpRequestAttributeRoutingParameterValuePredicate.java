@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -26,8 +25,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
  */
-final class HttpRequestAttributeRoutingParameterValuePredicate implements Predicate<List<String>>,
-        HashCodeEqualsDefined {
+final class HttpRequestAttributeRoutingParameterValuePredicate implements Predicate<List<String>> {
 
     /**
      * Creates a new {@link HttpRequestAttributeRoutingParameterValuePredicate}.

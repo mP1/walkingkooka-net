@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.header.HeaderValueTesting;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ConstantsTesting;
-import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.reflect.FieldAttributes;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.lang.reflect.Field;
 import java.util.Set;

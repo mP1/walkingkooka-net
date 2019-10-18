@@ -17,8 +17,8 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 final public class CommentHeaderValueExceptionTest implements StandardThrowableTesting<CommentHeaderValueException> {
 

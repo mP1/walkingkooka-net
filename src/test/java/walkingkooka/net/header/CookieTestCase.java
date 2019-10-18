@@ -19,8 +19,8 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.IsMethodTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.IsMethodTesting;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Predicate;
 

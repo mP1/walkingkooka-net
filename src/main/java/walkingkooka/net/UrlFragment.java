@@ -19,15 +19,13 @@ package walkingkooka.net;
 
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 
 /**
  * The fragment within a {@link Url}.
  */
-public final class UrlFragment implements Value<String>,
-        HashCodeEqualsDefined {
+public final class UrlFragment implements Value<String> {
 
     /**
      * An empty or absent fragment.

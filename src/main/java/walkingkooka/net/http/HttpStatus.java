@@ -19,7 +19,6 @@ package walkingkooka.net.http;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
@@ -27,7 +26,7 @@ import java.util.Objects;
 /**
  * Holds a HTTP response status code and message.
  */
-public final class HttpStatus implements HashCodeEqualsDefined, Value<HttpStatusCode> {
+public final class HttpStatus implements Value<HttpStatusCode> {
 
     /**
      * Factory that creates a {@link HttpStatus}

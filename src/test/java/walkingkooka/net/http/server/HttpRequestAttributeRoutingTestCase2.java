@@ -17,14 +17,13 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Predicate;
 
-public abstract class HttpRequestAttributeRoutingTestCase2<P extends Predicate<T> & HashCodeEqualsDefined, T>
+public abstract class HttpRequestAttributeRoutingTestCase2<P extends Predicate<T>, T>
         extends HttpRequestAttributeRoutingTestCase<P>
         implements HashCodeEqualsDefinedTesting2<P>,
         PredicateTesting2<P, T> {

@@ -34,10 +34,10 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.route.RouterTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 import java.util.function.Predicate;

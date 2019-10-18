@@ -20,10 +20,10 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.Range;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 

@@ -18,12 +18,11 @@
 package walkingkooka.net;
 
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * Represents an invalid character.
  */
-final class HostAddressInvalidCharacterProblem extends HostAddressProblem implements HashCodeEqualsDefined {
+final class HostAddressInvalidCharacterProblem extends HostAddressProblem {
 
     static HostAddressInvalidCharacterProblem with(final int at) {
         return new HostAddressInvalidCharacterProblem(at);

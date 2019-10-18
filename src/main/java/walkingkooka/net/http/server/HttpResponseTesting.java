@@ -18,10 +18,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Arrays;
 

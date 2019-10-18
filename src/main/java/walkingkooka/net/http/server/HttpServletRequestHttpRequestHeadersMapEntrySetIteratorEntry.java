@@ -19,7 +19,6 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -29,8 +28,7 @@ import java.util.Map.Entry;
 /**
  * The entry for an iterator of entries from a headers map.
  */
-final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry implements Entry<HttpHeaderName<?>, Object>,
-        HashCodeEqualsDefined {
+final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry implements Entry<HttpHeaderName<?>, Object> {
 
     static HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry with(final String headerName,
                                                                              final HttpServletRequest request) {

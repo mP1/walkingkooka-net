@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;

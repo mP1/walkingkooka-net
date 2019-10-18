@@ -17,15 +17,13 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
  * The {@link Cookie} deletion policy. Currently this is limited to <code>Expires</code> and <code>Max-age</code>.
  */
-abstract public class CookieDeletion implements HashCodeEqualsDefined {
+abstract public class CookieDeletion {
 
     /**
      * The value of age when this cookie is marked to be deleted.

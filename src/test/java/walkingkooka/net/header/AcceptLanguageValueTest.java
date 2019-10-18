@@ -20,8 +20,8 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 

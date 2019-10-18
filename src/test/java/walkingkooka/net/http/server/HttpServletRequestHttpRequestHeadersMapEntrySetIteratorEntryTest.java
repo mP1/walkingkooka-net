@@ -18,9 +18,9 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

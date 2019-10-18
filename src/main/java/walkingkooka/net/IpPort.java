@@ -18,7 +18,6 @@
 package walkingkooka.net;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.net.ServerSocket;
 import java.util.Map;
@@ -29,8 +28,7 @@ import java.util.Optional;
  * Value class that holds a valid ip port. <br>
  * The constants are taken from <a href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers></a>}.
  */
-public final class IpPort implements Comparable<IpPort>,
-        HashCodeEqualsDefined {
+public final class IpPort implements Comparable<IpPort> {
 
     /**
      * Useful constant when creating an {@link AbsoluteUrl}.

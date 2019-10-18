@@ -17,12 +17,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 

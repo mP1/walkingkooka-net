@@ -19,7 +19,6 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -27,7 +26,7 @@ import java.util.stream.IntStream;
 /**
  * A key to a url path component ({@link walkingkooka.net.UrlPathName}.
  */
-final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlPathName>, HashCodeEqualsDefined {
+final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlPathName> {
 
     /**
      * Factory that returns a {@link HttpRequestAttributeUrlPathName}.

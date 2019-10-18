@@ -18,11 +18,11 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;

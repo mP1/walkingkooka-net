@@ -29,7 +29,6 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Ascii;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
@@ -47,7 +46,7 @@ import java.util.stream.Collectors;
 /**
  * A http entity containing headers and body.
  */
-public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
+public final class HttpEntity implements HasHeaders {
 
     /**
      * {@link Binary} with no body or bytes.

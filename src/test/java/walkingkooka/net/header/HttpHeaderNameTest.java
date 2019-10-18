@@ -25,10 +25,10 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
-import walkingkooka.test.ConstantsTesting;
+import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.FieldAttributes;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;

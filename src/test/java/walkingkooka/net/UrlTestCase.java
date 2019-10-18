@@ -17,14 +17,14 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.IsMethodTesting;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.IsMethodTesting;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
