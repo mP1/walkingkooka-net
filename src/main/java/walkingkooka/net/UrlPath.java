@@ -20,7 +20,6 @@ package walkingkooka.net;
 
 import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -29,8 +28,7 @@ import java.util.Optional;
  * A {@link Path} which may be part of a {@link Url} after the host and port but before any present query string or anchor.
  */
 public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
-        Comparable<UrlPath>,
-        HashCodeEqualsDefined {
+        Comparable<UrlPath> {
 
     /**
      * {@link PathSeparator} instance

@@ -18,10 +18,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import java.util.List;
 import java.util.Map.Entry;

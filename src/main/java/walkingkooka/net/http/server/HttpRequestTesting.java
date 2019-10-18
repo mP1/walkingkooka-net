@@ -18,8 +18,8 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Map;
 

@@ -20,9 +20,9 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.nio.charset.Charset;
 import java.util.Optional;

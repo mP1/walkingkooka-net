@@ -19,8 +19,8 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ListTesting2;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
         ListTesting2<UrlParameterValueList, String> {

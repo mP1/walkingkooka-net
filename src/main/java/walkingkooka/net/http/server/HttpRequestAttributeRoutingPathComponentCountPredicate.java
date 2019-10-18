@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.IntPredicate;
@@ -27,7 +26,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} wraps a {@link IntPredicate} delegating all methods including {@link IntPredicate#toString()}.
  */
-final class HttpRequestAttributeRoutingPathComponentCountPredicate implements Predicate<Integer>, HashCodeEqualsDefined {
+final class HttpRequestAttributeRoutingPathComponentCountPredicate implements Predicate<Integer> {
 
     /**
      * Creates a new {@link HttpRequestAttributeRoutingPathComponentCountPredicate}.

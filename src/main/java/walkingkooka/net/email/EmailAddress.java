@@ -20,7 +20,6 @@ package walkingkooka.net.email;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -37,8 +36,7 @@ import java.util.Optional;
  * with [] is for emails only.
  */
 final public class EmailAddress implements Value<String>,
-        Comparable<EmailAddress>,
-        HashCodeEqualsDefined {
+        Comparable<EmailAddress> {
 
     /**
      * Tries to parse the email or returns an {@link Optional#empty()}.

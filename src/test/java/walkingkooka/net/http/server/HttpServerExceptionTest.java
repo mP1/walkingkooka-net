@@ -17,8 +17,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 final public class HttpServerExceptionTest implements StandardThrowableTesting<HttpServerException> {
 

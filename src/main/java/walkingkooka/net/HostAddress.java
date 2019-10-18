@@ -18,7 +18,6 @@
 package walkingkooka.net;
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
@@ -29,8 +28,7 @@ import walkingkooka.text.Whitespace;
  * Most of the tests and info was gathered from <a href="http://www.dominicsayers.com/source/beta/is_email/test/?all"></a>}
  */
 public final class HostAddress implements Value<String>,
-        Comparable<HostAddress>,
-        HashCodeEqualsDefined {
+        Comparable<HostAddress> {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.

@@ -18,9 +18,9 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 
 public final class HeaderParameterNameConstantsTest implements ClassTesting2<HeaderParameterNameConstants<?>>,
         TypeNameTesting<HeaderParameterNameConstants<?>> {

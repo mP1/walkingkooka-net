@@ -18,14 +18,13 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C>>
         extends HeaderName2TestCase<N, C> {
 
     HeaderParameterNameTestCase() {

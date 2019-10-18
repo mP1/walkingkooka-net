@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.ListTesting;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.reflect.ClassTesting2;
 
 import java.util.List;
 

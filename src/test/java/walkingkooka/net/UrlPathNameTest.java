@@ -20,10 +20,10 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
 

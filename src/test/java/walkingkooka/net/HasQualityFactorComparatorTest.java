@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparatorTesting;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQualityFactorComparator<MediaType>>,
         ComparatorTesting<HasQualityFactorComparator<MediaType>, MediaType> {

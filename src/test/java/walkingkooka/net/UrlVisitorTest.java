@@ -20,7 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.visit.Visiting;
 
 import java.util.Optional;

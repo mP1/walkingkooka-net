@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Contract implemented by header value types.
  */
-public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
+public interface HeaderValue extends HasHeaderScope {
 
     /**
      * Remove any comments from text. If the text contains an unterminated comment an exception will be thrown.

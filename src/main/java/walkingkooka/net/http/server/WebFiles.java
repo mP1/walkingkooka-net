@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.nio.file.Path;
 import java.util.Optional;

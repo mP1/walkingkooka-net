@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import javax.servlet.http.HttpServletRequest;
 

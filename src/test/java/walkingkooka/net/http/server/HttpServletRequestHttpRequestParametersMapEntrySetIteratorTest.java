@@ -18,10 +18,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Iterator;
 import java.util.Map.Entry;

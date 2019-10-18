@@ -20,8 +20,8 @@ package walkingkooka.net.http.server;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;

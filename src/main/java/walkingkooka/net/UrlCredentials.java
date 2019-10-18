@@ -18,7 +18,6 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.Objects;
@@ -28,7 +27,7 @@ import java.util.Optional;
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication>Mozilla HTTP Authentication</a>
  */
-public final class UrlCredentials implements HashCodeEqualsDefined {
+public final class UrlCredentials {
 
     /**
      * A constant useful for a url without credentials.

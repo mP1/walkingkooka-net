@@ -21,7 +21,6 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.json.JsonNode;
@@ -37,8 +36,7 @@ import java.util.function.Function;
 /**
  * Base class with getters that return the common components of a {@link Url}.
  */
-public abstract class Url implements HashCodeEqualsDefined,
-        Value<String>,
+public abstract class Url implements Value<String>,
         Visitable {
 
     // constants.......................................................................................................

@@ -18,12 +18,12 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ConstantsTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Iterator;
 import java.util.Set;

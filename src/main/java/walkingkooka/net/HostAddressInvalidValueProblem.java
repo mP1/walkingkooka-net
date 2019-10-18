@@ -17,13 +17,12 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 /**
  * Represents an invalid octet or atom value.
  */
-final class HostAddressInvalidValueProblem extends HostAddressProblem implements HashCodeEqualsDefined {
+final class HostAddressInvalidValueProblem extends HostAddressProblem {
 
     static HostAddressInvalidValueProblem with(final int at) {
         return new HostAddressInvalidValueProblem(at);

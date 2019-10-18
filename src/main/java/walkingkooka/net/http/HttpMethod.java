@@ -20,7 +20,6 @@ package walkingkooka.net.http;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.header.HeaderValue;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
@@ -30,8 +29,7 @@ import walkingkooka.text.Whitespace;
  */
 public final class HttpMethod implements Value<String>,
         HeaderValue,
-        Comparable<HttpMethod>,
-        HashCodeEqualsDefined {
+        Comparable<HttpMethod> {
 
     private final static String HEAD_STRING = "HEAD";
 

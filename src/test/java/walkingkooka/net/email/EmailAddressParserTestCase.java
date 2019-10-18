@@ -18,10 +18,10 @@
 package walkingkooka.net.email;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class EmailAddressParserTestCase<P extends EmailAddressParser> implements ClassTesting2<P>,
         ToStringTesting<P> {

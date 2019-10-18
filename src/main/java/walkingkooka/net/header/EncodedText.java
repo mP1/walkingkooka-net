@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -68,7 +67,8 @@ import java.util.Optional;
  *                    ; token except ( "*" / "'" / "%" )
  * </pre>
  */
-public final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderValue {
+public final class EncodedText implements Value<String>,
+        HeaderValue {
 
     /**
      * The value part of an extended parameter (ext-value) is a token that

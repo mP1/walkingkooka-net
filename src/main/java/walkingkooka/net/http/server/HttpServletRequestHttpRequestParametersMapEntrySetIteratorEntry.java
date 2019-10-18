@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -30,8 +29,7 @@ import java.util.Objects;
 /**
  * An entry that holds both the parameter and value.
  */
-final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry implements Entry<HttpRequestParameterName, List<String>>,
-        HashCodeEqualsDefined {
+final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry implements Entry<HttpRequestParameterName, List<String>> {
 
     static HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry with(final Entry<String, String[]> entry) {
         return new HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry(entry);

@@ -19,7 +19,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing interface to assist testing of {@link HeaderName} implementations.
  */
-public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C>>
         extends NameTesting2<N, C> {
 
     // parameterValue...........................................................................................

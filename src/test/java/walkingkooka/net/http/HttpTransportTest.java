@@ -17,9 +17,9 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
         ToStringTesting<HttpTransport> {

@@ -17,9 +17,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 
 public final class CacheControlDirectiveNameScopeTest implements ClassTesting2<CacheControlDirectiveNameScope>,
         TypeNameTesting<CacheControlDirectiveNameScope> {

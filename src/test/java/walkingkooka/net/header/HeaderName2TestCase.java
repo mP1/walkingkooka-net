@@ -17,12 +17,11 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.JavaVisibility;
 
-public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C>>
         implements ClassTesting2<N>,
         HeaderNameTesting<N, C> {
 
