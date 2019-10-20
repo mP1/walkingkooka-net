@@ -19,8 +19,8 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.compare.Range;
-import walkingkooka.compare.RangeBound;
+import walkingkooka.math.Range;
+import walkingkooka.math.RangeBound;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
