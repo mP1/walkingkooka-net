@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.compare.Range;
+import walkingkooka.math.Range;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HeaderValueException;

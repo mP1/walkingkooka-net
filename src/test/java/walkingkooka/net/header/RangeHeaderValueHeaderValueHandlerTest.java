@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.compare.Range;
+import walkingkooka.math.Range;
 
 public final class RangeHeaderValueHeaderValueHandlerTest extends
         NonStringHeaderValueHandlerTestCase<RangeHeaderValueHeaderValueHandler, RangeHeaderValue> {
