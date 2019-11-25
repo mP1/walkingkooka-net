@@ -29,7 +29,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.xml.XmlNode;
@@ -179,7 +179,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testUnmarshallUnknownPropertyFails() {
-        this.unmarshallFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)),
+        this.unmarshallFails(JsonNode.object().set(JsonPropertyName.with("unknown-property"), JsonNode.number(123)),
                 JsonNodeException.class);
     }
 
