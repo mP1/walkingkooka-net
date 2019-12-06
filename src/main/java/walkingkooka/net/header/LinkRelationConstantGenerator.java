@@ -22,7 +22,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.NodeSelectorContext;
 import walkingkooka.tree.select.NodeSelectorContexts;
@@ -145,7 +145,7 @@ final class LinkRelationConstantGenerator {
 
     private final static Printer printer = Printers.sysOut();
 
-    private static Optional<ExpressionFunction<?>> functions(final ExpressionNodeName name) {
+    private static Optional<ExpressionFunction<?>> functions(final FunctionExpressionName name) {
         throw new UnsupportedOperationException();
     }
 }
