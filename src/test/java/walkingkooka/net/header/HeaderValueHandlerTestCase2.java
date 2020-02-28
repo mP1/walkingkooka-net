@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
-import walkingkooka.util.systemproperty.SystemProperty;
+import walkingkooka.util.SystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
