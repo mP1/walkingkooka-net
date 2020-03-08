@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 import walkingkooka.Binary;
 import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.io.InputStreams;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -134,7 +133,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
                           final HttpRequest request,
                           final HttpResponse response) {
         try (final InputStream content = file.content()) {
-            final Binary binaryContent = Binary.with(InputStreams.readAllBytes(content));
+            final Binary binaryContent = Binary.with(content.readAllBytes());
             final MediaType contentType = file.contentType();
 
             if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
