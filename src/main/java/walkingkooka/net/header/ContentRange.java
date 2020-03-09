@@ -220,12 +220,6 @@ public final class ContentRange implements HeaderValue {
                         break;
                     }
                     throw new InvalidCharacterException(text, i);
-                case MODE_RANGE_END_INITIAL:
-                    if (DIGIT.test(c)) {
-                        upper = accumulateValue(c, upper);
-                        break;
-                    }
-                    throw new InvalidCharacterException(text, i);
                 case MODE_RANGE_END:
                     if (DIGIT.test(c)) {
                         upper = accumulateValue(c, upper);
@@ -260,7 +254,7 @@ public final class ContentRange implements HeaderValue {
                     }
                     throw new InvalidCharacterException(text, i);
                 default:
-                    NeverError.unhandledCase(mode, MODE_UNIT, MODE_RANGE_START_INITIAL, MODE_RANGE_START, MODE_RANGE_END_INITIAL, MODE_RANGE_END, MODE_RANGE_SIZE_SEPARATOR, MODE_SIZE_INITIAL, MODE_SIZE);
+                    NeverError.unhandledCase(mode, MODE_UNIT, MODE_RANGE_START_INITIAL, MODE_RANGE_START, MODE_RANGE_END, MODE_RANGE_SIZE_SEPARATOR, MODE_SIZE_INITIAL, MODE_SIZE);
             }
             i++;
         }
@@ -272,7 +266,6 @@ public final class ContentRange implements HeaderValue {
                 failMissing("range start", text);
                 break;
             case MODE_RANGE_START:
-            case MODE_RANGE_END_INITIAL:
                 failMissing("range end", text);
             case MODE_RANGE_END:
             case MODE_SIZE_INITIAL:
@@ -290,8 +283,7 @@ public final class ContentRange implements HeaderValue {
     private final static int MODE_UNIT = 1;
     private final static int MODE_RANGE_START_INITIAL = MODE_UNIT + 1;
     private final static int MODE_RANGE_START = MODE_RANGE_START_INITIAL + 1;
-    private final static int MODE_RANGE_END_INITIAL = MODE_RANGE_START + 1;
-    private final static int MODE_RANGE_END = MODE_RANGE_END_INITIAL + 1;
+    private final static int MODE_RANGE_END = MODE_RANGE_START + 1;
     private final static int MODE_RANGE_SIZE_SEPARATOR = MODE_RANGE_END + 1;
     private final static int MODE_SIZE_INITIAL = MODE_RANGE_SIZE_SEPARATOR + 1;
     private final static int MODE_SIZE = MODE_SIZE_INITIAL + 1;

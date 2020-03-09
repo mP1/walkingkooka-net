@@ -125,6 +125,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Test
+    public void testSetRangeWildcardFails() {
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setRange(Optional.of(Range.all())));
+    }
+
+    @Test
     public void testSetRangeNegativeLowerBoundsFails() {
         assertThrows(IllegalArgumentException.class, () -> this.contentRange().setRange(this.range(-1, 123)));
     }
@@ -295,6 +300,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Test
+    public void testParseWhitespaceWithinUnitFails() {
+        this.parseStringFails(" bytes 100-200/*", "Unit missing from \" bytes 100-200/*\"");
+    }
+
+    @Test
     public void testParseUnitUnknownFails() {
         this.parseStringFails("b", "Missing unit from \"b\"");
     }
@@ -321,6 +331,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testParseMissingRangeSeparatorFails() {
+        this.parseStringFails("bytes 100-*/*", '*');
+    }
+
+    @Test
+    public void testParseMissingRangeSeparatorFails2() {
         this.parseStringFails("bytes 100?200/*", '?');
     }
 
@@ -332,6 +347,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     @Test
     public void testParseInvalidUpperBoundCharacterFails2() {
         this.parseStringFails("bytes 100-2?00/*", '?');
+    }
+
+    @Test
+    public void testParseInvalidUpperBoundsFails() {
+        this.parseStringFails("bytes 100-99/*", "Invalid upper bounds 99 < 100 in \"bytes 100-99/*\"");
     }
 
     @Test
@@ -347,6 +367,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     @Test
     public void testParseInvalidSizeCharacterFails3() {
         this.parseStringFails("bytes 100-200/1*", '*');
+    }
+
+    @Test
+    public void testParseInvalidRangeSeparatorFails() {
+        this.parseStringFails("bytes *!*", '!');
     }
 
     @Test
