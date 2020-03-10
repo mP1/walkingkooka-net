@@ -31,6 +31,7 @@ import java.util.Optional;
  * A {@link Cookie} that is sent by servers to a client. Holds a cookie including all its properties. Note that values are verified to contain correct
  * characters but no attempt is made to encode values with incorrect values.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final public class ServerCookie extends Cookie {
 
     public final static Optional<String> NO_DOMAIN = Optional.empty();

@@ -27,6 +27,7 @@ import java.util.Objects;
 /**
  * A {@link Cookie} that is sent by clients to servers and holds the name and value.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final public class ClientCookie extends Cookie {
 
     /**
