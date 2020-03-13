@@ -229,7 +229,7 @@ public final class ContentRange implements HeaderValue {
                         if (upper <= lower) {
                             throw new HeaderValueException("Invalid upper bounds " + upper + " < " + lower + " in " + CharSequences.quote(text));
                         }
-                        range = range.and(Range.lessThanEquals(upper));
+                        range = range.and(Range.lessThanEquals(upper)); /* lgtm [java/dereferenced-value-may-be-null] */
                         mode = MODE_SIZE_INITIAL;
                         break;
                     }
