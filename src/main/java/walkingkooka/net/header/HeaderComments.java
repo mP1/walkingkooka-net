@@ -257,7 +257,8 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            NeverError.unhandledCase(this, HeaderComments.values());
+            return null;
         }
 
         private HeaderComments fail() {
