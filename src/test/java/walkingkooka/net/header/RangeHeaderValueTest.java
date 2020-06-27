@@ -18,8 +18,8 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.Range;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 

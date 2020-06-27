@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.math.Range;
+import walkingkooka.collect.Range;
 
 import java.util.Optional;
 

@@ -19,9 +19,9 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.collect.Range;
+import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.Range;
-import walkingkooka.math.RangeBound;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
