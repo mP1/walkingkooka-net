@@ -41,32 +41,6 @@ using the provided abstractions and utility methods
     */*                                 0.8
 
 
-## Dependencies
-
-- [https://github.com/mP1/walkingkooka-route](https://github.com/mP1/walkingkooka-route)
-- junit
-
-No actual releases are available, instead the latest snapshot may be referenced in a Maven POM.xml using
-[https://jitpack.io](https://jitpack.io) repository.
-
-```xml
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-       <dependency>
-            <groupId>com.github.mP1</groupId>
-            <artifactId>walkingkooka-route</artifactId>
-            <version>master-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-```
-
-
 
 ## Getting the source
 
