@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.collect.map.Maps;
 
 import java.net.ServerSocket;
@@ -154,6 +155,7 @@ public final class IpPort implements Comparable<IpPort> {
     /**
      * Returns a {@link IpPort} which was free by creating a {@link ServerSocket} and then releasing it.
      */
+    @GwtIncompatible
     public static IpPort free() {
         IpPort port;
         try (final ServerSocket server = new ServerSocket(0)) {

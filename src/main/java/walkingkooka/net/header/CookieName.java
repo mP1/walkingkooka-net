@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -63,6 +64,7 @@ final public class CookieName extends HeaderNameValue
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
+    @GwtIncompatible
     @Override
     public Optional<ClientCookie> parameterValue(final HttpRequest request) {
         return HttpHeaderName.COOKIE.headerValue(request.headers())

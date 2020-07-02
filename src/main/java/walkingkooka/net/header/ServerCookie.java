@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
@@ -112,6 +113,7 @@ final public class ServerCookie extends Cookie {
     /**
      * Converts a {@link javax.servlet.http.Cookie} into a {@link ServerCookie}.
      */
+    @GwtIncompatible
     static ServerCookie from(final javax.servlet.http.Cookie cookie) {
         Objects.requireNonNull(cookie, "cookie");
 
@@ -410,6 +412,7 @@ final public class ServerCookie extends Cookie {
      * Converts this cookie into a {@link javax.servlet.http.Cookie}.
      * The {@link LocalDateTime} is only used if a max age needs to be calculated from a set deletion.
      */
+    @GwtIncompatible
     public javax.servlet.http.Cookie toJavaxServletCookie(final LocalDateTime now) {
         Objects.requireNonNull(now, "now");
 

@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
@@ -779,6 +780,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
+    @GwtIncompatible
     @Override
     public Optional<T> parameterValue(final HttpRequest request) {
         return this.headerValue(request.headers());

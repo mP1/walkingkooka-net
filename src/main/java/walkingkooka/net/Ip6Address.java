@@ -50,12 +50,11 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
     public static Ip6Address with(final byte[] components) {
         Objects.requireNonNull(components, "components");
 
-        final byte[] copy = components.clone();
-        if (copy.length != OCTET_COUNT) {
-            throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + copy.length + "=" + Arrays.toString(components));
+        if (components.length != OCTET_COUNT) {
+            throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + components.length + "=" + Arrays.toString(components));
         }
 
-        return new Ip6Address(copy);
+        return new Ip6Address(components);
     }
 
     /**

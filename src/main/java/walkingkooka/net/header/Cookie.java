@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringBuilder;
@@ -82,6 +83,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * {@see ClientCookie#from(java.servlet.http.Cookie } .
      */
+    @GwtIncompatible
     public static ClientCookie clientFrom(final javax.servlet.http.Cookie cookie) {
         return ClientCookie.from(cookie);
     }
@@ -89,6 +91,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * {@see ServerCookie#from(java.servlet.http.Cookie } .
      */
+    @GwtIncompatible
     public static ServerCookie serverFrom(final javax.servlet.http.Cookie cookie) {
         return ServerCookie.from(cookie);
     }
@@ -305,6 +308,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * Creates a new {@link javax.servlet.http.Cookie}
      */
+    @GwtIncompatible
     final javax.servlet.http.Cookie createJavaxServletCookieWithNameAndValue() {
         return new javax.servlet.http.Cookie(this.name.value(), this.value);
     }
