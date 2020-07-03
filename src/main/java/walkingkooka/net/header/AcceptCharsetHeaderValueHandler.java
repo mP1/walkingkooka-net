@@ -44,7 +44,10 @@ final class AcceptCharsetHeaderValueHandler extends NonStringHeaderValueHandler<
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, AcceptCharset.class, name);
+        this.checkType(value,
+                v -> v instanceof AcceptCharset,
+                AcceptCharset.class,
+                name);
     }
 
     @Override

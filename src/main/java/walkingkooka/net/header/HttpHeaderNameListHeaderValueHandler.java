@@ -50,7 +50,10 @@ final class HttpHeaderNameListHeaderValueHandler extends NonStringHeaderValueHan
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, HttpHeaderName.class, name);
+        this.checkListOfType(value,
+                v -> v instanceof HttpHeaderName,
+                HttpHeaderName.class,
+                name);
     }
 
     @Override

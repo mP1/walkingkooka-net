@@ -43,7 +43,10 @@ final class LongHeaderValueHandler extends NonStringHeaderValueHandler<Long> {
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, Long.class, name);
+        this.checkType(value,
+                v -> v instanceof Long,
+                Long.class,
+                name);
     }
 
     @Override

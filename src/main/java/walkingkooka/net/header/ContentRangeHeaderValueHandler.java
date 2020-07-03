@@ -43,7 +43,10 @@ final class ContentRangeHeaderValueHandler extends NonStringHeaderValueHandler<C
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, ContentRange.class, name);
+        this.checkType(value,
+                v -> v instanceof ContentRange,
+                ContentRange.class,
+                name);
     }
 
     @Override

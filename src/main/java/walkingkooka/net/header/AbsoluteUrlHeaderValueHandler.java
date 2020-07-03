@@ -46,7 +46,10 @@ final class AbsoluteUrlHeaderValueHandler extends NonStringHeaderValueHandler<Ab
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, AbsoluteUrl.class, name);
+        this.checkType(value,
+                v -> v instanceof AbsoluteUrl,
+                AbsoluteUrl.class,
+                name);
     }
 
     @Override

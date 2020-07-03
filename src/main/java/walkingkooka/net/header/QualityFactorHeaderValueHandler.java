@@ -44,7 +44,11 @@ final class QualityFactorHeaderValueHandler extends NonStringHeaderValueHandler<
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkValue(this.checkType(value, Float.class, name));
+        this.checkType(value,
+                v -> v instanceof Float,
+                Float.class,
+                name);
+        this.checkValue((Float)value);
     }
 
     // https://restfulapi.net/q-parameter-in-http-accept-header/

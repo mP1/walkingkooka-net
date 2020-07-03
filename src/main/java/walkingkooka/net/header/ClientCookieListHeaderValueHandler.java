@@ -45,7 +45,10 @@ final class ClientCookieListHeaderValueHandler extends NonStringHeaderValueHandl
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, ClientCookie.class, name);
+        this.checkListOfType(value,
+                (v) -> v instanceof ClientCookie,
+                ClientCookie.class,
+                name);
     }
 
     @Override

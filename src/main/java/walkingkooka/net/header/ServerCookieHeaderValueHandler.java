@@ -43,7 +43,10 @@ final class ServerCookieHeaderValueHandler extends NonStringHeaderValueHandler<S
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, ServerCookie.class, name);
+        this.checkType(value,
+                v -> v instanceof ServerCookie,
+                ServerCookie.class,
+                name);
     }
 
     @Override

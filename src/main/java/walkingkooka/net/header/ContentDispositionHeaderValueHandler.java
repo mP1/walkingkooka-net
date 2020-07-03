@@ -44,7 +44,10 @@ final class ContentDispositionHeaderValueHandler extends NonStringHeaderValueHan
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, ContentDisposition.class, name);
+        this.checkType(value,
+                (v) -> v instanceof ContentDisposition,
+                ContentDisposition.class,
+                name);
     }
 
     @Override

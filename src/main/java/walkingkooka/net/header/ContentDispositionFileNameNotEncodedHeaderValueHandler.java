@@ -24,7 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * A {@link HeaderValueHandler} that parses a content header value into a {@link ContentDispositionFileNameNotEncoded}.
  */
-final class ContentDispositionFileNameNotEncodedHeaderValueHandler extends ContentDispositionFileNameHeaderValueHandler<ContentDispositionFileNameNotEncoded> {
+final class ContentDispositionFileNameNotEncodedHeaderValueHandler extends NonStringHeaderValueHandler<ContentDispositionFileName> {
 
     /**
      * Singleton
@@ -44,17 +44,25 @@ final class ContentDispositionFileNameNotEncodedHeaderValueHandler extends Conte
     }
 
     @Override
+    void check0(Object value, Name name) {
+        this.checkType(value,
+                v -> v instanceof ContentDispositionFileNameNotEncoded,
+                ContentDispositionFileNameNotEncoded.class,
+                name);
+    }
+
+    @Override
     String toText0(final ContentDispositionFileName filename, final Name name) {
         return QUOTED_UNQUOTED_STRING.toText(filename.value(), name);
+    }
+
+    @Override
+    public String toString() {
+        return ContentDispositionFileNameNotEncoded.class.getSimpleName();
     }
 
     private final static HeaderValueHandler<String> QUOTED_UNQUOTED_STRING = HeaderValueHandler.quotedUnquotedString(
             CharPredicates.asciiPrintable(),
             false,
             CharPredicates.rfc2045Token());
-
-    @Override
-    Class<ContentDispositionFileNameNotEncoded> type() {
-        return ContentDispositionFileNameNotEncoded.class;
-    }
 }

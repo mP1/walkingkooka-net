@@ -43,7 +43,10 @@ final class CacheControlHeaderValueHandler extends NonStringHeaderValueHandler<C
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, CacheControl.class, name);
+        this.checkType(value,
+                (v) -> v instanceof CacheControl,
+                CacheControl.class,
+                name);
     }
 
     @Override

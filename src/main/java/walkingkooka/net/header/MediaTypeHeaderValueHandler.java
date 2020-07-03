@@ -43,7 +43,10 @@ final class MediaTypeHeaderValueHandler extends NonStringHeaderValueHandler<Medi
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, MediaType.class, name);
+        this.checkType(value,
+                v -> v instanceof MediaType,
+                MediaType.class,
+                name);
     }
 
     @Override

@@ -45,7 +45,10 @@ final class ETagListHeaderValueHandler extends NonStringHeaderValueHandler<List<
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, ETag.class, name);
+        this.checkListOfType(value,
+                v -> v instanceof ETag,
+                ETag.class,
+                name);
     }
 
     @Override

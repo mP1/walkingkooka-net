@@ -67,7 +67,10 @@ final class OffsetDateTimeHeaderValueHandler extends NonStringHeaderValueHandler
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, OffsetDateTime.class, name);
+        this.checkType(value,
+                v -> v instanceof OffsetDateTime,
+                OffsetDateTime.class,
+                name);
     }
 
     @Override

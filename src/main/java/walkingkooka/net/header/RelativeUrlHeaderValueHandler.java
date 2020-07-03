@@ -46,7 +46,10 @@ final class RelativeUrlHeaderValueHandler extends NonStringHeaderValueHandler<Re
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, RelativeUrl.class, name);
+        this.checkType(value,
+                v -> v instanceof RelativeUrl,
+                RelativeUrl.class,
+                name);
     }
 
     @Override

@@ -50,7 +50,10 @@ final class HttpMethodListHeaderValueHandler extends NonStringHeaderValueHandler
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, HttpMethod.class, name);
+        this.checkListOfType(value,
+                v -> v instanceof HttpMethod,
+                HttpMethod.class,
+                name);
     }
 
     @Override

@@ -54,7 +54,10 @@ final class AcceptEncodingHeaderValueHandler extends NonStringHeaderValueHandler
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, AcceptEncoding.class, name);
+        this.checkType(value,
+                v -> v instanceof AcceptEncoding,
+                AcceptEncoding.class,
+                name);
     }
 
     @Override

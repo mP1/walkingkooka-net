@@ -45,7 +45,10 @@ final class UrlHeaderValueHandler extends NonStringHeaderValueHandler<Url> {
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, Url.class, name);
+        this.checkType(value,
+                v -> v instanceof Url,
+                Url.class,
+                name);
     }
 
     @Override

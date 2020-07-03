@@ -45,7 +45,10 @@ final class LinkHeaderValueHandler extends NonStringHeaderValueHandler<List<Link
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, Link.class, name);
+        this.checkListOfType(value,
+                v -> v instanceof Link,
+                Link.class,
+                name);
     }
 
     @Override

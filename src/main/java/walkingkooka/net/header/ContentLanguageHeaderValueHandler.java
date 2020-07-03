@@ -48,7 +48,10 @@ final class ContentLanguageHeaderValueHandler extends NonStringHeaderValueHandle
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, ContentLanguage.class, name);
+        this.checkType(value,
+                v -> v instanceof ContentLanguage,
+                ContentLanguage.class,
+                name);
     }
 
     @Override
