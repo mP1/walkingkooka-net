@@ -17,11 +17,20 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class HeaderValueHandlerTest implements ClassTesting2<HeaderValueHandler<Void>> {
+
+    @Test
+    public void testPackageConstant() {
+        assertEquals(HeaderValueHandler.class.getPackageName(), HeaderValueHandler.PACKAGE);
+    }
+
     @Override
     public Class<HeaderValueHandler<Void>> type() {
         return Cast.to(HeaderValueHandler.class);
