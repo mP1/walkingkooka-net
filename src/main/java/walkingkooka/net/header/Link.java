@@ -22,14 +22,13 @@ import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
-import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlAttributeName;
 import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlName;
@@ -48,8 +47,7 @@ import java.util.Objects;
  */
 final public class Link extends HeaderValueWithParameters2<Link,
         LinkParameterName<?>,
-        Url>
-        implements HasXmlNode {
+        Url> {
 
     /**
      * No parameters.
@@ -225,7 +223,8 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * Builds the XML representation of this link, with the value assigned to HREF attribute.
      */
-    @Override
+    // https://github.com/mP1/walkingkooka-net/issues/174
+    // @Override
     public XmlNode toXmlNode() {
         final XmlDocument document = XmlNode.createDocument(documentBuilder());
 
