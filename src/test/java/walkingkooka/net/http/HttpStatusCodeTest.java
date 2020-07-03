@@ -28,6 +28,7 @@ import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -76,6 +77,16 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
                         .filter(c -> false == c.requiredHttpHeaders().equals(Sets.of(HttpHeaderName.LOCATION)))
                         .map(c -> c + " " + c.requiredHttpHeaders())
                         .collect(Collectors.toList()));
+    }
+
+    @Test
+    public void testCode() throws Exception {
+        for (final HttpStatusCode constant : HttpStatusCode.values()) {
+            final String name = constant.name();
+            assertEquals(HttpServletResponse.class.getField("SC_" + name).getInt(null),
+                    constant.code(),
+                    () -> constant.toString());
+        }
     }
 
     // category ....................................................................
