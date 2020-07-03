@@ -259,7 +259,7 @@ public enum HttpStatusCode {
     }
 
     private static boolean isNotMultipleChoicesAndDirect(final int code, final HttpStatusCodeCategory category) {
-        return javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES != code && category == HttpStatusCodeCategory.REDIRECTION;
+        return 300/*javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES*/ != code && category == HttpStatusCodeCategory.REDIRECTION;
     }
 
     /**
