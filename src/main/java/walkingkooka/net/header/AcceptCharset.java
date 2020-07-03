@@ -117,8 +117,8 @@ public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
         Objects.requireNonNull(contentType, "contentType");
 
         return MediaTypeParameterName.CHARSET.parameterValue(contentType)
-                .stream()
-                .anyMatch(this::test0);
+                .map(this::test0)
+                .orElse(false);
     }
 
     private boolean test0(final CharsetName charsetName) {
