@@ -21,7 +21,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
@@ -31,217 +30,217 @@ import java.util.Set;
 public enum HttpStatusCode {
 
     /**
-     * Continue={@link HttpServletResponse#SC_CONTINUE}
+     * Continue={@link javax.servlet.http.HttpServletResponse#SC_CONTINUE}
      */
-    CONTINUE(HttpServletResponse.SC_CONTINUE, "Continue"),
+    CONTINUE(100/*javax.servlet.http.HttpServletResponse.SC_CONTINUE*/, "Continue"),
 
     /**
-     * Switching protocols={@link HttpServletResponse#SC_SWITCHING_PROTOCOLS}
+     * Switching protocols={@link javax.servlet.http.HttpServletResponse#SC_SWITCHING_PROTOCOLS}
      */
-    SWITCHING_PROTOCOLS(HttpServletResponse.SC_SWITCHING_PROTOCOLS, "Switching protocols"),
+    SWITCHING_PROTOCOLS(101/*javax.servlet.http.HttpServletResponse.SC_SWITCHING_PROTOCOLS*/, "Switching protocols"),
 
     // Success
 
     /**
-     * OK={@link HttpServletResponse#SC_OK}
+     * OK={@link javax.servlet.http.HttpServletResponse#SC_OK}
      */
-    OK(HttpServletResponse.SC_OK, "OK"),
+    OK(200/*javax.servlet.http.HttpServletResponse.SC_OK*/, "OK"),
 
     /**
-     * Created={@link HttpServletResponse#SC_CREATED}
+     * Created={@link javax.servlet.http.HttpServletResponse#SC_CREATED}
      */
-    CREATED(HttpServletResponse.SC_CREATED, "Created"),
+    CREATED(201/*javax.servlet.http.HttpServletResponse.SC_CREATED*/, "Created"),
 
     /**
-     * Accepted={@link HttpServletResponse#SC_ACCEPTED}
+     * Accepted={@link javax.servlet.http.HttpServletResponse#SC_ACCEPTED}
      */
-    ACCEPTED(HttpServletResponse.SC_ACCEPTED, "Accepted"),
+    ACCEPTED(202/*javax.servlet.http.HttpServletResponse.SC_ACCEPTED*/, "Accepted"),
 
     /**
-     * Non Authoritative information={@link HttpServletResponse#SC_NON_AUTHORITATIVE_INFORMATION}
+     * Non Authoritative information={@link javax.servlet.http.HttpServletResponse#SC_NON_AUTHORITATIVE_INFORMATION}
      */
-    NON_AUTHORITATIVE_INFORMATION(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION, "Non authoritative information"),
+    NON_AUTHORITATIVE_INFORMATION(203/*javax.servlet.http.HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION*/, "Non authoritative information"),
 
     /**
-     * No content={@link HttpServletResponse#SC_NO_CONTENT}
+     * No content={@link javax.servlet.http.HttpServletResponse#SC_NO_CONTENT}
      */
-    NO_CONTENT(HttpServletResponse.SC_NO_CONTENT, "No content"),
+    NO_CONTENT(204/*javax.servlet.http.HttpServletResponse.SC_NO_CONTENT*/, "No content"),
 
     /**
-     * Reset content={@link HttpServletResponse#SC_RESET_CONTENT}
+     * Reset content={@link javax.servlet.http.HttpServletResponse#SC_RESET_CONTENT}
      */
-    RESET_CONTENT(HttpServletResponse.SC_RESET_CONTENT, "Reset content"),
+    RESET_CONTENT(205/*javax.servlet.http.HttpServletResponse.SC_RESET_CONTENT*/, "Reset content"),
 
     /**
-     * Partial content={@link HttpServletResponse#SC_PARTIAL_CONTENT}
+     * Partial content={@link javax.servlet.http.HttpServletResponse#SC_PARTIAL_CONTENT}
      */
-    PARTIAL_CONTENT(HttpServletResponse.SC_PARTIAL_CONTENT, "Partial content", HttpHeaderName.RANGE),
+    PARTIAL_CONTENT(206/*javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT*/, "Partial content", HttpHeaderName.RANGE),
 
     // Redirect
 
     /**
-     * Multiple choices={@link HttpServletResponse#SC_MULTIPLE_CHOICES}
+     * Multiple choices={@link javax.servlet.http.HttpServletResponse#SC_MULTIPLE_CHOICES}
      */
-    MULTIPLE_CHOICES(HttpServletResponse.SC_MULTIPLE_CHOICES, "Multiple choices"),
+    MULTIPLE_CHOICES(300/*javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES*/, "Multiple choices"),
 
     /**
-     * Moved permanently={@link HttpServletResponse#SC_MOVED_PERMANENTLY}
+     * Moved permanently={@link javax.servlet.http.HttpServletResponse#SC_MOVED_PERMANENTLY}
      */
-    MOVED_PERMANENTLY(HttpServletResponse.SC_MOVED_PERMANENTLY, "Moved permanently"),
+    MOVED_PERMANENTLY(301/*javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY*/, "Moved permanently"),
 
     /**
-     * Found={@link HttpServletResponse#SC_MOVED_TEMPORARILY}
+     * Found={@link javax.servlet.http.HttpServletResponse#SC_MOVED_TEMPORARILY}
      */
-    MOVED_TEMPORARILY(HttpServletResponse.SC_MOVED_TEMPORARILY, "Moved temporarily"),
+    MOVED_TEMPORARILY(302/*javax.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY*/, "Moved temporarily"),
 
     /**
-     * Found={@link HttpServletResponse#SC_FOUND}
+     * Found={@link javax.servlet.http.HttpServletResponse#SC_FOUND}
      */
-    FOUND(HttpServletResponse.SC_FOUND, "Found"),
+    FOUND(302/*javax.servlet.http.HttpServletResponse.SC_FOUND*/, "Found"),
 
     /**
-     * See other={@link HttpServletResponse#SC_SEE_OTHER}
+     * See other={@link javax.servlet.http.HttpServletResponse#SC_SEE_OTHER}
      */
-    SEE_OTHER(HttpServletResponse.SC_SEE_OTHER, "See other"),
+    SEE_OTHER(303/*javax.servlet.http.HttpServletResponse.SC_SEE_OTHER*/, "See other"),
 
     /**
-     * Not Modified={@link HttpServletResponse#SC_NOT_MODIFIED}
+     * Not Modified={@link javax.servlet.http.HttpServletResponse#SC_NOT_MODIFIED}
      */
-    NOT_MODIFIED(HttpServletResponse.SC_NOT_MODIFIED, "Not modified"),
+    NOT_MODIFIED(304/*javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED*/, "Not modified"),
 
     /**
-     * User Proxy={@link HttpServletResponse#SC_USE_PROXY}
+     * User Proxy={@link javax.servlet.http.HttpServletResponse#SC_USE_PROXY}
      */
-    USE_PROXY(HttpServletResponse.SC_USE_PROXY, "User proxy"),
+    USE_PROXY(305/*javax.servlet.http.HttpServletResponse.SC_USE_PROXY*/, "User proxy"),
 
     /**
-     * Temporary redirect={@link HttpServletResponse#SC_TEMPORARY_REDIRECT}
+     * Temporary redirect={@link javax.servlet.http.HttpServletResponse#SC_TEMPORARY_REDIRECT}
      */
-    TEMPORARY_REDIRECT(HttpServletResponse.SC_TEMPORARY_REDIRECT, "Temporary redirect"),
+    TEMPORARY_REDIRECT(307/*javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT*/, "Temporary redirect"),
 
     // Client Error
 
     /**
-     * Bad request={@link HttpServletResponse#SC_BAD_REQUEST}
+     * Bad request={@link javax.servlet.http.HttpServletResponse#SC_BAD_REQUEST}
      */
-    BAD_REQUEST(HttpServletResponse.SC_BAD_REQUEST, "Bad request"),
+    BAD_REQUEST(400/*javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST*/, "Bad request"),
 
     /**
-     * Unauthorized={@link HttpServletResponse#SC_UNAUTHORIZED}
+     * Unauthorized={@link javax.servlet.http.HttpServletResponse#SC_UNAUTHORIZED}
      */
-    UNAUTHORIZED(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"),
+    UNAUTHORIZED(401/*javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED*/, "Unauthorized"),
 
     /**
-     * Payment required={@link HttpServletResponse#SC_PAYMENT_REQUIRED}
+     * Payment required={@link javax.servlet.http.HttpServletResponse#SC_PAYMENT_REQUIRED}
      */
-    PAYMENT_REQUIRED(HttpServletResponse.SC_PAYMENT_REQUIRED, "Payment required"),
+    PAYMENT_REQUIRED(402/*javax.servlet.http.HttpServletResponse.SC_PAYMENT_REQUIRED*/, "Payment required"),
 
     /**
-     * Forbidden={@link HttpServletResponse#SC_FORBIDDEN}
+     * Forbidden={@link javax.servlet.http.HttpServletResponse#SC_FORBIDDEN}
      */
-    FORBIDDEN(HttpServletResponse.SC_FORBIDDEN, "Forbidden"),
+    FORBIDDEN(403/*javax.servlet.http.HttpServletResponse.SC_FORBIDDEN*/, "Forbidden"),
 
     /**
-     * Not found={@link HttpServletResponse#SC_NOT_FOUND}
+     * Not found={@link javax.servlet.http.HttpServletResponse#SC_NOT_FOUND}
      */
-    NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "Not found"),
+    NOT_FOUND(404/*javax.servlet.http.HttpServletResponse.SC_NOT_FOUND*/, "Not found"),
 
     /**
-     * Method not allowed={@link HttpServletResponse#SC_METHOD_NOT_ALLOWED}
+     * Method not allowed={@link javax.servlet.http.HttpServletResponse#SC_METHOD_NOT_ALLOWED}
      */
-    METHOD_NOT_ALLOWED(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed"),
+    METHOD_NOT_ALLOWED(405/*javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED*/, "Method not allowed"),
 
     /**
-     * Not acceptable={@link HttpServletResponse#SC_NOT_ACCEPTABLE}
+     * Not acceptable={@link javax.servlet.http.HttpServletResponse#SC_NOT_ACCEPTABLE}
      */
-    NOT_ACCEPTABLE(HttpServletResponse.SC_NOT_ACCEPTABLE, "Not acceptable"),
+    NOT_ACCEPTABLE(406/*javax.servlet.http.HttpServletResponse.SC_NOT_ACCEPTABLE*/, "Not acceptable"),
 
     /**
-     * Request timeout={@link HttpServletResponse#SC_REQUEST_TIMEOUT}
+     * Request timeout={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_TIMEOUT}
      */
-    REQUEST_TIMEOUT(HttpServletResponse.SC_REQUEST_TIMEOUT, "Request timeout"),
+    REQUEST_TIMEOUT(408/*javax.servlet.http.HttpServletResponse.SC_REQUEST_TIMEOUT*/, "Request timeout"),
 
     /**
-     * Conflict={@link HttpServletResponse#SC_CONFLICT}
+     * Conflict={@link javax.servlet.http.HttpServletResponse#SC_CONFLICT}
      */
-    CONFLICT(HttpServletResponse.SC_CONFLICT, "Conflict"),
+    CONFLICT(409/*javax.servlet.http.HttpServletResponse.SC_CONFLICT*/, "Conflict"),
 
     /**
-     * Gone={@link HttpServletResponse#SC_GONE}
+     * Gone={@link javax.servlet.http.HttpServletResponse#SC_GONE}
      */
-    GONE(HttpServletResponse.SC_GONE, "Gone"),
+    GONE(410/*javax.servlet.http.HttpServletResponse.SC_GONE*/, "Gone"),
 
     /**
-     * Length required={@link HttpServletResponse#SC_LENGTH_REQUIRED}
+     * Length required={@link javax.servlet.http.HttpServletResponse#SC_LENGTH_REQUIRED}
      */
-    LENGTH_REQUIRED(HttpServletResponse.SC_LENGTH_REQUIRED, "Length required"),
+    LENGTH_REQUIRED(411/*javax.servlet.http.HttpServletResponse.SC_LENGTH_REQUIRED*/, "Length required"),
 
     /**
-     * Precondition failed={@link HttpServletResponse#SC_PRECONDITION_FAILED}
+     * Precondition failed={@link javax.servlet.http.HttpServletResponse#SC_PRECONDITION_FAILED}
      */
-    PRECONDITION_FAILED(HttpServletResponse.SC_PRECONDITION_FAILED, "Precondition failed"),
+    PRECONDITION_FAILED(412/*javax.servlet.http.HttpServletResponse.SC_PRECONDITION_FAILED*/, "Precondition failed"),
 
     /**
-     * Proxy Authentication required={@link HttpServletResponse#SC_PROXY_AUTHENTICATION_REQUIRED}
+     * Proxy Authentication required={@link javax.servlet.http.HttpServletResponse#SC_PROXY_AUTHENTICATION_REQUIRED}
      */
-    PROXY_AUTHENTICATION_REQUIRED(HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED, "Proxy Authentication required"),
+    PROXY_AUTHENTICATION_REQUIRED(407/*javax.servlet.http.HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED*/, "Proxy Authentication required"),
 
     /**
-     * Request Entity Too Large={@link HttpServletResponse#SC_REQUEST_ENTITY_TOO_LARGE}
+     * Request Entity Too Large={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_ENTITY_TOO_LARGE}
      */
-    REQUEST_ENTITY_TOO_LARGE(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE, "Request entity too large"),
+    REQUEST_ENTITY_TOO_LARGE(413/*javax.servlet.http.HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE*/, "Request entity too large"),
 
     /**
-     * Request-URI Too Long={@link HttpServletResponse#SC_REQUEST_URI_TOO_LONG}
+     * Request-URI Too Long={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_URI_TOO_LONG}
      */
-    REQUEST_URI_TOO_LONG(HttpServletResponse.SC_REQUEST_URI_TOO_LONG, "Request-URI Too Long"),
+    REQUEST_URI_TOO_LONG(414/*javax.servlet.http.HttpServletResponse.SC_REQUEST_URI_TOO_LONG*/, "Request-URI Too Long"),
 
     /**
-     * Unsupported Media Type={@link HttpServletResponse#SC_UNSUPPORTED_MEDIA_TYPE}
+     * Unsupported Media Type={@link javax.servlet.http.HttpServletResponse#SC_UNSUPPORTED_MEDIA_TYPE}
      */
-    UNSUPPORTED_MEDIA_TYPE(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Unsupported Media Type"),
+    UNSUPPORTED_MEDIA_TYPE(415/*javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE*/, "Unsupported Media Type"),
 
     /**
-     * Requested Range Not Satisfiable={@link HttpServletResponse#SC_REQUESTED_RANGE_NOT_SATISFIABLE}
+     * Requested Range Not Satisfiable={@link javax.servlet.http.HttpServletResponse#SC_REQUESTED_RANGE_NOT_SATISFIABLE}
      */
-    REQUESTED_RANGE_NOT_SATISFIABLE(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE, "Requested Range Not Satisfiable"),
+    REQUESTED_RANGE_NOT_SATISFIABLE(416/*javax.servlet.http.HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE*/, "Requested Range Not Satisfiable"),
 
     /**
-     * Expectation Failed={@link HttpServletResponse#SC_EXPECTATION_FAILED}
+     * Expectation Failed={@link javax.servlet.http.HttpServletResponse#SC_EXPECTATION_FAILED}
      */
-    EXPECTATION_FAILED(HttpServletResponse.SC_EXPECTATION_FAILED, "Expectation Failed"),
+    EXPECTATION_FAILED(417/*javax.servlet.http.HttpServletResponse.SC_EXPECTATION_FAILED*/, "Expectation Failed"),
 
     // Server Error
 
     /**
-     * Internal Server Error={@link HttpServletResponse#SC_INTERNAL_SERVER_ERROR}
+     * Internal Server Error={@link javax.servlet.http.HttpServletResponse#SC_INTERNAL_SERVER_ERROR}
      */
-    INTERNAL_SERVER_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error"),
+    INTERNAL_SERVER_ERROR(500/*javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR*/, "Internal Server Error"),
 
     /**
-     * Not Implemented={@link HttpServletResponse#SC_NOT_IMPLEMENTED}
+     * Not Implemented={@link javax.servlet.http.HttpServletResponse#SC_NOT_IMPLEMENTED}
      */
-    NOT_IMPLEMENTED(HttpServletResponse.SC_NOT_IMPLEMENTED, "Not implemented"),
+    NOT_IMPLEMENTED(501/*javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED*/, "Not implemented"),
 
     /**
-     * Bad Gateway={@link HttpServletResponse#SC_BAD_GATEWAY}
+     * Bad Gateway={@link javax.servlet.http.HttpServletResponse#SC_BAD_GATEWAY}
      */
-    BAD_GATEWAY(HttpServletResponse.SC_BAD_GATEWAY, "Bad Gateway"),
+    BAD_GATEWAY(502/*javax.servlet.http.HttpServletResponse.SC_BAD_GATEWAY*/, "Bad Gateway"),
 
     /**
-     * Service Unavailable={@link HttpServletResponse#SC_SERVICE_UNAVAILABLE}
+     * Service Unavailable={@link javax.servlet.http.HttpServletResponse#SC_SERVICE_UNAVAILABLE}
      */
-    SERVICE_UNAVAILABLE(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Service Unavailable"),
+    SERVICE_UNAVAILABLE(503/*javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE*/, "Service Unavailable"),
 
     /**
-     * Gateway Timeout={@link HttpServletResponse#SC_GATEWAY_TIMEOUT}
+     * Gateway Timeout={@link javax.servlet.http.HttpServletResponse#SC_GATEWAY_TIMEOUT}
      */
-    GATEWAY_TIMEOUT(HttpServletResponse.SC_GATEWAY_TIMEOUT, "Gateway Timeout"),
+    GATEWAY_TIMEOUT(504/*javax.servlet.http.HttpServletResponse.SC_GATEWAY_TIMEOUT*/, "Gateway Timeout"),
 
     /**
-     * HTTP Version Not Supported={@link HttpServletResponse#SC_HTTP_VERSION_NOT_SUPPORTED}
+     * HTTP Version Not Supported={@link javax.servlet.http.HttpServletResponse#SC_HTTP_VERSION_NOT_SUPPORTED}
      */
-    HTTP_VERSION_NOT_SUPPORTED(HttpServletResponse.SC_HTTP_VERSION_NOT_SUPPORTED, "HTTP Version Not Supported");
+    HTTP_VERSION_NOT_SUPPORTED(505/*javax.servlet.http.HttpServletResponse.SC_HTTP_VERSION_NOT_SUPPORTED*/, "HTTP Version Not Supported");
 
     HttpStatusCode(final int code,
                    final String message,
@@ -260,7 +259,7 @@ public enum HttpStatusCode {
     }
 
     private static boolean isNotMultipleChoicesAndDirect(final int code, final HttpStatusCodeCategory category) {
-        return HttpServletResponse.SC_MULTIPLE_CHOICES != code && category == HttpStatusCodeCategory.REDIRECTION;
+        return javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES != code && category == HttpStatusCodeCategory.REDIRECTION;
     }
 
     /**
