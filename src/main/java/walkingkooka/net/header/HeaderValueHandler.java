@@ -367,7 +367,9 @@ abstract class HeaderValueHandler<T> {
     }
 
     private final static String JAVA_LANG = "java.lang";
-    private final static String PACKAGE = HeaderValueHandler.class.getPackage().getName();
+
+    // VisibleForTesting
+    final static String PACKAGE = "walkingkooka.net.header";
 
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
