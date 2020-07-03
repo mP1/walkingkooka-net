@@ -63,7 +63,10 @@ final class LocalDateTimeHeaderValueHandler extends NonStringHeaderValueHandler<
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, LocalDateTime.class, name);
+        this.checkType(value,
+                v -> v instanceof LocalDateTime,
+                LocalDateTime.class,
+                name);
     }
 
     @Override

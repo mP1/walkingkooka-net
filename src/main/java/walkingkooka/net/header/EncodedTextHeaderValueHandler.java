@@ -44,7 +44,10 @@ final class EncodedTextHeaderValueHandler extends NonStringHeaderValueHandler<En
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, EncodedText.class, name);
+        this.checkType(value,
+                v -> v instanceof EncodedText,
+                EncodedText.class,
+                name);
     }
 
     @Override

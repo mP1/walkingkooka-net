@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 
 /**
  * A {@link HeaderValueHandler} that handles string values.
@@ -29,6 +30,14 @@ abstract class StringHeaderValueHandler extends HeaderValueHandler<String> {
      */
     StringHeaderValueHandler() {
         super();
+    }
+
+    @Override
+    final void check0(final Object value, final Name name) {
+        this.checkType(value,
+                (v) -> v instanceof String,
+                String.class,
+                name);
     }
 
     @Override

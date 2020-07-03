@@ -50,7 +50,10 @@ final class MediaTypeBoundaryHeaderValueHandler extends NonStringHeaderValueHand
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, MediaTypeBoundary.class, name);
+        this.checkType(value,
+                (v) -> v instanceof MediaTypeBoundary,
+                MediaTypeBoundary.class,
+                name);
     }
 
     /**

@@ -43,7 +43,10 @@ final class LanguageNameHeaderValueHandler extends NonStringHeaderValueHandler<L
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, LanguageName.class, name);
+        this.checkType(value,
+                v -> v instanceof LanguageName,
+                LanguageName.class,
+                name);
     }
 
     @Override

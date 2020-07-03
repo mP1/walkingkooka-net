@@ -47,11 +47,6 @@ final class UnquotedStringHeaderValueHandler extends QuotedOrUnquotedStringHeade
     }
 
     @Override
-    void check0(final Object value, final Name name) {
-        this.checkType(value, String.class, name);
-    }
-
-    @Override
     String toText0(final String value, final Name name) {
         this.checkText(value);
         return value;

@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Base handler that provides support for converting header text to values and back.
@@ -356,11 +357,13 @@ abstract class HeaderValueHandler<T> {
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    final <U> U checkType(final Object value, final Class<U> type, final Name name) {
-        if (!type.isInstance(value)) {
+    final void checkType(final Object value,
+                         final Predicate<Object> instanceofTester,
+                         final Class<?> type,
+                         final Name name) {
+        if (!instanceofTester.test(value)) {
             throw new HeaderValueException(invalidTypeNameMessage(name, value, type.getSimpleName()));
         }
-        return type.cast(value);
     }
 
     private final static String JAVA_LANG = "java.lang";
@@ -369,21 +372,23 @@ abstract class HeaderValueHandler<T> {
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    final <U> List<U> checkListOfType(final Object value, final Class<U> type, final Name name) {
+    final void checkListOfType(final Object value,
+                               final Predicate<Object> instanceofTester,
+                               final Class<?> type,
+                               final Name name) {
         if (!(value instanceof List)) {
             throw new HeaderValueException(invalidTypeNameMessage(name, value, "List of " + type.getSimpleName()));
         }
 
-        final List<U> list = Cast.to(value);
+        final List<?> list = Cast.to(value);
         for (Object element : list) {
             if (null == element) {
                 throw new HeaderValueException(header(name, value) + " includes a null");
             }
-            if (!type.isInstance(element)) {
+            if (!instanceofTester.test(element)) {
                 throw new HeaderValueException(header(name, value) + " includes an element " + CharSequences.quoteIfChars(element) + "(" + typeName(element) + ") that is not a " + type.getName());
             }
         }
-        return Cast.to(list);
     }
 
     private static String invalidTypeNameMessage(final Name name,

@@ -60,11 +60,6 @@ final class QuotedUnquotedStringHeaderValueHandler extends StringHeaderValueHand
     }
 
     @Override
-    void check0(final Object value, final Name name) {
-        this.checkType(value, String.class, name);
-    }
-
-    @Override
     String toText0(final String value, final Name name) {
         String text;
         try {

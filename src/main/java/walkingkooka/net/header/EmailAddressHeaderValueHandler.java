@@ -53,7 +53,10 @@ final class EmailAddressHeaderValueHandler extends NonStringHeaderValueHandler<E
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, EmailAddress.class, name);
+        this.checkType(value,
+                v -> v instanceof EmailAddress,
+                EmailAddress.class,
+                name);
     }
 
     @Override

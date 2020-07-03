@@ -43,7 +43,10 @@ final class AcceptHeaderValueHandler extends NonStringHeaderValueHandler<Accept>
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, Accept.class, name);
+        this.checkType(value,
+                (v) -> v instanceof Accept,
+                Accept.class,
+                name);
     }
 
     @Override

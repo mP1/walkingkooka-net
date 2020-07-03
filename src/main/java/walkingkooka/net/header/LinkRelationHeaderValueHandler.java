@@ -45,7 +45,10 @@ final class LinkRelationHeaderValueHandler extends NonStringHeaderValueHandler<L
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, LinkRelation.class, name);
+        this.checkListOfType(value,
+                v -> v instanceof LinkRelation,
+                LinkRelation.class,
+                name);
     }
 
     /**

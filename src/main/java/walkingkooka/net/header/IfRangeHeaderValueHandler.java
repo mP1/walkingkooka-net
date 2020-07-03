@@ -53,7 +53,10 @@ final class IfRangeHeaderValueHandler extends NonStringHeaderValueHandler<IfRang
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, IfRange.class, name);
+        this.checkType(value,
+                v -> v instanceof IfRange,
+                IfRange.class,
+                name);
     }
 
     @Override
