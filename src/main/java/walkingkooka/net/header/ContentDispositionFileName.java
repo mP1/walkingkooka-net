@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 
-import java.io.File;
 import java.util.Optional;
 
 /**
