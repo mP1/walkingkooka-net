@@ -86,7 +86,7 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
 
         for (int i = filename.length() - 1; i >= 0; --i) {
             final char c = filename.charAt(i);
-            if ('/' == c || File.separatorChar == c) {
+            if ('/' == c || ContentDispositionFileNameSupport.isFileSeperator(c)) {
                 result = filename.substring(i + 1);
                 break;
             }
