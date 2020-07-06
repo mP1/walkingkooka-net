@@ -49,7 +49,9 @@ final class CharsetNameSupportedCharset extends CharsetName {
     }
 
     private final Optional<Charset> charsetOptional;
-    private final Charset charset;
+
+    // shared with CharsetNameSupport
+    final Charset charset;
 
     @Override
     public boolean isWildcard() {
@@ -68,12 +70,8 @@ final class CharsetNameSupportedCharset extends CharsetName {
      */
     @Override
     boolean test1(final CharsetNameSupportedCharset contentType) {
-        final Set<String> contentTypeAliases = contentType.charset.aliases();
-
         return CHARSET_NAME_COMPARATOR.compare(this.charset.name(), contentType.name) == Comparators.EQUAL ||
-                this.charset.aliases()
-                        .stream()
-                        .anyMatch(contentTypeAliases::contains);
+                CharsetNameSupport.testCharsetAliases(this.charset, contentType);
     }
 
     private final static Comparator<String> CHARSET_NAME_COMPARATOR = CaseSensitivity.SENSITIVE.comparator();

@@ -79,13 +79,11 @@ public abstract class CharsetName extends HeaderNameValue
     private static Map<String, CharsetName> registerConstants() {
         final Map<String, CharsetName> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
 
-        for (Charset charset : Charset.availableCharsets().values()) {
+        for (final Charset charset : Charset.availableCharsets().values()) {
             final String name = charset.name();
             constants.put(name, CharsetNameSupportedCharset.with(name, charset));
 
-            for (String alias : charset.aliases()) {
-                constants.put(alias, CharsetNameSupportedCharset.with(alias, charset));
-            }
+            CharsetNameSupport.registerCharsetAliases(charset, constants);
         }
 
         constants.put(WILDCARD.string(), WILDCARD_CHARSET);
