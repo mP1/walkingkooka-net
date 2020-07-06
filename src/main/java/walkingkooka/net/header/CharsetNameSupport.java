@@ -40,8 +40,8 @@ final class CharsetNameSupport {
      * The J2cl version of this method will contain no logic and simply return false.
      */
     static boolean testCharsetAliases(final Charset charset,
-                                      final CharsetNameSupportedCharset contentType) {
-        final Set<String> contentTypeAliases = contentType.charset.aliases();
+                                      final Charset aliasSource) {
+        final Set<String> contentTypeAliases = aliasSource.aliases();
 
         return charset.aliases()
                 .stream()
