@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
@@ -47,7 +48,8 @@ import java.util.Objects;
  */
 final public class Link extends HeaderValueWithParameters2<Link,
         LinkParameterName<?>,
-        Url> {
+        Url>
+        /*implements HasXmlNode*/ {
 
     /**
      * No parameters.
@@ -225,6 +227,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
      */
     // https://github.com/mP1/walkingkooka-net/issues/174
     // @Override
+    @GwtIncompatible
     public XmlNode toXmlNode() {
         final XmlDocument document = XmlNode.createDocument(documentBuilder());
 
@@ -245,16 +248,19 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * The attribute on the json object which will hold the {@link #value}.
      */
+    @GwtIncompatible
     private final static XmlAttributeName HREF_XML_ATTRIBUTE = XmlAttributeName.with("href", XmlAttributeName.NO_PREFIX);
 
     /**
      * The name of the xml element holding the link with its attributes.
      */
+    @GwtIncompatible
     private final static XmlName LINK = XmlName.element("link");
 
     /**
      * Lazily creates a {@link DocumentBuilder} which can be reused to create additional documents.
      */
+    @GwtIncompatible
     private static DocumentBuilder documentBuilder() {
         if (null == DOCUMENT_BUILDER) {
             try {
@@ -273,6 +279,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * A document builder which is lazily created and shared by all calls to {@link #toXmlNode()}.
      */
+    @GwtIncompatible
     private static final DocumentBuilder DOCUMENT_BUILDER = null;
 
     // Object................................................................................................................

@@ -76,7 +76,7 @@ public final class MediaTypeBoundary implements Value<String>,
         Objects.requireNonNull(body, "body");
         Objects.requireNonNull(boundaryCharacters, "boundaryCharacters");
 
-        return generate0(body.clone(),
+        return generate0(body,
                 boundaryCharacters,
                 BOUNDARY_LENGTH);
     }

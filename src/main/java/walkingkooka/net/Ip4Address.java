@@ -50,12 +50,11 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
     public static Ip4Address with(final byte[] components) {
         Objects.requireNonNull(components, "components");
 
-        final byte[] copy = components.clone();
-        if (copy.length != OCTET_COUNT) {
-            throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + copy.length + "=" + Arrays.toString(components));
+        if (components.length != OCTET_COUNT) {
+            throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + components.length + "=" + Arrays.toString(components));
         }
 
-        return new Ip4Address(copy);
+        return new Ip4Address(components);
     }
 
     /**

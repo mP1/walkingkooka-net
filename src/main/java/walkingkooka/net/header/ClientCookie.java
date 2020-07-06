@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.Whitespace;
@@ -38,6 +39,7 @@ final public class ClientCookie extends Cookie {
     /**
      * Converts a {@link javax.servlet.http.Cookie} into a {@link Cookie}.
      */
+    @GwtIncompatible
     public static ClientCookie from(final javax.servlet.http.Cookie cookie) {
         Objects.requireNonNull(cookie, "cookie");
 
@@ -137,6 +139,7 @@ final public class ClientCookie extends Cookie {
     /**
      * Returns a {@link javax.servlet.http.Cookie}
      */
+    @GwtIncompatible
     public javax.servlet.http.Cookie toJavaxServletCookie() {
         return this.createJavaxServletCookieWithNameAndValue();
     }

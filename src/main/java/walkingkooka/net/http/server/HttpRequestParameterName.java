@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
@@ -62,6 +63,7 @@ final public class HttpRequestParameterName implements Name,
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
+    @GwtIncompatible
     @Override
     public Optional<List<String>> parameterValue(final HttpRequest request) {
         return Optional.ofNullable(request.parameterValues(this));

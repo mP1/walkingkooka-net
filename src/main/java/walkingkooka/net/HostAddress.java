@@ -22,6 +22,8 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
+import java.util.Arrays;
+
 /**
  * A {@link Value} that represent a host address which may be a name or ip address in dot form etc. Note the actual address is only validated for
  * syntactical correctness no network query is ever attempted. <br>
@@ -654,7 +656,7 @@ public final class HostAddress implements Value<String>,
      * Returns the bytes from an IP4 or IP6 byte address.
      */
     public byte[] values() {
-        return this.values.clone();
+        return Arrays.copyOf(this.values, this.values.length); // array clone not supported in j2cl
     }
 
     private final byte[] values;

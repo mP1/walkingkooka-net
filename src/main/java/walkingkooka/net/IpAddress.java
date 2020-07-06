@@ -49,7 +49,7 @@ abstract public class IpAddress implements Value<byte[]>,
      */
     IpAddress(final byte[] components) {
         super();
-        this.components = components.clone();
+        this.components = clone(components);
     }
 
     // IpAddress
@@ -68,7 +68,7 @@ abstract public class IpAddress implements Value<byte[]>,
 
     @Override
     public final byte[] value() {
-        return this.components.clone(); // always copy never share
+        return clone(this.components); // always copy never share
     }
 
     final byte[] components;
@@ -117,5 +117,9 @@ abstract public class IpAddress implements Value<byte[]>,
 
     private static int toUnsignedInt(final byte value) {
         return 0xFF & value;
+    }
+
+    static byte[] clone(final byte[] array) {
+        return Arrays.copyOf(array, array.length); // array clone not supported in j2cl
     }
 }

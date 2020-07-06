@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 
 import java.util.Map;
@@ -40,5 +41,6 @@ public interface HttpRequestAttribute<T> {
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
+    @GwtIncompatible
     Optional<T> parameterValue(final HttpRequest request);
 }
