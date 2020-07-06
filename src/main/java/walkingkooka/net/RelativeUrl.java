@@ -19,8 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.text.CharSequences;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,23 +31,19 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
     static RelativeUrl parseRelative0(final String url) {
         Objects.requireNonNull(url, "url");
 
-        if (url.contains("://")) {
-            throw new IllegalArgumentException("Relative url contains protocol=" + CharSequences.quote(url));
-        }
-
-        try {
-            // protocol added but will be ignored when other components are picked.
-            return parseRelative1(new URL("http://example" + url));
-        } catch (final MalformedURLException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
+        return parseRelative1(URI.create(url), url);
     }
 
-    private static RelativeUrl parseRelative1(final URL url) {
+    private static RelativeUrl parseRelative1(final URI uri,
+                                              final String text) {
+        if (uri.isAbsolute()) {
+            throw new IllegalArgumentException("Relative url contains protocol=" + CharSequences.quote(text));
+        }
+
         return RelativeUrl.with(
-                UrlPath.parse(url.getPath()),
-                UrlQueryString.with(nullToEmpty(url.getQuery())),
-                UrlFragment.with(nullToEmpty(url.getRef())));
+                UrlPath.parse(uri.getPath()),
+                UrlQueryString.with(nullToEmpty(uri.getQuery())),
+                UrlFragment.with(nullToEmpty(uri.getFragment())));
     }
 
     /**
