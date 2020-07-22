@@ -60,6 +60,24 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>central-https</id>
+            <name>Central Repository https</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -97,6 +115,18 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
         </pluginRepository>
     </pluginRepositories>
 
@@ -164,6 +194,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -207,7 +238,7 @@
                             </java-compiler-arguments>
                             <language-out>ECMASCRIPT_2016</language-out>
                             <!-- dont want to parallelize -->
-                            <thread-pool-size>0</thread-pool-size>
+                            <thread-pool-size>1</thread-pool-size>
 
                             <classpath-required/>
                             <ignored-dependencies>
