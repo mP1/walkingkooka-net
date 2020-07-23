@@ -63,16 +63,10 @@ public abstract class HeaderValueHandlerTestCase2<C extends HeaderValueHandler<T
     }
 
     private void checkTypeFails(final Object value, final String message) {
-        try {
-            this.check(value);
-            fail(HeaderValueException.class.getName() + " was not thrown");
-        } catch (final HeaderValueException expected) {
-            expected.printStackTrace();
-
-            assertEquals(message,
+        final Exception expected = assertThrows(Exception.class, ()-> this.check(value));
+        assertEquals(message,
                     expected.getMessage(),
                     "message");
-        }
     }
 
     @Test
