@@ -203,8 +203,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
                                                                 final Class<T> thrown,
                                                                 final String message) {
         final T expected = assertThrows(thrown, () -> EmailAddress.parse(email));
-        expected.printStackTrace();
-
         if (null != message) {
             checkMessage(expected, message);
         }
