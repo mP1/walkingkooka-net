@@ -30,6 +30,7 @@ import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +104,59 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     public void testBody() {
         assertArrayEquals(BYTES, this.createRequest().body());
         assertArrayEquals(BYTES, this.createRequest().body());
+    }
+
+    @Test
+    public void testBodyTextCharsetHeaderAbsent() {
+        assertEquals(new String(BYTES, HttpServletRequestHttpRequest.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
+    }
+
+    @Test
+    public void testBodyTextCharsetHeaderPresent() {
+        final Charset charset = Charset.forName("UTF-16");
+        final String text = "ABC123";
+
+        assertEquals(text,
+                HttpServletRequestHttpRequest.with(new FakeHttpServletRequest() {
+
+                    @Override
+                    public String getHeader(final String header) {
+                        assertEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                        return "text/plain;charset=utf-16";
+                    }
+
+                    @Override
+                    public Map<String, String[]> getParameterMap() {
+                        return Maps.empty();
+                    }
+
+                    @Override
+                    public ServletInputStream getInputStream() {
+                        final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
+
+                        return new ServletInputStream() {
+                            @Override
+                            public boolean isFinished() {
+                                throw new UnsupportedOperationException();
+                            }
+
+                            @Override
+                            public boolean isReady() {
+                                throw new UnsupportedOperationException();
+                            }
+
+                            @Override
+                            public void setReadListener(final ReadListener readListener) {
+                                throw new UnsupportedOperationException();
+                            }
+
+                            @Override
+                            public int read() {
+                                return bytes.read();
+                            }
+                        };
+                    }
+                }).bodyText());
     }
 
     @Test

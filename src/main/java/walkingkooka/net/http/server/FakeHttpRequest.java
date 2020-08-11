@@ -60,6 +60,11 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     }
 
     @Override
+    public String bodyText() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Map<HttpRequestParameterName, List<String>> parameters() {
         throw new UnsupportedOperationException();
     }
