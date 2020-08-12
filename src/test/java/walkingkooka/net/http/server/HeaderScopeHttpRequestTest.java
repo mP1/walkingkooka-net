@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpMethod;
@@ -48,7 +49,8 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
-    private final static byte[] BYTES = new byte[]{1, 2, 3};
+    private final static String BODY_TEXT = "ABC123";
+    private final static byte[] BYTES = BODY_TEXT.getBytes(CharsetName.ISO_8859_1.charset().get());
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
     private final static String TOSTRING = HeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
 
@@ -137,6 +139,11 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     }
 
     @Test
+    public void testBodyText() {
+        assertEquals(new String(BYTES, CharsetName.ISO_8859_1.charset().get()), this.createRequest().bodyText());
+    }
+
+    @Test
     public void testParameters() {
         assertSame(PARAMETERS, this.createRequest().parameters());
     }
@@ -177,6 +184,11 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
             @Override
             public byte[] body() {
                 return BYTES;
+            }
+
+            @Override
+            public String bodyText() {
+                return BODY_TEXT;
             }
 
             @Override
