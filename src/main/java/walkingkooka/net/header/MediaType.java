@@ -26,6 +26,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Whitespace;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -379,6 +380,17 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
         return this.replace(this.type,
                 this.subType,
                 Maps.readOnly(parameters));
+    }
+
+    /**
+     * Retrieves a charset from this {@link MediaType} provided its supported by the runtime or uses the default.
+     */
+    public Charset charset(final Charset defaultCharset) {
+        Objects.requireNonNull(defaultCharset, "defaultCharset");
+
+        return MediaTypeParameterName.CHARSET.parameterValue(this)
+                .flatMap(CharsetName::charset)
+                .orElse(defaultCharset);
     }
 
     // misc .......................................................................

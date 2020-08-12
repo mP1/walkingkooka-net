@@ -25,6 +25,7 @@ import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Optional;
 
@@ -352,6 +353,52 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 "text",
                 "plain",
                 parameters);
+    }
+
+    // charset .........................................................................................................
+
+    @Test
+    public void testCharsetWithNullDefaultFails() {
+        assertThrows(NullPointerException.class, () -> MediaType.ANY_TEXT.charset(null));
+    }
+
+    @Test
+    public void testCharsetPresent() {
+        this.charsetAndCheck("text/plain;charset=UTF-8", "UTF-16", "UTF-8");
+    }
+
+    @Test
+    public void testCharsetPresent2() {
+        this.charsetAndCheck("text/plain;q=0.5;charset=UTF-8", "UTF-16", "UTF-8");
+    }
+
+    @Test
+    public void testCharsetUnsupportedUsesDefault() {
+        this.charsetAndCheck("text/plain;charset=UTF99", "UTF-16", "UTF-16");
+    }
+
+    @Test
+    public void testCharsetUsesDefault() {
+        this.charsetAndCheck("text/plain;q=0.5", "UTF-16", "UTF-16");
+    }
+
+    @Test
+    public void testCharsetUsesDefault2() {
+        this.charsetAndCheck(MediaType.BINARY.toHeaderText(), "UTF-16", "UTF-16");
+    }
+
+    private void charsetAndCheck(final String text,
+                                 final String defaultCharset,
+                                 final String expected) {
+        this.charsetAndCheck(text, Charset.forName(defaultCharset), Charset.forName(expected));
+    }
+
+    private void charsetAndCheck(final String text,
+                                 final Charset defaultCharset,
+                                 final Charset expected) {
+        assertEquals(expected,
+                MediaType.parse(text).charset(defaultCharset),
+                () -> "charset of " + text + " with defaultCharset " + defaultCharset);
     }
 
     // qWeight .......................................................................
