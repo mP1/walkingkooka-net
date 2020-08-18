@@ -17,12 +17,77 @@
 
 package walkingkooka.net.http;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatusCodeCategory>,
         TypeNameTesting<HttpStatusCodeCategory> {
+
+    @Test
+    public void testContinue() {
+        this.categoryAndCheck(100, HttpStatusCodeCategory.INFORMATION);
+    }
+
+    @Test
+    public void test199() {
+        this.categoryAndCheck(199, HttpStatusCodeCategory.INFORMATION);
+    }
+
+    @Test
+    public void testOk() {
+        this.categoryAndCheck(200, HttpStatusCodeCategory.SUCCESSFUL);
+    }
+
+    @Test
+    public void test299() {
+        this.categoryAndCheck(299, HttpStatusCodeCategory.SUCCESSFUL);
+    }
+
+    @Test
+    public void test304() {
+        this.categoryAndCheck(304, HttpStatusCodeCategory.REDIRECTION);
+    }
+
+    @Test
+    public void test399() {
+        this.categoryAndCheck(399, HttpStatusCodeCategory.REDIRECTION);
+    }
+
+    @Test
+    public void test404() {
+        this.categoryAndCheck(404, HttpStatusCodeCategory.CLIENT_ERROR);
+    }
+
+    @Test
+    public void test499() {
+        this.categoryAndCheck(499, HttpStatusCodeCategory.CLIENT_ERROR);
+    }
+
+    @Test
+    public void test500() {
+        this.categoryAndCheck(500, HttpStatusCodeCategory.SERVER_ERROR);
+    }
+
+    @Test
+    public void test599() {
+        this.categoryAndCheck(599, HttpStatusCodeCategory.SERVER_ERROR);
+    }
+
+    @Test
+    public void testUnknown() {
+        this.categoryAndCheck(600, HttpStatusCodeCategory.UNKNOWN);
+    }
+
+    private void categoryAndCheck(final int code,
+                                  final HttpStatusCodeCategory expected) {
+        assertEquals(expected,
+                HttpStatusCodeCategory.category(code),
+                () -> "code " + code);
+    }
 
     @Override
     public Class<HttpStatusCodeCategory> type() {

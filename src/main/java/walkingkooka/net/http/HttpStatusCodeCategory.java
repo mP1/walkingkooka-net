@@ -17,8 +17,6 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.NeverError;
-
 /**
  * A grouping or categorization of status code.
  * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes"></a>
@@ -43,13 +41,17 @@ public enum HttpStatusCodeCategory {
     /**
      * 5xx (Server Error): The server failed to fulfill an apparently valid request
      */
-    SERVER_ERROR;
+    SERVER_ERROR,
+    /**
+     * This category is returned for all other codes.
+     */
+    UNKNOWN;
 
     /**
      * Used to select the category for {@link HttpStatusCode#category()}
      */
     static HttpStatusCodeCategory category(final int code) {
-        HttpStatusCodeCategory category = null;
+        final HttpStatusCodeCategory category;
 
         switch (code / 100) {
             case 1:
@@ -68,7 +70,8 @@ public enum HttpStatusCodeCategory {
                 category = SERVER_ERROR;
                 break;
             default:
-                NeverError.unhandledCase(code, HttpStatusCodeCategory.values());
+                category = UNKNOWN;
+                break;
         }
         return category;
     }

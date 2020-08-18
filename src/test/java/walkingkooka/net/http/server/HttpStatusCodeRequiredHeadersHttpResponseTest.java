@@ -160,7 +160,8 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     @Test
     public void testSuccessExceptPartialContent() {
-        Arrays.stream(HttpStatusCode.values())
+        HttpStatusCode.values()
+                .stream()
                 .filter(c -> c.category() == HttpStatusCodeCategory.CLIENT_ERROR)
                 .filter(c -> c != HttpStatusCode.PARTIAL_CONTENT)
                 .forEach(this::setStatusWithServerHeader);
@@ -177,7 +178,7 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     }
 
     private void setStatusWithServerHeader(final HttpStatusCodeCategory codeCategory) {
-        Arrays.stream(HttpStatusCode.values())
+        HttpStatusCode.values().stream()
                 .filter(c -> c.category() == codeCategory)
                 .forEach(this::setStatusWithServerHeader);
     }
