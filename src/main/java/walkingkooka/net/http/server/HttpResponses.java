@@ -116,7 +116,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see RecordingHttpResponse}
      */
-    public static RecordingHttpResponse recording() {
+    public static HttpResponse recording() {
         return RecordingHttpResponse.with();
     }
 

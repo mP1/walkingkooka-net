@@ -58,7 +58,7 @@ public final class RouterBiConsumerTest implements ClassTesting2<RouterBiConsume
     }
 
     private void consumeAndCheck(final HttpMethod method, final HttpStatus status) {
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(this.request(method), response);

@@ -17,7 +17,12 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpStatus;
+
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Base class for any response, that wraps another {@link HttpResponse}.
@@ -37,6 +42,19 @@ abstract class WrapperHttpResponse implements HttpResponse {
         this.response = response;
     }
 
+    @Override
+    public final Optional<HttpStatus> status() {
+        return this.response.status();
+    }
+
+    @Override
+    public final List<HttpEntity> entities() {
+        return this.response.entities();
+    }
+
+    /**
+     * The wrapped {@link HttpResponse} that eventually receives the status and entities after any filtering/processing.
+     */
     final HttpResponse response;
 
     @Override

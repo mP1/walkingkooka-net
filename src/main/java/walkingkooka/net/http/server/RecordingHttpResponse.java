@@ -30,7 +30,7 @@ import java.util.Optional;
 /**
  * A {@link HttpResponse} that records set status and added entities.
  */
-public final class RecordingHttpResponse implements HttpResponse {
+final class RecordingHttpResponse implements HttpResponse {
 
     /**
      * Creates an empty recording http response.
@@ -52,6 +52,7 @@ public final class RecordingHttpResponse implements HttpResponse {
         this.status = status;
     }
 
+    @Override
     public Optional<HttpStatus> status() {
         return Optional.ofNullable(this.status);
     }
@@ -64,6 +65,7 @@ public final class RecordingHttpResponse implements HttpResponse {
         this.entities.add(entity);
     }
 
+    @Override
     public List<HttpEntity> entities() {
         return Lists.readOnly(this.entities);
     }
