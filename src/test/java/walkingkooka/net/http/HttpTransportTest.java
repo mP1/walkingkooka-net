@@ -17,12 +17,35 @@
 
 package walkingkooka.net.http;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.UrlScheme;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
         ToStringTesting<HttpTransport> {
+
+    @Test
+    public void testUnsecured() {
+        this.urlSchemeAndCheck(HttpTransport.UNSECURED, UrlScheme.HTTP);
+    }
+
+    @Test
+    public void testSecured() {
+        this.urlSchemeAndCheck(HttpTransport.SECURED, UrlScheme.HTTPS);
+    }
+
+    private void urlSchemeAndCheck(final HttpTransport transport,
+                                   final UrlScheme expected) {
+        assertEquals(expected,
+                transport.urlScheme(),
+                () -> "" + transport + " .urlScheme()");
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<HttpTransport> type() {
