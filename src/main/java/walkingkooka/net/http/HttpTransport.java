@@ -17,6 +17,8 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.net.UrlScheme;
+
 /**
  * Whether a request is secured/unsecured.
  */
@@ -25,10 +27,26 @@ public enum HttpTransport {
     /**
      * Unsecured aka HTTP
      */
-    UNSECURED,
+    UNSECURED(UrlScheme.HTTP),
 
     /**
      * Secured aka HTTPS
      */
-    SECURED
+    SECURED(UrlScheme.HTTPS);
+
+    /**
+     * Non public ctor.
+     */
+    HttpTransport(final UrlScheme urlScheme) {
+        this.urlScheme = urlScheme;
+    }
+
+    /**
+     * Returns the {@link UrlScheme} equivalent.
+     */
+    public final UrlScheme urlScheme() {
+        return this.urlScheme;
+    }
+
+    private final UrlScheme urlScheme;
 }
