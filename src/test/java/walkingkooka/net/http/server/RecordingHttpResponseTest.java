@@ -33,8 +33,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RecordingHttpResponseTest implements ClassTesting2<RecordingHttpResponse>,
-        HttpResponseTesting<RecordingHttpResponse> {
+public final class RecordingHttpResponseTest extends HttpResponseTestCase2<RecordingHttpResponse> {
 
     @Test
     public void testBuild() {
@@ -126,10 +125,5 @@ public final class RecordingHttpResponseTest implements ClassTesting2<RecordingH
     @Override
     public Class<RecordingHttpResponse> type() {
         return RecordingHttpResponse.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

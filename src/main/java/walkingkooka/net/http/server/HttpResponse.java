@@ -20,8 +20,12 @@ package walkingkooka.net.http.server;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
- * Defines a HTTP response.
+ * Defines a mutable HTTP response that accepts status and entities and provides methods as these may be filtered
+ * or processed in some way.
  */
 public interface HttpResponse {
 
@@ -31,7 +35,17 @@ public interface HttpResponse {
     void setStatus(final HttpStatus status);
 
     /**
+     * Returns the {@link HttpStatus}
+     */
+    Optional<HttpStatus> status();
+
+    /**
      * Adds an entity to the response.
      */
     void addEntity(final HttpEntity entity);
+
+    /**
+     * Returns the added {@link HttpEntity}.
+     */
+    List<HttpEntity> entities();
 }

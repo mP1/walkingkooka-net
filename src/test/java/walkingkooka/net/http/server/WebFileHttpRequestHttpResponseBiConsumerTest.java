@@ -143,12 +143,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testFileNotFound() {
         final HttpRequest request = this.request("file-not-found", NO_ETAG, NO_LAST_MODIFIED);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
         expected.addEntity(HttpEntity.EMPTY);
 
@@ -158,12 +158,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testRequestWithoutIfNotModifiedHeader() {
         final HttpRequest request = this.request(FILE1, NO_ETAG, NO_LAST_MODIFIED);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -179,12 +179,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testRequestUrlRequiresNormalizationFileFound() {
         final HttpRequest request = this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -200,12 +200,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testFileFound() {
         final HttpRequest request = this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -222,12 +222,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testRequestIfNotModifiedMatch() {
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -243,12 +243,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testRequestIfNotModifiedOlder() {
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1.minusSeconds(10));
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -264,12 +264,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Test
     public void testRequestIfMatchETag() {
         final HttpRequest request = this.request(FILE2, ETAG2, LAST_MODIFIED2);
-        final RecordingHttpResponse response = HttpResponses.recording();
+        final HttpResponse response = HttpResponses.recording();
 
         this.createBiConsumer()
                 .accept(request, response);
 
-        final RecordingHttpResponse expected = HttpResponses.recording();
+        final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
@@ -284,11 +284,14 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     }
 
     private void checkResponse(final HttpRequest request,
-                               final RecordingHttpResponse response,
-                               final RecordingHttpResponse expected) {
-        assertEquals(expected,
-                response,
-                () -> "request: " + request);
+                               final HttpResponse response,
+                               final HttpResponse expected) {
+        assertEquals(expected.status(),
+                response.status(),
+                () -> "request.status " + request);
+        assertEquals(expected.entities(),
+                response.entities(),
+                () -> "request.entities " + request);
     }
 
     // toString.........................................................................................................
