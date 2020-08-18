@@ -17,234 +17,275 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Holds all possible http status codes.<br>
  * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes"></a>
  */
-public enum HttpStatusCode {
+public final class HttpStatusCode {
+
+    /**
+     * Factory that returns a {@link HttpStatusCode} for the given code, reusing a constant where possible.
+     */
+    public static HttpStatusCode withCode(final int code) {
+        final HttpStatusCode status = CONSTANTS.get(code);
+        return null != status ?
+                status :
+                new HttpStatusCode(code, "Status=" + code);
+    }
+
+    /**
+     * Simulates {@link Enum#values} in spirit returning all constants, only intended for test usages.
+     */
+    public static Collection<HttpStatusCode> values() {
+        return Collections.unmodifiableCollection(CONSTANTS.values());
+    }
+
+    /**
+     * A {@link Map} of integers to the equivalent {@link HttpStatusCode}.
+     */
+    // @VisibleForTesting
+    final static Map<Integer, HttpStatusCode> CONSTANTS = Maps.sorted();
+
+    /**
+     * Private factory where each constant registers itself.
+     */
+    private static HttpStatusCode register(final int code,
+                                           final String message,
+                                           final HttpHeaderName<?>... requiredHttpHeaders) {
+        final HttpStatusCode constant = new HttpStatusCode(code, message, requiredHttpHeaders);
+        CONSTANTS.putIfAbsent(code, constant);
+        return constant;
+    }
 
     /**
      * Continue={@link javax.servlet.http.HttpServletResponse#SC_CONTINUE}
      */
-    CONTINUE(100/*javax.servlet.http.HttpServletResponse.SC_CONTINUE*/, "Continue"),
+    public final static HttpStatusCode CONTINUE = register(100/*javax.servlet.http.HttpServletResponse.SC_CONTINUE*/, "Continue");
 
     /**
      * Switching protocols={@link javax.servlet.http.HttpServletResponse#SC_SWITCHING_PROTOCOLS}
      */
-    SWITCHING_PROTOCOLS(101/*javax.servlet.http.HttpServletResponse.SC_SWITCHING_PROTOCOLS*/, "Switching protocols"),
+    public final static HttpStatusCode SWITCHING_PROTOCOLS = register(101/*javax.servlet.http.HttpServletResponse.SC_SWITCHING_PROTOCOLS*/, "Switching protocols");
 
     // Success
 
     /**
      * OK={@link javax.servlet.http.HttpServletResponse#SC_OK}
      */
-    OK(200/*javax.servlet.http.HttpServletResponse.SC_OK*/, "OK"),
+    public final static HttpStatusCode OK = register(200/*javax.servlet.http.HttpServletResponse.SC_OK*/, "OK");
 
     /**
      * Created={@link javax.servlet.http.HttpServletResponse#SC_CREATED}
      */
-    CREATED(201/*javax.servlet.http.HttpServletResponse.SC_CREATED*/, "Created"),
+    public final static HttpStatusCode CREATED = register(201/*javax.servlet.http.HttpServletResponse.SC_CREATED*/, "Created");
 
     /**
      * Accepted={@link javax.servlet.http.HttpServletResponse#SC_ACCEPTED}
      */
-    ACCEPTED(202/*javax.servlet.http.HttpServletResponse.SC_ACCEPTED*/, "Accepted"),
+    public final static HttpStatusCode ACCEPTED = register(202/*javax.servlet.http.HttpServletResponse.SC_ACCEPTED*/, "Accepted");
 
     /**
      * Non Authoritative information={@link javax.servlet.http.HttpServletResponse#SC_NON_AUTHORITATIVE_INFORMATION}
      */
-    NON_AUTHORITATIVE_INFORMATION(203/*javax.servlet.http.HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION*/, "Non authoritative information"),
+    public final static HttpStatusCode NON_AUTHORITATIVE_INFORMATION = register(203/*javax.servlet.http.HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION*/, "Non authoritative information");
 
     /**
      * No content={@link javax.servlet.http.HttpServletResponse#SC_NO_CONTENT}
      */
-    NO_CONTENT(204/*javax.servlet.http.HttpServletResponse.SC_NO_CONTENT*/, "No content"),
+    public final static HttpStatusCode NO_CONTENT = register(204/*javax.servlet.http.HttpServletResponse.SC_NO_CONTENT*/, "No content");
 
     /**
      * Reset content={@link javax.servlet.http.HttpServletResponse#SC_RESET_CONTENT}
      */
-    RESET_CONTENT(205/*javax.servlet.http.HttpServletResponse.SC_RESET_CONTENT*/, "Reset content"),
+    public final static HttpStatusCode RESET_CONTENT = register(205/*javax.servlet.http.HttpServletResponse.SC_RESET_CONTENT*/, "Reset content");
 
     /**
      * Partial content={@link javax.servlet.http.HttpServletResponse#SC_PARTIAL_CONTENT}
      */
-    PARTIAL_CONTENT(206/*javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT*/, "Partial content", HttpHeaderName.RANGE),
+    public final static HttpStatusCode PARTIAL_CONTENT = register(206/*javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT*/, "Partial content", HttpHeaderName.RANGE);
 
     // Redirect
 
     /**
      * Multiple choices={@link javax.servlet.http.HttpServletResponse#SC_MULTIPLE_CHOICES}
      */
-    MULTIPLE_CHOICES(300/*javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES*/, "Multiple choices"),
+    public final static HttpStatusCode MULTIPLE_CHOICES = register(300/*javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES*/, "Multiple choices");
 
     /**
      * Moved permanently={@link javax.servlet.http.HttpServletResponse#SC_MOVED_PERMANENTLY}
      */
-    MOVED_PERMANENTLY(301/*javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY*/, "Moved permanently"),
+    public final static HttpStatusCode MOVED_PERMANENTLY = register(301/*javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY*/, "Moved permanently");
 
     /**
      * Found={@link javax.servlet.http.HttpServletResponse#SC_MOVED_TEMPORARILY}
      */
-    MOVED_TEMPORARILY(302/*javax.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY*/, "Moved temporarily"),
+    public final static HttpStatusCode MOVED_TEMPORARILY = register(302/*javax.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY*/, "Moved temporarily");
 
     /**
      * Found={@link javax.servlet.http.HttpServletResponse#SC_FOUND}
      */
-    FOUND(302/*javax.servlet.http.HttpServletResponse.SC_FOUND*/, "Found"),
+    public final static HttpStatusCode FOUND = register(302/*javax.servlet.http.HttpServletResponse.SC_FOUND*/, "Found");
 
     /**
      * See other={@link javax.servlet.http.HttpServletResponse#SC_SEE_OTHER}
      */
-    SEE_OTHER(303/*javax.servlet.http.HttpServletResponse.SC_SEE_OTHER*/, "See other"),
+    public final static HttpStatusCode SEE_OTHER = register(303/*javax.servlet.http.HttpServletResponse.SC_SEE_OTHER*/, "See other");
 
     /**
      * Not Modified={@link javax.servlet.http.HttpServletResponse#SC_NOT_MODIFIED}
      */
-    NOT_MODIFIED(304/*javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED*/, "Not modified"),
+    public final static HttpStatusCode NOT_MODIFIED = register(304/*javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED*/, "Not modified");
 
     /**
      * User Proxy={@link javax.servlet.http.HttpServletResponse#SC_USE_PROXY}
      */
-    USE_PROXY(305/*javax.servlet.http.HttpServletResponse.SC_USE_PROXY*/, "User proxy"),
+    public final static HttpStatusCode USE_PROXY = register(305/*javax.servlet.http.HttpServletResponse.SC_USE_PROXY*/, "Use proxy");
 
     /**
      * Temporary redirect={@link javax.servlet.http.HttpServletResponse#SC_TEMPORARY_REDIRECT}
      */
-    TEMPORARY_REDIRECT(307/*javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT*/, "Temporary redirect"),
+    public final static HttpStatusCode TEMPORARY_REDIRECT = register(307/*javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT*/, "Temporary redirect");
 
     // Client Error
 
     /**
      * Bad request={@link javax.servlet.http.HttpServletResponse#SC_BAD_REQUEST}
      */
-    BAD_REQUEST(400/*javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST*/, "Bad request"),
+    public final static HttpStatusCode BAD_REQUEST = register(400/*javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST*/, "Bad request");
 
     /**
      * Unauthorized={@link javax.servlet.http.HttpServletResponse#SC_UNAUTHORIZED}
      */
-    UNAUTHORIZED(401/*javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED*/, "Unauthorized"),
+    public final static HttpStatusCode UNAUTHORIZED = register(401/*javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED*/, "Unauthorized");
 
     /**
      * Payment required={@link javax.servlet.http.HttpServletResponse#SC_PAYMENT_REQUIRED}
      */
-    PAYMENT_REQUIRED(402/*javax.servlet.http.HttpServletResponse.SC_PAYMENT_REQUIRED*/, "Payment required"),
+    public final static HttpStatusCode PAYMENT_REQUIRED = register(402/*javax.servlet.http.HttpServletResponse.SC_PAYMENT_REQUIRED*/, "Payment required");
 
     /**
      * Forbidden={@link javax.servlet.http.HttpServletResponse#SC_FORBIDDEN}
      */
-    FORBIDDEN(403/*javax.servlet.http.HttpServletResponse.SC_FORBIDDEN*/, "Forbidden"),
+    public final static HttpStatusCode FORBIDDEN = register(403/*javax.servlet.http.HttpServletResponse.SC_FORBIDDEN*/, "Forbidden");
 
     /**
      * Not found={@link javax.servlet.http.HttpServletResponse#SC_NOT_FOUND}
      */
-    NOT_FOUND(404/*javax.servlet.http.HttpServletResponse.SC_NOT_FOUND*/, "Not found"),
+    public final static HttpStatusCode NOT_FOUND = register(404/*javax.servlet.http.HttpServletResponse.SC_NOT_FOUND*/, "Not found");
 
     /**
      * Method not allowed={@link javax.servlet.http.HttpServletResponse#SC_METHOD_NOT_ALLOWED}
      */
-    METHOD_NOT_ALLOWED(405/*javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED*/, "Method not allowed"),
+    public final static HttpStatusCode METHOD_NOT_ALLOWED = register(405/*javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED*/, "Method not allowed");
 
     /**
      * Not acceptable={@link javax.servlet.http.HttpServletResponse#SC_NOT_ACCEPTABLE}
      */
-    NOT_ACCEPTABLE(406/*javax.servlet.http.HttpServletResponse.SC_NOT_ACCEPTABLE*/, "Not acceptable"),
+    public final static HttpStatusCode NOT_ACCEPTABLE = register(406/*javax.servlet.http.HttpServletResponse.SC_NOT_ACCEPTABLE*/, "Not acceptable");
 
     /**
      * Request timeout={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_TIMEOUT}
      */
-    REQUEST_TIMEOUT(408/*javax.servlet.http.HttpServletResponse.SC_REQUEST_TIMEOUT*/, "Request timeout"),
+    public final static HttpStatusCode REQUEST_TIMEOUT = register(408/*javax.servlet.http.HttpServletResponse.SC_REQUEST_TIMEOUT*/, "Request timeout");
 
     /**
      * Conflict={@link javax.servlet.http.HttpServletResponse#SC_CONFLICT}
      */
-    CONFLICT(409/*javax.servlet.http.HttpServletResponse.SC_CONFLICT*/, "Conflict"),
+    public final static HttpStatusCode CONFLICT = register(409/*javax.servlet.http.HttpServletResponse.SC_CONFLICT*/, "Conflict");
 
     /**
      * Gone={@link javax.servlet.http.HttpServletResponse#SC_GONE}
      */
-    GONE(410/*javax.servlet.http.HttpServletResponse.SC_GONE*/, "Gone"),
+    public final static HttpStatusCode GONE = register(410/*javax.servlet.http.HttpServletResponse.SC_GONE*/, "Gone");
 
     /**
      * Length required={@link javax.servlet.http.HttpServletResponse#SC_LENGTH_REQUIRED}
      */
-    LENGTH_REQUIRED(411/*javax.servlet.http.HttpServletResponse.SC_LENGTH_REQUIRED*/, "Length required"),
+    public final static HttpStatusCode LENGTH_REQUIRED = register(411/*javax.servlet.http.HttpServletResponse.SC_LENGTH_REQUIRED*/, "Length required");
 
     /**
      * Precondition failed={@link javax.servlet.http.HttpServletResponse#SC_PRECONDITION_FAILED}
      */
-    PRECONDITION_FAILED(412/*javax.servlet.http.HttpServletResponse.SC_PRECONDITION_FAILED*/, "Precondition failed"),
+    public final static HttpStatusCode PRECONDITION_FAILED = register(412/*javax.servlet.http.HttpServletResponse.SC_PRECONDITION_FAILED*/, "Precondition failed");
 
     /**
      * Proxy Authentication required={@link javax.servlet.http.HttpServletResponse#SC_PROXY_AUTHENTICATION_REQUIRED}
      */
-    PROXY_AUTHENTICATION_REQUIRED(407/*javax.servlet.http.HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED*/, "Proxy Authentication required"),
+    public final static HttpStatusCode PROXY_AUTHENTICATION_REQUIRED = register(407/*javax.servlet.http.HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED*/, "Proxy Authentication required");
 
     /**
      * Request Entity Too Large={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_ENTITY_TOO_LARGE}
      */
-    REQUEST_ENTITY_TOO_LARGE(413/*javax.servlet.http.HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE*/, "Request entity too large"),
+    public final static HttpStatusCode REQUEST_ENTITY_TOO_LARGE = register(413/*javax.servlet.http.HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE*/, "Request entity too large");
 
     /**
      * Request-URI Too Long={@link javax.servlet.http.HttpServletResponse#SC_REQUEST_URI_TOO_LONG}
      */
-    REQUEST_URI_TOO_LONG(414/*javax.servlet.http.HttpServletResponse.SC_REQUEST_URI_TOO_LONG*/, "Request-URI Too Long"),
+    public final static HttpStatusCode REQUEST_URI_TOO_LONG = register(414/*javax.servlet.http.HttpServletResponse.SC_REQUEST_URI_TOO_LONG*/, "Request URI Too Long");
 
     /**
      * Unsupported Media Type={@link javax.servlet.http.HttpServletResponse#SC_UNSUPPORTED_MEDIA_TYPE}
      */
-    UNSUPPORTED_MEDIA_TYPE(415/*javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE*/, "Unsupported Media Type"),
+    public final static HttpStatusCode UNSUPPORTED_MEDIA_TYPE = register(415/*javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE*/, "Unsupported Media Type");
 
     /**
      * Requested Range Not Satisfiable={@link javax.servlet.http.HttpServletResponse#SC_REQUESTED_RANGE_NOT_SATISFIABLE}
      */
-    REQUESTED_RANGE_NOT_SATISFIABLE(416/*javax.servlet.http.HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE*/, "Requested Range Not Satisfiable"),
+    public final static HttpStatusCode REQUESTED_RANGE_NOT_SATISFIABLE = register(416/*javax.servlet.http.HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE*/, "Requested Range Not Satisfiable");
 
     /**
      * Expectation Failed={@link javax.servlet.http.HttpServletResponse#SC_EXPECTATION_FAILED}
      */
-    EXPECTATION_FAILED(417/*javax.servlet.http.HttpServletResponse.SC_EXPECTATION_FAILED*/, "Expectation Failed"),
+    public final static HttpStatusCode EXPECTATION_FAILED = register(417/*javax.servlet.http.HttpServletResponse.SC_EXPECTATION_FAILED*/, "Expectation Failed");
 
     // Server Error
 
     /**
      * Internal Server Error={@link javax.servlet.http.HttpServletResponse#SC_INTERNAL_SERVER_ERROR}
      */
-    INTERNAL_SERVER_ERROR(500/*javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR*/, "Internal Server Error"),
+    public final static HttpStatusCode INTERNAL_SERVER_ERROR = register(500/*javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR*/, "Internal Server Error");
 
     /**
      * Not Implemented={@link javax.servlet.http.HttpServletResponse#SC_NOT_IMPLEMENTED}
      */
-    NOT_IMPLEMENTED(501/*javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED*/, "Not implemented"),
+    public final static HttpStatusCode NOT_IMPLEMENTED = register(501/*javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED*/, "Not implemented");
 
     /**
      * Bad Gateway={@link javax.servlet.http.HttpServletResponse#SC_BAD_GATEWAY}
      */
-    BAD_GATEWAY(502/*javax.servlet.http.HttpServletResponse.SC_BAD_GATEWAY*/, "Bad Gateway"),
+    public final static HttpStatusCode BAD_GATEWAY = register(502/*javax.servlet.http.HttpServletResponse.SC_BAD_GATEWAY*/, "Bad Gateway");
 
     /**
      * Service Unavailable={@link javax.servlet.http.HttpServletResponse#SC_SERVICE_UNAVAILABLE}
      */
-    SERVICE_UNAVAILABLE(503/*javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE*/, "Service Unavailable"),
+    public final static HttpStatusCode SERVICE_UNAVAILABLE = register(503/*javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE*/, "Service Unavailable");
 
     /**
      * Gateway Timeout={@link javax.servlet.http.HttpServletResponse#SC_GATEWAY_TIMEOUT}
      */
-    GATEWAY_TIMEOUT(504/*javax.servlet.http.HttpServletResponse.SC_GATEWAY_TIMEOUT*/, "Gateway Timeout"),
+    public final static HttpStatusCode GATEWAY_TIMEOUT = register(504/*javax.servlet.http.HttpServletResponse.SC_GATEWAY_TIMEOUT*/, "Gateway Timeout");
 
     /**
      * HTTP Version Not Supported={@link javax.servlet.http.HttpServletResponse#SC_HTTP_VERSION_NOT_SUPPORTED}
      */
-    HTTP_VERSION_NOT_SUPPORTED(505/*javax.servlet.http.HttpServletResponse.SC_HTTP_VERSION_NOT_SUPPORTED*/, "HTTP Version Not Supported");
+    public final static HttpStatusCode HTTP_VERSION_NOT_SUPPORTED = register(505/*javax.servlet.http.HttpServletResponse.SC_HTTP_VERSION_NOT_SUPPORTED*/, "HTTP Version Not Supported");
 
-    HttpStatusCode(final int code,
-                   final String message,
-                   final HttpHeaderName<?>...requiredHttpHeaders) {
+    /**
+     * Package private ctor, use factory.
+     */
+    private HttpStatusCode(final int code,
+                           final String message,
+                           final HttpHeaderName<?>... requiredHttpHeaders) {
         this.code = code;
         this.message = message;
 
@@ -315,10 +356,16 @@ public enum HttpStatusCode {
 
     /**
      * Some http status codes require one or more heades, eg a {@link #TEMPORARY_REDIRECT} require a {@link HttpHeaderName#LOCATION} header.
+     * For non standard status codes this will always be empty.
      */
     public Set<HttpHeaderName<?>> requiredHttpHeaders() {
         return this.requiredHttpHeaders;
     }
 
     private final Set<HttpHeaderName<?>> requiredHttpHeaders;
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.code);
+    }
 }

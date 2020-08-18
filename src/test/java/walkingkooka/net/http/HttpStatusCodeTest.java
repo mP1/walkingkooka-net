@@ -29,13 +29,13 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,16 +46,35 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         TypeNameTesting<HttpStatusCode> {
 
     @Test
+    public void testStandard() {
+        assertSame(HttpStatusCode.OK, HttpStatusCode.withCode(200));
+    }
+
+    @Test
+    public void testNonStandard() {
+        final int value = 999;
+        final HttpStatusCode code = HttpStatusCode.withCode(value);
+        assertEquals(value, code.code());
+        assertEquals("Status=999", code.message);
+    }
+
+    @Test
+    public void testNonStandardNotCached() {
+        final int value = 999;
+        assertNotSame(HttpStatusCode.withCode(value), HttpStatusCode.withCode(value));
+    }
+
+    @Test
     public void testStatusDefaultMessageUnique() {
         final Map<String, HttpStatusCode> intToCode = Maps.ordered();
-        for (HttpStatusCode code : HttpStatusCode.values()) {
+        for (final HttpStatusCode code : HttpStatusCode.CONSTANTS.values()) {
             assertNull(intToCode.put(code.message, code), "Default message is not unique " + code.message + "=" + code);
         }
     }
 
     @Test
     public void testStatus() {
-        for (HttpStatusCode code : HttpStatusCode.values()) {
+        for (final HttpStatusCode code : HttpStatusCode.CONSTANTS.values()) {
             final HttpStatus status = code.status();
             assertSame(status, code.status(), "status not cached");
             assertSame(code, status.value(), "code");
@@ -71,7 +90,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     @Test
     public void testRedirectRequireLocationHeader() {
         assertEquals(Lists.empty(),
-                Arrays.stream(HttpStatusCode.values())
+                HttpStatusCode.CONSTANTS.values()
+                        .stream()
                         .filter(c -> HttpStatusCodeCategory.REDIRECTION == c.category())
                         .filter(c -> HttpStatusCode.MULTIPLE_CHOICES != c)
                         .filter(c -> false == c.requiredHttpHeaders().equals(Sets.of(HttpHeaderName.LOCATION)))
@@ -81,9 +101,10 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
 
     @Test
     public void testCode() throws Exception {
-        for (final HttpStatusCode constant : HttpStatusCode.values()) {
-            final String name = constant.name();
-            assertEquals(HttpServletResponse.class.getField("SC_" + name).getInt(null),
+        for (final HttpStatusCode constant : HttpStatusCode.CONSTANTS.values()) {
+            final String message = constant.message.toUpperCase()
+                    .replace(' ', '_');
+            assertEquals(HttpServletResponse.class.getField("SC_" + message).getInt(null),
                     constant.code(),
                     () -> constant.toString());
         }
