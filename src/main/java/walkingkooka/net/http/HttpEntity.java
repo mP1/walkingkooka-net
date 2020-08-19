@@ -53,11 +53,6 @@ public final class HttpEntity implements HasHeaders {
     public final static Binary NO_BODY = Binary.EMPTY;
 
     /**
-     * The line ending used in http requests/responses.
-     */
-    private final static LineEnding LINE_ENDING = LineEnding.CRNL;
-
-    /**
      * The separator that follows a header name and comes before a any values.
      */
     public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(':');

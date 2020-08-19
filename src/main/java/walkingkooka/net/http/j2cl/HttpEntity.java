@@ -27,7 +27,6 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.LineEnding;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -39,11 +38,6 @@ import java.util.stream.Collectors;
  * A slightly simplified {@link walkingkooka.net.http.HttpEntity} that removes the {@link Binary} getters and setters.
  */
 public final class HttpEntity implements HasHeaders {
-
-    /**
-     * The line ending used in http requests/responses.
-     */
-    private final static LineEnding LINE_ENDING = LineEnding.CRNL;
 
     /**
      * The separator that follows a header name and comes before a any values.
@@ -227,7 +221,7 @@ public final class HttpEntity implements HasHeaders {
                 .globalLength(globalAndValueLength)
                 .valueLength(globalAndValueLength);
 
-        final String eol = LINE_ENDING.toString();
+        final String eol = HasHeaders.LINE_ENDING.toString();
 
         // headers
         b.valueSeparator(eol);
