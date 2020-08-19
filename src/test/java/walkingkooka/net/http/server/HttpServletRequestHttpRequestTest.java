@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -108,7 +109,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
-        assertEquals(new String(BYTES, HttpServletRequestHttpRequest.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
+        assertEquals(new String(BYTES, HttpEntity.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
     }
 
     @Test

@@ -29,7 +29,6 @@ import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.LineEnding;
@@ -203,6 +202,27 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         this.check(different, HEADERS, body);
     }
 
+    // setBodyText ....................................................................................................
+
+    @Test
+    public void testSetBodyTextNullFails() {
+        assertThrows(NullPointerException.class, () -> this.createHttpEntity().setBodyText(null));
+    }
+
+    @Test
+    public void testSetBodyTextSame() {
+        final HttpEntity entity = this.createHttpEntity();
+        assertSame(entity, entity.setBodyText(entity.bodyText()));
+    }
+
+    @Test
+    public void testSetBodyTextDifferent() {
+        final HttpEntity entity = this.createHttpEntity();
+        final String bodyText = "different";
+        final HttpEntity different = entity.setBodyText(bodyText);
+        this.check(different, HEADERS, bodyText.getBytes(CHARSET));
+    }
+
     // headersAndBodyBytes ....................................................................................................
 
     @Test
@@ -372,25 +392,27 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     }
 
     @Test
-    public void testTextContentTypeMissingCharsetFails() {
-        assertThrows(HeaderValueException.class, () -> HttpEntity.text(MediaType.TEXT_PLAIN,
-                this.text()));
+    public void testTextContentTypeUnsupportedCharsetFails() {
+        this.textAndCheck("ABC123", MediaType.TEXT_HTML, HttpEntity.DEFAULT_BODY_CHARSET);
     }
 
     @Test
-    public void testTextContentTypeUnsupportedCharsetFails() {
-        assertThrows(NotAcceptableHeaderException.class, () -> HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
-                this.text()));
+    public void testTextContentTypeMissingCharset() {
+        this.textAndCheck("ABC123", MediaType.TEXT_HTML, HttpEntity.DEFAULT_BODY_CHARSET);
     }
 
     @Test
     public void testTextContentType() {
-        final MediaType contentType = this.contentType();
-        final String text = this.text();
-        final byte[] body = text.getBytes(CharsetName.UTF_8.charset().get());
+        this.textAndCheck("ABC123", MediaType.parse("text/html;charset=UTF-8"), Charset.forName("UTF-8"));
+    }
+
+    private void textAndCheck(final String text,
+                              final MediaType contentType,
+                              final Charset charset) {
+        final byte[] body = text.getBytes(charset);
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)body.length);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long) body.length);
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
 
         this.check(HttpEntity.text(contentType, text),
@@ -486,8 +508,10 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     }
 
     private Binary body() {
-        return Binary.with("abcdefghijklmnopqrstuvwxyz".getBytes(Charset.forName("utf8")));
+        return Binary.with("abcdefghijklmnopqrstuvwxyz".getBytes(CHARSET));
     }
+
+    private final static Charset CHARSET = Charset.forName("utf8");
 
     private void check(final HttpEntity entity) {
         check(entity, HEADERS, this.body());
@@ -504,6 +528,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
                        final Binary body) {
         assertEquals(headers, entity.headers(), "headers");
         assertEquals(body, entity.body(), "body");
+        assertEquals(new String(body.value(), CHARSET), entity.bodyText(), "bodyText");
     }
 
     @Override

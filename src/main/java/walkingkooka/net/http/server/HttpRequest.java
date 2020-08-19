@@ -19,9 +19,9 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HasHeaders;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -76,14 +76,11 @@ public interface HttpRequest extends HasHeaders {
     default String bodyText() {
         final Charset charset = HttpHeaderName.CONTENT_TYPE
                 .headerValue(this.headers())
-                .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
-                .orElse(DEFAULT_BODY_CHARSET);
+                .map(c -> c.contentTypeCharset(HttpEntity.DEFAULT_BODY_CHARSET))
+                .orElse(HttpEntity.DEFAULT_BODY_CHARSET);
 
         return new String(this.body(), charset);
     }
-
-    //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
-    final static Charset DEFAULT_BODY_CHARSET = CharsetName.ISO_8859_1.charset().get();
 
     /**
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
