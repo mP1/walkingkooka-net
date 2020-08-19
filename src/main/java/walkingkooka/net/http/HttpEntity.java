@@ -67,26 +67,23 @@ public final class HttpEntity implements HasHeaders {
      * Creates an {@link HttpEntity} after encoding the text as bytes using a negotiated charset.
      * The returned entity will only have 2 headers set: content-type and content-length set.
      */
-    static HttpEntity text(final MediaType contentType,
-                           final String text) {
+    public static HttpEntity text(final MediaType contentType,
+                                  final String text) {
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(text, "text");
 
-        final CharsetName contentTypeCharset = MediaTypeParameterName.CHARSET.parameterValueOrFail(contentType);
-        final Optional<Charset> possibleCharset = contentTypeCharset.charset();
-        if (!possibleCharset.isPresent()) {
-            throw new NotAcceptableHeaderException("Content type " + contentType + " contains unsupported charset.");
-        }
-
-        final byte[] body = text.getBytes(possibleCharset.get());
+        final Binary binary = Binary.with(text.getBytes(contentType.contentTypeCharset(DEFAULT_BODY_CHARSET)));
 
         // content type, content-length
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)body.length);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)binary.size());
 
-        return new HttpEntity(headers, Binary.with(body));
+        return new HttpEntity(headers, binary);
     }
+
+    //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
+    public final static Charset DEFAULT_BODY_CHARSET = CharsetName.ISO_8859_1.charset().get();
 
     /**
      * A constant with no headers.
@@ -101,7 +98,8 @@ public final class HttpEntity implements HasHeaders {
     /**
      * Creates a new {@link HttpEntity}
      */
-    public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
+    public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers,
+                                  final Binary body) {
         return new HttpEntity(checkHeaders(headers), checkBody(body));
     }
 
@@ -116,14 +114,14 @@ public final class HttpEntity implements HasHeaders {
     // headers ...................................................................................
 
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
+    public final Map<HttpHeaderName<?>, Object> headers() {
         return this.headers;
     }
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given headers creating a new instance if necessary.
      */
-    public HttpEntity setHeaders(final Map<HttpHeaderName<?>, Object> headers) {
+    public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, Object> headers) {
         final Map<HttpHeaderName<?>, Object> copy = checkHeaders(headers);
 
         return this.headers.equals(copy) ?
@@ -189,14 +187,14 @@ public final class HttpEntity implements HasHeaders {
 
     // body ...................................................................................
 
-    public Binary body() {
+    public final Binary body() {
         return this.body;
     }
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given body creating a new instance if necessary.
      */
-    public HttpEntity setBody(final Binary body) {
+    public final HttpEntity setBody(final Binary body) {
         checkBody(body);
 
         return body.equals(this.body) ?
@@ -208,6 +206,31 @@ public final class HttpEntity implements HasHeaders {
 
     private static Binary checkBody(final Binary body) {
         return Objects.requireNonNull(body, "body");
+    }
+
+    // bodyText ...................................................................................
+
+    public final String bodyText() {
+        return new String(this.body.value(), this.charset());
+    }
+
+    /**
+     * Would be setter that returns a {@link HttpEntity} with the given body text creating a new instance if necessary.
+     */
+    public final HttpEntity setBodyText(final String bodyText) {
+        checkBodyText(bodyText);
+
+        return this.setBody(Binary.with(bodyText.getBytes(this.charset())));
+    }
+
+    private static String checkBodyText(final String bodyText) {
+        return Objects.requireNonNull(bodyText, "bodyText");
+    }
+
+    private Charset charset() {
+        return HttpHeaderName.CONTENT_TYPE.parameterValue(this.headers)
+                .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
+                .orElse(DEFAULT_BODY_CHARSET);
     }
 
     // extractRange ...................................................................................
@@ -225,7 +248,8 @@ public final class HttpEntity implements HasHeaders {
         return this.replace(headers, this.body);
     }
 
-    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
+    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
+                               final Binary body) {
         return new HttpEntity(headers, body);
     }
 

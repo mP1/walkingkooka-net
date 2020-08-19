@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -38,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class HttpRequestTest implements ClassTesting<HttpRequest> {
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
-        final Charset charset = HttpRequest.DEFAULT_BODY_CHARSET;
+        final Charset charset = HttpEntity.DEFAULT_BODY_CHARSET;
         final String text = "ABC123";
 
         this.bodyTextAndCheck(null,
