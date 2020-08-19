@@ -28,7 +28,6 @@ import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
-import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.text.Ascii;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
@@ -44,7 +43,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * A http entity containing headers and body.
+ * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
  */
 public final class HttpEntity implements HasHeaders {
 
@@ -128,6 +127,13 @@ public final class HttpEntity implements HasHeaders {
                 this :
                 this.replace(headers);
 
+    }
+
+    /**
+     * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
+     */
+    public HttpEntity setContentLength() {
+        return this.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().size()));
     }
 
     /**
