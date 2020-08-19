@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.text.LineEnding;
 
 import java.util.Map;
 
@@ -25,6 +26,11 @@ import java.util.Map;
  * Defines a contract for a container that includes headers, such as a http request.
  */
 public interface HasHeaders {
+
+    /**
+     * The line ending used in http requests/responses.
+     */
+    LineEnding LINE_ENDING = LineEnding.CRNL;
 
     /**
      * Returns a {@link Map} view of all headers.
