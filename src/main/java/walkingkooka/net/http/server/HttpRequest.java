@@ -76,7 +76,7 @@ public interface HttpRequest extends HasHeaders {
     default String bodyText() {
         final Charset charset = HttpHeaderName.CONTENT_TYPE
                 .headerValue(this.headers())
-                .map(c -> c.charset(DEFAULT_BODY_CHARSET))
+                .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
                 .orElse(DEFAULT_BODY_CHARSET);
 
         return new String(this.body(), charset);

@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestTest implements ClassTesting<HttpRequest> {
     @Test
@@ -43,6 +44,13 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
         this.bodyTextAndCheck(null,
                 text.getBytes(charset),
                 text);
+    }
+
+    @Test
+    public void testBodyTextCharsetHeaderUnsupportedFails() {
+        assertThrows(IllegalArgumentException.class,
+                () -> this.request("text/plain;charset=UTF-99", new byte[1])
+                        .bodyText());
     }
 
     @Test
@@ -59,49 +67,54 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
                                   final byte[] body,
                                   final String expected) {
         assertEquals(expected,
-                new HttpRequest() {
-                    @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return null == contentType ?
-                                Maps.empty() :
-                                Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.parse(contentType));
-                    }
+                this.request(contentType, body).bodyText());
+    }
 
-                    @Override
-                    public byte[] body() {
-                        return body;
-                    }
+    private HttpRequest request(final String contentType,
+                                final byte[] body) {
+        return new HttpRequest() {
+            @Override
+            public Map<HttpHeaderName<?>, Object> headers() {
+                return null == contentType ?
+                        Maps.empty() :
+                        Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.parse(contentType));
+            }
 
-                    @Override
-                    public HttpTransport transport() {
-                        throw new UnsupportedOperationException();
-                    }
+            @Override
+            public byte[] body() {
+                return body;
+            }
 
-                    @Override
-                    public HttpProtocolVersion protocolVersion() {
-                        throw new UnsupportedOperationException();
-                    }
+            @Override
+            public HttpTransport transport() {
+                throw new UnsupportedOperationException();
+            }
 
-                    @Override
-                    public RelativeUrl url() {
-                        throw new UnsupportedOperationException();
-                    }
+            @Override
+            public HttpProtocolVersion protocolVersion() {
+                throw new UnsupportedOperationException();
+            }
 
-                    @Override
-                    public HttpMethod method() {
-                        throw new UnsupportedOperationException();
-                    }
+            @Override
+            public RelativeUrl url() {
+                throw new UnsupportedOperationException();
+            }
 
-                    @Override
-                    public Map<HttpRequestParameterName, List<String>> parameters() {
-                        throw new UnsupportedOperationException();
-                    }
+            @Override
+            public HttpMethod method() {
+                throw new UnsupportedOperationException();
+            }
 
-                    @Override
-                    public List<String> parameterValues(final HttpRequestParameterName parameterName) {
-                        throw new UnsupportedOperationException();
-                    }
-                }.bodyText());
+            @Override
+            public Map<HttpRequestParameterName, List<String>> parameters() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public List<String> parameterValues(final HttpRequestParameterName parameterName) {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     @Override

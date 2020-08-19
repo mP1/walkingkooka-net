@@ -384,12 +384,25 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
 
     /**
      * Retrieves a charset from this {@link MediaType} provided its supported by the runtime or uses the default.
+     * Unsupported charsets are ignored.
      */
-    public Charset charset(final Charset defaultCharset) {
+    public Charset acceptCharset(final Charset defaultCharset) {
         Objects.requireNonNull(defaultCharset, "defaultCharset");
 
         return MediaTypeParameterName.CHARSET.parameterValue(this)
                 .flatMap(CharsetName::charset)
+                .orElse(defaultCharset);
+    }
+
+    /**
+     * Retrieves a charset from this {@link MediaType} requiring that if present that it is supported.
+     * Unsupported charsets will result in an {@link IllegalArgumentException}, if absent the default will be returned.
+     */
+    public Charset contentTypeCharset(final Charset defaultCharset) {
+        Objects.requireNonNull(defaultCharset, "defaultCharset");
+
+        return MediaTypeParameterName.CHARSET.parameterValue(this)
+                .map(CharsetName::charsetFailNotSupported)
                 .orElse(defaultCharset);
     }
 

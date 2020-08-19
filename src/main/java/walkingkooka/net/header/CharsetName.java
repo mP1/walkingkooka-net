@@ -186,6 +186,13 @@ public abstract class CharsetName extends HeaderNameValue
     public abstract Optional<Charset> charset();
 
     /**
+     * Returns the {@link Charset} only if it is supported, wildcard and unsupported will fail
+     */
+    Charset charsetFailNotSupported() {
+        return this.charset().orElseThrow(() -> new IllegalArgumentException("Supported charset required was " + CharSequences.quoteAndEscape(this.toString())));
+    }
+
+    /**
      * Returns true if this charset name is a wildcard.
      */
     public final boolean isWildcard() {

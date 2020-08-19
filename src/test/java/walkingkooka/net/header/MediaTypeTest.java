@@ -355,50 +355,97 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 parameters);
     }
 
-    // charset .........................................................................................................
+    // acceptCharset ...................................................................................................
 
     @Test
-    public void testCharsetWithNullDefaultFails() {
-        assertThrows(NullPointerException.class, () -> MediaType.ANY_TEXT.charset(null));
-    }
-
-    @Test
-    public void testCharsetPresent() {
-        this.charsetAndCheck("text/plain;charset=UTF-8", "UTF-16", "UTF-8");
+    public void testAcceptCharsetWithNullDefaultFails() {
+        assertThrows(NullPointerException.class, () -> MediaType.ANY_TEXT.acceptCharset(null));
     }
 
     @Test
-    public void testCharsetPresent2() {
-        this.charsetAndCheck("text/plain;q=0.5;charset=UTF-8", "UTF-16", "UTF-8");
+    public void testAcceptCharsetPresent() {
+        this.acceptCharsetAndCheck("text/plain;charset=UTF-8", "UTF-16", "UTF-8");
     }
 
     @Test
-    public void testCharsetUnsupportedUsesDefault() {
-        this.charsetAndCheck("text/plain;charset=UTF99", "UTF-16", "UTF-16");
+    public void testAcceptCharsetPresent2() {
+        this.acceptCharsetAndCheck("text/plain;q=0.5;charset=UTF-8", "UTF-16", "UTF-8");
     }
 
     @Test
-    public void testCharsetUsesDefault() {
-        this.charsetAndCheck("text/plain;q=0.5", "UTF-16", "UTF-16");
+    public void testAcceptCharsetUnsupportedUsesDefault() {
+        this.acceptCharsetAndCheck("text/plain;charset=UTF99", "UTF-16", "UTF-16");
     }
 
     @Test
-    public void testCharsetUsesDefault2() {
-        this.charsetAndCheck(MediaType.BINARY.toHeaderText(), "UTF-16", "UTF-16");
+    public void testAcceptCharsetUsesDefault() {
+        this.acceptCharsetAndCheck("text/plain;q=0.5", "UTF-16", "UTF-16");
     }
 
-    private void charsetAndCheck(final String text,
-                                 final String defaultCharset,
-                                 final String expected) {
-        this.charsetAndCheck(text, Charset.forName(defaultCharset), Charset.forName(expected));
+    @Test
+    public void testAcceptCharsetUsesDefault2() {
+        this.acceptCharsetAndCheck(MediaType.BINARY.toHeaderText(), "UTF-16", "UTF-16");
     }
 
-    private void charsetAndCheck(final String text,
-                                 final Charset defaultCharset,
-                                 final Charset expected) {
+    private void acceptCharsetAndCheck(final String text,
+                                       final String defaultCharset,
+                                       final String expected) {
+        this.acceptCharsetAndCheck(text, Charset.forName(defaultCharset), Charset.forName(expected));
+    }
+
+    private void acceptCharsetAndCheck(final String text,
+                                       final Charset defaultCharset,
+                                       final Charset expected) {
         assertEquals(expected,
-                MediaType.parse(text).charset(defaultCharset),
-                () -> "charset of " + text + " with defaultCharset " + defaultCharset);
+                MediaType.parse(text).acceptCharset(defaultCharset),
+                () -> "acceptCharset of " + text + " with defaultCharset " + defaultCharset);
+    }
+
+    // contentTypeCharset ...................................................................................................
+
+    @Test
+    public void testContentTypeCharsetWithNullDefaultFails() {
+        assertThrows(NullPointerException.class, () -> MediaType.ANY_TEXT.contentTypeCharset(null));
+    }
+
+    @Test
+    public void testContentTypeCharsetPresent() {
+        this.contentTypeCharsetAndCheck("text/plain;charset=UTF-8", "UTF-16", "UTF-8");
+    }
+
+    @Test
+    public void testContentTypeCharsetPresent2() {
+        this.contentTypeCharsetAndCheck("text/plain;q=0.5;charset=UTF-8", "UTF-16", "UTF-8");
+    }
+
+    @Test
+    public void testContentTypeCharsetUnsupportedFails() {
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> MediaType.parse("text/plain;charset=UTF99").contentTypeCharset(Charset.defaultCharset()));
+        assertEquals("Supported charset required was \"UTF99\"", thrown.getMessage());
+    }
+
+    @Test
+    public void testContentTypeCharsetUsesDefault() {
+        this.contentTypeCharsetAndCheck("text/plain;q=0.5", "UTF-16", "UTF-16");
+    }
+
+    @Test
+    public void testContentTypeCharsetUsesDefault2() {
+        this.contentTypeCharsetAndCheck(MediaType.BINARY.toHeaderText(), "UTF-16", "UTF-16");
+    }
+
+    private void contentTypeCharsetAndCheck(final String text,
+                                            final String defaultCharset,
+                                            final String expected) {
+        this.contentTypeCharsetAndCheck(text, Charset.forName(defaultCharset), Charset.forName(expected));
+    }
+
+    private void contentTypeCharsetAndCheck(final String text,
+                                            final Charset defaultCharset,
+                                            final Charset expected) {
+        assertEquals(expected,
+                MediaType.parse(text).contentTypeCharset(defaultCharset),
+                () -> "contentTypeCharset of " + text + " with defaultCharset " + defaultCharset);
     }
 
     // qWeight .......................................................................
