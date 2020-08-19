@@ -54,6 +54,7 @@ import walkingkooka.net.header.Link;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.RangeHeaderValue;
 import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.http.HttpEntity;
 
 import java.util.Optional;
 
@@ -184,5 +185,13 @@ public class JunitTest {
     @Test
     public void testHttpHeaderNameAndMediaType() {
         HttpHeaderName.CONTENT_TYPE.checkValue(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testHttpEntity() {
+        final String text = "abc123";
+        final HttpEntity entity = HttpEntity.text(MediaType.TEXT_PLAIN, text);
+
+        Assert.assertEquals(text, entity.bodyText());
     }
 }
