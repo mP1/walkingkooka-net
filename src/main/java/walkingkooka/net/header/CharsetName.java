@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
@@ -102,6 +103,7 @@ public abstract class CharsetName extends HeaderNameValue
     /**
      * US-ASCII	Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set
      */
+    @GwtIncompatible
     public final static CharsetName US_ASCII = constantOrFail("US-ASCII");
 
     /**
@@ -117,16 +119,19 @@ public abstract class CharsetName extends HeaderNameValue
     /**
      * Sixteen-bit UCS Transformation Format, big-endian byte order
      */
+    @GwtIncompatible
     public final static CharsetName UTF_16BE = constantOrFail("UTF-16BE");
 
     /**
      * Sixteen-bit UCS Transformation Format, little-endian byte order
      */
+    @GwtIncompatible
     public final static CharsetName UTF_16LE = constantOrFail("UTF-16LE");
 
     /**
      * Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark
      */
+    @GwtIncompatible
     public final static CharsetName UTF_16 = constantOrFail("UTF-16");
 
     /**
