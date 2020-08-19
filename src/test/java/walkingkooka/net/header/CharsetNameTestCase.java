@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N>
@@ -32,6 +33,22 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     @Override
     public final void testTypeNaming() {
+    }
+
+    @Test
+    public final void testIsSupported() {
+        final N charsetName = this.createCharsetName();
+        assertEquals(this.type() == CharsetNameSupportedCharset.class,
+                charsetName.isSupported(),
+                () -> charsetName + " isSupported");
+    }
+
+    @Test
+    public final void testIsUnsupported() {
+        final N charsetName = this.createCharsetName();
+        assertEquals(this.type() == CharsetNameUnsupportedCharset.class,
+                charsetName.isUnsupported(),
+                () -> charsetName + " isUnsupported");
     }
 
     @Test
