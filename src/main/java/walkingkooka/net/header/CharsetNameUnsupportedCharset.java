@@ -41,11 +41,6 @@ final class CharsetNameUnsupportedCharset extends CharsetName {
         return NO_CHARSET;
     }
 
-    @Override
-    public boolean isWildcard() {
-        return false;
-    }
-
     // Predicate........................................................................................................
 
     @Override

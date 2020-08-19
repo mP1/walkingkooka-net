@@ -188,7 +188,23 @@ public abstract class CharsetName extends HeaderNameValue
     /**
      * Returns true if this charset name is a wildcard.
      */
-    public abstract boolean isWildcard();
+    public final boolean isWildcard() {
+        return this instanceof CharsetNameWildcard;
+    }
+
+    /**
+     * Returns true if this charset name is that of a supported charset.
+     */
+    public final boolean isSupported() {
+        return this instanceof CharsetNameSupportedCharset;
+    }
+
+    /**
+     * Returns true if this charset name is that of an unsupported charset.
+     */
+    public final boolean isUnsupported() {
+        return this instanceof CharsetNameUnsupportedCharset;
+    }
 
     // setParameters.......................................................................................
 

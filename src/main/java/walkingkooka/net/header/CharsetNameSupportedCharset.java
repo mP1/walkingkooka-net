@@ -52,11 +52,6 @@ final class CharsetNameSupportedCharset extends CharsetName {
 
     private final Charset charset;
 
-    @Override
-    public boolean isWildcard() {
-        return false;
-    }
-
     // Predicate........................................................................................................
 
     @Override

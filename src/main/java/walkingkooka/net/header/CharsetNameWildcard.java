@@ -45,11 +45,6 @@ final class CharsetNameWildcard extends CharsetName {
         return NO_CHARSET;
     }
 
-    @Override
-    public boolean isWildcard() {
-        return true;
-    }
-
     // Predicate........................................................................................................
 
     @Override
