@@ -26,6 +26,8 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentRange;
+import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -38,6 +40,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -45,8 +49,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         HashCodeEqualsDefinedTesting2<HttpEntity>,
         ToStringTesting<HttpEntity> {
 
-    private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long HEADER_VALUE = 26L;
+    private final static HttpHeaderName<ETag> HEADER = HttpHeaderName.E_TAG;
+    private final static ETag HEADER_VALUE = ETag.wildcard();
 
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
     private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.of(HttpHeaderName.SERVER, 999L);
@@ -101,7 +105,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
-        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.E_TAG, ETag.with("different", ETagValidator.STRONG));
         final HttpEntity different = entity.setHeaders(headers);
         this.check(different, headers, this.body());
     }
@@ -133,8 +137,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     public void testAddHeaderReplaceValue() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Long headerValue = 456L;
-
+        final ETag headerValue = ETag.with("E123", ETagValidator.STRONG);
         this.check(entity.addHeader(HEADER, headerValue),
                 Maps.of(HEADER, headerValue),
                 this.body());
@@ -154,6 +157,35 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         headers.put(header, headerValue);
 
         this.check(different, headers, this.body());
+    }
+
+    // setContentLength ................................................................................................
+
+    @Test
+    public void testSetContentLengthMissing() {
+        final HttpEntity entity = HttpEntity.with(HEADERS, Binary.with(new byte[3]));
+        final HttpEntity withContentLength = entity.setContentLength();
+        assertNotSame(entity, withContentLength);
+
+        assertEquals(Maps.of(HEADER, HEADER_VALUE, HttpHeaderName.CONTENT_LENGTH, 3L), withContentLength.headers(), "headers");
+        assertEquals(entity.body(), withContentLength.body(), "body");
+    }
+
+    @Test
+    public void testSetContentLengthReplaces() {
+        final HttpEntity entity = HttpEntity.with(Maps.of(HEADER, HEADER_VALUE, HttpHeaderName.CONTENT_LENGTH, 999L), Binary.with(new byte[3]));
+        final HttpEntity withContentLength = entity.setContentLength();
+        assertNotSame(entity, withContentLength);
+
+        assertEquals(Maps.of(HEADER, HEADER_VALUE, HttpHeaderName.CONTENT_LENGTH, 3L), withContentLength.headers(), "headers");
+        assertEquals(entity.body(), withContentLength.body(), "body");
+    }
+
+    @Test
+    public void testSetContentLengthUnnecessary() {
+        final HttpEntity entity = HttpEntity.text(MediaType.TEXT_HTML, "hello");
+        assertEquals(Long.valueOf(entity.body().size()), entity.headers().get(HttpHeaderName.CONTENT_LENGTH));
+        assertSame(entity, entity.setContentLength());
     }
 
     // removeHeader ....................................................................................................
@@ -527,6 +559,11 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
                        final Map<HttpHeaderName<?>, Object> headers,
                        final Binary body) {
         assertEquals(headers, entity.headers(), "headers");
+
+        final Long contentLength = (Long)entity.headers().get(HttpHeaderName.CONTENT_LENGTH);
+        assertEquals(null != contentLength ? Long.valueOf(body.size()) : null,
+                contentLength,
+                () -> "content length, headers: " + headers);
         assertEquals(body, entity.body(), "body");
         assertEquals(new String(body.value(), CHARSET), entity.bodyText(), "bodyText");
     }
