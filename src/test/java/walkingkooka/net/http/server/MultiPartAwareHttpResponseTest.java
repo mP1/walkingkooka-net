@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -84,8 +83,12 @@ public final class MultiPartAwareHttpResponseTest extends BufferingHttpResponseT
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part2"));
     }
 
-    private <TT> HttpEntity entity(final HttpHeaderName<TT> header, final TT value, final String content) {
-        return HttpEntity.with(Maps.of(header, value), Binary.with(content.getBytes(Charset.defaultCharset())));
+    private <TT> HttpEntity entity(final HttpHeaderName<TT> header,
+                                   final TT value,
+                                   final String content) {
+        return HttpEntity.EMPTY
+                .addHeader(header, value)
+                .setBody(Binary.with(content.getBytes(Charset.defaultCharset())));
     }
 
     @Override

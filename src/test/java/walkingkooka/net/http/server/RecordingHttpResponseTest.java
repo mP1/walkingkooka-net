@@ -20,13 +20,10 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
@@ -62,7 +59,9 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
-        final HttpEntity entity2 = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "part 2"), Binary.with(new byte[123]));
+        final HttpEntity entity2 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "part 2")
+                .setBody(Binary.with(new byte[123]));
         response.setStatus(status);
         response.addEntity(entity);
         response.addEntity(entity2);
@@ -87,13 +86,17 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     public void testCheckDifferentEntityFails() {
         final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
-        final HttpEntity entity = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 123"), Binary.with(new byte[123]));
+        final HttpEntity entity = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server 123")
+                .setBody(Binary.with(new byte[123]));
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
                 status,
-                HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 456"), Binary.with(new byte[456]))));
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.SERVER, "Server 456")
+                        .setBody(Binary.with(new byte[456]))));
     }
 
     @Test
@@ -119,7 +122,9 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     }
 
     private HttpEntity entity() {
-        return HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 123"), Binary.with(new byte[]{65, 66, 67}));
+        return HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server 123")
+                .setBody(Binary.with(new byte[]{65, 66, 67}));
     }
 
     @Override

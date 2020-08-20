@@ -63,9 +63,11 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         final HttpRequest request = HttpRequests.fake();
         DefaultHeadersHttpResponse response = this.createResponse(request, recording);
         response.setStatus(status);
-        response.addEntity(HttpEntity.with(responseHeaders, body));
+        response.addEntity(httpEntity(responseHeaders).setBody(body));
 
-        final HttpEntity second = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server2"), Binary.with(new byte[2]));
+        final HttpEntity second = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server2")
+                .setBody(Binary.with(new byte[2]));
         response.addEntity(second);
 
         final Map<HttpHeaderName<?>, Object> finalHeaders = Maps.ordered();
@@ -75,7 +77,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         this.checkResponse(recording,
                 request,
                 status,
-                HttpEntity.with(finalHeaders, body),
+                httpEntity(finalHeaders).setBody(body),
                 second);
     }
 

@@ -20,14 +20,11 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -110,16 +107,14 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
     }
 
     private HttpEntity entityWithoutServerHeader() {
-        return HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY),
-                Binary.with(new byte[]{'a'}));
+        return HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY)
+                .setBody(Binary.with(new byte[]{'a'}));
     }
 
     private HttpEntity entityWithServerHeader() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY);
-        headers.put(HttpHeaderName.SERVER, "Server 123");
-
-        return HttpEntity.with(headers, Binary.with(new byte[]{'a'}));
+        return this.entityWithoutServerHeader()
+                .addHeader(HttpHeaderName.SERVER, "Server 123");
     }
     
 

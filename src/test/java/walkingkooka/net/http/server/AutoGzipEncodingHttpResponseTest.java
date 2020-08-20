@@ -125,7 +125,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
                     @Test
                     public void addEntity(final HttpEntity e) {
-                        assertEquals(HttpEntity.with(expectedHeaders, Binary.with(expectedBody)),
+                        assertEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
                                 e,
                                 "entity");
                         addEntity++;
@@ -134,7 +134,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
         if (null != contentEncoding) {
             headers.put(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse(contentEncoding));
         }
-        response.addEntity(HttpEntity.with(headers, Binary.with(body)));
+        response.addEntity(httpEntity(headers).setBody(Binary.with(body)));
         assertEquals(1, this.addEntity, "wrapped response addEntity(body) not called");
     }
 

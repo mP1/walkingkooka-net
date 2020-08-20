@@ -65,13 +65,11 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
                     }
                 });
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        if (null != contentLength) {
-            headers.put(HttpHeaderName.CONTENT_LENGTH, contentLength);
-        }
         final Binary bodyBinary = Binary.with(body);
-        response.addEntity(HttpEntity.with(headers, bodyBinary));
-        assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, (long) body.length), bodyBinary)),
+        response.addEntity((null == contentLength ?
+                HttpEntity.EMPTY :
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength)).setBody(bodyBinary));
+        assertEquals(Lists.of(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.length).setBody(bodyBinary)),
                 added,
                 "added entity");
     }

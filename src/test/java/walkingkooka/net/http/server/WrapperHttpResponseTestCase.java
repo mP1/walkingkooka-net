@@ -18,12 +18,16 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -88,6 +92,16 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     abstract HttpRequest createRequest();
 
     abstract R createResponse(final HttpRequest request, final HttpResponse response);
+
+    final HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers) {
+        HttpEntity httpEntity = HttpEntity.EMPTY;
+
+        for(final Entry<HttpHeaderName<?>, Object> headerAndValue : headers.entrySet()) {
+            httpEntity = httpEntity.addHeader(headerAndValue.getKey(), Cast.to(headerAndValue.getValue()));
+        }
+
+        return httpEntity;
+    }
 
     final void setStatusAddEntityAndCheck(final HttpStatus status,
                                           final HttpEntity entity) {
