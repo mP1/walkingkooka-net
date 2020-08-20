@@ -92,8 +92,9 @@ public final class HttpEntity implements HasHeaders {
     /**
      * Creates a new {@link HttpEntity}
      */
-    public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers,
-                                  final Binary body) {
+    // @VisibleForTesting
+    static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers,
+                           final Binary body) {
         return new HttpEntity(checkHeaders(headers), checkBody(body));
     }
 

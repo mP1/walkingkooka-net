@@ -220,9 +220,9 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
         this.setStatusAddEntityAndCheck(
                 this.createRequest(),
                 status.status(),
-                HttpEntity.with(headers, Binary.with(body)),
+                httpEntity(headers).setBody(Binary.with(body)),
                 expectedStatus.status(),
-                HttpEntity.with(expectedHeaders, Binary.with(expectedBody)));
+                httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
     }
 
     @Override

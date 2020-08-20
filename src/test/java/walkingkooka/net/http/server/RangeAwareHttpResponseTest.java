@@ -216,9 +216,9 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         this.setStatusAddEntityAndCheck(
                 this.createRequest(requestRanges, requestIfRange),
                 HttpStatusCode.OK.status(),
-                HttpEntity.with(headers, Binary.with(body)),
+                httpEntity(headers).setBody(Binary.with(body)),
                 expectedStatus.status(),
-                HttpEntity.with(headers, Binary.with(expectedBody)));
+                httpEntity(headers).setBody(Binary.with(expectedBody)));
     }
 
     // range ............................................................................................
@@ -251,22 +251,23 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         headers.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
-        final Map<HttpHeaderName<?>, Object> multipart1 = Maps.ordered();
-        multipart1.put(HttpHeaderName.SERVER, "Server123");
-        multipart1.put(HttpHeaderName.E_TAG, this.etag());
-        multipart1.put(HttpHeaderName.LAST_MODIFIED, this.lastModified());
-        multipart1.put(HttpHeaderName.CONTENT_TYPE, this.multipartContentType());
-        multipart1.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+        final HttpEntity multipart1 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server123")
+                .addHeader(HttpHeaderName.E_TAG, this.etag())
+                .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
-        final Map<HttpHeaderName<?>, Object> multipart2 = Maps.ordered();
-        multipart2.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
-        multipart2.put(HttpHeaderName.CONTENT_RANGE, this.contentRange(lower, upper));
+        final HttpEntity multipart2 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(lower, upper))
+                .setBodyText(multipart2Body);
 
         this.setStatusAddEntityAndCheck(requestRange,
                 IF_RANGE_ABSENT,
                 headers,
-                HttpEntity.with(multipart1, HttpEntity.NO_BODY),
-                this.httpEntity(multipart2, multipart2Body));
+                multipart1,
+                multipart2);
     }
 
     @Test
@@ -278,25 +279,29 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         headers.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
-        final Map<HttpHeaderName<?>, Object> multipart1 = Maps.ordered();
-        multipart1.put(HttpHeaderName.SERVER, "Server123");
-        multipart1.put(HttpHeaderName.E_TAG, this.etag());
-        multipart1.put(HttpHeaderName.LAST_MODIFIED, this.lastModified());
-        multipart1.put(HttpHeaderName.CONTENT_TYPE, this.multipartContentType());
-        multipart1.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+        final HttpEntity multipart1 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server123")
+                .addHeader(HttpHeaderName.E_TAG, this.etag())
+                .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
-        final Map<HttpHeaderName<?>, Object> multipart2 = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN,
-                HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2));
+        final HttpEntity multipart2 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2))
+                .setBodyText("bc");
 
-        final Map<HttpHeaderName<?>, Object> multipart3 = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN,
-                HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12));
+        final HttpEntity multipart3 = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12))
+                .setBodyText("klm");
 
         this.setStatusAddEntityAndCheck("bytes=1-2,10-12",
                 IF_RANGE_ABSENT,
                 headers,
-                HttpEntity.with(multipart1, HttpEntity.NO_BODY),
-                this.httpEntity(multipart2, "bc"),
-                this.httpEntity(multipart3, "klm"));
+                multipart1,
+                multipart2,
+                multipart3);
     }
 
     private ContentRange contentRange(final long lower, final long upper) {
@@ -312,7 +317,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         this.setStatusAddEntityAndCheck(
                 this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
                 HttpStatusCode.OK.status(),
-                HttpEntity.with(headers, Binary.with(BODY)),
+                httpEntity(headers).setBody(Binary.with(BODY)),
                 HttpStatusCode.PARTIAL_CONTENT.status(),
                 expectedEntities);
     }
@@ -363,23 +368,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private HttpEntity httpEntity() {
-        return this.httpEntity(HttpHeaderName.SERVER, "server abc123", BODY);
-    }
-
-    private <T> HttpEntity httpEntity(final HttpHeaderName<T> header,
-                                      final T value,
-                                      final byte[] bytes) {
-        return HttpEntity.with(Maps.of(header, value), Binary.with(bytes));
-    }
-
-    private <T> HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers,
-                                      final String bytes) {
-        return this.httpEntity(headers, bytes.getBytes(CharsetName.UTF_8.charset().get()));
-    }
-
-    private <T> HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers,
-                                      final byte[] bytes) {
-        return HttpEntity.with(headers, Binary.with(bytes));
+        return HttpEntity.EMPTY.addHeader(HttpHeaderName.SERVER, "server abc123").setBody(Binary.with(BODY));
     }
 
     private HttpRequest createRequest(final RangeHeaderValue ranges, final IfRange<?> ifRange) {

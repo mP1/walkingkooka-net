@@ -19,7 +19,6 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.Either;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -31,7 +30,6 @@ import walkingkooka.text.CharSequences;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -123,7 +121,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     private void notModified(final WebFile file,
                              final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        response.addEntity(HttpEntity.with(this.headers(file), Binary.EMPTY));
+        response.addEntity(this.headers(file));
     }
 
     /**
@@ -138,7 +136,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
 
             if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
                 response.setStatus(HttpStatusCode.OK.status());
-                response.addEntity(HttpEntity.with(this.headers(file), binaryContent));
+                response.addEntity(this.headers(file).setBody(binaryContent));
             } else {
                 response.setStatus(HttpStatusCode.NOT_ACCEPTABLE.status());
                 response.addEntity(HttpEntity.EMPTY);
@@ -148,20 +146,14 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
         }
     }
 
-    private Map<HttpHeaderName<?>, Object> headers(final WebFile file) {
-        final Long contentSize = file.contentSize();
-
+    private HttpEntity headers(final WebFile file) {
+        final HttpEntity entity = HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_TYPE, file.contentType())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
+                .addHeader(HttpHeaderName.LAST_MODIFIED, file.lastModified());
         return file.etag()
-                .map( etag ->
-                        Maps.of(HttpHeaderName.CONTENT_LENGTH, contentSize,
-                                HttpHeaderName.CONTENT_TYPE, file.contentType(),
-                                HttpHeaderName.LAST_MODIFIED, file.lastModified(),
-                                HttpHeaderName.E_TAG, etag))
-                .orElse(
-                        Maps.of(HttpHeaderName.CONTENT_LENGTH, contentSize,
-                                HttpHeaderName.CONTENT_TYPE, file.contentType(),
-                                HttpHeaderName.LAST_MODIFIED, file.lastModified())
-                );
+                .map(e -> entity.addHeader(HttpHeaderName.E_TAG, e))
+                .orElse(entity);
     }
 
     /**

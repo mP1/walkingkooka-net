@@ -66,12 +66,12 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
     public void testHeadIgnoreResponseBody() {
         final Map<HttpHeaderName<?>, Object> headers = this.headers();
 
-        for (HttpStatusCode status : HttpStatusCode.values()) {
+        for (final HttpStatusCode status : HttpStatusCode.values()) {
             this.setStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
                     status.status(),
-                    HttpEntity.with(headers, Binary.with(new byte[CONTENT_LENGTH])),
+                    httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
                     status.status(),
-                    HttpEntity.with(headers, HttpEntity.NO_BODY));
+                    httpEntity(headers));
         }
     }
 
@@ -86,18 +86,16 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
         response.setStatus(status);
 
-        final Binary body = Binary.with(new byte[CONTENT_LENGTH]);
-        final HttpEntity first = HttpEntity.with(headers, body);
-        response.addEntity(first);
+        response.addEntity(httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])));
 
         final byte[] bytes2 = new byte[CONTENT_LENGTH];
         Arrays.fill(bytes2, (byte) 'A');
-        response.addEntity(HttpEntity.with(headers, Binary.with(bytes2)));
+        response.addEntity(httpEntity(headers).setBody(Binary.with(bytes2)));
 
         this.checkResponse(recording,
                 request,
                 status,
-                HttpEntity.with(headers, HttpEntity.NO_BODY));
+                httpEntity(headers));
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {

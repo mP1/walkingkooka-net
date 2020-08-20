@@ -31,7 +31,6 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -56,14 +55,16 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     @Test
     public void testSuccessMultiPart() {
         this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
-                HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")), this.binary("part-1a")),
-                HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")), this.binary("part-2b")));
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-1a")),
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-2b")));
     }
 
     @Test
     public void testPartialContentWithRanges() {
         this.setStatusAddEntityAndCheck(HttpStatusCode.PARTIAL_CONTENT.status(),
-                HttpEntity.with(Maps.of(HttpHeaderName.RANGE, RangeHeaderValue.parse("bytes=1-2")), this.binary("a1")));
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.RANGE, RangeHeaderValue.parse("bytes=1-2"))
+                        .setBody(this.binary("a1")));
     }
 
     @Test
@@ -189,11 +190,11 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     private void setStatusWithoutLocationHeader(final HttpStatusCode code) {
         this.setStatusAddEntityAndCheck(code.status(),
-                HttpEntity.with(Maps.of(HttpHeaderName.LOCATION, Url.parse("http://example.com")), this.binary("a1")));
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.LOCATION, Url.parse("http://example.com")).setBody(this.binary("a1")));
     }
 
     private HttpEntity httpEntityWithServerHeader() {
-        return HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server123"), this.binary("a1"));
+        return HttpEntity.EMPTY.addHeader(HttpHeaderName.SERVER, "Server123").setBody(this.binary("a1"));
     }
 
     private Binary binary(final String content) {
@@ -207,12 +208,12 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     private void missingRequiredHeaderFails(final HttpStatusCode code,
                                             final Map<HttpHeaderName<?>, Object> headers) {
         final HttpStatus status = code.status();
-        final HttpEntity entity = HttpEntity.with(headers, Binary.with(new byte[]{'a', 'b', 'c', '1', '2', '3'}));
+        final HttpEntity entity = httpEntity(headers).setBody(Binary.with(new byte[]{'a', 'b', 'c', '1', '2', '3'}));
 
         this.setStatusAddEntityAndCheck(status,
-                Lists.of(entity, HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN), Binary.EMPTY)),
+                Lists.of(entity, HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
                 HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
-                HttpEntity.with(HttpEntity.NO_HEADERS, Binary.EMPTY));
+                HttpEntity.EMPTY);
     }
 
     @Override

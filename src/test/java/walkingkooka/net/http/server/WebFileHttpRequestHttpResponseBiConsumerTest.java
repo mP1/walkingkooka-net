@@ -166,12 +166,11 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
-
-        expected.addEntity(HttpEntity.with(headers, CONTENT1));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
+                .setBody(CONTENT1));
 
         this.checkResponse(request, response, expected);
     }
@@ -187,12 +186,11 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
-
-        expected.addEntity(HttpEntity.with(headers, CONTENT1));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
+                .setBody(CONTENT1));
 
         this.checkResponse(request, response, expected);
     }
@@ -208,13 +206,12 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT2.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2);
-        headers.put(HttpHeaderName.E_TAG, ETAG2);
-
-        expected.addEntity(HttpEntity.with(headers, CONTENT2));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH,  (long)CONTENT2.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
+                .addHeader(HttpHeaderName.E_TAG, ETAG2)
+                .setBody(CONTENT2));
 
         this.checkResponse(request, response, expected);
     }
@@ -230,12 +227,10 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
-
-        expected.addEntity(HttpEntity.with(headers, HttpEntity.NO_BODY));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
 
         this.checkResponse(request, response, expected);
     }
@@ -251,12 +246,11 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1);
-
-        expected.addEntity(HttpEntity.with(headers, CONTENT1));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
+                .setBody(CONTENT1));
 
         this.checkResponse(request, response, expected);
     }
@@ -272,13 +266,11 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-        headers.put(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT2.size());
-        headers.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2);
-        headers.put(HttpHeaderName.E_TAG, ETAG2);
-
-        expected.addEntity(HttpEntity.with(headers, HttpEntity.NO_BODY));
+        expected.addEntity(HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
+                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
+                .addHeader(HttpHeaderName.E_TAG, ETAG2));
 
         this.checkResponse(request, response, expected);
     }
