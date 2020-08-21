@@ -190,7 +190,8 @@ public class JunitTest {
     @Test
     public void testHttpEntity() {
         final String text = "abc123";
-        final HttpEntity entity = HttpEntity.text(MediaType.TEXT_PLAIN, text);
+        final HttpEntity entity = HttpEntity.EMPTY
+                .setBodyText(text);
 
         Assert.assertEquals(text, entity.bodyText());
     }

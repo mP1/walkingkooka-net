@@ -17,35 +17,24 @@
 
 package walkingkooka.net.http;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.ToStringBuilder;
-import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.MediaTypeParameterName;
-import walkingkooka.text.Ascii;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.LineEnding;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
  */
-public final class HttpEntity implements HasHeaders {
+public abstract class HttpEntity implements HasHeaders {
 
     /**
      * {@link Binary} with no body or bytes.
@@ -57,25 +46,6 @@ public final class HttpEntity implements HasHeaders {
      */
     public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(':');
 
-    /**
-     * Creates an {@link HttpEntity} after encoding the text as bytes using a negotiated charset.
-     * The returned entity will only have 2 headers set: content-type and content-length set.
-     */
-    public static HttpEntity text(final MediaType contentType,
-                                  final String text) {
-        Objects.requireNonNull(contentType, "contentType");
-        Objects.requireNonNull(text, "text");
-
-        final Binary binary = Binary.with(text.getBytes(contentType.contentTypeCharset(DEFAULT_BODY_CHARSET)));
-
-        // content type, content-length
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, (long)binary.size());
-
-        return new HttpEntity(headers, binary);
-    }
-
     //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
     public final static Charset DEFAULT_BODY_CHARSET = CharsetName.ISO_8859_1.charset().get();
 
@@ -85,26 +55,16 @@ public final class HttpEntity implements HasHeaders {
     public final static Map<HttpHeaderName<?>, Object> NO_HEADERS = Maps.empty();
 
     /**
-     * A {@link HttpEntity} with no headers and no content.
+     * A {@link HttpEntity} with no headers and no body.
      */
-    public final static HttpEntity EMPTY = new HttpEntity(NO_HEADERS, NO_BODY);
+    public final static HttpEntity EMPTY = HttpEntityEmpty.instance();
 
     /**
-     * Creates a new {@link HttpEntity}
+     * Package private ctor to limit sub classing
      */
-    // @VisibleForTesting
-    static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers,
-                           final Binary body) {
-        return new HttpEntity(checkHeaders(headers), checkBody(body));
-    }
-
-    /**
-     * Private ctor
-     */
-    private HttpEntity(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
+    HttpEntity(final Map<HttpHeaderName<?>, Object> headers) {
         super();
         this.headers = headers;
-        this.body = body;
     }
     // headers ...................................................................................
 
@@ -119,64 +79,50 @@ public final class HttpEntity implements HasHeaders {
     public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, Object> headers) {
         final Map<HttpHeaderName<?>, Object> copy = checkHeaders(headers);
 
-        return this.headers.equals(copy) ?
+        return this.headers().equals(copy) ?
                 this :
-                this.replace(headers);
-
+                this.setHeaders0(copy);
     }
+
+    abstract HttpEntity setHeaders0(final Map<HttpHeaderName<?>, Object> headers);
 
     /**
      * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
      */
-    public HttpEntity setContentLength() {
+    public final HttpEntity setContentLength() {
         return this.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().size()));
     }
 
     /**
      * Adds the given header from this entity returning a new instance if the header and value are new.
      */
-    public <T> HttpEntity addHeader(final HttpHeaderName<T> header, final T value) {
-        check(header);
+    public final <T> HttpEntity addHeader(final HttpHeaderName<T> header, final T value) {
+        checkHeader(header);
         Objects.requireNonNull(value, "value");
+        header.checkValue(value);
 
-        return value.equals(this.headers.get(header)) ?
-                this :
-                this.addHeaderAndReplace(header, value);
+        return this.tryAddHeader( header, value);
     }
 
-    private <T> HttpEntity addHeaderAndReplace(final HttpHeaderName<T> header, final T value) {
-        final Map<HttpHeaderName<?>, Object> copy = Maps.ordered();
-        copy.putAll(this.headers);
-        copy.put(header, header.checkValue(value));
-        return this.replace(copy);
-    }
+    abstract <T> HttpEntity tryAddHeader(final HttpHeaderName<T> header, final T value);
 
     /**
      * Removes the given header from this entity returning a new instance if it existed.
      */
-    public HttpEntity removeHeader(final HttpHeaderName<?> header) {
-        check(header);
-
-        return this.headers.containsKey(header) ?
-                this.removeHeaderAndReplace(header) :
-                this;
+    public final HttpEntity removeHeader(final HttpHeaderName<?> header) {
+        checkHeader(header);
+        return this.tryRemoveHeader(header);
     }
 
-    private HttpEntity removeHeaderAndReplace(final HttpHeaderName<?> header) {
-        return this.replace(this.headers()
-                .entrySet()
-                .stream()
-                .filter(h -> !h.getKey().equals(header))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
-    }
+    abstract HttpEntity tryRemoveHeader(final HttpHeaderName<?> header);
 
-    private static <T> void check(final HttpHeaderName<T> header) {
+    private static <T> void checkHeader(final HttpHeaderName<T> header) {
         Objects.requireNonNull(header, "header");
     }
 
     private final Map<HttpHeaderName<?>, Object> headers;
 
-    private static Map<HttpHeaderName<?>, Object> checkHeaders(final Map<HttpHeaderName<?>, Object> headers) {
+    static Map<HttpHeaderName<?>, Object> checkHeaders(final Map<HttpHeaderName<?>, Object> headers) {
         Objects.requireNonNull(headers, "headers");
 
         final Map<HttpHeaderName<?>, Object> copy = Maps.ordered();
@@ -187,181 +133,78 @@ public final class HttpEntity implements HasHeaders {
         return Maps.immutable(copy);
     }
 
+    abstract Charset charset();
+
     // body ...................................................................................
 
-    public final Binary body() {
-        return this.body;
-    }
+    /**
+     * Returns the body of the {@link HttpEntity} in binary form.
+     */
+    public abstract Binary body();
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given body creating a new instance if necessary.
      */
+    @GwtIncompatible
     public final HttpEntity setBody(final Binary body) {
         checkBody(body);
 
-        return body.equals(this.body) ?
+        return body.size() == 0L && this.headers().isEmpty() ?
+                EMPTY :
+                body.equals(this.body()) ?
                 this :
                 this.replace(this.headers, body);
     }
 
-    private final Binary body;
-
-    private static Binary checkBody(final Binary body) {
+    // will effectively be removed because setBody is marked as @GwtIncompatible
+    static Binary checkBody(final Binary body) {
         return Objects.requireNonNull(body, "body");
     }
 
-    // bodyText ...................................................................................
+    // bodyText ........................................................................................................
 
-    public final String bodyText() {
-        return new String(this.body.value(), this.charset());
-    }
+    /**
+     * Returns the body as text using the {@link HttpHeaderName#CONTENT_TYPE} if present.
+     */
+    public abstract String bodyText();
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given body text creating a new instance if necessary.
      */
     public final HttpEntity setBodyText(final String bodyText) {
-        checkBodyText(bodyText);
+        Objects.requireNonNull(bodyText, "bodyText");
 
-        return this.setBody(Binary.with(bodyText.getBytes(this.charset())));
+        return this.setBodyText0(bodyText);
     }
 
-    private static String checkBodyText(final String bodyText) {
-        return Objects.requireNonNull(bodyText, "bodyText");
-    }
-
-    private Charset charset() {
-        return HttpHeaderName.CONTENT_TYPE.parameterValue(this.headers)
-                .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
-                .orElse(DEFAULT_BODY_CHARSET);
-    }
+    abstract HttpEntity setBodyText0(final String bodyText);
 
     // extractRange ...................................................................................
 
     /**
      * Extracts the desired range returning an entity with the selected bytes creating a new instance if necessary.
      */
+    @GwtIncompatible
     public HttpEntity extractRange(final Range<Long> range) {
-        return this.setBody(this.body.extract(range));
+        return this.setBody(this.body().extract(range));
     }
 
     // replace....................................................................................................
 
-    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers) {
-        return this.replace(headers, this.body);
-    }
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers);
 
-    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
-                               final Binary body) {
-        return new HttpEntity(headers, body);
-    }
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
+                                final Binary body);
 
-    // Multipart..................................................................................................
-
-    /**
-     * Writes a multi-part entity.
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data"></a>
-     * <pre>
-     * HTTP/1.1 206 Partial Content
-     * Accept-Ranges: bytes
-     * Content-Type: multipart/byteranges; boundary=3d6b6a416f9b5
-     * Content-Length: 385
-     *
-     * --3d6b6a416f9b5
-     * Content-Type: text/html
-     * Content-Range: bytes 100-200/1270
-     *
-     * eta http-equiv="Content-type" content="text/html; charset=utf-8" />
-     *     <meta name="vieport" content
-     * --3d6b6a416f9b5
-     * Content-Type: text/html
-     * Content-Range: bytes 300-400/1270
-     *
-     * -color: #f0f0f2;
-     *         margin: 0;
-     *         padding: 0;
-     *         font-family: "Open Sans", "Helvetica
-     * --3d6b6a416f9b5--
-     * </pre>
-     */
-    public byte[] headersAndBodyBytes() throws IOException {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers;
-
-        if (!headers.containsKey(HttpHeaderName.CONTENT_TYPE)) {
-            throw new IllegalStateException("Headers missing " + HttpHeaderName.CONTENT_TYPE + " in " + headers);
-        }
-        this.contentLengthOrContentRangeOrFail(headers);
-
-        final byte[] body = this.body.value();
-
-        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream(headers.size() * 80 + body.length)) {
-            for (Entry<HttpHeaderName<?>, Object> headerAndValues : headers.entrySet()) {
-                final HttpHeaderName<?> header = headerAndValues.getKey();
-
-                // header: value CRNL
-                bytes.write(header.value().getBytes()); // should be ascii only chars
-                bytes.write(HEADER_VALUE_SEPARATOR);
-                bytes.write(header.headerText(Cast.to(headerAndValues.getValue())).getBytes());
-                bytes.write(EOL);
-            }
-
-            // blank line ends headers...
-            bytes.write(EOL);
-
-            // body
-            bytes.write(body);
-
-            bytes.flush();
-
-            return bytes.toByteArray();
-        }
-    }
-
-    /**
-     * Requires either the content-length or content-range headers be set and returns the length in bytes or -1,
-     * where -1 indicates a content-range: wildcard.
-     */
-    private void contentLengthOrContentRangeOrFail(final Map<HttpHeaderName<?>, Object> headers) {
-        final Optional<Long> maybeContentLength = HttpHeaderName.CONTENT_LENGTH.parameterValue(headers);
-
-        if (maybeContentLength.isPresent()) {
-            final Long contentLength = maybeContentLength.get();
-            this.checkBodyLength(HttpHeaderName.CONTENT_LENGTH, contentLength, contentLength);
-        } else {
-            final Optional<ContentRange> maybeContentRange = HttpHeaderName.CONTENT_RANGE.parameterValue(headers);
-            if (maybeContentRange.isPresent()) {
-                maybeContentRange.ifPresent(this::checkContentRange);
-            } else {
-                throw new IllegalStateException("Headers missing " + HttpHeaderName.CONTENT_LENGTH + " or " + HttpHeaderName.CONTENT_RANGE + " in " + headers);
-            }
-        }
-    }
-
-    private void checkContentRange(final ContentRange contentRange) {
-        contentRange.length()
-                .ifPresent(l -> this.checkBodyLength(HttpHeaderName.CONTENT_RANGE, contentRange, l));
-    }
-
-    private void checkBodyLength(final HttpHeaderName<?> header,
-                                 final Object headerValue,
-                                 final long length) {
-        final long actualLength = this.body.size();
-        if (length != actualLength) {
-            throw new IllegalStateException(header + ": " + header.headerText(Cast.to(headerValue)) + " & actual body length " + actualLength + " mismatch.");
-        }
-    }
-
-    private final static byte[] HEADER_VALUE_SEPARATOR = new byte[]{':', ' '};
-    private final static byte[] EOL = new byte[]{'\r', '\n'};
-
-    // Object....................................................................................................
+    // Object...........................................................................................................
 
     @Override
-    public int hashCode() {
-        return Objects.hash(this.headers, this.body);
+    public final int hashCode() {
+        return Objects.hash(this.headers(), this.body());
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                 other instanceof HttpEntity &&
                         this.equals0(Cast.to(other));
@@ -369,88 +212,14 @@ public final class HttpEntity implements HasHeaders {
 
     private boolean equals0(final HttpEntity other) {
         return this.headers.equals(other.headers) &&
-                this.body.equals(other.body);
+                this.equalsBody(other);
     }
 
-    /**
-     * The {@link String} produced looks almost like a http entity, each header will appear on a single, a colon separates
-     * the header name and value, and a blank line between headers and body, with the body bytes appearing in hex form.
-     */
-    @Override
-    public String toString() {
-        final int globalAndValueLength = 32 * 1024;
-
-        final ToStringBuilder b = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.QUOTE)
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .globalLength(globalAndValueLength)
-                .valueLength(globalAndValueLength);
-
-        final String eol = LINE_ENDING.toString();
-
-        // headers
-        b.valueSeparator(eol);
-        b.labelSeparator(HEADER_NAME_SEPARATOR.string().concat(" "));
-        b.value(this.headers());
-        b.append(eol).append(eol);
-
-        // body
-        b.valueSeparator("");
-
-        byte[] body = this.body.value();
-        final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.headerValue(this.headers);
-        if (mediaType.isPresent()) {
-            final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());
-            if (charsetName.isPresent()) {
-                final Optional<Charset> charset = charsetName.get().charset();
-                if (charset.isPresent()) {
-                    b.value(new String(body, charset.get()));
-                    body = null;
-                }
-            }
-        }
-
-        if (null != body) {
-            // hex dump
-            // offset-HEX_DUMP_WIDTH-chars space hexdigit *HEX_DUMP_WIDTH space separated ascii
-            b.enable(ToStringBuilderOption.HEX_BYTES);
-            b.valueSeparator(" ");
-            b.labelSeparator(" ");
-
-            final int length = body.length;
-            for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
-                // offset
-                b.append(CharSequences.padLeft(Integer.toHexString(i), 8, '0').toString());
-                b.append(' ');
-
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
-                    final int k = i + j;
-                    if (k < length) {
-                        b.value(body[k]);
-                    } else {
-                        b.value("  ");
-                    }
-                }
-
-                b.append(' ');
-
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
-                    final int k = i + j;
-                    if (k < length) {
-                        final char c = (char) body[k];
-                        b.append(Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR);
-                    } else {
-                        b.append(' ');
-                    }
-                }
-
-                b.append(LineEnding.SYSTEM);
-            }
-        }
-
-        return b.build();
+    private boolean equalsBody(final HttpEntity other) {
+        return HttpEntityBinaryEnabler.ENABLED ?
+                this.body().equals(other.body()) :
+                this.bodyText().equals(other.bodyText()); // optimisation for transpiled code
     }
 
-    private final static int HEX_DUMP_WIDTH = 16;
-    private final static char UNPRINTABLE_CHAR = '.';
+    public abstract String toString();
 }
