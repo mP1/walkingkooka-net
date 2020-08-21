@@ -4,6 +4,6 @@
 walkingkooka.net.header.j2cl=walkingkooka.net.header
 
 #
-# Supports a simplified HttpEntity
+# Supports a simplified HttpEntityBinaryEnabler
 #
 walkingkooka.net.http.j2cl=walkingkooka.net.http
