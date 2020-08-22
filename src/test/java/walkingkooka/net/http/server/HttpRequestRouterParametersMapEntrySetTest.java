@@ -27,6 +27,7 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -153,7 +154,12 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
         }
 
         // cookies
-        for (ClientCookie cookie : HttpHeaderName.COOKIE.headerValue(headers).orElse(ClientCookie.NO_COOKIES)) {
+        for (ClientCookie cookie : HttpHeaderName.COOKIE.headerValue(new HasHeaders() {
+            @Override
+            public Map<HttpHeaderName<?>, Object> headers() {
+                return headers;
+            }
+        }).orElse(ClientCookie.NO_COOKIES)) {
             this.checkEntry(iterator,
                     cookie.name(),
                     cookie);

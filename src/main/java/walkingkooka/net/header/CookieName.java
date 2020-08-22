@@ -67,7 +67,7 @@ final public class CookieName extends HeaderNameValue
     @GwtIncompatible
     @Override
     public Optional<ClientCookie> parameterValue(final HttpRequest request) {
-        return HttpHeaderName.COOKIE.headerValue(request.headers())
+        return HttpHeaderName.COOKIE.headerValue(request)
                 .orElse(ClientCookie.NO_COOKIES)
                 .stream()
                 .filter(c -> c.name().equals(this))

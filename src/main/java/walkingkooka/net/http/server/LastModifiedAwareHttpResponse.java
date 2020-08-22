@@ -45,12 +45,10 @@ final class LastModifiedAwareHttpResponse extends NonMultiPartAwareBufferingHttp
         HttpResponse result = response;
 
         if (request.method().isGetOrHead()) {
-            final Map<HttpHeaderName<?>, Object> requestHeaders = request.headers();
-
             // if-none-matched must be absent
 
-            if (!HttpHeaderName.IF_NONE_MATCHED.headerValue(requestHeaders).isPresent()) {
-                final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(requestHeaders);
+            if (!HttpHeaderName.IF_NONE_MATCHED.headerValue(request).isPresent()) {
+                final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(request);
                 if (maybeLastModified.isPresent()) {
                     result = new LastModifiedAwareHttpResponse(response, maybeLastModified.get());
                 }
@@ -82,7 +80,7 @@ final class LastModifiedAwareHttpResponse extends NonMultiPartAwareBufferingHttp
         //boolean notModified = false;
 
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
-            final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(entity.headers());
+            final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(entity);
             if (maybeLastModified.isPresent()) {
                 final LocalDateTime lastModified = maybeLastModified.get();
                 if (lastModified.compareTo(this.lastModified) <= 0) {
