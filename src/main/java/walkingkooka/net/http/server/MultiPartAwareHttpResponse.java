@@ -52,7 +52,7 @@ final class MultiPartAwareHttpResponse extends BufferingHttpResponse {
     @Override
     void addFirstEntity(final HttpStatus status,
                         final HttpEntity entity) {
-        this.multipart = HttpHeaderName.CONTENT_TYPE.headerValue(entity.headers())
+        this.multipart = HttpHeaderName.CONTENT_TYPE.headerValue(entity)
                 .map(this::isMultipart)
                 .orElse(Boolean.FALSE);
         this.response.setStatus(status);

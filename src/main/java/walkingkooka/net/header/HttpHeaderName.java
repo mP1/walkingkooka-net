@@ -25,6 +25,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -737,16 +738,16 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * A type safe getter that retrieves this header from the headers.
      */
-    public Optional<T> headerValue(final Map<HttpHeaderName<?>, Object> headers) {
+    public Optional<T> headerValue(final HasHeaders headers) {
         Objects.requireNonNull(headers, "headers");
 
-        return Optional.ofNullable(Cast.to(headers.get(this)));
+        return Optional.ofNullable(Cast.to(headers.headers().get(this)));
     }
 
     /**
      * Retrieves the value or throws a {@link HeaderValueException} if absent.
      */
-    public T headerValueOrFail(Map<HttpHeaderName<?>, Object> headers) {
+    public T headerValueOrFail(final HasHeaders headers) {
         final Optional<T> value = this.headerValue(headers);
         if (!value.isPresent()) {
             throw new HeaderValueException("Required value is absent for " + this);
@@ -783,7 +784,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     @GwtIncompatible
     @Override
     public Optional<T> parameterValue(final HttpRequest request) {
-        return this.headerValue(request.headers());
+        return this.headerValue(request);
     }
 
     // HasHttpHeaderNameScope ..........................................................................................

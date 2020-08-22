@@ -58,14 +58,12 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
 
         HttpResponse result = response;
 
-        final Map<HttpHeaderName<?>, Object> requestHeaders = request.headers();
-
         // range must be absent
-        final Optional<RangeHeaderValue> maybeRange = HttpHeaderName.RANGE.headerValue(requestHeaders);
+        final Optional<RangeHeaderValue> maybeRange = HttpHeaderName.RANGE.headerValue(request);
         if (maybeRange.isPresent()) {
             result = new RangeAwareHttpResponse(response,
                     maybeRange.get(),
-                    HttpHeaderName.IF_RANGE.headerValue(requestHeaders).orElse(null),
+                    HttpHeaderName.IF_RANGE.headerValue(request).orElse(null),
                     boundaryCharacters);
         }
 
@@ -118,14 +116,14 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
 
     private boolean isETagSatisified(final IfRange<?> ifRange,
                                      final HasHeaders response) {
-        final Optional<ETag> etag = HttpHeaderName.E_TAG.headerValue(response.headers());
+        final Optional<ETag> etag = HttpHeaderName.E_TAG.headerValue(response);
         return etag.isPresent() &&
                 ifRange.etag().value().test(etag.get());
     }
 
     private boolean isLastModifiedSatisified(final IfRange<?> ifRange,
                                              final HasHeaders response) {
-        final Optional<LocalDateTime> lastModified = HttpHeaderName.LAST_MODIFIED.headerValue(response.headers());
+        final Optional<LocalDateTime> lastModified = HttpHeaderName.LAST_MODIFIED.headerValue(response);
         return lastModified.isPresent() &&
                 ifRange.lastModified().value().equals(lastModified.get());
     }
@@ -186,7 +184,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
                         .setBody(HttpEntity.NO_BODY)
         );
 
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(entity.headers());
+        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(entity);
         final ContentRange contentRange = ContentRange.with(RangeHeaderValueUnit.BYTES, ContentRange.NO_RANGE, contentLength);
 
         for (Range<Long> range : this.range.value()) {

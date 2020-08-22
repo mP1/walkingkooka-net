@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.FieldAttributes;
@@ -292,8 +293,13 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 headerName + "=" + headerValue);
     }
 
-    private <T> Map<HttpHeaderName<?>, Object> headers(final HttpHeaderName<T> name, final T value) {
-        return Maps.of(name, value);
+    private <T> HasHeaders headers(final HttpHeaderName<T> name, final T value) {
+        return new HasHeaders() {
+            @Override
+            public Map<HttpHeaderName<?>, Object> headers() {
+                return Maps.of(name, value);
+            }
+        };
     }
 
     // toValue ...............................................................................................

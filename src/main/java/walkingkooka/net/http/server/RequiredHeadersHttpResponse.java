@@ -83,6 +83,6 @@ final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpRe
     }
 
     private boolean isServerPresent(final HttpEntity entity) {
-        return HttpHeaderName.SERVER.headerValue(entity.headers()).isPresent();
+        return HttpHeaderName.SERVER.headerValue(entity).isPresent();
     }
 }

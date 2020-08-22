@@ -54,10 +54,9 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
         HttpResponse result = response;
 
         if (request.method().isGetOrHead()) {
-            final Map<HttpHeaderName<?>, Object> requestHeaders = request.headers();
 
             // if-none-matched must be absent
-            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.headerValue(requestHeaders);
+            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.headerValue(request);
             if (maybeIfNoneMatch.isPresent()) {
                 final List<ETag> ifNoneMatch = maybeIfNoneMatch.get()
                         .stream()
@@ -91,7 +90,7 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
 
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
             final Binary body = entity.body();
-            ETag etag = contentETag(body, entity.headers());
+            ETag etag = contentETag(body, entity);
 
             // if-modified-since should be evaluated first and if successful the status would not be 2xx.
             if (this.isNotModified(etag)) {
@@ -111,8 +110,8 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
     /**
      * Lazily computes an e-tag if a header value is not already set.
      */
-    private ETag contentETag(final Binary body, final Map<HttpHeaderName<?>, Object> headers) {
-        final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
+    private ETag contentETag(final Binary body, final HttpEntity entity) {
+        final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(entity);
         return contentETag.orElseGet(() -> this.computer.apply(body.value()));
     }
 

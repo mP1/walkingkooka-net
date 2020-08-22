@@ -104,7 +104,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     @Override
     void toStringBody(final ToStringBuilder b) {
         byte[] body = this.body.value();
-        final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.headerValue(this.headers());
+        final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.headerValue(this);
         if (mediaType.isPresent()) {
             final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());
             if (charsetName.isPresent()) {
