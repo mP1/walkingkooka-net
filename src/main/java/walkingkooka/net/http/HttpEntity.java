@@ -27,6 +27,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.CharacterConstant;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -52,7 +53,12 @@ public abstract class HttpEntity implements HasHeaders {
     /**
      * A constant with no headers.
      */
-    public final static Map<HttpHeaderName<?>, Object> NO_HEADERS = Maps.empty();
+    public final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS = Maps.empty();
+
+    /**
+     * Internal constant
+     */
+    final static Map<HttpHeaderName<?>, HttpEntityHeaderList> NO_HEADERS2 = Maps.empty();
 
     /**
      * A {@link HttpEntity} with no headers and no body.
@@ -62,73 +68,86 @@ public abstract class HttpEntity implements HasHeaders {
     /**
      * Package private ctor to limit sub classing
      */
-    HttpEntity(final Map<HttpHeaderName<?>, Object> headers) {
+    HttpEntity() {
         super();
-        this.headers = headers;
     }
     // headers ...................................................................................
 
     @Override
-    public final Map<HttpHeaderName<?>, Object> headers() {
-        return this.headers;
+    public final Map<HttpHeaderName<?>, List<?>> headers() {
+        return Cast.to(this.headers2());
     }
+
+    abstract Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2();
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given headers creating a new instance if necessary.
      */
-    public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, Object> headers) {
-        final Map<HttpHeaderName<?>, Object> copy = checkHeaders(headers);
+    public final <T> HttpEntity setHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = checkHeaders(headers);
 
         return this.headers().equals(copy) ?
                 this :
                 this.setHeaders0(copy);
     }
 
-    abstract HttpEntity setHeaders0(final Map<HttpHeaderName<?>, Object> headers);
+    abstract HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
 
     /**
      * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
      */
     public final HttpEntity setContentLength() {
-        return this.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().size()));
+        return this.setHeader0(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().size())));
     }
+
+    /**
+     * Sets a new single header value for the given header.
+     */
+    public final <T> HttpEntity setHeader(final HttpHeaderName<T> header, final List<T> value) {
+        checkHeader(header);
+
+        return this.setHeader0(header, HttpEntityHeaderList.copy(header, value));
+    }
+
+    abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header, final HttpEntityHeaderList value);
 
     /**
      * Adds the given header from this entity returning a new instance if the header and value are new.
      */
     public final <T> HttpEntity addHeader(final HttpHeaderName<T> header, final T value) {
         checkHeader(header);
-        Objects.requireNonNull(value, "value");
-        header.checkValue(value);
 
-        return this.tryAddHeader( header, value);
+        return this.addHeader0(header, value);
     }
 
-    abstract <T> HttpEntity tryAddHeader(final HttpHeaderName<T> header, final T value);
+    abstract <T> HttpEntity addHeader0(final HttpHeaderName<T> header, final T value);
 
     /**
      * Removes the given header from this entity returning a new instance if it existed.
      */
     public final HttpEntity removeHeader(final HttpHeaderName<?> header) {
         checkHeader(header);
-        return this.tryRemoveHeader(header);
+        return this.remove0(header);
     }
 
-    abstract HttpEntity tryRemoveHeader(final HttpHeaderName<?> header);
+    abstract HttpEntity remove0(final HttpHeaderName<?> header);
 
     private static <T> void checkHeader(final HttpHeaderName<T> header) {
         Objects.requireNonNull(header, "header");
     }
 
-    private final Map<HttpHeaderName<?>, Object> headers;
-
-    static Map<HttpHeaderName<?>, Object> checkHeaders(final Map<HttpHeaderName<?>, Object> headers) {
+    /**
+     * While checking also make a defensive copy of the given {@link Map}.
+     */
+    static Map<HttpHeaderName<?>, HttpEntityHeaderList> checkHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
         Objects.requireNonNull(headers, "headers");
 
-        final Map<HttpHeaderName<?>, Object> copy = Maps.ordered();
-        for (Entry<HttpHeaderName<?>, Object> nameAndValue : headers.entrySet()) {
-            final HttpHeaderName<?> name = nameAndValue.getKey();
-            copy.put(name, name.checkValue(nameAndValue.getValue()));
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = Maps.ordered();
+
+        for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
+            final HttpHeaderName<?> header = nameAndValues.getKey();
+
+            copy.put(header, HttpEntityHeaderList.copy(header, Cast.to(nameAndValues.getValue())));
         }
         return Maps.immutable(copy);
     }
@@ -149,11 +168,12 @@ public abstract class HttpEntity implements HasHeaders {
     public final HttpEntity setBody(final Binary body) {
         checkBody(body);
 
-        return body.size() == 0L && this.headers().isEmpty() ?
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
+        return body.size() == 0L && headers.isEmpty() ?
                 EMPTY :
                 body.equals(this.body()) ?
                 this :
-                this.replace(this.headers, body);
+                this.replace(headers, body);
     }
 
     // will effectively be removed because setBody is marked as @GwtIncompatible
@@ -191,9 +211,9 @@ public abstract class HttpEntity implements HasHeaders {
 
     // replace....................................................................................................
 
-    abstract HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers);
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
 
-    abstract HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                 final Binary body);
 
     // Object...........................................................................................................
@@ -211,7 +231,7 @@ public abstract class HttpEntity implements HasHeaders {
     }
 
     private boolean equals0(final HttpEntity other) {
-        return this.headers.equals(other.headers) &&
+        return this.headers().equals(other.headers()) &&
                 this.equalsBody(other);
     }
 

@@ -19,12 +19,14 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -104,8 +106,8 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                 body);
     }
 
-    private Map<HttpHeaderName<?>, Object> headersContentEncoding(final String contentEncoding) {
-        return Maps.of(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse(contentEncoding));
+    private Map<HttpHeaderName<?>, List<?>> headersContentEncoding(final String contentEncoding) {
+        return Maps.of(HttpHeaderName.CONTENT_ENCODING, Lists.of(ContentEncoding.parse(contentEncoding)));
     }
 
     private byte[] gzip(final byte[] body) {
@@ -115,10 +117,10 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptEncoding,
                                                             final byte[] body,
                                                             final String contentEncoding,
-                                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                                            final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
                                                             final byte[] expectedBody) {
         this.addEntity = 0;
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
         final HttpResponse response = this.createResponse(
                 acceptEncoding,
                 new FakeHttpResponse() {
@@ -132,7 +134,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                     }
                 });
         if (null != contentEncoding) {
-            headers.put(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse(contentEncoding));
+            headers.put(HttpHeaderName.CONTENT_ENCODING, Lists.of(ContentEncoding.parse(contentEncoding)));
         }
         response.addEntity(httpEntity(headers).setBody(Binary.with(body)));
         assertEquals(1, this.addEntity, "wrapped response addEntity(body) not called");
@@ -159,13 +161,13 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     private HttpRequest createRequest(final String acceptEncoding) {
         return this.createRequest(null == acceptEncoding ?
                 Maps.empty() :
-                Maps.of(HttpHeaderName.ACCEPT_ENCODING, AcceptEncoding.parse(acceptEncoding)));
+                map(HttpHeaderName.ACCEPT_ENCODING, AcceptEncoding.parse(acceptEncoding)));
     }
 
-    private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {
+    private HttpRequest createRequest(final Map<HttpHeaderName<?>, List<?>> headers) {
         return new FakeHttpRequest() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.readOnly(headers);
             }
         };

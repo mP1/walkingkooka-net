@@ -27,17 +27,18 @@ import walkingkooka.net.header.HttpHeaderName;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMap>
-    implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+        implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long VALUE1 = 111L;
+    private final static Object VALUE1 = 111L;
 
     private final static HttpHeaderName<?> HEADER2 = HttpHeaderName.SERVER;
-    private final static String VALUE2 = "Server2";
+    private final static Object VALUE2 = "Server2";
 
     @Test
     public void testContainsKey() {
@@ -51,36 +52,36 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
 
     @Test
     public void testContainsValue() {
-        this.containsValueAndCheck(VALUE1);
+        this.containsValueAndCheck(list(VALUE1));
     }
 
     @Test
     public void testContainsValue2() {
-        this.containsValueAndCheck(VALUE2);
+        this.containsValueAndCheck(list(VALUE2));
     }
 
     @Test
     public void testGet() {
-        this.getAndCheck(HEADER1, VALUE1);
+        this.getAndCheck(HEADER1, list(VALUE1));
     }
 
     @Test
     public void testGet2() {
-        this.getAndCheck(HEADER2, VALUE2);
+        this.getAndCheck(HEADER2, list(VALUE2));
     }
 
     @Test
     public void testGetOrDefault() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
-        assertEquals(VALUE1,
-                map.getOrDefault(HEADER1, "wrong"),
+        assertEquals(list(VALUE1),
+                map.getOrDefault(HEADER1, list("wrong")),
                 "getOrDefault returned wrong value " + map);
     }
 
     @Test
     public void testGetOrDefaultKeyAbsent() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
-        final ETag etag = ETagValidator.STRONG.setValue("default-value-etag");
+        final List<ETag> etag = list(ETagValidator.STRONG.setValue("default-value-etag"));
 
         assertEquals(etag,
                 map.getOrDefault(HttpHeaderName.E_TAG, etag),
@@ -113,6 +114,17 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
                 }
                 if (HEADER2.value().equalsIgnoreCase(header)) {
                     return "" + VALUE2;
+                }
+                return null;
+            }
+
+            @Override
+            public Enumeration<String> getHeaders(final String header) {
+                if (HEADER1.value().equalsIgnoreCase(header)) {
+                    return enumeration("" + VALUE1);
+                }
+                if (HEADER2.value().equalsIgnoreCase(header)) {
+                    return enumeration("" + VALUE2);
                 }
                 return null;
             }

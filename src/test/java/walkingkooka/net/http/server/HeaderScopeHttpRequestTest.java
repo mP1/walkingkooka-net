@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -47,8 +48,8 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     private final static HttpProtocolVersion VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static RelativeUrl URL = Url.parseRelative("/path/file");
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long HEADER_VALUE = 123L;
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
+    private final static List<Object> HEADER_VALUE = Lists.of(123L);
+    private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HEADER, HEADER_VALUE);
     private final static String BODY_TEXT = "ABC123";
     private final static byte[] BYTES = BODY_TEXT.getBytes(CharsetName.ISO_8859_1.charset().get());
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
@@ -177,7 +178,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return HEADERS;
             }
 

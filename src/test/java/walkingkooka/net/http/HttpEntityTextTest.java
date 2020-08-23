@@ -23,6 +23,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        final Map<HttpHeaderName<?>, List<?>> headers = map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
@@ -78,7 +79,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
                 .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
-        this.check(entity, Maps.of(HttpHeaderName.CONTENT_LENGTH, 777L), TEXT);
+        this.check(entity, map(HttpHeaderName.CONTENT_LENGTH, 777L), TEXT);
     }
 
     @Test
@@ -91,18 +92,16 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
 
     @Test
     public void testToString() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L,
-                HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
-                HttpHeaderName.SERVER, "Server 123");
-
-        this.toStringAndCheck(HttpEntityText.with(headers, "AB\nC"),
+        this.toStringAndCheck(HttpEntityText.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH,  257L),
+                HttpHeaderName.CONTENT_TYPE, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)),
+                HttpHeaderName.SERVER, HttpEntityHeaderList.one(HttpHeaderName.SERVER,"Server 123")), "AB\nC"),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 
     // helpers..........................................................................................................
 
     @Override
-    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, Object> headers) {
+    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return HttpEntityText.with(headers, TEXT);
     }
 

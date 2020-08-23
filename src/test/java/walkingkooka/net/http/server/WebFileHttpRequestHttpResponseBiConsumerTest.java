@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -37,6 +38,7 @@ import walkingkooka.reflect.JavaVisibility;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -168,7 +170,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         expected.addEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
                 .setBody(CONTENT1));
 
@@ -188,7 +190,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         expected.addEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
                 .setBody(CONTENT1));
 
@@ -208,7 +210,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         expected.addEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH,  (long)CONTENT2.size())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
                 .addHeader(HttpHeaderName.E_TAG, ETAG2)
                 .setBody(CONTENT2));
@@ -248,7 +250,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
 
         expected.addEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long)CONTENT1.size())
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
                 .setBody(CONTENT1));
 
@@ -314,14 +316,14 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
+            public Map<HttpHeaderName<?>, List<?>> headers() {
+                Map<HttpHeaderName<?>, List<?>> headers = Maps.sorted();
 
-                if(null!= ifMatch) {
-                    headers.put(HttpHeaderName.IF_MATCH, ifMatch);
+                if (null != ifMatch) {
+                    headers.put(HttpHeaderName.IF_MATCH, list(ifMatch));
                 }
-                if(null!=ifNotModified) {
-                    headers.put(HttpHeaderName.IF_MODIFIED_SINCE, ifNotModified);
+                if (null != ifNotModified) {
+                    headers.put(HttpHeaderName.IF_MODIFIED_SINCE, list(ifNotModified));
                 }
 
                 return headers;
@@ -332,6 +334,10 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
                 return this.url() + " " + this.headers();
             }
         };
+    }
+
+    private static List<Object> list(final Object... values) {
+        return Lists.of(values);
     }
 
     // ClassTesting.....................................................................................................

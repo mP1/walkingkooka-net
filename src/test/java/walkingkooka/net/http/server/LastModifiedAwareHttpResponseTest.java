@@ -211,33 +211,33 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     // helpers.........................................................................................
 
-    private Map<HttpHeaderName<?>, Object> headers(final LocalDateTime lastModified) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.SERVER, SERVER);
+    private Map<HttpHeaderName<?>, List<?>> headers(final LocalDateTime lastModified) {
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
+        headers.put(HttpHeaderName.SERVER, list(SERVER));
         if (null != lastModified) {
-            headers.put(HttpHeaderName.LAST_MODIFIED, lastModified);
+            headers.put(HttpHeaderName.LAST_MODIFIED, list(lastModified));
         }
         return headers;
     }
 
-    private Map<HttpHeaderName<?>, Object> headersWithContentHeaders(final LocalDateTime lastModified) {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers(lastModified);
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.ANY_TEXT);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 123L);
+    private Map<HttpHeaderName<?>, List<?>> headersWithContentHeaders(final LocalDateTime lastModified) {
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers(lastModified);
+        headers.put(HttpHeaderName.CONTENT_TYPE, list(MediaType.ANY_TEXT));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, list(123L));
         return headers;
     }
 
     private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final Map<HttpHeaderName<?>, List<?>> headers,
                                             final byte[] body) {
         this.setStatusAddEntityAndCheck(status, headers, body, status, headers, body);
     }
 
     private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final Map<HttpHeaderName<?>, List<?>> headers,
                                             final byte[] body,
                                             final HttpStatusCode expectedStatus,
-                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                            final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
                                             final byte[] expectedBody) {
         this.setStatusAddEntityAndCheck(
                 createRequest(),
@@ -280,12 +280,12 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                                       final LocalDateTime lastModified) {
         Objects.requireNonNull(method, "method");
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
         if (null != ifNoneMatch) {
-            headers.put(HttpHeaderName.IF_NONE_MATCHED, ifNoneMatch);
+            headers.put(HttpHeaderName.IF_NONE_MATCHED, list(ifNoneMatch));
         }
         if (null != lastModified) {
-            headers.put(HttpHeaderName.LAST_MODIFIED, lastModified);
+            headers.put(HttpHeaderName.LAST_MODIFIED, list(lastModified));
         }
 
         return new FakeHttpRequest() {
@@ -295,7 +295,7 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.readOnly(headers);
             }
 

@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.net.RelativeUrl;
@@ -53,8 +54,8 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
     private final static RelativeUrl URL = Url.parseRelative("/path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2");
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie1=cookievalue1;cookie2=cookievalue2");
 
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HttpHeaderName.CONTENT_LENGTH, "1",
-            HttpHeaderName.COOKIE, COOKIES);
+    private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HttpHeaderName.CONTENT_LENGTH, Lists.of("1"),
+            HttpHeaderName.COOKIE, Lists.of(COOKIES));
 
     // tests............................................................................................................
 
@@ -104,7 +105,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                    final HttpMethod method,
                                    final HttpProtocolVersion version,
                                    final String url,
-                                   final Map<HttpHeaderName<?>, Object> headers) {
+                                   final Map<HttpHeaderName<?>, List<?>> headers) {
         this.iteratorAndCheck2(transport, method, version, Url.parseRelative(url), headers);
     }
 
@@ -112,7 +113,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                    final HttpMethod method,
                                    final HttpProtocolVersion version,
                                    final RelativeUrl url,
-                                   final Map<HttpHeaderName<?>, Object> headers) {
+                                   final Map<HttpHeaderName<?>, List<?>> headers) {
         final Set<Entry<HttpRequestAttribute<?>, Object>> set = this.createSet(transport,
                 method,
                 version,
@@ -145,18 +146,18 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
         }
 
         // headers
-        for (Entry<HttpHeaderName<?>, Object> nameAndValue : headers.entrySet()) {
-            final HttpHeaderName<?> header = nameAndValue.getKey();
+        for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
+            final HttpHeaderName<?> header = nameAndValues.getKey();
             this.checkEntry(iterator,
                     header,
-                    nameAndValue.getValue());
+                    nameAndValues.getValue());
             entryCount++;
         }
 
         // cookies
         for (ClientCookie cookie : HttpHeaderName.COOKIE.headerValue(new HasHeaders() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return headers;
             }
         }).orElse(ClientCookie.NO_COOKIES)) {
@@ -193,7 +194,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSet(), "SECURED HTTP/1.1 /path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2 CUSTOMHTTPMETHOD {Content-Length=1, Cookie=[cookie1=cookievalue1;, cookie2=cookievalue2;]}");
+        this.toStringAndCheck(this.createSet(), "SECURED HTTP/1.1 /path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2 CUSTOMHTTPMETHOD {Content-Length=[1], Cookie=[[cookie1=cookievalue1;, cookie2=cookievalue2;]]}");
     }
 
     // helpers ...........................................................................................
@@ -207,7 +208,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                                              final HttpMethod method,
                                                              final HttpProtocolVersion version,
                                                              final RelativeUrl url,
-                                                             final Map<HttpHeaderName<?>, Object> headers) {
+                                                             final Map<HttpHeaderName<?>, List<?>> headers) {
         return HttpRequestRouterParametersMapEntrySet.with(HttpRequestRouterParametersMap.with(this.request(transport,
                 method,
                 version,
@@ -219,7 +220,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                 final HttpMethod method,
                                 final HttpProtocolVersion version,
                                 final RelativeUrl url,
-                                final Map<HttpHeaderName<?>, Object> headers) {
+                                final Map<HttpHeaderName<?>, List<?>> headers) {
         return new FakeHttpRequest() {
 
             @Override
@@ -243,7 +244,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return headers;
             }
 

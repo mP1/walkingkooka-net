@@ -84,7 +84,15 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.string());
+        return registerConstant(header, scope, HeaderValueHandler.string(), false);
+    }
+
+    /**
+     * Creates a header constant with a list of {@link String} values.
+     */
+    private static HttpHeaderName<String> registerMultiStringConstant(final String header,
+                                                                      final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueHandler.string(), true);
     }
 
     /**
@@ -93,11 +101,30 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private final static String CONTENT_HEADER_PREFIX = "content-";
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built.
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that only accepts a single header.
      */
     private static <T> HttpHeaderName<T> registerConstant(final String header,
                                                           final HttpHeaderNameScope scope,
                                                           final HeaderValueHandler<T> headerValue) {
+        return registerConstant(header, scope, headerValue, false);
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that only accepts many headers.
+     */
+    private static <T> HttpHeaderName<T> registerMultiConstant(final String header,
+                                                               final HttpHeaderNameScope scope,
+                                                               final HeaderValueHandler<T> headerValue) {
+        return registerConstant(header, scope, headerValue, true);
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built.
+     */
+    private static <T> HttpHeaderName<T> registerConstant(final String header,
+                                                          final HttpHeaderNameScope scope,
+                                                          final HeaderValueHandler<T> headerValue,
+                                                          final boolean multi) {
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
         boolean conditional;
@@ -120,7 +147,8 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                 scope,
                 headerValue,
                 conditional,
-                CaseSensitivity.INSENSITIVE.startsWith(header, CONTENT_HEADER_PREFIX));
+                CaseSensitivity.INSENSITIVE.startsWith(header, CONTENT_HEADER_PREFIX),
+                multi);
         HttpHeaderName.CONSTANTS.put(header, httpHeader);
         return httpHeader;
     }
@@ -161,7 +189,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerConstant("Accept-Encoding",
+    public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerMultiConstant("Accept-Encoding",
             HttpHeaderNameScope.REQUEST,
             HeaderValueHandler.acceptEncoding());
 
@@ -176,7 +204,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerConstant("Accept-Language",
+    public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerMultiConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST,
             HeaderValueHandler.acceptLanguage());
 
@@ -187,7 +215,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerConstant("Accept-Ranges",
+    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerMultiConstant("Accept-Ranges",
             HttpHeaderNameScope.RESPONSE,
             HeaderValueHandler.rangeUnit());
 
@@ -234,7 +262,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Cache-Control: s-maxage=<seconds>
      * </pre>
      */
-    public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerConstant("Cache-Control",
+    public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerMultiConstant("Cache-Control",
             HttpHeaderNameScope.REQUEST_RESPONSE,
             HeaderValueHandler.cacheControl());
 
@@ -279,7 +307,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerConstant("Content-Encoding",
+    public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerMultiConstant("Content-Encoding",
             HttpHeaderNameScope.RESPONSE,
             HeaderValueHandler.contentEncoding());
 
@@ -291,7 +319,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerConstant("Content-Language",
+    public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerMultiConstant("Content-Language",
             HttpHeaderNameScope.RESPONSE,
             HeaderValueHandler.contentLanguage());
 
@@ -325,7 +353,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Range: <unit> * /<size>
      * </pre>
      */
-    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerConstant("Content-Range",
+    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerMultiConstant("Content-Range",
             HttpHeaderNameScope.RESPONSE,
             HeaderValueHandler.contentRange());
 
@@ -348,7 +376,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Cookie: name=value; name2=value2; name3=value3
      * </pre>
      */
-    public final static HttpHeaderName<List<ClientCookie>> COOKIE = registerConstant("Cookie",
+    public final static HttpHeaderName<List<ClientCookie>> COOKIE = registerMultiConstant("Cookie",
             HttpHeaderNameScope.REQUEST,
             HeaderValueHandler.clientCookieList());
 
@@ -567,7 +595,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
      * </pre>
      */
-    public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerConstant("Set-Cookie",
+    public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerMultiConstant("Set-Cookie",
             HttpHeaderNameScope.RESPONSE,
             HeaderValueHandler.serverCookie());
 
@@ -583,7 +611,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<String> TE = registerStringConstant("TE", HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> TE = registerMultiStringConstant("TE", HttpHeaderNameScope.REQUEST);
 
     /**
      * A {@link HttpHeaderName} holding <code>Trailer</code>
@@ -644,7 +672,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueHandler.string(), NOT_CONDITIONAL, NOT_CONTENT);
+                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueHandler.string(), NOT_CONDITIONAL, NOT_CONTENT, true);
     }
 
     private static String checkName(final String name) {
@@ -673,12 +701,14 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                            final HttpHeaderNameScope scope,
                            final HeaderValueHandler<T> handler,
                            final boolean conditional,
-                           final boolean content) {
+                           final boolean content,
+                           final boolean multipleHeaders) {
         super(name);
         this.scope = scope;
         this.handler = handler;
         this.conditional = conditional;
         this.content = content;
+        this.multipleHeaders = multipleHeaders;
     }
 
     /**
@@ -728,6 +758,15 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private final boolean content;
 
     /**
+     * A true value indicates that the headers may have multiple entries, not whether a single header entry may have multple values (eg comma separated).
+     */
+    public boolean isMultiple() {
+        return this.multipleHeaders;
+    }
+
+    private final boolean multipleHeaders;
+
+    /**
      * Validates the value.
      */
     @Override
@@ -741,7 +780,10 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public Optional<T> headerValue(final HasHeaders headers) {
         Objects.requireNonNull(headers, "headers");
 
-        return Optional.ofNullable(Cast.to(headers.headers().get(this)));
+        final List<?> values = headers.headers().get(this);
+        return Optional.ofNullable(null != values && values.size() > 0 ?
+                Cast.to(values.get(0)) :
+                null);
     }
 
     /**

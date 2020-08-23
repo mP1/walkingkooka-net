@@ -33,7 +33,7 @@ final class HttpEntityEmpty extends HttpEntity {
      * Singleton instance.
      */
     final static HttpEntityEmpty instance() {
-        if(null == INSTANCE) {
+        if (null == INSTANCE) {
             INSTANCE = new HttpEntityEmpty(); // required because super class extracts singleton
         }
         return INSTANCE;
@@ -45,24 +45,37 @@ final class HttpEntityEmpty extends HttpEntity {
      * Private ctor
      */
     private HttpEntityEmpty() {
-        super(Maps.empty());
+        super();
     }
 
     // headers..........................................................................................................
 
-    @Override
-    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, Object> headers) {
+    @Override //
+    final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
+        return NO_HEADERS2;
+    }
+
+    @Override //
+    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return this.replace(headers);
     }
 
-    @Override
-    <T> HttpEntity tryAddHeader(final HttpHeaderName<T> header,
-                                final T value) {
-        return this.setHeaders0(Maps.of(header, value));
+    @Override //
+    final <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
+                                    final HttpEntityHeaderList value) {
+        return HttpEntityBinaryEnabler.ENABLED ?
+                HttpEntityBinary.with(Maps.of(header, value), Binary.EMPTY) :
+                HttpEntityText.with(Maps.of(header, value), "");
     }
 
-    @Override
-    HttpEntity tryRemoveHeader(final HttpHeaderName<?> header) {
+    @Override //
+    <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
+                              final T value) {
+        return this.setHeaders0(Maps.of(header, HttpEntityHeaderList.one(header, value)));
+    }
+
+    @Override //
+    HttpEntity remove0(final HttpHeaderName<?> header) {
         return this; // nop
     }
 
@@ -86,18 +99,18 @@ final class HttpEntityEmpty extends HttpEntity {
     HttpEntity setBodyText0(final String bodyText) {
         return bodyText.isEmpty() ?
                 this :
-                HttpEntityText.with(NO_HEADERS, bodyText);
+                HttpEntityText.with(NO_HEADERS2, bodyText);
     }
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers) {
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return HttpEntityBinaryEnabler.ENABLED ?
                 HttpEntityBinary.with(headers, Binary.EMPTY) :
                 HttpEntityText.with(Maps.empty(), "");
     }
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                        final Binary body) {
         return HttpEntityBinary.with(headers, body);
     }

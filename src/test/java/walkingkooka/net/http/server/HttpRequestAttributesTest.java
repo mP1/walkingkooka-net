@@ -89,16 +89,16 @@ public final class HttpRequestAttributesTest implements ClassTesting2<HttpReques
     }
 
     private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter,
-                                            final T value) {
-        this.parameterValueAndCheck(Maps.of(parameter, value),
+                                            final T values) {
+        this.parameterValueAndCheck(Maps.of(parameter, values),
                 parameter,
-                value);
+                values);
     }
 
     private <T> void parameterValueAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
                                             final HttpRequestAttribute<T> parameter,
-                                            final T value) {
-        assertEquals(Optional.of(value), parameter.parameterValue(parameters), parameters::toString);
+                                            final T values) {
+        assertEquals(Optional.of(values), parameter.parameterValue(parameters), parameters::toString);
     }
 
     @Override

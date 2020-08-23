@@ -22,12 +22,14 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,9 +48,33 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     public final void testSetHeadersInvalidFails() {
         final HttpEntity entity = this.createHttpEntity();
 
-        assertThrows(HeaderValueException.class, () -> entity.setHeaders(Maps.of(HttpHeaderName.ACCEPT_CHARSET, MediaType.TEXT_PLAIN)));
+        assertThrows(HeaderValueException.class, () -> entity.setHeaders(map(HttpHeaderName.ACCEPT_CHARSET, MediaType.TEXT_PLAIN)));
     }
 
+    @Test
+    public final void testSetHeaderNullNameFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createHttpEntity().setHeader(null, list(1L));
+        });
+    }
+
+    @Test
+    public final void testSetHeaderNullValueFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null);
+        });
+    }
+
+    @Test
+    public final void testSetHeaderInvalidValueFails() {
+        final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
+
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHttpEntity()
+                    .setHeader(header, Cast.to(list("INVALID VALUE requires Long")));
+        });
+    }
+    
     @Test
     public final void testAddHeaderNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -160,8 +186,24 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     abstract H createHttpEntity();
 
+    static <T> List<T> list(final T...values) {
+        return Lists.of(values);
+    }
+
+    static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header,
+                                                    final Object value) {
+        return Maps.of(header, list(value));
+    }
+
+    static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header1,
+                                                    final Object value1,
+                                                    final HttpHeaderName<?> header2,
+                                                    final Object value2) {
+        return Maps.of(header1, list(value1), header2, list(value2));
+    }
+
     final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, Object> headers,
+                     final Map<HttpHeaderName<?>, List<?>> headers,
                      final Binary body,
                      final String text) {
         this.check(entity, headers, body);
@@ -169,21 +211,21 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     }
 
     final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, Object> headers,
+                     final Map<HttpHeaderName<?>, List<?>> headers,
                      final Binary body) {
         this.check(entity, headers);
         this.check(entity, body);
     }
 
     final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, Object> headers,
+                     final Map<HttpHeaderName<?>, List<?>> headers,
                      final String text) {
         this.check(entity, headers);
         this.check(entity, text);
     }
 
     final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, Object> headers) {
+                     final Map<HttpHeaderName<?>, List<?>> headers) {
         assertEquals(headers, entity.headers(), () -> "" + entity);
         this.check(entity);
     }
@@ -205,9 +247,9 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
             assertEquals(HttpEntityEmpty.class, entity.getClass(), () -> "Entity without headers, body/bodyText");
         }
 
-        final Map<HttpHeaderName<?>, Object> headers = entity.headers();
+        final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
         assertThrows(UnsupportedOperationException.class,
-                () -> headers.put(HttpHeaderName.CONTENT_LENGTH, 1L),
+                () -> headers.put(HttpHeaderName.CONTENT_LENGTH, Lists.of(1L)),
                 () -> "headers should be readonly of " + entity.getClass().getSimpleName() + " " + entity);
     }
 

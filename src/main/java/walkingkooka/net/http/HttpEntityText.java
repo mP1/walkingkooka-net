@@ -29,19 +29,19 @@ import java.util.Map;
  */
 final class HttpEntityText extends HttpEntityNotEmpty {
 
-    static HttpEntityText with(final Map<HttpHeaderName<?>, Object> headers,
+    static HttpEntityText with(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                final String text) {
         return new HttpEntityText(headers, text);
     }
 
-    private HttpEntityText(final Map<HttpHeaderName<?>, Object> headers,
+    private HttpEntityText(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                            final String text) {
         super(headers);
         this.text = text;
     }
 
     @Override
-    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, Object> headers) {
+    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return new HttpEntityText(headers, this.bodyText());
     }
 
@@ -58,15 +58,15 @@ final class HttpEntityText extends HttpEntityNotEmpty {
     private final String text;
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers) {
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         final String text = this.bodyText();
         return headers.isEmpty() && text.isEmpty() ?
                 EMPTY :
-            new HttpEntityText(Maps.readOnly(headers), text);
+                new HttpEntityText(Maps.readOnly(headers), text);
     }
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                        final Binary body) {
         return headers.isEmpty() && this.bodyText().isEmpty() ?
                 EMPTY :

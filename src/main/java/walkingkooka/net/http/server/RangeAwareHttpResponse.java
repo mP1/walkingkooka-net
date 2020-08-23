@@ -36,6 +36,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -188,9 +189,9 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
         final ContentRange contentRange = ContentRange.with(RangeHeaderValueUnit.BYTES, ContentRange.NO_RANGE, contentLength);
 
         for (Range<Long> range : this.range.value()) {
-            final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-            headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
-            headers.put(HttpHeaderName.CONTENT_RANGE, contentRange.setRange(Optional.of(this.replaceUpperBoundsIfWildcard(range, body.size()))));
+            final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
+            headers.put(HttpHeaderName.CONTENT_TYPE, List.of(contentType));
+            headers.put(HttpHeaderName.CONTENT_RANGE, List.of(contentRange.setRange(Optional.of(this.replaceUpperBoundsIfWildcard(range, body.size())))));
 
             this.response.addEntity(entity.extractRange(range).setHeaders(headers));
         }

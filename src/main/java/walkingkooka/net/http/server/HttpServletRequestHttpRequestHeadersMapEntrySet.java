@@ -24,13 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.AbstractSet;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
 /**
  * The {@link Set} view of all entries in a headers from a request.
  */
-final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, Object>> {
+final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, List<?>>> {
 
     static {
         Sets.registerImmutableType(HttpServletRequestHttpRequestHeadersMapEntrySet.class);
@@ -46,7 +47,7 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
     }
 
     @Override
-    public Iterator<Entry<HttpHeaderName<?>, Object>> iterator() {
+    public Iterator<Entry<HttpHeaderName<?>, List<?>>> iterator() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.with(this.request);
     }
 

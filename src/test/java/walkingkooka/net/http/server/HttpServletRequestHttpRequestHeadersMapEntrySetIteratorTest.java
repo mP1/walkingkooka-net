@@ -66,7 +66,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createIterator(), "[Content-Length, Server]");
+        this.toStringAndCheck(this.createIterator(), "[Content-Length=[111], Server=[Server2]]");
     }
 
     private HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
@@ -77,15 +77,15 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
         return new FakeHttpServletRequest() {
 
             @Override
-            public String getHeader(final String header) {
+            public Enumeration<String> getHeaders(final String header) {
                 if (HEADER1.value().equalsIgnoreCase(header)) {
-                    return "" + VALUE1;
+                    return enumeration("" + VALUE1);
                 }
                 if (HEADER2.value().equalsIgnoreCase(header)) {
-                    return "" + VALUE2;
+                    return enumeration("" + VALUE2);
                 }
 
-                throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException("header: " + header);
             }
 
             @Override

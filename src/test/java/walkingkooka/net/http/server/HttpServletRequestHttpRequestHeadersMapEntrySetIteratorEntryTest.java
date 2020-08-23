@@ -22,16 +22,21 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.net.header.HttpHeaderName;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Vector;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest
         extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>
-    implements EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry, HttpHeaderName<?>, Object>,
+        implements EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry, HttpHeaderName<?>, List<?>>,
         HashCodeEqualsDefinedTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> {
 
-    private final static String HEADER_NAME = "content-length";
+    private final static String HEADER_NAME = HttpHeaderName.CONTENT_LENGTH.value();
     private final static Long CONTENT_LENGTH = 123L;
 
     @Test
@@ -47,7 +52,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     @Test
     public void testGetValue() {
-        this.getValueAndCheck(this.createEntry(), CONTENT_LENGTH);
+        this.getValueAndCheck(this.createEntry(), list(CONTENT_LENGTH));
     }
 
     @Test
@@ -58,7 +63,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     @Test
     public void testSetValueFails() {
-        assertThrows(UnsupportedOperationException.class, () -> this.createEntry().setValue(99L));
+        assertThrows(UnsupportedOperationException.class, () -> this.createEntry().setValue(list(99L)));
     }
 
     @Test
@@ -76,19 +81,12 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     @Test
     public void testToString() {
-        this.toStringAndCheck("Content-Length: 123", this.createEntry().toString());
+        this.toStringAndCheck(this.createEntry().toString(), "Content-Length: [123]");
     }
 
     @Override
     public HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry() {
-        return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER_NAME,
-                new FakeHttpServletRequest() {
-                    @Override
-                    public String getHeader(final String header) {
-                        assertEquals(HEADER_NAME, header, "header");
-                        return "" + CONTENT_LENGTH;
-                    }
-                });
+        return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER_NAME, request(HEADER_NAME, "" + CONTENT_LENGTH));
     }
 
     @Override
@@ -103,14 +101,21 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     private HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry(final String headerName,
                                                                                      final String value) {
-        return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(headerName,
-                new FakeHttpServletRequest() {
-                    @Override
-                    public String getHeader(final String header) {
-                        assertEquals(headerName, header, "header");
-                        return value;
-                    }
-                });
+        return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(headerName, request(headerName, value));
+    }
+
+    private static HttpServletRequest request(final String headerName,
+                                              final String value) {
+        return new FakeHttpServletRequest() {
+            @Override
+            public Enumeration<String> getHeaders(final String header) {
+                assertEquals(headerName, header, "header");
+
+                final Vector<String> vector = new Vector<>();
+                vector.add(value);
+                return vector.elements();
+            }
+        };
     }
 
     @Override

@@ -23,12 +23,12 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -64,7 +64,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
     @Test
     public void testHeadIgnoreResponseBody() {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers();
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
 
         for (final HttpStatusCode status : HttpStatusCode.values()) {
             this.setStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
@@ -78,7 +78,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
     @Test
     public void testMultipartResponse() {
         final HttpStatus status = HttpStatusCode.OK.status();
-        final Map<HttpHeaderName<?>, Object> headers = this.headers();
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
 
         final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = this.createRequest(HttpMethod.HEAD);
@@ -98,10 +98,10 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
                 httpEntity(headers));
     }
 
-    private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
-                HttpHeaderName.CONTENT_LENGTH, (long)CONTENT_LENGTH,
-                HttpHeaderName.SERVER, "Server 123");
+    private Map<HttpHeaderName<?>, List<?>> headers() {
+        return Maps.of(HttpHeaderName.CONTENT_TYPE, list(MediaType.BINARY),
+                HttpHeaderName.CONTENT_LENGTH, list(Long.valueOf(CONTENT_LENGTH)),
+                HttpHeaderName.SERVER, list("Server 123"));
     }
 
     @Override

@@ -50,10 +50,6 @@ final class HeaderScopeHttpResponse extends WrapperHttpResponse {
     public void addEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
-        entity.headers()
-                .entrySet()
-                .forEach(this::checkHeader);
-
         this.response.addEntity(entity);
     }
 

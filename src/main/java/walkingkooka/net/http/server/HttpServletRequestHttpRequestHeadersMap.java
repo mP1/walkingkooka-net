@@ -23,12 +23,14 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.AbstractMap;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Set;
 
 /**
  * A read only parameter map view of the request from a {@link javax.servlet.http.HttpServletRequest}.
  */
-final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, List<?>> {
 
     static {
         Maps.registerImmutableType(HttpServletRequestHttpRequestHeadersMap.class);
@@ -54,7 +56,7 @@ final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHead
     }
 
     @Override
-    public Set<Entry<HttpHeaderName<?>, Object>> entrySet() {
+    public Set<Entry<HttpHeaderName<?>, List<?>>> entrySet() {
         if (null == this.entrySet) {
             this.entrySet = HttpServletRequestHttpRequestHeadersMapEntrySet.with(this.request);
         }
@@ -64,23 +66,25 @@ final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHead
     private HttpServletRequestHttpRequestHeadersMapEntrySet entrySet;
 
     @Override
-    public Object get(final Object key) {
+    public List<?> get(final Object key) {
         return this.getOrDefault(key, NO_HEADER_VALUES);
     }
 
-    private final static Object NO_HEADER_VALUES = null;
+    private final static List<Object> NO_HEADER_VALUES = null;
 
     @Override
-    public Object getOrDefault(final Object key, final Object defaultValue) {
+    public List<?> getOrDefault(final Object key,
+                                final List<?> defaultValue) {
         return key instanceof HttpHeaderName<?> ?
                 this.getHeaderOrDefaultValue(Cast.to(key), defaultValue) :
                 defaultValue;
     }
 
-    private Object getHeaderOrDefaultValue(final HttpHeaderName<?> header, final Object defaultValue) {
-        final String value = this.request.getHeader(header.value());
-        return null != value ?
-                header.toValue(value) :
+    private List<?> getHeaderOrDefaultValue(final HttpHeaderName<?> header,
+                                            final List<?> defaultValue) {
+        final Enumeration<String> values = this.request.getHeaders(header.value());
+        return null != values ?
+                HttpServletRequestHttpRequest.toList(header, values) :
                 defaultValue;
     }
 

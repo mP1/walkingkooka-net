@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -31,6 +30,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -69,7 +69,7 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     @Test
     public void testPartialContentMissingRangesFails() {
-        this.missingRequiredHeaderFails(HttpStatusCode.PARTIAL_CONTENT, Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN));
+        this.missingRequiredHeaderFails(HttpStatusCode.PARTIAL_CONTENT, map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN));
     }
 
     @Test
@@ -206,7 +206,7 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     }
 
     private void missingRequiredHeaderFails(final HttpStatusCode code,
-                                            final Map<HttpHeaderName<?>, Object> headers) {
+                                            final Map<HttpHeaderName<?>, List<?>> headers) {
         final HttpStatus status = code.status();
         final HttpEntity entity = httpEntity(headers).setBody(Binary.with(new byte[]{'a', 'b', 'c', '1', '2', '3'}));
 

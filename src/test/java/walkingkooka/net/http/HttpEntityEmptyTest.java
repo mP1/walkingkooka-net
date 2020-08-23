@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -34,11 +35,26 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        final Map<HttpHeaderName<?>, List<?>> headers = map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
         this.check(different, headers);
+    }
+
+    @Test
+    public void testSetHeader() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
+        final List<Long> value = list(111L);
+        final HttpEntity added = entity.setHeader(header, value);
+
+        assertNotSame(entity, added);
+
+        this.check(added,
+                Maps.of(header, value),
+                Binary.EMPTY);
     }
 
     @Test
@@ -52,7 +68,7 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertNotSame(entity, added);
 
         this.check(added,
-                Maps.of(header, value),
+                map(header, value),
                 Binary.EMPTY);
     }
 

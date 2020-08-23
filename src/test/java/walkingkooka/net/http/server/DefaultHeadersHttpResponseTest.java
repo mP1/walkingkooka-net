@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
@@ -28,6 +29,7 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -52,10 +54,10 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
         final int contentLength = 26;
 
-        final Map<HttpHeaderName<?>, Object> responseHeaders = Maps.ordered();
-        responseHeaders.put(HttpHeaderName.CONTENT_LENGTH, (long)contentLength);
-        responseHeaders.put(HttpHeaderName.LAST_MODIFIED, LocalDateTime.of(2000, 12, 31, 6, 28, 29));
-        responseHeaders.put(HttpHeaderName.SERVER, "Replaces original value Server 123");
+        final Map<HttpHeaderName<?>, List<?>> responseHeaders = Maps.ordered();
+        responseHeaders.put(HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(contentLength)));
+        responseHeaders.put(HttpHeaderName.LAST_MODIFIED, Lists.of(LocalDateTime.of(2000, 12, 31, 6, 28, 29)));
+        responseHeaders.put(HttpHeaderName.SERVER, Lists.of("Replaces original value Server 123"));
 
         final Binary body = Binary.with(new byte[contentLength]);
 
@@ -70,7 +72,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
                 .setBody(Binary.with(new byte[2]));
         response.addEntity(second);
 
-        final Map<HttpHeaderName<?>, Object> finalHeaders = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> finalHeaders = Maps.ordered();
         finalHeaders.putAll(this.headers());
         finalHeaders.putAll(responseHeaders);
 
@@ -91,12 +93,12 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         return Cast.to(this.createResponse(this.headers(), response));
     }
 
-    private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.of(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse("EN"),
+    private Map<HttpHeaderName<?>, List<?>> headers() {
+        return map(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse("EN"),
                 HttpHeaderName.SERVER, "Server 123");
     }
 
-    private DefaultHeadersHttpResponse createResponse(final Map<HttpHeaderName<?>, Object> headers,
+    private DefaultHeadersHttpResponse createResponse(final Map<HttpHeaderName<?>, List<?>> headers,
                                                       final HttpResponse response) {
         return Cast.to(DefaultHeadersHttpResponse.with(headers, response));
     }

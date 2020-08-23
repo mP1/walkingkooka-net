@@ -17,24 +17,17 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.text.LineEnding;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-import java.util.List;
-import java.util.Map;
+public abstract class HttpEntityHeaderListTestCase<L extends HttpEntityHeaderList> implements ClassTesting<L> {
 
-/**
- * Defines a contract for a container that includes headers, such as a http request.
- */
-public interface HasHeaders {
+    HttpEntityHeaderListTestCase() {
+        super();
+    }
 
-    /**
-     * The line ending used in http requests/responses.
-     */
-    LineEnding LINE_ENDING = LineEnding.CRNL;
-
-    /**
-     * Returns a {@link Map} view of all headers.
-     */
-    Map<HttpHeaderName<?>, List<?>> headers();
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
 }

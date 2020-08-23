@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -26,17 +27,18 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2<HeaderScopeHttpRequestHeadersMap>,
-        MapTesting2<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+        MapTesting2<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
+    private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HEADER, Lists.of(HEADER_VALUE));
 
     @Test
     public void testContainsKeyResponseScopeHeader() {
@@ -69,8 +71,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     @Test
     public void testGet() {
-        this.getAndCheck(HEADER,
-                HEADER_VALUE);
+        this.getAndCheck(HEADER, Lists.of(HEADER_VALUE));
     }
 
     @Test

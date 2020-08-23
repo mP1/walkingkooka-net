@@ -22,19 +22,19 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 /**
- * An {@link Iterator} entry view of all {@link walkingkooka.net.header.HttpHeaderName} and the typed values and not
- * always {@link String}.
+ * An {@link Iterator} entry view of all {@link walkingkooka.net.header.HttpHeaderName} and their values.
  */
 final class HttpRequestRouterParametersMapHttpHeaderEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
-    static HttpRequestRouterParametersMapHttpHeaderEntryIterator with(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
+    static HttpRequestRouterParametersMapHttpHeaderEntryIterator with(final Iterator<Entry<HttpHeaderName<?>, List<?>>> headerAndValues) {
         return new HttpRequestRouterParametersMapHttpHeaderEntryIterator(headerAndValues);
     }
 
-    private HttpRequestRouterParametersMapHttpHeaderEntryIterator(final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues) {
+    private HttpRequestRouterParametersMapHttpHeaderEntryIterator(final Iterator<Entry<HttpHeaderName<?>, List<?>>> headerAndValues) {
         super();
         this.headerAndValues = headerAndValues;
     }
@@ -46,12 +46,12 @@ final class HttpRequestRouterParametersMapHttpHeaderEntryIterator implements Ite
 
     @Override
     public Entry<HttpRequestAttribute<?>, Object> next() {
-        final Entry<HttpHeaderName<?>, Object> entry = this.headerAndValues.next();
+        final Entry<HttpHeaderName<?>, List<?>> entry = this.headerAndValues.next();
         final HttpHeaderName<?> header = Cast.to(entry.getKey());
         return Maps.entry(header, entry.getValue());
     }
 
-    private final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues;
+    private final Iterator<Entry<HttpHeaderName<?>, List<?>>> headerAndValues;
 
     @Override
     public String toString() {
