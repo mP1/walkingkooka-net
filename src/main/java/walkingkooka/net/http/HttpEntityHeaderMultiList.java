@@ -58,8 +58,8 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
     @Override
     public Object get(final int index) {
         final Object[] values = this.values;
-        if (index < 0 || index > values.length) {
-            throw new ArrayIndexOutOfBoundsException("Invalid index " + index + " not between 0 and " + values.length);
+        if (index < 0 || index >= values.length) {
+            throw new IndexOutOfBoundsException("Invalid index " + index + " not between 0 and " + values.length);
         }
         return Cast.to(values[index]);
     }
