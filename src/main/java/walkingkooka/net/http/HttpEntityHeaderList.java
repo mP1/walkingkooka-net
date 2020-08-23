@@ -44,7 +44,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
     static HttpEntityHeaderList copy(final HttpHeaderName<?> header,
                                      final List<?> values) {
         return values instanceof HttpEntityHeaderList ?
-                check(header, (HttpEntityHeaderList)values) :
+                check(header, (HttpEntityHeaderList)values) : /* lgtm [ava/abstract-to-concrete-cast] */
                 copy0(header, values.toArray());
     }
 
