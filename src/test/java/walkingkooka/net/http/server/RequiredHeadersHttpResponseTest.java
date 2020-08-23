@@ -116,7 +116,7 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
         return this.entityWithoutServerHeader()
                 .addHeader(HttpHeaderName.SERVER, "Server 123");
     }
-    
+
 
     @Override
     RequiredHeadersHttpResponse createResponse(final HttpResponse response) {

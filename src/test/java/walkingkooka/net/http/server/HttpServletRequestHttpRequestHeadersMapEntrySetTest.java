@@ -24,24 +24,25 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet>
-        implements SetTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, Object>> {
+        implements SetTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long VALUE1 = 111L;
+    private final static Object VALUE1 = 111L;
 
     private final static HttpHeaderName<?> HEADER2 = HttpHeaderName.SERVER;
-    private final static String VALUE2 = "Server2";
+    private final static Object VALUE2 = "Server2";
 
     @Test
     public void testAddFails() {
         this.addFails(this.createSet(),
-                Maps.entry(HEADER1, VALUE1));
+                Maps.entry(HEADER1, list(VALUE1)));
     }
 
     @Test
@@ -53,20 +54,20 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
 
     @Test
     public void testIterator() {
-        final Map<HttpHeaderName<?>, Object> entries = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> entries = Maps.ordered();
 
         final HttpServletRequest request = this.request();
-        for (Entry<HttpHeaderName<?>, Object> e : HttpServletRequestHttpRequestHeadersMapEntrySet.with(request)) {
+        for (final Entry<HttpHeaderName<?>, List<?>> e : HttpServletRequestHttpRequestHeadersMapEntrySet.with(request)) {
             entries.put(e.getKey(), e.getValue());
         }
 
-        assertEquals(Maps.of(HEADER1, VALUE1, HEADER2, VALUE2), entries, "iterator entries");
+        assertEquals(Maps.of(HEADER1, list(VALUE1), HEADER2, list(VALUE2)), entries, "iterator entries");
     }
 
     @Test
     public void testRemoveFails() {
         this.removeFails(this.createSet(),
-                Maps.entry(HEADER1, VALUE1));
+                Maps.entry(HEADER1, list(VALUE1)));
     }
 
     @Test
@@ -83,12 +84,12 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
         return new FakeHttpServletRequest() {
 
             @Override
-            public String getHeader(final String header) {
+            public Enumeration<String> getHeaders(final String header) {
                 if (HEADER1.value().equalsIgnoreCase(header)) {
-                    return "" + VALUE1;
+                    return enumeration("" + VALUE1);
                 }
                 if (HEADER2.value().equalsIgnoreCase(header)) {
-                    return "" + VALUE2;
+                    return enumeration("" + VALUE2);
                 }
 
                 throw new UnsupportedOperationException();

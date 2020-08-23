@@ -50,7 +50,7 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     }
 
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
+    public Map<HttpHeaderName<?>, List<?>> headers() {
         throw new UnsupportedOperationException();
     }
 

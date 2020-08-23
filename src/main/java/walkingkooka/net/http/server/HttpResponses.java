@@ -21,6 +21,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -46,7 +47,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see DefaultHeadersHttpResponse}
      */
-    public static HttpResponse defaultHeaders(final Map<HttpHeaderName<?>, Object> headers,
+    public static HttpResponse defaultHeaders(final Map<HttpHeaderName<?>, List<?>> headers,
                                               final HttpResponse response) {
         return DefaultHeadersHttpResponse.with(headers, response);
     }

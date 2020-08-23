@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMapEntrySet>
-    implements SetTesting2<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
+        implements SetTesting2<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";

@@ -24,24 +24,25 @@ import walkingkooka.net.header.HttpHeaderScope;
 
 import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * A {@link Map} that checks the header (or key) passed to {@link #containsKey(Object)} and {@link #get(Object)}.
  */
-final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, List<?>> {
 
     static {
         Maps.registerImmutableType(HeaderScopeHttpRequestHeadersMap.class);
     }
 
-    static HeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
+    static HeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, List<?>> map,
                                                  final HttpHeaderScope scope) {
         return new HeaderScopeHttpRequestHeadersMap(map, scope);
     }
 
-    private HeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, Object> map,
+    private HeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, List<?>> map,
                                              final HttpHeaderScope scope) {
         super();
         this.map = map;
@@ -60,9 +61,9 @@ final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<
     }
 
     @Override
-    public Object get(final Object key) {
+    public List<Object> get(final Object key) {
         return key instanceof HttpHeaderName ?
-                this.map.get(this.checkHeader(key)) :
+                Cast.to(this.map.get(this.checkHeader(key))) :
                 null;
     }
 
@@ -72,12 +73,12 @@ final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<
     }
 
     @Override
-    public Collection<Object> values() {
+    public Collection<List<?>> values() {
         return this.map.values();
     }
 
     @Override
-    public Set<Entry<HttpHeaderName<?>, Object>> entrySet() {
+    public Set<Entry<HttpHeaderName<?>, List<?>>> entrySet() {
         return this.map.entrySet();
     }
 
@@ -89,7 +90,7 @@ final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<
 
     private final HttpHeaderScope scope;
 
-    private final Map<HttpHeaderName<?>, Object> map;
+    private final Map<HttpHeaderName<?>, List<?>> map;
 
     @Override
     public String toString() {

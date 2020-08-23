@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
@@ -30,6 +31,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -91,7 +93,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
      * The header map view
      */
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
+    public Map<HttpHeaderName<?>, List<?>> headers() {
         return this.headers;
     }
 
@@ -161,5 +163,18 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
         b.value(this.parameters());
 
         return b.build();
+    }
+    
+    /**
+     * Creates a read only {@link List} of values from the {@link Enumeration} of header value {@link String}.
+     */
+    static List<Object> toList(final HttpHeaderName<?> header,
+                               final Enumeration<String> values) {
+        final List<Object> list = Lists.array();
+        while (values.hasMoreElements()) {
+            list.add(header.toValue(values.nextElement()));
+        }
+
+        return Lists.readOnly(list);
     }
 }

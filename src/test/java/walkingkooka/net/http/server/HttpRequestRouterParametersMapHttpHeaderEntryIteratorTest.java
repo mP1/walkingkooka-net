@@ -49,71 +49,64 @@ public final class HttpRequestRouterParametersMapHttpHeaderEntryIteratorTest imp
     public void testHasNextAndNextConsumeEmpty() {
         this.iterateAndCheck(true,
                 HttpRequest.NO_HEADERS,
-                Lists.empty());
+                list());
     }
 
     @Test
     public void testHasNextAndNextConsumeStringHeader() {
         this.iterateAndCheck(true,
-                Maps.of(CONNECTION, CONNECTION_VALUE),
-                CONNECTION,
-                CONNECTION_VALUE);
+                map(CONNECTION, CONNECTION_VALUE),
+                list(CONNECTION),
+                list(CONNECTION_VALUE));
     }
 
     @Test
     public void testHasNextAndNextConsumeNonStringHeader() {
         this.iterateAndCheck(true,
-                Maps.of(CONTENT_LENGTH, CONTENT_LENGTH_VALUE),
-                CONTENT_LENGTH,
-                CONTENT_LENGTH_VALUE);
+                map(CONTENT_LENGTH, CONTENT_LENGTH_VALUE),
+                list(CONTENT_LENGTH),
+                list(CONTENT_LENGTH_VALUE));
     }
 
     @Test
     public void testHasNextAndNextConsume() {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers2();
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers2();
 
         this.iterateAndCheck(true,
                 headers,
                 HttpHeaderName.CONNECTION, HttpHeaderName.CONTENT_LENGTH,
-                CONNECTION_VALUE, CONTENT_LENGTH_VALUE);
+                list(CONNECTION_VALUE), list(CONTENT_LENGTH_VALUE));
     }
 
     @Test
     public void testNextConsume() {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers2();
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers2();
 
         this.iterateAndCheck(false,
                 headers,
                 HttpHeaderName.CONNECTION, HttpHeaderName.CONTENT_LENGTH,
-                CONNECTION_VALUE, CONTENT_LENGTH_VALUE);
+                list(CONNECTION_VALUE), list(CONTENT_LENGTH_VALUE));
     }
 
     private void iterateAndCheck(final boolean checkHasNext,
-                                 final Map<HttpHeaderName<?>, Object> headers,
-                                 final HttpHeaderName<?> headerName,
-                                 final Object headerValue) {
-        this.iterateAndCheck(checkHasNext, headers, Lists.of(headerName), headerValue);
-    }
-
-    private void iterateAndCheck(final boolean checkHasNext,
-                                 final Map<HttpHeaderName<?>, Object> headers,
+                                 final Map<HttpHeaderName<?>, List<?>> headers,
                                  final HttpHeaderName<?> headerName1,
                                  final HttpHeaderName<?> headerName2,
                                  final Object headerValue1,
                                  final Object headerValue2) {
         this.iterateAndCheck(checkHasNext,
                 headers,
-                Lists.of(headerName1, headerName2),
+                list(headerName1, headerName2),
                 headerValue1, headerValue2);
     }
 
     private void iterateAndCheck(final boolean checkHasNext,
-                                 final Map<HttpHeaderName<?>, Object> headers,
+                                 final Map<HttpHeaderName<?>, List<?>> headers,
                                  final List<HttpHeaderName<?>> headerNames,
                                  final Object... headerValues) {
         assertEquals(headerNames.size(), headerValues.length, "headerNames count != headerValues count");
 
-        final HttpRequestRouterParametersMapHttpHeaderEntryIterator iterator = this.createIterator(headers);
+        final HttpRequestRouterParametersMapHttpHeaderEntryIterator iterator = this.createIterator(headers.entrySet().iterator());
 
         for (int i = 0; i < headerNames.size(); i++) {
             if (checkHasNext) {
@@ -136,16 +129,25 @@ public final class HttpRequestRouterParametersMapHttpHeaderEntryIteratorTest imp
 
     @Test
     public void testToString() {
-        final Iterator<Entry<HttpHeaderName<?>, Object>> iterator = Iterators.fake();
+        final Iterator<Entry<HttpHeaderName<?>, List<?>>> iterator = Iterators.fake();
         this.toStringAndCheck(HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
     }
 
-    private HttpRequestRouterParametersMapHttpHeaderEntryIterator createIterator(final Map<HttpHeaderName<?>, Object> headers) {
-        return HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(headers.entrySet().iterator());
+    private HttpRequestRouterParametersMapHttpHeaderEntryIterator createIterator(final Iterator<Entry<HttpHeaderName<?>, List<?>>> headers) {
+        return HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(headers);
     }
 
-    private Map<HttpHeaderName<?>, Object> headers2() {
-        return Maps.of(CONNECTION, CONNECTION_VALUE, CONTENT_LENGTH, CONTENT_LENGTH_VALUE);
+    private Map<HttpHeaderName<?>, List<?>> headers2() {
+        return Maps.of(CONNECTION, list(CONNECTION_VALUE), CONTENT_LENGTH, list(CONTENT_LENGTH_VALUE));
+    }
+
+    private <T> Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<T> header,
+                                                    final T value) {
+        return Maps.of(header, list(value));
+    }
+
+    private <T> List<T> list(final T... values) {
+        return Lists.of(values);
     }
 
     @Override

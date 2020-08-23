@@ -82,7 +82,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
         }
 
         // headers
-        for (Entry<HttpHeaderName<?>, Object> nameAndValue : this.headers().entrySet()) {
+        for (final Entry<HttpHeaderName<?>, List<?>> nameAndValue : this.headers().entrySet()) {
             final HttpHeaderName<?> header = nameAndValue.getKey();
             this.checkEntry(iterator,
                     header,
@@ -191,8 +191,8 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
         return HttpProtocolVersion.VERSION_1_1; // 1
     }
 
-    private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.of(HttpHeaderName.CONNECTION, "Close", HttpHeaderName.COOKIE, this.cookies());
+    private Map<HttpHeaderName<?>, List<?>> headers() {
+        return Maps.of(HttpHeaderName.CONNECTION, Lists.of("Close"), HttpHeaderName.COOKIE, Lists.of(this.cookies()));
     }
 
     private List<ClientCookie> cookies() {
@@ -207,7 +207,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
                                                      final HttpMethod method,
                                                      final RelativeUrl url,
                                                      final HttpProtocolVersion protocolVersion,
-                                                     final Map<HttpHeaderName<?>, Object> headers,
+                                                     final Map<HttpHeaderName<?>, List<?>> headers,
                                                      final Map<HttpRequestParameterName, List<String>> parameters) {
         return HttpRequestRouterParametersMap.with(new FakeHttpRequest() {
 
@@ -232,7 +232,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return headers;
             }
 

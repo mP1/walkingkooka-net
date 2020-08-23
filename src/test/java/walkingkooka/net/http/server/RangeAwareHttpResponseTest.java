@@ -36,6 +36,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -204,14 +205,14 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                                              final HttpStatusCode expectedStatus,
                                              final byte[] expectedBody) {
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
         if (null != responseETag) {
-            headers.put(HttpHeaderName.E_TAG, responseETag);
+            headers.put(HttpHeaderName.E_TAG, list(responseETag));
         }
         if (null != responseLastModified) {
-            headers.put(HttpHeaderName.LAST_MODIFIED, responseLastModified);
+            headers.put(HttpHeaderName.LAST_MODIFIED, list(responseLastModified));
         }
-        headers.put(HttpHeaderName.SERVER, "Server123");
+        headers.put(HttpHeaderName.SERVER, list("Server123"));
 
         this.setStatusAddEntityAndCheck(
                 this.createRequest(requestRanges, requestIfRange),
@@ -244,12 +245,12 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void rangeAndCheck(final String requestRange, final int lower, final int upper, final String multipart2Body) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.SERVER, "Server123");
-        headers.put(HttpHeaderName.E_TAG, this.etag());
-        headers.put(HttpHeaderName.LAST_MODIFIED, this.lastModified());
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
+        headers.put(HttpHeaderName.SERVER, list("Server123"));
+        headers.put(HttpHeaderName.E_TAG, list(this.etag()));
+        headers.put(HttpHeaderName.LAST_MODIFIED, list(this.lastModified()));
+        headers.put(HttpHeaderName.CONTENT_TYPE, list(MediaType.TEXT_PLAIN));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, list(BODY_LENGTH));
 
         final HttpEntity multipart1 = HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.SERVER, "Server123")
@@ -272,12 +273,12 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
 
     @Test
     public void testRangeTwoParts() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.SERVER, "Server123");
-        headers.put(HttpHeaderName.E_TAG, this.etag());
-        headers.put(HttpHeaderName.LAST_MODIFIED, this.lastModified());
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
+        headers.put(HttpHeaderName.SERVER, list("Server123"));
+        headers.put(HttpHeaderName.E_TAG, list(this.etag()));
+        headers.put(HttpHeaderName.LAST_MODIFIED, list(this.lastModified()));
+        headers.put(HttpHeaderName.CONTENT_TYPE, list(MediaType.TEXT_PLAIN));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, list(BODY_LENGTH));
 
         final HttpEntity multipart1 = HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.SERVER, "Server123")
@@ -312,7 +313,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
 
     private void setStatusAddEntityAndCheck(final String requestRanges,
                                             final IfRange requestIfRange,
-                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final Map<HttpHeaderName<?>, List<?>> headers,
                                             final HttpEntity... expectedEntities) {
         this.setStatusAddEntityAndCheck(
                 this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
@@ -372,19 +373,19 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private HttpRequest createRequest(final RangeHeaderValue ranges, final IfRange<?> ifRange) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
 
         if (null != ranges) {
-            headers.put(HttpHeaderName.RANGE, ranges);
+            headers.put(HttpHeaderName.RANGE, list(ranges));
         }
 
         if (null != ifRange) {
-            headers.put(HttpHeaderName.IF_RANGE, ifRange);
+            headers.put(HttpHeaderName.IF_RANGE, list(ifRange));
         }
 
         return new FakeHttpRequest() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.readOnly(headers);
             }
 

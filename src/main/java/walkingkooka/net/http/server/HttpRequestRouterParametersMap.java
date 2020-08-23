@@ -142,7 +142,7 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
                 .orElse(ClientCookie.NO_COOKIES).size();
     }
 
-    private Map<HttpHeaderName<?>, Object> headers() {
+    private Map<HttpHeaderName<?>, List<?>> headers() {
         return this.request.headers();
     }
 

@@ -38,7 +38,7 @@ public interface HttpRequest extends HasHeaders {
     /**
      * An empty {@link Map} with no headers.
      */
-    Map<HttpHeaderName<?>, Object> NO_HEADERS = Maps.empty();
+    Map<HttpHeaderName<?>, List<?>> NO_HEADERS = Maps.empty();
 
     /**
      * An empty {@link Map} with no parameters.

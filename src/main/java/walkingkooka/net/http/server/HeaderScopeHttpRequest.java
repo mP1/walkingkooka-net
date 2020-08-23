@@ -65,7 +65,7 @@ final class HeaderScopeHttpRequest implements HttpRequest {
     }
 
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
+    public Map<HttpHeaderName<?>, List<?>> headers() {
         return this.headers;
     }
 

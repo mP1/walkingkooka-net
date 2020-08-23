@@ -296,8 +296,8 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private <T> HasHeaders headers(final HttpHeaderName<T> name, final T value) {
         return new HasHeaders() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.of(name, value);
+            public Map<HttpHeaderName<?>, List<?>> headers() {
+                return Maps.of(name, list(value));
             }
         };
     }
@@ -308,7 +308,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     public void testToValueAcceptString() {
         this.toValueAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
-                Accept.with(Lists.of(
+                Accept.with(list(
                         MediaType.with("text", "html"),
                         MediaType.with("application", "xhtml+xml"))));
     }
@@ -393,8 +393,8 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertEquals(Optional.ofNullable(value),
                 header.parameterValue(new FakeHttpRequest() {
                     @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.of(header, value);
+                    public Map<HttpHeaderName<?>, List<?>> headers() {
+                        return Maps.of(header, list(value));
                     }
                 }));
     }
@@ -406,6 +406,10 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
         assertEquals(Optional.ofNullable(value),
                 header.parameterValue(Maps.of(header, value)));
+    }
+
+    private static <T> List<T> list(final T...values) {
+        return Lists.of(values);
     }
 
     @Override

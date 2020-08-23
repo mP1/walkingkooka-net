@@ -84,10 +84,10 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         return this.createRequest(Maps.ordered());
     }
 
-    private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {
+    private HttpRequest createRequest(final Map<HttpHeaderName<?>, List<?>> headers) {
         return new FakeHttpRequest() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.readOnly(headers);
             }
         };

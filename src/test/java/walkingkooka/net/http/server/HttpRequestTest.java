@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
@@ -30,6 +31,7 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +58,7 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
 
     @Test
     public void testBodyTextCharsetHeaderPresent() {
-        final Charset charset = Charset.forName("UTF-16");
+        final Charset charset = StandardCharsets.UTF_16;
         final String text = "ABC123";
 
         this.bodyTextAndCheck("text/plain;charset=" + charset.name(),
@@ -75,10 +77,10 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
                                 final byte[] body) {
         return new HttpRequest() {
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return null == contentType ?
                         Maps.empty() :
-                        Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.parse(contentType));
+                        Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse(contentType)));
             }
 
             @Override

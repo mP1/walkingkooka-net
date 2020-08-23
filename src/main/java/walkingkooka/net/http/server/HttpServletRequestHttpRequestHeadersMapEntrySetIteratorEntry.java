@@ -23,12 +23,13 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map.Entry;
 
 /**
  * The entry for an iterator of entries from a headers map.
  */
-final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry implements Entry<HttpHeaderName<?>, Object> {
+final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry implements Entry<HttpHeaderName<?>, List<?>> {
 
     static HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry with(final String headerName,
                                                                              final HttpServletRequest request) {
@@ -53,17 +54,18 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry impleme
     private HttpHeaderName<?> key;
 
     @Override
-    public Object getValue() {
+    public List<?> getValue() {
         if (null == this.value) {
-            this.value = this.getKey().toValue(this.request.getHeader(this.headerName));
+            final HttpHeaderName<?> header = this.getKey();
+            this.value = HttpServletRequestHttpRequest.toList(header, this.request.getHeaders(header.value()));
         }
         return this.value;
     }
 
-    private Object value;
+    private List<?> value;
 
     @Override
-    public Object setValue(final Object value) {
+    public List<?> setValue(final List<?> value) {
         throw new UnsupportedOperationException();
     }
 

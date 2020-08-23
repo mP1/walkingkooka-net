@@ -32,6 +32,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequest>
-    implements HttpRequestTesting<HttpServletRequestHttpRequest> {
+        implements HttpRequestTesting<HttpServletRequestHttpRequest> {
 
     private final static HttpProtocolVersion PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -97,7 +98,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testHeaders() {
-        assertEquals(Maps.of(HEADER1, HEADERVALUE1, HEADER2, HEADERVALUE2),
+        assertEquals(Maps.of(HEADER1, list(HEADERVALUE1), HEADER2, list(HEADERVALUE2)),
                 this.createRequest().headers());
     }
 
@@ -114,7 +115,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testBodyTextCharsetHeaderPresent() {
-        final Charset charset = Charset.forName("UTF-16");
+        final Charset charset = StandardCharsets.UTF_16;
         final String text = "ABC123";
 
         assertEquals(text,
@@ -124,6 +125,12 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
                     public String getHeader(final String header) {
                         assertEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
                         return "text/plain;charset=utf-16";
+                    }
+
+                    @Override
+                    public Enumeration<String> getHeaders(final String header) {
+                        assertEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                        return enumeration("text/plain;charset=utf-16");
                     }
 
                     @Override
@@ -216,6 +223,17 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
                 }
                 if (HEADER2.value().equals(header)) {
                     return HEADERVALUE2;
+                }
+                return null;
+            }
+
+            @Override
+            public Enumeration<String> getHeaders(final String header) {
+                if (HEADER1.value().equals(header)) {
+                    return enumeration("" + HEADERVALUE1);
+                }
+                if (HEADER2.value().equals(header)) {
+                    return enumeration(HEADERVALUE2);
                 }
                 return null;
             }

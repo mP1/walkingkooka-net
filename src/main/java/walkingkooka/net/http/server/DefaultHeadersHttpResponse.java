@@ -23,6 +23,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -31,17 +32,17 @@ import java.util.Map.Entry;
  */
 final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
 
-    static HttpResponse with(final Map<HttpHeaderName<?>, Object> headers,
+    static HttpResponse with(final Map<HttpHeaderName<?>, List<?>> headers,
                              final HttpResponse response) {
         check(response);
 
-        final Map<HttpHeaderName<?>, Object> copy = Maps.immutable(headers);
+        final Map<HttpHeaderName<?>, List<?>> copy = Maps.immutable(headers);
         return copy.isEmpty() ?
                 response :
                 new DefaultHeadersHttpResponse(copy, response);
     }
 
-    private DefaultHeadersHttpResponse(final Map<HttpHeaderName<?>, Object> headers,
+    private DefaultHeadersHttpResponse(final Map<HttpHeaderName<?>, List<?>> headers,
                                        final HttpResponse response) {
         super(response);
         this.headers = headers;
@@ -60,13 +61,15 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
             this.first = false;
 
             // only add defaults that are absent.
-            final Map<HttpHeaderName<?>, Object> headers = entity.headers();
+            final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
 
-            for (Entry<HttpHeaderName<?>, Object> headerAndValue : this.headers.entrySet()) {
-                final HttpHeaderName<?> header = headerAndValue.getKey();
-                final Object value = headerAndValue.getValue();
-                if (!headers.containsKey(header)) {
-                    add = add.addHeader(Cast.to(header), value);
+            for (final Entry<HttpHeaderName<?>, List<?>> headerAndValues : this.headers.entrySet()) {
+                final HttpHeaderName<?> header = headerAndValues.getKey();
+
+                for (final Object value : headerAndValues.getValue()) {
+                    if (!headers.containsKey(header)) {
+                        add = add.addHeader(Cast.to(header), value);
+                    }
                 }
             }
         }
@@ -77,5 +80,5 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
      * Only true so default headers are only added to the first entity.
      */
     private boolean first = true;
-    private final Map<HttpHeaderName<?>, Object> headers;
+    private final Map<HttpHeaderName<?>, List<?>> headers;
 }

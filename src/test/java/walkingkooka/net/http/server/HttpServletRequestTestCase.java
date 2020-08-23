@@ -23,7 +23,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
+import java.util.List;
+import java.util.Vector;
 
 public abstract class HttpServletRequestTestCase<T> implements ClassTesting2<T>,
         TypeNameTesting<T> {
@@ -35,28 +36,13 @@ public abstract class HttpServletRequestTestCase<T> implements ClassTesting2<T>,
     // helper...........................................................................................................
 
     final Enumeration<String> enumeration(final String... values) {
-        return new Enumeration<>() {
-            @Override
-            public boolean hasMoreElements() {
-                return this.position < values.length;
-            }
+        final Vector<String> enumeration = new Vector<>();
+        enumeration.addAll(list(values));
+        return enumeration.elements();
+    }
 
-            @Override
-            public java.lang.String nextElement() {
-                if (false == this.hasMoreElements()) {
-                    throw new NoSuchElementException();
-                }
-
-                return values[this.position++];
-            }
-
-            private int position;
-
-            @Override
-            public String toString() {
-                return Lists.of(values).toString();
-            }
-        };
+    static <T> List<T> list(final T... values) {
+        return Lists.of(values);
     }
 
     // ClassTesting.....................................................................................................

@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
@@ -27,6 +28,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -141,8 +143,8 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
                 name.parameterValue(new FakeHttpRequest() {
 
                     @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.of(HttpHeaderName.COOKIE, Cookie.parseClientHeader("a=b;cookie123=value123;x=y"));
+                    public Map<HttpHeaderName<?>, List<?>> headers() {
+                        return Maps.of(HttpHeaderName.COOKIE, Lists.of(Cookie.parseClientHeader("a=b;cookie123=value123;x=y")));
                     }
                 }));
     }

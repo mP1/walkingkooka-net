@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIterator>
-    implements IteratorTesting,
+        implements IteratorTesting,
         ToStringTesting<HttpServletRequestHttpRequestParametersMapEntrySetIterator> {
 
     private final static String KEY1 = "parameter1";

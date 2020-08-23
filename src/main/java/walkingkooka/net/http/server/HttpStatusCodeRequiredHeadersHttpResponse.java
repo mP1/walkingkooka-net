@@ -23,6 +23,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +54,7 @@ final class HttpStatusCodeRequiredHeadersHttpResponse extends BufferingHttpRespo
                         final HttpEntity entity) {
         final HttpResponse response = this.response;
 
-        final Map<HttpHeaderName<?>, Object> headers = entity.headers();
+        final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
         this.ignore = false == status.value()
                 .requiredHttpHeaders()
                 .stream()

@@ -25,7 +25,6 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -189,33 +188,33 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     // helpers.........................................................................................
 
-    private Map<HttpHeaderName<?>, Object> headers(final ETag etag) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.SERVER, SERVER);
+    private Map<HttpHeaderName<?>, List<?>> headers(final ETag etag) {
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
+        headers.put(HttpHeaderName.SERVER, list(SERVER));
         if (null != etag) {
-            headers.put(HttpHeaderName.E_TAG, etag);
+            headers.put(HttpHeaderName.E_TAG, list(etag));
         }
         return headers;
     }
 
-    private Map<HttpHeaderName<?>, Object> headersWithContentHeaders(final ETag etag) {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers(etag);
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.ANY_TEXT);
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 123L);
+    private Map<HttpHeaderName<?>, List<?>> headersWithContentHeaders(final ETag etag) {
+        final Map<HttpHeaderName<?>, List<?>> headers = this.headers(etag);
+        headers.put(HttpHeaderName.CONTENT_TYPE, list(MediaType.ANY_TEXT));
+        headers.put(HttpHeaderName.CONTENT_LENGTH, list(123L));
         return headers;
     }
 
     private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final Map<HttpHeaderName<?>, List<?>> headers,
                                             final byte[] body) {
         this.setStatusAddEntityAndCheck(status, headers, body, status, headers, body);
     }
 
     private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final Map<HttpHeaderName<?>, List<?>> headers,
                                             final byte[] body,
                                             final HttpStatusCode expectedStatus,
-                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                            final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
                                             final byte[] expectedBody) {
         this.setStatusAddEntityAndCheck(
                 this.createRequest(),
@@ -264,9 +263,9 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                       final List<ETag> ifNoneMatch) {
         Objects.requireNonNull(method, "method");
 
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
         if (null != ifNoneMatch) {
-            headers.put(HttpHeaderName.IF_NONE_MATCHED, ifNoneMatch);
+            headers.put(HttpHeaderName.IF_NONE_MATCHED, list(ifNoneMatch));
         }
 
         return new FakeHttpRequest() {
@@ -276,7 +275,7 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.readOnly(headers);
             }
 

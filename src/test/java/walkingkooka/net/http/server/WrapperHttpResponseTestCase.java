@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
@@ -93,11 +94,11 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
     abstract R createResponse(final HttpRequest request, final HttpResponse response);
 
-    final HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers) {
+    final HttpEntity httpEntity(final Map<HttpHeaderName<?>, List<?>> headers) {
         HttpEntity httpEntity = HttpEntity.EMPTY;
 
-        for(final Entry<HttpHeaderName<?>, Object> headerAndValue : headers.entrySet()) {
-            httpEntity = httpEntity.addHeader(headerAndValue.getKey(), Cast.to(headerAndValue.getValue()));
+        for (final Entry<HttpHeaderName<?>, List<?>> headerAndValues : headers.entrySet()) {
+            httpEntity = httpEntity.setHeader(headerAndValues.getKey(), Cast.to(headerAndValues.getValue()));
         }
 
         return httpEntity;
@@ -174,5 +175,25 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         entities.forEach(response::addEntity);
 
         this.checkResponse(wrapped, request, expectedStatus, expectedEntities);
+    }
+
+    static <T> Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<T> header,
+                                                   final T value) {
+        return Maps.of(header, Lists.of(value));
+    }
+
+    static <T1, T2> Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<T1> header1,
+                                                        final T1 value1,
+                                                        final HttpHeaderName<T2> header2,
+                                                        final T2 value2) {
+        return Maps.of(header1, Lists.of(value1), header2, Lists.of(value2));
+    }
+
+    static List<Object> list(final Object value) {
+        return Lists.of(value);
+    }
+
+    static List<Object> list(final Object... values) {
+        return Lists.of(values);
     }
 }

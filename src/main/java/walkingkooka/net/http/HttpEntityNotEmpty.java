@@ -24,6 +24,7 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * A {@link HttpEntity} that captures the common functionalitu of {@link HttpEntityBinary} and {@link HttpEntityText}.
@@ -33,56 +34,103 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     /**
      * Package private
      */
-    HttpEntityNotEmpty(final Map<HttpHeaderName<?>, Object> headers) {
-        super(headers);
+    HttpEntityNotEmpty(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+        super();
+        this.headers = headers;
     }
 
     // headers..........................................................................................................
 
-    @Override//
-    final <T> HttpEntity tryAddHeader(final HttpHeaderName<T> header,
-                                      final T value) {
-        return value.equals(this.headers().get(header)) ?
-                this :
-                this.addHeader0(header, value);
+    @Override //
+    final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
+        return this.headers;
     }
 
-    private <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
-                                      final T value) {
-        final Map<HttpHeaderName<?>, Object> updated = Maps.ordered();
-        updated.putAll(this.headers());
+    private final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers;
+
+    @Override //
+    final <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
+                                    final HttpEntityHeaderList value) {
+        final HttpEntityHeaderList values = this.headers2().get(header);
+        return value.equals(values) ?
+                this :
+                this.setHeader1(header, value);
+    }
+
+    /**
+     * Copy all headers into a new {@link Map} and set the new header with a single value.
+     */
+    private <T> HttpEntity setHeader1(final HttpHeaderName<T> header,
+                                      final HttpEntityHeaderList value) {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+        updated.putAll(this.headers2());
         updated.put(header, value);
+
         return this.replace(Maps.readOnly(updated));
     }
 
     @Override//
-    final HttpEntity tryRemoveHeader(final HttpHeaderName<?> header) {
-        return this.headers().containsKey(header) ?
-                this.removeHeader0(header) :
+    final <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
+                                    final T value) {
+        final HttpEntity added;
+
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
+        final HttpEntityHeaderList values = headers.get(header);
+        if (null == values) {
+            // add a new header
+            final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+            updated.putAll(headers);
+            updated.put(header, HttpEntityHeaderList.one(header, value));
+
+            added = this.replace(Maps.readOnly(updated));
+        } else {
+            final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+            updated.putAll(headers);
+
+            if (values.contains(value)) {
+                added = this; // already contains header+value return this;
+            } else {
+                // append value and return new entity
+                updated.put(header, values.append(header, value));
+                added = this.replace(Maps.readOnly(updated));
+            }
+        }
+
+        return added;
+    }
+
+    @Override//
+    final HttpEntity remove0(final HttpHeaderName<?> header) {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> removed = Maps.ordered();
+        boolean changed = false;
+
+        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValue : this.headers2().entrySet()) {
+            final HttpHeaderName<?> possibleHeader = headerAndValue.getKey();
+            HttpEntityHeaderList values = headerAndValue.getValue();
+            if (possibleHeader.equals(header)) {
+                changed = true;
+                continue;
+            }
+
+            removed.put(possibleHeader, values);
+        }
+
+        return changed ?
+                this.replace(removed) :
                 this;
     }
 
-    private HttpEntity removeHeader0(final HttpHeaderName<?> header) {
-        final Map<HttpHeaderName<?>, Object> without = Maps.ordered();
-        this.headers().forEach((h, v) -> {
-            if (false == h.equals(header)) {
-                without.put(h, v);
-            }
-        });
-        return this.replace(without);
-    }
-
     final Charset charset() {
-        return HttpHeaderName.CONTENT_TYPE.parameterValue(this.headers())
+        return HttpHeaderName.CONTENT_TYPE.headerValue(this)
                 .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
                 .orElse(DEFAULT_BODY_CHARSET);
     }
 
     // setBodyText......................................................................................................
 
-    @Override
+    @Override //
     final HttpEntity setBodyText0(final String bodyText) {
-        final Map<HttpHeaderName<?>, Object> headers = this.headers();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
 
         return bodyText.isEmpty() && headers.isEmpty() ?
                 EMPTY :
