@@ -17,14 +17,7 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestParameterName;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.LineEnding;
 
 import java.nio.charset.Charset;
