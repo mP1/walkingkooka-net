@@ -29,6 +29,7 @@ import walkingkooka.net.http.HttpTransport;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Defines a HTTP request.
@@ -74,12 +75,7 @@ public interface HttpRequest extends HasHeaders {
      * Returns the body as text.
      */
     default String bodyText() {
-        final Charset charset = HttpHeaderName.CONTENT_TYPE
-                .headerValue(this)
-                .map(c -> c.contentTypeCharset(HttpEntity.DEFAULT_BODY_CHARSET))
-                .orElse(HttpEntity.DEFAULT_BODY_CHARSET);
-
-        return new String(this.body(), charset);
+        return new String(this.body(), this.charset(HttpEntity.DEFAULT_BODY_CHARSET));
     }
 
     /**

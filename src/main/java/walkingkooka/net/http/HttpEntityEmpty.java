@@ -79,10 +79,6 @@ final class HttpEntityEmpty extends HttpEntity {
         return this; // nop
     }
 
-    final Charset charset() {
-        throw new UnsupportedOperationException();
-    }
-
     // body.............................................................................................................
 
     @Override
