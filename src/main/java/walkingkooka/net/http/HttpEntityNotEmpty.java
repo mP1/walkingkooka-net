@@ -120,12 +120,6 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                 this;
     }
 
-    final Charset charset() {
-        return HttpHeaderName.CONTENT_TYPE.headerValue(this)
-                .map(c -> c.contentTypeCharset(DEFAULT_BODY_CHARSET))
-                .orElse(DEFAULT_BODY_CHARSET);
-    }
-
     // setBodyText......................................................................................................
 
     @Override //

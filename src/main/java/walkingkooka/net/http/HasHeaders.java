@@ -17,11 +17,20 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestParameterName;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.LineEnding;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Defines a contract for a container that includes headers, such as a http request.
@@ -37,4 +46,16 @@ public interface HasHeaders {
      * Returns a {@link Map} view of all headers.
      */
     Map<HttpHeaderName<?>, List<?>> headers();
+
+    /**
+     * Returns the {@link Charset} using the {@link HttpHeaderName#CONTENT_TYPE} or the default if absent.
+     */
+    default Charset charset(final Charset defaultCharset) {
+        Objects.requireNonNull(defaultCharset, "defaultCharset");
+
+        return HttpHeaderName.CONTENT_TYPE
+                .headerValue(this)
+                .map(c -> c.contentTypeCharset(defaultCharset))
+                .orElse(defaultCharset);
+    }
 }
