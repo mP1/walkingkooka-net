@@ -35,7 +35,7 @@ import java.util.Objects;
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
  */
-public abstract class HttpEntity implements HasHeaders {
+public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStringBuilder {
 
     /**
      * {@link Binary} with no body or bytes.

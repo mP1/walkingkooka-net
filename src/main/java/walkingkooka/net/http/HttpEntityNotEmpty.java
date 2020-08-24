@@ -22,7 +22,6 @@ import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -137,10 +136,16 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     @Override
     public final String toString() {
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public final void buildToString(final ToStringBuilder b) {
         final int globalAndValueLength = 32 * 1024;
 
-        final ToStringBuilder b = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.QUOTE)
+        b.defaults().disable(ToStringBuilderOption.QUOTE)
                 .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .globalLength(globalAndValueLength)
                 .valueLength(globalAndValueLength);
@@ -157,8 +162,6 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         b.valueSeparator("");
 
         this.toStringBody(b);
-
-        return b.build();
     }
 
     abstract void toStringBody(final ToStringBuilder b);
