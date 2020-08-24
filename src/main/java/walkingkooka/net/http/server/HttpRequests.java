@@ -17,6 +17,11 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +47,17 @@ public final class HttpRequests implements PublicStaticHelper {
      */
     public static HttpRequest httpServletRequest(final HttpServletRequest request) {
         return HttpServletRequestHttpRequest.with(request);
+    }
+
+    /**
+     * {@see HttpRequestValue}
+     */
+    public static HttpRequest value(final HttpMethod method,
+                                    final HttpTransport transport,
+                                    final RelativeUrl url,
+                                    final HttpProtocolVersion protocolVersion,
+                                    final HttpEntity... entities) {
+        return HttpRequestValue.with(method, transport, url, protocolVersion, entities);
     }
 
     /**
