@@ -20,16 +20,21 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.ClientCookie;
+import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmpty> {
+
+    // setHeaders........................................................................................................
 
     @Test
     public void testSetHeadersDifferent() {
@@ -43,8 +48,40 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     }
 
     @Test
+    public void testSetHeaders() {
+        final HttpEntityEmpty entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
+        final Long value = 1L;
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+
+        final HttpEntity set = entity.setHeaders(headers);
+        assertNotSame(entity, set);
+
+        this.check(set, headers, entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public void testSetHeadersList() {
+        final HttpEntityEmpty entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1");
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+
+        final HttpEntity set = entity.setHeaders(headers);
+        assertNotSame(entity, set);
+
+        this.check(set, headers, entity.body(), entity.bodyText());
+    }
+
+    // setHeader........................................................................................................
+
+    @Test
     public void testSetHeader() {
-        final HttpEntity entity = this.createHttpEntity();
+        final HttpEntityEmpty entity = this.createHttpEntity();
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final List<Long> value = list(111L);
