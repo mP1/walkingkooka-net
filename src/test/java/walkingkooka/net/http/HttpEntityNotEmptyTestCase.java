@@ -22,9 +22,12 @@ import walkingkooka.Binary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptLanguage;
+import walkingkooka.net.header.ClientCookie;
+import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,6 +43,53 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         super();
     }
 
+    // setHeaders.......................................................................................................
+
+    @Test
+    public final void testSetHeaders() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
+        final Long value = 1L;
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+
+        final HttpEntity set = entity.setHeaders(headers);
+        assertNotSame(entity, set);
+
+        this.check(set, headers, entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public final void testSetHeadersList() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1");
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+
+        final HttpEntity set = entity.setHeaders(headers);
+        assertNotSame(entity, set);
+
+        this.check(set, headers, entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public final void testSetHeadersList2() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1;cookie2=value2");
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+
+        final HttpEntity set = entity.setHeaders(headers);
+        assertNotSame(entity, set);
+
+        this.check(set, headers, entity.body(), entity.bodyText());
+    }
+
     // set..............................................................................................................
 
     @Test
@@ -49,6 +99,36 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
+
+        final HttpEntity set = entity.setHeader(header, list(value));
+        assertNotSame(entity, set);
+
+        this.check(set, map(header, value), entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public final void testSetHeaderNewList() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = ClientCookie.parseHeader("cookie1=value1");
+        assertEquals(1, value.size());
+
+        final HttpEntity set = entity.setHeader(header, list(value));
+        assertNotSame(entity, set);
+
+        this.check(set, map(header, value), entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public final void testSetHeaderNewList2() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = ClientCookie.parseHeader("cookie1=value1;cookie2=value2");
+        assertEquals(2, value.size());
 
         final HttpEntity set = entity.setHeader(header, list(value));
         assertNotSame(entity, set);
@@ -133,6 +213,20 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
+
+        final HttpEntity added = entity.addHeader(header, value);
+        assertNotSame(entity, added);
+
+        this.check(added, map(header, value), entity.body(), entity.bodyText());
+    }
+
+    @Test
+    public final void testAddHeaderListNew() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
+        final List<ClientCookie> value = Cookie.parseClientHeader("cooke1=value1;cookie2=value2");
 
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
