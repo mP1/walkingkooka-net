@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
@@ -26,10 +27,8 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Defines a HTTP request.
@@ -91,6 +90,7 @@ public interface HttpRequest extends HasHeaders {
     /**
      * Returns a {@link Map} of all {@link HttpRequestAttribute} parameters.
      */
+    @GwtIncompatible
     default Map<HttpRequestAttribute<?>, Object> routerParameters() {
         return HttpRequestRouterParametersMap.with(this);
     }

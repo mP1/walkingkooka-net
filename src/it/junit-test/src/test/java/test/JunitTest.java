@@ -55,6 +55,10 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.RangeHeaderValue;
 import walkingkooka.net.header.RangeHeaderValueUnit;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.HttpRequests;
 
 import java.util.Optional;
 
@@ -194,5 +198,16 @@ public class JunitTest {
                 .setBodyText(text);
 
         Assert.assertEquals(text, entity.bodyText());
+    }
+
+    @Test
+    public void testHttpRequest() {
+        HttpRequests.value(HttpMethod.POST,
+                HttpTransport.SECURED,
+                Url.parseRelative("/path1/path2?query3=value4"),
+                HttpProtocolVersion.VERSION_1_1,
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .setBodyText("different-body-text"));
     }
 }

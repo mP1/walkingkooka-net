@@ -4,20 +4,13 @@
 
 *Testing*.*
 
-Fake*
-
 HeaderScope*
-HttpRequest.java
-HttpRequest.class
-HttpRequests*
 
 HttpRequestAttributeRouting*
 HttpRequestAttributes.*
 HttpRequestAttributeUrlPathName.*
 
 HttpRequestRouter*
-
-HttpRequestValue.*
 
 *HttpResponse*
 
