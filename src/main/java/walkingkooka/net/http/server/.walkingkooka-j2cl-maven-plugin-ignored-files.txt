@@ -17,6 +17,8 @@ HttpRequestAttributeUrlPathName.*
 
 HttpRequestRouter*
 
+HttpRequestValue.*
+
 *HttpResponse*
 
 HttpServer*
