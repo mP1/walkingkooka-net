@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -38,6 +39,7 @@ public final class HttpRequests implements PublicStaticHelper {
     /**
      * {@see HeaderScopeHttpRequest}
      */
+    @GwtIncompatible
     public static HttpRequest headerScope(final HttpRequest request) {
         return HeaderScopeHttpRequest.with(request);
     }
@@ -45,6 +47,7 @@ public final class HttpRequests implements PublicStaticHelper {
     /**
      * {@see HttpServletRequestHttpRequest}
      */
+    @GwtIncompatible
     public static HttpRequest httpServletRequest(final HttpServletRequest request) {
         return HttpServletRequestHttpRequest.with(request);
     }
