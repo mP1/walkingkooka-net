@@ -30,10 +30,30 @@ import javax.servlet.http.HttpServletRequest;
 public final class HttpRequests implements PublicStaticHelper {
 
     /**
+     * Creates a request with DELETE
+     */
+    public static HttpRequest delete(final HttpTransport transport,
+                                     final RelativeUrl url,
+                                     final HttpProtocolVersion protocolVersion,
+                                     final HttpEntity... entities) {
+        return value(HttpMethod.DELETE, transport, url, protocolVersion, entities);
+    }
+
+    /**
      * {@see FakeHttpRequest}
      */
     public static HttpRequest fake() {
         return new FakeHttpRequest();
+    }
+
+    /**
+     * Creates a request with GET.
+     */
+    public static HttpRequest get(final HttpTransport transport,
+                                  final RelativeUrl url,
+                                  final HttpProtocolVersion protocolVersion,
+                                  final HttpEntity entity) {
+        return value(HttpMethod.GET, transport, url, protocolVersion, entity);
     }
 
     /**
@@ -50,6 +70,36 @@ public final class HttpRequests implements PublicStaticHelper {
     @GwtIncompatible
     public static HttpRequest httpServletRequest(final HttpServletRequest request) {
         return HttpServletRequestHttpRequest.with(request);
+    }
+
+    /**
+     * Creates a request with PATCH
+     */
+    public static HttpRequest patch(final HttpTransport transport,
+                                    final RelativeUrl url,
+                                    final HttpProtocolVersion protocolVersion,
+                                    final HttpEntity... entities) {
+        return value(HttpMethod.PATCH, transport, url, protocolVersion, entities);
+    }
+
+    /**
+     * Creates a request with POST
+     */
+    public static HttpRequest post(final HttpTransport transport,
+                                   final RelativeUrl url,
+                                   final HttpProtocolVersion protocolVersion,
+                                   final HttpEntity... entities) {
+        return value(HttpMethod.POST, transport, url, protocolVersion, entities);
+    }
+
+    /**
+     * Creates a request with PUT
+     */
+    public static HttpRequest put(final HttpTransport transport,
+                                  final RelativeUrl url,
+                                  final HttpProtocolVersion protocolVersion,
+                                  final HttpEntity... entities) {
+        return value(HttpMethod.PUT, transport, url, protocolVersion, entities);
     }
 
     /**
