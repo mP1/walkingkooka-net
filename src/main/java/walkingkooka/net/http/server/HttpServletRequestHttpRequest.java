@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -145,22 +146,23 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
      */
     @Override
     public String toString() {
+        final String eol = HasHeaders.LINE_ENDING.toString();
+
         final ToStringBuilder b = ToStringBuilder.empty();
         b.disable(ToStringBuilderOption.QUOTE);
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.separator(" ");
 
         b.value(this.transport());
-        b.append('\n');
+        b.append(eol);
 
         b.value(this.method()).value(this.url()).value(this.protocolVersion());
-        b.append('\n');
+        b.append(eol);
 
-        b.valueSeparator("\n");
+        b.valueSeparator(eol);
+        b.labelSeparator(": ");
         b.value(this.headers());
-        b.append('\n');
-
-        b.value(this.parameters());
+        b.append(eol);
 
         return b.build();
     }

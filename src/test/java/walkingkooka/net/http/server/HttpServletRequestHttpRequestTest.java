@@ -183,13 +183,10 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createRequest(),
-                "SECURED\n" +
-                        "POST /path/file?abc=123 HTTP/1.1\n" +
-                        "Content-Length=111\n" +
-                        "Server=Server2\n" +
-                        "parameter1=value1a\n" +
-                        "value1b\n" +
-                        "parameter2=value2");
+                "SECURED\r\n" +
+                        "POST /path/file?abc=123 HTTP/1.1\r\n" +
+                        "Content-Length: 111\r\n" +
+                        "Server: Server2\r\n");
     }
 
     @Override
