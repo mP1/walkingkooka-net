@@ -62,7 +62,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see HeadHttpResponse}
      */
-    public static HttpResponse header(final HttpRequest request, final HttpResponse response) {
+    public static HttpResponse head(final HttpRequest request, final HttpResponse response) {
         return HeadHttpResponse.with(request, response);
     }
 
