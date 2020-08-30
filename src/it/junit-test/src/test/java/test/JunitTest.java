@@ -59,6 +59,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpRequests;
+import walkingkooka.net.http.server.HttpResponses;
 
 import java.util.Optional;
 
@@ -209,5 +210,10 @@ public class JunitTest {
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
                         .setBodyText("different-body-text"));
+    }
+
+    @Test
+    public void testHttpResponsesRecording() {
+        HttpResponses.recording();
     }
 }

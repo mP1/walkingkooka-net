@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -31,6 +32,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see AutoContentLengthHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse contentLength(final HttpRequest request,
                                              final HttpResponse response) {
         return AutoContentLengthHttpResponse.with(request, response);
@@ -39,6 +41,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see AutoGzipEncodingHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse autoGzipEncoding(final HttpRequest request,
                                                 final HttpResponse response) {
         return AutoGzipEncodingHttpResponse.with(request, response);
@@ -47,6 +50,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see DefaultHeadersHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse defaultHeaders(final Map<HttpHeaderName<?>, List<?>> headers,
                                               final HttpResponse response) {
         return DefaultHeadersHttpResponse.with(headers, response);
@@ -62,6 +66,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see HeadHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse head(final HttpRequest request, final HttpResponse response) {
         return HeadHttpResponse.with(request, response);
     }
@@ -69,6 +74,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see HeaderScopeHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse headerScope(final HttpResponse response) {
         return HeaderScopeHttpResponse.with(response);
     }
@@ -76,6 +82,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see HttpStatusCodeRequiredHeadersHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse httpStatusCodeRequiredHeaders(final HttpResponse response) {
         return HttpStatusCodeRequiredHeadersHttpResponse.with(response);
     }
@@ -83,6 +90,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see IfNoneMatchAwareHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse ifNoneMatchAware(final HttpRequest request,
                                                 final HttpResponse response,
                                                 final Function<byte[], ETag> computer) {
@@ -92,6 +100,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see LastModifiedAwareHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse lastModifiedAware(final HttpRequest request,
                                                  final HttpResponse response) {
         return LastModifiedAwareHttpResponse.with(request, response);
@@ -100,6 +109,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see MultiPartAwareHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse multiPartAware(final HttpResponse response) {
         return MultiPartAwareHttpResponse.with(response);
     }
@@ -107,6 +117,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see RangeAwareHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse rangeAware(final HttpRequest request,
                                           final HttpResponse response,
                                           final Supplier<Byte> boundaryCharacters) {
@@ -124,6 +135,7 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see RequiredHeadersHttpResponse}
      */
+    @GwtIncompatible
     public static HttpResponse requiredHeaders(final HttpRequest request,
                                                final HttpResponse response) {
         return RequiredHeadersHttpResponse.with(request, response);
