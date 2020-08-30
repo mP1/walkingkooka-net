@@ -4,22 +4,49 @@
 
 *Testing*.*
 
-HeaderScope*
-
 HttpRequestAttributeRouting*
 HttpRequestAttributes.*
 HttpRequestAttributeUrlPathName.*
 
+
+HttpRequestHttpResponseBiConsumers*
+
+#
+# Ignore HttpRequestRouter and collaborators
+#
 HttpRequestRouter*
 
-*HttpResponse*
+
+#
+# Not all HttpResponse implementations are supported in javascript.
+#
+AutoContentLengthHttpResponse*
+AutoGzipEncodingHttpResponse*
+BufferingHttpResponse*
+DefaultHeadersHttpResponse*
+HeadHttpResponse*
+HeaderScopeHttpResponse*
+HttpStatusCodeRequiredHeadersHttpResponse*
+IfNoneMatchAwareHttpResponse*
+LastModifiedAwareHttpResponse*
+MultiPartAwareHttpResponse*
+NonMultiPartAwareHttpResponse*
+NonMultiPartAwareBufferingHttpResponse*
+RangeAwareHttpResponse*
+RequiredHeadersHttpResponse*
+WrapperHttpResponse*
+WrapperHttpRequestHttpResponse*
 
 HttpServer*
 
 HttpServlet*
 
-RouterBiConsumer.*
+RouterBiConsumer*
 
+#
+# Ignore All WebFile/s
+#
+WebFile*
 *WebFile*
 
 
