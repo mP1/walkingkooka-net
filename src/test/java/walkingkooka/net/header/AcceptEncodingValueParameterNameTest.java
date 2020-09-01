@@ -83,18 +83,18 @@ final public class AcceptEncodingValueParameterNameTest extends HeaderParameterN
         this.parameterValueAndCheckPresent(parameter, encoding, Cast.to(value));
     }
 
-    // toValue...........................................................................................
+    // parse...........................................................................................
 
     @Test
-    public void testToValueQFactor() {
-        this.toValueAndCheck(AcceptEncodingValueParameterName.Q,
+    public void testParseQFactor() {
+        this.parseAndCheck(AcceptEncodingValueParameterName.Q,
                 "0.75",
                 0.75f);
     }
 
     @Test
-    public void testToValueString() {
-        this.toValueAndCheck(Cast.to(AcceptEncodingValueParameterName.with("xyz")),
+    public void testParseString() {
+        this.parseAndCheck(Cast.to(AcceptEncodingValueParameterName.with("xyz")),
                 "abc",
                 "abc");
     }

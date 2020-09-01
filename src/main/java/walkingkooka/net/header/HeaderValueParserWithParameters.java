@@ -225,7 +225,7 @@ abstract class HeaderValueParserWithParameters<V extends HeaderValueWithParamete
      * Adds a new parameter value after converting the text to a value.
      */
     private void addParameterText(final String text) {
-        this.addParameterValue(this.parameterName.toValue(text));
+        this.addParameterValue(this.parameterName.parse(text));
     }
 
     /**

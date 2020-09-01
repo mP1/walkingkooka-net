@@ -801,7 +801,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Unconditionally converts the {@link String value} to the appropriate type for this header.
      */
     @Override
-    public T toValue(final String value) {
+    public T parse(final String value) {
         Objects.requireNonNull(value, "value");
 
         return this.handler.parse(value, this);

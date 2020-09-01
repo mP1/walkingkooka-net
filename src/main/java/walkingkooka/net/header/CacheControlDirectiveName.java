@@ -205,7 +205,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     final HeaderValueHandler<V> handler;
 
     @Override
-    public Optional<V> toValue(final String text) {
+    public Optional<V> parse(final String text) {
         return Optional.of(this.handler.parse(text, this));
     }
 

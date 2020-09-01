@@ -34,15 +34,15 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     // parameterValue...........................................................................................
 
     @Test
-    default void testToValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createName().toValue(null));
+    default void testParseNullFails() {
+        assertThrows(NullPointerException.class, () -> this.createName().parse(null));
     }
 
-    default <V> void toValueAndCheck(final HeaderName<V> name,
-                                     final String headerValue,
-                                     final V value) {
+    default <V> void parseAndCheck(final HeaderName<V> name,
+                                   final String headerValue,
+                                   final V value) {
         assertEquals(value,
-                name.toValue(headerValue),
+                name.parse(headerValue),
                 name + "=" + CharSequences.quoteIfNecessary(headerValue));
     }
 
