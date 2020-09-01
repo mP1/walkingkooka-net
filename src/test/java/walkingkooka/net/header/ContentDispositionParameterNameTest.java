@@ -83,18 +83,18 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
         return ContentDisposition.parse("attachment; filename=readme.txt");
     }
 
-    // toValue...........................................................................................
+    // parse...........................................................................................
 
     @Test
-    public void testToValueOffsetDateTime() {
-        this.toValueAndCheck(ContentDispositionParameterName.CREATION_DATE,
+    public void testParseOffsetDateTime() {
+        this.parseAndCheck(ContentDispositionParameterName.CREATION_DATE,
                 "\"Wed, 12 Feb 1997 16:29:51 -0500\"",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 
     @Test
-    public void testToValueString() {
-        this.toValueAndCheck(Cast.to(ContentDispositionParameterName.with("xyz")),
+    public void testParseString() {
+        this.parseAndCheck(Cast.to(ContentDispositionParameterName.with("xyz")),
                 "abc",
                 "abc");
     }

@@ -326,11 +326,11 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertThrows(HeaderValueException.class, () -> header.checkValue(Cast.to("invalid!")));
     }
 
-    // toValue ...............................................................................................
+    // parse ...............................................................................................
 
     @Test
-    public void testToValueAcceptString() {
-        this.toValueAndCheck(HttpHeaderName.ACCEPT,
+    public void testParseAcceptString() {
+        this.parseAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
                 Accept.with(list(
                         MediaType.with("text", "html"),
@@ -338,24 +338,24 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Test
-    public void testToValueContentLengthString() {
-        this.toValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testParseContentLengthString() {
+        this.parseAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 123L);
     }
 
     @Test
-    public void testToValueIfRangeETag() {
-        this.toValueAndCheck(HttpHeaderName.IF_RANGE,
+    public void testParseIfRangeETag() {
+        this.parseAndCheck(HttpHeaderName.IF_RANGE,
                 "W/\"etag-1234567890\"",
                 IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890")));
     }
 
     @Test
-    public void testToValueIfRangeLastModified() {
+    public void testParseIfRangeLastModified() {
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
 
-        this.toValueAndCheck(HttpHeaderName.IF_RANGE,
+        this.parseAndCheck(HttpHeaderName.IF_RANGE,
                 HeaderValueHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
                 IfRange.with(lastModified));
     }

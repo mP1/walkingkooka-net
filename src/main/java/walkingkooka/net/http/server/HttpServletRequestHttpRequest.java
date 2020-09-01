@@ -174,7 +174,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
                                final Enumeration<String> values) {
         final List<Object> list = Lists.array();
         while (values.hasMoreElements()) {
-            list.add(header.toValue(values.nextElement()));
+            list.add(header.parse(values.nextElement()));
         }
 
         return Lists.readOnly(list);

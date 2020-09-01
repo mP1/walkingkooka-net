@@ -28,7 +28,7 @@ public interface HeaderName<V> extends Name {
     /**
      * Converts the header text to the value.
      */
-    V toValue(final String text);
+    V parse(final String text);
 
     /**
      * Validates the value and returns it as its type.

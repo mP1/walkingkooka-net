@@ -101,7 +101,7 @@ final class CacheControlHeaderValueParser extends HeaderValueParser {
         if (this.requireDirectiveName || !this.expectsParameterValue) {
             this.failInvalidCharacter();
         }
-        this.parameterValue = this.directiveName.toValue(this.quotedText(ASCII, ESCAPING_SUPPORTED));
+        this.parameterValue = this.directiveName.parse(this.quotedText(ASCII, ESCAPING_SUPPORTED));
         this.expectsParameterValue = false;
     }
 
@@ -124,7 +124,7 @@ final class CacheControlHeaderValueParser extends HeaderValueParser {
             if (text.isEmpty()) {
                 this.failInvalidCharacter();
             }
-            this.parameterValue = this.directiveName.toValue(text);
+            this.parameterValue = this.directiveName.parse(text);
             this.expectsParameterValue = false;
         }
     }
