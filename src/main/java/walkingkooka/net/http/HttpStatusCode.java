@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -363,6 +364,22 @@ public final class HttpStatusCode {
     }
 
     private final Set<HttpHeaderName<?>> requiredHttpHeaders;
+
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.code, this.message);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof HttpStatusCode && this.equals0((HttpStatusCode) other);
+    }
+
+    private boolean equals0(final HttpStatusCode other) {
+        return this.code == other.code && this.message.equals(other.message);
+    }
 
     @Override
     public String toString() {

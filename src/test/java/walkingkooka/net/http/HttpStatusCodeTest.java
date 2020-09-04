@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -42,9 +43,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         ConstantsTesting<HttpStatusCode>,
+        HashCodeEqualsDefinedTesting2<HttpStatusCode>,
         ToStringTesting<HttpStatusCode>,
         TypeNameTesting<HttpStatusCode> {
 
+    private final static int CODE = 299;
     @Test
     public void testStandard() {
         assertSame(HttpStatusCode.OK, HttpStatusCode.withCode(200));
@@ -218,6 +221,15 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         assertEquals(status, code.setMessageOrDefault(message));
     }
 
+    // equals...........................................................................................................
+
+    @Test
+    public void testDifferentCode() {
+        this.checkNotEquals(HttpStatusCode.withCode(1000 + CODE));
+    }
+
+    // ClassTesting....................................................................................................
+
     @Override
     public Class<HttpStatusCode> type() {
         return HttpStatusCode.class;
@@ -228,9 +240,18 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         return JavaVisibility.PUBLIC;
     }
 
+    // Constants........................................................................................................
+
     @Override
     public Set<HttpStatusCode> intentionalDuplicateConstants() {
         return Sets.empty();
+    }
+
+    // HashcodeEquals...................................................................................................
+
+    @Override
+    public HttpStatusCode createObject() {
+        return HttpStatusCode.withCode(CODE);
     }
 
     // TypeNameTesting .........................................................................................
