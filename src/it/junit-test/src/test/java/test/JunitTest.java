@@ -61,6 +61,7 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponses;
 
+import java.util.List;
 import java.util.Optional;
 
 @J2clTestInput(JunitTest.class)
@@ -199,6 +200,47 @@ public class JunitTest {
                 .setBodyText(text);
 
         Assert.assertEquals(text, entity.bodyText());
+    }
+
+    @Test
+    public void testHttpEntityEmptyAddHeader() {
+        final HttpHeaderName<String> header = HttpHeaderName.with("X-Custom-Header-1").stringValues();
+        final String value = "value-1";
+
+        final HttpEntity entity = HttpEntity.EMPTY
+                .addHeader(header, value);
+
+        Assert.assertEquals(Maps.of(header, list(value)), entity.headers());
+    }
+
+    @Test
+    public void testHttpEntityEmptyAddHeaderAddHeader() {
+        final HttpHeaderName<String> header1 = HttpHeaderName.with("X-Custom-Header-1").stringValues();
+        final String value1 = "value-1";
+
+        final HttpHeaderName<String> header2 = HttpHeaderName.with("X-Custom-Header-2").stringValues();
+        final String value2 = "value-2";
+
+        final HttpEntity entity = HttpEntity.EMPTY
+                .addHeader(header1, value1)
+                .addHeader(header2, value2);
+
+        Assert.assertEquals(Maps.of(header1, list(value1), header2, list(value2)), entity.headers());
+    }
+
+    @Test
+    public void testHttpEntityEmptySetHeader() {
+        final HttpHeaderName<String> header = HttpHeaderName.with("X-Custom-Header-1").stringValues();
+        final String value = "value-1";
+
+        final HttpEntity entity = HttpEntity.EMPTY
+                .setHeader(header, list(value));
+
+        Assert.assertEquals(Maps.of(header, list(value)), entity.headers());
+    }
+
+    private static <T> List<T> list(final T...values) {
+        return Lists.of(values);
     }
 
     @Test

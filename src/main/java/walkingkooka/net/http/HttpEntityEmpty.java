@@ -63,9 +63,7 @@ final class HttpEntityEmpty extends HttpEntity {
     @Override //
     final <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
                                     final HttpEntityHeaderList value) {
-        return HttpEntityBinaryEnabler.ENABLED ?
-                HttpEntityBinary.with(Maps.of(header, value), Binary.EMPTY) :
-                HttpEntityText.with(Maps.of(header, value), "");
+        return this.replace(Maps.of(header, value));
     }
 
     @Override //
@@ -102,7 +100,7 @@ final class HttpEntityEmpty extends HttpEntity {
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return HttpEntityBinaryEnabler.ENABLED ?
                 HttpEntityBinary.with(headers, Binary.EMPTY) :
-                HttpEntityText.with(Maps.empty(), "");
+                HttpEntityText.with(headers, "");
     }
 
     @Override
