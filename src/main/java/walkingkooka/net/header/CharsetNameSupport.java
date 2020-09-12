@@ -17,6 +17,8 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
+
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Set;
@@ -24,11 +26,12 @@ import java.util.Set;
 /**
  * This class has several helpers which include APIS that are not available in the J2cl emulated JRE
  */
-final class CharsetNameSupport {
+final class CharsetNameSupport extends CharsetNameSupportJ2cl {
 
     /**
      * J2cl will require a version of this class that does nothing because {@link Charset#aliases()}.
      */
+    @GwtIncompatible
     static void registerCharsetAliases(final Charset charset,
                                        final Map<String, CharsetName> constants) {
         for (final String alias : charset.aliases()) {
@@ -39,6 +42,7 @@ final class CharsetNameSupport {
     /**
      * The J2cl version of this method will contain no logic and simply return false.
      */
+    @GwtIncompatible
     static boolean testCharsetAliases(final Charset charset,
                                       final Charset aliasSource) {
         final Set<String> contentTypeAliases = aliasSource.aliases();

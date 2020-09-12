@@ -15,17 +15,24 @@
  *
  */
 
-package walkingkooka.net.header.j2cl;
+package walkingkooka.net.header;
 
-import walkingkooka.reflect.StaticHelper;
+import java.nio.charset.Charset;
+import java.util.Map;
 
-final class ContentDispositionFileNameSupport implements StaticHelper {
-
-    static boolean isFileSeperator(final char c) {
-        return false; // the test with slash in ContentDispositionFileName will have to do.
+/**
+ * This class has several helpers which shadow methods in {@link CharsetNameSupport} which will be eliminated as they
+ * are marked with @GwtIncompatible.
+ */
+class CharsetNameSupportJ2cl {
+    
+    static void registerCharsetAliases(final Charset charset,
+                                       final Map<String, CharsetName> constants) {
+        // j2cl Charset has no aliases.
     }
 
-    private ContentDispositionFileNameSupport() {
-        throw new UnsupportedOperationException();
+    static boolean testCharsetAliases(final Charset charset,
+                                      final Charset aliasSource) {
+        return false;
     }
 }
