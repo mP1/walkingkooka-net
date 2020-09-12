@@ -17,6 +17,10 @@
 
 package walkingkooka.net.http;
 
-final class HttpEntityBinaryEnabler {
-    final static boolean ENABLED = true;
+public final class HttpEntityInteropTest extends HttpEntityTestCase<HttpEntityInterop> {
+
+    @Override
+    public Class<HttpEntityInterop> type() {
+        return HttpEntityInterop.class;
+    }
 }

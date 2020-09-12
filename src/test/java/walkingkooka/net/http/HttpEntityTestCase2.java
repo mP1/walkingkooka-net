@@ -27,7 +27,11 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.FakeWebFile;
+import walkingkooka.net.http.server.WebFileException;
 
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,11 +186,51 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         this.check(empty);
     }
 
+    // setBodyWebFile......................................................................................................
+
+    @Test
+    public final void testSetBodyTextNullWebFileFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createHttpEntity().setBody(null, Charset.defaultCharset());
+        });
+    }
+
+    @Test
+    public final void testSetBodyWebFileSame() {
+        final H entity = this.createHttpEntity();
+        assertSame(entity,
+                entity.setBody(new FakeWebFile() {
+
+                                   @Override
+                                   public InputStream content() throws WebFileException {
+                                       return entity.body().inputStream();
+                                   }
+                               },
+                        Charset.defaultCharset()));
+    }
+
+    @Test
+    public final void testSetBodyWebFileDifferent() {
+        final H entity = this.createHttpEntity();
+        final Binary differentBinary = Binary.with("different".getBytes(Charset.forName("UTF-8")));
+
+        final HttpEntity different =
+                entity.setBody(new FakeWebFile() {
+
+                                   @Override
+                                   public InputStream content() throws WebFileException {
+                                       return differentBinary.inputStream();
+                                   }
+                               },
+                        Charset.defaultCharset());
+        assertEquals(differentBinary, different.body());
+    }
+
     // helpers..........................................................................................................
 
     abstract H createHttpEntity();
 
-    static <T> List<T> list(final T...values) {
+    static <T> List<T> list(final T... values) {
         return Lists.of(values);
     }
 

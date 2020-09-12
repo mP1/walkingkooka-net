@@ -64,7 +64,6 @@ final public class CookieName extends HeaderNameValue
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
-    @GwtIncompatible
     @Override
     public Optional<ClientCookie> parameterValue(final HttpRequest request) {
         return HttpHeaderName.COOKIE.headerValue(request)

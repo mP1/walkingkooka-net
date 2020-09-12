@@ -15,8 +15,15 @@
  *
  */
 
-package walkingkooka.net.http.j2cl;
+package walkingkooka.net.http;
 
-final class HttpEntityBinaryEnabler {
-    final static boolean ENABLED = false; // EMPTY.setHeaders will create a HttpEntityText rather than HttpEntityBinary
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
+
+public final class HttpEntityInteropJ2clTest extends HttpEntityTestCase<HttpEntityInteropJ2cl> {
+
+    @Override
+    public Class<HttpEntityInteropJ2cl> type() {
+        return HttpEntityInteropJ2cl.class;
+    }
 }

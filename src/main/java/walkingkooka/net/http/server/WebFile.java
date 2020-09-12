@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -52,11 +53,23 @@ public interface WebFile {
     InputStream content() throws WebFileException;
 
     /**
-     * Helper that returns the content as text.
+     * Helper that returns the content as text. This should be implemented by all j2cl implmentations.
      */
     default String contentText(final Charset defaultCharset) throws WebFileException {
-        try {
-            return new String(this.content().readAllBytes(), contentType().contentTypeCharset(defaultCharset));
+        try (final InputStream in = this.content()) {
+            final byte[] buffer = new byte[4096];
+            try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                for (; ; ) {
+                    final int read = in.read(buffer);
+                    if (-1 == read) {
+                        break;
+                    }
+                    out.write(buffer, 0, read);
+                }
+
+                out.flush();
+                return new String(out.toByteArray(), contentType().contentTypeCharset(defaultCharset));
+            }
         } catch (final IOException readFailed) {
             throw new WebFileException("Failed to read content: " + readFailed, readFailed);
         }

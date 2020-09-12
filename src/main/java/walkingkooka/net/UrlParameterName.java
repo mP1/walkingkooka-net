@@ -86,7 +86,6 @@ public final class UrlParameterName extends NetName
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
-    @GwtIncompatible
     @Override
     public Optional<List<String>> parameterValue(final HttpRequest request) {
         return Optional.ofNullable(request.url().query().parameters().get(this));

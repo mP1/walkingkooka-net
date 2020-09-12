@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
@@ -39,6 +40,7 @@ public final class WebFiles implements PublicStaticHelper {
     /**
      * {@see FileSystemWebFile}
      */
+    @GwtIncompatible
     public static WebFile file(final Path path,
                                final BiFunction<String, Binary, MediaType> contentTypeGuesser,
                                final Function<Binary, Optional<ETag>> etagComputer) {

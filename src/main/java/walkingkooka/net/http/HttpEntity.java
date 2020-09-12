@@ -24,6 +24,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharacterConstant;
 
 import java.nio.charset.Charset;
@@ -201,6 +202,15 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
 
     abstract HttpEntity setBodyText0(final String bodyText);
 
+    /**
+     * Copies the content of the {@link WebFile} into this {@link HttpEntity}
+     */
+    public final HttpEntity setBody(final WebFile file,
+                                    final Charset defaultCharset) {
+        Objects.requireNonNull(file, "file");
+        return HttpEntityInterop.setBody(this, file, defaultCharset);
+    }
+
     // extractRange ...................................................................................
 
     /**
@@ -234,13 +244,7 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
 
     private boolean equals0(final HttpEntity other) {
         return this.headers().equals(other.headers()) &&
-                this.equalsBody(other);
-    }
-
-    private boolean equalsBody(final HttpEntity other) {
-        return HttpEntityBinaryEnabler.ENABLED ?
-                this.body().equals(other.body()) :
-                this.bodyText().equals(other.bodyText()); // optimisation for transpiled code
+                HttpEntityInterop.equalsBody(this, other);
     }
 
     public abstract String toString();

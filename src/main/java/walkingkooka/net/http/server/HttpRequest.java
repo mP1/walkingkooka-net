@@ -90,7 +90,6 @@ public interface HttpRequest extends HasHeaders {
     /**
      * Returns a {@link Map} of all {@link HttpRequestAttribute} parameters.
      */
-    @GwtIncompatible
     default Map<HttpRequestAttribute<?>, Object> routerParameters() {
         return HttpRequestRouterParametersMap.with(this);
     }

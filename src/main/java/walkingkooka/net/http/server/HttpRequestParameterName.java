@@ -63,7 +63,6 @@ final public class HttpRequestParameterName implements Name,
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
-    @GwtIncompatible
     @Override
     public Optional<List<String>> parameterValue(final HttpRequest request) {
         return Optional.ofNullable(request.parameterValues(this));

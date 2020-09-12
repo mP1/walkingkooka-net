@@ -19,12 +19,13 @@ package test;
 import com.google.j2cl.junit.apt.J2clTestInput;
 import org.junit.Assert;
 import org.junit.Test;
-
+import walkingkooka.Either;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
+import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlParameterName;
@@ -43,10 +44,10 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentLanguage;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.Cookie;
-import walkingkooka.net.header.EncodedText;
-import walkingkooka.net.header.Encoding;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
+import walkingkooka.net.header.EncodedText;
+import walkingkooka.net.header.Encoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.LanguageName;
@@ -57,11 +58,24 @@ import walkingkooka.net.header.RangeHeaderValueUnit;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequests;
+import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.WebFile;
+import walkingkooka.net.http.server.WebFileException;
+import walkingkooka.net.http.server.WebFiles;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @J2clTestInput(JunitTest.class)
@@ -257,5 +271,73 @@ public class JunitTest {
     @Test
     public void testHttpResponsesRecording() {
         HttpResponses.recording();
+    }
+
+    @Test
+    public void testWebFilesFake() {
+        WebFiles.fake();
+    }
+
+    @Test
+    public void testHttpRequestHttpResponseBiConsumersWebFile() {
+        final HttpRequest request = new FakeHttpRequest() {
+
+            @Override
+            public RelativeUrl url() {
+                return Url.parseRelative("/base/file/file123");
+            }
+
+            @Override
+            public Map<HttpHeaderName<?>, List<?>> headers() {
+                return HttpRequest.NO_HEADERS;
+            }
+
+            @Override
+            public String toString() {
+                return this.url() + " " + this.headers();
+            }
+        };
+
+        final HttpResponse response = HttpResponses.recording();
+        final String body = "Body123";
+
+        HttpRequestHttpResponseBiConsumers.webFile(UrlPath.parse("/base/file/"),
+                (urlPath -> Either.left(new WebFile() {
+                    @Override
+                    public LocalDateTime lastModified() throws WebFileException {
+                        return LocalDateTime.now();
+                    }
+
+                    @Override
+                    public MediaType contentType() throws WebFileException {
+                        return MediaType.TEXT_PLAIN;
+                    }
+
+                    @Override
+                    public long contentSize() throws WebFileException {
+                        return body.length();
+                    }
+
+                    @Override
+                    public InputStream content() throws WebFileException {
+                        return new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
+                    }
+
+                    @Override
+                    public Optional<ETag> etag() throws WebFileException {
+                        return Optional.empty();
+                    }
+                })
+                ))
+                .accept(request, response);
+
+        Assert.assertEquals("http response status code\n" + response,
+                HttpStatusCode.OK,
+                response.status()
+                        .orElse(HttpStatusCode.BAD_REQUEST.status())
+                        .value());
+        Assert.assertEquals("response body",
+                body,
+                response.entities().get(0).bodyText());
     }
 }

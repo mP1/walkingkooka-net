@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Binary;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
@@ -27,10 +26,9 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.text.CharSequences;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -98,13 +96,12 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     private void found(final WebFile file,
                        final HttpRequest request,
                        final HttpResponse response) {
-
-        // if last modified header present check if matches file.last modified
-        HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request)
-                .filter(header -> fileLastModifiedTest(header, file.lastModified()))
-                .ifPresentOrElse(
-                        (ifModifiedSince) -> this.notModified(file, response),
-                        () -> this.modified(file, request, response));
+        final Optional<LocalDateTime> ifModifiedSince = HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request);
+        if(ifModifiedSince.isPresent() && ifModifiedSince.map(header -> fileLastModifiedTest(header, file.lastModified())).orElse(false)){
+            this.notModified(file, response);
+        } else {
+            this.modified(file, request, response);
+        }
     }
 
     /**
@@ -131,18 +128,19 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
                           final HttpRequest request,
                           final HttpResponse response) {
         final MediaType contentType = file.contentType();
+        final HttpStatus status;
+        final HttpEntity entity;
 
         if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
-            response.setStatus(HttpStatusCode.OK.status());
-            try (final InputStream content = file.content()) {
-                response.addEntity(headers(file).setBody(Binary.with(content.readAllBytes())));
-            } catch (final IOException unable) {
-                throw new HttpServerException("Failed to read file", unable);
-            }
+            status = HttpStatusCode.OK.status();
+            entity = headers(file)
+                    .setBody(file, HttpEntity.DEFAULT_BODY_CHARSET);
         } else {
-            response.setStatus(HttpStatusCode.NOT_ACCEPTABLE.status());
-            response.addEntity(HttpEntity.EMPTY);
+            status = HttpStatusCode.NOT_ACCEPTABLE.status();
+            entity = HttpEntity.EMPTY;
         }
+        response.setStatus(status);
+        response.addEntity(entity);
     }
 
     private static HttpEntity headers(final WebFile file) {
