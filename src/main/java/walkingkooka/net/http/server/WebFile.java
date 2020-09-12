@@ -20,7 +20,9 @@ package walkingkooka.net.http.server;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -48,6 +50,17 @@ public interface WebFile {
      * Returns a read once {@link InputStream} holding the file content.
      */
     InputStream content() throws WebFileException;
+
+    /**
+     * Helper that returns the content as text.
+     */
+    default String contentText(final Charset defaultCharset) throws WebFileException {
+        try {
+            return new String(this.content().readAllBytes(), contentType().contentTypeCharset(defaultCharset));
+        } catch (final IOException readFailed) {
+            throw new WebFileException("Failed to read content: " + readFailed, readFailed);
+        }
+    }
 
     /**
      * Returns an optionally computed {@link ETag}.
