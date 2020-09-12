@@ -72,6 +72,8 @@ import walkingkooka.net.http.server.WebFiles;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -339,5 +341,12 @@ public class JunitTest {
         Assert.assertEquals("response body",
                 body,
                 response.entities().get(0).bodyText());
+    }
+
+    @Test
+    public void testToURL() throws MalformedURLException {
+        final String url = "http://example.com/123";
+        final AbsoluteUrl absoluteUrl = Url.parseAbsolute(url);
+        Assert.assertEquals(new URL(url), absoluteUrl.toURL());
     }
 }
