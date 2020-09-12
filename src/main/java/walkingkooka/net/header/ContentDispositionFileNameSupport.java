@@ -17,14 +17,15 @@
 
 package walkingkooka.net.header;
 
-import java.io.File;
+import javaemul.internal.annotations.GwtIncompatible;
 
 final class ContentDispositionFileNameSupport extends ContentDispositionFileNameSupportJ2cl {
 
     /**
      * J2cl will replace this method with one that returns false.
      */
+    @GwtIncompatible
     static boolean isFileSeperator(final char c) {
-        return File.separatorChar == c;
+        return java.io.File.separatorChar == c;
     }
 }
