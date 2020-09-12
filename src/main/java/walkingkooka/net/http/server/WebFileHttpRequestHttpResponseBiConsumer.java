@@ -130,23 +130,22 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     private void modified(final WebFile file,
                           final HttpRequest request,
                           final HttpResponse response) {
-        try (final InputStream content = file.content()) {
-            final Binary binaryContent = Binary.with(content.readAllBytes());
-            final MediaType contentType = file.contentType();
+        final MediaType contentType = file.contentType();
 
-            if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
-                response.setStatus(HttpStatusCode.OK.status());
-                response.addEntity(this.headers(file).setBody(binaryContent));
-            } else {
-                response.setStatus(HttpStatusCode.NOT_ACCEPTABLE.status());
-                response.addEntity(HttpEntity.EMPTY);
+        if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
+            response.setStatus(HttpStatusCode.OK.status());
+            try (final InputStream content = file.content()) {
+                response.addEntity(headers(file).setBody(Binary.with(content.readAllBytes())));
+            } catch (final IOException unable) {
+                throw new HttpServerException("Failed to read file", unable);
             }
-        } catch (final IOException unable) {
-            throw new HttpServerException("Failed to read file", unable);
+        } else {
+            response.setStatus(HttpStatusCode.NOT_ACCEPTABLE.status());
+            response.addEntity(HttpEntity.EMPTY);
         }
     }
 
-    private HttpEntity headers(final WebFile file) {
+    private static HttpEntity headers(final WebFile file) {
         final HttpEntity entity = HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.CONTENT_TYPE, file.contentType())
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
