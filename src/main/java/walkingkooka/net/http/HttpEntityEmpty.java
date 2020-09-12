@@ -98,7 +98,7 @@ final class HttpEntityEmpty extends HttpEntity {
 
     @Override
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return HttpEntityBinaryEnabler.ENABLED ?
+        return HttpEntityInterop.BINARY ?
                 HttpEntityBinary.with(headers, Binary.EMPTY) :
                 HttpEntityText.with(headers, "");
     }

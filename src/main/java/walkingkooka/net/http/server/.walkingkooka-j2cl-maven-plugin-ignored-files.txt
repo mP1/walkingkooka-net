@@ -4,17 +4,6 @@
 
 *Testing*.*
 
-HttpRequestAttributeRouting*
-HttpRequestAttributes.*
-HttpRequestAttributeUrlPathName.*
-
-
-HttpRequestHttpResponseBiConsumers*
-
-#
-# Ignore HttpRequestRouter and collaborators
-#
-HttpRequestRouter*
 
 
 #
@@ -37,16 +26,16 @@ RequiredHeadersHttpResponse*
 WrapperHttpResponse*
 WrapperHttpRequestHttpResponse*
 
-HttpServer*
 
+
+#
+# HttpServlet is not translatable.
+#
 HttpServlet*
 
-RouterBiConsumer*
+
 
 #
-# Ignore All WebFile/s
+# WebFile
 #
-WebFile*
-*WebFile*
-
-
+FileSystemWebFile*

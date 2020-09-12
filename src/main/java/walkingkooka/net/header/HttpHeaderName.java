@@ -823,7 +823,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
-    @GwtIncompatible
     @Override
     public Optional<T> parameterValue(final HttpRequest request) {
         return this.headerValue(request);

@@ -41,6 +41,5 @@ public interface HttpRequestAttribute<T> {
     /**
      * A typed getter that retrieves a value from a {@link HttpRequest}
      */
-    @GwtIncompatible
     Optional<T> parameterValue(final HttpRequest request);
 }
