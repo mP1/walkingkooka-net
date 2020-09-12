@@ -17,14 +17,18 @@
 
 package walkingkooka.net.header;
 
-import java.io.File;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-final class ContentDispositionFileNameSupport extends ContentDispositionFileNameSupportJ2cl {
+public final class ContentDispositionFileNameSupportJ2clTest implements ClassTesting<ContentDispositionFileNameSupportJ2cl> {
 
-    /**
-     * J2cl will replace this method with one that returns false.
-     */
-    static boolean isFileSeperator(final char c) {
-        return File.separatorChar == c;
+    @Override
+    public Class<ContentDispositionFileNameSupportJ2cl> type() {
+        return ContentDispositionFileNameSupportJ2cl.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

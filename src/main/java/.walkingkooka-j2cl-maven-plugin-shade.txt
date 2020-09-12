@@ -1,4 +1,0 @@
-#
-# CharsetNameSupport and ContentDispositionFileNameSupport must replace the originals
-#
-walkingkooka.net.header.j2cl=walkingkooka.net.header
