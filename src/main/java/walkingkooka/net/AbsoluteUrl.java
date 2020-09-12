@@ -249,6 +249,12 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         visitor.visit(this);
     }
 
+    // java.net.URL.....................................................................................................
+
+    public URL toURL() throws MalformedURLException {
+        return new URL(this.toString());
+    }
+
     // Object ..........................................................................................................
 
     @Override

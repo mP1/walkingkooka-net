@@ -22,6 +22,8 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -599,6 +601,15 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
             }
         }.accept(url);
         assertEquals("152", b.toString());
+    }
+
+    // toURL............................................................................................................
+
+    @Test
+    public void testToURL() throws MalformedURLException {
+        final String url = "http://example.com/123";
+        final AbsoluteUrl absoluteUrl = Url.parseAbsolute(url);
+        assertEquals(new URL(url), absoluteUrl.toURL());
     }
 
     // toString..........................................................................................
