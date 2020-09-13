@@ -118,7 +118,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testBodyIncludesCr() {
         final HttpResponse response = HttpResponses.recording();
-        response.setStatus(HttpStatusCode.CREATED.setMessage("Something Created"));
+        response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body\r123"));
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody\r123", response);
