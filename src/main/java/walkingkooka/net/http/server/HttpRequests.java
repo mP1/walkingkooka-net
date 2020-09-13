@@ -30,6 +30,14 @@ import javax.servlet.http.HttpServletRequest;
 public final class HttpRequests implements PublicStaticHelper {
 
     /**
+     * {@see HttpRequestParser#parse}
+     */
+    public static HttpRequest parse(final HttpTransport transport,
+                                    final String request) {
+        return HttpRequestParser.parse(transport, request);
+    }
+
+    /**
      * Creates a request with DELETE
      */
     public static HttpRequest delete(final HttpTransport transport,
