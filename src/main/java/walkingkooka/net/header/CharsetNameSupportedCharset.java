@@ -23,7 +23,6 @@ import walkingkooka.text.CaseSensitivity;
 import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * A {@link CharsetName} holding a supported/known {@link Charset}.

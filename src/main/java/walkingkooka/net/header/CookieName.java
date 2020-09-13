@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;

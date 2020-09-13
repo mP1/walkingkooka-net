@@ -23,7 +23,6 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 

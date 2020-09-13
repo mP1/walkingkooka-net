@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;

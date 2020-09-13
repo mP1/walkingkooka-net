@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
