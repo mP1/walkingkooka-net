@@ -20,7 +20,11 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HasHeaders;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -79,6 +83,33 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
         }
 
         assertEquals(Lists.of(lines), read);
+    }
+
+    // readHeaders......................................................................................................
+
+    @Test
+    public void testInvalidHeaderFails() {
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> LineReader.with("Invalid-Header").readHeaders());
+        assertEquals("Header missing separator/value=\"Invalid-Header\"", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidHeaderLineEndingFails() {
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> LineReader.with("Content-Length:1\r" +
+                "Invalid-Header2").readHeaders());
+        assertEquals("Invalid line ending", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidHeaderValueFails() {
+        final HeaderValueException thrown = assertThrows(HeaderValueException.class, () -> LineReader.with("Content-Length:A").readHeaders());
+        assertEquals("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\"", thrown.getMessage());
+    }
+
+    @Test
+    public void testReadHeaders() {
+        assertEquals(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN).addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
+                LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders());
     }
 
     // ToString.........................................................................................................
