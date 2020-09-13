@@ -17,10 +17,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Cast;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -49,7 +47,7 @@ final class HttpRequestParser implements StaticHelper {
         final HttpProtocolVersion version = HttpProtocolVersion.with(requestLineTokens[2]);
 
         // headers
-        final HttpEntity entity = parser.readHeaders();
+        final HttpEntity entity = parser.reader.readHeaders();
         final String body = parser.reader.leftOver();
 
         return HttpRequests.value(method,
@@ -79,29 +77,6 @@ final class HttpRequestParser implements StaticHelper {
             throw new IllegalArgumentException("Request line invalid: " + CharSequences.quoteAndEscape(line));
         }
         return tokens;
-    }
-
-    /**
-     * Reads line by line creating headers until an empty line is encountered.
-     */
-    private HttpEntity readHeaders() {
-        HttpEntity entity = HttpEntity.EMPTY;
-
-        for (; ; ) {
-            final String line = this.reader.readLine();
-            if (CharSequences.isNullOrEmpty(line)) {
-                break;
-            }
-
-            final int separator = line.indexOf(':');
-            if (-1 == separator) {
-                throw new IllegalArgumentException("Header missing separator/value=" + CharSequences.quoteAndEscape(line));
-            }
-            final HttpHeaderName<?> header = HttpHeaderName.with(line.substring(0, separator).trim());
-            entity = entity.addHeader(header, Cast.to(header.parse(line.substring(separator + 1))));
-        }
-
-        return entity;
     }
 
     private final LineReader reader;

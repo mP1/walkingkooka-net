@@ -17,6 +17,11 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Cast;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.text.CharSequences;
+
 /**
  * A simple header used to parse http requests/responses that reads line terminated by CRNL from text.
  */
@@ -29,6 +34,29 @@ final class LineReader {
     private LineReader(final String text) {
         super();
         this.text = text;
+    }
+
+    /**
+     * Reads line by line creating headers until an empty line is encountered.
+     */
+    HttpEntity readHeaders() {
+        HttpEntity entity = HttpEntity.EMPTY;
+
+        for (; ; ) {
+            final String line = this.readLine();
+            if (CharSequences.isNullOrEmpty(line)) {
+                break;
+            }
+
+            final int separator = line.indexOf(':');
+            if (-1 == separator) {
+                throw new IllegalArgumentException("Header missing separator/value=" + CharSequences.quoteAndEscape(line));
+            }
+            final HttpHeaderName<?> header = HttpHeaderName.with(line.substring(0, separator).trim());
+            entity = entity.addHeader(header, Cast.to(header.parse(line.substring(separator + 1))));
+        }
+
+        return entity;
     }
 
     /**
