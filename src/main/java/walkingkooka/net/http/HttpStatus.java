@@ -117,7 +117,7 @@ public final class HttpStatus implements Value<HttpStatusCode> {
      * Note only the value and not the message is included in equality tests.
      */
     private boolean equals0(final HttpStatus other) {
-        return this.value == other.value &&
+        return this.value.equals(other.value) &&
                 this.message.equals(other.message);
     }
 
