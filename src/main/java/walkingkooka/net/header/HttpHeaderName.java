@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
