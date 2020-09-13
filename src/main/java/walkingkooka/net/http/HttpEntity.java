@@ -211,6 +211,15 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
         return HttpEntityInterop.setBody(this, file, defaultCharset);
     }
 
+    // isEmpty.........................................................................................................
+
+    /**
+     * Returns true if this entity is empty, without headers and without any body.
+     */
+    public final boolean isEmpty() {
+        return this instanceof HttpEntityEmpty;
+    }
+
     // extractRange ...................................................................................
 
     /**

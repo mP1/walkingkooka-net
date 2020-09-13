@@ -226,6 +226,13 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         assertEquals(differentBinary, different.body());
     }
 
+    // isEmpty..........................................................................................................
+
+    @Test
+    public final void testIsEmpty() {
+        assertEquals(this instanceof HttpEntityEmptyTest, this.createHttpEntity().isEmpty());
+    }
+
     // helpers..........................................................................................................
 
     abstract H createHttpEntity();
