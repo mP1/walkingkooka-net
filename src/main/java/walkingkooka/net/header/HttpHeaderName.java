@@ -221,6 +221,16 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * A {@link HttpHeaderName} holding <code>Age</code>
      * <pre>
+     * Access-Control-Max-Age: 600
+     * </pre>
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age/>
+     */
+    public final static HttpHeaderName<Long> ACCESS_CONTROL_MAX_AGE = registerLongConstant("Access-Control-Max-Age",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Access-Control-Max-Age</code>
+     * <pre>
      * Age: <delta-seconds>
      * </pre>
      */

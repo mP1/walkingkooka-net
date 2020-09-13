@@ -338,6 +338,13 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Test
+    public void testParseAccessControlMaxAge() {
+        this.parseAndCheck(HttpHeaderName.ACCESS_CONTROL_MAX_AGE,
+                "591",
+                591L);
+    }
+
+    @Test
     public void testParseContentLengthString() {
         this.parseAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
