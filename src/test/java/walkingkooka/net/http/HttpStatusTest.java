@@ -92,6 +92,12 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     }
 
     @Test
+    public void testEqualsNonConstantStatusCode() {
+        final int code = 999;
+        this.checkEquals(HttpStatus.with(HttpStatusCode.withCode(code), MESSAGE), HttpStatus.with(HttpStatusCode.withCode(code), MESSAGE));
+    }
+
+    @Test
     public void testEqualsDifferentCode() {
         this.checkNotEquals(HttpStatus.with(HttpStatusCode.BAD_GATEWAY, MESSAGE));
     }
