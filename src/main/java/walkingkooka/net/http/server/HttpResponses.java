@@ -30,6 +30,13 @@ import java.util.function.Supplier;
 public final class HttpResponses implements PublicStaticHelper {
 
     /**
+     * {@see HttpResponseParser}
+     */
+    public static HttpResponse parse(final String response) {
+        return HttpResponseParser.parse(response);
+    }
+
+    /**
      * {@see AutoContentLengthHttpResponse}
      */
     @GwtIncompatible
