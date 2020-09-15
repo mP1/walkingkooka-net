@@ -39,6 +39,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestTest implements ClassTesting<HttpRequest> {
+
+    @Test
+    public void testBodyTextWhenBodyNullAndCharsetNull() {
+        this.bodyTextAndCheck(null,
+                null,
+                "");
+    }
+
+    @Test
+    public void testBodyTextWhenBodyNull() {
+        this.bodyTextAndCheck("text/plain;charset=UTF-8",
+                null,
+                "");
+    }
+
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
         final Charset charset = HttpEntity.DEFAULT_BODY_CHARSET;

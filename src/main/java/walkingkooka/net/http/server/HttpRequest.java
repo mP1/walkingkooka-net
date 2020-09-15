@@ -70,10 +70,13 @@ public interface HttpRequest extends HasHeaders {
     byte[] body();
 
     /**
-     * Returns the body as text.
+     * Returns the body as text. An added guard is made to ensure a null body returns an empty {@link String}.
      */
     default String bodyText() {
-        return new String(this.body(), this.charset(HttpEntity.DEFAULT_BODY_CHARSET));
+        final byte[] body = this.body();
+        return null != body ?
+                new String(body, this.charset(HttpEntity.DEFAULT_BODY_CHARSET)) :
+                "";
     }
 
     /**
