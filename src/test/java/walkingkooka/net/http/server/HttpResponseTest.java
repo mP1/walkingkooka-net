@@ -26,7 +26,6 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
