@@ -171,8 +171,6 @@ final class HttpRequestValue implements HttpRequest {
 
         final String eol = HttpRequest.LINE_ENDING.toString();
 
-        b.append(this.transport);
-        b.append(eol);
         // request line
         b.valueSeparator(" ");
         b.value(this.method());
