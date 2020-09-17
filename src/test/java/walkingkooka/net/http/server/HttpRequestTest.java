@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -29,6 +30,9 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +42,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestTest implements ClassTesting<HttpRequest> {
+public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNodeMarshallingTesting<HttpRequest> {
 
     @Test
     public void testBodyTextWhenBodyNullAndCharsetNull() {
@@ -135,6 +139,8 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
         };
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<HttpRequest> type() {
         return HttpRequest.class;
@@ -143,5 +149,25 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // JsonNodeMarshallingTesting.......................................................................................
+
+    @Override
+    public HttpRequest createJsonNodeMappingValue() {
+        return HttpRequests.value(HttpMethod.POST,
+                HttpTransport.SECURED,
+                Url.parseRelative("/path1/file2?query3"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                        .setBodyText("body-text-123"));
+    }
+
+    @Override
+    public final HttpRequest unmarshall(final JsonNode from,
+                                         final JsonNodeUnmarshallContext context) {
+        return HttpRequests.parse(HttpTransport.SECURED, from.stringValueOrFail());
     }
 }
