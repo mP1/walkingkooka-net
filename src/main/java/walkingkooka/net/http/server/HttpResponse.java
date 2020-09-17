@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.List;
@@ -28,6 +29,16 @@ import java.util.Optional;
  * or processed in some way.
  */
 public interface HttpResponse {
+
+    /**
+     * Version setter.
+     */
+    void setVersion(final HttpProtocolVersion version);
+
+    /**
+     * Version getter
+     */
+    Optional<HttpProtocolVersion> version();
 
     /**
      * Sets the response status

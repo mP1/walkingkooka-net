@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -44,6 +45,23 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     public final void testWithNullResponseFails() {
         assertThrows(NullPointerException.class, () -> this.createResponse(null));
     }
+
+    @Test
+    public void testSetVersion() {
+        this.setVersion = 0;
+
+        final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
+        this.createResponse(new FakeHttpResponse() {
+            @Test
+            public void setVersion(final HttpProtocolVersion v) {
+                assertSame(version, v);
+                setVersion++;
+            }
+        }).setVersion(version);
+        assertEquals(1, this.setVersion, "wrapped response setVersion not called");
+    }
+
+    private int setVersion;
 
     @Test
     public void testSetStatus() {
@@ -104,77 +122,99 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         return httpEntity;
     }
 
-    final void setStatusAddEntityAndCheck(final HttpStatus status,
-                                          final HttpEntity entity) {
-        this.setStatusAddEntityAndCheck(status,
+    final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final HttpEntity entity) {
+        this.setVersionStatusAddEntityAndCheck(version,
+                status,
                 entity,
                 status,
                 entity);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpStatus status,
-                                          final HttpEntity... entities) {
-        this.setStatusAddEntityAndCheck(status,
+    final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final HttpEntity... entities) {
+        this.setVersionStatusAddEntityAndCheck(version,
+                status,
                 Lists.of(entities),
+                version,
                 status,
                 entities);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpStatus status,
-                                          final HttpEntity entity,
-                                          final HttpStatus expectedStatus,
-                                          final HttpEntity... expectedEntities) {
-        this.setStatusAddEntityAndCheck(status,
+    final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final HttpEntity entity,
+                                                 final HttpStatus expectedStatus,
+                                                 final HttpEntity... expectedEntities) {
+        this.setVersionStatusAddEntityAndCheck(version,
+                status,
                 Lists.of(entity),
+                version,
                 expectedStatus,
                 expectedEntities);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpStatus status,
-                                          final List<HttpEntity> entities,
-                                          final HttpStatus expectedStatus,
-                                          final HttpEntity... expectedEntities) {
-        this.setStatusAddEntityAndCheck(this.createRequest(),
+    final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final List<HttpEntity> entities,
+                                                 final HttpProtocolVersion expectedVersion,
+                                                 final HttpStatus expectedStatus,
+                                                 final HttpEntity... expectedEntities) {
+        this.setVersionStatusAddEntityAndCheck(this.createRequest(),
+                version,
                 status,
                 entities,
+                expectedVersion,
                 expectedStatus,
                 expectedEntities);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpRequest request,
-                                          final HttpStatus status,
-                                          final HttpEntity... entities) {
-        this.setStatusAddEntityAndCheck(request,
+    final void setVersionStatusAddEntityAndCheck(final HttpRequest request,
+                                                 final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final HttpEntity... entities) {
+        this.setVersionStatusAddEntityAndCheck(request,
+                version,
                 status,
                 Lists.of(entities),
+                version,
                 status,
                 entities);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpRequest request,
-                                          final HttpStatus status,
-                                          final HttpEntity entity,
-                                          final HttpStatus expectedStatus,
-                                          final HttpEntity... expectedEntities) {
-        this.setStatusAddEntityAndCheck(request,
+    final void setVersionStatusAddEntityAndCheck(final HttpRequest request,
+                                                 final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final HttpEntity entity,
+                                                 final HttpProtocolVersion expectedVersion,
+                                                 final HttpStatus expectedStatus,
+                                                 final HttpEntity... expectedEntities) {
+        this.setVersionStatusAddEntityAndCheck(request,
+                version,
                 status,
                 Lists.of(entity),
+                expectedVersion,
                 expectedStatus,
                 expectedEntities);
     }
 
-    final void setStatusAddEntityAndCheck(final HttpRequest request,
-                                          final HttpStatus status,
-                                          final List<HttpEntity> entities,
-                                          final HttpStatus expectedStatus,
-                                          final HttpEntity... expectedEntities) {
+    final void setVersionStatusAddEntityAndCheck(final HttpRequest request,
+                                                 final HttpProtocolVersion version,
+                                                 final HttpStatus status,
+                                                 final List<HttpEntity> entities,
+                                                 final HttpProtocolVersion expectedVersion,
+                                                 final HttpStatus expectedStatus,
+                                                 final HttpEntity... expectedEntities) {
         final RecordingHttpResponse wrapped = RecordingHttpResponse.with();
 
         final R response = this.createResponse(request, wrapped);
+        response.setVersion(version);
         response.setStatus(status);
         entities.forEach(response::addEntity);
 
-        this.checkResponse(wrapped, request, expectedStatus, expectedEntities);
+        this.checkResponse(wrapped, request, expectedVersion, expectedStatus, expectedEntities);
     }
 
     static <T> Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<T> header,

@@ -33,6 +33,7 @@ import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.header.RangeHeaderValue;
 import walkingkooka.net.header.RangeHeaderValueUnit;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
@@ -109,7 +110,9 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void setStatusAddEntityAndCheck(final HttpStatusCode status) {
-        this.setStatusAddEntityAndCheck(status.status(), this.httpEntity());
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version, status.status(), this.httpEntity());
+        }
     }
 
     @Test
@@ -214,12 +217,16 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         }
         headers.put(HttpHeaderName.SERVER, list("Server123"));
 
-        this.setStatusAddEntityAndCheck(
-                this.createRequest(requestRanges, requestIfRange),
-                HttpStatusCode.OK.status(),
-                httpEntity(headers).setBody(Binary.with(body)),
-                expectedStatus.status(),
-                httpEntity(headers).setBody(Binary.with(expectedBody)));
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(
+                    this.createRequest(requestRanges, requestIfRange),
+                    version,
+                    HttpStatusCode.OK.status(),
+                    httpEntity(headers).setBody(Binary.with(body)),
+                    version,
+                    expectedStatus.status(),
+                    httpEntity(headers).setBody(Binary.with(expectedBody)));
+        }
     }
 
     // range ............................................................................................
@@ -264,7 +271,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(lower, upper))
                 .setBodyText(multipart2Body);
 
-        this.setStatusAddEntityAndCheck(requestRange,
+        this.setHeaderAddEntityAndCheck(requestRange,
                 IF_RANGE_ABSENT,
                 headers,
                 multipart1,
@@ -297,7 +304,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12))
                 .setBodyText("klm");
 
-        this.setStatusAddEntityAndCheck("bytes=1-2,10-12",
+        this.setHeaderAddEntityAndCheck("bytes=1-2,10-12",
                 IF_RANGE_ABSENT,
                 headers,
                 multipart1,
@@ -311,16 +318,20 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 Optional.of(BODY_LENGTH));
     }
 
-    private void setStatusAddEntityAndCheck(final String requestRanges,
+    private void setHeaderAddEntityAndCheck(final String requestRanges,
                                             final IfRange requestIfRange,
                                             final Map<HttpHeaderName<?>, List<?>> headers,
                                             final HttpEntity... expectedEntities) {
-        this.setStatusAddEntityAndCheck(
-                this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
-                HttpStatusCode.OK.status(),
-                httpEntity(headers).setBody(Binary.with(BODY)),
-                HttpStatusCode.PARTIAL_CONTENT.status(),
-                expectedEntities);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(
+                    this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
+                    version,
+                    HttpStatusCode.OK.status(),
+                    httpEntity(headers).setBody(Binary.with(BODY)),
+                    version,
+                    HttpStatusCode.PARTIAL_CONTENT.status(),
+                    expectedEntities);
+        }
     }
 
     // helpers ............................................................................................

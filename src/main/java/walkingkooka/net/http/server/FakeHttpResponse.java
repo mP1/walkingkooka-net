@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.Fake;
 
@@ -26,6 +27,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FakeHttpResponse implements HttpResponse, Fake {
+
+    @Override
+    public void setVersion(final HttpProtocolVersion version) {
+        Objects.requireNonNull(version, "version");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<HttpProtocolVersion> version() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public void setStatus(final HttpStatus status) {

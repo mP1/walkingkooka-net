@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -66,17 +67,22 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
     public void testHeadIgnoreResponseBody() {
         final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
 
-        for (final HttpStatusCode status : HttpStatusCode.values()) {
-            this.setStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
-                    status.status(),
-                    httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
-                    status.status(),
-                    httpEntity(headers));
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            for (final HttpStatusCode status : HttpStatusCode.values()) {
+                this.setVersionStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
+                        version,
+                        status.status(),
+                        httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
+                        version,
+                        status.status(),
+                        httpEntity(headers));
+            }
         }
     }
 
     @Test
     public void testMultipartResponse() {
+        final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_1;
         final HttpStatus status = HttpStatusCode.OK.status();
         final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
 
@@ -94,6 +100,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
         this.checkResponse(recording,
                 request,
+                version,
                 status,
                 httpEntity(headers));
     }

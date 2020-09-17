@@ -25,6 +25,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.RangeHeaderValue;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
@@ -54,14 +55,16 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     @Test
     public void testSuccessMultiPart() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.OK.status(),
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-1a")),
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-2b")));
     }
 
     @Test
     public void testPartialContentWithRanges() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.PARTIAL_CONTENT.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.PARTIAL_CONTENT.status(),
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.RANGE, RangeHeaderValue.parse("bytes=1-2"))
                         .setBody(this.binary("a1")));
@@ -74,13 +77,15 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
 
     @Test
     public void testMultipleChoicesMissingLocation() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.MULTIPLE_CHOICES.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.MULTIPLE_CHOICES.status(),
                 this.httpEntityWithServerHeader());
     }
 
     @Test
     public void testMultipleChoices() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.MULTIPLE_CHOICES.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_1,
+                HttpStatusCode.MULTIPLE_CHOICES.status(),
                 this.httpEntityWithServerHeader());
     }
 
@@ -185,11 +190,14 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     }
 
     private void setStatusWithServerHeader(final HttpStatusCode code) {
-        this.setStatusAddEntityAndCheck(code.status(), this.httpEntityWithServerHeader());
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version, code.status(), this.httpEntityWithServerHeader());
+        }
     }
 
     private void setStatusWithoutLocationHeader(final HttpStatusCode code) {
-        this.setStatusAddEntityAndCheck(code.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                code.status(),
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.LOCATION, Url.parse("http://example.com")).setBody(this.binary("a1")));
     }
 
@@ -210,10 +218,14 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
         final HttpStatus status = code.status();
         final HttpEntity entity = httpEntity(headers).setBody(Binary.with(new byte[]{'a', 'b', 'c', '1', '2', '3'}));
 
-        this.setStatusAddEntityAndCheck(status,
-                Lists.of(entity, HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
-                HttpEntity.EMPTY);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    status,
+                    Lists.of(entity, HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
+                    version,
+                    HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
+                    HttpEntity.EMPTY);
+        }
     }
 
     @Override

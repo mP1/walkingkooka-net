@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -41,44 +42,53 @@ public final class MultiPartAwareHttpResponseTest extends BufferingHttpResponseT
 
     @Test
     public void testNonMultiPart() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.OK.status(),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN, "part"));
     }
 
     @Test
     public void testNonMultiPartIgnoresAdditionalParts() {
-        final HttpStatus status = HttpStatusCode.OK.status();
-        final HttpEntity part1 = this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN, "part-1a");
-        final HttpEntity part2 = this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN, "part-2b");
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            final HttpStatus status = HttpStatusCode.OK.status();
+            final HttpEntity part1 = this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN, "part-1a");
+            final HttpEntity part2 = this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN, "part-2b");
 
-        this.setStatusAddEntityAndCheck(status,
-                Lists.of(part1, part2),
-                status,
-                part1);
+            this.setVersionStatusAddEntityAndCheck(version,
+                    status,
+                    Lists.of(part1, part2),
+                    version,
+                    status,
+                    part1);
+        }
     }
 
     @Test
     public void testNonMultiPartIgnoresAdditionalPartsWithoutContentType() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_1,
+                HttpStatusCode.OK.status(),
                 this.entity(HttpHeaderName.CONTENT_LENGTH, 6L, "abc123"));
     }
 
     @Test
     public void testMultipartOnePart() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_1,
+                HttpStatusCode.OK.status(),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part1"));
     }
 
     @Test
     public void testMultipartSeveralPart2() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_1,
+                HttpStatusCode.OK.status(),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part1"),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part2"));
     }
 
     @Test
     public void testMultipartSeveralPart3() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_1,
+                HttpStatusCode.OK.status(),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part1"),
                 this.entity(HttpHeaderName.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA, "part2"));
     }

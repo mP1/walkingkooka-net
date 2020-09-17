@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.reflect.TypeNameTesting;
 
@@ -29,6 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTesting<R>, TypeNameTesting<R> {
+
+    @Test
+    default void testSetVersionNullFails() {
+        assertThrows(NullPointerException.class, () -> this.createResponse().setVersion(null));
+    }
 
     @Test
     default void testSetStatusNullFails() {
@@ -44,9 +50,11 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
 
     default void checkResponse(final RecordingHttpResponse response,
                                final HttpRequest request,
+                               final HttpProtocolVersion version,
                                final HttpStatus status,
                                final HttpEntity... entities) {
         final HttpResponse expected = HttpResponses.recording();
+        expected.setVersion(version);
         expected.setStatus(status);
 
         Arrays.stream(entities)
