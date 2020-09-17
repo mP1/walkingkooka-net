@@ -193,8 +193,7 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createObject(),
-                "SECURED\r\n" +
-                        "CONNECT /path1/path2?query3=value4 HTTP/1.1\r\n" +
+                "CONNECT /path1/path2?query3=value4 HTTP/1.1\r\n" +
                         "Content-Type: text/html; charset=UTF-8\r\n" +
                         "Cookie: cookie1: value1;\r\n" +
                         "\r\n" +
