@@ -21,9 +21,17 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallException;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -148,6 +156,38 @@ public final class HttpResponses implements PublicStaticHelper {
         return RequiredHeadersHttpResponse.with(request, response);
     }
 
+    // JsonNodeContext..................................................................................................
+
+    /**
+     * Accepts a json string holding a serialized request in text form.
+     */
+    static HttpResponse unmarshall(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
+        Objects.requireNonNull(node, "node");
+
+        // horrible hack to assume SECURED, doesnt actually matter and should be ignored during routing.
+        return parse(node.stringValueOrFail());
+    }
+
+    private static JsonNode marshall(final HttpResponse response,
+                                     final JsonNodeMarshallContext context) {
+        if(false == response.version().isPresent()) {
+            throw new JsonNodeMarshallException("Version missing " + response);
+        }
+        if(false == response.status().isPresent()) {
+            throw new JsonNodeMarshallException("Status missing " + response);
+        }
+        return JsonNode.string(response.toString());
+    }
+
+    // TODO Write an annotation-processor that discovers all HttpResponses and adds them to the last parameter.
+    static {
+        JsonNodeContext.register("HttpResponse",
+                HttpResponses::unmarshall,
+                HttpResponses::marshall,
+                HttpResponse.class, RecordingHttpResponse.class); // unfortunately J2cl runtime doesnt support Class.isInstance
+    }
+    
     /**
      * Stop creation
      */
