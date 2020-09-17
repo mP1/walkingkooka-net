@@ -39,7 +39,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
     @Test
     public void testEmptyFails() {
-        this.parseStringFails("", new IllegalArgumentException("Missing status"));
+        this.parseStringFails("", new IllegalArgumentException("Missing version and status"));
     }
 
     @Test
@@ -63,16 +63,28 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     }
 
     @Test
-    public void testWithoutHeaders() {
+    public void testWithoutHeadersVersion10() {
         final HttpResponse response = HttpResponses.recording();
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
 
         this.parseAndCheck("HTTP/1.0 200 OK\r\n\r\n", response);
     }
 
     @Test
-    public void testWithoutHeaders2() {
+    public void testWithoutHeadersVersion11() {
         final HttpResponse response = HttpResponses.recording();
+        response.setVersion(HttpProtocolVersion.VERSION_1_1);
+        response.setStatus(HttpStatusCode.OK.status());
+
+        this.parseAndCheck("HTTP/1.1 200 OK\r\n\r\n", response);
+    }
+
+    @Test
+    public void testWithoutHeaders() {
+        final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.CREATED.setMessage("Something Created"));
 
         this.parseAndCheck("HTTP/1.0 201 Something Created\r\n\r\n", response);
@@ -81,6 +93,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testWithHeader() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
 
@@ -90,6 +104,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testWithTwoHeaders() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
                 .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN));
@@ -100,6 +116,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testOnlyBody() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.setBodyText("Body123"));
 
@@ -109,6 +127,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testHeadersAndBody() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body123"));
 
@@ -118,6 +138,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testBodyIncludesCr() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body\r123"));
 
