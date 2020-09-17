@@ -45,6 +45,13 @@ final class HttpEntityText extends HttpEntityNotEmpty {
         return new HttpEntityText(headers, this.bodyText());
     }
 
+    // contentLength....................................................................................................
+
+    @Override
+    public long contentLength() {
+        return this.bodyText().length();
+    }
+
     @Override
     public Binary body() {
         return Binary.with(this.text.getBytes(this.charset()));

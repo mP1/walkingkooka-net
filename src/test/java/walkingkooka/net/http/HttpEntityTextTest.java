@@ -35,6 +35,11 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     private final static String DIFFERENT_TEXT = "different-text";
 
     @Test
+    public void testContentLength() {
+        this.contentLengthAndCheck(this.createHttpEntity(), TEXT.length());
+    }
+
+    @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 

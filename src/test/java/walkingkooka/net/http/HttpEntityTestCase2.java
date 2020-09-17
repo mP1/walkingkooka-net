@@ -48,6 +48,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         super();
     }
 
+    final void contentLengthAndCheck(final HttpEntity entity, final long length) {
+        assertEquals(length, entity.contentLength(), () -> "entity contentLength " + entity);
+    }
+
     @Test
     public final void testSetHeadersInvalidFails() {
         final HttpEntity entity = this.createHttpEntity();
