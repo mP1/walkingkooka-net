@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -109,9 +110,10 @@ final class RecordingHttpResponse implements HttpResponse {
         return ToStringBuilder.empty()
                 .globalLength(length)
                 .valueLength(length)
-                .valueSeparator("\n")
-                .separator("\n")
-                .value(this.status)
+                .valueSeparator("\r\n")
+                .separator("\r\n")
+                .disable(ToStringBuilderOption.QUOTE)
+                .value(ToStringBuilder.empty().valueSeparator(" ").value(this.version).value(this.status).build())
                 .value(this.entities)
                 .build();
     }

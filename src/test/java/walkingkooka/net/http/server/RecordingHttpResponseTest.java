@@ -123,15 +123,29 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     }
 
     @Test
-    public void testToString() {
+    public void testToStringWithoutVersion() {
         final RecordingHttpResponse response = this.createResponse();
         response.setStatus(this.status());
         response.addEntity(this.entity());
 
-        this.toStringAndCheck(response.toString().replace("\r\n", "\n").replace('\r', '\n'),
-                "503 Problem x y z\n" +
-                        "Server: Server 123\n" +
-                        "\n" +
+        this.toStringAndCheck(response,
+                "503 Problem x y z\r\n" +
+                        "Server: Server 123\r\n" +
+                        "\r\n" +
+                        "00000000 41 42 43                                        ABC             \n");
+    }
+
+    @Test
+    public void testToString() {
+        final RecordingHttpResponse response = this.createResponse();
+        response.setVersion(this.version());
+        response.setStatus(this.status());
+        response.addEntity(this.entity());
+
+        this.toStringAndCheck(response,
+                "HTTP/1.1 503 Problem x y z\r\n" +
+                        "Server: Server 123\r\n" +
+                        "\r\n" +
                         "00000000 41 42 43                                        ABC             \n");
     }
 
