@@ -89,7 +89,7 @@ final class RecordingHttpResponse implements HttpResponse {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.status, this.entities);
+        return Objects.hash(this.version, this.status, this.entities);
     }
 
     public boolean equals(final Object other) {
@@ -99,7 +99,8 @@ final class RecordingHttpResponse implements HttpResponse {
     }
 
     private boolean equals0(final RecordingHttpResponse other) {
-        return Objects.equals(this.status, other.status) &&
+        return Objects.equals(this.version, other.version) &&
+                Objects.equals(this.status, other.status) &&
                 Objects.equals(this.entities, other.entities);
     }
 
