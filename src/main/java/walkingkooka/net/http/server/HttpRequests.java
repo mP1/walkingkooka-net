@@ -24,8 +24,13 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 public final class HttpRequests implements PublicStaticHelper {
 
@@ -120,6 +125,34 @@ public final class HttpRequests implements PublicStaticHelper {
                                     final HttpEntity... entities) {
         return HttpRequestValue.with(method, transport, url, protocolVersion, entities);
     }
+
+    // JsonNodeContext..................................................................................................
+
+    /**
+     * Accepts a json string holding a serialized request in text form.
+     */
+    static HttpRequest unmarshall(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
+        Objects.requireNonNull(node, "node");
+
+        // horrible hack to assume SECURED, doesnt actually matter and should be ignored during routing.
+        return parse(HttpTransport.SECURED, node.stringValueOrFail());
+    }
+
+    private static JsonNode marshall(final HttpRequest request,
+                                     final JsonNodeMarshallContext context) {
+        return JsonNode.string(request.toString());
+    }
+
+    // TODO Write an annotation-processor that discovers all HttpRequests and adds them to the last parameter.
+    static {
+        JsonNodeContext.register("httpRequest",
+                HttpRequests::unmarshall,
+                HttpRequests::marshall,
+                HttpRequest.class, HttpRequestValue.class); // unfortunately J2cl runtime doesnt support Class.isInstance
+    }
+
+    // PublicStaticHelper...............................................................................................
 
     /**
      * Stop creation
