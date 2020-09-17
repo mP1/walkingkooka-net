@@ -90,6 +90,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         final HttpRequest request = this.createRequest(HttpMethod.HEAD);
         final HttpResponse response = HeadHttpResponse.with(request, recording);
 
+        response.setVersion(version);
         response.setStatus(status);
 
         response.addEntity(httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])));

@@ -38,14 +38,38 @@ final class HttpResponseParser implements StaticHelper {
         final LineReader reader = LineReader.with(text);
         final HttpResponseParser parser = new HttpResponseParser(reader);
 
-        // response status...
-        final HttpStatus status = parser.readStatus();
+        // response version and status...
+        final String line = reader.readLine();
+        if (null == line) {
+            throw new IllegalArgumentException("Missing version and status");
+        }
+
+        final int firstSpace = line.indexOf(' ');
+        if (-1 == firstSpace) {
+            throw new IllegalArgumentException("Invalid status " + CharSequences.quoteAndEscape(line));
+        }
+
+        final int secondSpace = line.indexOf(' ', firstSpace + 1);
+        if (-1 == secondSpace) {
+            throw new IllegalArgumentException("Invalid status " + CharSequences.quoteAndEscape(line));
+        }
+
+        final HttpProtocolVersion version = HttpProtocolVersion.with(line.substring(0, firstSpace));
+
+        final HttpStatusCode statusCode;
+        try {
+            statusCode = HttpStatusCode.withCode(Integer.parseInt(line.substring(firstSpace + 1, secondSpace)));
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid status code " + CharSequences.quoteAndEscape(line));
+        }
+        final HttpStatus status = statusCode.setMessage(line.substring(secondSpace + 1));
 
         // headers
         final HttpEntity entity = parser.reader.readHeaders();
         final String body = parser.reader.leftOver();
 
         final HttpResponse response = HttpResponses.recording();
+        response.setVersion(version);
         response.setStatus(status);
 
         final boolean notEmptyBody = false == CharSequences.isNullOrEmpty(body);
@@ -61,36 +85,6 @@ final class HttpResponseParser implements StaticHelper {
     private HttpResponseParser(final LineReader reader) {
         super();
         this.reader = reader;
-    }
-
-    /**
-     * Reads the response status and ensures there are three tokens, the version code and message.
-     */
-    private HttpStatus readStatus() {
-        final String line = this.reader.readLine();
-        if (null == line) {
-            throw new IllegalArgumentException("Missing status");
-        }
-
-        final int firstSpace = line.indexOf(' ');
-        if (-1 == firstSpace) {
-            throw new IllegalArgumentException("Invalid status " + CharSequences.quoteAndEscape(line));
-        }
-
-        final int secondSpace = line.indexOf(' ', firstSpace + 1);
-        if (-1 == secondSpace) {
-            throw new IllegalArgumentException("Invalid status " + CharSequences.quoteAndEscape(line));
-        }
-
-        HttpProtocolVersion.with(line.substring(0, firstSpace));
-
-        final HttpStatusCode statusCode;
-        try {
-            statusCode = HttpStatusCode.withCode(Integer.parseInt(line.substring(firstSpace + 1, secondSpace)));
-        } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException("Invalid status code "+ CharSequences.quoteAndEscape(line));
-        }
-        return statusCode.setMessage(line.substring(secondSpace + 1));
     }
 
     private final LineReader reader;
