@@ -35,6 +35,7 @@ import java.util.Objects;
 
 /**
  * A {@link HttpRequest} assembled from various components including {@link HttpEntity}.
+ * Currently this is the only {@link HttpRequest} type that support json marshalling/unmarshalling.
  */
 final class HttpRequestValue implements HttpRequest {
 
