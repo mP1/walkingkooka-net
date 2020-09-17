@@ -34,6 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmpty> {
 
+    @Test
+    public void testContentLength() {
+        this.contentLengthAndCheck(this.createHttpEntity(), 0L);
+    }
+
     // setHeaders........................................................................................................
 
     @Test

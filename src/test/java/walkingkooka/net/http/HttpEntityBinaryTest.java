@@ -36,6 +36,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpEntityBinary> {
 
     @Test
+    public void testContentLength() {
+        this.contentLengthAndCheck(this.createHttpEntity(), BINARY.size());
+    }
+
+    @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 

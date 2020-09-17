@@ -77,6 +77,13 @@ final class HttpEntityEmpty extends HttpEntity {
         return this; // nop
     }
 
+    // contentLength....................................................................................................
+
+    @Override
+    public long contentLength() {
+        return 0;
+    }
+
     // body.............................................................................................................
 
     @Override

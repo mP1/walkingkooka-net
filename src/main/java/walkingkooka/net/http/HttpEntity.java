@@ -95,10 +95,15 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
     abstract HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
 
     /**
+     * Getter that returns the content length
+     */
+    public abstract long contentLength();
+
+    /**
      * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
      */
     public final HttpEntity setContentLength() {
-        return this.setHeader0(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().size())));
+        return this.setHeader0(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.contentLength())));
     }
 
     /**

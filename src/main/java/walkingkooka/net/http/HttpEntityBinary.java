@@ -65,6 +65,13 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
         return new HttpEntityBinary(headers, this.body);
     }
 
+    // contentLength....................................................................................................
+
+    @Override
+    public long contentLength() {
+        return this.body().size();
+    }
+
     // body ............................................................................................................
 
     @Override
