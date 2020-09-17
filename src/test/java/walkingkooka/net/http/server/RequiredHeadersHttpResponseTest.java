@@ -53,56 +53,64 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
 
     @Test
     public void testWithRequest11Response1xxServerMissing() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.CONTINUE.status(), this.entityWithoutServerHeader());
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0, HttpStatusCode.CONTINUE.status(), this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response2xxServerMissing() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(), this.entityWithoutServerHeader(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.OK.status(),
+                this.entityWithoutServerHeader(),
                 HttpStatusCode.INTERNAL_SERVER_ERROR.status());
     }
 
     @Test
     public void testWithRequest11Response2xxServerPresent() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(), this.entityWithServerHeader());
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0, HttpStatusCode.OK.status(), this.entityWithServerHeader());
     }
 
     @Test
     public void testWithRequest11Response2xxServerPresentMultipart() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.OK.status(),
                 this.entityWithServerHeader(),
                 this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response3xxServerMissing() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.TEMPORARY_REDIRECT.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.TEMPORARY_REDIRECT.status(),
                 this.entityWithoutServerHeader(),
                 HttpStatusCode.INTERNAL_SERVER_ERROR.status());
     }
 
     @Test
     public void testWithRequest11Response3xxServerPresent() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.TEMPORARY_REDIRECT.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.TEMPORARY_REDIRECT.status(),
                 this.entityWithServerHeader());
     }
 
     @Test
     public void testWithRequest11Response3xxServerPresentMultipart() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.TEMPORARY_REDIRECT.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.TEMPORARY_REDIRECT.status(),
                 this.entityWithServerHeader(),
                 this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response4xxServerMissing() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.NOT_FOUND.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.NOT_FOUND.status(),
                 this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response5xxServerMissing() {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
+                HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
                 this.entityWithoutServerHeader());
     }
 

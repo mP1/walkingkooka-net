@@ -26,6 +26,7 @@ import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.List;
@@ -111,7 +112,8 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     }
 
     private void statusBodyAndCheck(final HttpStatusCode status) {
-        this.setStatusAddEntityAndCheck(status,
+        this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_2,
+                status,
                 this.headersWithContentHeaders(E_TAG_ABSENT),
                 BODY);
     }
@@ -143,12 +145,16 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     private void setStatusOkAndAddEntityAndCheck(final ETag etag,
                                                  final ETag expectedETag,
                                                  final byte[] body) {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
-                this.headersWithContentHeaders(etag),
-                body,
-                HttpStatusCode.OK,
-                this.headersWithContentHeaders(expectedETag),
-                body);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    HttpStatusCode.OK,
+                    this.headersWithContentHeaders(etag),
+                    body,
+                    version,
+                    HttpStatusCode.OK,
+                    this.headersWithContentHeaders(expectedETag),
+                    body);
+        }
     }
 
     // response  ...............................................................
@@ -156,34 +162,38 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     @Test
     public void testStatusOkEtagPrecomputedIfNoneMatchMatched() {
         final ETag etag = this.etag(2);
-        this.setStatusOkAndNotModifiedCheck(etag,
+        this.setBodyAndNotModifiedCheck(etag,
                 etag,
                 new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched() {
-        this.setStatusOkAndNotModifiedCheck(E_TAG_ABSENT,
+        this.setBodyAndNotModifiedCheck(E_TAG_ABSENT,
                 this.etag(2),
                 new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched2() {
-        this.setStatusOkAndNotModifiedCheck(E_TAG_ABSENT,
+        this.setBodyAndNotModifiedCheck(E_TAG_ABSENT,
                 this.etag(3),
                 new byte[3]);
     }
 
-    private void setStatusOkAndNotModifiedCheck(final ETag etag,
-                                                final ETag expectedETag,
-                                                final byte[] body) {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
-                this.headersWithContentHeaders(etag),
-                body,
-                HttpStatusCode.NOT_MODIFIED,
-                this.headers(expectedETag),
-                body);
+    private void setBodyAndNotModifiedCheck(final ETag etag,
+                                            final ETag expectedETag,
+                                            final byte[] body) {
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    HttpStatusCode.OK,
+                    this.headersWithContentHeaders(etag),
+                    body,
+                    version,
+                    HttpStatusCode.NOT_MODIFIED,
+                    this.headers(expectedETag),
+                    body);
+        }
     }
 
     // helpers.........................................................................................
@@ -204,22 +214,27 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
         return headers;
     }
 
-    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, List<?>> headers,
-                                            final byte[] body) {
-        this.setStatusAddEntityAndCheck(status, headers, body, status, headers, body);
+    private void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                   final HttpStatusCode status,
+                                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                                   final byte[] body) {
+        this.setVersionStatusAddEntityAndCheck(version, status, headers, body, version, status, headers, body);
     }
 
-    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, List<?>> headers,
-                                            final byte[] body,
-                                            final HttpStatusCode expectedStatus,
-                                            final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
-                                            final byte[] expectedBody) {
-        this.setStatusAddEntityAndCheck(
+    private void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                   final HttpStatusCode status,
+                                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                                   final byte[] body,
+                                                   final HttpProtocolVersion expectedVersion,
+                                                   final HttpStatusCode expectedStatus,
+                                                   final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
+                                                   final byte[] expectedBody) {
+        this.setVersionStatusAddEntityAndCheck(
                 this.createRequest(),
+                version,
                 status.status(),
                 httpEntity(headers).setBody(Binary.with(body)),
+                expectedVersion,
                 expectedStatus.status(),
                 httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
     }

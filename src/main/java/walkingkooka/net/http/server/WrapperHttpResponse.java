@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.List;
@@ -40,6 +41,16 @@ abstract class WrapperHttpResponse implements HttpResponse {
     WrapperHttpResponse(final HttpResponse response) {
         super();
         this.response = response;
+    }
+
+    @Override
+    public void setVersion(final HttpProtocolVersion version) {
+        this.response.setVersion(version);
+    }
+
+    @Override
+    public Optional<HttpProtocolVersion> version() {
+        return this.response.version();
     }
 
     @Override

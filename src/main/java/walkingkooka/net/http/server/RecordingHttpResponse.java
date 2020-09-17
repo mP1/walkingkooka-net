@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.List;
@@ -45,6 +46,19 @@ final class RecordingHttpResponse implements HttpResponse {
     private RecordingHttpResponse() {
         super();
     }
+
+    @Override
+    public void setVersion(final HttpProtocolVersion version) {
+        Objects.requireNonNull(version, "version");
+        this.version = version;
+    }
+
+    @Override
+    public Optional<HttpProtocolVersion> version() {
+        return Optional.ofNullable(this.version);
+    }
+
+    private HttpProtocolVersion version;
 
     @Override
     public void setStatus(final HttpStatus status) {

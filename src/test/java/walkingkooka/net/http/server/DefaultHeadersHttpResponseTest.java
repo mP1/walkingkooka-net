@@ -25,6 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -63,7 +64,12 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
         final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = HttpRequests.fake();
+
         DefaultHeadersHttpResponse response = this.createResponse(request, recording);
+
+        final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_1;
+
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(httpEntity(responseHeaders).setBody(body));
 
@@ -78,6 +84,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
         this.checkResponse(recording,
                 request,
+                version,
                 status,
                 httpEntity(finalHeaders).setBody(body),
                 second);

@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -35,11 +36,15 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     @Test
     public void testBuild() {
         final RecordingHttpResponse response = this.createResponse();
+        final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
+
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(entity);
 
+        assertEquals(Optional.ofNullable(version), response.version(), "version");
         assertEquals(Optional.ofNullable(status), response.status(), "status");
         assertEquals(Lists.of(entity), response.entities(), "entities");
     }
@@ -47,37 +52,50 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     @Test
     public void testCheck() {
         final RecordingHttpResponse response = this.createResponse();
+
+        final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
+
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(entity);
-        this.checkResponse(response, HttpRequests.fake(), status, entity);
+
+        this.checkResponse(response, HttpRequests.fake(), version, status, entity);
     }
 
     @Test
     public void testCheckMultipleEntities() {
         final RecordingHttpResponse response = this.createResponse();
+
+        final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         final HttpEntity entity2 = HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.SERVER, "part 2")
                 .setBody(Binary.with(new byte[123]));
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(entity);
         response.addEntity(entity2);
 
-        this.checkResponse(response, HttpRequests.fake(), status, entity, entity2);
+        this.checkResponse(response, HttpRequests.fake(), version, status, entity, entity2);
     }
 
     @Test
     public void testCheckIncorrectStatusFails() {
         final RecordingHttpResponse response = this.createResponse();
+
+        final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
+
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
+                version,
                 HttpStatusCode.OK.status(),
                 entity));
     }
@@ -85,14 +103,19 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     @Test
     public void testCheckDifferentEntityFails() {
         final RecordingHttpResponse response = this.createResponse();
+
+        final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.SERVER, "Server 123")
                 .setBody(Binary.with(new byte[123]));
+
+        response.setVersion(version);
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
+                version,
                 status,
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.SERVER, "Server 456")
@@ -115,6 +138,10 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     @Override
     public RecordingHttpResponse createResponse() {
         return RecordingHttpResponse.with();
+    }
+
+    private HttpProtocolVersion version() {
+        return HttpProtocolVersion.VERSION_1_1;
     }
 
     private HttpStatus status() {

@@ -26,6 +26,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
@@ -137,9 +138,12 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
     }
 
     private void setStatusLastModifiedAbsentBodyAndCheck(final HttpStatusCode status) {
-        this.setStatusAddEntityAndCheck(status,
-                this.headersWithContentHeaders(LAST_MODIFIED_ABSENT),
-                BODY);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    status,
+                    this.headersWithContentHeaders(LAST_MODIFIED_ABSENT),
+                    BODY);
+        }
     }
 
     // server last modified incorrect last modified body..............................................................
@@ -162,9 +166,12 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     private void setStatusOkLastModifiedAndCheck(final LocalDateTime lastModified,
                                                  final byte[] body) {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
-                this.headersWithContentHeaders(lastModified),
-                body);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    HttpStatusCode.OK,
+                    this.headersWithContentHeaders(lastModified),
+                    body);
+        }
     }
 
     // response not modified ...........................................................
@@ -201,12 +208,16 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     private void responseOkLastModifiedAndNotModifiedCheck(final LocalDateTime lastModified,
                                                            final byte[] body) {
-        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
-                this.headersWithContentHeaders(lastModified),
-                body,
-                HttpStatusCode.NOT_MODIFIED,
-                this.headers(lastModified),
-                body);
+        for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
+            this.setVersionStatusAddEntityAndCheck(version,
+                    HttpStatusCode.OK,
+                    this.headersWithContentHeaders(lastModified),
+                    body,
+                    version,
+                    HttpStatusCode.NOT_MODIFIED,
+                    this.headers(lastModified),
+                    body);
+        }
     }
 
     // helpers.........................................................................................
@@ -227,22 +238,27 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
         return headers;
     }
 
-    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, List<?>> headers,
-                                            final byte[] body) {
-        this.setStatusAddEntityAndCheck(status, headers, body, status, headers, body);
+    private void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                   final HttpStatusCode status,
+                                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                                   final byte[] body) {
+        this.setVersionStatusAddEntityAndCheck(version, status, headers, body, version, status, headers, body);
     }
 
-    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
-                                            final Map<HttpHeaderName<?>, List<?>> headers,
-                                            final byte[] body,
-                                            final HttpStatusCode expectedStatus,
-                                            final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
-                                            final byte[] expectedBody) {
-        this.setStatusAddEntityAndCheck(
+    private void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
+                                                   final HttpStatusCode status,
+                                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                                   final byte[] body,
+                                                   final HttpProtocolVersion expectedVersion,
+                                                   final HttpStatusCode expectedStatus,
+                                                   final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
+                                                   final byte[] expectedBody) {
+        this.setVersionStatusAddEntityAndCheck(
                 createRequest(),
+                version,
                 status.status(),
                 httpEntity(headers).setBody(Binary.with(body)),
+                expectedVersion,
                 expectedStatus.status(),
                 httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
     }
