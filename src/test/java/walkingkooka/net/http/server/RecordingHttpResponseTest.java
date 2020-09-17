@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -31,7 +32,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RecordingHttpResponseTest extends HttpResponseTestCase2<RecordingHttpResponse> {
+public final class RecordingHttpResponseTest extends HttpResponseTestCase2<RecordingHttpResponse>
+        implements HashCodeEqualsDefinedTesting2<RecordingHttpResponse> {
 
     @Test
     public void testBuild() {
@@ -122,6 +124,43 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
                         .setBody(Binary.with(new byte[456]))));
     }
 
+    // equals...........................................................................................................
+
+    @Test
+    public void testEqualsDifferentVersion() {
+        final RecordingHttpResponse response = this.createResponse();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
+        response.setStatus(this.status());
+        response.addEntity(this.entity());
+
+        this.checkNotEquals(response);
+    }
+
+    @Test
+    public void testEqualsDifferentStatus() {
+        final RecordingHttpResponse response = this.createResponse();
+
+        response.setVersion(this.version());
+        response.setStatus(HttpStatusCode.withCode(9999).setMessage("Different"));
+        response.addEntity(this.entity());
+
+        this.checkNotEquals(response);
+    }
+
+    @Test
+    public void testEqualsDifferentEntity() {
+        final RecordingHttpResponse response = this.createResponse();
+
+        response.setVersion(this.version());
+        response.setStatus(this.status());
+        response.addEntity(HttpEntity.EMPTY.setBodyText("Different"));
+
+        this.checkNotEquals(response);
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToStringWithoutVersion() {
         final RecordingHttpResponse response = this.createResponse();
@@ -171,5 +210,16 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     @Override
     public Class<RecordingHttpResponse> type() {
         return RecordingHttpResponse.class;
+    }
+
+    @Override
+    public RecordingHttpResponse createObject() {
+        final RecordingHttpResponse response = this.createResponse();
+
+        response.setVersion(this.version());
+        response.setStatus(this.status());
+        response.addEntity(this.entity());
+
+        return response;
     }
 }
