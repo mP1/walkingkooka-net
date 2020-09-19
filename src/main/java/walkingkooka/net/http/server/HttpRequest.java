@@ -80,6 +80,13 @@ public interface HttpRequest extends HasHeaders {
     }
 
     /**
+     * Returns the content length of the body/bodyText
+     */
+    default long bodyLength() {
+        return HttpRequestBodyLength.bodyLength(this);
+    }
+
+    /**
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
      */
     Map<HttpRequestParameterName, List<String>> parameters();

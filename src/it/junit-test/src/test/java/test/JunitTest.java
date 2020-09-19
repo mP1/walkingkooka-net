@@ -281,6 +281,17 @@ public class JunitTest {
     }
 
     @Test
+    public void testBodyLength() {
+        final String bodyText = "Body123";
+        Assert.assertEquals(bodyText.length(), new FakeHttpRequest() {
+            @Override
+            public String bodyText() {
+                return bodyText;
+            }
+        }.bodyLength());
+    }
+
+    @Test
     public void testHttpRequestHttpResponseBiConsumersWebFile() {
         final HttpRequest request = new FakeHttpRequest() {
 
