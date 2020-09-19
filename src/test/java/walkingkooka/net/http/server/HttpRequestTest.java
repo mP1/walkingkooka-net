@@ -92,6 +92,11 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
                 this.request(contentType, body).bodyText());
     }
 
+    @Test
+    public void testBodyLength() {
+        assertEquals(123L, this.request("text/plain", new byte[123]));
+    }
+
     private HttpRequest request(final String contentType,
                                 final byte[] body) {
         return new HttpRequest() {
