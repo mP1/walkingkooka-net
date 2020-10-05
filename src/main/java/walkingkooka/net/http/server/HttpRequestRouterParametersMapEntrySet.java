@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
@@ -65,17 +66,22 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> urlParameterNames = Cast.to(map.urlParameters().entrySet().iterator());
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = HttpRequestRouterParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = Cast.to(request.headers().entrySet().iterator());
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = HttpRequestRouterParametersMapCookiesEntryIterator.with(HttpHeaderName.COOKIE.headerValue(request).orElse(ClientCookie.NO_COOKIES));
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = Iterators.mapping(HttpHeaderName.COOKIE.headerValue(request).orElse(ClientCookie.NO_COOKIES).iterator(), HttpRequestRouterParametersMapEntrySet::cookie);
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 
+        // TODO support lazy concatenating iterators.
         return Iterators.chain(attributes,
                 Iterators.chain(pathNames,
                         Iterators.chain(urlParameterNames,
                                 Iterators.chain(headers,
                                         Iterators.chain(cookies, parameters)))));
+    }
+
+    private static Entry<HttpRequestAttribute<?>, Object> cookie(final ClientCookie cookie) {
+        return Maps.entry(cookie.name(), cookie);
     }
 
     @Override

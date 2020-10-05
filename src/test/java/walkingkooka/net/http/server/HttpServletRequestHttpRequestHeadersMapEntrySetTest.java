@@ -46,13 +46,6 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
     }
 
     @Test
-    public void testContains() {
-        final HttpServletRequest request = this.request();
-        this.containsAndCheck(HttpServletRequestHttpRequestHeadersMapEntrySet.with(request),
-                HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER1.value(), request));
-    }
-
-    @Test
     public void testIterator() {
         final Map<HttpHeaderName<?>, List<?>> entries = Maps.ordered();
 
