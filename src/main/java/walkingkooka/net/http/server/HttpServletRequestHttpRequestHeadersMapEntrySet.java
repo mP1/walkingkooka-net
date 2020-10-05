@@ -17,6 +17,9 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Cast;
+import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HttpHeaderName;
 
@@ -25,6 +28,7 @@ import java.util.AbstractSet;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -48,7 +52,22 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
 
     @Override
     public Iterator<Entry<HttpHeaderName<?>, List<?>>> iterator() {
-        return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.with(this.request);
+        return Iterators.mapping(Iterators.enumeration(this.request.getHeaderNames()), this::mapper);
+    }
+
+    /**
+     * Creates an {@link Entry} with the typed {@link HttpHeaderName} and its values from the original String strings.
+     */
+    private Entry<HttpHeaderName<?>, List<?>> mapper(final String headerName) {
+        final HttpHeaderName<?> header = HttpHeaderName.with(headerName);
+
+        final List<?> values = Lists.array();
+        for (final Enumeration<String> stringValues = this.request.getHeaders(headerName); stringValues.hasMoreElements(); ) {
+            values.add(Cast.to(header.parse(stringValues.nextElement())));
+        }
+
+
+        return Map.entry(header, Lists.readOnly(values));
     }
 
     @Override

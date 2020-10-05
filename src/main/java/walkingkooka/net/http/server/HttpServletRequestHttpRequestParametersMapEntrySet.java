@@ -17,6 +17,8 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractSet;
@@ -46,7 +48,11 @@ final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractS
 
     @Override
     public Iterator<Entry<HttpRequestParameterName, List<String>>> iterator() {
-        return HttpServletRequestHttpRequestParametersMapEntrySetIterator.with(this.parameters.iterator());
+        return Iterators.mapping(this.parameters.iterator(), HttpServletRequestHttpRequestParametersMapEntrySet::mapper);
+    }
+
+    private static Entry<HttpRequestParameterName, List<String>> mapper(final Entry<String, String[]> entry) {
+        return Map.entry(HttpRequestParameterName.with(entry.getKey()), Lists.of(entry.getValue()));
     }
 
     @Override

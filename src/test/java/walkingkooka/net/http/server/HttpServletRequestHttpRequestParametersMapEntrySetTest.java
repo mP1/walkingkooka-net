@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.collect.set.Sets;
@@ -79,9 +80,9 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
         return Maps.entry(key, values.clone());
     }
 
-    private HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry entry(final HttpRequestParameterName key,
-                                                                                  final String... values) {
-        return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(key.value(), values));
+    private Entry<HttpRequestParameterName, List<String>> entry(final HttpRequestParameterName key,
+                                                                final String... values) {
+        return Maps.entry(key, Lists.of(values));
     }
 
     @Override
