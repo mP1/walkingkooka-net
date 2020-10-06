@@ -24,6 +24,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -100,6 +101,16 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     @Test
     public void testEqualsDifferentCode() {
         this.checkNotEquals(HttpStatus.with(HttpStatusCode.BAD_GATEWAY, MESSAGE));
+    }
+
+    @Test
+    public void testEqualsFoundAndMovedTemporarily() {
+        final HttpStatusCode found = HttpStatusCode.FOUND;
+        final HttpStatusCode movedTemp = HttpStatusCode.MOVED_TEMPORARILY;
+        assertEquals(found.code(), movedTemp.code(), "code");
+        assertNotEquals(found, movedTemp, "HttpStatusCode");
+
+        this.checkEquals(found.setMessage(MESSAGE), movedTemp.setMessage(MESSAGE));
     }
 
     @Test

@@ -99,11 +99,13 @@ public final class HttpStatus implements Value<HttpStatusCode> {
         return new HttpStatus(value, message);
     }
 
-    // Object........................................................................
+    // Object...........................................................................................................
+
+    // hash/equals only include HttpStatusCode.code only, making HttpStatusCode.FOUND == HttpStatusCode.MOVED_TEMPORARILY
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.value, this.message);
+        return Objects.hash(this.value.code(), this.message);
     }
 
     @Override
@@ -117,7 +119,7 @@ public final class HttpStatus implements Value<HttpStatusCode> {
      * Note only the value and not the message is included in equality tests.
      */
     private boolean equals0(final HttpStatus other) {
-        return this.value.equals(other.value) &&
+        return this.value.code() == other.value.code() &&
                 this.message.equals(other.message);
     }
 
