@@ -49,10 +49,21 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
         assertThrows(InvalidCharacterException.class, () -> LanguageNameNonWildcard.nonWildcard("\0xyz"));
     }
 
+    @Override
+    public void testNameMaxLength() {
+    }
+
     @Test
-    public void testWith() {
+    public void testWithEn() {
         final LanguageNameNonWildcard LanguageTagName = LanguageNameNonWildcard.nonWildcard(VALUE);
         this.check(LanguageTagName);
+    }
+
+    @Test
+    public void testWithEnAu() {
+        final String locale = "en-AU";
+        final LanguageNameNonWildcard LanguageTagName = LanguageNameNonWildcard.nonWildcard(locale);
+        this.check(LanguageTagName, locale, Optional.of(Locale.forLanguageTag(locale)));
     }
 
     private void check(final LanguageName name) {
