@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.InvalidTextLengthException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -59,16 +58,13 @@ final class LanguageNameNonWildcard extends LanguageName {
     }
 
     /**
-     * Only allow printable ascii language names.
+     * Parsers the language as a java locale. A basic check for valid characters is performed. Validating the locale
+     * exists it not performed because in a j2cl environment not all locales will be available in a javascript environment.
      */
-    private static LanguageNameNonWildcard nonWildcard0(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "language", PREDICATE);
+    private static LanguageNameNonWildcard nonWildcard0(final String language) {
+        CharPredicates.failIfNullOrEmptyOrFalse(language, "language", PREDICATE);
 
-        final Locale locale = Locale.forLanguageTag(value);
-        if (locale.toString().isEmpty()) {
-            throw new InvalidTextLengthException("language", value, 0, Integer.MAX_VALUE);
-        }
-        return new LanguageNameNonWildcard(value, Optional.of(locale));
+        return new LanguageNameNonWildcard(language, Optional.of(Locale.forLanguageTag(language)));
     }
 
     private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
