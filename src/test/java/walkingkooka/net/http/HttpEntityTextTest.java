@@ -18,6 +18,8 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -37,6 +40,15 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testContentLength() {
         this.contentLengthAndCheck(this.createHttpEntity(), TEXT.length());
+    }
+
+    @Test
+    public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() throws Exception {
+        final String text = "\u0256\u0257";
+        final int bytesLength = text.getBytes("UTF-8").length;
+        assertNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
+
+        this.contentLengthAndCheck(HttpEntityText.with(Cast.to(Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse("text/plain; charset=UTF8")))), text), bytesLength);
     }
 
     @Test
