@@ -47,9 +47,12 @@ final class HttpEntityText extends HttpEntityNotEmpty {
 
     // contentLength....................................................................................................
 
+    /**
+     * Measures the encoded byte length of the body text.
+     */
     @Override
     public long contentLength() {
-        return this.bodyText().length();
+        return this.bodyText().getBytes(this.charset()).length;
     }
 
     @Override

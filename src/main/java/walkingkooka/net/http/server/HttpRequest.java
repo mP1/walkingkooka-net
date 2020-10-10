@@ -83,7 +83,7 @@ public interface HttpRequest extends HasHeaders {
      * Returns the content length of the body/bodyText
      */
     default long bodyLength() {
-        return HttpRequestBodyLength.bodyLength(this);
+        return this.body().length;
     }
 
     /**

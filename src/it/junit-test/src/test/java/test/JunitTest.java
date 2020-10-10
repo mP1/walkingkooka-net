@@ -285,8 +285,8 @@ public class JunitTest {
         final String bodyText = "Body123";
         Assert.assertEquals(bodyText.length(), new FakeHttpRequest() {
             @Override
-            public String bodyText() {
-                return bodyText;
+            public long bodyLength() {
+                return bodyText.length();
             }
         }.bodyLength());
     }
