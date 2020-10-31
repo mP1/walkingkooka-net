@@ -17,12 +17,11 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.NodeSelectorContext;
@@ -68,10 +67,9 @@ final class LinkRelationConstantGenerator {
         return NodeSelectorContexts.basic(() -> false, // dont stop!
                 Predicates.always(), // filter match all
                 LinkRelationConstantGenerator::record,
-                ExpressionNumberKind.DEFAULT,
                 LinkRelationConstantGenerator::functions,
                 Converters.fake(),
-                ConverterContexts.fake(),
+                ExpressionNumberConverterContexts.fake(),
                 XmlNode.class);
     }
 
