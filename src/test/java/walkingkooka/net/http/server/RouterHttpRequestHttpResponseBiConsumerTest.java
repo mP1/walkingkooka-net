@@ -34,8 +34,7 @@ import java.util.function.BiConsumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<RouterHttpRequestHttpResponseBiConsumer>,
-        ToStringTesting<RouterHttpRequestHttpResponseBiConsumer> {
+public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase<RouterHttpRequestHttpResponseBiConsumer> {
 
     @Test
     public void testWithNullRouterFails() {
@@ -126,10 +125,5 @@ public final class RouterHttpRequestHttpResponseBiConsumerTest implements ClassT
     @Override
     public Class<RouterHttpRequestHttpResponseBiConsumer> type() {
         return RouterHttpRequestHttpResponseBiConsumer.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -46,8 +46,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<WebFileHttpRequestHttpResponseBiConsumer>,
-        ToStringTesting<WebFileHttpRequestHttpResponseBiConsumer> {
+public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase<WebFileHttpRequestHttpResponseBiConsumer> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -345,10 +344,5 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest implements Class
     @Override
     public Class<WebFileHttpRequestHttpResponseBiConsumer> type() {
         return WebFileHttpRequestHttpResponseBiConsumer.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
