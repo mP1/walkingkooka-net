@@ -25,18 +25,18 @@ import java.util.function.BiConsumer;
 /**
  * A {@link BiConsumer} that attempts locate the handler from the request or uses the default handler.
  */
-final class RouterBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class RouterHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
-    static RouterBiConsumer with(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
-                                 final BiConsumer<HttpRequest, HttpResponse> notFound) {
+    static RouterHttpRequestHttpResponseBiConsumer with(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
+                                                        final BiConsumer<HttpRequest, HttpResponse> notFound) {
         Objects.requireNonNull(router, "router");
         Objects.requireNonNull(notFound, "notFound");
 
-        return new RouterBiConsumer(router, notFound);
+        return new RouterHttpRequestHttpResponseBiConsumer(router, notFound);
     }
 
-    private RouterBiConsumer(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
-                             final BiConsumer<HttpRequest, HttpResponse> notFound) {
+    private RouterHttpRequestHttpResponseBiConsumer(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
+                                                    final BiConsumer<HttpRequest, HttpResponse> notFound) {
         super();
         this.router = router;
         this.notFound = notFound;
