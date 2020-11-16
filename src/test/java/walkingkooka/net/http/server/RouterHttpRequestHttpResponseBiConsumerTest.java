@@ -18,13 +18,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
 
 import java.util.Map;
@@ -34,7 +31,7 @@ import java.util.function.BiConsumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase<RouterHttpRequestHttpResponseBiConsumer> {
+public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<RouterHttpRequestHttpResponseBiConsumer> {
 
     @Test
     public void testWithNullRouterFails() {

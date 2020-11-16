@@ -37,6 +37,13 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     }
 
     /**
+     * {@see StacktraceDumpingHttpRequestHttpResponseBiConsumer}
+     */
+    public static BiConsumer<HttpRequest, HttpResponse> stacktraceDumping(final BiConsumer<HttpRequest, HttpResponse> handler) {
+        return StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(handler);
+    }
+
+    /**
      * {@see WebFileHttpRequestHttpResponseBiConsumer}
      */
     public static BiConsumer<HttpRequest, HttpResponse> webFile(final UrlPath basePath,
