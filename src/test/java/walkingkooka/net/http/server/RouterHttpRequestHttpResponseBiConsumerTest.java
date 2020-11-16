@@ -34,17 +34,17 @@ import java.util.function.BiConsumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterBiConsumerTest implements ClassTesting2<RouterBiConsumer>,
-        ToStringTesting<RouterBiConsumer> {
+public final class RouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<RouterHttpRequestHttpResponseBiConsumer>,
+        ToStringTesting<RouterHttpRequestHttpResponseBiConsumer> {
 
     @Test
     public void testWithNullRouterFails() {
-        assertThrows(NullPointerException.class, () -> RouterBiConsumer.with(null, this.notFound()));
+        assertThrows(NullPointerException.class, () -> RouterHttpRequestHttpResponseBiConsumer.with(null, this.notFound()));
     }
 
     @Test
     public void testWithNotFoundFails() {
-        assertThrows(NullPointerException.class, () -> RouterBiConsumer.with(this.router(), null));
+        assertThrows(NullPointerException.class, () -> RouterHttpRequestHttpResponseBiConsumer.with(this.router(), null));
     }
 
     @Test
@@ -73,11 +73,11 @@ public final class RouterBiConsumerTest implements ClassTesting2<RouterBiConsume
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = this.router();
         final BiConsumer<HttpRequest, HttpResponse> notFound = this.notFound();
 
-        this.toStringAndCheck(RouterBiConsumer.with(router, notFound), router + " OR " + notFound);
+        this.toStringAndCheck(RouterHttpRequestHttpResponseBiConsumer.with(router, notFound), router + " OR " + notFound);
     }
 
-    private RouterBiConsumer createBiConsumer() {
-        return RouterBiConsumer.with(this.router(), this.notFound());
+    private RouterHttpRequestHttpResponseBiConsumer createBiConsumer() {
+        return RouterHttpRequestHttpResponseBiConsumer.with(this.router(), this.notFound());
     }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router() {
@@ -124,8 +124,8 @@ public final class RouterBiConsumerTest implements ClassTesting2<RouterBiConsume
     }
 
     @Override
-    public Class<RouterBiConsumer> type() {
-        return RouterBiConsumer.class;
+    public Class<RouterHttpRequestHttpResponseBiConsumer> type() {
+        return RouterHttpRequestHttpResponseBiConsumer.class;
     }
 
     @Override

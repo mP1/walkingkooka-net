@@ -29,11 +29,11 @@ import java.util.function.Function;
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
 
     /**
-     * {@see RouterBiConsumer}
+     * {@see RouterHttpRequestHttpResponseBiConsumer}
      */
     public static BiConsumer<HttpRequest, HttpResponse> router(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
                                                                final BiConsumer<HttpRequest, HttpResponse> notFound) {
-        return RouterBiConsumer.with(router, notFound);
+        return RouterHttpRequestHttpResponseBiConsumer.with(router, notFound);
     }
 
     /**
