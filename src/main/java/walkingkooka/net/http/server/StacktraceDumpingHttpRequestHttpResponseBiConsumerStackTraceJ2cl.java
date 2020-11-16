@@ -17,20 +17,10 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+abstract class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl {
 
-import java.util.function.BiConsumer;
-
-public abstract class HttpRequestHttpResponseBiConsumerTestCase<T> implements ClassTesting2<T> {
-
-    HttpRequestHttpResponseBiConsumerTestCase() {
-        super();
-    }
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    static void setResponseBody(final HttpResponse response,
+                                final Throwable cause) {
+        // do nothing in javascript
     }
 }

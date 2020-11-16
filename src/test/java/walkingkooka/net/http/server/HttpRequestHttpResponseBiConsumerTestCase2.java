@@ -23,14 +23,11 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.BiConsumer;
 
-public abstract class HttpRequestHttpResponseBiConsumerTestCase<T> implements ClassTesting2<T> {
+public abstract class HttpRequestHttpResponseBiConsumerTestCase2<H extends BiConsumer<HttpRequest, HttpResponse>>
+        extends HttpRequestHttpResponseBiConsumerTestCase<H>
+        implements ToStringTesting<H> {
 
-    HttpRequestHttpResponseBiConsumerTestCase() {
+    HttpRequestHttpResponseBiConsumerTestCase2() {
         super();
-    }
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

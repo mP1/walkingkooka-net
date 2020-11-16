@@ -17,20 +17,9 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
-
-import java.util.function.BiConsumer;
-
-public abstract class HttpRequestHttpResponseBiConsumerTestCase<T> implements ClassTesting2<T> {
-
-    HttpRequestHttpResponseBiConsumerTestCase() {
-        super();
-    }
-
+public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2ClTest extends HttpRequestHttpResponseBiConsumerTestCase<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> {
     @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> type() {
+        return StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl.class;
     }
 }
