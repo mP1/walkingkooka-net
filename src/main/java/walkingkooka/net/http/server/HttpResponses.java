@@ -22,12 +22,10 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallException;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 
 import java.util.List;
 import java.util.Map;
@@ -166,7 +164,7 @@ public final class HttpResponses implements PublicStaticHelper {
         Objects.requireNonNull(node, "node");
 
         // horrible hack to assume SECURED, doesnt actually matter and should be ignored during routing.
-        return parse(node.stringValueOrFail());
+        return parse(node.stringOrFail());
     }
 
     private static JsonNode marshall(final HttpResponse response,
