@@ -81,6 +81,6 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     @Override
     public final HttpResponse unmarshall(final JsonNode from,
                                          final JsonNodeUnmarshallContext context) {
-        return HttpResponses.parse(from.stringValueOrFail());
+        return HttpResponses.parse(from.stringOrFail());
     }
 }

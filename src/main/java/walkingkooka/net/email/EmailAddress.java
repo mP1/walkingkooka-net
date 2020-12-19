@@ -133,7 +133,7 @@ final public class EmailAddress implements Value<String>,
                                    final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        return parse(node.stringValueOrFail());
+        return parse(node.stringOrFail());
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {

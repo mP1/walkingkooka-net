@@ -136,7 +136,7 @@ public final class HttpRequests implements PublicStaticHelper {
         Objects.requireNonNull(node, "node");
 
         // horrible hack to assume SECURED, doesnt actually matter and should be ignored during routing.
-        return parse(HttpTransport.SECURED, node.stringValueOrFail());
+        return parse(HttpTransport.SECURED, node.stringOrFail());
     }
 
     private static JsonNode marshall(final HttpRequest request,

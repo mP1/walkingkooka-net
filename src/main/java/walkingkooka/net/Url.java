@@ -224,7 +224,7 @@ public abstract class Url implements Value<String>,
                                                  final Function<String, U> parse) {
         Objects.requireNonNull(node, "node");
 
-        return parse.apply(node.stringValueOrFail());
+        return parse.apply(node.stringOrFail());
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
