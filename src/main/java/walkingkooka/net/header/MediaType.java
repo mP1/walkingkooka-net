@@ -164,6 +164,11 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
     public final static MediaType APPLICATION_PDF = registerConstant("application/pdf");
 
     /**
+     * Holds a {@link MediaType} that contains JSON <code>application/json</code>
+     */
+    public final static MediaType APPLICATION_JSON = MediaType.with("application", "json");
+
+    /**
      * Holds a {@link MediaType} that contains ZIP <code>application/zip</code>
      */
     public final static MediaType APPLICATION_ZIP = registerConstant("application/zip");
