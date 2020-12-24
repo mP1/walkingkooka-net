@@ -272,6 +272,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     @Override
+    public ContentDisposition createDifferentHeaderValue() {
+        return ContentDisposition.with(ContentDispositionType.INLINE);
+    }
+
+    @Override
     public boolean isMultipart() {
         return true;
     }

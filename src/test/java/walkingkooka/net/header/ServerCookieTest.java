@@ -1244,6 +1244,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
+    public ServerCookie createDifferentHeaderValue() {
+        return ServerCookie.parseHeader("different=value");
+    }
+
+    @Override
     public boolean isRequest() {
         return false;
     }

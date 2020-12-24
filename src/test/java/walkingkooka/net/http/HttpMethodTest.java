@@ -206,6 +206,11 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     @Override
+    public HttpMethod createDifferentHeaderValue() {
+        return HttpMethod.POST;
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

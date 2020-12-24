@@ -91,6 +91,11 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         return this.encodedText(FILENAME);
     }
 
+    @Override
+    public ContentDispositionFileNameEncoded createDifferentHeaderValue() {
+        return ContentDispositionFileNameEncoded.with(this.encodedText("different"));
+    }
+
     private EncodedText encodedText(final String filename) {
         return EncodedText.with(this.charsetName(), this.language(), filename);
     }

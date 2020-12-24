@@ -218,6 +218,16 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
         this.checkNotEquals(CacheControlDirectiveName.S_MAXAGE.setParameter(PARAMETER));
     }
 
+    @Override
+    public void testEqualsIgnoringParametersDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEqualsOnlyPresentParametersDifferentFalse() {
+        throw new UnsupportedOperationException();
+    }
+
     private CacheControlDirectiveName<Long> directiveName() {
         return CacheControlDirectiveName.MAX_AGE;
     }
@@ -225,6 +235,11 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     @Override
     public CacheControlDirective<Long> createHeaderValue() {
         return CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L));
+    }
+
+    @Override
+    public CacheControlDirective<Long> createDifferentHeaderValue() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

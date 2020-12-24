@@ -117,6 +117,11 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     }
 
     @Override
+    public ContentDispositionFileNameNotEncoded createDifferentHeaderValue() {
+        return ContentDispositionFileNameNotEncoded.with("different");
+    }
+
+    @Override
     public Class<ContentDispositionFileNameNotEncoded> type() {
         return ContentDispositionFileNameNotEncoded.class;
     }

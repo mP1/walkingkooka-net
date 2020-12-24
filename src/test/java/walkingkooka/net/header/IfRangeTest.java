@@ -96,6 +96,11 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
+    public IfRange<?> createDifferentHeaderValue() {
+        return IfRange.with(LocalDateTime.of(1999, 1, 2, 0, 58, 59));
+    }
+
+    @Override
     public Class<IfRange<?>> type() {
         return Cast.to(IfRange.class);
     }

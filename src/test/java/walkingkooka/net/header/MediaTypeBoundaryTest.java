@@ -234,6 +234,11 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Override
+    public MediaTypeBoundary createDifferentHeaderValue() {
+        return MediaTypeBoundary.with("different");
+    }
+
+    @Override
     public boolean isMultipart() {
         return true;
     }

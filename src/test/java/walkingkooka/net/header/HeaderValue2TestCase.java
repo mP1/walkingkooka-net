@@ -55,5 +55,10 @@ public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends
 
     abstract V value();
 
+    @Override
+    public final H createDifferentHeaderValue() {
+        return this.createHeaderValue(this.differentValue());
+    }
+
     abstract V differentValue();
 }

@@ -148,6 +148,11 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     }
 
     @Override
+    public AcceptEncodingValue createDifferentHeaderValue() {
+        return AcceptEncodingValue.with("BR");
+    }
+
+    @Override
     Class<AcceptEncodingValueWildcard> encodingType() {
         return AcceptEncodingValueWildcard.class;
     }

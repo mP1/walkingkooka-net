@@ -68,6 +68,11 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     }
 
     @Override
+    public RangeHeaderValueUnit createDifferentHeaderValue() {
+        return RangeHeaderValueUnit.NONE;
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

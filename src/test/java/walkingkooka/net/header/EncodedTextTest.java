@@ -180,6 +180,11 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
+    public EncodedText createDifferentHeaderValue() {
+        return EncodedText.with(this.charset(), Optional.empty(), "different");
+    }
+
+    @Override
     public boolean isMultipart() {
         return true;
     }

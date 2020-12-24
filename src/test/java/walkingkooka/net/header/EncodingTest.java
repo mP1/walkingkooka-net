@@ -113,6 +113,11 @@ public final class EncodingTest extends HeaderValueTestCase<Encoding>
     }
 
     @Override
+    public Encoding createDifferentHeaderValue() {
+        return this.createHeaderValue("different");
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }
