@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
@@ -99,6 +100,107 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
 
     default void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
         assertEquals(expected, headerValue.isWildcard(), () -> "header " + headerValue);
+    }
+
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    default void testEqualsIgnoringParametersNullFalse() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValue(),
+                null,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersInvalidTypeFalse() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValue(),
+                this,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersSelfTrue() {
+        final V header = this.createHeaderValue();
+        equalsIgnoringParametersAndCheck(
+                header,
+                header,
+                true
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersTrue() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValue(),
+                this.createHeaderValue(),
+                true
+        );
+    }
+
+    default void equalsIgnoringParametersAndCheck(final HeaderValue header,
+                                                  final Object other,
+                                                  final boolean expected) {
+        assertEquals(expected,
+                header.equalsIgnoringParameters(other),
+                () -> header + " equalsIgnoringParameters " + other);
+
+        if (other instanceof HeaderValue) {
+            final HeaderValue otherHeader = Cast.to(other);
+            assertEquals(expected,
+                    otherHeader.equalsIgnoringParameters(header),
+                    () -> otherHeader + " equalsIgnoringParameters " + header);
+        }
+    }
+
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    default void testEqualsOnlyPresentParametersNullFalse() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValue(),
+                null,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersInvalidTypeFalse() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValue(),
+                this,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersSelfTrue() {
+        final V header = this.createHeaderValue();
+        equalsOnlyPresentParametersAndCheck(
+                header,
+                header,
+                true
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersTrue() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValue(),
+                this.createHeaderValue(),
+                true
+        );
+    }
+
+    default void equalsOnlyPresentParametersAndCheck(final HeaderValue header,
+                                                     final Object other,
+                                                     final boolean expected) {
+        assertEquals(expected,
+                header.equalsOnlyPresentParameters(other),
+                () -> header + " equalsOnlyPresentParameters " + other);
     }
 
     @Override
