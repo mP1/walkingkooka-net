@@ -109,6 +109,11 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
     }
 
     @Override
+    public ETagNonWildcard createDifferentHeaderValue() {
+        return ETagNonWildcard.with0("different", ETagValidator.STRONG);
+    }
+
+    @Override
     String value() {
         return VALUE;
     }

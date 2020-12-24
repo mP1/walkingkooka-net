@@ -133,6 +133,11 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     abstract V value();
 
+    @Override
+    public final R createDifferentHeaderValue() {
+        return this.createHeaderValue(this.differentValue());
+    }
+
     abstract V differentValue();
 
     abstract W otherValue();

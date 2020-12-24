@@ -857,6 +857,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
+    public MediaType createDifferentHeaderValue() {
+        return MediaType.with("different-type", "different-sub-type");
+    }
+
+    @Override
     public boolean isMultipart() {
         return true;
     }

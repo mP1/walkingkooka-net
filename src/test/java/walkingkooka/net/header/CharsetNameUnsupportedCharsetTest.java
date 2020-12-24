@@ -49,6 +49,11 @@ public final class CharsetNameUnsupportedCharsetTest extends CharsetNameTestCase
     }
 
     @Override
+    public CharsetNameUnsupportedCharset createDifferentHeaderValue() {
+        return CharsetNameUnsupportedCharset.unsupportedCharset("unsupported-different");
+    }
+
+    @Override
     public Class<CharsetNameUnsupportedCharset> type() {
         return CharsetNameUnsupportedCharset.class;
     }

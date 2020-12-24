@@ -137,6 +137,11 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     }
 
     @Override
+    public ETag createDifferentHeaderValue() {
+        return ETag.with("Different", ETagValidator.WEAK);
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

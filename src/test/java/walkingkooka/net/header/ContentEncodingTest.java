@@ -121,7 +121,12 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
         return ContentEncoding.with(this.value());
     }
 
-    private ContentEncoding createHeaderValue(final Encoding...encodings) {
+    @Override
+    public ContentEncoding createDifferentHeaderValue() {
+        return ContentEncoding.DEFLATE;
+    }
+
+    private ContentEncoding createHeaderValue(final Encoding... encodings) {
         return ContentEncoding.with(Lists.of(encodings));
     }
 

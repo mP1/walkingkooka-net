@@ -143,6 +143,11 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
     }
 
     @Override
+    public CacheControl createDifferentHeaderValue() {
+        return CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE));
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

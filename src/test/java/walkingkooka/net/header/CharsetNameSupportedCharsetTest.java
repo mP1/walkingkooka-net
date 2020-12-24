@@ -69,6 +69,11 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
     }
 
     @Override
+    public CharsetNameSupportedCharset createDifferentHeaderValue() {
+        return CharsetNameSupportedCharset.with("different", Charset.forName("UTF-16"));
+    }
+
+    @Override
     String charsetNameToString() {
         return "UTF-8";
     }

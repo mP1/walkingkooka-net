@@ -92,14 +92,19 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
         return ContentLanguage.with(this.value());
     }
 
-    private ContentLanguage createHeaderValue(final LanguageName...languages) {
+    @Override
+    public ContentLanguage createDifferentHeaderValue() {
+        return ContentLanguage.with(Lists.of(this.gr()));
+    }
+
+    private ContentLanguage createHeaderValue(final LanguageName... languages) {
         return ContentLanguage.with(Lists.of(languages));
     }
 
     private List<LanguageName> value() {
         return Lists.of(this.en(), this.fr());
     }
-    
+
     private LanguageName en() {
         return LanguageName.with("en");
     }

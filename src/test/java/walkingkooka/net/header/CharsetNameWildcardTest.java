@@ -37,6 +37,16 @@ public final class CharsetNameWildcardTest extends CharsetNameTestCase<CharsetNa
     }
 
     @Override
+    public void testEqualsIgnoringParametersDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEqualsOnlyPresentParametersDifferentFalse() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     CharsetNameWildcard createCharsetName() {
         return CharsetNameWildcard.INSTANCE;
     }
@@ -44,6 +54,11 @@ public final class CharsetNameWildcardTest extends CharsetNameTestCase<CharsetNa
     @Override
     String charsetNameToString() {
         return "*";
+    }
+
+    @Override
+    public CharsetNameWildcard createDifferentHeaderValue() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -369,6 +369,11 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Override
+    public Link createDifferentHeaderValue() {
+        return Link.with(Url.parse("http://different.example.com"));
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

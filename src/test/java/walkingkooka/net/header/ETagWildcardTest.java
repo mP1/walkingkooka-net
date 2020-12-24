@@ -46,6 +46,16 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
     }
 
     @Override
+    public void testEqualsIgnoringParametersDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEqualsOnlyPresentParametersDifferentFalse() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     ETagWildcard createETag() {
         return ETagWildcard.instance();
     }
@@ -68,5 +78,10 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
     @Override
     public Class<ETagWildcard> type() {
         return ETagWildcard.class;
+    }
+
+    @Override
+    public ETagWildcard createDifferentHeaderValue() {
+        throw new UnsupportedOperationException();
     }
 }

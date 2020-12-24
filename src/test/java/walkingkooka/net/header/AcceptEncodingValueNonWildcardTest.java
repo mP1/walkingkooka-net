@@ -228,6 +228,11 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     }
 
     @Override
+    public AcceptEncodingValueNonWildcard createDifferentHeaderValue() {
+        return this.createHeaderValue("different");
+    }
+
+    @Override
     Class<AcceptEncodingValueNonWildcard> encodingType() {
         return AcceptEncodingValueNonWildcard.class;
     }

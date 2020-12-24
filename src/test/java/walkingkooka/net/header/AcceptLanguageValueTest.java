@@ -290,6 +290,11 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     }
 
     @Override
+    public AcceptLanguageValue createDifferentHeaderValue() {
+        return AcceptLanguageValue.with(this.fr());
+    }
+
+    @Override
     public Class<AcceptLanguageValue> type() {
         return AcceptLanguageValue.class;
     }

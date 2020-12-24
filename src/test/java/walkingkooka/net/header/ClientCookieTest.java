@@ -223,6 +223,11 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     @Override
+    public ClientCookie createDifferentHeaderValue() {
+        return ClientCookie.with(CookieName.with("different-name"), "different-value");
+    }
+
+    @Override
     public boolean isRequest() {
         return true;
     }

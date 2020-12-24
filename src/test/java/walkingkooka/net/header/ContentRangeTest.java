@@ -537,6 +537,11 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Override
+    public ContentRange createDifferentHeaderValue() {
+        return ContentRange.with(UNIT, this.range(), Optional.of(1L));
+    }
+
+    @Override
     public boolean isMultipart() {
         return true;
     }

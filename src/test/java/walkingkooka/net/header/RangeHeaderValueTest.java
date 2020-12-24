@@ -391,6 +391,11 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @Override
+    public RangeHeaderValue createDifferentHeaderValue() {
+        return RangeHeaderValue.with(RangeHeaderValueUnit.BYTES, Lists.of(Range.greaterThan(999L)));
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }

@@ -43,6 +43,16 @@ public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelatio
     }
 
     @Override
+    public void testEqualsIgnoringParametersDifferent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testEqualsOnlyPresentParametersDifferentFalse() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     boolean url() {
         return false;
     }
@@ -60,7 +70,7 @@ public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelatio
 
     @Override
     String differentValue() {
-        return "self"; // singleton actual value is ignored by factory.
+        throw new UnsupportedOperationException();
     }
 
     @Override

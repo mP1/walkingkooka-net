@@ -62,6 +62,8 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
 
     V createHeaderValue();
 
+    V createDifferentHeaderValue();
+
     //@Override
     default RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return new HeaderValueException(expected.getMessage(), expected);
@@ -118,6 +120,15 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
         equalsIgnoringParametersAndCheck(
                 this.createHeaderValue(),
                 this,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersDifferent() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValue(),
+                this.createDifferentHeaderValue(),
                 false
         );
     }
@@ -192,6 +203,16 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
                 this.createHeaderValue(),
                 this.createHeaderValue(),
                 true
+        );
+    }
+
+
+    @Test
+    default void testEqualsOnlyPresentParametersDifferentFalse() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValue(),
+                this.createDifferentHeaderValue(),
+                false
         );
     }
 

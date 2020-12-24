@@ -331,6 +331,11 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
+    public AcceptCharsetValue createDifferentHeaderValue() {
+        return AcceptCharsetValue.with(CharsetName.UTF_16);
+    }
+
+    @Override
     public boolean isMultipart() {
         return false;
     }
