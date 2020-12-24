@@ -145,6 +145,24 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
                 AcceptEncodingValue.with("XYZ"));
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptEncodingValue.BR,
+                AcceptEncodingValue.GZIP,
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptEncodingValue.parse("BR;q=1.0"),
+                AcceptEncodingValue.parse("BR;q=0.5"),
+                true);
+    }
+
     // toString ........................................................................................................
 
     @Test

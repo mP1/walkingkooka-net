@@ -170,6 +170,17 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
                 this.parameters.equals(other.parameters);
     }
 
+    @Override
+    public final boolean equalsIgnoringParameters(final Object other) {
+        return this == other ||
+                this.canBeEquals(other) &&
+                        this.equalsIgnoringParameters0(Cast.to(other));
+    }
+
+    private boolean equalsIgnoringParameters0(final HeaderValueWithParameters2<H, P, V> other) {
+        return this.equals1(this.value, other.value);
+    }
+
     abstract boolean equals1(final V value, final V otherValue);
 
     @Override

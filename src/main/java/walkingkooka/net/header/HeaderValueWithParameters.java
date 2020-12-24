@@ -34,4 +34,9 @@ public interface HeaderValueWithParameters<P extends HeaderParameterName<?>> ext
      * are different.
      */
     HeaderValueWithParameters<P> setParameters(final Map<P, Object> parameters);
+
+    /**
+     * Tests if two headers are equal ignoring any parameters on either.
+     */
+    boolean equalsIgnoringParameters(final Object other);
 }

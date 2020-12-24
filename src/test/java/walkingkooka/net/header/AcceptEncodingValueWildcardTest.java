@@ -75,6 +75,26 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
                 AcceptEncodingValue.WILDCARD_ENCODING);
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptEncodingValue.WILDCARD_ENCODING,
+                AcceptEncodingValue.GZIP,
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptEncodingValue.parse("*;q=1.0"),
+                AcceptEncodingValue.parse("*;q=0.5"),
+                true);
+    }
+
+    // helpers..........................................................................................................
+
     @Override
     public AcceptEncodingValueWildcard createHeaderValueWithParameters() {
         return AcceptEncodingValueWildcard.INSTANCE;
