@@ -70,7 +70,7 @@ abstract class HeaderValue2<V> implements HeaderValue, Value<V> {
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final HeaderValue2 other) {
+    private boolean equals0(final HeaderValue2<?> other) {
         return this.value.equals(other.value);
     }
 
