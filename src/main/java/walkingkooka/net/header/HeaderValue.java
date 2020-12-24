@@ -77,4 +77,19 @@ public interface HeaderValue extends HasHeaderScope {
      * Returns true only if this is a wildcard.
      */
     boolean isWildcard();
+
+    /**
+     * Tests if two headers are equal ignoring any parameters on either.
+     */
+    default boolean equalsIgnoringParameters(final Object other) {
+        return this.equals(other);
+    }
+
+    /**
+     * Tests if two headers are equal and requiring parameters on this to all be present on other, ignoring
+     * any extra parameters.
+     */
+    default boolean equalsOnlyPresentParameters(final Object other) {
+        return this.equals(other);
+    }
 }
