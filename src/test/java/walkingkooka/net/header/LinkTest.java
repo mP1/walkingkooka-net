@@ -306,6 +306,48 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                 true);
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferent() {
+        this.equalsOnlyPresentParametersAndCheck(
+                Link.parse("<http://example.com>").get(0),
+                Link.parse("<http://different.example.com>").get(0),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                Link.parse("<http://example.com>; a=1").get(0),
+                Link.parse("<http://example.com>; b=2").get(0),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters2() {
+        this.equalsOnlyPresentParametersAndCheck(
+                Link.parse("<http://example.com>; a=1&b=2").get(0),
+                Link.parse("<http://example.com>; b=2").get(0),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                Link.parse("<http://example.com>; a=1").get(0),
+                Link.parse("<http://example.com>; a=1").get(0),
+                true);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                Link.parse("<http://example.com>; a=1").get(0),
+                Link.parse("<http://example.com>; a=1 b=2").get(0),
+                true);
+    }
+
     // helpers.......................................................................................
 
     @Override

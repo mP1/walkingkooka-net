@@ -154,6 +154,48 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
                 true);
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferent() {
+        this.equalsOnlyPresentParametersAndCheck(
+                ContentDisposition.parse("attachment"),
+                ContentDisposition.parse("inline"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                ContentDisposition.parse("attachment;q=1.0"),
+                ContentDisposition.parse("attachment;q=0.5"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters2() {
+        this.equalsOnlyPresentParametersAndCheck(
+                ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
+                ContentDisposition.parse("attachment;q=1.0"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                ContentDisposition.parse("attachment;q=1.0"),
+                ContentDisposition.parse("attachment;q=1.0"),
+                true);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                ContentDisposition.parse("attachment;q=1.0"),
+                ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
+                true);
+    }
+
     // toString ...........................................................................................
 
     @Test

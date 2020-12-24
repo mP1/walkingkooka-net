@@ -186,6 +186,48 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
                 true);
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferent() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8),
+                AcceptCharsetValue.with(CharsetName.UTF_16),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f)),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters2() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f, AcceptCharsetValueParameterName.with("parameter2"), "value2")),
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                true);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersExtraParametersIgnored() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f, AcceptCharsetValueParameterName.with("parameter2"), "value2")),
+                true);
+    }
+
     // toString ...........................................................................................
 
     @Test

@@ -181,6 +181,36 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
         return this.equals1(this.value, other.value);
     }
 
+    @Override
+    public final boolean equalsOnlyPresentParameters(final Object other) {
+        return this == other ||
+                this.canBeEquals(other) &&
+                        this.equalsOnlyPresentParameters0(Cast.to(other));
+    }
+
+    private boolean equalsOnlyPresentParameters0(final HeaderValueWithParameters2<H, P, V> other) {
+        boolean equals = this.equals1(this.value, other.value);
+
+        if (equals) {
+            final Map<P, Object> parameters = this.parameters;
+            final Map<P, Object> otherParameters = other.parameters;
+
+            equals = parameters.size() <= otherParameters.size();
+
+            if (equals) {
+                for (final Entry<P, Object> parameterAndValue : parameters.entrySet()) {
+                    final P parameter = parameterAndValue.getKey();
+                    equals = parameterAndValue.getValue().equals(otherParameters.get(parameter));
+                    if (!equals) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return equals;
+    }
+
     abstract boolean equals1(final V value, final V otherValue);
 
     @Override

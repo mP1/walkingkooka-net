@@ -721,6 +721,48 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 true);
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferent() {
+        this.equalsOnlyPresentParametersAndCheck(
+                MediaType.parse("major/minor"),
+                MediaType.parse("different/different2"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                MediaType.parse("major/minor;q=1.0"),
+                MediaType.parse("major/minor;q=0.5"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters2() {
+        this.equalsOnlyPresentParametersAndCheck(
+                MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
+                MediaType.parse("major/minor;q=1.0"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                MediaType.parse("major/minor;q=1.0"),
+                MediaType.parse("major/minor;q=1.0"),
+                true);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                MediaType.parse("major/minor;q=1.0"),
+                MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
+                true);
+    }
+
     // toString........................................................................................................
 
     @Test
