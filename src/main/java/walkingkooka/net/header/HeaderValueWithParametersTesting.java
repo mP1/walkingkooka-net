@@ -84,6 +84,53 @@ public interface HeaderValueWithParametersTesting<V extends HeaderValueWithParam
         }
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    default void testEqualsOnlyPresentParametersNullFalse() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                null,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersInvalidTypeFalse() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                this,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersSelfTrue() {
+        final V header = this.createHeaderValueWithParameters();
+        equalsOnlyPresentParametersAndCheck(
+                header,
+                header,
+                true
+        );
+    }
+
+    @Test
+    default void testEqualsOnlyPresentParametersTrue() {
+        equalsOnlyPresentParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                this.createHeaderValueWithParameters(),
+                true
+        );
+    }
+
+    default void equalsOnlyPresentParametersAndCheck(final HeaderValueWithParameters<?> header,
+                                                     final Object other,
+                                                     final boolean expected) {
+        assertEquals(expected,
+                header.equalsOnlyPresentParameters(other),
+                () -> header + " equalsOnlyPresentParameters " + other);
+    }
+
     // setParameters ...........................................................................................
 
     @Test

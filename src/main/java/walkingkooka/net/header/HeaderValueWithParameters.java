@@ -39,4 +39,10 @@ public interface HeaderValueWithParameters<P extends HeaderParameterName<?>> ext
      * Tests if two headers are equal ignoring any parameters on either.
      */
     boolean equalsIgnoringParameters(final Object other);
+
+    /**
+     * Tests if two headers are equal and requiring parameters on this to all be present on other, ignoring
+     * any extra parameters.
+     */
+    boolean equalsOnlyPresentParameters(final Object other);
 }

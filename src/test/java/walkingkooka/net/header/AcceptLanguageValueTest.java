@@ -212,6 +212,48 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
                 true);
     }
 
+    // equalsOnlyPresentParameters.........................................................................................
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferent() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptLanguageValue.parse("EN"),
+                AcceptLanguageValue.parse("FR"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                AcceptLanguageValue.parse("EN;q=0.5"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersDifferentParameters2() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptLanguageValue.parse("EN;q=1.0;parameter-2=value2"),
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                false);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                true);
+    }
+
+    @Test
+    public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
+        this.equalsOnlyPresentParametersAndCheck(
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                AcceptLanguageValue.parse("EN;q=1.0;parameter-2=value2"),
+                true);
+    }
+
     // helpers..........................................................................................................
 
     @Override
