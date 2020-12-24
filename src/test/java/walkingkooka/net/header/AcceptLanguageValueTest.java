@@ -208,7 +208,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
                 AcceptLanguageValue.parse("EN;q=1.0"),
-                AcceptLanguageValue.parse("FR;q=0.5"),
+                AcceptLanguageValue.parse("EN;q=0.5"),
                 true);
     }
 
