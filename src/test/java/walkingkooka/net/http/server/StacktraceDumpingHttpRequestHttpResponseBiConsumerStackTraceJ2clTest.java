@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http.server;
 
-public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2ClTest extends HttpRequestHttpResponseBiConsumerTestCase<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> {
+public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2clTest extends HttpRequestHttpResponseBiConsumerTestCase<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> {
     @Override
     public Class<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> type() {
         return StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl.class;
