@@ -344,7 +344,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
         this.equalsOnlyPresentParametersAndCheck(
                 Link.parse("<http://example.com>; a=1").get(0),
-                Link.parse("<http://example.com>; a=1 b=2").get(0),
+                Link.parse("<http://example.com>; a=1; b=2").get(0),
                 true);
     }
 
