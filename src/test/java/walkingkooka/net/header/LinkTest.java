@@ -288,6 +288,24 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         this.parseStringAndCheck(text, Lists.of(links));
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                Link.with(Url.parse("http://example.com")),
+                Link.with(Url.parse("http://different.example.com")),
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                Link.with(Url.parse("http://example.com?a=1")),
+                Link.with(Url.parse("http://example.com?b=2")),
+                true);
+    }
+
     // helpers.......................................................................................
 
     @Override

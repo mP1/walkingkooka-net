@@ -703,6 +703,24 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         checkEqualsAndHashCode(MediaType.parse("a/b;   x=1"), MediaType.parse("a/b;x=1"));
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                MediaType.parse("major/minor"),
+                MediaType.parse("different/different2"),
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                MediaType.parse("major/minor;q=1"),
+                MediaType.parse("major/minor;q=0.5"),
+                true);
+    }
+
     // toString........................................................................................................
 
     @Test

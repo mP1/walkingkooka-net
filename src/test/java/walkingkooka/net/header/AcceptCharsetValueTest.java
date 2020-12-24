@@ -168,6 +168,23 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
                 .setParameters(this.parameters(AcceptCharsetValueParameterName.with("different"), "xyz")));
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8),
+                AcceptCharsetValue.with(CharsetName.UTF_16),
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
+                AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f)),
+                true);
+    }
 
     // toString ...........................................................................................
 

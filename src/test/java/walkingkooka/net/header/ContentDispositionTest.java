@@ -136,6 +136,24 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
                 ContentDisposition.parse(disposition2));
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                ContentDisposition.parse("attachment"),
+                ContentDisposition.parse("inline"),
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                ContentDisposition.parse("attachment;a=1"),
+                ContentDisposition.parse("attachment;b=2"),
+                true);
+    }
+
     // toString ...........................................................................................
 
     @Test

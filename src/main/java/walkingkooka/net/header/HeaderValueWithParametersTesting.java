@@ -18,7 +18,9 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,6 +29,60 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface HeaderValueWithParametersTesting<V extends HeaderValueWithParameters<N>,
         N extends HeaderParameterName<?>> extends HeaderValueTesting<V> {
+
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    default void testEqualsIgnoringParametersNullFalse() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                null,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersInvalidTypeFalse() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                this,
+                false
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersSelfTrue() {
+        final V header = this.createHeaderValueWithParameters();
+        equalsIgnoringParametersAndCheck(
+                header,
+                header,
+                true
+        );
+    }
+
+    @Test
+    default void testEqualsIgnoringParametersTrue() {
+        equalsIgnoringParametersAndCheck(
+                this.createHeaderValueWithParameters(),
+                this.createHeaderValueWithParameters(),
+                true
+        );
+    }
+
+    default void equalsIgnoringParametersAndCheck(final HeaderValueWithParameters<?> header,
+                                                  final Object other,
+                                                  final boolean expected) {
+        assertEquals(expected,
+                header.equalsIgnoringParameters(other),
+                () -> header + " equalsIgnoringParameters " + other);
+
+        if (other instanceof HeaderValueWithParameters) {
+            final HeaderValueWithParameters<?> otherHeader = Cast.to(other);
+            assertEquals(expected,
+                    otherHeader.equalsIgnoringParameters(header),
+                    () -> otherHeader + " equalsIgnoringParameters " + header);
+        }
+    }
 
     // setParameters ...........................................................................................
 

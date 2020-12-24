@@ -194,6 +194,26 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
         this.testFalse(AcceptLanguageValue.with(this.en()), this.fr());
     }
 
+    // equalsIgnoringParameters.........................................................................................
+
+    @Test
+    public void testEqualsIgnoringParametersDifferent() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptLanguageValue.parse("EN"),
+                AcceptLanguageValue.parse("FR"),
+                false);
+    }
+
+    @Test
+    public void testEqualsIgnoringParametersDifferentParameters() {
+        this.equalsIgnoringParametersAndCheck(
+                AcceptLanguageValue.parse("EN;q=1.0"),
+                AcceptLanguageValue.parse("FR;q=0.5"),
+                true);
+    }
+
+    // helpers..........................................................................................................
+
     @Override
     public AcceptLanguageValue createHeaderValueWithParameters() {
         return AcceptLanguageValue.with(this.en());
