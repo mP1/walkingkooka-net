@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N>
+public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderTestCase<N>
         implements PredicateTesting2<N, CharsetName> {
 
     CharsetNameTestCase() {
@@ -60,7 +60,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     @Test
     public final void testTestWildcardFails() {
-        assertThrows(HeaderValueException.class, () -> this.createCharsetName().test(CharsetName.WILDCARD_CHARSET));
+        assertThrows(HeaderException.class, () -> this.createCharsetName().test(CharsetName.WILDCARD_CHARSET));
     }
 
     @Test
@@ -74,7 +74,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     }
 
     @Override
-    public final N createHeaderValue() {
+    public final N createHeader() {
         return this.createCharsetName();
     }
 

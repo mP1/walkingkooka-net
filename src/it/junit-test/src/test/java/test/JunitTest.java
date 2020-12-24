@@ -53,8 +53,8 @@ import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.LanguageName;
 import walkingkooka.net.header.Link;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.RangeHeaderValue;
-import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.header.RangeHeader;
+import walkingkooka.net.header.RangeHeaderUnit;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -107,7 +107,7 @@ public class JunitTest {
     public void testContentRangeParse() {
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range
         final ContentRange contentRange = ContentRange.parse("bytes 2-11/888");
-        Assert.assertEquals(RangeHeaderValueUnit.BYTES, contentRange.unit());
+        Assert.assertEquals(RangeHeaderUnit.BYTES, contentRange.unit());
 
         Assert.assertEquals(Optional.of(Range.greaterThanEquals(2L).and(Range.lessThanEquals(11L))), contentRange.range());
         Assert.assertEquals(Optional.of(888L), contentRange.size());
@@ -195,8 +195,8 @@ public class JunitTest {
     }
 
     @Test
-    public void testRangeHeaderValue() {
-        RangeHeaderValue.parse("bytes=123-");
+    public void testRangeHeader() {
+        RangeHeader.parse("bytes=123-");
     }
 
     @Test
@@ -206,7 +206,7 @@ public class JunitTest {
 
     @Test
     public void testHttpHeaderNameAndMediaType() {
-        HttpHeaderName.CONTENT_TYPE.checkValue(MediaType.TEXT_PLAIN);
+        HttpHeaderName.CONTENT_TYPE.check(MediaType.TEXT_PLAIN);
     }
 
     @Test

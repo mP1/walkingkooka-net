@@ -57,41 +57,41 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * Creates a header constant with a list of {@link ETag} values.
      */
-    private static HttpHeaderName<List<ETag>> registerETagListConstant(final String header,
+    private static HttpHeaderName<List<ETag>> registerETagListConstant(final String name,
                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.eTagList());
+        return registerConstant(name, scope, HeaderHandler.eTagList());
     }
 
     /**
      * Creates a header constant with a list of {@link LocalDateTime} values.
      */
-    private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
+    private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String name,
                                                                                final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.localDateTime());
+        return registerConstant(name, scope, HeaderHandler.localDateTime());
     }
 
     /**
      * Creates a header constant with a list of {@link Long} values.
      */
-    private static HttpHeaderName<Long> registerLongConstant(final String header,
+    private static HttpHeaderName<Long> registerLongConstant(final String name,
                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.longHandler());
+        return registerConstant(name, scope, HeaderHandler.longHandler());
     }
 
     /**
      * Creates a header constant with a list of {@link String} values.
      */
-    private static HttpHeaderName<String> registerStringConstant(final String header,
+    private static HttpHeaderName<String> registerStringConstant(final String name,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.string(), false);
+        return registerConstant(name, scope, HeaderHandler.string(), false);
     }
 
     /**
      * Creates a header constant with a list of {@link String} values.
      */
-    private static HttpHeaderName<String> registerMultiStringConstant(final String header,
+    private static HttpHeaderName<String> registerMultiStringConstant(final String name,
                                                                       final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.string(), true);
+        return registerConstant(name, scope, HeaderHandler.string(), true);
     }
 
     /**
@@ -102,33 +102,33 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that only accepts a single header.
      */
-    private static <T> HttpHeaderName<T> registerConstant(final String header,
+    private static <T> HttpHeaderName<T> registerConstant(final String name,
                                                           final HttpHeaderNameScope scope,
-                                                          final HeaderValueHandler<T> headerValue) {
-        return registerConstant(header, scope, headerValue, false);
+                                                          final HeaderHandler<T> handler) {
+        return registerConstant(name, scope, handler, false);
     }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that only accepts many headers.
      */
-    private static <T> HttpHeaderName<T> registerMultiConstant(final String header,
+    private static <T> HttpHeaderName<T> registerMultiConstant(final String name,
                                                                final HttpHeaderNameScope scope,
-                                                               final HeaderValueHandler<T> headerValue) {
-        return registerConstant(header, scope, headerValue, true);
+                                                               final HeaderHandler<T> handler) {
+        return registerConstant(name, scope, handler, true);
     }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built.
      */
-    private static <T> HttpHeaderName<T> registerConstant(final String header,
+    private static <T> HttpHeaderName<T> registerConstant(final String name,
                                                           final HttpHeaderNameScope scope,
-                                                          final HeaderValueHandler<T> headerValue,
+                                                          final HeaderHandler<T> handler,
                                                           final boolean multi) {
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
         boolean conditional;
 
-        switch (header.toLowerCase()) {
+        switch (name.toLowerCase()) {
             case "etag":
             case "if-match":
             case "if-none-match":
@@ -142,13 +142,13 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                 break;
         }
 
-        final HttpHeaderName<T> httpHeader = new HttpHeaderName<>(header,
+        final HttpHeaderName<T> httpHeader = new HttpHeaderName<>(name,
                 scope,
-                headerValue,
+                handler,
                 conditional,
-                CaseSensitivity.INSENSITIVE.startsWith(header, CONTENT_HEADER_PREFIX),
+                CaseSensitivity.INSENSITIVE.startsWith(name, CONTENT_HEADER_PREFIX),
                 multi);
-        HttpHeaderName.CONSTANTS.put(header, httpHeader);
+        HttpHeaderName.CONSTANTS.put(name, httpHeader);
         return httpHeader;
     }
 
@@ -161,7 +161,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<Accept> ACCEPT = registerConstant("Accept",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.accept());
+            HeaderHandler.accept());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Charset</code>
@@ -172,7 +172,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<AcceptCharset> ACCEPT_CHARSET = registerConstant("Accept-Charset",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.acceptCharset());
+            HeaderHandler.acceptCharset());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Encoding</code>
@@ -190,7 +190,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerMultiConstant("Accept-Encoding",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.acceptEncoding());
+            HeaderHandler.acceptEncoding());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Language</code>
@@ -205,7 +205,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerMultiConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.acceptLanguage());
+            HeaderHandler.acceptLanguage());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Ranges</code>
@@ -214,9 +214,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerMultiConstant("Accept-Ranges",
+    public final static HttpHeaderName<RangeHeaderUnit> ACCEPT_RANGES = registerMultiConstant("Accept-Ranges",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.rangeUnit());
+            HeaderHandler.rangeUnit());
 
     /**
      * A {@link HttpHeaderName} holding <code>Age</code>
@@ -245,7 +245,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<List<HttpMethod>> ALLOW = registerConstant("Allow",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.methodList());
+            HeaderHandler.methodList());
 
 
     /**
@@ -273,7 +273,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerMultiConstant("Cache-Control",
             HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueHandler.cacheControl());
+            HeaderHandler.cacheControl());
 
     /**
      * A {@link HttpHeaderName} holding <code>Connection</code>
@@ -300,7 +300,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
             HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueHandler.contentDisposition());
+            HeaderHandler.contentDisposition());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
@@ -318,7 +318,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerMultiConstant("Content-Encoding",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.contentEncoding());
+            HeaderHandler.contentEncoding());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Language</code>
@@ -330,7 +330,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerMultiConstant("Content-Language",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.contentLanguage());
+            HeaderHandler.contentLanguage());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Length</code>
@@ -352,7 +352,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<RelativeUrl> CONTENT_LOCATION = registerConstant("Content-Location",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.relativeUrl());
+            HeaderHandler.relativeUrl());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Range</code>
@@ -364,7 +364,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerMultiConstant("Content-Range",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.contentRange());
+            HeaderHandler.contentRange());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Type</code>
@@ -375,7 +375,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<MediaType> CONTENT_TYPE = registerConstant("Content-Type",
             HttpHeaderNameScope.REQUEST_RESPONSE_MULTIPART,
-            HeaderValueHandler.mediaType());
+            HeaderHandler.mediaType());
 
     /**
      * A {@link HttpHeaderName} holding <code>Cookie</code>
@@ -387,7 +387,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<List<ClientCookie>> COOKIE = registerMultiConstant("Cookie",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.clientCookieList());
+            HeaderHandler.clientCookieList());
 
     /**
      * A {@link HttpHeaderName} holding <code>Date</code>
@@ -407,7 +407,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ETag> E_TAG = registerConstant("ETag",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.eTag());
+            HeaderHandler.eTag());
 
     /**
      * A {@link HttpHeaderName} holding <code>EXPIRES</code>
@@ -435,7 +435,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<EmailAddress> FROM = registerConstant("From",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.emailAddress());
+            HeaderHandler.emailAddress());
 
     /**
      * A {@link HttpHeaderName} holding <code>Host</code>
@@ -485,7 +485,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<IfRange<?>> IF_RANGE = registerConstant("If-Range",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.ifRange());
+            HeaderHandler.ifRange());
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Unmodified-Since</code>
@@ -521,7 +521,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<List<Link>> LINK = registerConstant("Link",
             HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueHandler.link());
+            HeaderHandler.link());
 
     /**
      * A {@link HttpHeaderName} holding <code>Location</code>
@@ -533,7 +533,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<Url> LOCATION = registerConstant("Location",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.url());
+            HeaderHandler.url());
 
     /**
      * A {@link HttpHeaderName} holding <code>Pragma</code>
@@ -553,9 +553,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Range: <unit>=<range-start>-<range-end>, <range-start>-<range-end>, <range-start>-<range-end>
      * </pre>
      */
-    public final static HttpHeaderName<RangeHeaderValue> RANGE = registerConstant("Range",
+    public final static HttpHeaderName<RangeHeader> RANGE = registerConstant("Range",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.range());
+            HeaderHandler.range());
 
     /**
      * A {@link HttpHeaderName} holding <code>Referer</code>
@@ -565,7 +565,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<AbsoluteUrl> REFERER = registerConstant("Referer",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.absoluteUrl());
+            HeaderHandler.absoluteUrl());
 
     /**
      * A {@link HttpHeaderName} holding <code>Retry-After</code>
@@ -606,7 +606,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerMultiConstant("Set-Cookie",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.serverCookie());
+            HeaderHandler.serverCookie());
 
     /**
      * A {@link HttpHeaderName} holding <code>TE</code>
@@ -630,7 +630,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<List<HttpHeaderName<?>>> TRAILER = registerConstant("Trailer",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.httpHeaderNameList());
+            HeaderHandler.httpHeaderNameList());
 
     /**
      * A {@link HttpHeaderName} holding <code>Transfer-Encoding</code>
@@ -681,7 +681,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueHandler.string(), NOT_CONDITIONAL, NOT_CONTENT, true);
+                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderHandler.string(), NOT_CONDITIONAL, NOT_CONTENT, true);
     }
 
     private static String checkName(final String name) {
@@ -708,7 +708,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private HttpHeaderName(final String name,
                            final HttpHeaderNameScope scope,
-                           final HeaderValueHandler<T> handler,
+                           final HeaderHandler<T> handler,
                            final boolean conditional,
                            final boolean content,
                            final boolean multipleHeaders) {
@@ -777,16 +777,17 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
 
     /**
      * Validates the value.
+     * @param header
      */
     @Override
-    public T checkValue(final Object value) {
-        return this.handler.check(value, this);
+    public T check(final Object header) {
+        return this.handler.check(header, this);
     }
 
     /**
      * A type safe getter that retrieves this header from the headers.
      */
-    public Optional<T> headerValue(final HasHeaders headers) {
+    public Optional<T> header(final HasHeaders headers) {
         Objects.requireNonNull(headers, "headers");
 
         final List<?> values = headers.headers().get(this);
@@ -796,12 +797,12 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
-     * Retrieves the value or throws a {@link HeaderValueException} if absent.
+     * Retrieves the value or throws a {@link HeaderException} if absent.
      */
-    public T headerValueOrFail(final HasHeaders headers) {
-        final Optional<T> value = this.headerValue(headers);
+    public T headerOrFail(final HasHeaders headers) {
+        final Optional<T> value = this.header(headers);
         if (!value.isPresent()) {
-            throw new HeaderValueException("Required value is absent for " + this);
+            throw new HeaderException("Required value is absent for " + this);
         }
         return value.get();
     }
@@ -825,7 +826,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         return this.handler.toText(value, this);
     }
 
-    private final HeaderValueHandler<T> handler;
+    private final HeaderHandler<T> handler;
 
     // HttpRequestAttribute..............................................................................................
 
@@ -834,7 +835,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     @Override
     public Optional<T> parameterValue(final HttpRequest request) {
-        return this.headerValue(request);
+        return this.header(request);
     }
 
     // HasHttpHeaderNameScope ..........................................................................................

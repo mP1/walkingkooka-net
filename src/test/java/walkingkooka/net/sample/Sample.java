@@ -34,7 +34,7 @@ import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.AcceptEncodingValue;
 import walkingkooka.net.header.AcceptEncodingValueParameterName;
 import walkingkooka.net.header.ContentRange;
-import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.header.RangeHeaderUnit;
 
 import java.util.Optional;
 
@@ -58,7 +58,7 @@ public class Sample {
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range
         final ContentRange contentRange = ContentRange.parse("bytes 2-11/888");
-        assertEquals(RangeHeaderValueUnit.BYTES, contentRange.unit());
+        assertEquals(RangeHeaderUnit.BYTES, contentRange.unit());
         assertEquals(Optional.of(Range.greaterThanEquals(2L).and(Range.lessThanEquals(11L))), contentRange.range());
         assertEquals(Optional.of(888L), contentRange.size());
 

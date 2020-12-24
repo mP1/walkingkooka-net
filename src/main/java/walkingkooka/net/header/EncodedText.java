@@ -68,7 +68,7 @@ import java.util.Optional;
  * </pre>
  */
 public final class EncodedText implements Value<String>,
-        HeaderValue {
+        Header {
 
     /**
      * The value part of an extended parameter (ext-value) is a token that
@@ -137,7 +137,7 @@ public final class EncodedText implements Value<String>,
 
     private final String value;
 
-    // HeaderValue ............................................................................................
+    // Header ............................................................................................
 
     /**
      * Returns the header text as would appear in a header prior to parsing.

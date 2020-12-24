@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 /**
  * Holds a Language with parameters within a accept-language header.
  */
-public final class AcceptLanguageValue extends HeaderValueWithParameters2<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
+public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
         implements Predicate<LanguageName>,
         HasQualityFactor {
 
@@ -57,7 +57,7 @@ public final class AcceptLanguageValue extends HeaderValueWithParameters2<Accept
      * Parsers a header value holding a single tag.
      */
     public static AcceptLanguageValue parse(final String text) {
-        return AcceptLanguageValueHeaderValueParser.parseLanguage(text);
+        return AcceptLanguageValueHeaderParser.parseLanguage(text);
     }
 
     /**
@@ -120,7 +120,7 @@ public final class AcceptLanguageValue extends HeaderValueWithParameters2<Accept
                 new AcceptLanguageValue(name, parameters);
     }
 
-    // headerValue........................................................................................................
+    // header........................................................................................................
 
     @Override
     String toHeaderTextValue() {

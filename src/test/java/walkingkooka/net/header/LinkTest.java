@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
+public final class LinkTest extends HeaderWithParametersTestCase<Link,
         LinkParameterName<?>>
         implements JsonNodeMarshallingTesting<Link>,
         ParseStringTesting<List<Link>> {
@@ -351,7 +351,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // helpers.......................................................................................
 
     @Override
-    public Link createHeaderValueWithParameters() {
+    public Link createHeaderWithParameters() {
         return this.createLink();
     }
 
@@ -369,7 +369,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Override
-    public Link createDifferentHeaderValue() {
+    public Link createDifferentHeader() {
         return Link.with(Url.parse("http://different.example.com"));
     }
 

@@ -50,10 +50,10 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     private final static String URL = "/path/file?abc=123";
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long HEADERVALUE1 = 111L;
+    private final static Long Header1 = 111L;
 
     private final static HttpHeaderName<?> HEADER2 = HttpHeaderName.SERVER;
-    private final static String HEADERVALUE2 = "Server2";
+    private final static String Header2 = "Server2";
 
     private final static String PARAMETER1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -98,7 +98,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testHeaders() {
-        assertEquals(Maps.of(HEADER1, list(HEADERVALUE1), HEADER2, list(HEADERVALUE2)),
+        assertEquals(Maps.of(HEADER1, list(Header1), HEADER2, list(Header2)),
                 this.createRequest().headers());
     }
 
@@ -216,10 +216,10 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
             @Override
             public String getHeader(final String header) {
                 if (HEADER1.value().equals(header)) {
-                    return "" + HEADERVALUE1;
+                    return "" + Header1;
                 }
                 if (HEADER2.value().equals(header)) {
-                    return HEADERVALUE2;
+                    return Header2;
                 }
                 return null;
             }
@@ -227,10 +227,10 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
             @Override
             public Enumeration<String> getHeaders(final String header) {
                 if (HEADER1.value().equals(header)) {
-                    return enumeration("" + HEADERVALUE1);
+                    return enumeration("" + Header1);
                 }
                 if (HEADER2.value().equals(header)) {
-                    return enumeration(HEADERVALUE2);
+                    return enumeration(Header2);
                 }
                 return null;
             }

@@ -25,7 +25,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
+public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
 
     @Test
     public void testWithNullCharsetFails() {
@@ -44,7 +44,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
     @Test
     public void testWith() {
-        this.check(this.createHeaderValue(), this.charset(), this.language(), this.value());
+        this.check(this.createHeader(), this.charset(), this.language(), this.value());
     }
 
     @Test
@@ -116,7 +116,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     private void toHeaderTextAndCheck2(final String value, final String headerText) {
-        this.toHeaderTextAndCheck(this.createHeaderValue(value), headerText);
+        this.toHeaderTextAndCheck(this.createHeader(value), headerText);
     }
 
     // equals...........................................................................................................
@@ -153,17 +153,17 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), "UTF-8 en \"abc123\"");
+        this.toStringAndCheck(this.createHeader(), "UTF-8 en \"abc123\"");
     }
 
     // helpers..........................................................................................................
 
     @Override
-    public EncodedText createHeaderValue() {
-        return this.createHeaderValue(this.value());
+    public EncodedText createHeader() {
+        return this.createHeader(this.value());
     }
 
-    private EncodedText createHeaderValue(final String value) {
+    private EncodedText createHeader(final String value) {
         return EncodedText.with(this.charset(), this.language(), value);
     }
 
@@ -180,7 +180,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
-    public EncodedText createDifferentHeaderValue() {
+    public EncodedText createDifferentHeader() {
         return EncodedText.with(this.charset(), Optional.empty(), "different");
     }
 

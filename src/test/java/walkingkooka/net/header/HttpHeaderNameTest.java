@@ -224,73 +224,73 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertThrows(HttpHeaderNameTypeParameterHeaderException.class, HttpHeaderName.CONTENT_LENGTH::stringValues);
     }
 
-    // headerValue.........................................................................
+    // header.........................................................................
 
     @Test
-    public void testHeaderValueNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerValue(null));
+    public void testHeaderNullFails() {
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.header(null));
     }
 
 
     @Test
-    public void testHeaderValueCustomHeaderIncludesDoubleQuotesSingleQuotesComments() {
-        this.headerValueAndCheck(HttpHeaderName.with("custom-x").stringValues(),
+    public void testHeaderCustomHeaderIncludesDoubleQuotesSingleQuotesComments() {
+        this.headerAndCheck(HttpHeaderName.with("custom-x").stringValues(),
                 "abc \"def\" 'ghi' (comment-123)");
     }
 
     @Test
-    public void testHeaderValueScopeAccept() {
-        this.headerValueAndCheck(HttpHeaderName.ACCEPT,
+    public void testHeaderScopeAccept() {
+        this.headerAndCheck(HttpHeaderName.ACCEPT,
                 Accept.parse("text/html, application/xhtml+xml"));
     }
 
     @Test
-    public void testHeaderValueScopeContentLength() {
-        this.headerValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testHeaderScopeContentLength() {
+        this.headerAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 123L);
     }
 
     @Test
-    public void testHeaderValueScopeResponseContentLengthAbsent() {
-        this.headerValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testHeaderScopeResponseContentLengthAbsent() {
+        this.headerAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 null);
     }
 
     @Test
-    public void testHeaderValueScopeUnknown() {
-        this.headerValueAndCheck(Cast.to(HttpHeaderName.with("xyz")),
+    public void testHeaderScopeUnknown() {
+        this.headerAndCheck(Cast.to(HttpHeaderName.with("xyz")),
                 "xyz");
     }
 
-    private <T> void headerValueAndCheck(final HttpHeaderName<T> headerName,
-                                         final T headerValue) {
-        assertEquals(Optional.ofNullable(headerValue),
-                headerName.headerValue(this.headers(headerName, headerValue)),
-                headerName + "=" + headerValue);
+    private <T> void headerAndCheck(final HttpHeaderName<T> headerName,
+                                         final T header) {
+        assertEquals(Optional.ofNullable(header),
+                headerName.header(this.headers(headerName, header)),
+                headerName + "=" + header);
     }
 
-    // headerValueOrFail..............................................................................
+    // headerOrFail..............................................................................
 
     @Test
-    public void testHeaderValueOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerValueOrFail(null));
-    }
-
-    @Test
-    public void testHeaderValueOrFailAbsent() {
-        assertThrows(HeaderValueException.class, () -> HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L)));
+    public void testHeaderOrFailNullFails() {
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerOrFail(null));
     }
 
     @Test
-    public void testHeaderValueOrFail() {
-        this.headerValueOrFailAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
+    public void testHeaderOrFailAbsent() {
+        assertThrows(HeaderException.class, () -> HttpHeaderName.ALLOW.headerOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L)));
     }
 
-    private <T> void headerValueOrFailAndCheck(final HttpHeaderName<T> headerName,
-                                               final T headerValue) {
-        assertEquals(headerValue,
-                headerName.headerValueOrFail(this.headers(headerName, headerValue)),
-                headerName + "=" + headerValue);
+    @Test
+    public void testHeaderOrFail() {
+        this.headerOrFailAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
+    }
+
+    private <T> void headerOrFailAndCheck(final HttpHeaderName<T> headerName,
+                                               final T header) {
+        assertEquals(header,
+                headerName.headerOrFail(this.headers(headerName, header)),
+                headerName + "=" + header);
     }
 
     private <T> HasHeaders headers(final HttpHeaderName<T> name, final T value) {
@@ -305,25 +305,25 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     // checkValue...... ...............................................................................................
 
     @Test
-    public void testCheckValueNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpHeaderName.ACCEPT.checkValue(null));
+    public void testCheckNullFails() {
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ACCEPT.check(null));
     }
 
     @Test
-    public void testCheckValue() {
-        HttpHeaderName.CONTENT_LENGTH.checkValue(123L);
+    public void testCheck() {
+        HttpHeaderName.CONTENT_LENGTH.check(123L);
     }
 
     @Test
-    public void testCheckValueList() {
+    public void testCheckList() {
         final HttpHeaderName<?> header = HttpHeaderName.COOKIE;
-        header.checkValue(Cast.to(Cookie.parseClientHeader("cookie1=value2")));
+        header.check(Cast.to(Cookie.parseClientHeader("cookie1=value2")));
     }
 
     @Test
     public void testCheckInvalidValueTypeFails() {
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
-        assertThrows(HeaderValueException.class, () -> header.checkValue(Cast.to("invalid!")));
+        assertThrows(HeaderException.class, () -> header.check(Cast.to("invalid!")));
     }
 
     // parse ...............................................................................................
@@ -363,7 +363,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
 
         this.parseAndCheck(HttpHeaderName.IF_RANGE,
-                HeaderValueHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
+                HeaderHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
                 IfRange.with(lastModified));
     }
 

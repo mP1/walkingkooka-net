@@ -29,7 +29,7 @@ import java.util.function.Predicate;
  * Holds a ETAG.
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
-public abstract class ETag implements HeaderValue,
+public abstract class ETag implements Header,
         Predicate<ETag>,
         Value<String> {
 
@@ -54,14 +54,14 @@ public abstract class ETag implements HeaderValue,
      * Parsers a header value holding a single tag.
      */
     public static ETag parseOne(final String text) {
-        return ETagOneHeaderValueParser.parseOne(text);
+        return ETagOneHeaderParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
     public static List<ETag> parseList(final String text) {
-        return ETagListHeaderValueParser.parseList(text);
+        return ETagListHeaderParser.parseList(text);
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class ETag implements HeaderValue,
     }
 
     static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", ETagHeaderValueParser.ETAG_VALUE);
+        CharPredicates.failIfNullOrFalse(value, "value", ETagHeaderParser.ETAG_VALUE);
     }
 
     // weak...........................................................................................................
@@ -145,7 +145,7 @@ public abstract class ETag implements HeaderValue,
      */
     public abstract boolean isWildcard();
 
-    // HeaderValue........................................................................................................
+    // Header........................................................................................................
 
     /**
      * Returns the text or header value form.

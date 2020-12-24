@@ -49,7 +49,7 @@ import java.util.function.Predicate;
  * </pre>
  */
 public abstract class CharsetName extends HeaderNameValue
-        implements HeaderValue,
+        implements Header,
         Comparable<CharsetName>,
         Predicate<CharsetName> {
 
@@ -227,7 +227,7 @@ public abstract class CharsetName extends HeaderNameValue
         return AcceptCharsetValue.with(this).setParameters(parameters);
     }
 
-    // HeaderValue ....................................................................................................
+    // Header ....................................................................................................
 
     @Override
     public final String toHeaderText() {

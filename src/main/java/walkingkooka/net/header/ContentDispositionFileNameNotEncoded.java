@@ -73,11 +73,11 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
                 new ContentDispositionFileNameNotEncoded(without);
     }
 
-    // HeaderValue .................................................................................
+    // Header .................................................................................
 
     @Override
     public String toHeaderText() {
-        return ContentDispositionFileNameNotEncodedHeaderValueHandler.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
+        return ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
     }
 
     @Override

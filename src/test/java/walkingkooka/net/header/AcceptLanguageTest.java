@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
+public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<AcceptLanguage>,
         PredicateTesting2<AcceptLanguage, ContentLanguage> {
@@ -111,12 +111,12 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
     // helpers..........................................................................................................
 
     @Override
-    AcceptLanguage createHeaderValue(final List<AcceptLanguageValue> value) {
+    AcceptLanguage createHeader(final List<AcceptLanguageValue> value) {
         return AcceptLanguage.with(value);
     }
 
     private AcceptLanguage acceptLanguage(final AcceptLanguageValue... value) {
-        return this.createHeaderValue(Lists.of(value));
+        return this.createHeader(Lists.of(value));
     }
 
     @Override
@@ -168,7 +168,7 @@ public final class AcceptLanguageTest extends HeaderValue2TestCase<AcceptLanguag
 
     @Override
     public AcceptLanguage createPredicate() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     // ClassTestCase ............................................................................................

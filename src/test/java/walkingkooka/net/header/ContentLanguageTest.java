@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentLanguageTest extends HeaderValueTestCase<ContentLanguage>
+public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
         implements ParseStringTesting<ContentLanguage> {
 
     @Test
@@ -37,7 +37,7 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeaderValue(), this.value());
+        this.checkValue(this.createHeader(), this.value());
     }
 
     @Test
@@ -56,13 +56,13 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
     @Test
     public void testParse() {
         this.parseStringAndCheck("en, fr",
-                this.createHeaderValue(this.en(), this.fr()));
+                this.createHeader(this.en(), this.fr()));
     }
 
     @Test
     public void testParseExtraWhitespace() {
         this.parseStringAndCheck("en,  fr,  gr",
-                this.createHeaderValue(this.en(), this.fr(), this.gr()));
+                this.createHeader(this.en(), this.fr(), this.gr()));
     }
 
     @Test
@@ -84,20 +84,20 @@ public final class ContentLanguageTest extends HeaderValueTestCase<ContentLangua
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), "en, fr");
+        this.toStringAndCheck(this.createHeader(), "en, fr");
     }
 
     @Override
-    public ContentLanguage createHeaderValue() {
+    public ContentLanguage createHeader() {
         return ContentLanguage.with(this.value());
     }
 
     @Override
-    public ContentLanguage createDifferentHeaderValue() {
+    public ContentLanguage createDifferentHeader() {
         return ContentLanguage.with(Lists.of(this.gr()));
     }
 
-    private ContentLanguage createHeaderValue(final LanguageName... languages) {
+    private ContentLanguage createHeader(final LanguageName... languages) {
         return ContentLanguage.with(Lists.of(languages));
     }
 

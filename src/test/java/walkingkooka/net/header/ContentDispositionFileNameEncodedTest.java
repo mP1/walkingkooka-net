@@ -30,7 +30,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     @Test
     public void testWith() {
-        final ContentDispositionFileNameEncoded contentDisposition = this.createHeaderValue();
+        final ContentDispositionFileNameEncoded contentDisposition = this.createHeader();
         this.check(contentDisposition,
                 FILENAME,
                 Optional.of(this.encodedText().charset()),
@@ -79,11 +79,11 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), FILENAME);
+        this.toStringAndCheck(this.createHeader(), FILENAME);
     }
 
     @Override
-    public ContentDispositionFileNameEncoded createHeaderValue() {
+    public ContentDispositionFileNameEncoded createHeader() {
         return ContentDispositionFileNameEncoded.with(this.encodedText());
     }
 
@@ -92,7 +92,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     @Override
-    public ContentDispositionFileNameEncoded createDifferentHeaderValue() {
+    public ContentDispositionFileNameEncoded createDifferentHeader() {
         return ContentDispositionFileNameEncoded.with(this.encodedText("different"));
     }
 

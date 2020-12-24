@@ -28,17 +28,17 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Test
     public void testETag() {
-        assertThrows(HeaderValueException.class, () -> this.createHeaderValue().etag());
+        assertThrows(HeaderException.class, () -> this.createHeader().etag());
     }
 
     @Test
     public void testLastModified() {
-        final IfRangeLastModified ifRange = this.createHeaderValue();
+        final IfRangeLastModified ifRange = this.createHeader();
         assertSame(ifRange, ifRange.lastModified());
     }
 
     @Override
-    IfRangeLastModified createHeaderValue(final LocalDateTime value) {
+    IfRangeLastModified createHeader(final LocalDateTime value) {
         return IfRangeLastModified.lastModified(value);
     }
 
@@ -49,7 +49,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Override
     String headerText() {
-        return HeaderValueHandler.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
+        return HeaderHandler.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
     }
 
     @Override

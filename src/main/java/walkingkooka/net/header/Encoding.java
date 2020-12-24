@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * An individual encoding belonging to a {@link ContentEncoding}.
  */
-public final class Encoding extends HeaderValue2<String>
+public final class Encoding extends Header2<String>
         implements Comparable<Encoding> {
 
     /**
@@ -78,7 +78,7 @@ public final class Encoding extends HeaderValue2<String>
      * Parses text into a {@link Encoding}.
      */
     public static Encoding parse(final String text) {
-        return EncodingHeaderValueParser.parseEncoding(text);
+        return EncodingHeaderParser.parseEncoding(text);
     }
 
     /**
@@ -96,7 +96,7 @@ public final class Encoding extends HeaderValue2<String>
     private static String checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value,
                 "value",
-                EncodingHeaderValueParser.RFC2045TOKEN);
+                EncodingHeaderParser.RFC2045TOKEN);
         return value;
     }
 

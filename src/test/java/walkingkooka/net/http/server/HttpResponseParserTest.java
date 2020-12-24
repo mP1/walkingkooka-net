@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -58,8 +58,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     }
 
     @Test
-    public void testInvalidHeaderValueFails() {
-        this.parseStringFails("HTTP/1.0 200 OK\r\nContent-Length:A", new HeaderValueException("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\""));
+    public void testInvalidHeaderFails() {
+        this.parseStringFails("HTTP/1.0 200 OK\r\nContent-Length:A", new HeaderException("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\""));
     }
 
     @Test

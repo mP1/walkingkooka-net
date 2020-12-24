@@ -166,13 +166,13 @@ import java.util.Objects;
  * Unrecognized cache-directives MUST be ignored; it is assumed that any cache-directive likely to be unrecognized by an HTTP/1.1 cache will be combined with standard directives (or the response's default cacheability) such that the cache behavior will remain minimally correct even if the cache does not understand the extension(s).
  * </pre>
  */
-public final class CacheControl extends HeaderValue2<List<CacheControlDirective<?>>> {
+public final class CacheControl extends Header2<List<CacheControlDirective<?>>> {
 
     /**
      * Parses a header value that contains one or more directives.
      */
     public static CacheControl parse(final String text) {
-        return CacheControlHeaderValueParser.parseCacheControl(text);
+        return CacheControlHeaderParser.parseCacheControl(text);
     }
 
     /**
@@ -210,14 +210,14 @@ public final class CacheControl extends HeaderValue2<List<CacheControlDirective<
         return copy;
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(this.value, SEPARATOR);
+        return Header.toHeaderTextList(this.value, SEPARATOR);
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

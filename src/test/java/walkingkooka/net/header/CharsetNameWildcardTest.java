@@ -57,7 +57,7 @@ public final class CharsetNameWildcardTest extends CharsetNameTestCase<CharsetNa
     }
 
     @Override
-    public CharsetNameWildcard createDifferentHeaderValue() {
+    public CharsetNameWildcard createDifferentHeader() {
         throw new UnsupportedOperationException();
     }
 

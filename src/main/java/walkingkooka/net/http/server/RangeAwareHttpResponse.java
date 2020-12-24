@@ -27,8 +27,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
-import walkingkooka.net.header.RangeHeaderValue;
-import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.header.RangeHeader;
+import walkingkooka.net.header.RangeHeaderUnit;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
@@ -60,11 +60,11 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
         HttpResponse result = response;
 
         // range must be absent
-        final Optional<RangeHeaderValue> maybeRange = HttpHeaderName.RANGE.headerValue(request);
+        final Optional<RangeHeader> maybeRange = HttpHeaderName.RANGE.header(request);
         if (maybeRange.isPresent()) {
             result = new RangeAwareHttpResponse(response,
                     maybeRange.get(),
-                    HttpHeaderName.IF_RANGE.headerValue(request).orElse(null),
+                    HttpHeaderName.IF_RANGE.header(request).orElse(null),
                     boundaryCharacters);
         }
 
@@ -75,7 +75,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
      * Private ctor use factory
      */
     private RangeAwareHttpResponse(final HttpResponse response,
-                                   final RangeHeaderValue range,
+                                   final RangeHeader range,
                                    final IfRange<?> ifRange,
                                    final Supplier<Byte> boundaryCharacters) {
         super(response);
@@ -117,14 +117,14 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
 
     private boolean isETagSatisified(final IfRange<?> ifRange,
                                      final HasHeaders response) {
-        final Optional<ETag> etag = HttpHeaderName.E_TAG.headerValue(response);
+        final Optional<ETag> etag = HttpHeaderName.E_TAG.header(response);
         return etag.isPresent() &&
                 ifRange.etag().value().test(etag.get());
     }
 
     private boolean isLastModifiedSatisified(final IfRange<?> ifRange,
                                              final HasHeaders response) {
-        final Optional<LocalDateTime> lastModified = HttpHeaderName.LAST_MODIFIED.headerValue(response);
+        final Optional<LocalDateTime> lastModified = HttpHeaderName.LAST_MODIFIED.header(response);
         return lastModified.isPresent() &&
                 ifRange.lastModified().value().equals(lastModified.get());
     }
@@ -185,8 +185,8 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
                         .setBody(HttpEntity.NO_BODY)
         );
 
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(entity);
-        final ContentRange contentRange = ContentRange.with(RangeHeaderValueUnit.BYTES, ContentRange.NO_RANGE, contentLength);
+        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerOrFail(entity);
+        final ContentRange contentRange = ContentRange.with(RangeHeaderUnit.BYTES, ContentRange.NO_RANGE, contentLength);
 
         for (Range<Long> range : this.range.value()) {
             final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
@@ -206,7 +206,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
     /**
      * The requested ranges.
      */
-    private final RangeHeaderValue range;
+    private final RangeHeader range;
 
     private final IfRange<?> ifRange;
 

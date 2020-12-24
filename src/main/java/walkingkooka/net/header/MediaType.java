@@ -49,7 +49,7 @@ import java.util.function.Predicate;
  * message/External-body is not case-sensitive.)
  * </pre>
  */
-final public class MediaType extends HeaderValueWithParameters2<MediaType, MediaTypeParameterName<?>, String>
+final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
         implements HasQualityFactor,
         Predicate<MediaType>{
 
@@ -217,7 +217,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
      * parameters if they are present.
      */
     public static MediaType parse(final String text) {
-        return MediaTypeOneHeaderValueParser.parseMediaType(text);
+        return MediaTypeOneHeaderParser.parseMediaType(text);
     }
 
     /**
@@ -228,7 +228,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
     public static List<MediaType> parseList(final String text) {
         checkText(text);
 
-        return MediaTypeListHeaderValueParser.parseMediaTypeList(text);
+        return MediaTypeListHeaderParser.parseMediaTypeList(text);
     }
 
     private static void checkText(final String text) {
@@ -439,7 +439,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType, Media
         return compatible;
     }
 
-    // HeaderValue................................................................................................................
+    // Header................................................................................................................
 
     @Override
     String toHeaderTextValue() {

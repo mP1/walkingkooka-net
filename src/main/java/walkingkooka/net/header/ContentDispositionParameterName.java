@@ -73,46 +73,46 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
      */
     private final static HeaderParameterNameConstants<ContentDispositionParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             ContentDispositionParameterName::new,
-            HeaderValueHandler.quotedUnquotedString(
-                    ContentDispositionHeaderValueParser.QUOTED_PARAMETER_VALUE,
+            HeaderHandler.quotedUnquotedString(
+                    ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    ContentDispositionHeaderValueParser.UNQUOTED_PARAMETER_VALUE
+                    ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE
             ));
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>creation-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> CREATION_DATE = CONSTANTS.register("creation-date",
-            HeaderValueHandler.offsetDateTime());
+            HeaderHandler.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register("filename",
-            ContentDispositionFileNameNotEncodedHeaderValueHandler.INSTANCE);
+            ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE);
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename*</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME_STAR = CONSTANTS.register("filename*",
-            HeaderValueHandler.contentDispositionFilename());
+            HeaderHandler.contentDispositionFilename());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> MODIFICATION_DATE = CONSTANTS.register("modification-date",
-            HeaderValueHandler.offsetDateTime());
+            HeaderHandler.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>read-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> READ_DATE = CONSTANTS.register("read-date",
-            HeaderValueHandler.offsetDateTime());
+            HeaderHandler.offsetDateTime());
     /**
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
     public final static ContentDispositionParameterName<Long> SIZE = CONSTANTS.register("size",
-            HeaderValueHandler.longHandler());
+            HeaderHandler.longHandler());
 
     // factory ......................................................................................................
 
@@ -128,7 +128,7 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
      * Private constructor use factory.
      */
     private ContentDispositionParameterName(final String name,
-                                            final HeaderValueHandler<V> handler) {
+                                            final HeaderHandler<V> handler) {
         super(name, handler);
     }
 

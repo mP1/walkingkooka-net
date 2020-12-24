@@ -31,15 +31,15 @@ final public class AcceptCharsetValueParameterName<V> extends HeaderParameterNam
 
     private final static HeaderParameterNameConstants<AcceptCharsetValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             AcceptCharsetValueParameterName::new,
-            HeaderValueHandler.quotedUnquotedString(
-                    AcceptCharsetHeaderValueParser.QUOTED_PARAMETER_VALUE,
+            HeaderHandler.quotedUnquotedString(
+                    AcceptCharsetHeaderParser.QUOTED_PARAMETER_VALUE,
                     false,
-                    AcceptCharsetHeaderValueParser.UNQUOTED_PARAMETER_VALUE));
+                    AcceptCharsetHeaderParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * The q (quality factor) parameter.
      */
-    public final static AcceptCharsetValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptCharsetValueParameterName<Float> Q = CONSTANTS.register("q", HeaderHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link AcceptCharsetValueParameterName}
@@ -52,7 +52,7 @@ final public class AcceptCharsetValueParameterName<V> extends HeaderParameterNam
      * Private ctor use factory.
      */
     private AcceptCharsetValueParameterName(final String value,
-                                            final HeaderValueHandler<V> handler) {
+                                            final HeaderHandler<V> handler) {
         super(value, handler);
     }
 
@@ -63,7 +63,7 @@ final public class AcceptCharsetValueParameterName<V> extends HeaderParameterNam
         return this.compareTo0(other);
     }
 
-    // HeaderValue2.................................................................................................
+    // Header2.................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

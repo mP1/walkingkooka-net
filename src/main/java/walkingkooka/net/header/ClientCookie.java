@@ -83,7 +83,7 @@ final public class ClientCookie extends Cookie {
      * Formats a list of cookies into their header string form. Basically the inverse of {@link #parseHeader(String)}.
      */
     public static String toHeaderTextList(final List<ClientCookie> cookies) {
-        return HeaderValue.toHeaderTextList(cookies, FORMAT_SEPARATOR);
+        return Header.toHeaderTextList(cookies, FORMAT_SEPARATOR);
     }
 
     private final static String FORMAT_SEPARATOR = " ";

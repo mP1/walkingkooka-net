@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>> {
+public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>> {
 
     @Test
     public void testWithNullFails() {
@@ -51,7 +51,7 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
 
     @Test
     public void testParseInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> IfRange.parse("\"1234567890abcdef"));
+        assertThrows(HeaderException.class, () -> IfRange.parse("\"1234567890abcdef"));
     }
 
     @Test
@@ -91,12 +91,12 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
-    public IfRange<?> createHeaderValue() {
+    public IfRange<?> createHeader() {
         return IfRange.with(LocalDateTime.of(2000, 12, 31, 6, 28, 29));
     }
 
     @Override
-    public IfRange<?> createDifferentHeaderValue() {
+    public IfRange<?> createDifferentHeader() {
         return IfRange.with(LocalDateTime.of(1999, 1, 2, 0, 58, 59));
     }
 

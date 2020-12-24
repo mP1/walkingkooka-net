@@ -28,17 +28,17 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Test
     public void testETag() {
-        final IfRangeETag ifRange = this.createHeaderValue();
+        final IfRangeETag ifRange = this.createHeader();
         assertSame(ifRange, ifRange.etag());
     }
 
     @Test
     public void testLastModified() {
-        assertThrows(HeaderValueException.class, () -> this.createHeaderValue().lastModified());
+        assertThrows(HeaderException.class, () -> this.createHeader().lastModified());
     }
 
     @Override
-    IfRangeETag createHeaderValue(final ETag value) {
+    IfRangeETag createHeader(final ETag value) {
         return IfRangeETag.etag(value);
     }
 
@@ -49,7 +49,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Override
     String headerText() {
-        return HeaderValueHandler.eTag().toText(this.value(), HttpHeaderName.E_TAG);
+        return HeaderHandler.eTag().toText(this.value(), HttpHeaderName.E_TAG);
     }
 
     @Override

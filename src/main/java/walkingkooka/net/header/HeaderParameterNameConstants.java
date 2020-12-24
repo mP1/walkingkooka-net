@@ -36,16 +36,16 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * Creates a new empty constants. One or more constants need to be registered before lookups can work.
      */
-    static <R extends HeaderParameterName<?>> HeaderParameterNameConstants<R> empty(final BiFunction<String, HeaderValueHandler<?>, R> factory,
-                                                                                    final HeaderValueHandler<?> defaultHandler) {
+    static <R extends HeaderParameterName<?>> HeaderParameterNameConstants<R> empty(final BiFunction<String, HeaderHandler<?>, R> factory,
+                                                                                    final HeaderHandler<?> defaultHandler) {
         return new HeaderParameterNameConstants<>(factory, defaultHandler);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HeaderParameterNameConstants(final BiFunction<String, HeaderValueHandler<?>, N> factory,
-                                         final HeaderValueHandler<?> defaultHandler) {
+    private HeaderParameterNameConstants(final BiFunction<String, HeaderHandler<?>, N> factory,
+                                         final HeaderHandler<?> defaultHandler) {
         super();
         this.factory = factory;
         this.defaultHandler = defaultHandler;
@@ -54,7 +54,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * Registers a new parameter name constant.
      */
-    <T, NN extends N> NN register(final String name, final HeaderValueHandler<T> handler) {
+    <T, NN extends N> NN register(final String name, final HeaderHandler<T> handler) {
         if (this.nameToConstant.containsKey(name)) {
             throw new IllegalArgumentException("Constant already registered " + CharSequences.quote(name));
         }
@@ -88,7 +88,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * Basically calls the ctor for the parameter name. Should not perform any character checking of the provided name.
      */
-    private final BiFunction<String, HeaderValueHandler<?>, N> factory;
+    private final BiFunction<String, HeaderHandler<?>, N> factory;
 
     /**
      * A map that provides lookups ignoring case sensitivity of previously registered constants.
@@ -98,7 +98,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * The default handler for non constant parameter names.
      */
-    private final HeaderValueHandler<?> defaultHandler;
+    private final HeaderHandler<?> defaultHandler;
 
     @Override
     public final String toString() {

@@ -155,7 +155,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
         }
 
         // cookies
-        for (ClientCookie cookie : HttpHeaderName.COOKIE.headerValue(new HasHeaders() {
+        for (ClientCookie cookie : HttpHeaderName.COOKIE.header(new HasHeaders() {
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return headers;

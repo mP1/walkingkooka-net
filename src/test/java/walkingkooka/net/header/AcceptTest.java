@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaType>>
+public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<Accept>,
         PredicateTesting {
@@ -108,13 +108,13 @@ public final class AcceptTest extends HeaderValue2TestCase<Accept, List<MediaTyp
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), "image/bmp, image/gif; q=0.5");
+        this.toStringAndCheck(this.createHeader(), "image/bmp, image/gif; q=0.5");
     }
 
     // helpers..........................................................................................................
 
     @Override
-    Accept createHeaderValue(final List<MediaType> value) {
+    Accept createHeader(final List<MediaType> value) {
         return Accept.with(value);
     }
 

@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.net.header.HeaderValueTesting;
+import walkingkooka.net.header.HeaderTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.FieldAttributes;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
-        HeaderValueTesting<HttpMethod>,
+        HeaderTesting<HttpMethod>,
         ComparableTesting2<HttpMethod>,
         ConstantsTesting<HttpMethod> {
 
@@ -201,12 +201,12 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     @Override
-    public HttpMethod createHeaderValue() {
+    public HttpMethod createHeader() {
         return HttpMethod.GET;
     }
 
     @Override
-    public HttpMethod createDifferentHeaderValue() {
+    public HttpMethod createDifferentHeader() {
         return HttpMethod.POST;
     }
 

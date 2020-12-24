@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestCase<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>
+public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>
         implements PredicateTesting {
 
     private final static CharsetName VALUE = CharsetName.UTF_8;
@@ -73,7 +73,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetParametersInvalidParameterValueFails() {
-        assertThrows(HeaderValueException.class, () -> this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!")));
+        assertThrows(HeaderException.class, () -> this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!")));
     }
 
     @Test
@@ -275,7 +275,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     // helpers ...........................................................................................
 
     @Override
-    public AcceptCharsetValue createHeaderValueWithParameters() {
+    public AcceptCharsetValue createHeaderWithParameters() {
         return this.acceptCharsetValue();
     }
 
@@ -331,7 +331,7 @@ public final class AcceptCharsetValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    public AcceptCharsetValue createDifferentHeaderValue() {
+    public AcceptCharsetValue createDifferentHeader() {
         return AcceptCharsetValue.with(CharsetName.UTF_16);
     }
 

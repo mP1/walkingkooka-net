@@ -31,7 +31,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     /**
      * Private ctor to limit sub classing.
      */
-    HeaderParameterName(final String name, final HeaderValueHandler<V> handler) {
+    HeaderParameterName(final String name, final HeaderHandler<V> handler) {
         super(name);
         this.handler = handler;
     }
@@ -57,29 +57,30 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
 
     /**
      * Validates the value and casts it to its correct type.
+     * @param header
      */
     @Override
-    public final V checkValue(final Object value) {
-        return this.handler.check(value, this);
+    public final V check(final Object header) {
+        return this.handler.check(header, this);
     }
 
-    final HeaderValueHandler<V> handler;
+    final HeaderHandler<V> handler;
 
     /**
      * Gets a value wrapped in an {@link Optional} in a type safe manner.
      */
-    public Optional<V> parameterValue(final HeaderValueWithParameters<?> hasParameters) {
+    public Optional<V> parameterValue(final HeaderWithParameters<?> hasParameters) {
         Objects.requireNonNull(hasParameters, "hasParameters");
         return Optional.ofNullable(Cast.to(hasParameters.parameters().get(this)));
     }
 
     /**
-     * Retrieves the value or throws a {@link HeaderValueException} if absent.
+     * Retrieves the value or throws a {@link HeaderException} if absent.
      */
-    public V parameterValueOrFail(final HeaderValueWithParameters hasParameters) {
+    public V parameterValueOrFail(final HeaderWithParameters hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
         if (!value.isPresent()) {
-            throw new HeaderValueException("Required value is absent for " + this);
+            throw new HeaderException("Required value is absent for " + this);
         }
         return value.get();
     }

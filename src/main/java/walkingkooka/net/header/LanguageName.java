@@ -50,7 +50,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     public static LanguageName with(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "value", PREDICATE);
 
-        return HeaderValue.WILDCARD.string().equals(value) ?
+        return Header.WILDCARD.string().equals(value) ?
                 WILDCARD :
                 LanguageNameNonWildcard.nonWildcard(value);
     }
@@ -86,7 +86,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      */
     public abstract boolean isWildcard();
 
-    // HeaderValue........................................................................................................
+    // Header........................................................................................................
 
     /**
      * Returns the text or header value form.

@@ -63,7 +63,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
      */
     private static HttpEntityHeaderList check0(final HttpHeaderName<?> header,
                                               final HttpEntityHeaderList values) {
-        values.forEach(header::checkValue);
+        values.forEach(header::check);
         return values;
     }
 

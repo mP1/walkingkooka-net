@@ -25,7 +25,7 @@ import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class EncodingTest extends HeaderValueTestCase<Encoding>
+public final class EncodingTest extends HeaderTestCase<Encoding>
         implements ComparableTesting2<Encoding>,
         ParseStringTesting<Encoding> {
 
@@ -104,17 +104,17 @@ public final class EncodingTest extends HeaderValueTestCase<Encoding>
     // helper.. ........................................................................................................
 
     @Override
-    public Encoding createHeaderValue() {
-        return this.createHeaderValue("CUSTOM");
+    public Encoding createHeader() {
+        return this.createHeader("CUSTOM");
     }
 
-    private Encoding createHeaderValue(final String value) {
+    private Encoding createHeader(final String value) {
         return Encoding.with(value);
     }
 
     @Override
-    public Encoding createDifferentHeaderValue() {
-        return this.createHeaderValue("different");
+    public Encoding createDifferentHeader() {
+        return this.createHeader("different");
     }
 
     @Override
@@ -148,12 +148,12 @@ public final class EncodingTest extends HeaderValueTestCase<Encoding>
 
     @Override
     public Encoding createComparable() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     @Override
     public Encoding createObject() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     // ParseStringTesting................................................................................................

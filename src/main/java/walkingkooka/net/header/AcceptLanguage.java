@@ -60,7 +60,7 @@ import java.util.function.Predicate;
  * </pre>
  * Note the {@link AcceptLanguageValue} value is not sorted and appear in the original header text order.
  */
-public final class AcceptLanguage extends HeaderValue2<List<AcceptLanguageValue>>
+public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
         implements Predicate<ContentLanguage>,
         HasQualityFactorSortedValues<AcceptLanguageValue> {
 
@@ -68,7 +68,7 @@ public final class AcceptLanguage extends HeaderValue2<List<AcceptLanguageValue>
      * Parses a header value that contains one or more languages.
      */
     public static AcceptLanguage parse(final String text) {
-        return AcceptLanguageHeaderValueParser.parseAcceptLanguage(text);
+        return AcceptLanguageHeaderParser.parseAcceptLanguage(text);
     }
 
     /**
@@ -100,14 +100,14 @@ public final class AcceptLanguage extends HeaderValue2<List<AcceptLanguageValue>
                 .count() == 1;
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+        return Header.toHeaderTextList(value, SEPARATOR);
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
     
     @Override
     public boolean isWildcard() {

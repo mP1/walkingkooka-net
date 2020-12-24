@@ -40,7 +40,7 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
             default:
                 throw new IllegalArgumentException("Expected only one value");
         }
-        return new HttpEntityHeaderOneList(header.checkValue(values[0]));
+        return new HttpEntityHeaderOneList(header.check(values[0]));
     }
 
     /**

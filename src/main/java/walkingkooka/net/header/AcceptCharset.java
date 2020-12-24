@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
+public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
         implements Predicate<MediaType>,
         HasQualityFactorSortedValues<AcceptCharsetValue> {
 
@@ -40,7 +40,7 @@ public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
      * Parses a header value that contains one or more charsets.
      */
     public static AcceptCharset parse(final String text) {
-        return AcceptCharsetHeaderValueParser.parseAcceptCharset(text);
+        return AcceptCharsetHeaderParser.parseAcceptCharset(text);
     }
 
     /**
@@ -51,7 +51,7 @@ public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
     }
 
     /**
-     * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderValueParser}
+     * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderParser}
      */
     private AcceptCharset(final List<AcceptCharsetValue> values) {
         super(values);
@@ -71,10 +71,10 @@ public final class AcceptCharset extends HeaderValue2<List<AcceptCharsetValue>>
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+        return Header.toHeaderTextList(value, SEPARATOR);
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
 
     @Override

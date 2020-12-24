@@ -620,24 +620,24 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpHeaderName<String> headerName1 = HttpHeaderName.with("header111").stringValues();
         final HttpHeaderName<String> headerName2 = HttpHeaderName.with("header222").stringValues();
 
-        final String headerValue1 = "value1";
-        final String headerValue2 = "value2";
+        final String header1 = "value1";
+        final String header2 = "value2";
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .headerAndValue(headerName1, headerValue1)
-                .headerAndValue(headerName2, headerValue2);
+                .headerAndValue(headerName1, header1)
+                .headerAndValue(headerName2, header2);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
-        parameters.put(headerName1, headerValue1);
+        parameters.put(headerName1, header1);
         this.routeFails(router, parameters);
 
         parameters.put(headerName2, "999");
         this.routeFails(router, parameters);
 
-        parameters.put(headerName2, headerValue2);
+        parameters.put(headerName2, header2);
         this.routeAndCheck2(router, parameters);
     }
 

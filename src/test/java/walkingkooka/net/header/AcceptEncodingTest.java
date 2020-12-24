@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
+public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<AcceptEncoding>,
         PredicateTesting2<AcceptEncoding, ContentEncoding> {
@@ -111,12 +111,12 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
     // helpers.......................................................................................................
 
     @Override
-    AcceptEncoding createHeaderValue(final List<AcceptEncodingValue> value) {
+    AcceptEncoding createHeader(final List<AcceptEncodingValue> value) {
         return AcceptEncoding.with(value);
     }
 
     private AcceptEncoding acceptEncoding(final AcceptEncodingValue... value) {
-        return this.createHeaderValue(Lists.of(value));
+        return this.createHeader(Lists.of(value));
     }
 
     @Override
@@ -160,7 +160,7 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
 
     @Override
     public AcceptEncoding createPredicate() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     // ClassTestCase ............................................................................................

@@ -66,6 +66,6 @@ enum CacheControlDirectiveNameParameter {
     abstract <T> Optional<T> check0(Optional<T> value, final CacheControlDirectiveName<T> name);
 
     final <T> Optional<T> fail(final String message) {
-        throw new HeaderValueException(message);
+        throw new HeaderException(message);
     }
 }

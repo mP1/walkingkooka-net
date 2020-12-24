@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentDispositionTest extends HeaderValueWithParametersTestCase<ContentDisposition,
+public final class ContentDispositionTest extends HeaderWithParametersTestCase<ContentDisposition,
         ContentDispositionParameterName<?>>
         implements ParseStringTesting<ContentDisposition> {
 
@@ -44,25 +44,25 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWith() {
-        this.check(this.createHeaderValueWithParameters());
+        this.check(this.createHeaderWithParameters());
     }
 
     // setType ...........................................................................................
 
     @Test
     public void testSetTypeNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createHeaderValueWithParameters().setType(null));
+        assertThrows(NullPointerException.class, () -> this.createHeaderWithParameters().setType(null));
     }
 
     @Test
     public void testSetTypeSame() {
-        final ContentDisposition disposition = this.createHeaderValueWithParameters();
+        final ContentDisposition disposition = this.createHeaderWithParameters();
         assertSame(disposition, disposition.setType(TYPE));
     }
 
     @Test
     public void testSetTypeDifferent() {
-        final ContentDisposition disposition = this.createHeaderValueWithParameters();
+        final ContentDisposition disposition = this.createHeaderWithParameters();
         final ContentDispositionType type = ContentDispositionType.INLINE;
         this.check(disposition.setType(type), type, this.parameters());
         this.check(disposition);
@@ -72,7 +72,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetParametersDifferent() {
-        final ContentDisposition disposition = this.createHeaderValueWithParameters();
+        final ContentDisposition disposition = this.createHeaderWithParameters();
         final Map<ContentDispositionParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(disposition.setParameters(parameters), TYPE, parameters);
         this.check(disposition);
@@ -96,7 +96,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(this.createHeaderValueWithParameters(),
+        this.toHeaderTextAndCheck(this.createHeaderWithParameters(),
                 "attachment; p1=v1");
     }
 
@@ -206,7 +206,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.createHeaderValueWithParameters(),
+        this.toStringAndCheck(this.createHeaderWithParameters(),
                 "attachment; p1=v1");
     }
 
@@ -220,7 +220,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     // helpers ...........................................................................................
 
     @Override
-    public ContentDisposition createHeaderValueWithParameters() {
+    public ContentDisposition createHeaderWithParameters() {
         return ContentDisposition.with(TYPE)
                 .setParameters(this.parameters());
     }
@@ -272,7 +272,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    public ContentDisposition createDifferentHeaderValue() {
+    public ContentDisposition createDifferentHeader() {
         return ContentDisposition.with(ContentDispositionType.INLINE);
     }
 

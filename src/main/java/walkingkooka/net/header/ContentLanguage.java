@@ -44,13 +44,13 @@ import java.util.stream.Collectors;
  * Content-Language MAY be applied to any media type -- it is not limited to textual documents.
  * </pre>
  */
-public final class ContentLanguage extends HeaderValue2<List<LanguageName>> {
+public final class ContentLanguage extends Header2<List<LanguageName>> {
 
     /**
      * Parses a header value that contains one or more encodings.
      */
     public static ContentLanguage parse(final String text) {
-        return ContentLanguageHeaderValueParser.parseContentLanguage(text);
+        return ContentLanguageHeaderParser.parseContentLanguage(text);
     }
 
     /**
@@ -67,7 +67,7 @@ public final class ContentLanguage extends HeaderValue2<List<LanguageName>> {
         super(Lists.immutable(values));
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
@@ -76,7 +76,7 @@ public final class ContentLanguage extends HeaderValue2<List<LanguageName>> {
                 .collect(Collectors.joining(SEPARATOR));
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

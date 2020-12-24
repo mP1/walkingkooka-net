@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderValueTestCase<R> {
+public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderTestCase<R> {
 
     IfRangeTestCase() {
         super();
@@ -37,31 +37,31 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Test
     public final void testWith() {
         final V value = this.value();
-        this.check(this.createHeaderValue(value), value);
+        this.check(this.createHeader(value), value);
     }
 
     @Test
     public final void testWith2() {
         final V value = this.differentValue();
-        this.check(this.createHeaderValue(value), value);
+        this.check(this.createHeader(value), value);
     }
 
     // setValue.................................................................................................
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createHeaderValue().setValue(null));
+        assertThrows(NullPointerException.class, () -> this.createHeader().setValue(null));
     }
 
     @Test
     public final void testSetValueSame() {
-        final R range = this.createHeaderValue();
+        final R range = this.createHeader();
         assertSame(range, range.setValue(this.value()));
     }
 
     @Test
     public final void testSetValueDifferent() {
-        final R range = this.createHeaderValue();
+        final R range = this.createHeader();
         final V value = this.differentValue();
         final IfRange<V> different = range.setValue(value);
         assertNotSame(range, different);
@@ -70,7 +70,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testSetValueOtherType() {
-        final R range = this.createHeaderValue();
+        final R range = this.createHeader();
         final W value = this.otherValue();
         final IfRange<W> different = range.setValue(value);
         assertNotSame(range, different);
@@ -87,17 +87,17 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testIsETag() {
-        assertEquals(this.isETag(), this.createHeaderValue().isETag());
+        assertEquals(this.isETag(), this.createHeader().isETag());
     }
 
     @Test
     public final void testIsLastModified() {
-        assertEquals(!this.isETag(), this.createHeaderValue().isLastModified());
+        assertEquals(!this.isETag(), this.createHeader().isLastModified());
     }
 
     @Test
     public final void testToHeaderText() {
-        this.toHeaderTextAndCheck(this.createHeaderValue(),
+        this.toHeaderTextAndCheck(this.createHeader(),
                 this.headerText());
     }
 
@@ -108,34 +108,34 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testDifferentValue() {
-        this.checkNotEquals(this.createHeaderValue(this.differentValue()));
+        this.checkNotEquals(this.createHeader(this.differentValue()));
     }
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), this.headerText());
+        this.toStringAndCheck(this.createHeader(), this.headerText());
     }
 
     @Test
     public final void testParse() {
         final String text = this.headerText();
-        assertEquals(this.createHeaderValue(),
+        assertEquals(this.createHeader(),
                 IfRange.parse(text),
                 "Parsing " + CharSequences.quote(text));
     }
 
     @Override
-    public final R createHeaderValue() {
-        return this.createHeaderValue(this.value());
+    public final R createHeader() {
+        return this.createHeader(this.value());
     }
 
-    abstract R createHeaderValue(final V value);
+    abstract R createHeader(final V value);
 
     abstract V value();
 
     @Override
-    public final R createDifferentHeaderValue() {
-        return this.createHeaderValue(this.differentValue());
+    public final R createDifferentHeader() {
+        return this.createHeader(this.differentValue());
     }
 
     abstract V differentValue();

@@ -39,11 +39,11 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     }
 
     default <V> void parseAndCheck(final HeaderName<V> name,
-                                   final String headerValue,
+                                   final String header,
                                    final V value) {
         assertEquals(value,
-                name.parse(headerValue),
-                name + "=" + CharSequences.quoteIfNecessary(headerValue));
+                name.parse(header),
+                name + "=" + CharSequences.quoteIfNecessary(header));
     }
 
     // toString.................................................................................
@@ -57,24 +57,24 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     // checkValue...........................................................................................
 
     @Test
-    default void testCheckValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.checkValue(null));
+    default void testCheckNullFails() {
+        assertThrows(NullPointerException.class, () -> this.check(null));
     }
 
     @Test
-    default void testCheckValueInvalidTypeFails() {
-        assertThrows(HeaderValueException.class, () -> this.checkValue(this));
+    default void testCheckInvalidTypeFails() {
+        assertThrows(HeaderException.class, () -> this.check(this));
     }
 
-    default void checkValue(final Object value) {
-        this.createName().checkValue(value);
+    default void check(final Object header) {
+        this.createName().check(header);
     }
 
-    default void checkValue(final HeaderName<?> name,
-                            final Object value) {
-        assertSame(value,
-                name.checkValue(value),
-                name + " didnt return correct value=" + CharSequences.quoteIfChars(value));
+    default void check(final HeaderName<?> name,
+                       final Object header) {
+        assertSame(header,
+                name.check(header),
+                name + " didnt return correct header=" + CharSequences.quoteIfChars(header));
     }
 
     default N createName() {

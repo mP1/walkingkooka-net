@@ -87,14 +87,14 @@ import java.util.function.Predicate;
  *       this default set ought to be configurable by the user.
  * </pre>
  */
-public final class Accept extends HeaderValue2<List<MediaType>> implements Predicate<MediaType>,
+public final class Accept extends Header2<List<MediaType>> implements Predicate<MediaType>,
         HasQualityFactorSortedValues<MediaType> {
 
     /**
      * Parses a header value that contains {@link Accept}
      */
     public static Accept parse(final String text) {
-        return with(MediaTypeListHeaderValueParser.parseMediaTypeList(text));
+        return with(MediaTypeListHeaderParser.parseMediaTypeList(text));
     }
 
     /**
@@ -111,14 +111,14 @@ public final class Accept extends HeaderValue2<List<MediaType>> implements Predi
         super(values);
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+        return Header.toHeaderTextList(value, SEPARATOR);
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

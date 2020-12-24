@@ -65,7 +65,7 @@ final public class CookieName extends HeaderNameValue
      */
     @Override
     public Optional<ClientCookie> parameterValue(final HttpRequest request) {
-        return HttpHeaderName.COOKIE.headerValue(request)
+        return HttpHeaderName.COOKIE.header(request)
                 .orElse(ClientCookie.NO_COOKIES)
                 .stream()
                 .filter(c -> c.name().equals(this))

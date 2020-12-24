@@ -19,7 +19,7 @@ package walkingkooka.net.http;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.net.header.HeaderValue;
+import walkingkooka.net.header.Header;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
@@ -28,7 +28,7 @@ import walkingkooka.text.Whitespace;
  * A {@link Value} including an enumeration of standards methods that contains the HTTP request methods.
  */
 public final class HttpMethod implements Value<String>,
-        HeaderValue,
+        Header,
         Comparable<HttpMethod> {
 
     private final static String HEAD_STRING = "HEAD";
@@ -183,7 +183,7 @@ public final class HttpMethod implements Value<String>,
         return this == GET || this == HEAD;
     }
 
-    // HeaderValue...........................................................................................................
+    // Header...........................................................................................................
 
     @Override
     public String toHeaderText() {

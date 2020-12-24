@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
  * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.    
  * </pre>
  */
-public final class ContentEncoding extends HeaderValue2<List<Encoding>> {
+public final class ContentEncoding extends Header2<List<Encoding>> {
 
     /**
      * Holds all constants.
@@ -91,7 +91,7 @@ public final class ContentEncoding extends HeaderValue2<List<Encoding>> {
      * Parses a header value that contains one or more encodings.
      */
     public static ContentEncoding parse(final String text) {
-        return ContentEncodingHeaderValueParser.parseContentEncoding(text);
+        return ContentEncodingHeaderParser.parseContentEncoding(text);
     }
 
     /**
@@ -125,14 +125,14 @@ public final class ContentEncoding extends HeaderValue2<List<Encoding>> {
         super(Lists.immutable(values));
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+        return Header.toHeaderTextList(value, SEPARATOR);
     }
 
-    final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {

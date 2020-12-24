@@ -34,7 +34,7 @@ final class LanguageNameWildcard extends LanguageName {
      * Private ctor use factory
      */
     private LanguageNameWildcard() {
-        super(HeaderValue.WILDCARD.string());
+        super(Header.WILDCARD.string());
     }
 
     @Override

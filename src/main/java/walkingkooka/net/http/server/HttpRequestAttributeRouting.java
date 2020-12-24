@@ -187,21 +187,21 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      * Adds a requirement that a {@link HttpHeaderName} has the provided value.
      * An exception will be thrown if multiple different predicates for the same header are set.
      */
-    public <H> HttpRequestAttributeRouting headerAndValue(final HttpHeaderName<H> header,
-                                                          final H headerValue) {
-        return this.header(header, Predicates.is(headerValue));
+    public <H> HttpRequestAttributeRouting headerAndValue(final HttpHeaderName<H> name,
+                                                          final H header) {
+        return this.header(name, Predicates.is(header));
     }
 
     /**
      * Adds a requirement for a particular {@link HttpHeaderName}.<br>
      * An exception will be thrown if multiple different predicates for the same header are set.
      */
-    public <H> HttpRequestAttributeRouting header(final HttpHeaderName<H> header,
-                                                  final Predicate<H> headerValue) {
+    public <H> HttpRequestAttributeRouting header(final HttpHeaderName<H> name,
+                                                  final Predicate<H> header) {
+        Objects.requireNonNull(name, "name");
         Objects.requireNonNull(header, "header");
-        Objects.requireNonNull(headerValue, "headerValue");
 
-        return this.addAttribute(header, headerValue);
+        return this.addAttribute(name, header);
     }
 
     // cookies ..........................................................................................................

@@ -55,7 +55,7 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
         if (request.method().isGetOrHead()) {
 
             // if-none-matched must be absent
-            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.headerValue(request);
+            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.header(request);
             if (maybeIfNoneMatch.isPresent()) {
                 final List<ETag> ifNoneMatch = maybeIfNoneMatch.get()
                         .stream()
@@ -110,7 +110,7 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
      * Lazily computes an e-tag if a header value is not already set.
      */
     private ETag contentETag(final Binary body, final HttpEntity entity) {
-        final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(entity);
+        final Optional<ETag> contentETag = HttpHeaderName.E_TAG.header(entity);
         return contentETag.orElseGet(() -> this.computer.apply(body.value()));
     }
 

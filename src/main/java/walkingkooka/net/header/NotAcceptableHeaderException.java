@@ -34,7 +34,7 @@ package walkingkooka.net.header;
  * content type may have its own default
  * </pre>
  */
-public class NotAcceptableHeaderException extends HeaderValueException {
+public class NotAcceptableHeaderException extends HeaderException {
 
     private final static long serialVersionUID = 1L;
 

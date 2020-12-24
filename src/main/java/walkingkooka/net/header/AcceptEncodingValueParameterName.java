@@ -24,16 +24,16 @@ final public class AcceptEncodingValueParameterName<V> extends HeaderParameterNa
 
     private final static HeaderParameterNameConstants<AcceptEncodingValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             AcceptEncodingValueParameterName::new,
-            HeaderValueHandler.quotedUnquotedString(
-                    AcceptEncodingHeaderValueParser.QUOTED_PARAMETER_VALUE,
+            HeaderHandler.quotedUnquotedString(
+                    AcceptEncodingHeaderParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    AcceptEncodingHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
+                    AcceptEncodingHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
      * The q (quality factor) parameter.
      */
-    public final static AcceptEncodingValueParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptEncodingValueParameterName<Float> Q = CONSTANTS.register("q", HeaderHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link AcceptEncodingValueParameterName}
@@ -46,7 +46,7 @@ final public class AcceptEncodingValueParameterName<V> extends HeaderParameterNa
      * Private ctor use factory.
      */
     private AcceptEncodingValueParameterName(final String value,
-                                             final HeaderValueHandler<V> handler) {
+                                             final HeaderHandler<V> handler) {
         super(value, handler);
     }
 

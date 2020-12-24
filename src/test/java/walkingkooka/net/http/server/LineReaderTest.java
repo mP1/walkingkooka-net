@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HasHeaders;
@@ -101,8 +101,8 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
     }
 
     @Test
-    public void testInvalidHeaderValueFails() {
-        final HeaderValueException thrown = assertThrows(HeaderValueException.class, () -> LineReader.with("Content-Length:A").readHeaders());
+    public void testInvalidHeaderFails2() {
+        final HeaderException thrown = assertThrows(HeaderException.class, () -> LineReader.with("Content-Length:A").readHeaders());
         assertEquals("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\"", thrown.getMessage());
     }
 

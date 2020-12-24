@@ -24,16 +24,16 @@ final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V>
 
     private final static HeaderParameterNameConstants<AcceptLanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             AcceptLanguageParameterName::new,
-            HeaderValueHandler.quotedUnquotedString(
-                    AcceptLanguageOrAcceptLanguageValueHeaderValueParser.QUOTED_PARAMETER_VALUE,
+            HeaderHandler.quotedUnquotedString(
+                    AcceptLanguageOrAcceptLanguageValueHeaderParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    AcceptLanguageOrAcceptLanguageValueHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
+                    AcceptLanguageOrAcceptLanguageValueHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
      * The q (quality factor) parameter.
      */
-    public final static AcceptLanguageParameterName<Float> Q = CONSTANTS.register("q", HeaderValueHandler.qualityFactor());
+    public final static AcceptLanguageParameterName<Float> Q = CONSTANTS.register("q", HeaderHandler.qualityFactor());
 
     /**
      * Factory that creates a {@link AcceptLanguageParameterName}
@@ -46,7 +46,7 @@ final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V>
      * Private ctor use factory.
      */
     private AcceptLanguageParameterName(final String value,
-                                        final HeaderValueHandler<V> handler) {
+                                        final HeaderHandler<V> handler) {
         super(value, handler);
     }
 

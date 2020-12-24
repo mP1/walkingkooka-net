@@ -825,7 +825,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         assertEquals(HttpHeaderName.SET_COOKIE, this.createCookie().header());
     }
 
-    // toHeaderValue ....................................................................................
+    // toHeader ....................................................................................
 
     @Test
     public void testToHeaderText() {
@@ -1239,12 +1239,12 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
-    public ServerCookie createHeaderValue() {
+    public ServerCookie createHeader() {
         return this.createCookie();
     }
 
     @Override
-    public ServerCookie createDifferentHeaderValue() {
+    public ServerCookie createDifferentHeader() {
         return ServerCookie.parseHeader("different=value");
     }
 

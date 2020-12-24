@@ -41,7 +41,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeaderValue());
+        this.checkValue(this.createHeader());
     }
 
     // predicate........................................................................................................
@@ -138,7 +138,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     // helpers..........................................................................................................
 
     @Override
-    public AcceptEncodingValueWildcard createHeaderValueWithParameters() {
+    public AcceptEncodingValueWildcard createHeaderWithParameters() {
         return AcceptEncodingValueWildcard.INSTANCE;
     }
 
@@ -148,7 +148,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     }
 
     @Override
-    public AcceptEncodingValue createDifferentHeaderValue() {
+    public AcceptEncodingValue createDifferentHeader() {
         return AcceptEncodingValue.with("BR");
     }
 

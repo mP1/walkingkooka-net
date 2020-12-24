@@ -27,9 +27,9 @@ import java.util.function.Predicate;
 
 
 /**
- * A {@link HeaderValueWithParameters} that represents a single charset name with optional parameters.
+ * A {@link HeaderWithParameters} that represents a single charset name with optional parameters.
  */
-final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
+final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
         implements HasQualityFactor,
         Predicate<CharsetName> {
 
@@ -134,7 +134,7 @@ final public class AcceptCharsetValue extends HeaderValueWithParameters2<AcceptC
         return AcceptCharsetValue.withParameters(charsetName, parameters);
     }
 
-    // HeaderValue................................................................................................................
+    // Header................................................................................................................
 
     @Override
     String toHeaderTextValue() {
