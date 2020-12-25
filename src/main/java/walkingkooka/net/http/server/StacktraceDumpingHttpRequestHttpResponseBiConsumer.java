@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Objects;
@@ -45,7 +46,7 @@ final class StacktraceDumpingHttpRequestHttpResponseBiConsumer implements BiCons
         } catch (final Exception cause) {
             response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR
                     .setMessageOrDefault(cause.getMessage()));
-            StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTrace.setResponseBody(response, cause);
+            response.addEntity(HttpEntity.dumpStackTrace(cause));
         }
     }
 

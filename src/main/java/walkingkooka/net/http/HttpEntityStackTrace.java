@@ -15,33 +15,39 @@
  *
  */
 
-package walkingkooka.net.http.server;
+package walkingkooka.net.http;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Objects;
 
-abstract class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTrace extends StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl {
+abstract class HttpEntityStackTrace extends HttpEntityStackTraceJ2cl {
 
     @GwtIncompatible
-    static void setResponseBody(final HttpResponse response,
-                                final Throwable cause) {
+    static HttpEntity dumpStackTrace(final Throwable cause) {
+        Objects.requireNonNull(cause, "cause");
+
+        HttpEntity result;
+
         try (final StringWriter stringWriter = new StringWriter()) {
             try (final PrintWriter printWriter = new PrintWriter(stringWriter)) {
                 cause.printStackTrace(printWriter);
                 printWriter.flush();
 
-                response.addEntity(HttpEntity.EMPTY
+                result = HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                         .setBodyText(stringWriter.toString())
-                        .setContentLength());
+                        .setContentLength();
             }
         } catch (final IOException never) {
+            result = HttpEntity.EMPTY;
         }
+
+        return result;
     }
 }

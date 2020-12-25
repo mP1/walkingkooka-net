@@ -67,6 +67,13 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
     public final static HttpEntity EMPTY = HttpEntityEmpty.instance();
 
     /**
+     * Returns a {@link HttpEntity} filled with the {@link Throwable} stack trace.
+     */
+    public static HttpEntity dumpStackTrace(final Throwable thrown) {
+        return HttpEntityStackTrace.dumpStackTrace(thrown);
+    }
+
+    /**
      * Package private ctor to limit sub classing
      */
     HttpEntity() {

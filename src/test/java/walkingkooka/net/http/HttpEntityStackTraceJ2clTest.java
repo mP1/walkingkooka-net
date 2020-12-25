@@ -15,11 +15,24 @@
  *
  */
 
-package walkingkooka.net.http.server;
+package walkingkooka.net.http;
 
-public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2clTest extends HttpRequestHttpResponseBiConsumerTestCase<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> {
+import org.junit.jupiter.api.Test;
+
+public final class HttpEntityStackTraceJ2clTest extends HttpEntityStackTraceTestCase<HttpEntityStackTraceJ2cl> {
+
+    @Test
+    public void testDump() {
+        this.dumpStackTraceAndCheck(new Throwable("hello"), HttpEntity.EMPTY);
+    }
+
     @Override
-    public Class<StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl> type() {
-        return StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl.class;
+    HttpEntity dumpStackTrace(final Throwable cause) {
+        return HttpEntityStackTraceJ2cl.dumpStackTrace(cause);
+    }
+
+    @Override
+    public Class<HttpEntityStackTraceJ2cl> type() {
+        return HttpEntityStackTraceJ2cl.class;
     }
 }
