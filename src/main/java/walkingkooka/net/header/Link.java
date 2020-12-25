@@ -46,7 +46,7 @@ import java.util.Objects;
 /**
  * A {@link Value} as described in <a href="https://tools.ietf.org/search/rfc5988"></a>.
  */
-final public class Link extends HeaderValueWithParameters2<Link,
+final public class Link extends HeaderWithParameters2<Link,
         LinkParameterName<?>,
         Url>
         /*implements HasXmlNode*/ {
@@ -60,14 +60,14 @@ final public class Link extends HeaderValueWithParameters2<Link,
      * Creates a {@link Link} after parsing the text.
      */
     public static List<Link> parse(final String text) {
-        return LinkHeaderValueParser.parseLink(text);
+        return LinkHeaderParser.parseLink(text);
     }
 
     /**
      * Converts the list of links into header text.
      */
     public static String toHeaderTextList(final List<Link> links) {
-        return HeaderValue.toHeaderTextList(links, Link.SEPARATOR.string());
+        return Header.toHeaderTextList(links, Link.SEPARATOR.string());
     }
 
     /**
@@ -121,7 +121,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
         return new Link(value, parameters);
     }
 
-    // HeaderValue................................................................................................................
+    // Header................................................................................................................
 
     @Override
     String toHeaderTextValue() {

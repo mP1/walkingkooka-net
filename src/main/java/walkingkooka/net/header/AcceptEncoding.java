@@ -36,7 +36,7 @@ import java.util.function.Predicate;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-public final class AcceptEncoding extends HeaderValue2<List<AcceptEncodingValue>>
+public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
         implements Predicate<ContentEncoding>,
         HasQualityFactorSortedValues<AcceptEncodingValue> {
 
@@ -44,7 +44,7 @@ public final class AcceptEncoding extends HeaderValue2<List<AcceptEncodingValue>
      * Parses a header value that contains one or more encodings.
      */
     public static AcceptEncoding parse(final String text) {
-        return AcceptEncodingHeaderValueParser.parseAcceptEncoding(text);
+        return AcceptEncodingHeaderParser.parseAcceptEncoding(text);
     }
 
     /**
@@ -76,14 +76,14 @@ public final class AcceptEncoding extends HeaderValue2<List<AcceptEncodingValue>
                 .count() == 1;
     }
 
-    // HeaderValue.....................................................................................................
+    // Header.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+        return Header.toHeaderTextList(value, SEPARATOR);
     }
 
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+    private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
 
 
     @Override

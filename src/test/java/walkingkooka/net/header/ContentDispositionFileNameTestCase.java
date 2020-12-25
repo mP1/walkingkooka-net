@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
-        HeaderValueTestCase<F> {
+        HeaderTestCase<F> {
 
     ContentDispositionFileNameTestCase() {
         super();
@@ -34,7 +34,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
 
     @Test
     public final void testWithoutPathCached() {
-        final ContentDispositionFileName contentDisposition = this.createHeaderValue();
+        final ContentDispositionFileName contentDisposition = this.createHeader();
         assertSame(contentDisposition.withoutPath(), contentDisposition.withoutPath());
     }
 
@@ -74,7 +74,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
 
     @Test
     public final void testWithoutPathCacheEqualsUnimportant() {
-        this.checkEqualsAndHashCode(this.createHeaderValue().withoutPath(), this.createHeaderValue());
+        this.checkEqualsAndHashCode(this.createHeader().withoutPath(), this.createHeader());
     }
 
     @Override

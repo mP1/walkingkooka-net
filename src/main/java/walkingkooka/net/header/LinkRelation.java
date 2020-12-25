@@ -28,7 +28,7 @@ import java.util.Map;
  * Holds a link relation.<br>
  * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
-public abstract class LinkRelation<T> extends HeaderValue2<T> implements Comparable<LinkRelation<?>> {
+public abstract class LinkRelation<T> extends Header2<T> implements Comparable<LinkRelation<?>> {
 
     /**
      * Holds all constants.
@@ -548,14 +548,14 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
      * Parses the header text into a list of {@link LinkRelation}.
      */
     public static List<LinkRelation<?>> parse(final String text) {
-        return LinkRelationHeaderValueParser.parseLinkRelationList(text);
+        return LinkRelationHeaderParser.parseLinkRelationList(text);
     }
 
     /**
      * Converts the list of relations into header text.
      */
     public static String toHeaderTextList(final List<LinkRelation<?>> relations) {
-        return HeaderValue.toHeaderTextList(relations, " ");
+        return Header.toHeaderTextList(relations, " ");
     }
 
     /**

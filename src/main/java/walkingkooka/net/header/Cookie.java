@@ -34,7 +34,7 @@ import java.util.Optional;
  * Holds a cookie including all its properties. Note that values are verified to contain correct characters but no attempt is made to encode values
  * with incorrect values.
  */
-abstract public class Cookie implements HeaderValue, Value<String>, UsesToStringBuilder {
+abstract public class Cookie implements Header, Value<String>, UsesToStringBuilder {
 
     /**
      * The <code>domain</code> attribute
@@ -275,7 +275,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
         return Cast.to(this);
     }
 
-    // HeaderValue...........................................................................................
+    // Header...........................................................................................
 
     /**
      * Cookies do not support wildcard concept.

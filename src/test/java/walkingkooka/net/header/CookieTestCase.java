@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCase<C>
+abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
         implements IsMethodTesting<C> {
 
     CookieTestCase() {

@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * The value of the filename parameter within a content disposition.
  */
-abstract public class ContentDispositionFileName implements Name, HeaderValue {
+abstract public class ContentDispositionFileName implements Name, Header {
 
     public final static Optional<CharsetName> NO_CHARSET = Optional.empty();
 
@@ -94,7 +94,7 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
         return result;
     }
 
-    // HeaderValue .................................................................................
+    // Header .................................................................................
 
     @Override
     public final boolean isWildcard() {

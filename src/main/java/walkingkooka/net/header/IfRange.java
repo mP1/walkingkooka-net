@@ -62,7 +62,7 @@ import java.util.Objects;
  * Greenwich Mean Time. HTTP dates are always expressed in GMT, never in local time.
  * </pre>
  */
-public abstract class IfRange<T> implements HeaderValue, Value<T> {
+public abstract class IfRange<T> implements Header, Value<T> {
 
     /**
      * The {@link HttpHeaderName}.
@@ -75,11 +75,11 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     public static IfRange<?> parse(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        return IfRangeHeaderValueHandler.INSTANCE.parse(text, HEADER_NAME);
+        return IfRangeHeaderHandler.INSTANCE.parse(text, HEADER_NAME);
     }
 
-    final static HeaderValueHandler<ETag> ETAG = HeaderValueHandler.eTag();
-    final static HeaderValueHandler<LocalDateTime> DATE_TIME = HeaderValueHandler.localDateTime();
+    final static HeaderHandler<ETag> ETAG = HeaderHandler.eTag();
+    final static HeaderHandler<LocalDateTime> DATE_TIME = HeaderHandler.localDateTime();
 
     /**
      * Factory that creates an {@link IfRange} expecting an etag or date/time.
@@ -154,7 +154,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
      */
     abstract public IfRange<LocalDateTime> lastModified();
 
-    //HeaderValue............................................................................
+    //Header............................................................................
 
     @Override
     public final String toHeaderText() {
@@ -169,7 +169,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     /**
      * A handler used to format the value as a header text.
      */
-    abstract HeaderValueHandler<T> handler();
+    abstract HeaderHandler<T> handler();
 
     // HasHeaderScope ....................................................................................................
 

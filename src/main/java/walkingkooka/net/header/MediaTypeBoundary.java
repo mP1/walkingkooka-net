@@ -53,7 +53,7 @@ import java.util.function.Supplier;
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html"></a>
  */
 public final class MediaTypeBoundary implements Value<String>,
-        HeaderValue,
+        Header,
         Comparable<MediaTypeBoundary> {
 
     /**
@@ -125,7 +125,7 @@ public final class MediaTypeBoundary implements Value<String>,
      * Parses the text into a {@link MediaTypeBoundary}.
      */
     public static MediaTypeBoundary parse(final String value) {
-        return MediaTypeBoundaryHeaderValueHandler.INSTANCE.parse(value, MediaTypeParameterName.BOUNDARY);
+        return MediaTypeBoundaryHeaderHandler.INSTANCE.parse(value, MediaTypeParameterName.BOUNDARY);
     }
 
     /**

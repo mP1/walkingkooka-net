@@ -81,7 +81,7 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
     }
 
     @Override
-    public ETagWildcard createDifferentHeaderValue() {
+    public ETagWildcard createDifferentHeader() {
         throw new UnsupportedOperationException();
     }
 }

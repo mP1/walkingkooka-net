@@ -67,7 +67,7 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
         final Binary body = entity.body();
 
         final long contentLength = body.size();
-        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(entity);
+        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.header(entity);
         if (maybeResponseContentLength.isPresent()) {
             final long responseContentLength = maybeResponseContentLength.get();
             if (responseContentLength != contentLength) {

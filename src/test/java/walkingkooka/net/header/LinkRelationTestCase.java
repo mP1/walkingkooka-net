@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends HeaderValue2TestCase<R, T> {
+public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends Header2TestCase<R, T> {
 
     LinkRelationTestCase() {
         super();
@@ -43,13 +43,13 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
     }
 
     final R createLinkRelation() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     abstract R createLinkRelation(final T value);
 
     @Override
-    final R createHeaderValue(final T value) {
+    final R createHeader(final T value) {
         return this.createLinkRelation(value);
     }
 

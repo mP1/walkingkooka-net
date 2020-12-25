@@ -51,7 +51,7 @@ import java.util.Optional;
  * Content-Range: bytes 200-1000/67589
  * </pre>
  */
-public final class ContentRange implements HeaderValue {
+public final class ContentRange implements Header {
 
     /**
      * Constant to be used when no range is present or known.
@@ -166,7 +166,7 @@ public final class ContentRange implements HeaderValue {
         try {
             return parse0(text);
         } catch (final RuntimeException cause) {
-            throw new HeaderValueException(cause.getMessage(), cause);
+            throw new HeaderException(cause.getMessage(), cause);
         }
     }
 
@@ -176,7 +176,7 @@ public final class ContentRange implements HeaderValue {
         int mode = MODE_UNIT;
         int i = 0;
 
-        RangeHeaderValueUnit unit = null;
+        RangeHeaderUnit unit = null;
         long lower = 0;
         long upper = 0;
         Range<Long> range = null;
@@ -191,9 +191,9 @@ public final class ContentRange implements HeaderValue {
                     }
                     if (WHITESPACE.test(c)) {
                         if (i == 0) {
-                            throw new HeaderValueException("Unit missing from " + CharSequences.quote(text));
+                            throw new HeaderException("Unit missing from " + CharSequences.quote(text));
                         }
-                        unit = RangeHeaderValueUnit.parse(text.substring(0, i));
+                        unit = RangeHeaderUnit.parse(text.substring(0, i));
                         mode = MODE_RANGE_START_INITIAL;
                         break;
                     }
@@ -227,7 +227,7 @@ public final class ContentRange implements HeaderValue {
                     }
                     if (RANGE_SIZE_SEPARATOR == c) {
                         if (upper <= lower) {
-                            throw new HeaderValueException("Invalid upper bounds " + upper + " < " + lower + " in " + CharSequences.quote(text));
+                            throw new HeaderException("Invalid upper bounds " + upper + " < " + lower + " in " + CharSequences.quote(text));
                         }
                         range = range.and(Range.lessThanEquals(upper)); /* lgtm [java/dereferenced-value-may-be-null] */
                         mode = MODE_SIZE_INITIAL;
@@ -299,13 +299,13 @@ public final class ContentRange implements HeaderValue {
     }
 
     private static void failMissing(final String component, final String text) {
-        throw new HeaderValueException("Missing " + component + " from " + CharSequences.quote(text));
+        throw new HeaderException("Missing " + component + " from " + CharSequences.quote(text));
     }
 
     /**
      * Factory that creates a new {@link ContentRange} with the provided name and parameter.
      */
-    public static ContentRange with(final RangeHeaderValueUnit unit,
+    public static ContentRange with(final RangeHeaderUnit unit,
                                     final Optional<Range<Long>> range,
                                     final Optional<Long> size) {
         checkUnit(unit);
@@ -318,7 +318,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Private use factory.
      */
-    private ContentRange(final RangeHeaderValueUnit unit,
+    private ContentRange(final RangeHeaderUnit unit,
                          final Optional<Range<Long>> range,
                          final Optional<Long> size) {
         super();
@@ -332,7 +332,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Returns the unit.
      */
-    public final RangeHeaderValueUnit unit() {
+    public final RangeHeaderUnit unit() {
         return this.unit;
     }
 
@@ -340,7 +340,7 @@ public final class ContentRange implements HeaderValue {
      * Would be setter that returns a {@link ContentRange} with the given unit value
      * creating a new instance if necessary.
      */
-    public final ContentRange setUnit(final RangeHeaderValueUnit unit) {
+    public final ContentRange setUnit(final RangeHeaderUnit unit) {
         checkUnit(unit);
 
         return this.unit().equals(unit) ?
@@ -348,9 +348,9 @@ public final class ContentRange implements HeaderValue {
                 this.replace(unit.rangeCheck(), this.range, this.size);
     }
 
-    private final RangeHeaderValueUnit unit;
+    private final RangeHeaderUnit unit;
 
-    private static void checkUnit(final RangeHeaderValueUnit unit) {
+    private static void checkUnit(final RangeHeaderUnit unit) {
         Objects.requireNonNull(unit, "unit");
     }
 
@@ -456,7 +456,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Factory that creates a new {@link ContentRange}
      */
-    private ContentRange replace(final RangeHeaderValueUnit unit,
+    private ContentRange replace(final RangeHeaderUnit unit,
                                  final Optional<Range<Long>> range,
                                  final Optional<Long> size) {
         return new ContentRange(unit, range, size);
@@ -482,7 +482,7 @@ public final class ContentRange implements HeaderValue {
         return true;
     }
 
-    // HeaderValue........................................................................................
+    // Header........................................................................................
 
     /**
      * <pre>

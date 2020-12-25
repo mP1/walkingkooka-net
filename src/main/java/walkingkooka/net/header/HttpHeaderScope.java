@@ -57,7 +57,7 @@ public enum HttpHeaderScope {
     };
 
     /**
-     * Checks that the header's scope is for requests, if not a {@link HeaderValueException} will be thrown.
+     * Checks that the header's scope is for requests, if not a {@link HeaderException} will be thrown.
      */
     public final void check(final HttpHeaderName<?> name) {
         Objects.requireNonNull(name, "name");

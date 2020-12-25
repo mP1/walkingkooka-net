@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.RangeHeaderValue;
+import walkingkooka.net.header.RangeHeader;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
@@ -66,7 +66,7 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
                 HttpStatusCode.PARTIAL_CONTENT.status(),
                 HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.RANGE, RangeHeaderValue.parse("bytes=1-2"))
+                        .addHeader(HttpHeaderName.RANGE, RangeHeader.parse("bytes=1-2"))
                         .setBody(this.binary("a1")));
     }
 

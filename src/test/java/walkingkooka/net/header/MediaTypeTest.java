@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
+final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
         implements ParseStringTesting<MediaType>,
         PredicateTesting2<MediaType, MediaType> {
 
@@ -216,7 +216,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetParametersInvalidQFactor() {
-        assertThrows(HeaderValueException.class, () -> this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q, -1.0f)));
+        assertThrows(HeaderException.class, () -> this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q, -1.0f)));
     }
 
     @Test
@@ -459,7 +459,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testQParameterPresentInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "XYZ")).qualityFactor());
+        assertThrows(HeaderException.class, () -> this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "XYZ")).qualityFactor());
     }
 
     @Test
@@ -830,7 +830,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     // helpers........................................................................................................
 
     @Override
-    public MediaType createHeaderValueWithParameters() {
+    public MediaType createHeaderWithParameters() {
         return this.mediaType();
     }
 
@@ -857,7 +857,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    public MediaType createDifferentHeaderValue() {
+    public MediaType createDifferentHeader() {
         return MediaType.with("different-type", "different-sub-type");
     }
 

@@ -47,7 +47,7 @@ public interface HasHeaders {
         Objects.requireNonNull(defaultCharset, "defaultCharset");
 
         return HttpHeaderName.CONTENT_TYPE
-                .headerValue(this)
+                .header(this)
                 .map(c -> c.contentTypeCharset(defaultCharset))
                 .orElse(defaultCharset);
     }

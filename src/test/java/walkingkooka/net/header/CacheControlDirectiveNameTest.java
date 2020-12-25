@@ -171,7 +171,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty()));
+        assertThrows(HeaderException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty()));
     }
 
     @Test

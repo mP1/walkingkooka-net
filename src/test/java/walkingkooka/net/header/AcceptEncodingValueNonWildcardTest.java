@@ -43,7 +43,7 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeaderValue());
+        this.checkValue(this.createHeader());
     }
 
     @Test
@@ -214,11 +214,11 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     }
 
     @Override
-    public AcceptEncodingValueNonWildcard createHeaderValueWithParameters() {
-        return this.createHeaderValue(this.value());
+    public AcceptEncodingValueNonWildcard createHeaderWithParameters() {
+        return this.createHeader(this.value());
     }
 
-    private AcceptEncodingValueNonWildcard createHeaderValue(final String value) {
+    private AcceptEncodingValueNonWildcard createHeader(final String value) {
         return AcceptEncodingValue.nonWildcard(value, AcceptEncodingValueNonWildcard.NO_PARAMETERS);
     }
 
@@ -228,8 +228,8 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     }
 
     @Override
-    public AcceptEncodingValueNonWildcard createDifferentHeaderValue() {
-        return this.createHeaderValue("different");
+    public AcceptEncodingValueNonWildcard createDifferentHeader() {
+        return this.createHeader("different");
     }
 
     @Override

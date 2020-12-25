@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
+public final class CacheControlTest extends HeaderTestCase<CacheControl>
         implements ParseStringTesting<CacheControl> {
 
     // with..............................................................................................................
@@ -55,27 +55,27 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
 
     @Test
     public void testSetValueNullFails() {
-        final CacheControl cacheControl = this.createHeaderValue();
+        final CacheControl cacheControl = this.createHeader();
 
         assertThrows(NullPointerException.class, () -> cacheControl.setValue(null));
     }
 
     @Test
     public void testSetValuesEmptyFails() {
-        final CacheControl cacheControl = this.createHeaderValue();
+        final CacheControl cacheControl = this.createHeader();
 
         assertThrows(IllegalArgumentException.class, () -> cacheControl.setValue(Lists.empty()));
     }
 
     @Test
     public void testSetValuesSame() {
-        final CacheControl cacheControl = this.createHeaderValue();
+        final CacheControl cacheControl = this.createHeader();
         assertSame(cacheControl, cacheControl.setValue(this.directives()));
     }
 
     @Test
     public void testSetValuesDifferent() {
-        final CacheControl cacheControl = this.createHeaderValue();
+        final CacheControl cacheControl = this.createHeader();
 
         final List<CacheControlDirective<?>> values = Lists.of(CacheControlDirective.MAX_STALE);
         final CacheControl different = cacheControl.setValue(values);
@@ -134,7 +134,7 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
     }
 
     @Override
-    public CacheControl createHeaderValue() {
+    public CacheControl createHeader() {
         return CacheControl.with(this.directives());
     }
 
@@ -143,7 +143,7 @@ public final class CacheControlTest extends HeaderValueTestCase<CacheControl>
     }
 
     @Override
-    public CacheControl createDifferentHeaderValue() {
+    public CacheControl createDifferentHeader() {
         return CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE));
     }
 

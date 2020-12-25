@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<?>> {
+public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControlDirective<?>> {
 
     // with.............................................................................................................
 
@@ -45,7 +45,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     @Test
     public void testWithParameterInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty()));
+        assertThrows(HeaderException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty()));
     }
 
     @Test
@@ -66,7 +66,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(HeaderValueException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
+        assertThrows(HeaderException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
                 .setParameter(Optional.empty()));
     }
 
@@ -233,12 +233,12 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    public CacheControlDirective<Long> createHeaderValue() {
+    public CacheControlDirective<Long> createHeader() {
         return CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L));
     }
 
     @Override
-    public CacheControlDirective<Long> createDifferentHeaderValue() {
+    public CacheControlDirective<Long> createDifferentHeader() {
         throw new UnsupportedOperationException();
     }
 

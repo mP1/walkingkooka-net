@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ETagTest extends HeaderValueTestCase<ETag> {
+public final class ETagTest extends HeaderTestCase<ETag> {
 
     private final static String VALUE = "123";
     private final static ETagValidator WEAK = ETagValidator.WEAK;
@@ -127,17 +127,17 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
         assertEquals(toString,
-                HeaderValue.toHeaderTextList(Lists.of(tags), HeaderValue.SEPARATOR.string().concat(" ")),
+                Header.toHeaderTextList(Lists.of(tags), Header.SEPARATOR.string().concat(" ")),
                 "ETag.toString(List) failed =" + CharSequences.quote(toString));
     }
 
     @Override
-    public ETag createHeaderValue() {
+    public ETag createHeader() {
         return ETag.with("A", ETagValidator.WEAK);
     }
 
     @Override
-    public ETag createDifferentHeaderValue() {
+    public ETag createDifferentHeader() {
         return ETag.with("Different", ETagValidator.WEAK);
     }
 

@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncoding>
+public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
         implements ParseStringTesting<ContentEncoding> {
 
     @Test
@@ -38,7 +38,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeaderValue(), this.value());
+        this.checkValue(this.createHeader(), this.value());
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
     @Test
     public void testParse() {
         this.parseStringAndCheck("gzip, deflate, br",
-                this.createHeaderValue(Encoding.parse("gzip"),
+                this.createHeader(Encoding.parse("gzip"),
                         Encoding.parse("deflate"),
                         Encoding.parse("br")));
     }
@@ -83,7 +83,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
     @Test
     public void testParseExtraWhitespace() {
         this.parseStringAndCheck("gzip,  deflate,  br",
-                this.createHeaderValue(Encoding.parse("gzip"),
+                this.createHeader(Encoding.parse("gzip"),
                         Encoding.with("deflate"),
                         Encoding.with("br")));
     }
@@ -107,26 +107,26 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), HeaderValue.toHeaderTextList(this.value(), ContentEncoding.SEPARATOR));
+        this.toStringAndCheck(this.createHeader(), Header.toHeaderTextList(this.value(), ContentEncoding.SEPARATOR));
     }
 
     @Test
     public void testToString2() {
         final String text = "compress";
-        this.toStringAndCheck(this.createHeaderValue(Encoding.with(text)), text);
+        this.toStringAndCheck(this.createHeader(Encoding.with(text)), text);
     }
 
     @Override
-    public ContentEncoding createHeaderValue() {
+    public ContentEncoding createHeader() {
         return ContentEncoding.with(this.value());
     }
 
     @Override
-    public ContentEncoding createDifferentHeaderValue() {
+    public ContentEncoding createDifferentHeader() {
         return ContentEncoding.DEFLATE;
     }
 
-    private ContentEncoding createHeaderValue(final Encoding... encodings) {
+    private ContentEncoding createHeader(final Encoding... encodings) {
         return ContentEncoding.with(Lists.of(encodings));
     }
 

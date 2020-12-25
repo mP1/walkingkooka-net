@@ -26,7 +26,7 @@ import java.util.Objects;
  * Represents a content disposition header and its component values.<br>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-public final class ContentDisposition extends HeaderValueWithParameters2<ContentDisposition,
+public final class ContentDisposition extends HeaderWithParameters2<ContentDisposition,
         ContentDispositionParameterName<?>,
         ContentDispositionType> {
     /**
@@ -47,7 +47,7 @@ public final class ContentDisposition extends HeaderValueWithParameters2<Content
      * </pre>
      */
     public static ContentDisposition parse(final String text) {
-        return ContentDispositionHeaderValueParser.parseContentDisposition(text);
+        return ContentDispositionHeaderParser.parseContentDisposition(text);
     }
 
     /**
@@ -100,7 +100,7 @@ public final class ContentDisposition extends HeaderValueWithParameters2<Content
         return new ContentDisposition(type, parameters);
     }
 
-    // HeaderValue.................................................................
+    // Header.................................................................
 
     @Override
     String toHeaderTextValue() {

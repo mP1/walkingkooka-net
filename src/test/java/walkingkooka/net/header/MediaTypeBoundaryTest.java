@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary>
+final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundary>
         implements ComparableTesting2<MediaTypeBoundary>,
         ParseStringTesting<MediaTypeBoundary> {
 
@@ -229,12 +229,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     // helpers........................................................................................................
 
     @Override
-    public MediaTypeBoundary createHeaderValue() {
+    public MediaTypeBoundary createHeader() {
         return MediaTypeBoundary.with("abc123");
     }
 
     @Override
-    public MediaTypeBoundary createDifferentHeaderValue() {
+    public MediaTypeBoundary createDifferentHeader() {
         return MediaTypeBoundary.with("different");
     }
 
@@ -265,12 +265,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Override
     public MediaTypeBoundary createComparable() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     @Override
     public MediaTypeBoundary createObject() {
-        return this.createHeaderValue();
+        return this.createHeader();
     }
 
     // ParseStringTesting ........................................................................................

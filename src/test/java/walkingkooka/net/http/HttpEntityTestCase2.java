@@ -24,7 +24,7 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.FakeWebFile;
@@ -56,7 +56,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     public final void testSetHeadersInvalidFails() {
         final HttpEntity entity = this.createHttpEntity();
 
-        assertThrows(HeaderValueException.class, () -> entity.setHeaders(map(HttpHeaderName.ACCEPT_CHARSET, MediaType.TEXT_PLAIN)));
+        assertThrows(HeaderException.class, () -> entity.setHeaders(map(HttpHeaderName.ACCEPT_CHARSET, MediaType.TEXT_PLAIN)));
     }
 
     @Test
@@ -77,7 +77,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     public final void testSetHeaderInvalidValueFails() {
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
 
-        assertThrows(HeaderValueException.class, () -> {
+        assertThrows(HeaderException.class, () -> {
             this.createHttpEntity()
                     .setHeader(header, Cast.to(list("INVALID VALUE requires Long")));
         });
@@ -99,7 +99,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testAddHeaderInvalidValueFails() {
-        assertThrows(HeaderValueException.class, () -> {
+        assertThrows(HeaderException.class, () -> {
             this.createHttpEntity()
                     .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"));
         });

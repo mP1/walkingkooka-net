@@ -68,7 +68,7 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = Cast.to(request.headers().entrySet().iterator());
 
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = Iterators.mapping(HttpHeaderName.COOKIE.headerValue(request).orElse(ClientCookie.NO_COOKIES).iterator(), HttpRequestRouterParametersMapEntrySet::cookie);
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = Iterators.mapping(HttpHeaderName.COOKIE.header(request).orElse(ClientCookie.NO_COOKIES).iterator(), HttpRequestRouterParametersMapEntrySet::cookie);
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 

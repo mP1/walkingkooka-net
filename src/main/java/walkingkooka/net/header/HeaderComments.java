@@ -98,7 +98,7 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return HeaderValueParser.missingClosingParens(text);
+            return HeaderParser.missingClosingParens(text);
         }
     },
     SINGLE_QUOTES {
@@ -129,7 +129,7 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return HeaderValueParser.missingClosingQuote(text);
+            return HeaderParser.missingClosingQuote(text);
         }
     },
     SINGLE_QUOTES_BACKSLASH_ESCAPING {
@@ -160,7 +160,7 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return HeaderValueParser.missingClosingQuote(text);
+            return HeaderParser.missingClosingQuote(text);
         }
     },
     DOUBLE_QUOTES {
@@ -191,7 +191,7 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return HeaderValueParser.missingClosingQuote(text);
+            return HeaderParser.missingClosingQuote(text);
         }
     },
     DOUBLE_QUOTES_BACKSLASH_ESCAPING {
@@ -222,7 +222,7 @@ enum HeaderComments {
 
         @Override
         String endOfText(final String text) {
-            return HeaderValueParser.missingClosingQuote(text);
+            return HeaderParser.missingClosingQuote(text);
         }
     },
 
@@ -288,7 +288,7 @@ enum HeaderComments {
         final int end = text.length();
         do {
             if (p >= end) {
-                HeaderValueParser.fail(mode.endOfText(text));
+                HeaderParser.fail(mode.endOfText(text));
             }
             mode = mode.accept(text, p);
             p++;

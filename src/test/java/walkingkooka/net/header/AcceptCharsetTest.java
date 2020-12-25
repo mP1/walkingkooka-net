@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<AcceptCharsetValue>>
+public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<AcceptCharset>,
         PredicateTesting {
@@ -39,20 +39,20 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
 
     @Test
     public void testCharset() {
-        this.charsetAndCheck(this.createHeaderValue(), CharsetName.UTF_8.charset());
+        this.charsetAndCheck(this.createHeader(), CharsetName.UTF_8.charset());
     }
 
     @Test
     public void testCharset2() {
         this.charsetAndCheck(
-                this.createHeaderValue(AcceptCharsetValue.with(CharsetName.UTF_8)),
+                this.createHeader(AcceptCharsetValue.with(CharsetName.UTF_8)),
                 CharsetName.UTF_8.charset());
     }
 
     @Test
     public void testCharsetWithout() {
         this.charsetAndCheck(
-                this.createHeaderValue(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
+                this.createHeader(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset) {
@@ -132,12 +132,12 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     // helpers..........................................................................................................
 
     @Override
-    AcceptCharset createHeaderValue(final List<AcceptCharsetValue> value) {
+    AcceptCharset createHeader(final List<AcceptCharsetValue> value) {
         return AcceptCharset.with(value);
     }
 
-    private AcceptCharset createHeaderValue(final AcceptCharsetValue... value) {
-        return this.createHeaderValue(Lists.of(value));
+    private AcceptCharset createHeader(final AcceptCharsetValue... value) {
+        return this.createHeader(Lists.of(value));
     }
 
         @Override

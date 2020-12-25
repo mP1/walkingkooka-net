@@ -30,8 +30,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
-import walkingkooka.net.header.RangeHeaderValue;
-import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.header.RangeHeader;
+import walkingkooka.net.header.RangeHeaderUnit;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -151,7 +151,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 this.lastModifiedDifferent());
     }
 
-    private void ifRangeFailSetStatusAddEntityAndCheck(final RangeHeaderValue requestRanges,
+    private void ifRangeFailSetStatusAddEntityAndCheck(final RangeHeader requestRanges,
                                                        final IfRange requestIfRange,
                                                        final ETag responseETag,
                                                        final LocalDateTime responseLastModified) {
@@ -191,7 +191,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private void invalidRangeSetStatusAddEntityAndCheck(final IfRange requestIfRange,
                                                         final ETag responseETag,
                                                         final LocalDateTime responseLastModified) {
-        this.setStatusAddEntityAndCheck4(RangeHeaderValue.parse("bytes=1-9999"),
+        this.setStatusAddEntityAndCheck4(RangeHeader.parse("bytes=1-9999"),
                 requestIfRange,
                 responseETag,
                 responseLastModified,
@@ -200,7 +200,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 NO_BODY);
     }
 
-    private void setStatusAddEntityAndCheck4(final RangeHeaderValue requestRanges,
+    private void setStatusAddEntityAndCheck4(final RangeHeader requestRanges,
                                              final IfRange requestIfRange,
                                              final ETag responseETag,
                                              final LocalDateTime responseLastModified,
@@ -313,7 +313,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private ContentRange contentRange(final long lower, final long upper) {
-        return ContentRange.with(RangeHeaderValueUnit.BYTES,
+        return ContentRange.with(RangeHeaderUnit.BYTES,
                 Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper))),
                 Optional.of(BODY_LENGTH));
     }
@@ -324,7 +324,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                                             final HttpEntity... expectedEntities) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(
-                    this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
+                    this.createRequest(RangeHeader.parse(requestRanges), requestIfRange),
                     version,
                     HttpStatusCode.OK.status(),
                     httpEntity(headers).setBody(Binary.with(BODY)),
@@ -351,8 +351,8 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         return this.createRequest(this.ranges(), this.ifRange());
     }
 
-    private RangeHeaderValue ranges() {
-        return RangeHeaderValue.parse("bytes=1-100");
+    private RangeHeader ranges() {
+        return RangeHeader.parse("bytes=1-100");
     }
 
     private IfRange<?> ifRange() {
@@ -383,7 +383,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         return HttpEntity.EMPTY.addHeader(HttpHeaderName.SERVER, "server abc123").setBody(Binary.with(BODY));
     }
 
-    private HttpRequest createRequest(final RangeHeaderValue ranges, final IfRange<?> ifRange) {
+    private HttpRequest createRequest(final RangeHeader ranges, final IfRange<?> ifRange) {
         final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
 
         if (null != ranges) {

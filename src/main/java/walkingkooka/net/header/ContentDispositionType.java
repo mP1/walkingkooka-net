@@ -105,9 +105,9 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
     public static ContentDispositionType with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        final ContentDispositionType httpHeaderValueParameterName = CONSTANTS.get(name);
-        return null != httpHeaderValueParameterName ?
-                httpHeaderValueParameterName :
+        final ContentDispositionType httpHeaderParameterName = CONSTANTS.get(name);
+        return null != httpHeaderParameterName ?
+                httpHeaderParameterName :
                 new ContentDispositionType(name);
     }
 

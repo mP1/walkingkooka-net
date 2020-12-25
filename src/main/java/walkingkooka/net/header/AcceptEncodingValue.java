@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 /**
  * An individual encoding belonging to a {@link AcceptEncoding}.
  */
-public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<AcceptEncodingValue,
+public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEncodingValue,
         AcceptEncodingValueParameterName<?>,
         String>
         implements Comparable<AcceptEncodingValue>,
@@ -96,7 +96,7 @@ public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<Acc
      * Parses text into a {@link AcceptEncodingValue}.
      */
     public static AcceptEncodingValue parse(final String text) {
-        return AcceptEncodingValueHeaderValueParser.parseEncoding(text);
+        return AcceptEncodingValueHeaderParser.parseEncoding(text);
     }
 
     /**
@@ -111,7 +111,7 @@ public abstract class AcceptEncodingValue extends HeaderValueWithParameters2<Acc
     private static String checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value,
                 "value",
-                AcceptEncodingValueHeaderValueParser.RFC2045TOKEN);
+                AcceptEncodingValueHeaderParser.RFC2045TOKEN);
         return value;
     }
 

@@ -72,7 +72,7 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
                 new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
     }
 
-    // HeaderValue .................................................................................
+    // Header .................................................................................
 
     @Override
     public String toHeaderText() {

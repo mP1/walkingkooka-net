@@ -31,10 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> implements ParseStringTesting<ContentRange>,
+public final class ContentRangeTest extends HeaderTestCase<ContentRange> implements ParseStringTesting<ContentRange>,
         ThrowableTesting {
 
-    private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
+    private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(789L);
 
     // with.
@@ -108,7 +108,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testSetUnitNoneFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setUnit(RangeHeaderValueUnit.NONE));
+        assertThrows(IllegalArgumentException.class, () -> this.contentRange().setUnit(RangeHeaderUnit.NONE));
     }
 
     @Test
@@ -211,7 +211,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     private void check(final ContentRange contentRange,
-                       final RangeHeaderValueUnit unit,
+                       final RangeHeaderUnit unit,
                        final Optional<Range<Long>> range,
                        final Optional<Long> size) {
         assertEquals(unit, contentRange.unit(), "unit");
@@ -428,17 +428,17 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     private void parseStringFails(final String text, final String message) {
-        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> ContentRange.parse(text));
+        final HeaderException expected = assertThrows(HeaderException.class, () -> ContentRange.parse(text));
         checkMessage(expected, message);
     }
 
-    private void parseStringAndCheck(final String headerValue,
-                               final RangeHeaderValueUnit unit,
+    private void parseStringAndCheck(final String header,
+                               final RangeHeaderUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
         assertEquals(ContentRange.with(unit, range, size),
-                ContentRange.parse(headerValue),
-                "Incorrect result when parsing " + CharSequences.quote(headerValue));
+                ContentRange.parse(header),
+                "Incorrect result when parsing " + CharSequences.quote(header));
     }
 
     // toHeaderText.................................................................................................
@@ -477,7 +477,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     private void toHeaderTextAndCheck(final String headerText,
-                                      final RangeHeaderValueUnit unit,
+                                      final RangeHeaderUnit unit,
                                       final Optional<Range<Long>> range,
                                       final Optional<Long> size) {
         this.toHeaderTextAndCheck(
@@ -505,7 +505,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         );
     }
 
-    private void toStringAndCheck(final RangeHeaderValueUnit unit,
+    private void toStringAndCheck(final RangeHeaderUnit unit,
                                   final Optional<Range<Long>> range,
                                   final Optional<Long> size,
                                   final String toString) {
@@ -525,19 +525,19 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         return Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)));
     }
 
-    private ContentRange range(final RangeHeaderValueUnit unit,
+    private ContentRange range(final RangeHeaderUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
         return ContentRange.with(unit, range, size);
     }
 
     @Override
-    public ContentRange createHeaderValue() {
+    public ContentRange createHeader() {
         return ContentRange.with(UNIT, this.range(), SIZE);
     }
 
     @Override
-    public ContentRange createDifferentHeaderValue() {
+    public ContentRange createDifferentHeader() {
         return ContentRange.with(UNIT, this.range(), Optional.of(1L));
     }
 

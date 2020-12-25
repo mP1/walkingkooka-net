@@ -30,7 +30,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue> extends HeaderValueWithParametersTestCase<AcceptEncodingValue, AcceptEncodingValueParameterName<?>>
+public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue> extends HeaderWithParametersTestCase<AcceptEncodingValue, AcceptEncodingValueParameterName<?>>
         implements ComparableTesting2<AcceptEncodingValue>,
         ParseStringTesting<AcceptEncodingValue>,
         PredicateTesting2<AcceptEncodingValue, ContentEncoding> {
@@ -41,7 +41,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeaderValue());
+        this.checkValue(this.createHeader());
     }
 
     @Test
@@ -54,7 +54,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Test
     public final void testSetParametersDifferent() {
-        final A acceptEncoding = this.createHeaderValueWithParameters();
+        final A acceptEncoding = this.createHeaderWithParameters();
 
         final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(AcceptEncodingValueParameterName.Q, 0.5f);
         final AcceptEncodingValue different = acceptEncoding.setParameters(parameters);
@@ -97,20 +97,20 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Test
     public final void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createHeaderValueWithParameters().setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
+        this.checkNotEquals(this.createHeaderWithParameters().setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     @Test
     public final void testEqualsParameters() {
         final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(AcceptEncodingValueParameterName.Q, 0.5f);
-        final A acceptEncoding = this.createHeaderValueWithParameters();
+        final A acceptEncoding = this.createHeaderWithParameters();
 
         this.checkEqualsAndHashCode(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
     }
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), this.value());
+        this.toStringAndCheck(this.createHeader(), this.value());
     }
 
     @Test
@@ -120,7 +120,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
                 value + "; q=0.5");
     }
 
-    public abstract A createHeaderValueWithParameters();
+    public abstract A createHeaderWithParameters();
 
     abstract String value();
 
@@ -167,7 +167,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Override
     public final A createComparable() {
-        return this.createHeaderValueWithParameters();
+        return this.createHeaderWithParameters();
     }
 
 
@@ -182,7 +182,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Override
     public final AcceptEncodingValue createPredicate() {
-        return this.createHeaderValueWithParameters();
+        return this.createHeaderWithParameters();
     }
 
     // ClassName..Testing...............................................................................................

@@ -50,18 +50,18 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     }
 
     final <VV> void parameterValueAndCheckAbsent(final HeaderParameterName<VV> name,
-                                                 final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters) {
+                                                 final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters) {
         this.parameterValueAndCheck2(name, hasParameters, Optional.empty());
     }
 
     final <VV> void parameterValueAndCheckPresent(final HeaderParameterName<VV> name,
-                                                  final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters,
+                                                  final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                                   final VV value) {
         this.parameterValueAndCheck2(name, hasParameters, Optional.of(value));
     }
 
     private <VV> void parameterValueAndCheck2(final HeaderParameterName<VV> name,
-                                              final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters,
+                                              final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                               final Optional<VV> value) {
         assertEquals(value,
                 name.parameterValue(hasParameters),

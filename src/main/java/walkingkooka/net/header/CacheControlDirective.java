@@ -51,7 +51,7 @@ import java.util.Optional;
  * Cache-Control: s-maxage=<seconds>
  * </pre>
  */
-public final class CacheControlDirective<T> implements HeaderValue {
+public final class CacheControlDirective<T> implements Header {
 
     // constants................................................................................................
 
@@ -60,7 +60,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
      */
     private static <T> CacheControlDirective<T> register(final CacheControlDirectiveName<T> name) {
         final Optional<T> parameter = Optional.empty();
-        name.checkValue(parameter);
+        name.check(parameter);
 
         final CacheControlDirective<T> directive = new CacheControlDirective<>(name, parameter);
         CONSTANTS.put(name, directive);
@@ -124,7 +124,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
     public static <T> CacheControlDirective<T> with(final CacheControlDirectiveName<T> name,
                                                     final Optional<T> parameter) {
         Objects.requireNonNull(name, "name");
-        name.checkValue(parameter);
+        name.check(parameter);
 
         return parameter.isPresent() ?
                 new CacheControlDirective<>(name, parameter) :
@@ -166,7 +166,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
      * creating a new instance if necessary.
      */
     public final CacheControlDirective<T> setParameter(final Optional<T> parameter) {
-        this.name.checkValue(parameter);
+        this.name.check(parameter);
 
         return this.parameter().equals(parameter) ?
                 this :
@@ -199,7 +199,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
         return this.name.isResponse();
     }
 
-    // HeaderValue....................................................................................................
+    // Header....................................................................................................
 
     @Override
     public String toHeaderText() {

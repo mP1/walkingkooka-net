@@ -17,12 +17,12 @@
 
 package walkingkooka.net;
 
-import walkingkooka.net.header.HeaderValue;
+import walkingkooka.net.header.Header;
 
 import java.util.Optional;
 
 /**
- * Provides a getter to retrieve the q (quality factor). Mostly implemented by {@link HeaderValue} that also have parameters.
+ * Provides a getter to retrieve the q (quality factor). Mostly implemented by {@link Header} that also have parameters.
  */
 public interface HasQualityFactor {
 

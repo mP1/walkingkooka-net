@@ -49,7 +49,7 @@ final class CharsetNameWildcard extends CharsetName {
 
     @Override
     boolean test0(final CharsetName contentType) {
-        throw new HeaderValueException(HttpHeaderName.ACCEPT_CHARSET + " " + MediaTypeParameterName.CHARSET + "=" + WILDCARD);
+        throw new HeaderException(HttpHeaderName.ACCEPT_CHARSET + " " + MediaTypeParameterName.CHARSET + "=" + WILDCARD);
     }
 
     @Override

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptLanguageValueTest extends HeaderValueWithParametersTestCase<AcceptLanguageValue,
+public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<AcceptLanguageValue,
         AcceptLanguageParameterName<?>>
         implements ParseStringTesting<AcceptLanguageValue>,
         PredicateTesting2<AcceptLanguageValue, LanguageName> {
@@ -107,7 +107,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
 
     @Test
     public final void testSetParameterDifferent() {
-        final AcceptLanguageValue language = this.createHeaderValueWithParameters();
+        final AcceptLanguageValue language = this.createHeaderWithParameters();
         final Map<AcceptLanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
         final AcceptLanguageValue different = language.setParameters(parameters);
         this.check(different, this.en(), parameters);
@@ -257,7 +257,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     // helpers..........................................................................................................
 
     @Override
-    public AcceptLanguageValue createHeaderValueWithParameters() {
+    public AcceptLanguageValue createHeaderWithParameters() {
         return AcceptLanguageValue.with(this.en());
     }
 
@@ -290,7 +290,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
     }
 
     @Override
-    public AcceptLanguageValue createDifferentHeaderValue() {
+    public AcceptLanguageValue createDifferentHeader() {
         return AcceptLanguageValue.with(this.fr());
     }
 
@@ -308,7 +308,7 @@ public final class AcceptLanguageValueTest extends HeaderValueWithParametersTest
 
     @Override
     public AcceptLanguageValue createPredicate() {
-        return this.createHeaderValueWithParameters();
+        return this.createHeaderWithParameters();
     }
 
     // TypeNameTesting...................................................................................................
