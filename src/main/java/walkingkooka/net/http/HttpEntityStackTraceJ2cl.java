@@ -15,12 +15,16 @@
  *
  */
 
-package walkingkooka.net.http.server;
+package walkingkooka.net.http;
 
-abstract class StacktraceDumpingHttpRequestHttpResponseBiConsumerStackTraceJ2cl {
+import javaemul.internal.annotations.GwtIncompatible;
 
-    static void setResponseBody(final HttpResponse response,
-                                final Throwable cause) {
-        // do nothing in javascript
+import java.util.Objects;
+
+abstract class HttpEntityStackTraceJ2cl {
+
+    static HttpEntity dumpStackTrace(final Throwable cause) {
+        Objects.requireNonNull(cause, "cause");
+        return HttpEntity.EMPTY;
     }
 }
