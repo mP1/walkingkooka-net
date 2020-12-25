@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Cast;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class HttpRequestAttributeRoutingPredicateTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRoutingPredicate<?>> {
+public final class HttpRequestAttributeRouting2Test extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRouting2<?>> {
 
     @Override
     public String typeNameSuffix() {
@@ -30,8 +30,8 @@ public final class HttpRequestAttributeRoutingPredicateTest extends HttpRequestA
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HttpRequestAttributeRoutingPredicate<?>> type() {
-        return Cast.to(HttpRequestAttributeRoutingPredicate.class);
+    public Class<HttpRequestAttributeRouting2<?>> type() {
+        return Cast.to(HttpRequestAttributeRouting2.class);
     }
 
     @Override

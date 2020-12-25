@@ -30,6 +30,7 @@ import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.CookieName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -294,6 +295,50 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     // header ..........................................................................................................
 
     @Test
+    public void testHeaderAndValueNullHeaderNameFails() {
+        assertThrows(NullPointerException.class, () -> this.createRouting().headerAndValue(null, MediaType.ALL));
+    }
+
+    @Test
+    public void testHeaderAndValueNullValueFails() {
+        assertThrows(NullPointerException.class, () -> this.createRouting().headerAndValue(HttpHeaderName.CONTENT_TYPE, null));
+    }
+
+    @Test
+    public void testHeaderAndValueString() {
+        final HttpHeaderName<String> headerName = HttpHeaderName.SERVER;
+        final String server = "Server 123";
+
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.headerAndValue(headerName, server);
+        assertNotSame(routing, routing2);
+
+        this.checkTransports(routing2);
+        this.checkMethods(routing2);
+        this.checkAttributes(routing2, Maps.of(headerName, Predicates.is(server)));
+
+        this.check(routing);
+    }
+
+    @Test
+    public void testHeaderAndValueHeader() {
+        final HttpHeaderName<MediaType> headerName = HttpHeaderName.CONTENT_TYPE;
+        final MediaType contentType = MediaType.APPLICATION_JSON;
+
+        final HttpRequestAttributeRouting routing = this.createRouting();
+        final HttpRequestAttributeRouting routing2 = routing.headerAndValue(headerName, contentType);
+        assertNotSame(routing, routing2);
+
+        this.checkTransports(routing2);
+        this.checkMethods(routing2);
+        this.checkAttributes(routing2, Maps.of(headerName, HttpRequestAttributeRouting2Header.with(contentType)));
+
+        this.check(routing);
+    }
+
+    // header ..........................................................................................................
+
+    @Test
     public void testHeaderNullHeaderNameFails() {
         assertThrows(NullPointerException.class, () -> this.createRouting().header(null, Predicates.fake()));
     }
@@ -368,37 +413,37 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     public void testQueryString() {
         this.queryStringAndCheck("a1=b2",
                 HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2"))));
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.is("b2"))));
     }
 
     @Test
     public void testQueryStringValueUrlDecoded() {
         this.queryStringAndCheck("a1=b+2",
                 HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b 2"))));
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.is("b 2"))));
     }
 
     @Test
     public void testQueryStringWildcard() {
         this.queryStringAndCheck("a1=*",
                 HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always())));
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.always())));
     }
 
     @Test
     public void testQueryStringMultipleParameters() {
         this.queryStringAndCheck("a1=b2&c3=d4",
                 HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2")),
-                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.is("b2")),
+                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.is("d4"))));
     }
 
     @Test
     public void testQueryStringMultipleParametersIncludingWildcard() {
         this.queryStringAndCheck("a1=*&c3=d4",
                 HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always()),
-                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.always()),
+                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRouting2ParameterValue.with(Predicates.is("d4"))));
     }
 
     private void queryStringAndCheck(final String queryString,
@@ -438,7 +483,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
         this.checkTransports(routing2);
         this.checkMethods(routing2);
-        this.checkAttributes(routing2, Maps.of(parameterName, HttpRequestAttributeRoutingPredicateParameterValue.with(predicate)));
+        this.checkAttributes(routing2, Maps.of(parameterName, HttpRequestAttributeRouting2ParameterValue.with(predicate)));
 
         this.check(routing);
     }
@@ -466,7 +511,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
         this.checkTransports(routing2);
         this.checkMethods(routing2);
-        this.checkAttributes(routing2, Maps.of(parameterName, HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is(value))));
+        this.checkAttributes(routing2, Maps.of(parameterName, HttpRequestAttributeRouting2ParameterValue.with(Predicates.is(value))));
 
         this.check(routing);
     }
