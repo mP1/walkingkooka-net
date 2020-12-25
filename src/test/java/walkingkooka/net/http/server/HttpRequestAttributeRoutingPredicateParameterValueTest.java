@@ -24,7 +24,7 @@ import walkingkooka.predicate.Predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class HttpRequestAttributeRoutingParameterValuePredicateTest extends HttpRequestAttributeRoutingTestCase2<HttpRequestAttributeRoutingParameterValuePredicate, List<String>> {
+public final class HttpRequestAttributeRoutingPredicateParameterValueTest extends HttpRequestAttributeRoutingPredicateTestCase<HttpRequestAttributeRoutingPredicateParameterValue, List<String>> {
 
     private final static String VALUE = "value123";
 
@@ -55,7 +55,7 @@ public final class HttpRequestAttributeRoutingParameterValuePredicateTest extend
 
     @Test
     public void testEqualsDifferentPredicate() {
-        this.checkNotEquals(HttpRequestAttributeRoutingParameterValuePredicate.with(Predicates.fake()));
+        this.checkNotEquals(HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.fake()));
     }
 
     @Test
@@ -66,8 +66,8 @@ public final class HttpRequestAttributeRoutingParameterValuePredicateTest extend
     // PredicateTesting.................................................................................................
 
     @Override
-    public HttpRequestAttributeRoutingParameterValuePredicate createPredicate() {
-        return HttpRequestAttributeRoutingParameterValuePredicate.with(this.wrappedPredicate());
+    public HttpRequestAttributeRoutingPredicateParameterValue createPredicate() {
+        return HttpRequestAttributeRoutingPredicateParameterValue.with(this.wrappedPredicate());
     }
 
     private Predicate<String> wrappedPredicate() {
@@ -77,7 +77,7 @@ public final class HttpRequestAttributeRoutingParameterValuePredicateTest extend
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HttpRequestAttributeRoutingParameterValuePredicate> type() {
-        return HttpRequestAttributeRoutingParameterValuePredicate.class;
+    public Class<HttpRequestAttributeRoutingPredicateParameterValue> type() {
+        return HttpRequestAttributeRoutingPredicateParameterValue.class;
     }
 }

@@ -19,59 +19,44 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
+ * A {@link Predicate} that tests a component of a request during a routing.
  */
-final class HttpRequestAttributeRoutingParameterValuePredicate implements Predicate<List<String>> {
+abstract class HttpRequestAttributeRoutingPredicate<T> {
 
     /**
-     * Creates a new {@link HttpRequestAttributeRoutingParameterValuePredicate}.
+     * Package private ctor
      */
-    static HttpRequestAttributeRoutingParameterValuePredicate with(final Predicate<String> predicate) {
-        return new HttpRequestAttributeRoutingParameterValuePredicate(predicate);
-    }
-
-    /**
-     * Private ctor
-     */
-    private HttpRequestAttributeRoutingParameterValuePredicate(final Predicate<String> predicate) {
+    HttpRequestAttributeRoutingPredicate(final Predicate<T> predicate) {
         this.predicate = predicate;
     }
 
-    // Predicate .......................................................................................................
-
-    @Override
-    public boolean test(final List<String> values) {
-        return null != values &&
-                values.stream()
-                        .anyMatch(this.predicate);
-    }
-
-    private final Predicate<String> predicate;
+    final Predicate<T> predicate;
 
     // Object ..........................................................................................................
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return this.predicate.hashCode();
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpRequestAttributeRoutingParameterValuePredicate &&
+                this.canBeEquals(other) &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HttpRequestAttributeRoutingParameterValuePredicate other) {
+    abstract boolean canBeEquals(final Object other);
+
+    private boolean equals0(final HttpRequestAttributeRoutingPredicate<?> other) {
         return this.predicate.equals(other.predicate);
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return this.predicate.toString();
     }
 }

@@ -17,22 +17,24 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.TypeNameTesting;
+import java.util.function.Predicate;
 
-public abstract class HttpRequestAttributeRoutingTestCase<T> implements ClassTesting2<T>,
-        ToStringTesting<T>,
-        TypeNameTesting<T> {
+public abstract class HttpRequestAttributeRoutingPredicateTestCase<P extends Predicate<T>, T>
+        extends HttpRequestAttributeRoutingTestCase2<P, T> {
 
-    HttpRequestAttributeRoutingTestCase() {
+    HttpRequestAttributeRoutingPredicateTestCase() {
         super();
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
-    public String typeNamePrefix() {
-        return HttpRequestAttributeRouting.class.getSimpleName();
+    public final String typeNamePrefix() {
+        return HttpRequestAttributeRoutingPredicate.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

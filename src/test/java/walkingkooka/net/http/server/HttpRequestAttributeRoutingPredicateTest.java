@@ -17,22 +17,25 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.TypeNameTesting;
+import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 
-public abstract class HttpRequestAttributeRoutingTestCase<T> implements ClassTesting2<T>,
-        ToStringTesting<T>,
-        TypeNameTesting<T> {
-
-    HttpRequestAttributeRoutingTestCase() {
-        super();
-    }
-
-    // TypeNameTesting..................................................................................................
+public final class HttpRequestAttributeRoutingPredicateTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRoutingPredicate<?>> {
 
     @Override
-    public String typeNamePrefix() {
-        return HttpRequestAttributeRouting.class.getSimpleName();
+    public String typeNameSuffix() {
+        return "";
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<HttpRequestAttributeRoutingPredicate<?>> type() {
+        return Cast.to(HttpRequestAttributeRoutingPredicate.class);
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
