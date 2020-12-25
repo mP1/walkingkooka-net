@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
@@ -28,6 +29,7 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.CookieName;
+import walkingkooka.net.header.Header;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -189,7 +191,10 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      */
     public <H> HttpRequestAttributeRouting headerAndValue(final HttpHeaderName<H> name,
                                                           final H header) {
-        return this.header(name, Predicates.is(header));
+        return this.header(name,
+                header instanceof Header ?
+                        Cast.to(HttpRequestAttributeRouting2Header.with((Header) header)) :
+                        Predicates.is(header));
     }
 
     /**
@@ -290,7 +295,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         Objects.requireNonNull(parameter, "parameter");
         Objects.requireNonNull(parameterValue, "parameterValue");
 
-        return this.addAttribute(parameter, HttpRequestAttributeRoutingPredicateParameterValue.with(parameterValue));
+        return this.addAttribute(parameter, HttpRequestAttributeRouting2ParameterValue.with(parameterValue));
     }
 
     // helpers .........................................................................................................

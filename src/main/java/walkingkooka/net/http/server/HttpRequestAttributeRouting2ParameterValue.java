@@ -23,20 +23,20 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
  */
-final class HttpRequestAttributeRoutingPredicateParameterValue extends HttpRequestAttributeRoutingPredicate<String>
+final class HttpRequestAttributeRouting2ParameterValue extends HttpRequestAttributeRouting2<Predicate<String>>
         implements Predicate<List<String>> {
 
     /**
-     * Creates a new {@link HttpRequestAttributeRoutingPredicateParameterValue}.
+     * Creates a new {@link HttpRequestAttributeRouting2ParameterValue}.
      */
-    static HttpRequestAttributeRoutingPredicateParameterValue with(final Predicate<String> predicate) {
-        return new HttpRequestAttributeRoutingPredicateParameterValue(predicate);
+    static HttpRequestAttributeRouting2ParameterValue with(final Predicate<String> predicate) {
+        return new HttpRequestAttributeRouting2ParameterValue(predicate);
     }
 
     /**
      * Private ctor
      */
-    private HttpRequestAttributeRoutingPredicateParameterValue(final Predicate<String> predicate) {
+    private HttpRequestAttributeRouting2ParameterValue(final Predicate<String> predicate) {
         super(predicate);
     }
 
@@ -50,7 +50,7 @@ final class HttpRequestAttributeRoutingPredicateParameterValue extends HttpReque
     }
 
     boolean canBeEquals(final Object other) {
-        return other instanceof HttpRequestAttributeRoutingPredicateParameterValue;
+        return other instanceof HttpRequestAttributeRouting2ParameterValue;
     }
 }
 
