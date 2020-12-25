@@ -290,7 +290,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         Objects.requireNonNull(parameter, "parameter");
         Objects.requireNonNull(parameterValue, "parameterValue");
 
-        return this.addAttribute(parameter, HttpRequestAttributeRoutingParameterValuePredicate.with(parameterValue));
+        return this.addAttribute(parameter, HttpRequestAttributeRoutingPredicateParameterValue.with(parameterValue));
     }
 
     // helpers .........................................................................................................
