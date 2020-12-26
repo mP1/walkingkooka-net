@@ -23,8 +23,6 @@ NonMultiPartAwareHttpResponse*
 NonMultiPartAwareBufferingHttpResponse*
 RangeAwareHttpResponse*
 RequiredHeadersHttpResponse*
-WrapperHttpResponse*
-WrapperHttpRequestHttpResponse*
 
 
 
