@@ -30,6 +30,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -44,6 +45,37 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     @Test
     public final void testWithNullResponseFails() {
         assertThrows(NullPointerException.class, () -> this.createResponse(null));
+    }
+
+    @Test
+    public void testVersionNone() {
+        this.versionAndCheck(Optional.empty());
+    }
+
+    @Test
+    public void testVersion10() {
+        this.versionAndCheck(Optional.of(HttpProtocolVersion.VERSION_1_0));
+    }
+
+    @Test
+    public void testVersion11() {
+        this.versionAndCheck(Optional.of(HttpProtocolVersion.VERSION_1_1));
+    }
+
+    @Test
+    public void testVersion2() {
+        this.versionAndCheck(Optional.of(HttpProtocolVersion.VERSION_2));
+    }
+
+    private void versionAndCheck(final Optional<HttpProtocolVersion> version) {
+        assertEquals(version,
+                this.createResponse(new FakeHttpResponse() {
+                    @Test
+                    public Optional<HttpProtocolVersion> version() {
+                        return version;
+                    }
+                }).version()
+        );
     }
 
     @Test
