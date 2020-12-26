@@ -114,12 +114,17 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
     }
 
     /**
-     * Sets a new single header value for the given header.
+     * Sets one or multiple values, replacing any previous or if the list is empty removes the header.
      */
-    public final <T> HttpEntity setHeader(final HttpHeaderName<T> header, final List<T> value) {
+    public final <T> HttpEntity setHeader(final HttpHeaderName<T> header, final List<T> values) {
         checkHeader(header);
 
-        return this.setHeader0(header, HttpEntityHeaderList.copy(header, value));
+        // will return null to indicate values is empty and should be removed
+        final HttpEntityHeaderList copy = HttpEntityHeaderList.copy(header, values);
+
+        return null != copy ?
+                this.setHeader0(header, copy) :
+                this.remove0(header);
     }
 
     abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header, final HttpEntityHeaderList value);

@@ -204,6 +204,47 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         this.check(set3, map(header1, value1, header2, value3), entity.body(), entity.bodyText());
     }
 
+    @Test
+    public final void testSetHeaderEmptyReplace() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
+        final Long value1 = 1L;
+
+        final HttpEntity set1 = entity.setHeader(header1, list(value1));
+        assertNotSame(entity, set1);
+
+        this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
+
+        final HttpEntity set2 = set1.setHeader(header1, list());
+        assertNotSame(set1, set2);
+        assertEquals(entity, set2);
+    }
+
+    @Test
+    public final void testSetHeaderEmptyReplace2() {
+        final H entity = this.createHttpEntity();
+        assertEquals(HttpEntity.NO_HEADERS2, entity.headers());
+
+        final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
+        final Long value1 = 1L;
+
+        final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
+        final MediaType value2 = MediaType.parse("custom/media-type2");
+
+        final HttpEntity set1 = entity.setHeader(header1, list(value1))
+                .setHeader(header2, list(value2));
+        assertNotSame(entity, set1);
+
+        this.check(set1, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
+
+        final HttpEntity set2 = set1.setHeader(header2, list());
+        assertNotSame(set1, set2);
+
+        this.check(set2, map(header1, value1), entity.body(), entity.bodyText());
+    }
+
     // add..............................................................................................................
 
     @Test
