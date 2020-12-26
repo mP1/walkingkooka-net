@@ -30,6 +30,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -82,6 +83,17 @@ public final class HttpResponses implements PublicStaticHelper {
     @GwtIncompatible
     public static HttpResponse head(final HttpRequest request, final HttpResponse response) {
         return HeadHttpResponse.with(request, response);
+    }
+
+    /**
+     * {@see HeadersCopyHttpResponse}
+     */
+    public static HttpResponse headersCopy(final HttpRequest request,
+                                           final Set<HttpHeaderName<?>> headers,
+                                           final HttpResponse response) {
+        return HeadersCopyHttpResponse.with(request,
+                headers,
+                response);
     }
 
     /**
