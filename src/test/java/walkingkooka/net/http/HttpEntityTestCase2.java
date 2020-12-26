@@ -82,6 +82,18 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
                     .setHeader(header, Cast.to(list("INVALID VALUE requires Long")));
         });
     }
+
+    @Test
+    public final void testSetHeaderEmptyListNew() {
+        final HttpEntity entity = this.createHttpEntity();
+        assertSame(entity, entity.setHeader(HttpHeaderName.ACCEPT_LANGUAGE, Lists.empty()));
+    }
+
+    @Test
+    public final void testSetHeaderEmptyListNew2() {
+        final HttpEntity entity = this.createHttpEntity();
+        assertSame(entity, entity.setHeader(HttpHeaderName.CONTENT_TYPE, Lists.empty()));
+    }
     
     @Test
     public final void testAddHeaderNullNameFails() {

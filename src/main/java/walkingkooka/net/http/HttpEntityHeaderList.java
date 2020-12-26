@@ -72,9 +72,11 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
      */
     private static HttpEntityHeaderList copy0(final HttpHeaderName<?> header,
                                               final Object[] values) {
-        return header.isMultiple() ?
-                HttpEntityHeaderMultiList.with(header, values) :
-                HttpEntityHeaderOneList.with(header, values);
+        return values.length == 0 ?
+                null :
+                header.isMultiple() ?
+                        HttpEntityHeaderMultiList.with(header, values) :
+                        HttpEntityHeaderOneList.with(header, values);
     }
 
     /**
