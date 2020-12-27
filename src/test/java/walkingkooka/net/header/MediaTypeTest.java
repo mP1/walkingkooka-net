@@ -640,6 +640,22 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.isWildcardAndCheck(false);
     }
 
+    // accept........ ..................................................................................................
+
+    @Test
+    public void testAccept() {
+        this.acceptAndCheck(MediaType.APPLICATION_JSON);
+    }
+
+    @Test
+    public void testAcceptAny() {
+        this.acceptAndCheck(MediaType.ALL);
+    }
+
+    private void acceptAndCheck(final MediaType mediaType) {
+        assertEquals(Accept.with(Lists.of(mediaType)), mediaType.accept());
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test

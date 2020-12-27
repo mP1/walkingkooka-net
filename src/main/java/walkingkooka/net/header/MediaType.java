@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
@@ -454,6 +455,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     @Override
     public boolean isWildcard() {
         return ALL == this;
+    }
+
+    /**
+     * Returns an {@link Accept} with this {@link MediaType}.
+     */
+    public Accept accept() {
+        return Accept.with(Lists.of(this));
     }
 
     // HasHeaderScope ....................................................................................................
