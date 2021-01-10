@@ -141,7 +141,7 @@ final public class EmailAddress implements Value<String>,
     }
 
     static {
-        JsonNodeContext.register("email",
+        JsonNodeContext.register("email-address",
                 EmailAddress::unmarshall,
                 EmailAddress::marshall,
                 EmailAddress.class);
