@@ -232,7 +232,8 @@ public abstract class Url implements Value<String>,
     }
 
     static {
-        JsonNodeContext.register("url",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(Url.class),
                 Url::unmarshall,
                 Url::marshall,
                 Url.class,
