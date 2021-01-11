@@ -214,10 +214,12 @@ final public class Link extends HeaderWithParameters2<Link,
     final static JsonPropertyName HREF_JSON_PROPERTY = JsonPropertyName.with("href");
 
     static {
-        JsonNodeContext.register("link",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(Link.class),
                 Link::unmarshall,
                 Link::marshall,
-                Link.class);
+                Link.class
+        );
     }
 
     // hasXmlNode..........................................................................................................

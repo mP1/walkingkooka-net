@@ -192,10 +192,12 @@ public final class HttpResponses implements PublicStaticHelper {
 
     // TODO Write an annotation-processor that discovers all HttpResponses and adds them to the last parameter.
     static {
-        JsonNodeContext.register("HttpResponse",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(HttpResponse.class),
                 HttpResponses::unmarshall,
                 HttpResponses::marshall,
-                HttpResponse.class, RecordingHttpResponse.class); // unfortunately J2cl runtime doesnt support Class.isInstance
+                HttpResponse.class, RecordingHttpResponse.class
+        ); // unfortunately J2cl runtime doesnt support Class.isInstance
     }
     
     /**

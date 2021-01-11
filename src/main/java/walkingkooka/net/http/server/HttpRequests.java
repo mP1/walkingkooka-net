@@ -146,10 +146,12 @@ public final class HttpRequests implements PublicStaticHelper {
 
     // TODO Write an annotation-processor that discovers all HttpRequests and adds them to the last parameter.
     static {
-        JsonNodeContext.register("HttpRequest",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(HttpRequest.class),
                 HttpRequests::unmarshall,
                 HttpRequests::marshall,
-                HttpRequest.class, HttpRequestValue.class); // unfortunately J2cl runtime doesnt support Class.isInstance
+                HttpRequest.class, HttpRequestValue.class
+        ); // unfortunately J2cl runtime doesnt support Class.isInstance
     }
 
     // PublicStaticHelper...............................................................................................
