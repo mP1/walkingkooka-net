@@ -141,10 +141,12 @@ final public class EmailAddress implements Value<String>,
     }
 
     static {
-        JsonNodeContext.register("email-address",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(EmailAddress.class),
                 EmailAddress::unmarshall,
                 EmailAddress::marshall,
-                EmailAddress.class);
+                EmailAddress.class
+        );
     }
 
     // Object....................................................................................................
