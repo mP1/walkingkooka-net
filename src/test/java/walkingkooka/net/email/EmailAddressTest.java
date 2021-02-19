@@ -1620,7 +1620,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testUnmarshallInvalidEmailFails() {
-        this.unmarshallFails(JsonNode.string("!"), IllegalArgumentException.class);
+        this.unmarshallFails(JsonNode.string("!"));
     }
 
     @Test
