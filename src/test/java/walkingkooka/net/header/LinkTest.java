@@ -28,7 +28,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -148,39 +147,37 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     @Test
     public void testUnmarshallBooleanFails() {
-        this.unmarshallFails(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.booleanNode(true));
     }
 
     @Test
     public void testUnmarshallNumberFails() {
-        this.unmarshallFails(JsonNode.number(123), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.number(123));
     }
 
     @Test
     public void testUnmarshallStringFails() {
-        this.unmarshallFails(JsonNode.string("fails!"), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.string("fails!"));
     }
 
     @Test
     public void testUnmarshallArrayFails() {
-        this.unmarshallFails(JsonNode.array(), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.array());
     }
 
     @Test
     public void testUnmarshallObjectEmptyFails() {
-        this.unmarshallFails(JsonNode.object(), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.object());
     }
 
     @Test
     public void testUnmarshallHrefNonStringFails() {
-        this.unmarshallFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)),
-                JsonNodeException.class);
+        this.unmarshallFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)));
     }
 
     @Test
     public void testUnmarshallUnknownPropertyFails() {
-        this.unmarshallFails(JsonNode.object().set(JsonPropertyName.with("unknown-property"), JsonNode.number(123)),
-                JsonNodeException.class);
+        this.unmarshallFails(JsonNode.object().set(JsonPropertyName.with("unknown-property"), JsonNode.number(123)));
     }
 
     @Test
