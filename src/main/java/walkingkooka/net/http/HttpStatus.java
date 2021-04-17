@@ -29,6 +29,32 @@ import java.util.Objects;
 public final class HttpStatus implements Value<HttpStatusCode> {
 
     /**
+     * Extracts the first line of text from the given text. This is useful when making status messages compatible
+     * with HTTP which only allows text without line endings.
+     */
+    public static String firstLineOfText(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        String firstLineOfText = text;
+        final int length = text.length();
+
+        Loop:
+        //
+        for (int i = 0; i < length; i++) {
+            switch (text.charAt(i)) {
+                case '\n':
+                case '\r':
+                    firstLineOfText = text.substring(0, i);
+                    break Loop;
+                default:
+                    break;
+            }
+        }
+
+        return firstLineOfText;
+    }
+
+    /**
      * Factory that creates a {@link HttpStatus}
      */
     static HttpStatus with(final HttpStatusCode value, final String message) {
