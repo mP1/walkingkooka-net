@@ -22,6 +22,7 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -32,6 +33,50 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
         HashCodeEqualsDefinedTesting2<HttpStatus>,
         ToStringTesting<HttpStatus> {
+
+    // firstLineOfText..................................................................................................
+
+    @Test
+    public void testFirstLineOfTextNullFails() {
+        assertThrows(NullPointerException.class, () -> HttpStatus.firstLineOfText(null));
+    }
+
+    @Test
+    public void testFirstLineOfTextEmptyString() {
+        this.firstLineOfTextAndCheck("");
+    }
+
+    @Test
+    public void testFirstLineOfTextWithoutLineEnding() {
+        this.firstLineOfTextAndCheck("abc123");
+    }
+
+    @Test
+    public void testFirstLineOfTextIncludesCr() {
+        this.firstLineOfTextAndCheck("abc\r123", "abc");
+    }
+
+    @Test
+    public void testFirstLineOfTextIncludesCrNl() {
+        this.firstLineOfTextAndCheck("abc\r\n123", "abc");
+    }
+
+    @Test
+    public void testFirstLineOfTextIncludesNl() {
+        this.firstLineOfTextAndCheck("abc\n123", "abc");
+    }
+
+    private void firstLineOfTextAndCheck(final String text) {
+        this.firstLineOfTextAndCheck(text, text);
+    }
+
+    private void firstLineOfTextAndCheck(final String text, final String first) {
+        assertEquals(
+                first,
+                HttpStatus.firstLineOfText(text),
+                () -> CharSequences.escape(text).toString()
+        );
+    }
 
     // constants
 
