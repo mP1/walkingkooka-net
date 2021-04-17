@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
 import walkingkooka.text.Whitespace;
 
@@ -117,6 +118,15 @@ public final class HttpStatus implements Value<HttpStatusCode> {
 
     private static void checkMessage(final String message) {
         Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
+
+        final int length = message.length();
+        for (int i = 0; i < length; i++) {
+            switch (message.charAt(i)) {
+                case '\n':
+                case '\r':
+                    throw new InvalidCharacterException(message, i);
+            }
+        }
     }
 
     // replace........................................................................

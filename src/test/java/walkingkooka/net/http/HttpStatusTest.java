@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -82,6 +83,16 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
 
     private final static HttpStatusCode CODE = HttpStatusCode.OK;
     private final static String MESSAGE = "OK";
+
+    @Test
+    public void testWithMessagesIncludeCrFails() {
+        assertThrows(InvalidCharacterException.class, () -> HttpStatus.with(HttpStatusCode.OK, "message\r123"));
+    }
+
+    @Test
+    public void testWithMessagesIncludeNlFails() {
+        assertThrows(InvalidCharacterException.class, () -> HttpStatus.with(HttpStatusCode.OK, "message\n123"));
+    }
 
     @Test
     public void testWith() {
