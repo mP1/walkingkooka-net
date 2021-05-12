@@ -91,9 +91,23 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     }
 
     @Test
-    public void testUrl() {
+    public void testUrlMissingQueryString() {
+        final String url = "/path1";
+        assertEquals(Url.parseRelative(url),
+                this.createRequest(url).url());
+    }
+
+    @Test
+    public void testUrlWithQueryString() {
         assertEquals(Url.parseRelative(URL),
                 this.createRequest().url());
+    }
+
+    @Test
+    public void testUrlWithEmptyQueryString() {
+        final String url = "/path1?";
+        assertEquals(Url.parseRelative(url),
+                this.createRequest(url).url());
     }
 
     @Test
@@ -191,6 +205,12 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Override
     public HttpServletRequestHttpRequest createRequest() {
+        return this.createRequest(URL);
+    }
+
+    private HttpServletRequestHttpRequest createRequest(final String url) {
+        final int queryStringStart = url.indexOf('?');
+
         return HttpServletRequestHttpRequest.with(new FakeHttpServletRequest() {
 
             @Override
@@ -210,7 +230,16 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
             @Override
             public String getRequestURI() {
-                return URL;
+                return -1 == queryStringStart ?
+                        url :
+                        url.substring(0, queryStringStart);
+            }
+
+            @Override
+            public String getQueryString() {
+                return -1 == queryStringStart ?
+                        null :
+                        url.substring(queryStringStart + 1);
             }
 
             @Override
