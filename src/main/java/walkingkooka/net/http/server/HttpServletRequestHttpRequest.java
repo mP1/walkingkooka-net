@@ -22,6 +22,7 @@ import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
@@ -73,7 +74,14 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     @Override
     public RelativeUrl url() {
         if (null == this.url) {
-            this.url = Url.parseRelative(this.request.getRequestURI());
+            final HttpServletRequest request = this.request;
+
+            final RelativeUrl relativeUrl = Url.parseRelative(request.getRequestURI()); // getRequestURI does not include queryString
+            final String queryString = request.getQueryString();
+
+            this.url = null != queryString ?
+                    relativeUrl.setQuery(UrlQueryString.with(queryString)) :
+                    relativeUrl;
         }
         return this.url;
     }
