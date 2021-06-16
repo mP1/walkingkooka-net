@@ -56,6 +56,13 @@ public final class UrlParameterName extends NetName
     }
 
     /**
+     * Returns the first value or fails by throwing a {@link IllegalArgumentException} if missing.
+     */
+    public String firstParameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters) {
+        return this.firstParameterValue(parameters).orElseThrow(() -> new IllegalArgumentException("Missing parameter " + CharSequences.quote(this.value())));
+    }
+
+    /**
      * Returns the first parameter or empty.
      */
     public Optional<String> firstParameterValue(final Map<HttpRequestAttribute<?>, ?> parameters) {

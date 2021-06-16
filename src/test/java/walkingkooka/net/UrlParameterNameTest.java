@@ -93,6 +93,57 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         );
     }
 
+    // firstParameterValueOrFail.......................................................................................
+
+    @Test
+    public void testFirstParameterValueOrFailNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createObject().firstParameterValueOrFail(null)
+        );
+    }
+
+    @Test
+    public void testFirstParameterValueOrFailMissing() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> this.createObject().firstParameterValueOrFail(Maps.empty())
+        );
+        assertEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+    }
+
+    @Test
+    public void testFirstParameterValueOrFailMissing2() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> this.createObject().firstParameterValueOrFail(Maps.of(UrlParameterName.with("different"), Lists.of("1a", "2b")))
+        );
+        assertEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+    }
+
+    @Test
+    public void testFirstParameterValueOrFailOne() {
+        final String value = "abc123";
+
+        this.firstParameterValueOrFailAndCheck(Maps.of(this.createObject(), Lists.of(value)), value);
+    }
+
+    @Test
+    public void testFirstParameterValueOrFailMany() {
+        final String value = "abc123";
+
+        this.firstParameterValueOrFailAndCheck(Maps.of(this.createObject(), Lists.of(value, "2nd")), value);
+    }
+
+    private void firstParameterValueOrFailAndCheck(final Map<UrlParameterName, List<String>> parameters,
+                                                   final String expected) {
+        assertEquals(
+                expected,
+                this.createObject().firstParameterValueOrFail(Cast.to(parameters)),
+                () -> "firstParameterValueOrFail of " + parameters
+        );
+    }
+
     // parameterValueOrFail.......................................................................................
 
     @Test
