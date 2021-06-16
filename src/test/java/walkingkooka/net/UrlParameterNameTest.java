@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
@@ -28,6 +29,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -46,6 +48,49 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testWithEncoding() {
         this.createNameAndCheck("abc%20xyz");
+    }
+
+    // firstParameterValue.......................................................................................
+
+    @Test
+    public void testFirstParameterValueNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createObject().firstParameterValue(null)
+        );
+    }
+
+    @Test
+    public void testFirstParameterValueMissing() {
+        this.firstParameterValueAndCheck(Maps.empty(), null);
+    }
+
+    @Test
+    public void testFirstParameterValueMissing2() {
+        this.firstParameterValueAndCheck(Maps.of(UrlParameterName.with("different"), Lists.of("ignored")), null);
+    }
+
+    @Test
+    public void testFirstParameterValueOne() {
+        final String value = "abc123";
+
+        this.firstParameterValueAndCheck(Maps.of(this.createObject(), Lists.of(value)), value);
+    }
+
+    @Test
+    public void testFirstParameterValueMany() {
+        final String value = "abc123";
+
+        this.firstParameterValueAndCheck(Maps.of(this.createObject(), Lists.of(value, "2nd")), value);
+    }
+
+    private void firstParameterValueAndCheck(final Map<UrlParameterName, List<String>> parameters,
+                                             final String expected) {
+        assertEquals(
+                Optional.ofNullable(expected),
+                this.createObject().firstParameterValue(Cast.to(parameters)),
+                () -> "firstParameterValue of " + parameters
+        );
     }
 
     // parameterValueOrFail.......................................................................................

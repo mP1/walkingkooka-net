@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -55,11 +56,29 @@ public final class UrlParameterName extends NetName
     }
 
     /**
+     * Returns the first parameter or empty.
+     */
+    public Optional<String> firstParameterValue(final Map<HttpRequestAttribute<?>, ?> parameters) {
+        List<String> values = this.parameterValue(parameters).orElse(Lists.empty());
+
+        final String first;
+        switch (values.size()) {
+            case 0:
+                first = null;
+                break;
+            default:
+                first = values.get(0);
+        }
+
+        return Optional.ofNullable(first);
+    }
+
+    /**
      * Assumes a single required parameter value and converts using the given {@link Function} or fails.
      */
     public <T> T parameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters,
                                       final Function<String, T> converter) {
-        Objects.requireNonNull(parameters, "parameters");
+        checkParameters(parameters);
         Objects.requireNonNull(converter, "converter");
 
         final Optional<List<String>> maybeValues = this.parameterValue(parameters);
@@ -78,6 +97,10 @@ public final class UrlParameterName extends NetName
         } catch (final Exception cause) {
             throw new IllegalArgumentException("Invalid parameter " + this + " value " + CharSequences.quoteIfChars(value));
         }
+    }
+
+    private static void checkParameters(final Map<HttpRequestAttribute<?>, ?> parameters) {
+        Objects.requireNonNull(parameters, "parameters");
     }
 
     // HttpRequestAttribute..............................................................................................
