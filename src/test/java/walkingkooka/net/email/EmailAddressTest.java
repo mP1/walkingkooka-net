@@ -1707,7 +1707,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public EmailAddress createJsonNodeMappingValue() {
+    public EmailAddress createJsonNodeMarshallingValue() {
         return this.createObject();
     }
 

@@ -405,7 +405,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public Link createJsonNodeMappingValue() {
+    public Link createJsonNodeMarshallingValue() {
         return this.createLink();
     }
 

@@ -159,7 +159,7 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     // JsonNodeMarshallingTesting.......................................................................................
 
     @Override
-    public HttpRequest createJsonNodeMappingValue() {
+    public HttpRequest createJsonNodeMarshallingValue() {
         return HttpRequests.value(HttpMethod.POST,
                 HttpTransport.SECURED,
                 Url.parseRelative("/path1/file2?query3"),
