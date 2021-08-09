@@ -64,7 +64,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     // JsonNodeContextTesting...........................................................................................
 
     @Override
-    public final U createJsonNodeMappingValue() {
+    public final U createJsonNodeMarshallingValue() {
         return this.createUrl();
     }
 

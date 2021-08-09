@@ -67,7 +67,7 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     // JsonNodeMarshallingTesting.......................................................................................
 
     @Override
-    public HttpResponse createJsonNodeMappingValue() {
+    public HttpResponse createJsonNodeMarshallingValue() {
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
