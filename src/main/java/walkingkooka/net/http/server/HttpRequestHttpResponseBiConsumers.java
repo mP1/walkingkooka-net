@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -31,6 +32,14 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
+
+    /**
+     * {@see ContentTypeHttpRequestHttpResponseBiConsumer}
+     */
+    static ContentTypeHttpRequestHttpResponseBiConsumer contentType(final MediaType contentType,
+                                                                    final BiConsumer<HttpRequest, HttpResponse> handler) {
+        return ContentTypeHttpRequestHttpResponseBiConsumer.with(contentType, handler);
+    }
 
     /**
      * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
