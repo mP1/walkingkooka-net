@@ -45,8 +45,8 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
      * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
      */
     public static BiConsumer<HttpRequest, HttpResponse> headerCopy(final Set<HttpHeaderName<?>> headers,
-                                                                   final BiConsumer<HttpRequest, HttpResponse> notFound) {
-        return HeadersCopyHttpRequestHttpResponseBiConsumer.with(headers, notFound);
+                                                                   final BiConsumer<HttpRequest, HttpResponse> handler) {
+        return HeadersCopyHttpRequestHttpResponseBiConsumer.with(headers, handler);
     }
 
     /**
