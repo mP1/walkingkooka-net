@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
@@ -27,6 +28,7 @@ import walkingkooka.route.Router;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
 
@@ -36,6 +38,14 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     public static BiConsumer<HttpRequest, HttpResponse> headerCopy(final Set<HttpHeaderName<?>> headers,
                                                                    final BiConsumer<HttpRequest, HttpResponse> notFound) {
         return HeadersCopyHttpRequestHttpResponseBiConsumer.with(headers, notFound);
+    }
+
+    /**
+     * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
+     */
+    public static BiConsumer<HttpRequest, HttpResponse> methodNotAllowed(final Predicate<HttpMethod> method,
+                                                                         final BiConsumer<HttpRequest, HttpResponse> handler) {
+        return MethodNotAllowedHttpRequestHttpResponseBiConsumer.with(method, handler);
     }
 
     /**
