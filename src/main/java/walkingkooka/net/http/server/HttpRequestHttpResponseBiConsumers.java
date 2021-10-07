@@ -29,7 +29,6 @@ import walkingkooka.route.Router;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHelper {
 
@@ -52,7 +51,7 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     /**
      * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
      */
-    public static BiConsumer<HttpRequest, HttpResponse> methodNotAllowed(final Predicate<HttpMethod> method,
+    public static BiConsumer<HttpRequest, HttpResponse> methodNotAllowed(final HttpMethod method,
                                                                          final BiConsumer<HttpRequest, HttpResponse> handler) {
         return MethodNotAllowedHttpRequestHttpResponseBiConsumer.with(method, handler);
     }

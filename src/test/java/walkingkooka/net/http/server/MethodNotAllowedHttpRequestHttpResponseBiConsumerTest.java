@@ -22,17 +22,15 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.predicate.Predicates;
 
 import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<MethodNotAllowedHttpRequestHttpResponseBiConsumer> {
 
-    private final static Predicate<HttpMethod> METHOD = Predicates.customToString(Predicate.isEqual(HttpMethod.PATCH), "PATCH");
+    private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
