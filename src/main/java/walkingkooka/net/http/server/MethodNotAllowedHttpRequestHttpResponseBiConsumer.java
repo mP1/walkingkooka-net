@@ -31,7 +31,7 @@ import java.util.function.Predicate;
  */
 final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
-    static MethodNotAllowedHttpRequestHttpResponseBiConsumer with(final Predicate<HttpMethod> method,
+    static MethodNotAllowedHttpRequestHttpResponseBiConsumer with(final HttpMethod method,
                                                                   final BiConsumer<HttpRequest, HttpResponse> handler) {
         Objects.requireNonNull(method, "method");
         Objects.requireNonNull(handler, "handler");
@@ -39,7 +39,7 @@ final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsu
         return new MethodNotAllowedHttpRequestHttpResponseBiConsumer(method, handler);
     }
 
-    private MethodNotAllowedHttpRequestHttpResponseBiConsumer(final Predicate<HttpMethod> method,
+    private MethodNotAllowedHttpRequestHttpResponseBiConsumer(final HttpMethod method,
                                                               final BiConsumer<HttpRequest, HttpResponse> handler) {
         super();
         this.method = method;
@@ -50,7 +50,7 @@ final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsu
     public void accept(final HttpRequest request,
                        final HttpResponse response) {
         final HttpMethod method = request.method();
-        if (this.method.test(method)) {
+        if (this.method.equals(method)) {
             this.handler.accept(request, response);
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));
@@ -61,7 +61,7 @@ final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsu
     /**
      * A {@link Predicate} used to test if the request method is acceptable.
      */
-    private final Predicate<HttpMethod> method;
+    private final HttpMethod method;
 
     private final BiConsumer<HttpRequest, HttpResponse> handler;
 
