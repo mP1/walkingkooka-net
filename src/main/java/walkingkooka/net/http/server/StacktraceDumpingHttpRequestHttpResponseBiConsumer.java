@@ -18,24 +18,30 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.HttpStatus;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * Wraps another handler, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
  */
 final class StacktraceDumpingHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
-    static StacktraceDumpingHttpRequestHttpResponseBiConsumer with(final BiConsumer<HttpRequest, HttpResponse> handler) {
+    static StacktraceDumpingHttpRequestHttpResponseBiConsumer with(final BiConsumer<HttpRequest, HttpResponse> handler,
+                                                                   final Function<Throwable, HttpStatus> throwableTranslator) {
         Objects.requireNonNull(handler, "handler");
-        return new StacktraceDumpingHttpRequestHttpResponseBiConsumer(handler);
+        Objects.requireNonNull(throwableTranslator, "throwableTranslator");
+
+        return new StacktraceDumpingHttpRequestHttpResponseBiConsumer(handler, throwableTranslator);
     }
 
-    private StacktraceDumpingHttpRequestHttpResponseBiConsumer(final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private StacktraceDumpingHttpRequestHttpResponseBiConsumer(final BiConsumer<HttpRequest, HttpResponse> handler,
+                                                               final Function<Throwable, HttpStatus> throwableTranslator) {
         super();
         this.handler = handler;
+        this.throwableTranslator = throwableTranslator;
     }
 
     @Override
@@ -43,17 +49,17 @@ final class StacktraceDumpingHttpRequestHttpResponseBiConsumer implements BiCons
                        final HttpResponse response) {
         try {
             this.handler.accept(request, response);
-        } catch (final Exception cause) {
-            response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR
-                    .setMessageOrDefault(cause.getMessage()));
+        } catch (final Throwable cause) {
+            response.setStatus(this.throwableTranslator.apply(cause));
             response.addEntity(HttpEntity.dumpStackTrace(cause));
         }
     }
 
     private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private final Function<Throwable, HttpStatus> throwableTranslator;
 
     @Override
     public String toString() {
-        return this.handler.toString();
+        return this.handler + " " + this.throwableTranslator;
     }
 }
