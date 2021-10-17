@@ -72,6 +72,13 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     }
 
     /**
+     * {@see ThrowableHttpStatusTranslatorFunction}
+     */
+    public static Function<Throwable, HttpStatus> throwableTranslator() {
+        return ThrowableHttpStatusTranslatorFunction.INSTANCE;
+    }
+
+    /**
      * {@see WebFileHttpRequestHttpResponseBiConsumer}
      */
     public static BiConsumer<HttpRequest, HttpResponse> webFile(final UrlPath basePath,
