@@ -67,8 +67,9 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     /**
      * {@see StacktraceDumpingHttpRequestHttpResponseBiConsumer}
      */
-    public static BiConsumer<HttpRequest, HttpResponse> stacktraceDumping(final BiConsumer<HttpRequest, HttpResponse> handler) {
-        return StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(handler);
+    public static BiConsumer<HttpRequest, HttpResponse> stacktraceDumping(final BiConsumer<HttpRequest, HttpResponse> handler,
+                                                                          final Function<Throwable, HttpStatus> throwableTranslator) {
+        return StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(handler, throwableTranslator);
     }
 
     /**

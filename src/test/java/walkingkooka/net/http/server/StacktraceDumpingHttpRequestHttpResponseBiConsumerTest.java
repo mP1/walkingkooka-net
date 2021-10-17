@@ -22,10 +22,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -33,9 +35,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<StacktraceDumpingHttpRequestHttpResponseBiConsumer> {
 
+    private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
+    private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
+
     @Test
-    public void testWithNullRouterFails() {
-        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(null));
+    public void testWithNullHandlerFails() {
+        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(null, TRANSLATOR));
+    }
+
+    @Test
+    public void testWithNullTranslatorFails() {
+        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpRequestHttpResponseBiConsumer.with((r, s) -> {
+        }, null));
     }
 
     @Test
@@ -44,12 +55,16 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
 
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.fake();
-        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with((r, rr) -> {
-            assertSame(r, request);
-            assertSame(rr, response);
 
-            this.handled = true;
-        }).accept(request, response);
+        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(
+                        (r, rr) -> {
+                            assertSame(r, request);
+                            assertSame(rr, response);
+
+                            this.handled = true;
+                        },
+                        TRANSLATOR)
+                .accept(request, response);
 
         assertEquals(true, this.handled);
     }
@@ -58,21 +73,31 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
 
     @Test
     public void testThrown() {
-        final String message = "message 123";
-
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.recording();
-        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with((r, rr) -> {
-            assertSame(r, request);
-            assertSame(rr, response);
+        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(
+                (r, rr) -> {
+                    assertSame(r, request);
+                    assertSame(rr, response);
 
-            throw new UnsupportedOperationException(message);
-        }).accept(request, response);
+                    throw new UnsupportedOperationException();
+                },
+                TRANSLATOR
+        ).accept(request, response);
 
-        assertEquals(Optional.of(HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage(message)), response.status());
+        assertEquals(
+                Optional.of(STATUS),
+                response.status(),
+                "status"
+        );
         final HttpEntity entity = response.entities().get(0);
 
-        assertEquals(Lists.of(MediaType.TEXT_PLAIN), entity.headers().get(HttpHeaderName.CONTENT_TYPE), "content-type header");
+        assertEquals(
+                Lists.of(MediaType.TEXT_PLAIN),
+                entity.headers()
+                        .get(HttpHeaderName.CONTENT_TYPE),
+                "content-type header"
+        );
 
         final String body = entity.bodyText();
         assertEquals(true, body.contains(UnsupportedOperationException.class.getSimpleName()), () -> body);
@@ -81,7 +106,7 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
     @Test
     public void testToString() {
         final BiConsumer<HttpRequest, HttpResponse> wrapped = wrapped();
-        this.toStringAndCheck(StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(wrapped), wrapped.toString());
+        this.toStringAndCheck(StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(wrapped, TRANSLATOR), wrapped + " " + TRANSLATOR);
     }
 
     private BiConsumer<HttpRequest, HttpResponse> wrapped() {
