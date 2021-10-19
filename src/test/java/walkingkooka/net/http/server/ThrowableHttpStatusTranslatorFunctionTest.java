@@ -28,6 +28,7 @@ import java.util.Optional;
 public final class ThrowableHttpStatusTranslatorFunctionTest implements FunctionTesting<ThrowableHttpStatusTranslatorFunction, Throwable, HttpStatus> {
 
     private final static String MESSAGE = "message123";
+    private final static String MESSAGE_MULTI_LINE = MESSAGE + "\n2\r3";
 
     @Test
     public void testIllegalArgumentExceptionNull() {
@@ -50,7 +51,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     @Test
     public void testIllegalArgumentException() {
         this.applyAndCheck(
-                new IllegalArgumentException(MESSAGE),
+                new IllegalArgumentException(MESSAGE_MULTI_LINE),
                 HttpStatusCode.BAD_REQUEST
                         .setMessage(MESSAGE)
         );
@@ -75,7 +76,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     @Test
     public void testIllegalStateException() {
         this.applyAndCheck(
-                new IllegalStateException(MESSAGE),
+                new IllegalStateException(MESSAGE_MULTI_LINE),
                 HttpStatusCode.NOT_FOUND
                         .setMessage(MESSAGE)
         );
@@ -129,7 +130,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     @Test
     public void testUnsupportedOperationException() {
         this.applyAndCheck(
-                new UnsupportedOperationException(MESSAGE),
+                new UnsupportedOperationException(MESSAGE_MULTI_LINE),
                 HttpStatusCode.NOT_IMPLEMENTED
                         .setMessage(MESSAGE)
         );
@@ -156,7 +157,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     @Test
     public void testException() {
         this.applyAndCheck(
-                new Exception(MESSAGE),
+                new Exception(MESSAGE_MULTI_LINE),
                 HttpStatusCode.INTERNAL_SERVER_ERROR
                         .setMessage(MESSAGE)
         );

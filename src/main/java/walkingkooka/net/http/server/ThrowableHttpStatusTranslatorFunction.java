@@ -51,12 +51,14 @@ final class ThrowableHttpStatusTranslatorFunction implements Function<Throwable,
         final HttpStatus status;
 
         do {
+            final String message = throwable.getMessage();
+            final String first = null != message ? HttpStatus.firstLineOfText(message) : message;
             if (throwable instanceof IllegalArgumentException) {
-                status = HttpStatusCode.BAD_REQUEST.setMessageOrDefault(throwable.getMessage());
+                status = HttpStatusCode.BAD_REQUEST.setMessageOrDefault(first);
                 break;
             }
             if (throwable instanceof IllegalStateException) {
-                status = HttpStatusCode.NOT_FOUND.setMessageOrDefault(throwable.getMessage());
+                status = HttpStatusCode.NOT_FOUND.setMessageOrDefault(first);
                 break;
             }
             if (throwable instanceof HttpResponseHttpServerException) {
@@ -64,11 +66,11 @@ final class ThrowableHttpStatusTranslatorFunction implements Function<Throwable,
                 break;
             }
             if (throwable instanceof UnsupportedOperationException) {
-                status = HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(throwable.getMessage());
+                status = HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(first);
                 break;
             }
 
-            status = HttpStatusCode.INTERNAL_SERVER_ERROR.setMessageOrDefault(throwable.getMessage());
+            status = HttpStatusCode.INTERNAL_SERVER_ERROR.setMessageOrDefault(first);
         } while (false);
 
         return status;
