@@ -35,8 +35,8 @@ public final class HttpRequestHttpResponseBiConsumers implements PublicStaticHel
     /**
      * {@see ContentTypeHttpRequestHttpResponseBiConsumer}
      */
-    public static ContentTypeHttpRequestHttpResponseBiConsumer contentType(final MediaType contentType,
-                                                                           final BiConsumer<HttpRequest, HttpResponse> handler) {
+    public static BiConsumer<HttpRequest, HttpResponse> contentType(final MediaType contentType,
+                                                                    final BiConsumer<HttpRequest, HttpResponse> handler) {
         return ContentTypeHttpRequestHttpResponseBiConsumer.with(contentType, handler);
     }
 
