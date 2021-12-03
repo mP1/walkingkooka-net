@@ -19,7 +19,6 @@ package walkingkooka.net.header;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameters<N>,
@@ -32,7 +31,7 @@ public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameter
 
     final void checkParameters(final HeaderWithParameters<N> header,
                                final Map<N, ?> parameters) {
-        assertEquals(parameters,
+        this.checkEquals(parameters,
                 header.parameters(),
                 () -> "parameters " + header);
         assertThrows(UnsupportedOperationException.class, () -> header.parameters().put(this.parameterName(), null));

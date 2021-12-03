@@ -30,8 +30,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
         IteratorTesting,
         ToStringTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
@@ -83,8 +81,8 @@ public final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIterat
                            final HttpRequestAttributes key,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals(key, entry.getKey(), "key");
-        assertEquals(value, entry.getValue(), "value");
+        this.checkEquals(key, entry.getKey(), "key");
+        this.checkEquals(value, entry.getValue(), "value");
     }
 
     @Test

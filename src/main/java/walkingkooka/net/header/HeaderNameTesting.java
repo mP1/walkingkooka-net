@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,7 +40,7 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     default <V> void parseAndCheck(final HeaderName<V> name,
                                    final String header,
                                    final V value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 name.parse(header),
                 name + "=" + CharSequences.quoteIfNecessary(header));
     }

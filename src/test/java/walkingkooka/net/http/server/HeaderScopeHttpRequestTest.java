@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -102,7 +101,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     private void containsKeyAndCheck(final HeaderScopeHttpRequest request,
                                      final Object key,
                                      final boolean containsKey) {
-        assertEquals(containsKey,
+        this.checkEquals(containsKey,
                 request.headers().containsKey(key),
                 "request containsKey " + key + " returned wrong value");
     }
@@ -129,7 +128,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     private void getAndCheck(final HeaderScopeHttpRequest request,
                              final Object key,
                              final Object value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 request.headers().get(key),
                 "request get " + key + " returned wrong value");
     }
@@ -141,7 +140,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
 
     @Test
     public void testBodyText() {
-        assertEquals(new String(BYTES, CharsetName.ISO_8859_1.charset().get()), this.createRequest().bodyText());
+        this.checkEquals(new String(BYTES, CharsetName.ISO_8859_1.charset().get()), this.createRequest().bodyText());
     }
 
     @Test

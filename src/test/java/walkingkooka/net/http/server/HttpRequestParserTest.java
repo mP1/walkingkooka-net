@@ -30,8 +30,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestParserTest implements ClassTesting2<HttpRequestParser>,
         ParseStringTesting<HttpRequest>,
         ToStringTesting<HttpRequestParser> {
@@ -155,7 +153,7 @@ public final class HttpRequestParserTest implements ClassTesting2<HttpRequestPar
 
     private void parseAndCheck(final String text,
                                final HttpRequest expected) {
-        assertEquals(expected, this.parseString(text));
+        this.checkEquals(expected, this.parseString(text));
     }
 
     // ClassTesting.....................................................................................................

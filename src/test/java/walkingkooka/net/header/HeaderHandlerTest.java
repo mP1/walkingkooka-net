@@ -22,13 +22,11 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HeaderHandlerTest implements ClassTesting2<HeaderHandler<Void>> {
 
     @Test
     public void testPackageConstant() {
-        assertEquals(HeaderHandler.class.getPackageName(), HeaderHandler.PACKAGE);
+        this.checkEquals(HeaderHandler.class.getPackageName(), HeaderHandler.PACKAGE);
     }
 
     @Override

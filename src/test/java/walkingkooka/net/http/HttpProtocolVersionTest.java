@@ -23,7 +23,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -32,17 +31,17 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
 
     @Test
     public void testOneZero() {
-        assertEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.value());
+        this.checkEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.value());
     }
 
     @Test
     public void testOneOne() {
-        assertEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.value());
+        this.checkEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.value());
     }
 
     @Test
     public void testTwo() {
-        assertEquals("HTTP/2", HttpProtocolVersion.VERSION_2.value());
+        this.checkEquals("HTTP/2", HttpProtocolVersion.VERSION_2.value());
     }
 
     @Test

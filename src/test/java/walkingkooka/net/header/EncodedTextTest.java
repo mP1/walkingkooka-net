@@ -22,7 +22,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
@@ -87,9 +86,9 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
                        final CharsetName charset,
                        final Optional<LanguageName> language,
                        final String value) {
-        assertEquals(charset, encodedText.charset(), "charset");
-        assertEquals(language, encodedText.language(), "language");
-        assertEquals(value, encodedText.value(), "value");
+        this.checkEquals(charset, encodedText.charset(), "charset");
+        this.checkEquals(language, encodedText.language(), "language");
+        this.checkEquals(value, encodedText.value(), "value");
     }
 
     @Test

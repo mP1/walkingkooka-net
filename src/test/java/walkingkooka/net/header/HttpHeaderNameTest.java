@@ -41,7 +41,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -51,23 +50,23 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testIsConditional() {
-        assertEquals(Sets.of(HttpHeaderName.E_TAG, HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
+        this.checkEquals(Sets.of(HttpHeaderName.E_TAG, HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
                 HttpHeaderName.CONSTANTS.values()
-                .stream()
-                .filter(HttpHeaderName::isConditional)
-                .collect(Collectors.toCollection(Sets::sorted)));
+                        .stream()
+                        .filter(HttpHeaderName::isConditional)
+                        .collect(Collectors.toCollection(Sets::sorted)));
     }
 
     @Test
     public void testCustomHeaderIsConditiojnal() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
-        assertEquals(false, header.isConditional(), header + ".isConditional");
+        this.checkEquals(false, header.isConditional(), header + ".isConditional");
     }
 
     @Test
     public void testCustomHeaderIsContent() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
-        assertEquals(false, header.isContent(), header + ".isContent");
+        this.checkEquals(false, header.isContent(), header + ".isContent");
     }
 
     @Test
@@ -98,13 +97,13 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
-        assertEquals(scopesSet.contains(HttpHeaderScope.MULTIPART),
+        this.checkEquals(scopesSet.contains(HttpHeaderScope.MULTIPART),
                 header.isMultipart(),
                 header + " isMultipart");
-        assertEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
+        this.checkEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
                 header.isRequest(),
                 header + " isRequest");
-        assertEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
+        this.checkEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
                 header.isResponse(),
                 header + " isResponse");
     }
@@ -121,7 +120,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testConstantsCached() {
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 Arrays.stream(HttpHeaderName.class.getDeclaredFields())
                         .filter(FieldAttributes.STATIC::is)
                         .filter(f -> f.getType() == HeaderParameterName.class)
@@ -146,7 +145,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 .filter(h -> h.value().startsWith("content-"))
                 .filter(h -> false == h.isContent())
                 .collect(Collectors.toList());
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 headers,
                 "Several HttpHeaderName.isContent() returns false when it should return true");
     }
@@ -198,7 +197,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 .filter(h -> !CaseSensitivity.INSENSITIVE.startsWith(h.value(), ignorePrefix))
                 .filter(h -> value != test.test(h))
                 .collect(Collectors.toList());
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 headers,
                 "Several HttpHeaderName." + method +
                         " starting with " + prefix +
@@ -264,7 +263,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     private <T> void headerAndCheck(final HttpHeaderName<T> headerName,
                                          final T header) {
-        assertEquals(Optional.ofNullable(header),
+        this.checkEquals(Optional.ofNullable(header),
                 headerName.header(this.headers(headerName, header)),
                 headerName + "=" + header);
     }
@@ -288,7 +287,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     private <T> void headerOrFailAndCheck(final HttpHeaderName<T> headerName,
                                                final T header) {
-        assertEquals(header,
+        this.checkEquals(header,
                 headerName.headerOrFail(this.headers(headerName, header)),
                 headerName + "=" + header);
     }
@@ -388,7 +387,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private <T> void headerTextAndCheck(final HttpHeaderName<T> header,
                                         final T value,
                                         final String formatted) {
-        assertEquals(formatted,
+        this.checkEquals(formatted,
                 header.headerText(value),
                 () -> header + ".headerText " + CharSequences.quoteIfChars(value));
     }
@@ -421,7 +420,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     private <T> void parameterValueAndCheck(final HttpHeaderName<T> header, final T value) {
-        assertEquals(Optional.ofNullable(value),
+        this.checkEquals(Optional.ofNullable(value),
                 header.parameterValue(new FakeHttpRequest() {
                     @Override
                     public Map<HttpHeaderName<?>, List<?>> headers() {
@@ -435,7 +434,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         final HttpHeaderName<String> header = HttpHeaderName.USER_AGENT;
         final String value = "Browser123";
 
-        assertEquals(Optional.ofNullable(value),
+        this.checkEquals(Optional.ofNullable(value),
                 header.parameterValue(Maps.of(header, value)));
     }
 

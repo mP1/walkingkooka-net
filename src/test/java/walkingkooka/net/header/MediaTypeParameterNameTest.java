@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -58,7 +57,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
         final String differentCase = MediaTypeParameterName.Q.value().toUpperCase();
-        assertNotEquals(differentCase, MediaTypeParameterName.Q.value());
+        this.checkNotEquals(differentCase, MediaTypeParameterName.Q.value());
         assertSame(MediaTypeParameterName.Q, MediaTypeParameterName.with(differentCase));
     }
 

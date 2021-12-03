@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -54,7 +53,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public final void testRemoveHeader() {
         final HttpEntityBinary entity = this.createHttpEntity();
-        assertEquals(HttpEntity.NO_HEADERS, entity.headers());
+        this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;

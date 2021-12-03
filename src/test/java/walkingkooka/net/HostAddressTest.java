@@ -28,7 +28,6 @@ import walkingkooka.text.CharSequences;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -243,7 +242,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     }
 
     private void checkValue(final HostAddress hostAddress, final String address) {
-        assertEquals(address, hostAddress.value(), "address");
+        this.checkEquals(address, hostAddress.value(), "address");
     }
 
     private void checkValues(final HostAddress hostAddress, final String expected) {
@@ -488,7 +487,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     }
 
     private void parseStringFails(final String address, final int start, final int end, final HostAddressProblem problem) {
-        assertEquals(problem, HostAddress.tryParseName(address, start, end), "problem");
+        this.checkEquals(problem, HostAddress.tryParseName(address, start, end), "problem");
     }
 
     // parseIp4...................................................................................................
@@ -703,7 +702,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     private void parseIp4Fails(final String address, final int start, final int end, final boolean insideIp6,
                                final HostAddressProblem problem) {
-        assertEquals(problem, HostAddress.tryParseIp4(address, start, end, insideIp6), "problem");
+        this.checkEquals(problem, HostAddress.tryParseIp4(address, start, end, insideIp6), "problem");
     }
 
     // parseIp6 ...................................................................................................
@@ -969,7 +968,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     private void parseIp6AndCheck(final String address, final int start, final int end, final byte[] value) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof HostAddressProblem) {
-            assertEquals(value,
+            this.checkEquals(value,
                     ((HostAddressProblem) result).message(address),
                     "failed " + CharSequences.quote(address));
         }
@@ -987,7 +986,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         }
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
-            assertEquals(problem.message(address),
+            this.checkEquals(problem.message(address),
                     actual.message(address),
                     "wrong problem returned");
         }
@@ -996,8 +995,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     /**
      * Parses the {@link String} of hex values assuming that it has hex digits in big endian form.
      */
-    private static byte[] toByteArray(final String hexDigits) {
-        assertEquals(HostAddress.IP6_OCTET_COUNT * 2,
+    private byte[] toByteArray(final String hexDigits) {
+        this.checkEquals(HostAddress.IP6_OCTET_COUNT * 2,
                 hexDigits.length(),
                 "hexValues string has wrong number of characters=" + hexDigits);
         return CharSequences.bigEndianHexDigits(hexDigits);
@@ -1033,9 +1032,9 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         return JavaVisibility.PUBLIC;
     }
 
-    static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
+    public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
-            assertEquals(message, toHexString(expected), toHexString(actual));
+            this.checkEquals(toHexString(expected), toHexString(actual), message);
         }
     }
 

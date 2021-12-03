@@ -29,7 +29,6 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -66,7 +65,7 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
                         TRANSLATOR)
                 .accept(request, response);
 
-        assertEquals(true, this.handled);
+        this.checkEquals(true, this.handled);
     }
 
     private boolean handled;
@@ -85,14 +84,14 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
                 TRANSLATOR
         ).accept(request, response);
 
-        assertEquals(
+        this.checkEquals(
                 Optional.of(STATUS),
                 response.status(),
                 "status"
         );
         final HttpEntity entity = response.entities().get(0);
 
-        assertEquals(
+        this.checkEquals(
                 Lists.of(MediaType.TEXT_PLAIN),
                 entity.headers()
                         .get(HttpHeaderName.CONTENT_TYPE),
@@ -100,7 +99,7 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
         );
 
         final String body = entity.bodyText();
-        assertEquals(true, body.contains(UnsupportedOperationException.class.getSimpleName()), () -> body);
+        this.checkEquals(true, body.contains(UnsupportedOperationException.class.getSimpleName()), () -> body);
     }
 
     @Test

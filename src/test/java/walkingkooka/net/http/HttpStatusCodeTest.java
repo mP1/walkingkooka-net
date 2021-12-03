@@ -34,8 +34,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -57,8 +55,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     public void testNonStandard() {
         final int value = 999;
         final HttpStatusCode code = HttpStatusCode.withCode(value);
-        assertEquals(value, code.code());
-        assertEquals("Status=999", code.message);
+        this.checkEquals(value, code.code());
+        this.checkEquals("Status=999", code.message);
     }
 
     @Test
@@ -81,18 +79,18 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
             final HttpStatus status = code.status();
             assertSame(status, code.status(), "status not cached");
             assertSame(code, status.value(), "code");
-            assertNotEquals("", status.message(), "message");
+            this.checkNotEquals("", status.message(), "message");
         }
     }
 
     @Test
     public void testPartialContentRangesHeader() {
-        assertEquals(Sets.of(HttpHeaderName.RANGE), HttpStatusCode.PARTIAL_CONTENT.requiredHttpHeaders());
+        this.checkEquals(Sets.of(HttpHeaderName.RANGE), HttpStatusCode.PARTIAL_CONTENT.requiredHttpHeaders());
     }
 
     @Test
     public void testRedirectRequireLocationHeader() {
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 HttpStatusCode.CONSTANTS.values()
                         .stream()
                         .filter(c -> HttpStatusCodeCategory.REDIRECTION == c.category())
@@ -107,7 +105,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         for (final HttpStatusCode constant : HttpStatusCode.CONSTANTS.values()) {
             final String message = constant.message.toUpperCase()
                     .replace(' ', '_');
-            assertEquals(HttpServletResponse.class.getField("SC_" + message).getInt(null),
+            this.checkEquals(HttpServletResponse.class.getField("SC_" + message).getInt(null),
                     constant.code(),
                     () -> constant.toString());
         }
@@ -173,8 +171,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         final String message = "Message something something2";
         final HttpStatusCode code = HttpStatusCode.MOVED_TEMPORARILY;
         final HttpStatus status = code.setMessage(message);
-        assertEquals(code, status.value(), "code");
-        assertEquals(message, status.message(), "message");
+        this.checkEquals(code, status.value(), "code");
+        this.checkEquals(message, status.message(), "message");
     }
 
     // setMessageOrDefault..............................................................
@@ -218,7 +216,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     private void setMessageOrDefaultAndCheck(final HttpStatusCode code,
                                              final String message,
                                              final HttpStatus status) {
-        assertEquals(status, code.setMessageOrDefault(message));
+        this.checkEquals(status, code.setMessageOrDefault(message));
     }
 
     // equals...........................................................................................................

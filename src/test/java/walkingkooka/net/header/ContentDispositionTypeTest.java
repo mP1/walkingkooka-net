@@ -28,7 +28,6 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -56,8 +55,8 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
 
         final ContentDisposition disposition = type.setFilename(filename);
-        assertEquals(type, disposition.type(), "type");
-        assertEquals(Maps.of(ContentDispositionParameterName.FILENAME, filename),
+        this.checkEquals(type, disposition.type(), "type");
+        this.checkEquals(Maps.of(ContentDispositionParameterName.FILENAME, filename),
                 disposition.parameters(),
                 "parameters");
     }
@@ -73,8 +72,8 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
         final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.of(ContentDispositionParameterName.FILENAME, filename);
         final ContentDisposition disposition = type.setParameters(parameters);
-        assertEquals(type, disposition.type(), "type");
-        assertEquals(parameters,
+        this.checkEquals(type, disposition.type(), "type");
+        this.checkEquals(parameters,
                 disposition.parameters(),
                 "parameters");
     }

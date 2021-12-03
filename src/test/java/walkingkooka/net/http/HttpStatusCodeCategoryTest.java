@@ -22,8 +22,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatusCodeCategory>,
         TypeNameTesting<HttpStatusCodeCategory> {
 
@@ -84,7 +82,7 @@ public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatu
 
     private void categoryAndCheck(final int code,
                                   final HttpStatusCodeCategory expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 HttpStatusCodeCategory.category(code),
                 () -> "code " + code);
     }

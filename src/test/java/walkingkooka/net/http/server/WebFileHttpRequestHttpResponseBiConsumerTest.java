@@ -40,7 +40,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<WebFileHttpRequestHttpResponseBiConsumer> {
@@ -276,10 +275,10 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
     private void checkResponse(final HttpRequest request,
                                final HttpResponse response,
                                final HttpResponse expected) {
-        assertEquals(expected.status(),
+        this.checkEquals(expected.status(),
                 response.status(),
                 () -> "request.status " + request);
-        assertEquals(expected.entities(),
+        this.checkEquals(expected.entities(),
                 response.entities(),
                 () -> "request.entities " + request);
     }

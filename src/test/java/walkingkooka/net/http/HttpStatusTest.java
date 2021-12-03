@@ -25,8 +25,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,7 +70,7 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     }
 
     private void firstLineOfTextAndCheck(final String text, final String first) {
-        assertEquals(
+        this.checkEquals(
                 first,
                 HttpStatus.firstLineOfText(text),
                 () -> CharSequences.escape(text).toString()
@@ -163,8 +161,8 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     public void testEqualsFoundAndMovedTemporarily() {
         final HttpStatusCode found = HttpStatusCode.FOUND;
         final HttpStatusCode movedTemp = HttpStatusCode.MOVED_TEMPORARILY;
-        assertEquals(found.code(), movedTemp.code(), "code");
-        assertNotEquals(found, movedTemp, "HttpStatusCode");
+        this.checkEquals(found.code(), movedTemp.code(), "code");
+        this.checkNotEquals(found, movedTemp, "HttpStatusCode");
 
         this.checkEquals(found.setMessage(MESSAGE), movedTemp.setMessage(MESSAGE));
     }
@@ -181,8 +179,8 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     }
 
     private void check(final HttpStatus status, final HttpStatusCode code, final String message) {
-        assertEquals(code, status.value(), "value");
-        assertEquals(message, status.message(), "message");
+        this.checkEquals(code, status.value(), "value");
+        this.checkEquals(message, status.message(), "message");
     }
 
     @Test

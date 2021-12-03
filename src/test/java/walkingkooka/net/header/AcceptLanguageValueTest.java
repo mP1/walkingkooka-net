@@ -25,7 +25,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -128,7 +127,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     final void check(final AcceptLanguageValue language,
                      final LanguageName value,
                      final Map<AcceptLanguageParameterName<?>, Object> parameters) {
-        assertEquals(value, language.value(), "value");
+        this.checkEquals(value, language.value(), "value");
         this.checkParameters(language, parameters);
     }
 

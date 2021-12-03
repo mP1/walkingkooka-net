@@ -19,8 +19,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends Header2TestCase<R, T> {
 
     LinkRelationTestCase() {
@@ -30,7 +28,7 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
     @Test
     public final void testIsUrl() {
         final R relation = this.createLinkRelation();
-        assertEquals(this.url(),
+        this.checkEquals(this.url(),
                 relation.isUrl(),
                 relation + " isUrl");
     }

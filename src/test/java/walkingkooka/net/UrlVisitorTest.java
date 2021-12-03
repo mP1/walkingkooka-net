@@ -25,7 +25,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
@@ -51,7 +50,7 @@ public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
 
         }.accept(url);
 
-        assertEquals("12", b.toString());
+        this.checkEquals("12", b.toString());
     }
 
     @Test

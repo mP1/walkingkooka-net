@@ -24,7 +24,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
@@ -47,8 +46,8 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Test
     public void testWith() {
         final UrlCredentials credentials = this.credentials();
-        assertEquals(USER, credentials.user(), "user");
-        assertEquals(PASSWORD, credentials.password(), "password");
+        this.checkEquals(USER, credentials.user(), "user");
+        this.checkEquals(PASSWORD, credentials.password(), "password");
     }
 
     @Test

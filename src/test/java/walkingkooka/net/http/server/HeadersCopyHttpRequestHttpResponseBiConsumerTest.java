@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<HeadersCopyHttpRequestHttpResponseBiConsumer> {
@@ -66,7 +65,7 @@ public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends Http
                 .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
         );
 
-        assertEquals(expected, response);
+        this.checkEquals(expected, response);
     }
 
     @Test

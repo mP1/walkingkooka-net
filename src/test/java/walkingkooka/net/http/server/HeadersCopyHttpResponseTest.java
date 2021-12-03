@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<HeadersCopyHttpResponse> {
@@ -73,7 +72,7 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
 
         response.addEntity(entity);
 
-        assertEquals(Lists.of(entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
+        this.checkEquals(Lists.of(entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
                 entities,
                 "entities");
     }
@@ -99,7 +98,7 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
 
         response.addEntity(entity);
 
-        assertEquals(Lists.of(entity),
+        this.checkEquals(Lists.of(entity),
                 entities,
                 "entities");
     }
@@ -127,9 +126,9 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
                 .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.ANY_TEXT);
         response.addEntity(entity2);
 
-        assertEquals(Lists.of(
-                entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN),
-                entity2
+        this.checkEquals(Lists.of(
+                        entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN),
+                        entity2
                 ),
                 entities,
                 "entities");

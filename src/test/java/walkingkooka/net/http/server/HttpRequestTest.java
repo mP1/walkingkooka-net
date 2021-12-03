@@ -39,7 +39,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNodeMarshallingTesting<HttpRequest> {
@@ -88,13 +87,13 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     private void bodyTextAndCheck(final String contentType,
                                   final byte[] body,
                                   final String expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 this.request(contentType, body).bodyText());
     }
 
     @Test
     public void testBodyLength() {
-        assertEquals(123L, this.request("text/plain", new byte[123]).bodyLength());
+        this.checkEquals(123L, this.request("text/plain", new byte[123]).bodyLength());
     }
 
     private HttpRequest request(final String contentType,

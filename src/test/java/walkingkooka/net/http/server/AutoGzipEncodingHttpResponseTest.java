@@ -29,8 +29,6 @@ import walkingkooka.net.http.HttpEntity;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoGzipEncodingHttpResponse> {
 
     private final static String GZIP = "gzip";
@@ -127,7 +125,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
                     @Test
                     public void addEntity(final HttpEntity e) {
-                        assertEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
+                        checkEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
                                 e,
                                 "entity");
                         addEntity++;
@@ -137,7 +135,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
             headers.put(HttpHeaderName.CONTENT_ENCODING, Lists.of(ContentEncoding.parse(contentEncoding)));
         }
         response.addEntity(httpEntity(headers).setBody(Binary.with(body)));
-        assertEquals(1, this.addEntity, "wrapped response addEntity(body) not called");
+        this.checkEquals(1, this.addEntity, "wrapped response addEntity(body) not called");
     }
 
     private int addEntity;

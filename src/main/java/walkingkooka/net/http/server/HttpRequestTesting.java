@@ -23,8 +23,6 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 /**
  * Mixin interface for testing {@link HttpRequest}
  */
@@ -34,10 +32,10 @@ public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesti
     @Test
     default void testRoutingParameters() {
         final Map<HttpRequestAttribute<?>, Object> routingParameters = this.createRequest().routerParameters();
-        assertNotEquals(null, routingParameters.get(HttpRequestAttributes.METHOD), "method absent");
-        assertNotEquals(null, routingParameters.get(HttpRequestAttributes.TRANSPORT), "transport absent");
-        assertNotEquals(null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION), "protocol absent");
-        assertNotEquals(null, routingParameters.get(HttpRequestAttributes.PATH_COMPONENT_COUNT), "HttpRequestAttributes.PATH_COMPONENT_COUNT");
+        this.checkNotEquals(null, routingParameters.get(HttpRequestAttributes.METHOD), "method absent");
+        this.checkNotEquals(null, routingParameters.get(HttpRequestAttributes.TRANSPORT), "transport absent");
+        this.checkNotEquals(null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION), "protocol absent");
+        this.checkNotEquals(null, routingParameters.get(HttpRequestAttributes.PATH_COMPONENT_COUNT), "HttpRequestAttributes.PATH_COMPONENT_COUNT");
     }
 
     R createRequest();

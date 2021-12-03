@@ -19,7 +19,6 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -108,7 +107,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath differentPath = UrlPath.parse("/different-path");
         final Url different = url.setPath(differentPath);
         assertNotSame(url, different);
-        assertEquals(this.createUrl(differentPath, QUERY, FRAGMENT), different);
+        this.checkEquals(this.createUrl(differentPath, QUERY, FRAGMENT), different);
     }
 
     // setQuery .......................................................................................................
@@ -131,7 +130,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlQueryString differentQueryString = UrlQueryString.with("different=value");
         final Url different = url.setQuery(differentQueryString);
         assertNotSame(url, different);
-        assertEquals(this.createUrl(PATH, differentQueryString, FRAGMENT), different);
+        this.checkEquals(this.createUrl(PATH, differentQueryString, FRAGMENT), different);
     }
 
     // setFragment .......................................................................................................
@@ -154,7 +153,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlFragment differentFragment = UrlFragment.with("different-anchor");
         final Url different = url.setFragment(differentFragment);
         assertNotSame(url, different);
-        assertEquals(this.createUrl(PATH, QUERY, differentFragment), different);
+        this.checkEquals(this.createUrl(PATH, QUERY, differentFragment), different);
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -199,16 +198,16 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     final void checkPath(final AbsoluteOrRelativeUrl url,
                          final UrlPath path) {
-        assertEquals(path, url.path(), "path");
+        this.checkEquals(path, url.path(), "path");
     }
 
     final void checkQueryString(final AbsoluteOrRelativeUrl url,
                                 final UrlQueryString queryString) {
-        assertEquals(queryString, url.query(), "queryString");
+        this.checkEquals(queryString, url.query(), "queryString");
     }
 
     final void checkFragment(final AbsoluteOrRelativeUrl url,
                              final UrlFragment fragment) {
-        assertEquals(fragment, url.fragment(), "fragment");
+        this.checkEquals(fragment, url.fragment(), "fragment");
     }
 }

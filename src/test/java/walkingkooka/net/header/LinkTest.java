@@ -39,7 +39,6 @@ import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -104,7 +103,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testSetParametersDifferentAndBack() {
         final Link link = this.createLink();
-        assertEquals(link,
+        this.checkEquals(link,
                 link
                         .setParameters(this.parameters())
                         .setParameters(Link.NO_PARAMETERS));
@@ -117,7 +116,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     final void check(final Link language,
                      final Url value,
                      final Map<LinkParameterName<?>, Object> parameters) {
-        assertEquals(value, language.value(), "value");
+        this.checkEquals(value, language.value(), "value");
         this.checkParameters(language, parameters);
     }
 
@@ -218,7 +217,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     }
 
     private void toXmlNodeAndCheck(final String link, final String xml) throws Exception {
-        assertEquals(XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
+        this.checkEquals(XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
                 Link.parse(link).get(0).toXmlNode(),
                 "toXmlNode doesnt match=" + CharSequences.quoteAndEscape(link));
     }

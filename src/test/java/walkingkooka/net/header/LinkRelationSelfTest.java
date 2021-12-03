@@ -20,8 +20,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelationSelf, String> {
 
     @Override
@@ -59,7 +57,7 @@ public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelatio
 
     @Override
     LinkRelationSelf createLinkRelation(final String value) {
-        assertEquals("self", value, "value");
+        this.checkEquals("self", value, "value");
         return LinkRelationSelf.create();
     }
 

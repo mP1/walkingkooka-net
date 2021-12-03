@@ -41,7 +41,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.StreamSupport;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class HttpRequestRouterParametersMapTest implements ClassTesting2<HttpRequestRouterParametersMap>,
@@ -114,8 +113,8 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
     private void checkEntry0(final Entry<HttpRequestAttribute<?>, Object> entry,
                              final HttpRequestAttribute<?> key,
                              final Object value) {
-        assertEquals(key, entry.getKey(), "entry key");
-        assertEquals(value, entry.getValue(), "entry value");
+        this.checkEquals(key, entry.getKey(), "entry key");
+        this.checkEquals(value, entry.getValue(), "entry value");
     }
 
     @Test

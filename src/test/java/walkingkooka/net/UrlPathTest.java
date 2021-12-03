@@ -34,7 +34,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -262,9 +261,9 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath appended = path.append(append);
         this.valueCheck(appended, expected.value());
         this.parentCheck(appended, path);
-        assertEquals(expected.isNormalized(), appended.isNormalized(), () -> "normalized " + appended);
+        this.checkEquals(expected.isNormalized(), appended.isNormalized(), () -> "normalized " + appended);
 
-        assertEquals(this.names(expected), this.names(appended), "names");
+        this.checkEquals(this.names(expected), this.names(appended), "names");
     }
 
     @Test
@@ -296,7 +295,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     }
 
     private void namesCheck(final UrlPath path, final UrlPathName... names) {
-        assertEquals(Lists.of(names),
+        this.checkEquals(Lists.of(names),
                 names(path),
                 path::toString);
     }
@@ -430,7 +429,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final RelativeUrl url = path.addQueryString(queryString);
         assertSame(path, url.path(), "path");
         assertSame(queryString, url.query(), "queryString");
-        assertEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
+        this.checkEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
     // normalize........................................................................................................
@@ -508,8 +507,8 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
                                    final UrlPath expected) {
         final UrlPath normalized = path.normalize();
 
-        assertEquals(expected, normalized);
-        assertEquals(true, normalized.isNormalized(), () -> "normalized " + path);
+        this.checkEquals(expected, normalized);
+        this.checkEquals(true, normalized.isNormalized(), () -> "normalized " + path);
     }
 
     // equals/compare....................................................................................................

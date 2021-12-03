@@ -27,7 +27,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue> extends HeaderWithParametersTestCase<AcceptEncodingValue, AcceptEncodingValueParameterName<?>>
@@ -71,8 +70,8 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     final void checkValue(final AcceptEncodingValue encoding,
                           final String value,
                           final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
-        assertEquals(value, encoding.value(), "value");
-        assertEquals(parameters, encoding.parameters(), "parameters");
+        this.checkEquals(value, encoding.value(), "value");
+        this.checkEquals(parameters, encoding.parameters(), "parameters");
     }
 
     @Test

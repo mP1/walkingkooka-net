@@ -22,8 +22,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class EmailAddressParserTryParseTest extends EmailAddressParserTestCase<EmailAddressParserTryParse> {
 
     @Test
@@ -38,7 +36,7 @@ public final class EmailAddressParserTryParseTest extends EmailAddressParserTest
 
     @Override
     void parseStringFails(final String text) {
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
                 EmailAddressParserTryParse.tryParse(text),
                 () -> "parse " + CharSequences.quoteAndEscape(text));
     }

@@ -32,7 +32,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HasHeadersTest implements ClassTesting2<HasHeaders> {
@@ -62,7 +61,7 @@ public final class HasHeadersTest implements ClassTesting2<HasHeaders> {
     private void charsetAndCheck(final String contentType,
                                  final Charset defaultCharset,
                                  final Charset expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 this.request(contentType, new byte[0]).charset(defaultCharset),
                 () -> "contentType: " + contentType + " default: " + defaultCharset);
     }

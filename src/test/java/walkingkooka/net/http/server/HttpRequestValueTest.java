@@ -40,8 +40,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValue>,
@@ -111,12 +109,12 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     public void testWith() {
         final HttpRequestValue request = HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES);
 
-        assertEquals(METHOD, request.method(), "method");
-        assertEquals(TRANSPORT, request.transport(), "transport");
-        assertEquals(URL, request.url(), "url");
-        assertEquals(PROTOCOL_VERSION, request.protocolVersion(), "protocolVersion");
-        assertEquals(HEADERS, request.headers(), "headers");
-        assertEquals(BODY_TEXT, request.bodyText(), "bodyText");
+        this.checkEquals(METHOD, request.method(), "method");
+        this.checkEquals(TRANSPORT, request.transport(), "transport");
+        this.checkEquals(URL, request.url(), "url");
+        this.checkEquals(PROTOCOL_VERSION, request.protocolVersion(), "protocolVersion");
+        this.checkEquals(HEADERS, request.headers(), "headers");
+        this.checkEquals(BODY_TEXT, request.bodyText(), "bodyText");
         assertArrayEquals(BODY_TEXT.getBytes(CHARSET), request.body(), "body");
     }
 
@@ -132,25 +130,25 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
 
         final HttpRequestValue request = HttpRequestValue.with(method, transport, url, version, entity);
 
-        assertEquals(method, request.method(), "method");
-        assertEquals(transport, request.transport(), "transport");
-        assertEquals(url, request.url(), "url");
-        assertEquals(version, request.protocolVersion(), "protocolVersion");
-        assertEquals(entity.headers(), request.headers(), "headers");
-        assertEquals(entity.bodyText(), request.bodyText(), "bodyText");
+        this.checkEquals(method, request.method(), "method");
+        this.checkEquals(transport, request.transport(), "transport");
+        this.checkEquals(url, request.url(), "url");
+        this.checkEquals(version, request.protocolVersion(), "protocolVersion");
+        this.checkEquals(entity.headers(), request.headers(), "headers");
+        this.checkEquals(entity.bodyText(), request.bodyText(), "bodyText");
         assertArrayEquals(entity.body().value(), request.body(), "body");
     }
 
     @Test
     public void testParametersEmpty() {
-        assertEquals(HttpRequest.NO_PARAMETERS, this.createObject().parameters(), "parameters");
+        this.checkEquals(HttpRequest.NO_PARAMETERS, this.createObject().parameters(), "parameters");
     }
 
     // parameters.......................................................................................................
 
     @Test
     public void testParameterValueEmpty() {
-        assertEquals(Lists.empty(), this.createObject().parameterValues(HttpRequestParameterName.with("param1")), "parameters");
+        this.checkEquals(Lists.empty(), this.createObject().parameterValues(HttpRequestParameterName.with("param1")), "parameters");
     }
 
     // equals..........................................................................................................
@@ -158,28 +156,28 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     @Test
     public void testEqualsDifferentMethod() {
         final HttpMethod method = HttpMethod.POST;
-        assertNotEquals(METHOD, method);
+        this.checkNotEquals(METHOD, method);
         this.checkNotEquals(HttpRequestValue.with(method, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES));
     }
 
     @Test
     public void testEqualsDifferentTransport() {
         final HttpTransport transport = HttpTransport.UNSECURED;
-        assertNotEquals(TRANSPORT, transport);
+        this.checkNotEquals(TRANSPORT, transport);
         this.checkNotEquals(HttpRequestValue.with(METHOD, transport, URL, PROTOCOL_VERSION, ENTITIES));
     }
 
     @Test
     public void testEqualsDifferentUrl() {
         final RelativeUrl url = Url.parseRelative("/different");
-        assertNotEquals(url, URL);
+        this.checkNotEquals(url, URL);
         this.checkNotEquals(HttpRequestValue.with(METHOD, TRANSPORT, url, PROTOCOL_VERSION, ENTITIES));
     }
 
     @Test
     public void testEqualsDifferentProtocolVersion() {
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_2;
-        assertNotEquals(PROTOCOL_VERSION, version);
+        this.checkNotEquals(PROTOCOL_VERSION, version);
         this.checkNotEquals(HttpRequestValue.with(METHOD, TRANSPORT, URL, version, ENTITIES));
     }
 

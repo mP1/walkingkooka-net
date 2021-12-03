@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -799,7 +798,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie parsed = ServerCookie.parseHeader(header);
         checkName(parsed, cookie.name());
         checkValue(parsed, cookie.value());
-        assertEquals(cookie, parsed);
+        this.checkEquals(cookie, parsed);
     }
 
     @Test
@@ -822,7 +821,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testHeader() {
-        assertEquals(HttpHeaderName.SET_COOKIE, this.createCookie().header());
+        this.checkEquals(HttpHeaderName.SET_COOKIE, this.createCookie().header());
     }
 
     // toHeader ....................................................................................
@@ -1117,7 +1116,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDomain(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(expected, cookie.domain(), () -> cookie + " domain");
+        this.checkEquals(expected, cookie.domain(), () -> cookie + " domain");
     }
 
     private void checkPath(final ServerCookie cookie) {
@@ -1125,7 +1124,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkPath(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(expected, cookie.path(), () -> cookie + " path");
+        this.checkEquals(expected, cookie.path(), () -> cookie + " path");
     }
 
     private void checkComment(final ServerCookie cookie) {
@@ -1133,7 +1132,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkComment(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(expected, cookie.comment(), () -> cookie + " comment");
+        this.checkEquals(expected, cookie.comment(), () -> cookie + " comment");
     }
 
     private void checkDeletion(final ServerCookie cookie) {
@@ -1141,9 +1140,9 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDeletion(final ServerCookie cookie, final Optional<CookieDeletion> expected) {
-        assertEquals(expected, cookie.deletion(), () -> cookie + " deletion");
-        assertEquals(expected.isPresent(), cookie.isPermanent(), () -> cookie + " isPermanent()");
-        assertEquals(!expected.isPresent(), cookie.isSession(), () -> cookie + " isSession()");
+        this.checkEquals(expected, cookie.deletion(), () -> cookie + " deletion");
+        this.checkEquals(expected.isPresent(), cookie.isPermanent(), () -> cookie + " isPermanent()");
+        this.checkEquals(!expected.isPresent(), cookie.isSession(), () -> cookie + " isSession()");
     }
 
     private void checkSecure(final ServerCookie cookie) {
@@ -1151,7 +1150,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkSecure(final ServerCookie cookie, final CookieSecure expected) {
-        assertEquals(expected, cookie.secure(), () -> cookie + " secure");
+        this.checkEquals(expected, cookie.secure(), () -> cookie + " secure");
     }
 
     private void checkHttpOnly(final ServerCookie cookie) {
@@ -1159,7 +1158,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkHttpOnly(final ServerCookie cookie, final CookieHttpOnly expected) {
-        assertEquals(expected, cookie.httpOnly(), () -> cookie + " httpOnly");
+        this.checkEquals(expected, cookie.httpOnly(), () -> cookie + " httpOnly");
     }
 
     private void checkVersion(final ServerCookie cookie) {
@@ -1167,7 +1166,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkVersion(final ServerCookie cookie, final CookieVersion expected) {
-        assertEquals(expected, cookie.version(), () -> cookie + " version");
+        this.checkEquals(expected, cookie.version(), () -> cookie + " version");
     }
 
     final void checkName(final javax.servlet.http.Cookie cookie) {
@@ -1175,7 +1174,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkName(final javax.servlet.http.Cookie cookie, final CookieName name) {
-        assertEquals(name.value(), cookie.getName(), () -> cookie + " name");
+        this.checkEquals(name.value(), cookie.getName(), () -> cookie + " name");
     }
 
     final void checkValue(final javax.servlet.http.Cookie cookie) {
@@ -1183,7 +1182,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkValue(final javax.servlet.http.Cookie cookie, final String value) {
-        assertEquals(value, cookie.getValue(), () -> cookie + " value");
+        this.checkEquals(value, cookie.getValue(), () -> cookie + " value");
     }
 
     private void checkDomain(final javax.servlet.http.Cookie cookie) {
@@ -1191,7 +1190,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDomain(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(expected, cookie.getDomain(), () -> cookie + " domain");
+        this.checkEquals(expected, cookie.getDomain(), () -> cookie + " domain");
     }
 
     private void checkPath(final javax.servlet.http.Cookie cookie) {
@@ -1199,7 +1198,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkPath(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(expected, cookie.getPath(), () -> cookie + " path");
+        this.checkEquals(expected, cookie.getPath(), () -> cookie + " path");
     }
 
     private void checkComment(final javax.servlet.http.Cookie cookie) {
@@ -1207,7 +1206,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkComment(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(expected, cookie.getComment(), cookie + " comment");
+        this.checkEquals(expected, cookie.getComment(), cookie + " comment");
     }
 
     private void checkDeletion(final javax.servlet.http.Cookie cookie) {
@@ -1215,7 +1214,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDeletion(final javax.servlet.http.Cookie cookie, final int expected) {
-        assertEquals(expected, cookie.getMaxAge(), () -> cookie + " deletion");
+        this.checkEquals(expected, cookie.getMaxAge(), () -> cookie + " deletion");
     }
 
     private void checkSecure(final javax.servlet.http.Cookie cookie) {
@@ -1223,11 +1222,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkSecure(final javax.servlet.http.Cookie cookie, final CookieSecure expected) {
-        assertEquals(expected.toJavaxServletCookieSecure(), cookie.getSecure(), () -> cookie + " secure");
+        this.checkEquals(expected.toJavaxServletCookieSecure(), cookie.getSecure(), () -> cookie + " secure");
     }
 
     private void checkHttpOnly(final javax.servlet.http.Cookie cookie, final CookieHttpOnly expected) {
-        assertEquals(expected.toJavaxServletCookieHttpOnly(), cookie.isHttpOnly(), () -> cookie + " httpOnly");
+        this.checkEquals(expected.toJavaxServletCookieHttpOnly(), cookie.isHttpOnly(), () -> cookie + " httpOnly");
     }
 
     final void checkVersion(final javax.servlet.http.Cookie cookie) {
@@ -1235,7 +1234,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkVersion(final javax.servlet.http.Cookie cookie, final CookieVersion version) {
-        assertEquals(version.value(), cookie.getVersion(), () -> cookie + " version");
+        this.checkEquals(version.value(), cookie.getVersion(), () -> cookie + " version");
     }
 
     @Override

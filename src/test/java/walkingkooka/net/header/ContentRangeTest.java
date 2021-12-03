@@ -27,7 +27,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -214,9 +213,9 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                        final RangeHeaderUnit unit,
                        final Optional<Range<Long>> range,
                        final Optional<Long> size) {
-        assertEquals(unit, contentRange.unit(), "unit");
-        assertEquals(range, contentRange.range(), "range");
-        assertEquals(size, contentRange.size(), "size");
+        this.checkEquals(unit, contentRange.unit(), "unit");
+        this.checkEquals(range, contentRange.range(), "range");
+        this.checkEquals(size, contentRange.size(), "size");
     }
 
     // check ..................................................................................................
@@ -257,7 +256,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     }
 
     private void lengthAndCheck(final String contentRange, final Optional<Long> length) {
-        assertEquals(length,
+        this.checkEquals(length,
                 ContentRange.parse(contentRange).length(),
                 () -> "length of " + CharSequences.quoteAndEscape(contentRange));
     }
@@ -436,7 +435,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                                final RangeHeaderUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
-        assertEquals(ContentRange.with(unit, range, size),
+        this.checkEquals(ContentRange.with(unit, range, size),
                 ContentRange.parse(header),
                 "Incorrect result when parsing " + CharSequences.quote(header));
     }

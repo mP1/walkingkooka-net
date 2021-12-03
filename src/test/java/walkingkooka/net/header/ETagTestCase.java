@@ -22,7 +22,6 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -112,8 +111,8 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderTestCase<E>
     }
 
     final void check(final ETag etag, final String value, final ETagValidator validator) {
-        assertEquals(value, etag.value(), "value");
-        assertEquals(validator, etag.validator(), "validator");
+        this.checkEquals(value, etag.value(), "value");
+        this.checkEquals(validator, etag.validator(), "validator");
     }
 
     abstract String value();

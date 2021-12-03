@@ -26,7 +26,6 @@ import walkingkooka.naming.NameTesting2;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -63,7 +62,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     }
 
     private void isExtensionAndCheck(final CacheControlDirectiveName<?> name, final boolean expected) {
-        assertEquals(expected, name.isExtension(), name.toString());
+        this.checkEquals(expected, name.isExtension(), name.toString());
     }
 
     // scope .............................................................................................
@@ -154,10 +153,10 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     private void checkScope(final CacheControlDirectiveName directiveName, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
-        assertEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
+        this.checkEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
                 directiveName.isRequest(),
                 directiveName + " isRequest");
-        assertEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
+        this.checkEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
                 directiveName.isResponse(),
                 directiveName + " isResponse");
     }
@@ -179,8 +178,8 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
         final CacheControlDirectiveName<Long> name = CacheControlDirectiveName.MAX_AGE;
         final Optional<Long> parameter = Optional.of(123L);
         final CacheControlDirective<Long> directive = name.setParameter(parameter);
-        assertEquals(name, directive.value(), "value");
-        assertEquals(parameter, directive.parameter(), "parameter");
+        this.checkEquals(name, directive.value(), "value");
+        this.checkEquals(parameter, directive.parameter(), "parameter");
     }
 
     @Override

@@ -22,8 +22,6 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserWithParametersTestCase<P,
         V> {
 
@@ -533,9 +531,9 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                      final String type,
                      final String subtype,
                      final Map<MediaTypeParameterName<?>, Object> parameters) {
-        assertEquals(type, mediaType.type(), "type=" + mediaType);
-        assertEquals(subtype, mediaType.subType(), "subType=" + mediaType);
-        assertEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
+        this.checkEquals(type, mediaType.type(), "type=" + mediaType);
+        this.checkEquals(subtype, mediaType.subType(), "subType=" + mediaType);
+        this.checkEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 
     @Override

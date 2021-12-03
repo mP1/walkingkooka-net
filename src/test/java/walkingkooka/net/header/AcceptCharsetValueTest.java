@@ -24,7 +24,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -326,7 +325,7 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     private void check(final AcceptCharsetValue acceptCharsetValue,
                        final CharsetName value,
                        final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
-        assertEquals(value, acceptCharsetValue.value(), "value");
+        this.checkEquals(value, acceptCharsetValue.value(), "value");
         this.checkParameters(acceptCharsetValue, parameters);
     }
 

@@ -25,8 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>, ToStringTesting<UrlPath> {
 
     UrlPathTestCase() {
@@ -35,12 +33,12 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
 
     @Test
     public final void testIsNormalized() {
-        assertEquals(this.isNormalized(), this.createPath().isNormalized());
+        this.checkEquals(this.isNormalized(), this.createPath().isNormalized());
     }
 
     @Test
     public final void testIsRoot() {
-        assertEquals(this.isRoot(), this.createPath().isRoot());
+        this.checkEquals(this.isRoot(), this.createPath().isRoot());
     }
 
     @Test
@@ -60,7 +58,7 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
                                   final UrlPath expected) {
         final P path = this.createPath();
 
-        assertEquals(expected,
+        this.checkEquals(expected,
                 path.append(name),
                 () -> path + " append name " + name);
     }

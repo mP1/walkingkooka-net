@@ -28,7 +28,6 @@ import walkingkooka.visit.Visiting;
 import java.nio.charset.Charset;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -108,7 +107,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                 b.append("5");
             }
         }.accept(url);
-        assertEquals("152", b.toString());
+        this.checkEquals("152", b.toString());
     }
 
     // ToString.........................................................................................................

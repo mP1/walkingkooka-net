@@ -43,7 +43,6 @@ import walkingkooka.route.RouterTesting;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -853,21 +852,21 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     private void checkTransports(final HttpRequestAttributeRouting routing,
                                  final HttpTransport... transports) {
-        assertEquals(Sets.of(transports),
+        this.checkEquals(Sets.of(transports),
                 routing.transports,
                 "transports");
     }
 
     private void checkMethods(final HttpRequestAttributeRouting routing,
                               final HttpMethod... methods) {
-        assertEquals(Sets.of(methods),
+        this.checkEquals(Sets.of(methods),
                 routing.methods,
                 "methods");
     }
 
     private void checkAttributes(final HttpRequestAttributeRouting routing,
                                  final Map<?, ?> expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 routing.attributes,
                 "attributes");
     }

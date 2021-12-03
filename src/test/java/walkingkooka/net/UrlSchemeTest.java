@@ -24,7 +24,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -69,7 +68,7 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
     private void createNameAndCheckWithSlashes(final String value,
                                                final String nameWithSlashes) {
         final UrlScheme urlScheme = UrlScheme.with(value);
-        assertEquals(nameWithSlashes, urlScheme.nameWithSlashes(), "nameWithSlashes");
+        this.checkEquals(nameWithSlashes, urlScheme.nameWithSlashes(), "nameWithSlashes");
     }
 
     // withHost...........................................................................................
@@ -85,12 +84,12 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
         final HostAddress address = HostAddress.with("example.com");
         final AbsoluteUrl url = scheme.andHost(address);
         assertSame(scheme, url.scheme(), "scheme");
-        assertEquals(UrlCredentials.NO_CREDENTIALS, url.credentials(), "credentials");
+        this.checkEquals(UrlCredentials.NO_CREDENTIALS, url.credentials(), "credentials");
         assertSame(address, url.host(), "host");
-        assertEquals(IpPort.WITHOUT_PORT, url.port(), "port");
-        assertEquals(UrlPath.EMPTY, url.path(), "path");
-        assertEquals(UrlQueryString.EMPTY, url.query(), "queryString");
-        assertEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
+        this.checkEquals(IpPort.WITHOUT_PORT, url.port(), "port");
+        this.checkEquals(UrlPath.EMPTY, url.path(), "path");
+        this.checkEquals(UrlQueryString.EMPTY, url.query(), "queryString");
+        this.checkEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
     @Override

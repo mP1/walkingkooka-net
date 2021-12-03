@@ -27,7 +27,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -94,7 +93,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     public void testToStringAddQuotesBecauseOfWhitespace() {
         final String string = "name with whitespace";
         final UrlPathName name = UrlPathName.with(string);
-        assertEquals(CharSequences.quote(string).toString(), name.toString());
+        this.checkEquals(CharSequences.quote(string).toString(), name.toString());
     }
 
     @Override

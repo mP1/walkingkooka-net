@@ -28,7 +28,6 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Iterator;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -64,7 +63,7 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     public void testWith() {
         final int port = 65000;
         final IpPort ipPort = IpPort.with(port);
-        assertEquals(port, ipPort.value(), "value");
+        this.checkEquals(port, ipPort.value(), "value");
     }
 
     @Test
@@ -137,9 +136,9 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
         set.add(three);
 
         final Iterator<IpPort> values = set.iterator();
-        assertEquals(one, values.next());
-        assertEquals(two, values.next());
-        assertEquals(three, values.next());
+        this.checkEquals(one, values.next());
+        this.checkEquals(two, values.next());
+        this.checkEquals(three, values.next());
     }
 
     @Override

@@ -25,9 +25,6 @@ import walkingkooka.net.header.MediaType;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public final class HttpEntityStackTraceTest extends HttpEntityStackTraceTestCase<HttpEntityStackTrace> {
 
     @Test
@@ -35,8 +32,8 @@ public final class HttpEntityStackTraceTest extends HttpEntityStackTraceTestCase
         final Throwable thrown = new Throwable("hello");
         final HttpEntity entity = this.dumpStackTrace(thrown);
         final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
-        assertEquals(Lists.of(MediaType.TEXT_PLAIN), headers.get(HttpHeaderName.CONTENT_TYPE), () -> "content-type\n" + entity);
-        assertNotEquals(null, headers.get(HttpHeaderName.CONTENT_LENGTH), () -> "content-length\n" + entity);
+        this.checkEquals(Lists.of(MediaType.TEXT_PLAIN), headers.get(HttpHeaderName.CONTENT_TYPE), () -> "content-type\n" + entity);
+        this.checkNotEquals(null, headers.get(HttpHeaderName.CONTENT_LENGTH), () -> "content-length\n" + entity);
     }
 
     @Override

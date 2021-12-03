@@ -25,8 +25,6 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixin interface with helpers to assist testing of {@link Header} implementations.
  */
@@ -35,17 +33,17 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testIsMultipart() {
-        assertEquals(this.isMultipart(), this.createHeader().isMultipart());
+        this.checkEquals(this.isMultipart(), this.createHeader().isMultipart());
     }
 
     @Test
     default void testIsRequest() {
-        assertEquals(this.isRequest(), this.createHeader().isRequest());
+        this.checkEquals(this.isRequest(), this.createHeader().isRequest());
     }
 
     @Test
     default void testIsResponse() {
-        assertEquals(this.isResponse(), this.createHeader().isResponse());
+        this.checkEquals(this.isResponse(), this.createHeader().isResponse());
     }
 
     @Test
@@ -79,12 +77,12 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     }
 
     default void toHeaderTextAndCheck(final Header header, final String expected) {
-        assertEquals(expected, header.toHeaderText(), () -> "headerText of " + header);
+        this.checkEquals(expected, header.toHeaderText(), () -> "headerText of " + header);
     }
 
     default void toHeaderTextListAndCheck(final String toString,
                                           final Header... headers) {
-        assertEquals(toString,
+        this.checkEquals(toString,
                 Header.toHeaderTextList(Lists.of(headers), Header.SEPARATOR.string().concat(" ")),
                 () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers));
     }
@@ -101,7 +99,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     }
 
     default void isWildcardAndCheck0(final Header header, final boolean expected) {
-        assertEquals(expected, header.isWildcard(), () -> "header " + header);
+        this.checkEquals(expected, header.isWildcard(), () -> "header " + header);
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -155,13 +153,13 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void equalsIgnoringParametersAndCheck(final Header header,
                                                   final Object other,
                                                   final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 header.equalsIgnoringParameters(other),
                 () -> header + " equalsIgnoringParameters " + other);
 
         if (other instanceof Header) {
             final Header otherHeader = Cast.to(other);
-            assertEquals(expected,
+            this.checkEquals(expected,
                     otherHeader.equalsIgnoringParameters(header),
                     () -> otherHeader + " equalsIgnoringParameters " + header);
         }
@@ -219,7 +217,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void equalsOnlyPresentParametersAndCheck(final Header header,
                                                      final Object other,
                                                      final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 header.equalsOnlyPresentParameters(other),
                 () -> header + " equalsOnlyPresentParameters " + other);
     }

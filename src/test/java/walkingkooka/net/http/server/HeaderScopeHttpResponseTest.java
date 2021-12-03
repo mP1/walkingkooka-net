@@ -24,8 +24,6 @@ import walkingkooka.net.http.HttpEntity;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HeaderScopeHttpResponse> {
 
     @Test
@@ -42,7 +40,7 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
 
         }).addEntity(entity);
 
-        assertEquals(Lists.of(entity), added, "added entities");
+        this.checkEquals(Lists.of(entity), added, "added entities");
     }
 
     @Override

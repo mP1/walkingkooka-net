@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HttpEntityTest implements ClassTesting<HttpEntity> {
@@ -35,7 +34,7 @@ public final class HttpEntityTest implements ClassTesting<HttpEntity> {
     public void testEmptySetBodyText() {
         final String text = "abc";
         final HttpEntity entity = HttpEntity.EMPTY.setBodyText(text);
-        assertEquals(text, entity.bodyText());
+        this.checkEquals(text, entity.bodyText());
     }
 
     // ClassTesting.....................................................................................................
