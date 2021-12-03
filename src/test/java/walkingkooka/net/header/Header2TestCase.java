@@ -19,8 +19,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class Header2TestCase<H extends Header2<V>, V> extends HeaderTestCase<H> {
 
     Header2TestCase() {
@@ -31,14 +29,14 @@ public abstract class Header2TestCase<H extends Header2<V>, V> extends HeaderTes
     public final void testWith() {
         final V value = this.value();
         final H header = this.createHeader(value);
-        assertEquals(value, header.value(), "value");
+        this.checkEquals(value, header.value(), "value");
     }
 
     @Test
     public void testWith2() {
         final V value = this.differentValue();
         final H header = this.createHeader(value);
-        assertEquals(value, header.value(), "value");
+        this.checkEquals(value, header.value(), "value");
     }
 
     @Test

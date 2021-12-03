@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<HttpMethodVisitor> {
@@ -59,7 +58,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -92,7 +91,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -125,7 +124,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -158,7 +157,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -191,7 +190,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -224,7 +223,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -257,7 +256,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -290,7 +289,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -323,7 +322,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -357,7 +356,7 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
             }
         }.accept(method);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test

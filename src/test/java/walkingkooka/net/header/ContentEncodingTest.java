@@ -24,7 +24,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -49,7 +48,7 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
 
     private void checkValue(final ContentEncoding contentEncoding,
                             final List<Encoding> encodings) {
-        assertEquals(encodings, contentEncoding.value(), "value");
+        this.checkEquals(encodings, contentEncoding.value(), "value");
     }
 
     // constants .......................................................................................................

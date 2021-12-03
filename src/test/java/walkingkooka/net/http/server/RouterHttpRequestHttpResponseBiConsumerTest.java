@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<RouterHttpRequestHttpResponseBiConsumer> {
@@ -61,7 +60,7 @@ public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpReque
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status);
-        assertEquals(expected, response);
+        this.checkEquals(expected, response);
     }
 
     @Test

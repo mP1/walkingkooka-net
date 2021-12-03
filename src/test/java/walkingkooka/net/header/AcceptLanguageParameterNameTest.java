@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,7 +47,7 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
         final String differentCase = AcceptLanguageParameterName.Q.value().toUpperCase();
-        assertNotEquals(differentCase, AcceptLanguageParameterName.Q.value());
+        this.checkNotEquals(differentCase, AcceptLanguageParameterName.Q.value());
         assertSame(AcceptLanguageParameterName.Q, AcceptLanguageParameterName.with(differentCase));
     }
 

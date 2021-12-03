@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,7 +67,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     }
 
     private void versionAndCheck(final Optional<HttpProtocolVersion> version) {
-        assertEquals(version,
+        this.checkEquals(version,
                 this.createResponse(new FakeHttpResponse() {
                     @Test
                     public Optional<HttpProtocolVersion> version() {
@@ -90,7 +89,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                 setVersion++;
             }
         }).setVersion(version);
-        assertEquals(1, this.setVersion, "wrapped response setVersion not called");
+        this.checkEquals(1, this.setVersion, "wrapped response setVersion not called");
     }
 
     private int setVersion;
@@ -107,7 +106,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                 setStatus++;
             }
         }).setStatus(status);
-        assertEquals(1, this.setStatus, "wrapped response setStatus not called");
+        this.checkEquals(1, this.setStatus, "wrapped response setStatus not called");
     }
 
     private int setStatus;

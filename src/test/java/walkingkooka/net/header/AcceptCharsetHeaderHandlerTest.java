@@ -23,8 +23,6 @@ import walkingkooka.net.email.EmailAddress;
 
 import java.nio.charset.Charset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class AcceptCharsetHeaderHandlerTest extends
         NonStringHeaderHandlerTestCase<AcceptCharsetHeaderHandler, AcceptCharset> {
 
@@ -44,7 +42,7 @@ public final class AcceptCharsetHeaderHandlerTest extends
     public void testUnknownCharset() {
         final String charset = "utf-1";
         final CharsetName charsetName = CharsetName.with(charset);
-        assertEquals(CharsetName.NO_CHARSET,
+        this.checkEquals(CharsetName.NO_CHARSET,
                 charsetName.charset(),
                 "charsetName must have no charset");
         this.parseAndToTextAndCheck2(charset,

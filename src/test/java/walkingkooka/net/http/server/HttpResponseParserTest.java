@@ -19,19 +19,15 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.net.Url;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpResponseParserTest implements ClassTesting2<HttpResponseParser>,
         ParseStringTesting<HttpResponse>,
@@ -148,7 +144,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
     private void parseAndCheck(final String text,
                                final HttpResponse expected) {
-        assertEquals(expected, this.parseString(text));
+        this.checkEquals(expected, this.parseString(text));
     }
 
     // ClassTesting.....................................................................................................

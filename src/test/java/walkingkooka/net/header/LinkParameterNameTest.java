@@ -25,7 +25,6 @@ import walkingkooka.net.Url;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -51,7 +50,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
         final String differentCase = LinkParameterName.REL.value().toUpperCase();
-        assertNotEquals(differentCase, LinkParameterName.REL.value());
+        this.checkNotEquals(differentCase, LinkParameterName.REL.value());
         assertSame(LinkParameterName.REL, LinkParameterName.with(differentCase));
     }
 

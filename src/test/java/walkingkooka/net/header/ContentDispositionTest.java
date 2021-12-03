@@ -24,7 +24,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -267,7 +266,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     private void check(final ContentDisposition contentDisposition,
                        final ContentDispositionType type,
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        assertEquals(type, contentDisposition.type(), "type");
+        this.checkEquals(type, contentDisposition.type(), "type");
         this.checkParameters(contentDisposition, parameters);
     }
 

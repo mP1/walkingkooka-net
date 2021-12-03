@@ -29,7 +29,6 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class HttpRequestParameterNameTest implements ClassTesting2<HttpRequestParameterName>,
@@ -40,7 +39,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final HttpRequestParameterName name = HttpRequestParameterName.with("parameter1");
         final List<String> value = Lists.of("a", "b", "c");
 
-        assertEquals(Optional.of(value),
+        this.checkEquals(Optional.of(value),
                 name.parameterValue(new FakeHttpRequest() {
                     @Override
                     public List<String> parameterValues(final HttpRequestParameterName n) {
@@ -55,7 +54,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final HttpRequestParameterName name = HttpRequestParameterName.with("parameter1");
         final List<String> value = Lists.of("a", "b", "c");
 
-        assertEquals(Optional.of(value),
+        this.checkEquals(Optional.of(value),
                 name.parameterValue(Maps.of(name, value)));
     }
 

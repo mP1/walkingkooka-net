@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ETagValidatorTest implements ClassTesting2<ETagValidator> {
 
     @Test
@@ -31,8 +29,8 @@ public final class ETagValidatorTest implements ClassTesting2<ETagValidator> {
         final String value = "1234567890ABCDEF";
 
         final ETag tag = validator.setValue(value);
-        assertEquals(value, tag.value(), "value");
-        assertEquals(validator, tag.validator(), "validator");
+        this.checkEquals(value, tag.value(), "value");
+        this.checkEquals(validator, tag.validator(), "validator");
     }
 
     @Override

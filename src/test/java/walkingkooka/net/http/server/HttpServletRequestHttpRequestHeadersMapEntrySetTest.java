@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet>
         implements SetTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
 
@@ -54,7 +52,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
             entries.put(e.getKey(), e.getValue());
         }
 
-        assertEquals(Maps.of(HEADER1, list(VALUE1), HEADER2, list(VALUE2)), entries, "iterator entries");
+        this.checkEquals(Maps.of(HEADER1, list(VALUE1), HEADER2, list(VALUE2)), entries, "iterator entries");
     }
 
     @Test

@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LineReaderTest implements ClassTesting2<LineReader>, ToStringTesting<LineReader> {
@@ -82,7 +81,7 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
             read.add(line);
         }
 
-        assertEquals(Lists.of(lines), read);
+        this.checkEquals(Lists.of(lines), read);
     }
 
     // readHeaders......................................................................................................
@@ -90,25 +89,25 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
     @Test
     public void testInvalidHeaderFails() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> LineReader.with("Invalid-Header").readHeaders());
-        assertEquals("Header missing separator/value=\"Invalid-Header\"", thrown.getMessage());
+        this.checkEquals("Header missing separator/value=\"Invalid-Header\"", thrown.getMessage());
     }
 
     @Test
     public void testInvalidHeaderLineEndingFails() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> LineReader.with("Content-Length:1\r" +
                 "Invalid-Header2").readHeaders());
-        assertEquals("Invalid line ending", thrown.getMessage());
+        this.checkEquals("Invalid line ending", thrown.getMessage());
     }
 
     @Test
     public void testInvalidHeaderFails2() {
         final HeaderException thrown = assertThrows(HeaderException.class, () -> LineReader.with("Content-Length:A").readHeaders());
-        assertEquals("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\"", thrown.getMessage());
+        this.checkEquals("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\"", thrown.getMessage());
     }
 
     @Test
     public void testReadHeaders() {
-        assertEquals(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN).addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
+        this.checkEquals(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN).addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
                 LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders());
     }
 

@@ -26,7 +26,6 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTesting<R>, TypeNameTesting<R> {
@@ -60,7 +59,7 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
         Arrays.stream(entities)
                 .forEach(expected::addEntity);
 
-        assertEquals(expected,
+        this.checkEquals(expected,
                 response,
                 request::toString);
     }

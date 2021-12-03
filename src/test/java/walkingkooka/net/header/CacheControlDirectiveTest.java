@@ -23,8 +23,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -115,7 +113,7 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     private <T> void setParameterAndCheck(final CacheControlDirective<T> directive,
                                           final Optional<T> parameter,
                                           final CacheControlDirectiveName<T> name) {
-        assertNotEquals(parameter,
+        this.checkNotEquals(parameter,
                 directive.parameter(),
                 "new parameter must be different from old");
         final CacheControlDirective<T> different = directive.setParameter(parameter);
@@ -129,8 +127,8 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     private <T> void check(final CacheControlDirective<T> directive,
                            final CacheControlDirectiveName<T> name,
                            final Optional<T> parameter) {
-        assertEquals(name, directive.value(), "value");
-        assertEquals(parameter, directive.parameter(), "parameter");
+        this.checkEquals(name, directive.value(), "value");
+        this.checkEquals(parameter, directive.parameter(), "parameter");
     }
 
     // scope ...........................................................................................................
@@ -151,13 +149,13 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     }
 
     private void checkScope(final CacheControlDirective<?> directive) {
-        assertEquals(false,
+        this.checkEquals(false,
                 directive.isMultipart(),
                 directive + " isMultipart");
-        assertEquals(directive.value().isRequest(),
+        this.checkEquals(directive.value().isRequest(),
                 directive.isRequest(),
                 directive + " isRequest");
-        assertEquals(directive.value().isResponse(),
+        this.checkEquals(directive.value().isResponse(),
                 directive.isResponse(),
                 directive + " isResponse");
     }

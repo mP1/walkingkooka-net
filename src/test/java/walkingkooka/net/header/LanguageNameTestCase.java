@@ -30,7 +30,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -54,7 +53,7 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
         final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(AcceptLanguageParameterName.Q, 0.5f);
         final AcceptLanguageValue language = name.setParameters(parameters);
         assertSame(name, language.value(), "value");
-        assertEquals(parameters, language.parameters(), "parameters");
+        this.checkEquals(parameters, language.parameters(), "parameters");
     }
 
     @Test
@@ -65,8 +64,8 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
     final void check(final LanguageName name,
                      final String value,
                      final Optional<Locale> locale) {
-        assertEquals(value, name.value(), "value");
-        assertEquals(locale, name.locale(), "locale");
+        this.checkEquals(value, name.value(), "value");
+        this.checkEquals(locale, name.locale(), "locale");
     }
 
     @Override

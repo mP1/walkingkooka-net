@@ -25,7 +25,6 @@ import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -80,7 +79,7 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
     @Test
     public void testAppendNonMultiValueFails() {
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
-        assertEquals(false, header.isMultiple(), "isMultiple should be false");
+        this.checkEquals(false, header.isMultiple(), "isMultiple should be false");
         final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(header, 1L);
 
         assertThrows(IllegalArgumentException.class, () -> list.append(header, 999L));

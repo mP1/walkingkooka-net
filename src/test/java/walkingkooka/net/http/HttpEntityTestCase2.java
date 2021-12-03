@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -49,7 +48,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     }
 
     final void contentLengthAndCheck(final HttpEntity entity, final long length) {
-        assertEquals(length, entity.contentLength(), () -> "entity contentLength " + entity);
+        this.checkEquals(length, entity.contentLength(), () -> "entity contentLength " + entity);
     }
 
     @Test
@@ -168,10 +167,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyEmpty() {
         final H entity = this.createHttpEntity();
-        assertEquals(HttpEntity.NO_HEADERS, entity.headers());
+        this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 
         final HttpEntity empty = entity.setBody(Binary.EMPTY);
-        assertEquals(HttpEntity.EMPTY, empty);
+        this.checkEquals(HttpEntity.EMPTY, empty);
 
         this.check(empty);
     }
@@ -194,10 +193,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyTextEmpty() {
         final H entity = this.createHttpEntity();
-        assertEquals(HttpEntity.NO_HEADERS, entity.headers());
+        this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 
         final HttpEntity empty = entity.setBodyText("");
-        assertEquals(HttpEntity.EMPTY, empty);
+        this.checkEquals(HttpEntity.EMPTY, empty);
 
         this.check(empty);
     }
@@ -239,14 +238,14 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
                                    }
                                },
                         Charset.defaultCharset());
-        assertEquals(differentBinary, different.body());
+        this.checkEquals(differentBinary, different.body());
     }
 
     // isEmpty..........................................................................................................
 
     @Test
     public final void testIsEmpty() {
-        assertEquals(this instanceof HttpEntityEmptyTest, this.createHttpEntity().isEmpty());
+        this.checkEquals(this instanceof HttpEntityEmptyTest, this.createHttpEntity().isEmpty());
     }
 
     // helpers..........................................................................................................
@@ -293,25 +292,25 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     final void check(final HttpEntity entity,
                      final Map<HttpHeaderName<?>, List<?>> headers) {
-        assertEquals(headers, entity.headers(), () -> "" + entity);
+        this.checkEquals(headers, entity.headers(), () -> "" + entity);
         this.check(entity);
     }
 
     final void check(final HttpEntity entity,
                      final Binary body) {
-        assertEquals(body, entity.body(), () -> "" + entity);
+        this.checkEquals(body, entity.body(), () -> "" + entity);
         this.check(entity);
     }
 
     final void check(final HttpEntity entity,
                      final String text) {
-        assertEquals(text, entity.bodyText(), () -> "" + entity);
+        this.checkEquals(text, entity.bodyText(), () -> "" + entity);
         this.check(entity);
     }
 
     final void check(final HttpEntity entity) {
         if ((entity.body().size() == 0 || entity.bodyText().isEmpty()) && entity.headers().isEmpty()) {
-            assertEquals(HttpEntityEmpty.class, entity.getClass(), () -> "Entity without headers, body/bodyText");
+            this.checkEquals(HttpEntityEmpty.class, entity.getClass(), () -> "Entity without headers, body/bodyText");
         }
 
         final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();

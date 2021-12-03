@@ -24,7 +24,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -113,7 +112,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
     }
 
     final void checkName(final Cookie cookie, final CookieName name) {
-        assertEquals(name, cookie.name(), "name");
+        this.checkEquals(name, cookie.name(), "name");
     }
 
     final void checkValue(final Cookie cookie) {
@@ -121,7 +120,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
     }
 
     final void checkValue(final Cookie cookie, final String value) {
-        assertEquals(value, cookie.value(), "value");
+        this.checkEquals(value, cookie.value(), "value");
     }
 
     @Override

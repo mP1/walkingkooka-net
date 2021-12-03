@@ -28,7 +28,6 @@ import walkingkooka.test.ParseStringTesting;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundary>
@@ -71,8 +70,8 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     }
 
     private void checkValue(final MediaTypeBoundary boundary, final String value) {
-        assertEquals(value, boundary.value(), "value");
-        assertEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
+        this.checkEquals(value, boundary.value(), "value");
+        this.checkEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
     }
 
     @Test
@@ -143,7 +142,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     }
 
     private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
-        assertEquals(delimiter, boundary.multipartBoundaryDelimiter(), boundary::toString);
+        this.checkEquals(delimiter, boundary.multipartBoundaryDelimiter(), boundary::toString);
     }
 
     // generate ....................................................................................................
@@ -200,7 +199,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
                 boundaryCharcters,
                 boundary.length());
 
-        assertEquals(MediaTypeBoundary.with(boundary),
+        this.checkEquals(MediaTypeBoundary.with(boundary),
                 mediaTypeBoundary,
                 "Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build());
     }
@@ -211,7 +210,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     public void testMultipartByteRanges() {
         final MediaTypeBoundary boundary = MediaTypeBoundary.with("abc");
         final MediaType mediaType = boundary.multipartByteRanges();
-        assertEquals("multipart/byteranges; boundary=abc", mediaType.toString());
+        this.checkEquals("multipart/byteranges; boundary=abc", mediaType.toString());
     }
 
     // toString........................................................................................................

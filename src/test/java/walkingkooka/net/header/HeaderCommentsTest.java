@@ -23,7 +23,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
@@ -271,11 +270,11 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
                                  final int end) {
         final int end0 = end <= 0 ? text.length() + end : end;
 
-        assertEquals(')',
+        this.checkEquals(')',
                 text.charAt(end0 - 1),
-                () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position );
+                () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
 
-        assertEquals(end0,
+        this.checkEquals(end0,
                 HeaderComments.consume(text, position),
                 () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
     }

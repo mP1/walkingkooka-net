@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -82,17 +81,17 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     final <VV> void check(final IfRange<VV> range, final VV value) {
-        assertEquals(value, range.value(), "value");
+        this.checkEquals(value, range.value(), "value");
     }
 
     @Test
     public final void testIsETag() {
-        assertEquals(this.isETag(), this.createHeader().isETag());
+        this.checkEquals(this.isETag(), this.createHeader().isETag());
     }
 
     @Test
     public final void testIsLastModified() {
-        assertEquals(!this.isETag(), this.createHeader().isLastModified());
+        this.checkEquals(!this.isETag(), this.createHeader().isLastModified());
     }
 
     @Test
@@ -119,7 +118,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Test
     public final void testParse() {
         final String text = this.headerText();
-        assertEquals(this.createHeader(),
+        this.checkEquals(this.createHeader(),
                 IfRange.parse(text),
                 "Parsing " + CharSequences.quote(text));
     }

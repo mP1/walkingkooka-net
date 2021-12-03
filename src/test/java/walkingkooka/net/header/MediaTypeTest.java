@@ -29,8 +29,6 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -157,7 +155,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testSetTypeSameDifferentCase() {
         final MediaType mediaType = this.mediaType();
-        assertNotEquals(TYPE, TYPE.toUpperCase());
+        this.checkNotEquals(TYPE, TYPE.toUpperCase());
         assertSame(mediaType, mediaType.setType(TYPE.toUpperCase()));
     }
 
@@ -200,7 +198,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testSetSubTypeSameDifferentCase() {
         final MediaType mediaType = this.mediaType();
-        assertNotEquals(SUBTYPE, SUBTYPE.toUpperCase());
+        this.checkNotEquals(SUBTYPE, SUBTYPE.toUpperCase());
         assertSame(mediaType, mediaType.setSubType(SUBTYPE.toUpperCase()));
     }
 
@@ -224,7 +222,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         final MediaType mediaType = this.mediaType();
 
         final String parameter = PARAMETER_NAME.toUpperCase();
-        assertNotEquals(parameter, PARAMETER_NAME);
+        this.checkNotEquals(parameter, PARAMETER_NAME);
         assertSame(mediaType, mediaType.setParameters(this.parameters(parameter, PARAMETER_VALUE)));
     }
 
@@ -252,8 +250,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                        final String type,
                        final String subtype,
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
-        assertEquals(type, mediaType.type(), "type=" + mediaType);
-        assertEquals(subtype, mediaType.subType(), "subType=" + mediaType);
+        this.checkEquals(type, mediaType.type(), "type=" + mediaType);
+        this.checkEquals(subtype, mediaType.subType(), "subType=" + mediaType);
         this.checkParameters(mediaType, parameters);
     }
 
@@ -261,7 +259,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     public void testSetParametersConstant() {
         final MediaType constant = MediaType.TEXT_PLAIN;
         final MediaType withParameters = constant.setParameters(this.parameters());
-        assertNotEquals(constant, withParameters);
+        this.checkNotEquals(constant, withParameters);
         assertSame(constant, withParameters.setParameters(MediaType.NO_PARAMETERS));
     }
 
@@ -396,7 +394,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     private void acceptCharsetAndCheck(final String text,
                                        final Charset defaultCharset,
                                        final Charset expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 MediaType.parse(text).acceptCharset(defaultCharset),
                 () -> "acceptCharset of " + text + " with defaultCharset " + defaultCharset);
     }
@@ -421,7 +419,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testContentTypeCharsetUnsupportedFails() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> MediaType.parse("text/plain;charset=UTF99").contentTypeCharset(Charset.defaultCharset()));
-        assertEquals("Supported charset required was \"UTF99\"", thrown.getMessage());
+        this.checkEquals("Supported charset required was \"UTF99\"", thrown.getMessage());
     }
 
     @Test
@@ -443,7 +441,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     private void contentTypeCharsetAndCheck(final String text,
                                             final Charset defaultCharset,
                                             final Charset expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 MediaType.parse(text).contentTypeCharset(defaultCharset),
                 () -> "contentTypeCharset of " + text + " with defaultCharset " + defaultCharset);
     }
@@ -472,7 +470,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     private void qualityFactorAndCheck(final MediaType type, final Optional<Float> quality) {
-        assertEquals(quality, type.qualityFactor(), () -> type + " quality factor");
+        this.checkEquals(quality, type.qualityFactor(), () -> type + " quality factor");
     }
 
     // parse .........................................................................
@@ -532,9 +530,9 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testParseList() {
-        assertEquals(Lists.of(
-                MediaType.with("type1", "subtype1"),
-                MediaType.with("type2", "subtype2")),
+        this.checkEquals(Lists.of(
+                        MediaType.with("type1", "subtype1"),
+                        MediaType.with("type2", "subtype2")),
                 MediaType.parseList("type1/subtype1,type2/subtype2"));
     }
 
@@ -653,7 +651,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     private void acceptAndCheck(final MediaType mediaType) {
-        assertEquals(Accept.with(Lists.of(mediaType)), mediaType.accept());
+        this.checkEquals(Accept.with(Lists.of(mediaType)), mediaType.accept());
     }
 
     // HashCodeEqualsDefined ..................................................................................................

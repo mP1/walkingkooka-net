@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpires> {
@@ -41,7 +40,7 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
     @Test
     public void testWith() {
         final CookieExpires expires = this.createDeletion();
-        assertEquals(EXPIRES, expires.dateTime(), "dateTime");
+        this.checkEquals(EXPIRES, expires.dateTime(), "dateTime");
     }
 
     @Test
@@ -51,12 +50,12 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
 
     @Test
     public void testToMaxAgeSeconds() {
-        assertEquals(0, this.createDeletion().toMaxAgeSeconds(EXPIRES));
+        this.checkEquals(0, this.createDeletion().toMaxAgeSeconds(EXPIRES));
     }
 
     @Test
     public void testToMaxAgeSeconds2() {
-        assertEquals(123, this.createDeletion().toMaxAgeSeconds(EXPIRES.minusSeconds(123)));
+        this.checkEquals(123, this.createDeletion().toMaxAgeSeconds(EXPIRES.minusSeconds(123)));
     }
 
     @Test

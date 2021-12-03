@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityStackTraceTestCase<H extends HttpEntityStackTraceJ2cl> implements ClassTesting2<H> {
@@ -36,7 +35,7 @@ public abstract class HttpEntityStackTraceTestCase<H extends HttpEntityStackTrac
     }
 
     final void dumpStackTraceAndCheck(final Throwable cause, final HttpEntity expected) {
-        assertEquals(expected, this.dumpStackTrace(cause));
+        this.checkEquals(expected, this.dumpStackTrace(cause));
     }
 
     abstract HttpEntity dumpStackTrace(final Throwable cause);

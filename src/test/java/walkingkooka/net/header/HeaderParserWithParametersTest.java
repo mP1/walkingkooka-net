@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HeaderParserWithParametersTest extends HeaderParserWithParametersTestCase<HeaderParserWithParameters<?, ?>,
         Void> {
 
@@ -287,7 +285,7 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
             }
         }.parse();
 
-        assertEquals(events,
+        this.checkEquals(events,
                 recorded.toString(),
                 "recorded events for " + CharSequences.quoteAndEscape(text));
     }

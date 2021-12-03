@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -97,8 +96,8 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testToJavaxServletHttpCookie() {
         final javax.servlet.http.Cookie cookie = ClientCookie.with(NAME, VALUE)
                 .toJavaxServletCookie();
-        assertEquals(NAME.value(), cookie.getName(), "name");
-        assertEquals(VALUE, cookie.getValue(), "value");
+        this.checkEquals(NAME.value(), cookie.getName(), "name");
+        this.checkEquals(VALUE, cookie.getValue(), "value");
     }
 
     // parseClientHeader................................................................
@@ -153,14 +152,14 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     private void parseHeaderAndCheck(final String header, final ClientCookie... cookies) {
-        assertEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
+        this.checkEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
     }
 
     // header ....................................................................................
 
     @Test
     public void testHeader() {
-        assertEquals(HttpHeaderName.COOKIE, this.createCookie().header());
+        this.checkEquals(HttpHeaderName.COOKIE, this.createCookie().header());
     }
 
     // toHeader ....................................................................................
@@ -191,7 +190,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     private void toHeaderTextListAndCheck(final String toString,
                                           final ClientCookie... cookies) {
-        assertEquals(toString,
+        this.checkEquals(toString,
                 ClientCookie.toHeaderTextList(Lists.of(cookies)),
                 "format " + Arrays.toString(cookies));
     }

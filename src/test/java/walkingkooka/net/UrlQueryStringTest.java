@@ -28,7 +28,6 @@ import walkingkooka.text.CharSequences;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -45,8 +44,8 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
         final UrlQueryString queryString = UrlQueryString.with("");
         assertSame(UrlQueryString.EMPTY, queryString);
 
-        assertEquals(Maps.empty(), queryString.parameters(), "parameters");
-        assertEquals(Sets.empty(), queryString.parameters().keySet(), "parameters.keySet");
+        this.checkEquals(Maps.empty(), queryString.parameters(), "parameters");
+        this.checkEquals(Sets.empty(), queryString.parameters().keySet(), "parameters.keySet");
 
         this.parameterAbsent(queryString, "abc");
     }
@@ -434,7 +433,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
     }
 
     private void parameterAndCheck0(final UrlQueryString queryString, final String key, final Optional<String> value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 queryString.parameter(this.name(key)),
                 "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
     }
@@ -446,7 +445,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
     }
 
     private void parameterValuesAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
-        assertEquals(values,
+        this.checkEquals(values,
                 queryString.parameterValues(this.name(key)),
                 "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString);
     }
@@ -458,7 +457,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
     }
 
     private void parametersGetAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
-        assertEquals(values,
+        this.checkEquals(values,
                 queryString.parameters().get(this.name(key)),
                 "UrlQueryString.parameters().get(" + CharSequences.quote(key) + ") in: " + queryString);
     }
@@ -468,7 +467,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
     }
 
     private void checkToString(final UrlQueryString queryString, final String toString) {
-        assertEquals(toString, queryString.toString(), "UrlQueryString.toString failure");
+        this.checkEquals(toString, queryString.toString(), "UrlQueryString.toString failure");
     }
 
     @Override

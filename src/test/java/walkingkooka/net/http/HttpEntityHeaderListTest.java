@@ -22,22 +22,20 @@ import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpEntityHeaderListTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderList> {
 
     @Test
     public void testOneNonMultiHeader() {
         final HttpHeaderName<MediaType> contentType = HttpHeaderName.CONTENT_TYPE;
-        assertEquals(false, contentType.isMultiple());
-        assertEquals(HttpEntityHeaderOneList.class, HttpEntityHeaderList.one(contentType, MediaType.TEXT_PLAIN).getClass());
+        this.checkEquals(false, contentType.isMultiple());
+        this.checkEquals(HttpEntityHeaderOneList.class, HttpEntityHeaderList.one(contentType, MediaType.TEXT_PLAIN).getClass());
     }
 
     @Test
     public void testOneMultiHeader() {
         final HttpHeaderName<AcceptLanguage> acceptLanguage = HttpHeaderName.ACCEPT_LANGUAGE;
-        assertEquals(true, acceptLanguage.isMultiple());
-        assertEquals(HttpEntityHeaderMultiList.class, HttpEntityHeaderList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
+        this.checkEquals(true, acceptLanguage.isMultiple());
+        this.checkEquals(HttpEntityHeaderMultiList.class, HttpEntityHeaderList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
     }
 
     @Override

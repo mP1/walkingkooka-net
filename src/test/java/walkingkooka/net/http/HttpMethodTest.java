@@ -29,7 +29,6 @@ import walkingkooka.reflect.JavaVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -138,7 +137,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     private void isGetOrHeadCheck(final HttpMethod constant) {
-        assertEquals(HttpMethod.GET == constant || HttpMethod.HEAD == constant,
+        this.checkEquals(HttpMethod.GET == constant || HttpMethod.HEAD == constant,
                 constant.isGetOrHead(),
                 constant + ".isGetOrHead test");
     }

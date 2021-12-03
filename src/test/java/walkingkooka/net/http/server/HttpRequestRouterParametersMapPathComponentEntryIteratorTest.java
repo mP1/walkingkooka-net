@@ -28,8 +28,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapPathComponentEntryIterator>,
         IteratorTesting,
         ToStringTesting<HttpRequestRouterParametersMapPathComponentEntryIterator>,
@@ -75,8 +73,8 @@ public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest 
         this.hasNextCheckTrue(iterator);
 
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals(HttpRequestAttributes.PATH_COMPONENT_COUNT, entry.getKey(), "key");
-        assertEquals(names.length, entry.getValue(), "value");
+        this.checkEquals(HttpRequestAttributes.PATH_COMPONENT_COUNT, entry.getKey(), "key");
+        this.checkEquals(names.length, entry.getValue(), "value");
 
         for (int i = 0; i < names.length; i++) {
             if (checkHasNext) {
@@ -93,8 +91,8 @@ public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest 
                            final int position,
                            final UrlPathName name) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals(HttpRequestAttributes.pathComponent(position), entry.getKey(), "key");
-        assertEquals(name, entry.getValue(), "value");
+        this.checkEquals(HttpRequestAttributes.pathComponent(position), entry.getKey(), "key");
+        this.checkEquals(name, entry.getValue(), "value");
     }
 
     @Test

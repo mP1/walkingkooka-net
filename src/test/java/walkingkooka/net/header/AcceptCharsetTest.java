@@ -28,8 +28,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<AcceptCharset>,
@@ -60,7 +58,7 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset, final Optional<Charset> expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 acceptCharset.charset(),
                 acceptCharset + " .charset()");
     }

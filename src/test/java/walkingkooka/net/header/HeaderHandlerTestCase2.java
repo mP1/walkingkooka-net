@@ -23,7 +23,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.SystemProperty;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -64,9 +63,9 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
 
     private void checkTypeFails(final Object value, final String message) {
         final Exception expected = assertThrows(Exception.class, ()-> this.check(value));
-        assertEquals(message,
-                    expected.getMessage(),
-                    "message");
+        this.checkEquals(message,
+                expected.getMessage(),
+                "message");
     }
 
     @Test
@@ -123,7 +122,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     }
 
     final void parseStringAndCheck(final C handler, final String value, final Name name, final T expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 handler.parse(value, name),
                 () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));
     }
@@ -145,7 +144,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     }
 
     final void toTextAndCheck(final C handler, final T value, final Name name, final String expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 handler.toText(value, name),
                 () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));
     }

@@ -28,8 +28,6 @@ import walkingkooka.net.header.MediaType;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -46,7 +44,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() throws Exception {
         final String text = "\u0256\u0257";
         final int bytesLength = text.getBytes("UTF-8").length;
-        assertNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
+        this.checkNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
 
         this.contentLengthAndCheck(HttpEntityText.with(Cast.to(Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse("text/plain; charset=UTF8")))), text), bytesLength);
     }
@@ -65,7 +63,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public final void testRemoveHeader() {
         final HttpEntityText entity = this.createHttpEntity();
-        assertEquals(HttpEntity.NO_HEADERS, entity.headers());
+        this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;

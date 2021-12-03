@@ -26,7 +26,6 @@ import walkingkooka.text.CaseSensitivity;
 import java.nio.charset.Charset;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -81,8 +80,8 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
                        final Optional<Charset> charset,
                        final boolean wildcard) {
         this.checkValue(charsetName, value);
-        assertEquals(charset, charsetName.charset(), "charset");
-        assertEquals(wildcard, charsetName.isWildcard(), "wildcard");
+        this.checkEquals(charset, charsetName.charset(), "charset");
+        this.checkEquals(wildcard, charsetName.isWildcard(), "wildcard");
     }
 
     private void checkValue(final CharsetName charsetName, final String value) {
@@ -124,8 +123,8 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     public void testSetParameters() {
         final AcceptCharsetValue header = CharsetName.UTF_8
                 .setParameters(AcceptCharsetValue.NO_PARAMETERS);
-        assertEquals(CharsetName.UTF_8, header.value(), "charset");
-        assertEquals(AcceptCharsetValue.NO_PARAMETERS, header.parameters(), "parameters");
+        this.checkEquals(CharsetName.UTF_8, header.value(), "charset");
+        this.checkEquals(AcceptCharsetValue.NO_PARAMETERS, header.parameters(), "parameters");
     }
 
     @Test

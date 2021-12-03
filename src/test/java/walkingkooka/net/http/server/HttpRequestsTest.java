@@ -36,8 +36,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestsTest implements PublicStaticHelperTesting<HttpRequests> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
@@ -88,13 +86,13 @@ public final class HttpRequestsTest implements PublicStaticHelperTesting<HttpReq
                        final RelativeUrl url,
                        final HttpProtocolVersion version,
                        final HttpEntity... entites) {
-        assertEquals(transport, request.transport(), "transport");
-        assertEquals(url, request.url(), "url");
-        assertEquals(version, request.protocolVersion(), "version");
-        assertEquals(method, request.method(), "method");
+        this.checkEquals(transport, request.transport(), "transport");
+        this.checkEquals(url, request.url(), "url");
+        this.checkEquals(version, request.protocolVersion(), "version");
+        this.checkEquals(method, request.method(), "method");
 
-        assertEquals(entites[0].headers(), request.headers(), "headers");
-        assertEquals(entites[0].bodyText(), request.bodyText(), "bodyText");
+        this.checkEquals(entites[0].headers(), request.headers(), "headers");
+        this.checkEquals(entites[0].bodyText(), request.bodyText(), "bodyText");
     }
 
     // PublicStaticHelperTesting........................................................................................

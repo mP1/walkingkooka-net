@@ -29,7 +29,6 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RecordingHttpResponseTest extends HttpResponseTestCase2<RecordingHttpResponse>
@@ -46,9 +45,9 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         response.setStatus(status);
         response.addEntity(entity);
 
-        assertEquals(Optional.ofNullable(version), response.version(), "version");
-        assertEquals(Optional.ofNullable(status), response.status(), "status");
-        assertEquals(Lists.of(entity), response.entities(), "entities");
+        this.checkEquals(Optional.ofNullable(version), response.version(), "version");
+        this.checkEquals(Optional.ofNullable(status), response.status(), "status");
+        this.checkEquals(Lists.of(entity), response.entities(), "entities");
     }
 
     @Test

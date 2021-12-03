@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMap>
         implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
 
@@ -73,7 +71,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
     @Test
     public void testGetOrDefault() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
-        assertEquals(list(VALUE1),
+        this.checkEquals(list(VALUE1),
                 map.getOrDefault(HEADER1, list("wrong")),
                 "getOrDefault returned wrong value " + map);
     }
@@ -83,7 +81,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
         final List<ETag> etag = list(ETagValidator.STRONG.setValue("default-value-etag"));
 
-        assertEquals(etag,
+        this.checkEquals(etag,
                 map.getOrDefault(HttpHeaderName.E_TAG, etag),
                 "getOrDefault returned wrong value " + map);
     }
@@ -91,7 +89,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
     @Test
     public void testKeySet() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
-        assertEquals(Lists.of(HEADER1, HEADER2), new ArrayList<>(map.keySet()));
+        this.checkEquals(Lists.of(HEADER1, HEADER2), new ArrayList<>(map.keySet()));
     }
 
     @Test

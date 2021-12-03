@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge> {
@@ -44,7 +43,7 @@ final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge>
     @Test
     public void testWith() {
         final CookieMaxAge age = this.createDeletion();
-        assertEquals(SECONDS, age.seconds(), "seconds");
+        this.checkEquals(SECONDS, age.seconds(), "seconds");
     }
 
     @Test

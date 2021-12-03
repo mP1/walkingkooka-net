@@ -23,8 +23,6 @@ import walkingkooka.net.UrlScheme;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
         ToStringTesting<HttpTransport> {
 
@@ -40,7 +38,7 @@ public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
 
     private void urlSchemeAndCheck(final HttpTransport transport,
                                    final UrlScheme expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 transport.urlScheme(),
                 () -> "" + transport + " .urlScheme()");
     }

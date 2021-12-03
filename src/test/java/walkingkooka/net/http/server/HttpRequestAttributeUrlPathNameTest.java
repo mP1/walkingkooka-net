@@ -29,7 +29,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -58,7 +57,7 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
     public void testParameterValueRequest() {
         final HttpRequestAttributeUrlPathName name = HttpRequestAttributeUrlPathName.with(2);
 
-        assertEquals(Optional.of(UrlPathName.with("path2")),
+        this.checkEquals(Optional.of(UrlPathName.with("path2")),
                 name.parameterValue(new FakeHttpRequest() {
                     @Override
                     public RelativeUrl url() {
@@ -72,7 +71,7 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
         final HttpRequestAttributeUrlPathName name = HttpRequestAttributeUrlPathName.with(2);
         final UrlPathName value = UrlPathName.with("path2");
 
-        assertEquals(Optional.of(value),
+        this.checkEquals(Optional.of(value),
                 name.parameterValue(Maps.of(name, value)));
     }
 

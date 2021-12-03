@@ -30,7 +30,6 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2<HeaderScopeHttpRequestHeadersMap>,
@@ -59,7 +58,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     private void containsKeyAndCheck(final Object key,
                                      final boolean containsKey) {
-        assertEquals(containsKey,
+        this.checkEquals(containsKey,
                 this.createMap().containsKey(key),
                 "request containsKey " + key + " returned wrong value");
     }
@@ -86,17 +85,17 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     @Test
     public void testKeySet() {
-        assertEquals(HEADERS.keySet(), this.createMap().keySet());
+        this.checkEquals(HEADERS.keySet(), this.createMap().keySet());
     }
 
     @Test
     public void testEntrySet() {
-        assertEquals(HEADERS.entrySet(), this.createMap().entrySet());
+        this.checkEquals(HEADERS.entrySet(), this.createMap().entrySet());
     }
 
     @Test
     public void testValues() {
-        assertEquals(HEADERS.values(), this.createMap().values());
+        this.checkEquals(HEADERS.values(), this.createMap().values());
     }
 
     @Test

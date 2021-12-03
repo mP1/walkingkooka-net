@@ -22,7 +22,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
@@ -42,14 +41,14 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                      final String value,
                      final Optional<CharsetName> charsetName,
                      final Optional<LanguageName> language) {
-        assertEquals(value, filename.value(), "value");
-        assertEquals(charsetName, filename.charsetName(), "charsetName");
-        assertEquals(language, filename.language(), "language");
+        this.checkEquals(value, filename.value(), "value");
+        this.checkEquals(charsetName, filename.charsetName(), "charsetName");
+        this.checkEquals(language, filename.language(), "language");
     }
 
     final void checkWithoutPath(final ContentDispositionFileName contentDisposition,
                                 final ContentDispositionFileName withoutPath) {
-        assertEquals(withoutPath, contentDisposition.withoutPath, "withoutPath");
+        this.checkEquals(withoutPath, contentDisposition.withoutPath, "withoutPath");
     }
 
     @Test

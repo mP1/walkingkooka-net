@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
@@ -139,7 +138,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     @Test
     public void testParameterValueRequest() {
         final CookieName name = this.cookieName();
-        assertEquals(Optional.of(Cookie.client(name, VALUE)),
+        this.checkEquals(Optional.of(Cookie.client(name, VALUE)),
                 name.parameterValue(new FakeHttpRequest() {
 
                     @Override
@@ -153,7 +152,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     public void testParameterValueMap() {
         final CookieName name = this.cookieName();
         final ClientCookie cookie = Cookie.client(name, VALUE);
-        assertEquals(Optional.of(cookie),
+        this.checkEquals(Optional.of(cookie),
                 name.parameterValue(Maps.of(name, cookie)));
     }
 

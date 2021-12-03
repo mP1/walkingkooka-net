@@ -24,8 +24,6 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpServletRequestHttpRequestParametersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMap>
         implements MapTesting2<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
@@ -94,7 +92,7 @@ public final class HttpServletRequestHttpRequestParametersMapTest extends HttpSe
                                     final List<String> defaultValue,
                                     final Object value) {
         final HttpServletRequestHttpRequestParametersMap map = this.createMap();
-        assertEquals(value,
+        this.checkEquals(value,
                 map.getOrDefault(key, defaultValue),
                 () -> "get " + key + " with default " + defaultValue + " from " + map);
     }

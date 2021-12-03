@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -93,26 +92,26 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     @Test
     public void testUrlMissingQueryString() {
         final String url = "/path1";
-        assertEquals(Url.parseRelative(url),
+        this.checkEquals(Url.parseRelative(url),
                 this.createRequest(url).url());
     }
 
     @Test
     public void testUrlWithQueryString() {
-        assertEquals(Url.parseRelative(URL),
+        this.checkEquals(Url.parseRelative(URL),
                 this.createRequest().url());
     }
 
     @Test
     public void testUrlWithEmptyQueryString() {
         final String url = "/path1?";
-        assertEquals(Url.parseRelative(url),
+        this.checkEquals(Url.parseRelative(url),
                 this.createRequest(url).url());
     }
 
     @Test
     public void testHeaders() {
-        assertEquals(Maps.of(HEADER1, list(Header1), HEADER2, list(Header2)),
+        this.checkEquals(Maps.of(HEADER1, list(Header1), HEADER2, list(Header2)),
                 this.createRequest().headers());
     }
 
@@ -124,7 +123,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
-        assertEquals(new String(BYTES, HttpEntity.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
+        this.checkEquals(new String(BYTES, HttpEntity.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
     }
 
     @Test
@@ -132,28 +131,30 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
         final Charset charset = StandardCharsets.UTF_16;
         final String text = "ABC123";
 
-        assertEquals(text,
-                HttpServletRequestHttpRequest.with(new FakeHttpServletRequest() {
+        this.checkEquals(
+                text,
+                HttpServletRequestHttpRequest.with(
+                        new FakeHttpServletRequest() {
 
-                    @Override
-                    public String getHeader(final String header) {
-                        assertEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
-                        return "text/plain;charset=utf-16";
-                    }
+                            @Override
+                            public String getHeader(final String header) {
+                                checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                                return "text/plain;charset=utf-16";
+                            }
 
-                    @Override
-                    public Enumeration<String> getHeaders(final String header) {
-                        assertEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
-                        return enumeration("text/plain;charset=utf-16");
-                    }
+                            @Override
+                            public Enumeration<String> getHeaders(final String header) {
+                                checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                                return enumeration("text/plain;charset=utf-16");
+                            }
 
-                    @Override
-                    public Map<String, String[]> getParameterMap() {
-                        return Maps.empty();
-                    }
+                            @Override
+                            public Map<String, String[]> getParameterMap() {
+                                return Maps.empty();
+                            }
 
-                    @Override
-                    public ServletInputStream getInputStream() {
+                            @Override
+                            public ServletInputStream getInputStream() {
                         final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
 
                         return new ServletInputStream() {
@@ -177,20 +178,21 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
                                 return bytes.read();
                             }
                         };
-                    }
-                }).bodyText());
+                            }
+                        }).bodyText()
+        );
     }
 
     @Test
     public void testParameters() {
         final Map<HttpRequestParameterName, List<String>> parameters = this.createRequest().parameters();
-        assertEquals(Lists.of(VALUE1A, VALUE1B),
+        this.checkEquals(Lists.of(VALUE1A, VALUE1B),
                 parameters.get(HttpRequestParameterName.with(PARAMETER1)));
     }
 
     @Test
     public void testParameterValues() {
-        assertEquals(Lists.of(VALUE1A, VALUE1B),
+        this.checkEquals(Lists.of(VALUE1A, VALUE1B),
                 this.createRequest().parameterValues(HttpRequestParameterName.with(PARAMETER1)));
     }
 

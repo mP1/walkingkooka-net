@@ -26,7 +26,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, Void> implements ThrowableTesting {
@@ -79,7 +78,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void checkPosition(final HeaderParser parser, final int position) {
-        assertEquals(position, parser.position, "position");
+        this.checkEquals(position, parser.position, "position");
     }
 
     private void whitespaceInvalidCharacterFails(final String text,
@@ -115,7 +114,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     private void tokenAndCheck(final String text,
                                final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
-        assertEquals(expectedText,
+        this.checkEquals(expectedText,
                 parser.token(CharPredicates.digit()),
                 "token in " + CharSequences.quoteAndEscape(text));
     }
@@ -171,7 +170,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                                 final boolean escapingSupported,
                                 final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
-        assertEquals(expectedText,
+        this.checkEquals(expectedText,
                 parser.quotedText(CharPredicates.ascii(), escapingSupported),
                 "quoted text in " + CharSequences.quoteAndEscape(text));
     }
@@ -264,7 +263,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     private void encodedTextAndCheck(final String text,
                                      final EncodedText expectedText) {
-        assertEquals(expectedText,
+        this.checkEquals(expectedText,
                 this.encodedText(text),
                 "quoted text in " + CharSequences.quoteAndEscape(text));
     }
@@ -519,7 +518,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
             }
         }.parse();
 
-        assertEquals(events,
+        this.checkEquals(events,
                 recorded.toString(),
                 "recorded events");
     }

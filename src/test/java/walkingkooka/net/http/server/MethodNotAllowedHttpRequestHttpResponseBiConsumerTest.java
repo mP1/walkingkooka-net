@@ -25,7 +25,6 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<MethodNotAllowedHttpRequestHttpResponseBiConsumer> {
@@ -87,10 +86,10 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
     private void checkResponse(final HttpRequest request,
                                final HttpResponse response,
                                final HttpResponse expected) {
-        assertEquals(expected.status(),
+        this.checkEquals(expected.status(),
                 response.status(),
                 () -> "request.status " + request);
-        assertEquals(expected.entities(),
+        this.checkEquals(expected.entities(),
                 response.entities(),
                 () -> "request.entities " + request);
     }

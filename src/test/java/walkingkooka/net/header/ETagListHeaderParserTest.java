@@ -23,8 +23,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETagListHeaderParser> {
 
     @Test
@@ -107,7 +105,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     final void parseStringAndCheck2(final String text, final ETag... tags) {
-        assertEquals(Lists.of(tags),
+        this.checkEquals(Lists.of(tags),
                 listReadOnlyCheck(ETagListHeaderParser.parseList(text)),
                 "Incorrect result parsing " + CharSequences.quote(text));
     }
@@ -115,7 +113,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     @Override
     public ETag parseString(final String text) {
         final List<ETag> tags = ETagListHeaderParser.parseList(text);
-        assertEquals(1, tags.size(), "expected one tag =" + CharSequences.quote(text) + "=" + tags);
+        this.checkEquals(1, tags.size(), "expected one tag =" + CharSequences.quote(text) + "=" + tags);
         return tags.get(0);
     }
 

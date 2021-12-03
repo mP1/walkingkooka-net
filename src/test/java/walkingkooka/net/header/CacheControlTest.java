@@ -25,7 +25,6 @@ import walkingkooka.test.ParseStringTesting;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -88,7 +87,7 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
 
     private <T> void check(final CacheControl cacheControl,
                            final List<CacheControlDirective<?>> directives) {
-        assertEquals(directives, cacheControl.value(), "directives");
+        this.checkEquals(directives, cacheControl.value(), "directives");
     }
 
     // wildcard.........................................................................................................

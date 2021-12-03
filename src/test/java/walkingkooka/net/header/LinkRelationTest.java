@@ -27,8 +27,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
         implements ComparableTesting,
         ParseStringTesting<List<LinkRelation<?>>> {
@@ -44,13 +42,13 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Test
     public void testWithText() {
         final LinkRelation<?> linkRelation = LinkRelation.with(TEXT);
-        assertEquals(TEXT, linkRelation.value(), "value");
+        this.checkEquals(TEXT, linkRelation.value(), "value");
     }
 
     @Test
     public void testWithUrl() {
         final LinkRelation<?> linkRelation = LinkRelation.with(URL_TEXT);
-        assertEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
+        this.checkEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
     }
 
     @Test

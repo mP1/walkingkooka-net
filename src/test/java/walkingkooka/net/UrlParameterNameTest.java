@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
@@ -86,7 +85,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
 
     private void firstParameterValueAndCheck(final Map<UrlParameterName, List<String>> parameters,
                                              final String expected) {
-        assertEquals(
+        this.checkEquals(
                 Optional.ofNullable(expected),
                 this.createObject().firstParameterValue(Cast.to(parameters)),
                 () -> "firstParameterValue of " + parameters
@@ -109,7 +108,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                 IllegalArgumentException.class,
                 () -> this.createObject().firstParameterValueOrFail(Maps.empty())
         );
-        assertEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+        this.checkEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
     }
 
     @Test
@@ -118,7 +117,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                 IllegalArgumentException.class,
                 () -> this.createObject().firstParameterValueOrFail(Maps.of(UrlParameterName.with("different"), Lists.of("1a", "2b")))
         );
-        assertEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+        this.checkEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
     }
 
     @Test
@@ -137,7 +136,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
 
     private void firstParameterValueOrFailAndCheck(final Map<UrlParameterName, List<String>> parameters,
                                                    final String expected) {
-        assertEquals(
+        this.checkEquals(
                 expected,
                 this.createObject().firstParameterValueOrFail(Cast.to(parameters)),
                 () -> "firstParameterValueOrFail of " + parameters
@@ -209,7 +208,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     public void testParameterValueOrFail() {
         final UrlParameterName parameter = this.createComparable();
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("123"));
-        assertEquals(BigDecimal.valueOf(123),
+        this.checkEquals(BigDecimal.valueOf(123),
                 parameter.parameterValueOrFail(parameters,
                         BigDecimal::new));
     }
@@ -219,7 +218,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueRequest() {
         final UrlParameterName name = this.createName("param1");
-        assertEquals(Optional.of(Lists.of("value1")),
+        this.checkEquals(Optional.of(Lists.of("value1")),
                 name.parameterValue(new FakeHttpRequest() {
 
                     @Override
@@ -232,7 +231,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueMap() {
         final UrlParameterName name = this.createName("param1");
-        assertEquals(Optional.of(Lists.of("value1")),
+        this.checkEquals(Optional.of(Lists.of("value1")),
                 name.parameterValue(UrlQueryString.with("param1=value1&param2=value2").parameters()));
     }
 

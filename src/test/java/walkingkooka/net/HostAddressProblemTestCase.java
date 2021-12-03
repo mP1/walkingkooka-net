@@ -21,8 +21,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements ClassTesting2<P>,
         TypeNameTesting<P> {
 
@@ -33,7 +31,7 @@ abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> i
     final void messageAndCheck(final HostAddressProblem problem,
                                final String address,
                                final String message) {
-        assertEquals(message,
+        this.checkEquals(message,
                 problem.message(address),
                 () -> problem + " " + address);
     }

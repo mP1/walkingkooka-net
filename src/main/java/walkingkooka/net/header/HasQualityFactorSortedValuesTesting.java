@@ -23,8 +23,6 @@ import walkingkooka.test.Testing;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * A mixin which has helpers to test {@link HasQualityFactorSortedValues#qualityFactorSortedValues()}.
  */
@@ -38,7 +36,7 @@ public interface HasQualityFactorSortedValuesTesting extends Testing {
 
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
                                                                           final List<V> sorted) {
-        assertEquals(sorted,
+        this.checkEquals(sorted,
                 has.qualityFactorSortedValues(),
                 () -> "" + has);
     }

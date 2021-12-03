@@ -36,8 +36,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -106,7 +104,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     private void invalidUserNameCharacter(final String email, final char c) {
         final int at = email.indexOf(c);
-        assertNotEquals(-1, at, "invalid character '" + c + "' does not appear in email=" + email);
+        this.checkNotEquals(-1, at, "invalid character '" + c + "' does not appear in email=" + email);
         this.parseStringFails2(email, new InvalidCharacterException(email, at));
     }
 
@@ -189,14 +187,14 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         parseStringFails2(email,
                 thrown.getClass(),
                 thrown.getMessage());
-        assertEquals(Optional.empty(), EmailAddress.tryParse(email), email);
+        this.checkEquals(Optional.empty(), EmailAddress.tryParse(email), email);
     }
 
     private void parseStringFails2(final String email, final String expectedMessage) {
         parseStringFails2(email,
                 IllegalArgumentException.class,
                 expectedMessage);
-        assertEquals(Optional.empty(), EmailAddress.tryParse(email), email);
+        this.checkEquals(Optional.empty(), EmailAddress.tryParse(email), email);
     }
 
     private <T extends RuntimeException> void parseStringFails2(final String email,
@@ -284,15 +282,15 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.parseSuccessful(user, server, emailAddress);
 
         final Optional<EmailAddress> parsed = EmailAddress.tryParse(address);
-        assertNotEquals(Optional.empty(), parsed, "tryParse failed");
+        this.checkNotEquals(Optional.empty(), parsed, "tryParse failed");
         this.parseSuccessful(user, server, parsed.get());
     }
 
     private void parseSuccessful(final String user, final String server, final EmailAddress emailAddress) {
         final String address = user + '@' + server;
-        assertEquals(address, emailAddress.value(), "address");
-        assertEquals(user, emailAddress.user(), "user");
-        assertEquals(server, emailAddress.host().value(), "host");
+        this.checkEquals(address, emailAddress.value(), "address");
+        this.checkEquals(user, emailAddress.user(), "user");
+        this.checkEquals(server, emailAddress.host().value(), "host");
     }
 
     // --- start of tests generator: DominicsayersComIsemailEmailAddressTestGenerator file: www.dominicsayers.com-isemail-tests.xml ---
@@ -1607,7 +1605,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
                 + this.makeEmptyIfNull(comment));
 
         // tryParse should return empty
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
                 EmailAddress.tryParse(address),
                 () -> "Parse " + CharSequences.quoteAndEscape(address) + " comment: " + CharSequences.quoteAndEscape(comment));
     }

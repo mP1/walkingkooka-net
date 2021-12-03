@@ -28,7 +28,6 @@ import walkingkooka.net.http.HttpEntity;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoContentLengthHttpResponse> {
@@ -69,7 +68,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         response.addEntity((null == contentLength ?
                 HttpEntity.EMPTY :
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength)).setBody(bodyBinary));
-        assertEquals(Lists.of(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.length).setBody(bodyBinary)),
+        this.checkEquals(Lists.of(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.length).setBody(bodyBinary)),
                 added,
                 "added entity");
     }

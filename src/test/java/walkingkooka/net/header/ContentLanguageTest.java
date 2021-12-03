@@ -24,7 +24,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
@@ -48,7 +47,7 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     private void checkValue(final ContentLanguage contentLanguage,
                             final List<LanguageName> languages) {
-        assertEquals(languages, contentLanguage.value(), "value");
+        this.checkEquals(languages, contentLanguage.value(), "value");
     }
 
     // parse............................................................................................................

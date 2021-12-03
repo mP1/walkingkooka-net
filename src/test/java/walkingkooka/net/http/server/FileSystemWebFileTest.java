@@ -41,7 +41,6 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebFile>,
@@ -81,7 +80,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testLastModified() throws Exception {
         final FileSystemWebFile webFile = this.webFile();
-        assertEquals(LocalDateTime.ofInstant(Files.getLastModifiedTime(webFile.path).toInstant(), ZoneId.systemDefault()),
+        this.checkEquals(LocalDateTime.ofInstant(Files.getLastModifiedTime(webFile.path).toInstant(), ZoneId.systemDefault()),
                 webFile.lastModified(),
                 "lastModified");
     }
@@ -89,7 +88,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testContentType() {
         final FileSystemWebFile webFile = this.webFile();
-        assertEquals(this.contentType(),
+        this.checkEquals(this.contentType(),
                 webFile.contentType(),
                 "contentType");
     }
@@ -97,7 +96,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testContentSize() {
         final FileSystemWebFile webFile = this.webFile();
-        assertEquals(Long.valueOf(CONTENT.size()),
+        this.checkEquals(Long.valueOf(CONTENT.size()),
                 webFile.contentSize(),
                 "contentSize");
     }
@@ -111,7 +110,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
                 input.transferTo(output);
                 output.flush();
 
-                assertEquals(Long.valueOf(CONTENT.size()),
+                this.checkEquals(Long.valueOf(CONTENT.size()),
                         webFile.contentSize(),
                         "contentSize");
             }
@@ -121,7 +120,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testETag() {
         final FileSystemWebFile webFile = this.webFile();
-        assertEquals(Optional.of(this.etag()),
+        this.checkEquals(Optional.of(this.etag()),
                 webFile.etag(),
                 "etag");
     }

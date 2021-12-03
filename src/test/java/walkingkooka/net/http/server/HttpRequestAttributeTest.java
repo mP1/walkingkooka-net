@@ -29,8 +29,6 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestAttributeTest implements ClassTesting2<HttpRequestAttribute<?>> {
 
     @Test
@@ -52,7 +50,7 @@ public final class HttpRequestAttributeTest implements ClassTesting2<HttpRequest
 
     private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter, final T value) {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.of(parameter, value);
-        assertEquals(Optional.of(value), parameter.parameterValue(parameters), parameters::toString);
+        this.checkEquals(Optional.of(value), parameter.parameterValue(parameters), parameters::toString);
     }
 
     @Override

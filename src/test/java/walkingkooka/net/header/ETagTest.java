@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagTest extends HeaderTestCase<ETag> {
@@ -126,7 +125,7 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     }
 
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
-        assertEquals(toString,
+        this.checkEquals(toString,
                 Header.toHeaderTextList(Lists.of(tags), Header.SEPARATOR.string().concat(" ")),
                 "ETag.toString(List) failed =" + CharSequences.quote(toString));
     }

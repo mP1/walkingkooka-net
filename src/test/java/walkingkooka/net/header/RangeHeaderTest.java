@@ -25,7 +25,6 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -133,8 +132,8 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     private void check(final RangeHeader range,
                        final RangeHeaderUnit unit,
                        final List<Range<Long>> values) {
-        assertEquals(unit, range.unit(), "unit");
-        assertEquals(values, range.value(), "value");
+        this.checkEquals(unit, range.unit(), "unit");
+        this.checkEquals(values, range.value(), "value");
     }
 
     // isWildcard ..................................................................................................

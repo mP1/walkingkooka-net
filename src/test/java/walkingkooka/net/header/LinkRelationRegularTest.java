@@ -20,8 +20,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRelationRegular, String> {
 
     private final static String TEXT = "abc123";
@@ -43,7 +41,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
 
     private void createAndCheck(final String text) {
         final LinkRelationRegular linkRelation = LinkRelationRegular.regular(text);
-        assertEquals(text, linkRelation.value(), "value");
+        this.checkEquals(text, linkRelation.value(), "value");
     }
 
     @Test

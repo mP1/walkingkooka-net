@@ -27,14 +27,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class WebFileTest implements ClassTesting2<WebFile> {
 
     @Test
     public void testContentText() {
         final String text = "abc123def456";
-        assertEquals(text, new FakeWebFile() {
+        this.checkEquals(text, new FakeWebFile() {
 
             @Override
             public MediaType contentType() throws WebFileException {
