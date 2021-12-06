@@ -17,11 +17,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-
-import java.util.function.BiConsumer;
 
 public abstract class HttpRequestHttpResponseBiConsumerTestCase<T> implements ClassTesting2<T> {
 

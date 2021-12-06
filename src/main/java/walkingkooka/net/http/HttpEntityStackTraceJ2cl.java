@@ -17,8 +17,6 @@
 
 package walkingkooka.net.http;
 
-import javaemul.internal.annotations.GwtIncompatible;
-
 import java.util.Objects;
 
 abstract class HttpEntityStackTraceJ2cl {
