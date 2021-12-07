@@ -38,8 +38,7 @@ public final class HttpEntityHeaderOneListTest extends HttpEntityHeaderListTestC
 
     @Test
     public void testWithInvalidValue() {
-        final HttpHeaderName<?> header = HEADER;
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderOneList.with(header, this));
+        assertThrows(HeaderException.class, () -> HttpEntityHeaderOneList.with(HEADER, this));
     }
 
     @Test
