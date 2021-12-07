@@ -32,7 +32,7 @@ final class HttpEntityEmpty extends HttpEntity {
     /**
      * Singleton instance.
      */
-    final static HttpEntityEmpty instance() {
+    static HttpEntityEmpty instance() {
         if (null == INSTANCE) {
             INSTANCE = new HttpEntityEmpty(); // required because super class extracts singleton
         }
