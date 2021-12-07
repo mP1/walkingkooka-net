@@ -125,17 +125,17 @@ public final class Encoding extends Header2<String>
     // HasHeaderScope ..................................................................................................
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return false;
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -149,7 +149,7 @@ public final class Encoding extends Header2<String>
     // Comparable......................................................................................................
 
     @Override
-    public final int compareTo(final Encoding other) {
+    public int compareTo(final Encoding other) {
         return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
     }
 }

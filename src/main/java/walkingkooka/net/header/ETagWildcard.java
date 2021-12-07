@@ -81,7 +81,7 @@ final class ETagWildcard extends ETag {
     // toString........................................................................................................
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.value();
     }
 }

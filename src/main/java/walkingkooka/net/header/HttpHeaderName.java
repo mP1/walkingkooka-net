@@ -841,17 +841,17 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     // HasHttpHeaderNameScope ..........................................................................................
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return this.scope.isMultipart();
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return this.scope.isRequest();
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return this.scope.isResponse();
     }
 

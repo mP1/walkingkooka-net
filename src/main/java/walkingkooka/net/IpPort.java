@@ -226,7 +226,7 @@ public final class IpPort implements Comparable<IpPort> {
         return String.valueOf(this.value);
     }
 
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(Url.HOST_PORT_SEPARATOR.character());
         b.append(this.value);
     }

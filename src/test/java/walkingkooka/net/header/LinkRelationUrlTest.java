@@ -62,7 +62,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

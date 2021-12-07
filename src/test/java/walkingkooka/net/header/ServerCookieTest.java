@@ -1169,19 +1169,19 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         this.checkEquals(expected, cookie.version(), () -> cookie + " version");
     }
 
-    final void checkName(final javax.servlet.http.Cookie cookie) {
+    void checkName(final javax.servlet.http.Cookie cookie) {
         checkName(cookie, NAME);
     }
 
-    final void checkName(final javax.servlet.http.Cookie cookie, final CookieName name) {
+    void checkName(final javax.servlet.http.Cookie cookie, final CookieName name) {
         this.checkEquals(name.value(), cookie.getName(), () -> cookie + " name");
     }
 
-    final void checkValue(final javax.servlet.http.Cookie cookie) {
+    void checkValue(final javax.servlet.http.Cookie cookie) {
         checkValue(cookie, VALUE);
     }
 
-    final void checkValue(final javax.servlet.http.Cookie cookie, final String value) {
+    void checkValue(final javax.servlet.http.Cookie cookie, final String value) {
         this.checkEquals(value, cookie.getValue(), () -> cookie + " value");
     }
 
@@ -1229,11 +1229,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         this.checkEquals(expected.toJavaxServletCookieHttpOnly(), cookie.isHttpOnly(), () -> cookie + " httpOnly");
     }
 
-    final void checkVersion(final javax.servlet.http.Cookie cookie) {
+    void checkVersion(final javax.servlet.http.Cookie cookie) {
         checkVersion(cookie, VERSION);
     }
 
-    final void checkVersion(final javax.servlet.http.Cookie cookie, final CookieVersion version) {
+    void checkVersion(final javax.servlet.http.Cookie cookie, final CookieVersion version) {
         this.checkEquals(version.value(), cookie.getVersion(), () -> cookie + " version");
     }
 

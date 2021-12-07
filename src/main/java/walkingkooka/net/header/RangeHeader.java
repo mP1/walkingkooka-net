@@ -233,21 +233,21 @@ public final class RangeHeader implements Header,
     final static boolean IS_MULTIPART = false;
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return IS_MULTIPART;
     }
 
     final static boolean IS_REQUEST = true;
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return IS_REQUEST;
     }
 
     final static boolean IS_RESPONSE = true;
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return IS_RESPONSE;
     }
 

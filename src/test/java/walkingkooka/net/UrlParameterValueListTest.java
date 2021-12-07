@@ -76,7 +76,7 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

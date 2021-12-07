@@ -32,12 +32,12 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     }
 
     @Test
-    public final void testParameterSeparatorFails() {
+    public void testParameterSeparatorFails() {
         this.parseStringInvalidCharacterFails(";");
     }
 
     @Test
-    public final void testKeyValueSeparatorFails() {
+    public void testKeyValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("=");
     }
 

@@ -45,12 +45,12 @@ public final class HeaderParameterNameTest implements ClassTesting2<HeaderParame
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public String typeNamePrefix() {
         return this.subtractTypeNameSuffix();
     }
 
     @Override
-    public final String typeNameSuffix() {
+    public String typeNameSuffix() {
         return Name.class.getSimpleName();
     }
 }

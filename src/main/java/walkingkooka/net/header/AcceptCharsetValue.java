@@ -118,7 +118,7 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     /**
      * Retrieves the quality factor for this value.
      */
-    public final Optional<Float> qualityFactor() {
+    public Optional<Float> qualityFactor() {
         return this.qualityFactor(AcceptCharsetValueParameterName.Q);
     }
 
@@ -154,17 +154,17 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     // HasHeaderScope ....................................................................................................
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

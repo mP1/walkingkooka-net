@@ -61,7 +61,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     }
 
     @Test
-    public final void testRemoveHeader() {
+    public void testRemoveHeader() {
         final HttpEntityText entity = this.createHttpEntity();
         this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 

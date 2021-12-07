@@ -37,12 +37,12 @@ public final class CacheControlDirectiveNameParameterTest implements ClassTestin
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public String typeNamePrefix() {
         return CacheControlDirectiveName.class.getSimpleName();
     }
 
     @Override
-    public final String typeNameSuffix() {
+    public String typeNameSuffix() {
         return "";
     }
 }

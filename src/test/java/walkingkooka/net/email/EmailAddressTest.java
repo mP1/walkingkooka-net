@@ -1710,8 +1710,8 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     @Override
-    public final EmailAddress unmarshall(final JsonNode from,
-                                         final JsonNodeUnmarshallContext context) {
+    public EmailAddress unmarshall(final JsonNode from,
+                                   final JsonNodeUnmarshallContext context) {
         return EmailAddress.unmarshall(from, context);
     }
 

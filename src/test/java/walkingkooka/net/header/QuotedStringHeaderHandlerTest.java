@@ -122,8 +122,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         return QuotedStringHeaderHandler.with(this.charPredicate(), true);
     }
 
-    @Override
-    final String handlerToString() {
+    @Override String handlerToString() {
         return this.charPredicate().toString();
     }
 

@@ -82,7 +82,7 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
     // UsesToStringBuilder
 
     @Override
-    public final void buildToString(final ToStringBuilder builder) {
+    public void buildToString(final ToStringBuilder builder) {
         final byte[] components = this.components;
         int significant = Ip6Address.OCTET_COUNT;
         do {

@@ -41,7 +41,7 @@ final class CharsetNameWildcard extends CharsetName {
      * Always empty
      */
     @Override
-    public final Optional<Charset> charset() {
+    public Optional<Charset> charset() {
         return NO_CHARSET;
     }
 

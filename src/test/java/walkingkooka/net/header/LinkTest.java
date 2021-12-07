@@ -93,7 +93,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     }
 
     @Test
-    public final void testSetParameterDifferent() {
+    public void testSetParameterDifferent() {
         final Link link = this.createLink();
         final Map<LinkParameterName<?>, Object> parameters = this.parameters();
         final Link different = link.setParameters(parameters);
@@ -113,9 +113,9 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         return Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"));
     }
 
-    final void check(final Link language,
-                     final Url value,
-                     final Map<LinkParameterName<?>, Object> parameters) {
+    void check(final Link language,
+               final Url value,
+               final Map<LinkParameterName<?>, Object> parameters) {
         this.checkEquals(value, language.value(), "value");
         this.checkParameters(language, parameters);
     }

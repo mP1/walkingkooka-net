@@ -157,7 +157,7 @@ public final class CacheControlDirective<T> implements Header {
     /**
      * Returns the parameter.
      */
-    public final Optional<T> parameter() {
+    public Optional<T> parameter() {
         return this.parameter;
     }
 
@@ -165,7 +165,7 @@ public final class CacheControlDirective<T> implements Header {
      * Would be setter that returns a {@link CacheControlDirective} with the given parameter value
      * creating a new instance if necessary.
      */
-    public final CacheControlDirective<T> setParameter(final Optional<T> parameter) {
+    public CacheControlDirective<T> setParameter(final Optional<T> parameter) {
         this.name.check(parameter);
 
         return this.parameter().equals(parameter) ?
@@ -217,7 +217,7 @@ public final class CacheControlDirective<T> implements Header {
     // Object.........................................................................................................
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(this.name, this.parameter);
     }
 
@@ -234,7 +234,7 @@ public final class CacheControlDirective<T> implements Header {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.toHeaderText();
     }
 }

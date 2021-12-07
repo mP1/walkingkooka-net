@@ -119,7 +119,7 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
     }
 
     @Override
-    public final void buildToString(final ToStringBuilder builder) {
+    public void buildToString(final ToStringBuilder builder) {
         builder.separator(Ip4Address.SEPARATOR.string());
         builder.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 

@@ -180,7 +180,7 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     // ClassTestCase ............................................................................................
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 }
