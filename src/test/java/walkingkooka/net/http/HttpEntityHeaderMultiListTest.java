@@ -37,14 +37,12 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
 
     @Test
     public void testWithInvalidValue() {
-        final HttpHeaderName<?> header = HEADER;
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderMultiList.with(header, this));
+        assertThrows(HeaderException.class, () -> HttpEntityHeaderMultiList.with(HEADER, this));
     }
 
     @Test
     public void testWithInvalidValue2() {
-        final HttpHeaderName<?> header = HEADER;
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderMultiList.with(header, VALUE1, this));
+        assertThrows(HeaderException.class, () -> HttpEntityHeaderMultiList.with(HEADER, VALUE1, this));
     }
 
     @Test
