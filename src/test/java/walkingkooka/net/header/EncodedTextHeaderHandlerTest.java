@@ -39,7 +39,7 @@ public final class EncodedTextHeaderHandlerTest extends
     }
 
     @Override
-    ContentDispositionParameterName name() {
+    ContentDispositionParameterName<?> name() {
         return ContentDispositionParameterName.FILENAME;
     }
 

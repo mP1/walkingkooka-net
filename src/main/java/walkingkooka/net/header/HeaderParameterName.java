@@ -77,7 +77,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     /**
      * Retrieves the value or throws a {@link HeaderException} if absent.
      */
-    public V parameterValueOrFail(final HeaderWithParameters hasParameters) {
+    public V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
         if (!value.isPresent()) {
             throw new HeaderException("Required value is absent for " + this);

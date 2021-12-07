@@ -61,7 +61,7 @@ public final class HttpHeaderNameListHeaderHandlerTest extends
         assertThrows(HeaderException.class, () -> this.check(Lists.of(this.header(), "WRONG!")));
     }
 
-    private HttpHeaderName header() {
+    private HttpHeaderName<?> header() {
         return HttpHeaderName.ACCEPT;
     }
 

@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http.server;
 
-public abstract class HttpResponseTestCase2<R extends HttpResponse> extends HttpResponseTestCase
+public abstract class HttpResponseTestCase2<R extends HttpResponse> extends HttpResponseTestCase<R>
         implements HttpResponseTesting<R> {
 
     HttpResponseTestCase2() {

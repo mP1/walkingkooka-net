@@ -124,7 +124,7 @@ final public class ClientCookie extends Cookie {
      * Always returns {@link HttpHeaderName#COOKIE}.
      */
     @Override
-    public HttpHeaderName header() {
+    public HttpHeaderName<List<ClientCookie>> header() {
         return HttpHeaderName.COOKIE;
     }
 

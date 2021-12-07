@@ -43,7 +43,7 @@ public abstract class HeaderTestCase<V extends Header> implements ClassTesting2<
     public final void testValueIfListReadOnly() {
         final V header = this.createHeader();
         if(header instanceof Value) {
-            final Object value = ((Value)header).value();
+            final Object value = ((Value<?>) header).value();
             if(value instanceof List) {
                 final List<?> list = Cast.to(value);
                 this.addFails(list, null);

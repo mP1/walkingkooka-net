@@ -39,7 +39,7 @@ public final class ContentDispositionFileNameNotEncodedHeaderHandlerTest extends
     }
 
     @Override
-    ContentDispositionParameterName name() {
+    ContentDispositionParameterName<?> name() {
         return ContentDispositionParameterName.FILENAME;
     }
 

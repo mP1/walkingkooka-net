@@ -152,7 +152,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void ifRangeFailSetStatusAddEntityAndCheck(final RangeHeader requestRanges,
-                                                       final IfRange requestIfRange,
+                                                       final IfRange<?> requestIfRange,
                                                        final ETag responseETag,
                                                        final LocalDateTime responseLastModified) {
 
@@ -188,7 +188,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                 this.lastModified());
     }
 
-    private void invalidRangeSetStatusAddEntityAndCheck(final IfRange requestIfRange,
+    private void invalidRangeSetStatusAddEntityAndCheck(final IfRange<?> requestIfRange,
                                                         final ETag responseETag,
                                                         final LocalDateTime responseLastModified) {
         this.setStatusAddEntityAndCheck4(RangeHeader.parse("bytes=1-9999"),
@@ -201,7 +201,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void setStatusAddEntityAndCheck4(final RangeHeader requestRanges,
-                                             final IfRange requestIfRange,
+                                             final IfRange<?> requestIfRange,
                                              final ETag responseETag,
                                              final LocalDateTime responseLastModified,
                                              final byte[] body,
@@ -319,7 +319,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void setHeaderAddEntityAndCheck(final String requestRanges,
-                                            final IfRange requestIfRange,
+                                            final IfRange<?> requestIfRange,
                                             final Map<HttpHeaderName<?>, List<?>> headers,
                                             final HttpEntity... expectedEntities) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {

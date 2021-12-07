@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -34,7 +35,7 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Map;
 import java.util.Optional;
 
-public final class HttpRequestAttributesTest implements ClassTesting2<HttpRequestAttributes> {
+public final class HttpRequestAttributesTest implements ClassTesting2<HttpRequestAttributes<?>> {
 
     @Test
     public void testParameterValueCookieName() {
@@ -100,8 +101,8 @@ public final class HttpRequestAttributesTest implements ClassTesting2<HttpReques
     }
 
     @Override
-    public Class<HttpRequestAttributes> type() {
-        return HttpRequestAttributes.class;
+    public Class<HttpRequestAttributes<?>> type() {
+        return Cast.to(HttpRequestAttributes.class);
     }
 
     @Override

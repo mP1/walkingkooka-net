@@ -48,7 +48,7 @@ public final class LocalDateTimeHeaderHandlerTest extends
     }
 
     @Override
-    HttpHeaderName name() {
+    HttpHeaderName<?> name() {
         return HttpHeaderName.DATE;
     }
 
