@@ -118,7 +118,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
     private void notModified(final WebFile file,
                              final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        response.addEntity(this.headers(file));
+        response.addEntity(headers(file));
     }
 
     /**
