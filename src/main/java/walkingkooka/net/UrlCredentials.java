@@ -92,7 +92,7 @@ public final class UrlCredentials {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         final StringBuilder b = new StringBuilder();
         this.toString0(b);
         return b.toString();
@@ -104,7 +104,7 @@ public final class UrlCredentials {
         b.append(this.password);
     }
 
-    final void absoluteUrlToString(final StringBuilder b) {
+    void absoluteUrlToString(final StringBuilder b) {
         this.toString0(b);
         b.append(SUFFIX);
     }

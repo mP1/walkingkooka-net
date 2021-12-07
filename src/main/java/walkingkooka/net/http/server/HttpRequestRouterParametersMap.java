@@ -157,7 +157,7 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
     // Object ............................................................................................................
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.request.toString();
     }
 

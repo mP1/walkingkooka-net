@@ -365,11 +365,11 @@ public final class UrlQueryString implements Value<String> {
      * Prints the original query string in its original form.
      */
     @Override
-    public final String toString() {
+    public String toString() {
         return this.queryString;
     }
 
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         final String queryString = this.queryString;
         if (!queryString.isEmpty()) {
             b.append(Url.QUERY_START.character());

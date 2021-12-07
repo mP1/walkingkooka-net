@@ -94,7 +94,7 @@ final public class Link extends HeaderWithParameters2<Link,
     /**
      * Would be setter that returns a {@link Link} with the given value creating a new instance as necessary.
      */
-    public final Link setValue(final Url value) {
+    public Link setValue(final Url value) {
         checkValue(value);
 
         return this.value.equals(value) ?

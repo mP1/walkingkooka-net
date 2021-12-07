@@ -686,7 +686,7 @@ public final class HostAddress implements Value<String>,
         return this.address;
     }
 
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(this.address);
     }
 

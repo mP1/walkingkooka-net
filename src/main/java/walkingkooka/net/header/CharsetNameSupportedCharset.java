@@ -43,7 +43,7 @@ final class CharsetNameSupportedCharset extends CharsetName {
     }
 
     @Override
-    public final Optional<Charset> charset() {
+    public Optional<Charset> charset() {
         return this.charsetOptional;
     }
 

@@ -105,14 +105,14 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     // setParameters....................................................................................................
 
     @Test
-    public final void testSetParameterDifferent() {
+    public void testSetParameterDifferent() {
         final AcceptLanguageValue language = this.createHeaderWithParameters();
         final Map<AcceptLanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
         final AcceptLanguageValue different = language.setParameters(parameters);
         this.check(different, this.en(), parameters);
     }
 
-    final Map<AcceptLanguageParameterName<?>, Object> parametersWithQFactor() {
+    Map<AcceptLanguageParameterName<?>, Object> parametersWithQFactor() {
         return Maps.of(AcceptLanguageParameterName.Q, 0.75f);
     }
 
@@ -124,9 +124,9 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
                         .setParameters(AcceptLanguageValue.NO_PARAMETERS));
     }
 
-    final void check(final AcceptLanguageValue language,
-                     final LanguageName value,
-                     final Map<AcceptLanguageParameterName<?>, Object> parameters) {
+    void check(final AcceptLanguageValue language,
+               final LanguageName value,
+               final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         this.checkEquals(value, language.value(), "value");
         this.checkParameters(language, parameters);
     }
@@ -274,17 +274,17 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     }
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

@@ -170,8 +170,8 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     }
 
     @Override
-    public final HttpRequest unmarshall(final JsonNode from,
-                                         final JsonNodeUnmarshallContext context) {
+    public HttpRequest unmarshall(final JsonNode from,
+                                  final JsonNodeUnmarshallContext context) {
         return HttpRequests.parse(HttpTransport.SECURED, from.stringOrFail());
     }
 }

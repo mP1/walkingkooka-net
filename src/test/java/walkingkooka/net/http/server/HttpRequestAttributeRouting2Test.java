@@ -35,7 +35,7 @@ public final class HttpRequestAttributeRouting2Test extends HttpRequestAttribute
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

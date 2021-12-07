@@ -51,7 +51,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     }
 
     @Test
-    public final void testRemoveHeader() {
+    public void testRemoveHeader() {
         final HttpEntityBinary entity = this.createHttpEntity();
         this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
 

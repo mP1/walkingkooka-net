@@ -51,7 +51,7 @@ final class HttpEntityEmpty extends HttpEntity {
     // headers..........................................................................................................
 
     @Override //
-    final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
+    Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
         return NO_HEADERS2;
     }
 
@@ -61,8 +61,8 @@ final class HttpEntityEmpty extends HttpEntity {
     }
 
     @Override //
-    final <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                                    final HttpEntityHeaderList value) {
+    <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
+                              final HttpEntityHeaderList value) {
         return this.replace(Maps.of(header, value));
     }
 

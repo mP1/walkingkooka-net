@@ -200,7 +200,7 @@ public final class MediaTypeBoundary implements Value<String>,
     }
 
     @Override
-    public final String value() {
+    public String value() {
         return this.value;
     }
 
@@ -209,17 +209,17 @@ public final class MediaTypeBoundary implements Value<String>,
     // HasHeaderScope ....................................................................................................
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return MediaType.IS_MULTIPART;
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return MediaType.IS_REQUEST;
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return MediaType.IS_RESPONSE;
     }
 
@@ -268,7 +268,7 @@ public final class MediaTypeBoundary implements Value<String>,
     // Comparable....................................................................................................
 
     @Override
-    public final int compareTo(final MediaTypeBoundary name) {
+    public int compareTo(final MediaTypeBoundary name) {
         return this.value.compareTo(name.value());
     }
 

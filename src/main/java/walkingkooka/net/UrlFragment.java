@@ -78,11 +78,11 @@ public final class UrlFragment implements Value<String> {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.value;
     }
 
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         if (!this.value.isEmpty()) {
             b.append(Url.FRAGMENT_START.character());
             b.append(this.value);

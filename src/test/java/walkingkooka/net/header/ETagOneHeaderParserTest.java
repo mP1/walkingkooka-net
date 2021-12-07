@@ -27,17 +27,17 @@ public final class ETagOneHeaderParserTest extends ETagHeaderParserTestCase<ETag
     }
 
     @Test
-    public final void testSeparatorFails() {
+    public void testSeparatorFails() {
         this.parseStringInvalidCharacterFails("\"ABC\",", ',');
     }
 
     @Test
-    public final void testSeparatorWhitespaceFails() {
+    public void testSeparatorWhitespaceFails() {
         this.parseStringInvalidCharacterFails("\"ABC\", ", ',');
     }
 
     @Test
-    public final void testWeakSeparatorWhitespaceFails() {
+    public void testWeakSeparatorWhitespaceFails() {
         this.parseStringInvalidCharacterFails("W/\"ABC\", ", ',');
     }
 

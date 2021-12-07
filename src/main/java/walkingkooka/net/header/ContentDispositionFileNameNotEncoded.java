@@ -48,7 +48,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
     // Value .................................................................................
 
     @Override
-    public final String value() {
+    public String value() {
         return this.name;
     }
 
@@ -64,10 +64,9 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         return NO_LANGUAGE;
     }
 
-    @Override
-    final ContentDispositionFileNameNotEncoded computeWithoutPath() {
+    @Override ContentDispositionFileNameNotEncoded computeWithoutPath() {
         final String without = removePathIfNecessaryOrNull(this.name);
-        
+
         return null == without ?
                 this :
                 new ContentDispositionFileNameNotEncoded(without);

@@ -48,8 +48,7 @@ final class EncodingHeaderParser extends HeaderParser {
         super(text);
     }
 
-    @Override
-    final void comment() {
+    @Override void comment() {
         this.failCommentPresent();
     }
 
@@ -57,8 +56,7 @@ final class EncodingHeaderParser extends HeaderParser {
     void endOfText() {
     }
 
-    @Override
-    final void keyValueSeparator() {
+    @Override void keyValueSeparator() {
         this.failInvalidCharacter();
     }
 
@@ -94,13 +92,11 @@ final class EncodingHeaderParser extends HeaderParser {
         this.failInvalidCharacter();
     }
 
-    @Override
-    final void whitespace() {
+    @Override void whitespace() {
         this.failInvalidCharacter();
     }
 
-    @Override
-    final void wildcard() {
+    @Override void wildcard() {
         this.failInvalidCharacter();
     }
 }

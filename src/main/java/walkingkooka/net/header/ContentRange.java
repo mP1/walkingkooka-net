@@ -332,7 +332,7 @@ public final class ContentRange implements Header {
     /**
      * Returns the unit.
      */
-    public final RangeHeaderUnit unit() {
+    public RangeHeaderUnit unit() {
         return this.unit;
     }
 
@@ -340,7 +340,7 @@ public final class ContentRange implements Header {
      * Would be setter that returns a {@link ContentRange} with the given unit value
      * creating a new instance if necessary.
      */
-    public final ContentRange setUnit(final RangeHeaderUnit unit) {
+    public ContentRange setUnit(final RangeHeaderUnit unit) {
         checkUnit(unit);
 
         return this.unit().equals(unit) ?
@@ -359,7 +359,7 @@ public final class ContentRange implements Header {
     /**
      * Returns the range.
      */
-    public final Optional<Range<Long>> range() {
+    public Optional<Range<Long>> range() {
         return this.range;
     }
 
@@ -367,7 +367,7 @@ public final class ContentRange implements Header {
      * Would be setter that returns a {@link ContentRange} with the given range value
      * creating a new instance if necessary.
      */
-    public final ContentRange setRange(final Optional<Range<Long>> range) {
+    public ContentRange setRange(final Optional<Range<Long>> range) {
         checkRange(range);
 
         return this.range().equals(range) ?
@@ -422,7 +422,7 @@ public final class ContentRange implements Header {
     /**
      * Returns the size.
      */
-    public final Optional<Long> size() {
+    public Optional<Long> size() {
         return this.size;
     }
 
@@ -430,7 +430,7 @@ public final class ContentRange implements Header {
      * Would be setter that returns a {@link ContentRange} with the given size
      * creating a new instance if necessary.
      */
-    public final ContentRange setSize(final Optional<Long> size) {
+    public ContentRange setSize(final Optional<Long> size) {
         checkSize(size);
 
         return this.size == size ?
@@ -527,7 +527,7 @@ public final class ContentRange implements Header {
     // Object.........................................................................................................
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(this.unit, this.range, this.size);
     }
 
@@ -545,7 +545,7 @@ public final class ContentRange implements Header {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.toHeaderText();
     }
 }

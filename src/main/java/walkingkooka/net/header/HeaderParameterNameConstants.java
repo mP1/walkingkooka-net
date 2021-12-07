@@ -101,7 +101,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     private final HeaderHandler<?> defaultHandler;
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.nameToConstant.toString();
     }
 }

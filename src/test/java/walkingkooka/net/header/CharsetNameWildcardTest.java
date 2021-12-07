@@ -22,17 +22,17 @@ import org.junit.jupiter.api.Test;
 public final class CharsetNameWildcardTest extends CharsetNameTestCase<CharsetNameWildcard> {
 
     @Test
-    public final void testTestCharsetSupportedUtf8True() {
+    public void testTestCharsetSupportedUtf8True() {
         this.testTrue(CharsetName.UTF_8);
     }
 
     @Test
-    public final void testTestCharsetSupportedUtf16True() {
+    public void testTestCharsetSupportedUtf16True() {
         this.testTrue(CharsetName.UTF_16);
     }
 
     @Test
-    public final void testTestCharsetUnsupportedFalse() {
+    public void testTestCharsetUnsupportedFalse() {
         this.testFalse(CharsetNameUnsupportedCharset.unsupportedCharset("x-unsupported"));
     }
 

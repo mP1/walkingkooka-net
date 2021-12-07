@@ -159,7 +159,7 @@ public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
         return this.name;
     }
 
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(this.nameWithSlashes);
     }
 

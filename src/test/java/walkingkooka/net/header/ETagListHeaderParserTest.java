@@ -31,27 +31,27 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public final void testSeparatorFails() {
+    public void testSeparatorFails() {
         this.parseStringMissingValueFails("\"ABC\",");
     }
 
     @Test
-    public final void testSeparatorSpaceFails() {
+    public void testSeparatorSpaceFails() {
         this.parseStringMissingValueFails("\"ABC\", ");
     }
 
     @Test
-    public final void testSeparatorTabFails() {
+    public void testSeparatorTabFails() {
         this.parseStringMissingValueFails("\"ABC\",\t");
     }
 
     @Test
-    public final void testWeakSeparatorSpaceFails() {
+    public void testWeakSeparatorSpaceFails() {
         this.parseStringMissingValueFails("W/\"ABC\", ");
     }
 
     @Test
-    public final void testWeakSeparatorTabFails() {
+    public void testWeakSeparatorTabFails() {
         this.parseStringMissingValueFails("W/\"ABC\",\t");
     }
 
@@ -104,7 +104,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
                 ETag.with("B", ETagValidator.WEAK));
     }
 
-    final void parseStringAndCheck2(final String text, final ETag... tags) {
+    void parseStringAndCheck2(final String text, final ETag... tags) {
         this.checkEquals(Lists.of(tags),
                 listReadOnlyCheck(ETagListHeaderParser.parseList(text)),
                 "Incorrect result parsing " + CharSequences.quote(text));

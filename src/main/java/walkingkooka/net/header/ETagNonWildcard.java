@@ -109,7 +109,7 @@ final class ETagNonWildcard extends ETag {
     // toString........................................................................................................
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.validator().prefix + CharSequences.quote(this.value());
     }
 }

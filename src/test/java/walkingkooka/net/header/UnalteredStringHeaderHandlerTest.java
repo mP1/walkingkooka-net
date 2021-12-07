@@ -90,8 +90,7 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
         return UnalteredStringHeaderHandler.INSTANCE;
     }
 
-    @Override
-    final String handlerToString() {
+    @Override String handlerToString() {
         return "String";
     }
 

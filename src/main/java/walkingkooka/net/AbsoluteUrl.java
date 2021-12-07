@@ -151,8 +151,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     /**
      * Unconditionally creates a new {@link AbsoluteUrl}
      */
-    @Override
-    final AbsoluteUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+    @Override AbsoluteUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return new AbsoluteUrl(this.scheme, this.credentials, this.host, this.port, path, query, fragment);
     }
 

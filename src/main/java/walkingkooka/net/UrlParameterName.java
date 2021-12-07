@@ -133,7 +133,7 @@ public final class UrlParameterName extends NetName
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.name;
     }
 
