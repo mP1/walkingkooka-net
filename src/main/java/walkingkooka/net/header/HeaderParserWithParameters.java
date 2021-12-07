@@ -217,11 +217,6 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
     private boolean requireParameterValue;
 
     /**
-     * The last parameter value.
-     */
-    private Object parameterValue;
-
-    /**
      * Adds a new parameter value after converting the text to a value.
      */
     private void addParameterText(final String text) {
@@ -236,8 +231,11 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
         this.requireParameterOrMultiValueSeparator = true;
 
         final N parameterName = this.parameterName;
-        this.parameterValue = parameterName.check(value);
-        this.parameters.put(parameterName, this.parameterValue);
+        /**
+         * The last parameter value.
+         */
+        Object parameterValue = parameterName.check(value);
+        this.parameters.put(parameterName, parameterValue);
     }
 
     /**
