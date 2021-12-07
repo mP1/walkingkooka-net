@@ -78,7 +78,7 @@ public final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIterat
     }
 
     private void checkNext(final HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator iterator,
-                           final HttpRequestAttributes key,
+                           final HttpRequestAttributes<?> key,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
         this.checkEquals(key, entry.getKey(), "key");

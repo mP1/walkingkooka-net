@@ -532,7 +532,7 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
     public static LinkRelation<?> with(final String value) {
         CharSequences.failIfNullOrEmpty(value, "value");
 
-        LinkRelation relation = CONSTANTS.get(value);
+        LinkRelation<?> relation = CONSTANTS.get(value);
         if (null == relation) {
             try {
                 relation = LinkRelationUrl.url(value);

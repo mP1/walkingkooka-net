@@ -150,7 +150,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
                 HttpHeaderScope.RESPONSE);
     }
 
-    private void checkScope(final CacheControlDirectiveName directiveName, final HttpHeaderScope... scopes) {
+    private void checkScope(final CacheControlDirectiveName<?> directiveName, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
         this.checkEquals(scopesSet.contains(HttpHeaderScope.REQUEST),

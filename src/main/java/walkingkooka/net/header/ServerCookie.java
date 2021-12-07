@@ -396,7 +396,7 @@ final public class ServerCookie extends Cookie {
      * Always returns {@link HttpHeaderName#SET_COOKIE}.
      */
     @Override
-    public HttpHeaderName header() {
+    public HttpHeaderName<?> header() {
         return HttpHeaderName.SET_COOKIE;
     }
 

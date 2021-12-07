@@ -18,13 +18,14 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
-public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName>,
-        TypeNameTesting<HeaderParameterName> {
+public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName<?>>,
+        TypeNameTesting<HeaderParameterName<?>> {
 
     @Test
     @Override
@@ -33,8 +34,8 @@ public final class HeaderParameterNameTest implements ClassTesting2<HeaderParame
     }
 
     @Override
-    public Class<HeaderParameterName> type() {
-        return HeaderParameterName.class;
+    public Class<HeaderParameterName<?>> type() {
+        return Cast.to(HeaderParameterName.class);
     }
 
     @Override

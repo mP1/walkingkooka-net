@@ -60,7 +60,7 @@ public final class QualityFactorHeaderHandlerTest extends
     }
 
     @Override
-    MediaTypeParameterName name() {
+    MediaTypeParameterName<?> name() {
         return MediaTypeParameterName.Q;
     }
 

@@ -59,7 +59,7 @@ final class CacheControlHeaderParser extends HeaderParser {
             this.failMissingParameterValue();
         }
 
-        CacheControlDirectiveName directiveName = this.directiveName;
+        CacheControlDirectiveName<?> directiveName = this.directiveName;
         if (null != directiveName) {
             this.addParameter();
         }
@@ -89,7 +89,7 @@ final class CacheControlHeaderParser extends HeaderParser {
             this.failMissingParameterValue();
         }
 
-        final CacheControlDirectiveName directiveName = this.directiveName;
+        final CacheControlDirectiveName<?> directiveName = this.directiveName;
         if (null != directiveName) {
             this.addParameter();
         }

@@ -303,7 +303,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * The name of the {@link HttpHeaderName} used to encode this cookie.
      */
-    abstract HttpHeaderName header();
+    abstract HttpHeaderName<?> header();
 
     /**
      * Creates a new {@link javax.servlet.http.Cookie}
