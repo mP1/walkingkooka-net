@@ -776,8 +776,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private final boolean multipleHeaders;
 
     /**
-     * Validates the value.
-     * @param header
+     * Validates the given header value.
      */
     @Override
     public T check(final Object header) {

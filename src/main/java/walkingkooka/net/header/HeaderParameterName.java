@@ -57,7 +57,6 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
 
     /**
      * Validates the value and casts it to its correct type.
-     * @param header
      */
     @Override
     public final V check(final Object header) {

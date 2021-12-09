@@ -32,7 +32,6 @@ public interface HeaderName<V> extends Name {
 
     /**
      * Validates the value and returns it as its type.
-     * @param header
      */
     V check(final Object header);
 }
