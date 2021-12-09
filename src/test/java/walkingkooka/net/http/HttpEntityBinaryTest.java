@@ -137,11 +137,11 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     }
 
     @Test
-    public void testToStringMultipleHeadersBinary() throws Exception {
+    public void testToStringMultipleHeadersBinary() {
         final String letters = "\n\0cdefghijklmnopq";
         this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L,
-                HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
-                HttpHeaderName.SERVER, "Server 123", letters),
+                        HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
+                        HttpHeaderName.SERVER, "Server 123", letters),
                 "Content-Length: 257\r\n" +
                         "Content-Type: application/octet-stream\r\n" +
                         "Server: Server 123\r\n\r\n" +
