@@ -42,7 +42,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     }
 
     @Test
-    public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() throws Exception {
+    public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() {
         final String text = "\u0256\u0257";
         final int bytesLength = text.getBytes(StandardCharsets.UTF_8).length;
         this.checkNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
