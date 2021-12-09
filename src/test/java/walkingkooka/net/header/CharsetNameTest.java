@@ -24,6 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -106,7 +107,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
 
     @Test
     public void testConstantUtfDash8Aliases() {
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         charset.aliases().
                 forEach(this::constantAndCheck);
     }

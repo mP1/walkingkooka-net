@@ -32,6 +32,7 @@ import walkingkooka.net.http.server.WebFileException;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,7 +228,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyWebFileDifferent() {
         final H entity = this.createHttpEntity();
-        final Binary differentBinary = Binary.with("different".getBytes(Charset.forName("UTF-8")));
+        final Binary differentBinary = Binary.with("different".getBytes(StandardCharsets.UTF_8));
 
         final HttpEntity different =
                 entity.setBody(new FakeWebFile() {

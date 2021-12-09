@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<CharsetNameSupportedCharset> {
 
@@ -46,7 +47,7 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
 
     @Test
     public void testTestCharsetSupported2() {
-        final Charset utf8 = Charset.forName("utf-8");
+        final Charset utf8 = StandardCharsets.UTF_8;
         final Charset unsupported = Charset.availableCharsets()
                 .values()
                 .stream()
@@ -70,7 +71,7 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
 
     @Override
     public CharsetNameSupportedCharset createDifferentHeader() {
-        return CharsetNameSupportedCharset.with("different", Charset.forName("UTF-16"));
+        return CharsetNameSupportedCharset.with("different", StandardCharsets.UTF_16);
     }
 
     @Override
