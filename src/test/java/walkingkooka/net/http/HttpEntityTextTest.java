@@ -25,6 +25,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() throws Exception {
         final String text = "\u0256\u0257";
-        final int bytesLength = text.getBytes("UTF-8").length;
+        final int bytesLength = text.getBytes(StandardCharsets.UTF_8).length;
         this.checkNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
 
         this.contentLengthAndCheck(HttpEntityText.with(Cast.to(Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse("text/plain; charset=UTF8")))), text), bytesLength);

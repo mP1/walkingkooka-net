@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class CharsetNameHeaderHandlerTest extends
         NonStringHeaderHandlerTestCase<CharsetNameHeaderHandler, CharsetName> {
@@ -32,7 +32,7 @@ public final class CharsetNameHeaderHandlerTest extends
 
     @Test
     public void testContent() {
-        final String charset = Charset.forName("utf-8").name();
+        final String charset = StandardCharsets.UTF_8.name();
         this.parseAndToTextAndCheck(charset,
                 CharsetName.with(charset));
     }

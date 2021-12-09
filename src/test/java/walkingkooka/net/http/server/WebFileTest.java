@@ -25,7 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class WebFileTest implements ClassTesting2<WebFile> {
 
@@ -41,9 +41,9 @@ public final class WebFileTest implements ClassTesting2<WebFile> {
 
             @Override
             public InputStream content() throws WebFileException {
-                return new ByteArrayInputStream(text.getBytes(Charset.forName("UTF-8")));
+                return new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8));
             }
-        }.contentText(Charset.forName("UTF-16")));
+        }.contentText(StandardCharsets.UTF_16));
     }
 
     @Override
