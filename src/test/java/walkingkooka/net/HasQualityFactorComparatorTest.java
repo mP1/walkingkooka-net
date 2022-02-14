@@ -19,13 +19,13 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparatorTesting;
+import walkingkooka.compare.ComparatorTesting2;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQualityFactorComparator<MediaType>>,
-        ComparatorTesting<HasQualityFactorComparator<MediaType>, MediaType> {
+        ComparatorTesting2<HasQualityFactorComparator<MediaType>, MediaType> {
 
     @Test
     public void testLeftHigherQFactor() {
