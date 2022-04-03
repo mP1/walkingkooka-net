@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerTestCase<UnalteredStringHeaderHandler> {
@@ -35,13 +36,13 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
     public void testParseAsciiControlCharacters() {
         IntStream.range(0, 31)
                 .filter(i -> i != '\t')
-                .forEach(i -> this.parseStringAndCheck2("" + Character.toChars(i)));
+                .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
     }
 
     @Test
     public void testParseNonControlCharacters() {
         IntStream.range(32, 256)
-                .forEach(i -> this.parseStringAndCheck2("" + Character.toChars(i)));
+                .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
     }
 
     @Test
