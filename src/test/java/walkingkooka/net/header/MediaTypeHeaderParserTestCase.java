@@ -519,9 +519,9 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     abstract void parseStringAndCheck(final String text,
-                                final String type,
-                                final String subtype,
-                                final Map<MediaTypeParameterName<?>, Object> parameters);
+                                      final String type,
+                                      final String subtype,
+                                      final Map<MediaTypeParameterName<?>, Object> parameters);
 
     final void check(final MediaType mediaType, final String type, final String subtype) {
         check(mediaType, type, subtype, MediaType.NO_PARAMETERS);

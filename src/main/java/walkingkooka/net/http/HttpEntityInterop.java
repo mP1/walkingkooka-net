@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-final class HttpEntityInterop extends HttpEntityInteropJ2cl{
+final class HttpEntityInterop extends HttpEntityInteropJ2cl {
 
     @GwtIncompatible
     static final boolean BINARY = true;

@@ -125,7 +125,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
 
         // path-component-count
         final int pathComponentCount = Long.valueOf(StreamSupport.stream(url.path().spliterator(), false)
-                .count())
+                        .count())
                 .intValue();
 
         this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT, pathComponentCount);

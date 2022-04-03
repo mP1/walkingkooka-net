@@ -52,7 +52,7 @@ final class AcceptLanguageHeaderHandler extends NonStringHeaderHandler<AcceptLan
     void check0(final Object value, final Name name) {
         this.checkType(value,
                 (v) -> v instanceof AcceptLanguage,
-                 AcceptLanguage.class,
+                AcceptLanguage.class,
                 name);
     }
 

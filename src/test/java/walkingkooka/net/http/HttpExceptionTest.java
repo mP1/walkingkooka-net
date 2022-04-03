@@ -31,7 +31,7 @@ final public class HttpExceptionTest implements StandardThrowableTesting<HttpExc
     public HttpException createThrowable(final String message, final Throwable cause) {
         return new HttpException(message, cause);
     }
-    
+
     @Override
     public Class<HttpException> type() {
         return HttpException.class;

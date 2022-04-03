@@ -96,7 +96,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
 
     @Override
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
-                             final Binary body) {
+                       final Binary body) {
         return headers.isEmpty() && this.body.size() == 0L ?
                 EMPTY :
                 new HttpEntityBinary(Maps.readOnly(headers), body);

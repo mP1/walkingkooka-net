@@ -443,23 +443,23 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     }
 
     private void parseStringAndCheck(final String header,
-                               final String charset,
-                               final String parameterName, final Object parameterValue) {
+                                     final String charset,
+                                     final String parameterName, final Object parameterValue) {
         this.parseStringAndCheck(header, charset, this.parameters(parameterName, parameterValue));
     }
 
     private void parseStringAndCheck(final String header,
-                               final String charset,
-                               final String parameterName1, final Object parameterValue1,
-                               final String parameterName2, final Object parameterValue2) {
+                                     final String charset,
+                                     final String parameterName1, final Object parameterValue1,
+                                     final String parameterName2, final Object parameterValue2) {
         this.parseStringAndCheck(header,
                 charset,
                 parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
     private void parseStringAndCheck(final String header,
-                               final String charset,
-                               final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
+                                     final String charset,
+                                     final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         this.parseStringAndCheck(header,
                 AcceptCharsetValue.with(CharsetName.with(charset)).setParameters(parameters));
     }
@@ -473,8 +473,8 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     }
 
     private AcceptCharsetValue charsetHeader(final String charset,
-                                                  final String parameterName,
-                                                  final Object parameterValue) {
+                                             final String parameterName,
+                                             final Object parameterValue) {
         return AcceptCharsetValue.with(CharsetName.with(charset))
                 .setParameters(this.parameters(parameterName, parameterValue));
     }

@@ -97,7 +97,7 @@ public final class AcceptEncodingHeaderHandlerTest extends NonStringHeaderHandle
         return acceptEncoding(AcceptEncodingValue.GZIP, AcceptEncodingValue.DEFLATE);
     }
 
-    private static AcceptEncoding acceptEncoding(final AcceptEncodingValue...encodings) {
+    private static AcceptEncoding acceptEncoding(final AcceptEncodingValue... encodings) {
         return AcceptEncoding.with(Lists.of(encodings));
     }
 

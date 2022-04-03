@@ -31,7 +31,7 @@ final public class HeaderExceptionTest implements StandardThrowableTesting<Heade
     public HeaderException createThrowable(final String message, final Throwable cause) {
         return new HeaderException(message, cause);
     }
-    
+
     @Override
     public Class<HeaderException> type() {
         return HeaderException.class;

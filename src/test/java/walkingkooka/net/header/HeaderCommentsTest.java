@@ -253,7 +253,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
     public void testTextDoubleQuotesText2() {
         this.consumeAndCheck("(a\"QRS\"xy)");
     }
-    
+
     // helpers..........................................................................................................
 
     private void consumeAndCheck(final String text) {

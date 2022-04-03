@@ -100,7 +100,7 @@ final class ContentEncodingHeaderParser extends HeaderParser {
 
     @Override
     void endOfText() {
-        if(this.encodings.isEmpty()) {
+        if (this.encodings.isEmpty()) {
             this.missingValue();
         }
     }

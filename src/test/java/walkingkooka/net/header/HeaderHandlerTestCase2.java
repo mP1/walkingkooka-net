@@ -62,7 +62,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     }
 
     private void checkTypeFails(final Object value, final String message) {
-        final Exception expected = assertThrows(Exception.class, ()-> this.check(value));
+        final Exception expected = assertThrows(Exception.class, () -> this.check(value));
         this.checkEquals(message,
                 expected.getMessage(),
                 "message");

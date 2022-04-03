@@ -86,12 +86,12 @@ public class JunitTest {
     @Test
     public void testUrlParse() {
         Assert.assertEquals(Url.absolute(UrlScheme.HTTPS,
-                AbsoluteUrl.NO_CREDENTIALS,
-                HostAddress.with("example.com"),
-                Optional.empty(),
-                UrlPath.parse("/path1/path2"),
-                UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
-                UrlFragment.EMPTY),
+                        AbsoluteUrl.NO_CREDENTIALS,
+                        HostAddress.with("example.com"),
+                        Optional.empty(),
+                        UrlPath.parse("/path1/path2"),
+                        UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
+                        UrlFragment.EMPTY),
                 Url.parse("https://example.com/path1/path2?query3=value3"));
     }
 
@@ -129,7 +129,7 @@ public class JunitTest {
         final AcceptEncoding acceptEncoding = AcceptEncoding.parse("a;q=0.5,b");
 
         Assert.assertEquals(Lists.of(AcceptEncodingValue.with("b"),
-                AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
+                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
                 acceptEncoding.qualityFactorSortedValues());
     }
 
@@ -255,7 +255,7 @@ public class JunitTest {
         Assert.assertEquals(Maps.of(header, list(value)), entity.headers());
     }
 
-    private static <T> List<T> list(final T...values) {
+    private static <T> List<T> list(final T... values) {
         return Lists.of(values);
     }
 
@@ -315,33 +315,33 @@ public class JunitTest {
         final String body = "Body123";
 
         HttpRequestHttpResponseBiConsumers.webFile(UrlPath.parse("/base/file/"),
-                (urlPath -> Either.left(new WebFile() {
-                    @Override
-                    public LocalDateTime lastModified() throws WebFileException {
-                        return LocalDateTime.now();
-                    }
+                        (urlPath -> Either.left(new WebFile() {
+                            @Override
+                            public LocalDateTime lastModified() throws WebFileException {
+                                return LocalDateTime.now();
+                            }
 
-                    @Override
-                    public MediaType contentType() throws WebFileException {
-                        return MediaType.TEXT_PLAIN;
-                    }
+                            @Override
+                            public MediaType contentType() throws WebFileException {
+                                return MediaType.TEXT_PLAIN;
+                            }
 
-                    @Override
-                    public long contentSize() throws WebFileException {
-                        return body.length();
-                    }
+                            @Override
+                            public long contentSize() throws WebFileException {
+                                return body.length();
+                            }
 
-                    @Override
-                    public InputStream content() throws WebFileException {
-                        return new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
-                    }
+                            @Override
+                            public InputStream content() throws WebFileException {
+                                return new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
+                            }
 
-                    @Override
-                    public Optional<ETag> etag() throws WebFileException {
-                        return Optional.empty();
-                    }
-                })
-                ))
+                            @Override
+                            public Optional<ETag> etag() throws WebFileException {
+                                return Optional.empty();
+                            }
+                        })
+                        ))
                 .accept(request, response);
 
         Assert.assertEquals("http response status code\n" + response,

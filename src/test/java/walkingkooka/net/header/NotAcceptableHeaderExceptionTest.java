@@ -31,7 +31,7 @@ final public class NotAcceptableHeaderExceptionTest implements StandardThrowable
     public NotAcceptableHeaderException createThrowable(final String message, final Throwable cause) {
         return new NotAcceptableHeaderException(message, cause);
     }
-    
+
     @Override
     public Class<NotAcceptableHeaderException> type() {
         return NotAcceptableHeaderException.class;

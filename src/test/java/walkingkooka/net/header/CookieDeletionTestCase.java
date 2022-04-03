@@ -24,6 +24,7 @@ import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Predicate;
+
 public abstract class CookieDeletionTestCase<D extends CookieDeletion>
         implements ClassTesting2<D>,
         HashCodeEqualsDefinedTesting2<D>,

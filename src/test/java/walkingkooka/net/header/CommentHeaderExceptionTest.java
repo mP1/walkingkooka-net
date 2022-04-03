@@ -31,7 +31,7 @@ final public class CommentHeaderExceptionTest implements StandardThrowableTestin
     public CommentHeaderException createThrowable(final String message, final Throwable cause) {
         return new CommentHeaderException(message, cause);
     }
-    
+
     @Override
     public Class<CommentHeaderException> type() {
         return CommentHeaderException.class;

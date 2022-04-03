@@ -33,7 +33,7 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
      * If the {@link List} is not a {@link HttpEntityHeaderMultiList} make a copy of using its values.
      */
     static HttpEntityHeaderMultiList with(final HttpHeaderName<?> header,
-                                                 final Object... values) {
+                                          final Object... values) {
         if (values.length == 0) {
             throw new IllegalArgumentException(header + " expected at least one value");
         }
@@ -78,7 +78,7 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
      */
     @Override //
     <T> HttpEntityHeaderMultiList append(final HttpHeaderName<T> header,
-                                        final T value) {
+                                         final T value) {
         final int index = this.indexOf(value);
         return -1 != index ?
                 this :
@@ -87,7 +87,7 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
 
 
     private HttpEntityHeaderMultiList append0(final HttpHeaderName<?> header,
-                                                 final Object value) {
+                                              final Object value) {
         final Object[] old = this.values;
         final int length = old.length;
 

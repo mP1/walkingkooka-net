@@ -55,7 +55,7 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
 
     private static Integer pathComponentCount(final HttpRequest request) {
         return Long.valueOf(StreamSupport.stream(Iterables.iterator(request.url().path().iterator()).spliterator(), false)
-                .count())
+                        .count())
                 .intValue();
     }
 

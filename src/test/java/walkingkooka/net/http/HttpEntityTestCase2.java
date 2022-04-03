@@ -94,7 +94,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         final HttpEntity entity = this.createHttpEntity();
         assertSame(entity, entity.setHeader(HttpHeaderName.CONTENT_TYPE, Lists.empty()));
     }
-    
+
     @Test
     public final void testAddHeaderNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -258,14 +258,14 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     }
 
     static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header,
-                                                    final Object value) {
+                                               final Object value) {
         return Maps.of(header, list(value));
     }
 
     static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header1,
-                                                    final Object value1,
-                                                    final HttpHeaderName<?> header2,
-                                                    final Object value2) {
+                                               final Object value1,
+                                               final HttpHeaderName<?> header2,
+                                               final Object value2) {
         return Maps.of(header1, list(value1), header2, list(value2));
     }
 

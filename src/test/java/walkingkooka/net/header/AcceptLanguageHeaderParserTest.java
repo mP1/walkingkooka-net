@@ -49,7 +49,7 @@ public final class AcceptLanguageHeaderParserTest extends AcceptLanguageOrAccept
     }
 
     private void parseStringAndCheck3(final String text,
-                                final AcceptLanguageValue... languages) {
+                                      final AcceptLanguageValue... languages) {
         this.parseStringAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
     }
 

@@ -141,7 +141,7 @@ public final class AcceptEncodingHeaderParserTest extends HeaderParserTestCase<A
     }
 
     private void parseStringAndCheck2(final String text,
-                                final AcceptEncodingValue... encodings) {
+                                      final AcceptEncodingValue... encodings) {
         this.parseStringAndCheck(text, AcceptEncoding.with(Lists.of(encodings)));
     }
 

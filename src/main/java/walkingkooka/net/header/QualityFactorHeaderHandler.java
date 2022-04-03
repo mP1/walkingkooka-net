@@ -48,7 +48,7 @@ final class QualityFactorHeaderHandler extends NonStringHeaderHandler<Float> {
                 v -> v instanceof Float,
                 Float.class,
                 name);
-        this.checkValue((Float)value);
+        this.checkValue((Float) value);
     }
 
     // https://restfulapi.net/q-parameter-in-http-accept-header/

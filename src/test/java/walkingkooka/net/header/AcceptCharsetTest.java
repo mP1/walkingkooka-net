@@ -138,7 +138,7 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
         return this.createHeader(Lists.of(value));
     }
 
-        @Override
+    @Override
     List<AcceptCharsetValue> value() {
         return Lists.of(AcceptCharsetValue.with(CharsetName.with("X-custom")),
                 AcceptCharsetValue.with(CharsetName.UTF_8),

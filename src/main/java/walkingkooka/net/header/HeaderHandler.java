@@ -86,7 +86,7 @@ abstract class HeaderHandler<T> {
     static HeaderHandler<ContentEncoding> contentEncoding() {
         return ContentEncodingHeaderHandler.INSTANCE;
     }
-    
+
     /**
      * {@see CharsetNameHeaderHandler}
      */
@@ -121,7 +121,7 @@ abstract class HeaderHandler<T> {
     static HeaderHandler<ContentLanguage> contentLanguage() {
         return ContentLanguageHeaderHandler.INSTANCE;
     }
-    
+
     /**
      * {@see ContentRangeHeaderHandler}
      */

@@ -30,8 +30,8 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
     /**
      * Creates a new {@link HttpEntityHeaderList} complaining if not given a single value.
      */
-    static  HttpEntityHeaderOneList with(final HttpHeaderName<?> header,
-                                               final Object... values) {
+    static HttpEntityHeaderOneList with(final HttpHeaderName<?> header,
+                                        final Object... values) {
         switch (values.length) {
             case 0:
                 throw new IllegalArgumentException("Values must not be empty");
@@ -75,7 +75,7 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
      */
     @Override //
     <T> HttpEntityHeaderOneList append(final HttpHeaderName<T> header,
-                                   final T value) {
+                                       final T value) {
         if (false == this.value.equals(value)) {
             throw new IllegalArgumentException(header + " does not support multiple header values");
         }

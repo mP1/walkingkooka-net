@@ -110,7 +110,7 @@ public final class HttpMethod implements Value<String>,
         final String headerText = method.toUpperCase();
 
         HttpMethod httpMethod;
-        switch(headerText) {
+        switch (headerText) {
             case HEAD_STRING:
                 httpMethod = HEAD;
                 break;
@@ -215,7 +215,7 @@ public final class HttpMethod implements Value<String>,
     // HttpMethodVisitor................................................................................................
 
     void accept(final HttpMethodVisitor visitor) {
-        switch(this.headerText) {
+        switch (this.headerText) {
             case HEAD_STRING:
                 visitor.visitHead();
                 break;

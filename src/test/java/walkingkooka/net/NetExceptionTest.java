@@ -31,7 +31,7 @@ final public class NetExceptionTest implements StandardThrowableTesting<NetExcep
     public NetException createThrowable(final String message, final Throwable cause) {
         return new NetException(message, cause);
     }
-    
+
     @Override
     public Class<NetException> type() {
         return NetException.class;

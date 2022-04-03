@@ -181,10 +181,10 @@ public final class HttpResponses implements PublicStaticHelper {
 
     private static JsonNode marshall(final HttpResponse response,
                                      final JsonNodeMarshallContext context) {
-        if(false == response.version().isPresent()) {
+        if (false == response.version().isPresent()) {
             throw new JsonNodeMarshallException("Version missing " + response);
         }
-        if(false == response.status().isPresent()) {
+        if (false == response.status().isPresent()) {
             throw new JsonNodeMarshallException("Status missing " + response);
         }
         return JsonNode.string(response.toString());
@@ -199,7 +199,7 @@ public final class HttpResponses implements PublicStaticHelper {
                 HttpResponse.class, RecordingHttpResponse.class
         ); // unfortunately J2cl runtime doesnt support Class.isInstance
     }
-    
+
     /**
      * Stop creation
      */

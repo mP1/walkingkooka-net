@@ -44,12 +44,12 @@ public class Sample {
 
     public static void main(final String[] args) {
         assertEquals(Url.absolute(UrlScheme.HTTPS,
-                AbsoluteUrl.NO_CREDENTIALS,
-                HostAddress.with("example.com"),
-                Optional.empty(),
-                UrlPath.parse("/path1/path2"),
-                UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
-                UrlFragment.EMPTY),
+                        AbsoluteUrl.NO_CREDENTIALS,
+                        HostAddress.with("example.com"),
+                        Optional.empty(),
+                        UrlPath.parse("/path1/path2"),
+                        UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
+                        UrlFragment.EMPTY),
                 Url.parse("https://example.com/path1/path2?query3=value3"));
 
         final EmailAddress email = EmailAddress.parse("user4@example5.com");
@@ -65,7 +65,7 @@ public class Sample {
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding
         final AcceptEncoding acceptEncoding = AcceptEncoding.parse("a;q=0.5,b");
         assertEquals(Lists.of(AcceptEncodingValue.with("b"),
-                AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
+                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
                 acceptEncoding.qualityFactorSortedValues());
     }
 }

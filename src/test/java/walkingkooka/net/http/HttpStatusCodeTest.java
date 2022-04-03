@@ -46,6 +46,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         TypeNameTesting<HttpStatusCode> {
 
     private final static int CODE = 299;
+
     @Test
     public void testStandard() {
         assertSame(HttpStatusCode.OK, HttpStatusCode.withCode(200));

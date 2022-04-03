@@ -99,8 +99,8 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
     @Test
     public void testHeaderTextWithoutLanguage() {
         this.toHeaderTextAndCheck(EncodedText.with(this.charset(),
-                EncodedText.NO_LANGUAGE,
-                "abc123"),
+                        EncodedText.NO_LANGUAGE,
+                        "abc123"),
                 "UTF-8''abc123");
     }
 

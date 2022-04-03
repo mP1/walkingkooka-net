@@ -192,8 +192,8 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
         return body.size() == 0L && headers.isEmpty() ?
                 EMPTY :
                 body.equals(this.body()) ?
-                this :
-                this.replace(headers, body);
+                        this :
+                        this.replace(headers, body);
     }
 
     // will effectively be removed because setBody is marked as @GwtIncompatible

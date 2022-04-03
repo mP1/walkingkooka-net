@@ -108,7 +108,7 @@ public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
     }
 
     private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");
-    
+
     @Override
     public boolean isWildcard() {
         return false;

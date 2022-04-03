@@ -62,7 +62,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
      * Checks that the values are correct values for the given header.
      */
     private static HttpEntityHeaderList check0(final HttpHeaderName<?> header,
-                                              final HttpEntityHeaderList values) {
+                                               final HttpEntityHeaderList values) {
         values.forEach(header::check);
         return values;
     }

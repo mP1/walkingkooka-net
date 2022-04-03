@@ -57,7 +57,7 @@ final class MultiPartAwareHttpResponse extends BufferingHttpResponse {
                 .orElse(Boolean.FALSE);
         this.response.setStatus(status);
         this.response.addEntity(entity);
-     }
+    }
 
     private boolean isMultipart(final MediaType mediaType) {
         return mediaType.type().equals(MediaType.MULTIPART_BYTE_RANGES.type());
@@ -68,7 +68,7 @@ final class MultiPartAwareHttpResponse extends BufferingHttpResponse {
      */
     @Override
     void addAdditionalEntity(final HttpEntity entity) {
-        if(this.multipart) {
+        if (this.multipart) {
             this.response.addEntity(entity);
         }
     }

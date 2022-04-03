@@ -97,7 +97,7 @@ final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpR
                        final HttpRequest request,
                        final HttpResponse response) {
         final Optional<LocalDateTime> ifModifiedSince = HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request);
-        if(ifModifiedSince.isPresent() && ifModifiedSince.map(header -> fileLastModifiedTest(header, file.lastModified())).orElse(false)){
+        if (ifModifiedSince.isPresent() && ifModifiedSince.map(header -> fileLastModifiedTest(header, file.lastModified())).orElse(false)) {
             this.notModified(file, response);
         } else {
             this.modified(file, request, response);

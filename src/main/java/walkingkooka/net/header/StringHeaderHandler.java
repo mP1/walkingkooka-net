@@ -32,16 +32,14 @@ abstract class StringHeaderHandler extends HeaderHandler<String> {
         super();
     }
 
-    @Override
-    final void check0(final Object value, final Name name) {
+    @Override final void check0(final Object value, final Name name) {
         this.checkType(value,
                 (v) -> v instanceof String,
                 String.class,
                 name);
     }
 
-    @Override
-    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+    @Override final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
         return Cast.to(headerName);
     }
 }
