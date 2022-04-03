@@ -26,6 +26,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -137,7 +138,7 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
 
             @Override
             public String toString() {
-                return contentType.toString();
+                return Arrays.toString(contentType);
             }
         };
     }
