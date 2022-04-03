@@ -55,6 +55,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         assertThrows(NullPointerException.class, () -> this.createUrl(PATH, QUERY, null));
     }
 
+    @Test
     public void testWith() {
         final U url = this.createUrl(PATH, QUERY, FRAGMENT);
         this.checkPath(url, PATH);

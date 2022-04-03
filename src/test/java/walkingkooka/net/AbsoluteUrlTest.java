@@ -335,6 +335,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    @Test
     public void testToStringUrl() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
@@ -346,6 +347,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    @Test
     @Override
     public void testToStringWithoutQuery() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
@@ -357,6 +359,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
                 FRAGMENT), "http://host:123/path#fragment");
     }
 
+    @Test
     @Override
     public void testToStringWithoutFragment() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
@@ -369,6 +372,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    @Test
     @Override
     public void testToStringWithoutQueryAndFragment() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,

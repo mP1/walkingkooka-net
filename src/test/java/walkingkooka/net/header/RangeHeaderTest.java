@@ -65,6 +65,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         assertThrows(HeaderException.class, () -> RangeHeader.with(UNIT, this.rangesWithOverlap3()));
     }
 
+    @Test
     public void testWith() {
         final RangeHeader range = this.range();
         this.check(range, UNIT, this.ranges());
