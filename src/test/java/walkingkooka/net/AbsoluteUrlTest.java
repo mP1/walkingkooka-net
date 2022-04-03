@@ -289,48 +289,48 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testToStringHttpWithDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
-                CREDENTIALS,
-                HOST,
-                Optional.of(IpPort.HTTP),
-                PATH,
-                QUERY,
-                FRAGMENT),
+                        CREDENTIALS,
+                        HOST,
+                        Optional.of(IpPort.HTTP),
+                        PATH,
+                        QUERY,
+                        FRAGMENT),
                 "http://host:80/path?query=value#fragment");
     }
 
     @Test
     public void testToStringHttpsWithDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
-                CREDENTIALS,
-                HOST,
-                Optional.of(IpPort.HTTPS),
-                PATH,
-                QUERY,
-                FRAGMENT),
+                        CREDENTIALS,
+                        HOST,
+                        Optional.of(IpPort.HTTPS),
+                        PATH,
+                        QUERY,
+                        FRAGMENT),
                 "https://host:443/path?query=value#fragment");
     }
 
     @Test
     public void testToStringHttpsWithNonDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT),
+                        CREDENTIALS,
+                        HOST,
+                        PORT,
+                        PATH,
+                        QUERY,
+                        FRAGMENT),
                 "https://host:123/path?query=value#fragment");
     }
 
     @Test
     public void testToStringEmptyPath() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                UrlPath.EMPTY,
-                UrlQueryString.EMPTY,
-                UrlFragment.EMPTY),
+                        CREDENTIALS,
+                        HOST,
+                        PORT,
+                        UrlPath.EMPTY,
+                        UrlQueryString.EMPTY,
+                        UrlFragment.EMPTY),
                 "http://host:123"
         );
     }

@@ -41,7 +41,7 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
     @Test
     public void testParseNonControlCharacters() {
         IntStream.range(32, 256)
-                .forEach(i -> this.parseStringAndCheck2( "" + Character.toChars(i)));
+                .forEach(i -> this.parseStringAndCheck2("" + Character.toChars(i)));
     }
 
     @Test

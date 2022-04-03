@@ -61,7 +61,7 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
 
         // path-component-count
         final int pathComponentCount = Long.valueOf(StreamSupport.stream(this.url().path().spliterator(), false)
-                .count())
+                        .count())
                 .intValue();
 
         this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT,

@@ -69,10 +69,10 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         final Optional<AcceptEncoding> acceptEncodings = HttpHeaderName.ACCEPT_ENCODING.header(this.request);
 
-        if(acceptEncodings.map(ae -> ae.test(ContentEncoding.GZIP)).orElse(Boolean.FALSE)) {
+        if (acceptEncodings.map(ae -> ae.test(ContentEncoding.GZIP)).orElse(Boolean.FALSE)) {
 
             final Optional<ContentEncoding> contentEncodings = HttpHeaderName.CONTENT_ENCODING.header(add);
-            if(!contentEncodings.isPresent()) {
+            if (!contentEncodings.isPresent()) {
                 // content-encoding absent so gzip
                 add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.GZIP);
                 add = add.setBody(gzip(add.body()));

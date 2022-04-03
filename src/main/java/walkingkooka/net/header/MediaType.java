@@ -52,7 +52,7 @@ import java.util.function.Predicate;
  */
 final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
         implements HasQualityFactor,
-        Predicate<MediaType>{
+        Predicate<MediaType> {
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 

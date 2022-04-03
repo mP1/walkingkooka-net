@@ -70,9 +70,9 @@ final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderH
     @Override
     String toText0(final Object value, final Name name) {
         return value instanceof Long ?
-                this.toTextLong((long)value, name) :
+                this.toTextLong((long) value, name) :
                 value instanceof String ?
-                        this.toTextString((String)value, name) :
+                        this.toTextString((String) value, name) :
                         this.failInvalidValue(value, name);
     }
 

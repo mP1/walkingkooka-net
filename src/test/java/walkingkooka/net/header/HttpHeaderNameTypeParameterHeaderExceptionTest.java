@@ -31,7 +31,7 @@ final public class HttpHeaderNameTypeParameterHeaderExceptionTest implements Sta
     public HttpHeaderNameTypeParameterHeaderException createThrowable(final String message, final Throwable cause) {
         return new HttpHeaderNameTypeParameterHeaderException(message, cause);
     }
-    
+
     @Override
     public Class<HttpHeaderNameTypeParameterHeaderException> type() {
         return HttpHeaderNameTypeParameterHeaderException.class;

@@ -155,29 +155,29 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
                             @Override
                             public ServletInputStream getInputStream() {
-                        final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
+                                final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
 
-                        return new ServletInputStream() {
-                            @Override
-                            public boolean isFinished() {
-                                throw new UnsupportedOperationException();
-                            }
+                                return new ServletInputStream() {
+                                    @Override
+                                    public boolean isFinished() {
+                                        throw new UnsupportedOperationException();
+                                    }
 
-                            @Override
-                            public boolean isReady() {
-                                throw new UnsupportedOperationException();
-                            }
+                                    @Override
+                                    public boolean isReady() {
+                                        throw new UnsupportedOperationException();
+                                    }
 
-                            @Override
-                            public void setReadListener(final ReadListener readListener) {
-                                throw new UnsupportedOperationException();
-                            }
+                                    @Override
+                                    public void setReadListener(final ReadListener readListener) {
+                                        throw new UnsupportedOperationException();
+                                    }
 
-                            @Override
-                            public int read() {
-                                return bytes.read();
-                            }
-                        };
+                                    @Override
+                                    public int read() {
+                                        return bytes.read();
+                                    }
+                                };
                             }
                         }).bodyText()
         );

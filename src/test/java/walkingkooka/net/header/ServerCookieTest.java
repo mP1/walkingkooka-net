@@ -496,14 +496,14 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testToJavaxServletHttpCookieWithOnlyNameAndValue() {
         final javax.servlet.http.Cookie cookie = ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION)
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION)
                 .toJavaxServletCookie(NOW);
         checkName(cookie);
         checkValue(cookie);
@@ -829,14 +829,14 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;");
     }
 
@@ -948,56 +948,56 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testToString() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;");
     }
 
     @Test
     public void testToStringDomain() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                ServerCookie.NO_PATH,
-                COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        DOMAIN,
+                        ServerCookie.NO_PATH,
+                        COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;domain=example.com;");
     }
 
     @Test
     public void testToStringPath() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;path=/PATH/TO;");
     }
 
     @Test
     public void testToStringDomainPath() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        DOMAIN,
+                        PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;domain=example.com;path=/PATH/TO;");
     }
 
@@ -1005,84 +1005,84 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testToStringMaxAge() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                COMMENT,
-                MAXAGE,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        COMMENT,
+                        MAXAGE,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;max-age=123;");
     }
 
     @Test
     public void testToStringExpires() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                COMMENT,
-                EXPIRES,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        COMMENT,
+                        EXPIRES,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;expires=Sun, 31 Dec 2000 12:58:59 GMT;");
     }
 
     @Test
     public void testToStringDomainPathExpires() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                COMMENT,
-                EXPIRES,
-                CookieSecure.ABSENT,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        DOMAIN,
+                        PATH,
+                        COMMENT,
+                        EXPIRES,
+                        CookieSecure.ABSENT,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;domain=example.com;path=/PATH/TO;expires=Sun, 31 Dec 2000 12:58:59 GMT;");
     }
 
     @Test
     public void testToStringSecure() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                SECURE,
-                CookieHttpOnly.ABSENT,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        SECURE,
+                        CookieHttpOnly.ABSENT,
+                        VERSION),
                 "cookie123=value456;secure;");
     }
 
     @Test
     public void testToStringHttpOnly() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                CookieSecure.ABSENT,
-                HTTPONLY,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        CookieSecure.ABSENT,
+                        HTTPONLY,
+                        VERSION),
                 "cookie123=value456;httpOnly;");
     }
 
     @Test
     public void testToStringSecureHttpOnly() {
         this.toStringAndCheck(ServerCookie.with(NAME,
-                VALUE,
-                ServerCookie.NO_DOMAIN,
-                ServerCookie.NO_PATH,
-                ServerCookie.NO_COMMENT,
-                ServerCookie.NO_DELETION,
-                SECURE,
-                HTTPONLY,
-                VERSION),
+                        VALUE,
+                        ServerCookie.NO_DOMAIN,
+                        ServerCookie.NO_PATH,
+                        ServerCookie.NO_COMMENT,
+                        ServerCookie.NO_DELETION,
+                        SECURE,
+                        HTTPONLY,
+                        VERSION),
                 "cookie123=value456;secure;httpOnly;");
     }
 

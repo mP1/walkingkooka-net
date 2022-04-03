@@ -432,9 +432,9 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     }
 
     private void parseStringAndCheck(final String header,
-                               final RangeHeaderUnit unit,
-                               final Optional<Range<Long>> range,
-                               final Optional<Long> size) {
+                                     final RangeHeaderUnit unit,
+                                     final Optional<Range<Long>> range,
+                                     final Optional<Long> size) {
         this.checkEquals(ContentRange.with(unit, range, size),
                 ContentRange.parse(header),
                 "Incorrect result when parsing " + CharSequences.quote(header));

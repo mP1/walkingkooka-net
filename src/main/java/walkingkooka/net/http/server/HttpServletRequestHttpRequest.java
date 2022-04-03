@@ -174,7 +174,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
 
         return b.build();
     }
-    
+
     /**
      * Creates a read only {@link List} of values from the {@link Enumeration} of header value {@link String}.
      */

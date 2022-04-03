@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
  *
  * If the content-coding of an entity in a request message is not acceptable to the origin server, the server SHOULD respond with a status code of 415 (Unsupported Media Type).
  *
- * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.    
+ * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.
  * </pre>
  */
 public final class ContentEncoding extends Header2<List<Encoding>> {

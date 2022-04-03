@@ -513,7 +513,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     }
 
     final <T> H createHttpEntity(final HttpHeaderName<T> header, final T value) {
-        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderList.copy( header, list(value))));
+        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderList.copy(header, list(value))));
     }
 
     abstract H createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);

@@ -229,7 +229,7 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     }
 
     private void parseStringAndCheck(final String text,
-                               final String events) {
+                                     final String events) {
         final StringBuilder recorded = new StringBuilder();
 
         new HeaderParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>(text) {

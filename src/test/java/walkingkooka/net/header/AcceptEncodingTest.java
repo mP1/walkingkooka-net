@@ -105,7 +105,7 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
     public void testParse() {
         this.parseStringAndCheck("gzip, *;q=0.5",
                 AcceptEncoding.with(Lists.of(AcceptEncodingValue.GZIP,
-                AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
+                        AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
     }
 
     // helpers.......................................................................................................

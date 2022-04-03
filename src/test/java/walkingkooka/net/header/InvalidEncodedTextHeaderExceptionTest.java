@@ -31,7 +31,7 @@ final public class InvalidEncodedTextHeaderExceptionTest implements StandardThro
     public InvalidEncodedTextHeaderException createThrowable(final String message, final Throwable cause) {
         return new InvalidEncodedTextHeaderException(message, cause);
     }
-    
+
     @Override
     public Class<InvalidEncodedTextHeaderException> type() {
         return InvalidEncodedTextHeaderException.class;

@@ -262,7 +262,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     private <T> void headerAndCheck(final HttpHeaderName<T> headerName,
-                                         final T header) {
+                                    final T header) {
         this.checkEquals(Optional.ofNullable(header),
                 headerName.header(this.headers(headerName, header)),
                 headerName + "=" + header);
@@ -286,7 +286,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     private <T> void headerOrFailAndCheck(final HttpHeaderName<T> headerName,
-                                               final T header) {
+                                          final T header) {
         this.checkEquals(header,
                 headerName.headerOrFail(this.headers(headerName, header)),
                 headerName + "=" + header);
@@ -438,7 +438,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 header.parameterValue(Maps.of(header, value)));
     }
 
-    private static <T> List<T> list(final T...values) {
+    private static <T> List<T> list(final T... values) {
         return Lists.of(values);
     }
 

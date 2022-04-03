@@ -527,15 +527,15 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     }
 
     private void parseStringAndCheck(final String header,
-                               final String type,
-                               final String parameterName, final Object parameterValue) {
+                                     final String type,
+                                     final String parameterName, final Object parameterValue) {
         this.parseStringAndCheck(header, type, Maps.of(ContentDispositionParameterName.with(parameterName), parameterValue));
     }
 
     private void parseStringAndCheck(final String header,
-                               final String type,
-                               final String parameterName1, final Object parameterValue1,
-                               final String parameterName2, final Object parameterValue2) {
+                                     final String type,
+                                     final String parameterName1, final Object parameterValue1,
+                                     final String parameterName2, final Object parameterValue2) {
         this.parseStringAndCheck(header,
                 type,
                 Maps.of(ContentDispositionParameterName.with(parameterName1), parameterValue1,
@@ -544,8 +544,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
 
     private void parseStringAndCheck(final String header,
-                               final String type,
-                               final Map<ContentDispositionParameterName<?>, Object> parameters) {
+                                     final String type,
+                                     final Map<ContentDispositionParameterName<?>, Object> parameters) {
         this.parseStringAndCheck(header,
                 ContentDispositionType.with(type).setParameters(parameters));
     }

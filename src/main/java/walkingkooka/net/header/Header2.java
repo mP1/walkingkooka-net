@@ -35,7 +35,7 @@ abstract class Header2<V> implements Header, Value<V> {
         final List<V> copy = Lists.immutable(list);
         copy
                 .forEach(v -> Objects.requireNonNull(v, label + " includes null"));
-        if(copy.isEmpty()) {
+        if (copy.isEmpty()) {
             throw new IllegalArgumentException("Empty " + label);
         }
         return copy;

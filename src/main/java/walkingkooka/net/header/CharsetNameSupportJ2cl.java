@@ -25,7 +25,7 @@ import java.util.Map;
  * are marked with @GwtIncompatible.
  */
 class CharsetNameSupportJ2cl {
-    
+
     static void registerCharsetAliases(final Charset charset,
                                        final Map<String, CharsetName> constants) {
         // j2cl Charset has no aliases.

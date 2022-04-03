@@ -174,7 +174,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
      */
     private void addMultipartEntities(final HttpEntity entity) {
         final Binary body = entity.body();
-        final Optional<Long> contentLength = Optional.of((long)body.size());
+        final Optional<Long> contentLength = Optional.of((long) body.size());
 
         final MediaTypeBoundary boundary = MediaTypeBoundary.generate(body.value(), this.boundaryCharacters);
 

@@ -561,14 +561,14 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     // helpers .........................................................................................................
 
     private void parseStringAndCheck2(final String text,
-                                final String directive) {
+                                      final String directive) {
         this.parseStringAndCheck3(text,
                 CacheControlDirective.with(CacheControlDirectiveName.with(directive), Optional.empty()));
     }
 
     private void parseStringAndCheck2(final String text,
-                                final String directive,
-                                final Object value) {
+                                      final String directive,
+                                      final Object value) {
         this.parseStringAndCheck3(text,
                 CacheControlDirective.with(Cast.to(CacheControlDirectiveName.with(directive)), Optional.of(value)));
     }

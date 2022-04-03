@@ -115,9 +115,9 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     }
 
     private void parseStringAndCheckRepeated(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
+                                             final String type,
+                                             final String subtype,
+                                             final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = text + MediaType.SEPARATOR + text;
         final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
         this.checkEquals(2, result.size(), "parse " + CharSequences.quote(parsed) + " got " + result);
@@ -126,9 +126,9 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     }
 
     private void parseStringAndCheckSeveral(final String text,
-                                      final String type,
-                                      final String subtype,
-                                      final Map<MediaTypeParameterName<?>, Object> parameters) {
+                                            final String type,
+                                            final String subtype,
+                                            final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = "TYPE1/SUBTYPE1," + text + ",TYPE2/SUBTYPE2;x=y," + text;
         final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
 

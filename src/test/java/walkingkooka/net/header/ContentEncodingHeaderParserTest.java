@@ -100,7 +100,7 @@ public final class ContentEncodingHeaderParserTest extends HeaderParserTestCase<
                 Encoding.BR);
     }
 
-    private void parseStringAndCheck2(final String text, final Encoding...encodings) {
+    private void parseStringAndCheck2(final String text, final Encoding... encodings) {
         this.parseStringAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
     }
 

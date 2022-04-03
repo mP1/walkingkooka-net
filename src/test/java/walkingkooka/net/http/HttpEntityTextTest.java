@@ -108,9 +108,9 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(HttpEntityText.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH,  257L),
-                HttpHeaderName.CONTENT_TYPE, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)),
-                HttpHeaderName.SERVER, HttpEntityHeaderList.one(HttpHeaderName.SERVER,"Server 123")), "AB\nC"),
+        this.toStringAndCheck(HttpEntityText.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, 257L),
+                        HttpHeaderName.CONTENT_TYPE, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)),
+                        HttpHeaderName.SERVER, HttpEntityHeaderList.one(HttpHeaderName.SERVER, "Server 123")), "AB\nC"),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 

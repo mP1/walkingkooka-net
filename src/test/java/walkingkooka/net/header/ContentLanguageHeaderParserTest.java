@@ -112,7 +112,7 @@ public final class ContentLanguageHeaderParserTest extends HeaderParserTestCase<
         return LanguageName.with("gr");
     }
 
-    private void parseStringAndCheck2(final String text, final LanguageName...languages) {
+    private void parseStringAndCheck2(final String text, final LanguageName... languages) {
         this.parseStringAndCheck(text, ContentLanguage.with(Lists.of(languages)));
     }
 

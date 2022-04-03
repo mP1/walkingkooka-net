@@ -97,8 +97,8 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testToStringText() {
         this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L,
-                HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
-                HttpHeaderName.SERVER, "Server 123", "AB\nC"),
+                        HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+                        HttpHeaderName.SERVER, "Server 123", "AB\nC"),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 
