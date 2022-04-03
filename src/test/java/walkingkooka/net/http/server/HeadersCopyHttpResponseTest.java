@@ -36,8 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<HeadersCopyHttpResponse> {
 
-    private final static int CONTENT_LENGTH = 26;
-
     @Test
     public void testWithNullHeadersFails() {
         assertThrows(NullPointerException.class, () -> HeadersCopyHttpResponse.with(HttpRequests.fake(),

@@ -128,10 +128,6 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
         return AcceptLanguageValue.parse("en");
     }
 
-    private AcceptLanguageValue fr() {
-        return AcceptLanguageValue.parse("fr");
-    }
-
     @Override
     List<AcceptLanguageValue> differentValue() {
         return Lists.of(AcceptLanguageValue.with(LanguageName.with("diff")));

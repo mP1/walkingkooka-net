@@ -59,11 +59,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     abstract String valueLabel();
 
-    final void parseStringMissingParameterNameFails(final String text, final int pos) {
-        this.parseStringFails(text,
-                HeaderParser.missingParameterName(pos, text));
-    }
-
     final void parseStringMissingParameterValueFails(final String text) {
         this.parseStringMissingParameterValueFails(text, text.length());
     }

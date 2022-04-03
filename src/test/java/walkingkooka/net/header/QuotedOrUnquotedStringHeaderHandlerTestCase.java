@@ -23,8 +23,6 @@ public abstract class QuotedOrUnquotedStringHeaderHandlerTestCase<C extends Quot
         super();
     }
 
-    final static String TEXT = "abc123";
-
     @Override
     final String handlerToString() {
         return this.charPredicate().toString();

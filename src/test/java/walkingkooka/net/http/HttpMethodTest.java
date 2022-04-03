@@ -116,6 +116,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         this.singleton(HttpMethod.OPTIONS);
     }
 
+    @Test
     public void testPatch() {
         this.singleton(HttpMethod.PATCH);
     }
