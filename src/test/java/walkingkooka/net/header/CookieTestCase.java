@@ -91,11 +91,11 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
 
     // HashCodeEqualsDefined ..................................................................................................
 
-    final public void testEqualsDifferentName() {
+    @Test final public void testEqualsDifferentName() {
         this.checkNotEquals(this.createCookie(CookieName.with("different"), VALUE));
     }
 
-    final public void testEqualsDifferentValue() {
+    @Test final public void testEqualsDifferentValue() {
         this.checkNotEquals(this.createCookie(NAME, "different"));
     }
 
