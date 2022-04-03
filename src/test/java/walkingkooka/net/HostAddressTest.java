@@ -419,6 +419,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         this.parseStringFails(name + ".second", HostAddressInvalidLengthProblem.with(0));
     }
 
+    @Test
     public void testParseLabelTooLongSecondFails() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, 'x');
