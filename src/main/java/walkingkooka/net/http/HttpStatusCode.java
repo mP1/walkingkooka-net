@@ -45,7 +45,7 @@ public final class HttpStatusCode {
     }
 
     /**
-     * Simulates {@link Enum#values} in spirit returning all constants, only intended for test usages.
+     * Simulates <code>Enum#values</code> in spirit returning all constants, only intended for test usages.
      */
     public static Collection<HttpStatusCode> values() {
         return Collections.unmodifiableCollection(CONSTANTS.values());
