@@ -231,9 +231,8 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
         this.requireParameterOrMultiValueSeparator = true;
 
         final N parameterName = this.parameterName;
-        /**
-         * The last parameter value.
-         */
+
+        // The last parameter value.
         Object parameterValue = parameterName.check(value);
         this.parameters.put(parameterName, parameterValue);
     }
