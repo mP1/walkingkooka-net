@@ -180,7 +180,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     }
 
     @Test
-    public void testFromJsonLink() {
+    public void testUnmarshallLink() {
         final String href = "http://example.com";
         this.unmarshallAndCheck(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.string(href)),
                 Link.with(Url.parse(href)));
