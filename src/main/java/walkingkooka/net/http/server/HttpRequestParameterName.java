@@ -36,9 +36,9 @@ final public class HttpRequestParameterName implements Name,
      * Factory that creates a {@link HttpRequestParameterName}
      */
     public static HttpRequestParameterName with(final String name) {
-        CharSequences.failIfNullOrEmpty(name, "name");
-
-        return new HttpRequestParameterName(name);
+        return new HttpRequestParameterName(
+                CharSequences.failIfNullOrEmpty(name, "name")
+        );
     }
 
     /**
