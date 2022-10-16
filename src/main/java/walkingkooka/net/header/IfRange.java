@@ -73,9 +73,10 @@ public abstract class IfRange<T> implements Header, Value<T> {
      * Parses an if-range header into an {@link IfRange}.
      */
     public static IfRange<?> parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
-
-        return IfRangeHeaderHandler.INSTANCE.parse(text, HEADER_NAME);
+        return IfRangeHeaderHandler.INSTANCE.parse(
+                CharSequences.failIfNullOrEmpty(text, "text"),
+                HEADER_NAME
+        );
     }
 
     final static HeaderHandler<ETag> ETAG = HeaderHandler.eTag();

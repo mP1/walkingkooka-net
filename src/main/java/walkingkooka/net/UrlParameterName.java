@@ -43,9 +43,9 @@ public final class UrlParameterName extends NetName
      * Factory that creates a {@link UrlParameterName}
      */
     public static UrlParameterName with(final String name) {
-        CharSequences.failIfNullOrEmpty(name, "name");
-
-        return new UrlParameterName(name);
+        return new UrlParameterName(
+                CharSequences.failIfNullOrEmpty(name, "name")
+        );
     }
 
     /**
