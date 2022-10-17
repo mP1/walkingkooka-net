@@ -36,18 +36,24 @@ public final class HostAddress implements Value<String>,
      * Creates a {@link HostAddress} after verifying address and components, values etc.
      */
     public static HostAddress with(final String address) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
-
-        return HostAddress.with(address, 0, false, false);
+        return HostAddress.with(
+                address,
+                0,
+                false,
+                false
+        );
     }
 
     /**
      * Processes an address within an email.
      */
     public static HostAddress withEmail(final String address, final int offset) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
-
-        return HostAddress.with(address, offset, true, true);
+        return HostAddress.with(
+                address,
+                offset,
+                true,
+                true
+        );
     }
 
     /**
@@ -57,6 +63,8 @@ public final class HostAddress implements Value<String>,
                                     final int offset,
                                     final boolean mayHaveSquareBrackets,
                                     final boolean email) {
+        Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
+
         final int length = address.length();
         final int trueLength = length - offset;
         if (trueLength >= HostAddress.MAX_LENGTH) {

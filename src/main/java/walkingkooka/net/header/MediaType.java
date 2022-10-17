@@ -218,7 +218,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * parameters if they are present.
      */
     public static MediaType parse(final String text) {
-        return MediaTypeOneHeaderParser.parseMediaType(text);
+        return MediaTypeOneHeaderParser.parseMediaType(
+                checkText(text)
+        );
     }
 
     /**
@@ -227,13 +229,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * sorted by the q factor of each header type.
      */
     public static List<MediaType> parseList(final String text) {
-        checkText(text);
-
-        return MediaTypeListHeaderParser.parseMediaTypeList(text);
+        return MediaTypeListHeaderParser.parseMediaTypeList(
+                checkText(text)
+        );
     }
 
-    private static void checkText(final String text) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
+    private static String checkText(final String text) {
+        return Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
     }
 
     /**
