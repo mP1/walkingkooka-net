@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
@@ -124,7 +125,16 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertSame(constant, MediaType.with(constant.type().toLowerCase(), constant.subType().toLowerCase()));
     }
 
-    // setType .........................................................................
+    // parse ..........................................................................................................
+
+    @Test
+    public void testParseStringEmptyFails() {
+        Assertions.assertThrows(
+                IllegalArgumentException.class, () -> MediaType.parse("")
+        );
+    }
+
+    // setType ..........................................................................................................
 
     @Test
     public void testSetTypeNullFails() {
