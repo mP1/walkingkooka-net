@@ -108,7 +108,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
                     .replace(' ', '_');
             this.checkEquals(HttpServletResponse.class.getField("SC_" + message).getInt(null),
                     constant.code(),
-                    () -> constant.toString());
+                    constant::toString);
         }
     }
 
