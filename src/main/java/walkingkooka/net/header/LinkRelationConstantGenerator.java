@@ -142,8 +142,6 @@ final class LinkRelationConstantGenerator {
     private final static Printer printer = Printers.sysOut();
 
     private static Function<NodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return (c) -> {
-            return ExpressionEvaluationContexts.fake();
-        };
+        return (c) -> ExpressionEvaluationContexts.fake();
     }
 }

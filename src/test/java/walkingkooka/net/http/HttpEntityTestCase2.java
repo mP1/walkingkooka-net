@@ -61,26 +61,29 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testSetHeaderNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setHeader(null, list(1L));
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setHeader(null, list(1L))
+        );
     }
 
     @Test
     public final void testSetHeaderNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null)
+        );
     }
 
     @Test
     public final void testSetHeaderInvalidValueFails() {
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
 
-        assertThrows(HeaderException.class, () -> {
-            this.createHttpEntity()
-                    .setHeader(header, Cast.to(list("INVALID VALUE requires Long")));
-        });
+        assertThrows(
+                HeaderException.class,
+                () -> this.createHttpEntity()
+                        .setHeader(header, Cast.to(list("INVALID VALUE requires Long")))
+        );
     }
 
     @Test
@@ -97,45 +100,51 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testAddHeaderNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().addHeader(null, 1L);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().addHeader(null, 1L)
+        );
     }
 
     @Test
     public final void testAddHeaderNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().addHeader(HttpHeaderName.CONTENT_LENGTH, null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().addHeader(HttpHeaderName.CONTENT_LENGTH, null)
+        );
     }
 
     @Test
     public final void testAddHeaderInvalidValueFails() {
-        assertThrows(HeaderException.class, () -> {
-            this.createHttpEntity()
-                    .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"));
-        });
+        assertThrows(
+                HeaderException.class,
+                () -> this.createHttpEntity()
+                        .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"))
+        );
     }
 
     @Test
     public final void testRemoveHeaderNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().removeHeader(null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().removeHeader(null)
+        );
     }
 
     @Test
     public final void testSetHeadersNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setHeaders(null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setHeaders(null)
+        );
     }
 
     @Test
     public final void testSetHeadersIncludesInvalidValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setHeaders(Maps.of(HttpHeaderName.ACCEPT, null));
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setHeaders(Maps.of(HttpHeaderName.ACCEPT, null))
+        );
     }
 
     @Test
@@ -154,9 +163,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testSetBodyNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setBody(null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setBody(null)
+        );
     }
 
     @Test
@@ -180,9 +190,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testSetBodyTextNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setBodyText(null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setBodyText(null)
+        );
     }
 
     @Test
@@ -206,9 +217,10 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testSetBodyTextNullWebFileFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHttpEntity().setBody(null, Charset.defaultCharset());
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity().setBody(null, Charset.defaultCharset())
+        );
     }
 
     @Test
