@@ -38,16 +38,18 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
 
     @Test
     public void testCrMissingNl() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LineReader.with("cr missing nl\r").readLine();
-        });
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LineReader.with("cr missing nl\r").readLine()
+        );
     }
 
     @Test
     public void testCrMissingNl2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LineReader.with("cr missing nl\r1\n").readLine();
-        });
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LineReader.with("cr missing nl\r1\n").readLine()
+        );
     }
 
     @Test
