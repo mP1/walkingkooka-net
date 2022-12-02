@@ -33,7 +33,10 @@ public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderLi
 
     @Test
     public final void testWithNoValues() {
-        assertThrows(IllegalArgumentException.class, () -> this.createHttpEntityHeaderList());
+        assertThrows(
+                IllegalArgumentException.class,
+                this::createHttpEntityHeaderList
+        );
     }
 
     abstract L createHttpEntityHeaderList(final Object... values);
