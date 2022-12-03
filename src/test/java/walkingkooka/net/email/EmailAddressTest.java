@@ -334,14 +334,14 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     public void test008__x_ATSIGN_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x2__Total_length_reduced_to_254_characters_so_its_still_valid() {
         this.parseSuccessful(
                 "x@x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x2",
-                "Total length reduced to 254 characters so it\'s still valid");
+                "Total length reduced to 254 characters so it's still valid");
     }
 
     @Test
     public void test009__1234567890123456789012345678901234567890123456789012345678_ATSIGN_12345678901234567890123456789012345678901234567890123456789_DOT_12345678901234567890123456789012345678901234567890123456789_DOT_123456789012345678901234567890123456789012345678901234567890123_DOT_iana_DOT_org__Total_length_reduced_to_254_characters_so_its_still_valid() {
         this.parseSuccessful(
                 "1234567890123456789012345678901234567890123456789012345678@12345678901234567890123456789012345678901234567890123456789.12345678901234567890123456789012345678901234567890123456789.123456789012345678901234567890123456789012345678901234567890123.iana.org",
-                "Total length reduced to 254 characters so it\'s still valid");
+                "Total length reduced to 254 characters so it's still valid");
     }
 
     @Test
@@ -476,12 +476,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test035__first_DOT_last_ATSIGN__DOT_12_DOT_34_DOT_56_DOT_78__Only_char_that_can_precede_IPv4_address_is_() {
-        this.parseStringFailsWithComment("first.last@[.12.34.56.78]", "Only char that can precede IPv4 address is \':\'");
+        this.parseStringFailsWithComment("first.last@[.12.34.56.78]", "Only char that can precede IPv4 address is ':'");
     }
 
     @Test
     public void test036__first_DOT_last_ATSIGN_12_DOT_34_DOT_56_DOT_789__Cant_be_interpreted_as_IPv4_so_IPv6_tag_is_missing() {
-        this.parseStringFailsWithComment("first.last@[12.34.56.789]", "Can\'t be interpreted as IPv4 so IPv6 tag is missing");
+        this.parseStringFailsWithComment("first.last@[12.34.56.789]", "Can't be interpreted as IPv4 so IPv6 tag is missing");
     }
 
     @Test
@@ -523,7 +523,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test044__first_DOT_last_ATSIGN_IPv6111122223333444455556666__Too_many___LEFT_PAREN_can_be_none_or_one_RIGHT_PAREN_() {
-        this.parseStringFailsWithComment("first.last@[IPv6:1111:2222::3333::4444:5555:6666]", "Too many \'::\' (can be none or one)");
+        this.parseStringFailsWithComment("first.last@[IPv6:1111:2222::3333::4444:5555:6666]", "Too many '::' (can be none or one)");
     }
 
     @Test
@@ -544,7 +544,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test048__first_DOT_last_ATSIGN_example_DOT_123__TLD_cant_be_all_digits() {
-        this.parseSuccessful("first.last@example.123", "TLD can\'t be all digits");
+        this.parseSuccessful("first.last@example.123", "TLD can't be all digits");
     }
 
     @Test
@@ -554,18 +554,18 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test050__first_DOT_last_ATSIGN_xample_DOT_com__Label_cant_begin_with_a_hyphen() {
-        this.parseStringFailsWithComment("first.last@-xample.com", "Label can\'t begin with a hyphen");
+        this.parseStringFailsWithComment("first.last@-xample.com", "Label can't begin with a hyphen");
     }
 
     @Test
     public void test051__first_DOT_last_ATSIGN_exampl_DOT_com__Label_cant_end_with_a_hyphen() {
-        this.parseStringFailsWithComment("first.last@exampl-.com", "Label can\'t end with a hyphen");
+        this.parseStringFailsWithComment("first.last@exampl-.com", "Label can't end with a hyphen");
     }
 
     @Test
     public void test052__first_DOT_last_ATSIGN_x234567890123456789012345678901234567890123456789012345678901234_DOT_iana_DOT_org__Label_cant_be_longer_than_63_octets() {
         this.parseStringFailsWithComment("first.last@x234567890123456789012345678901234567890123456789012345678901234.iana.org",
-                "Label can\'t be longer than 63 octets");
+                "Label can't be longer than 63 octets");
     }
 
     @Test
@@ -792,7 +792,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     public void test097__test_ATSIGN_123_DOT_123_DOT_123_DOT_123__Top_Level_Domain_wont_be_allnumeric__LEFT_PAREN_see_RFC_3696_Section_2_RIGHT_PAREN__DOT__I_disagree_with_Dave_Child_on_this_one_DOT_() {
         this.parseSuccessful("test@123.123.123.123",
-                "Top Level Domain won\'t be all-numeric (see RFC 3696 Section 2). I disagree with Dave Child on this one.");
+                "Top Level Domain won't be all-numeric (see RFC 3696 Section 2). I disagree with Dave Child on this one.");
     }
 
     @Test
@@ -1103,7 +1103,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     @Disabled
     public void test159__test_blah_ATSIGN_iana_DOT_org__Folding_white_space_cant_appear_within_a_quoted_pair() {
-        this.parseStringFailsWithComment("\"test\\\r\n blah\"@iana.org", "Folding white space can\'t appear within a quoted pair");
+        this.parseStringFailsWithComment("\"test\\\r\n blah\"@iana.org", "Folding white space can't appear within a quoted pair");
     }
 
     @Test
@@ -1114,7 +1114,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     public void test161__c_ATSIGN_Dog_ATSIGN_cartoon_DOT_com__This_is_a_throwaway_example_from_Doug_Lovells_article_DOT__Actually_its_not_a_valid_address_DOT_() {
         this.parseStringFailsWithComment("{^c\\@**Dog^}@cartoon.com",
-                "This is a throwaway example from Doug Lovell\'s article. Actually it\'s not a valid address.");
+                "This is a throwaway example from Doug Lovell's article. Actually it's not a valid address.");
     }
 
     @Test
@@ -1270,7 +1270,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     public void test218__Invalid__Folding__Whitespace_ATSIGN_iana_DOT_org__This_isnt_FWS_so_Dominic_Sayers_says_its_invalid() {
         this.parseStringFailsWithComment("Invalid \\\n Folding \\\n Whitespace@iana.org",
-                "This isn\'t FWS so Dominic Sayers says it\'s invalid");
+                "This isn't FWS so Dominic Sayers says it's invalid");
     }
 
     @Test
@@ -1298,24 +1298,24 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test226__Unicode_NULL__ATSIGN_char_DOT_com__Can_have_escaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN_() {
-        this.parseSuccessful("\"Unicode NULL \\\0\"@char.com", "Can have escaped Unicode Character \'NULL\' (U+0000)");
+        this.parseSuccessful("\"Unicode NULL \\\0\"@char.com", "Can have escaped Unicode Character 'NULL' (U+0000)");
     }
 
     @Test
     @Disabled
     public void test227__Unicode_NULL__ATSIGN_char_DOT_com__Cannot_have_unescaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN_() {
-        this.parseStringFailsWithComment("\"Unicode NULL \0\"@char.com", "Cannot have unescaped Unicode Character \'NULL\' (U+0000)");
+        this.parseStringFailsWithComment("\"Unicode NULL \0\"@char.com", "Cannot have unescaped Unicode Character 'NULL' (U+0000)");
     }
 
     @Test
     public void test228__Unicode_NULL__ATSIGN_char_DOT_com__Escaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN__must_be_in_quoted_string() {
         this.parseStringFailsWithComment("Unicode NULL \\\0@char.com",
-                "Escaped Unicode Character \'NULL\' (U+0000) must be in quoted string");
+                "Escaped Unicode Character 'NULL' (U+0000) must be in quoted string");
     }
 
     @Test
     public void test229__cdburgess$_test_ATSIGN_gmail_DOT_com__Example_given_in_comments() {
-        this.parseSuccessful("cdburgess+!#$%&\'*-/=?+_{}|~test@gmail.com", "Example given in comments");
+        this.parseSuccessful("cdburgess+!#$%&'*-/=?+_{}|~test@gmail.com", "Example given in comments");
     }
 
     @Test

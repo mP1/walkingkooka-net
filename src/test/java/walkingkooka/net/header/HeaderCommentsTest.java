@@ -35,7 +35,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
 
     @Test
     public void testMissingClosingSingleQuoteFails() {
-        this.consumeFails("(\'abc", 0, "Missing closing '\"' in \"(\\'abc\"");
+        this.consumeFails("('abc", 0, "Missing closing '\"' in \"(\\'abc\"");
     }
 
     @Test
@@ -45,7 +45,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
 
     @Test
     public void testMissingBackslashClosingSingleQuoteFails() {
-        this.consumeFails("(\'abc\\", 0, "Missing closing '\"' in \"(\\'abc\\\\\"");
+        this.consumeFails("('abc\\", 0, "Missing closing '\"' in \"(\\'abc\\\\\"");
     }
 
     @Test
@@ -109,77 +109,77 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
 
     @Test
     public void testSingleQuotes() {
-        this.consumeAndCheck("(\'abc\')");
+        this.consumeAndCheck("('abc')");
     }
 
     @Test
     public void testSingleQuotes2() {
-        this.consumeAndCheck(" (\'abc\')", 1);
+        this.consumeAndCheck(" ('abc')", 1);
     }
 
     @Test
     public void testSingleQuotesBackslashBackslash() {
-        this.consumeAndCheck("(\'a\\\\\')");
+        this.consumeAndCheck("('a\\\\')");
     }
 
     @Test
     public void testSingleQuotesBackslashDoubleQuote() {
-        this.consumeAndCheck("(\'a\\\"\')");
+        this.consumeAndCheck("('a\\\"')");
     }
 
     @Test
     public void testSingleQuotesBackslashEscape() {
-        this.consumeAndCheck("(\'a\\tbc\')");
+        this.consumeAndCheck("('a\\tbc')");
     }
 
     @Test
     public void testSingleQuotesBackslashParensClose() {
-        this.consumeAndCheck("(\'a\\)\')");
+        this.consumeAndCheck("('a\\)')");
     }
 
     @Test
     public void testSingleQuotesBackslashSingleQuote() {
-        this.consumeAndCheck("(\'a\\\'\')");
+        this.consumeAndCheck("('a\\'')");
     }
 
     @Test
     public void testSingleQuotesDoubleQuote() {
-        this.consumeAndCheck("(\'a\"bc\')");
+        this.consumeAndCheck("('a\"bc')");
     }
 
     @Test
     public void testSingleQuotesParensClose() {
-        this.consumeAndCheck("(\'abc)')");
+        this.consumeAndCheck("('abc)')");
     }
 
     @Test
     public void testTextSingleQuotes() {
-        this.consumeAndCheck("(a\'QRS\')");
+        this.consumeAndCheck("(a'QRS')");
     }
 
     @Test
     public void testTextSingleQuotes2() {
-        this.consumeAndCheck("(ab\'QRS\')");
+        this.consumeAndCheck("(ab'QRS')");
     }
 
     @Test
     public void testSingleQuotesText() {
-        this.consumeAndCheck("(\'QRS\'x)");
+        this.consumeAndCheck("('QRS'x)");
     }
 
     @Test
     public void testSingleQuotesText2() {
-        this.consumeAndCheck("(\'QRS\'xy)");
+        this.consumeAndCheck("('QRS'xy)");
     }
 
     @Test
     public void testTextSingleQuotesText() {
-        this.consumeAndCheck("(a\'QRS\'x)");
+        this.consumeAndCheck("(a'QRS'x)");
     }
 
     @Test
     public void testTextSingleQuotesText2() {
-        this.consumeAndCheck("(a\'QRS\'xy)");
+        this.consumeAndCheck("(a'QRS'xy)");
     }
 
     // double quotes.....................................................................................................
