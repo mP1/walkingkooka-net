@@ -411,7 +411,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testParameterValueUserAgentGooglebot() {
-        this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Googlebot/2.1 (+http://www.google.com/bot.html)");
+        this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Googlebot/2.1 (+https://www.google.com/bot.html)");
     }
 
     @Test

@@ -76,7 +76,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>1</id>
 	</test>
 	<test>
@@ -84,7 +84,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>2</id>
 	</test>
 	<test>
@@ -100,7 +100,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>4</id>
 	</test>
 	<test>
@@ -109,7 +109,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Escaping can only happen within a quoted string</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>5</id>
 	</test>
 	<test>
@@ -117,7 +117,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>6</id>
 	</test>
 	<test>
@@ -125,7 +125,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>7</id>
 	</test>
 	<test>
@@ -134,7 +134,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Total length reduced to 254 characters so it's still valid</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>8</id>
 	</test>
 	<test>
@@ -143,7 +143,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Total length reduced to 254 characters so it's still valid</comment>
 		<source>RFC 3696 erratum 1690</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=1690</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690]]></sourcelink>
 		<id>9</id>
 	</test>
 	<test>
@@ -151,7 +151,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 erratum 1690</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=1690</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690]]></sourcelink>
 		<id>10</id>
 	</test>
 	<test>
@@ -159,7 +159,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>11</id>
 	</test>
 	<test>
@@ -167,7 +167,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>12</id>
 	</test>
 	<test>
@@ -175,7 +175,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>13</id>
 	</test>
 	<test>
@@ -183,7 +183,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>14</id>
 	</test>
 	<test>
@@ -191,7 +191,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>15</id>
 	</test>
 	<test>
@@ -199,7 +199,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>16</id>
 	</test>
 	<test>
@@ -207,7 +207,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>17</id>
 	</test>
 	<test>
@@ -215,7 +215,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>18</id>
 	</test>
 	<test>
@@ -223,7 +223,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>19</id>
 	</test>
 	<test>
@@ -231,7 +231,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>20</id>
 	</test>
 	<test>
@@ -240,7 +240,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Entire address is longer than 254 characters</comment>
 		<source>RFC 3696 erratum 1690</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=1690</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690]]></sourcelink>
 		<id>21</id>
 	</test>
 	<test>
@@ -249,7 +249,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>No @</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>22</id>
 	</test>
 	<test>
@@ -258,7 +258,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part more than 64 characters</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>23</id>
 	</test>
 	<test>
@@ -267,7 +267,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part starts with a dot</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>24</id>
 	</test>
 	<test>
@@ -276,7 +276,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part ends with a dot</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>25</id>
 	</test>
 	<test>
@@ -285,7 +285,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part has consecutive dots</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>26</id>
 	</test>
 	<test>
@@ -294,7 +294,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part contains unescaped excluded characters</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>27</id>
 	</test>
 	<test>
@@ -303,7 +303,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Any character can be escaped in a quoted string</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>28</id>
 	</test>
 	<test>
@@ -312,7 +312,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part contains unescaped excluded characters</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>29</id>
 	</test>
 	<test>
@@ -321,7 +321,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part cannot end with a backslash</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>30</id>
 	</test>
 	<test>
@@ -330,7 +330,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part is effectively empty</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>31</id>
 	</test>
 	<test>
@@ -339,7 +339,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Local part contains unescaped excluded characters</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>32</id>
 	</test>
 	<test>
@@ -348,7 +348,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>No domain</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>33</id>
 	</test>
 	<test>
@@ -357,7 +357,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Domain exceeds 255 chars</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>34</id>
 	</test>
 	<test>
@@ -366,7 +366,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Only char that can precede IPv4 address is ':'</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>35</id>
 	</test>
 	<test>
@@ -375,7 +375,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Can't be interpreted as IPv4 so IPv6 tag is missing</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>36</id>
 	</test>
 	<test>
@@ -384,7 +384,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 tag is missing</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>37</id>
 	</test>
 	<test>
@@ -393,7 +393,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 tag is wrong</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>38</id>
 	</test>
 	<test>
@@ -402,7 +402,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>RFC 4291 disagrees with RFC 5321 but is cited by it</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>39</id>
 	</test>
 	<test>
@@ -411,7 +411,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Not enough IPv6 groups</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>40</id>
 	</test>
 	<test>
@@ -420,7 +420,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Too many IPv6 groups (6 max)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>41</id>
 	</test>
 	<test>
@@ -429,7 +429,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Not enough IPv6 groups</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>42</id>
 	</test>
 	<test>
@@ -438,7 +438,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Too many IPv6 groups (8 max)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>43</id>
 	</test>
 	<test>
@@ -447,7 +447,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Too many '::' (can be none or one)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>44</id>
 	</test>
 	<test>
@@ -456,7 +456,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>RFC 4291 disagrees with RFC 5321 but is cited by it</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>45</id>
 	</test>
 	<test>
@@ -465,7 +465,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>x is not valid in an IPv6 address</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>46</id>
 	</test>
 	<test>
@@ -474,7 +474,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>33333 is not a valid group in an IPv6 address</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>47</id>
 	</test>
 	<test>
@@ -483,7 +483,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>TLD can't be all digits</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>48</id>
 	</test>
 	<test>
@@ -492,7 +492,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Mail host must be second- or lower level</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>49</id>
 	</test>
 	<test>
@@ -501,7 +501,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Label can't begin with a hyphen</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>50</id>
 	</test>
 	<test>
@@ -510,7 +510,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Label can't end with a hyphen</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>51</id>
 	</test>
 	<test>
@@ -519,7 +519,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Label can't be longer than 63 octets</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>52</id>
 	</test>
 	<test>
@@ -527,7 +527,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>53</id>
 	</test>
 	<test>
@@ -535,7 +535,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (as amended by erratum 2005-07-09)</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>54</id>
 	</test>
 	<test>
@@ -543,7 +543,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (as amended by erratum 2005-07-09)</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>55</id>
 	</test>
 	<test>
@@ -551,7 +551,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (as amended by erratum 2005-07-09)</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>56</id>
 	</test>
 	<test>
@@ -559,7 +559,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>57</id>
 	</test>
 	<test>
@@ -567,7 +567,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>58</id>
 	</test>
 	<test>
@@ -575,7 +575,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>59</id>
 	</test>
 	<test>
@@ -583,7 +583,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>60</id>
 	</test>
 	<test>
@@ -591,7 +591,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>61</id>
 	</test>
 	<test>
@@ -599,7 +599,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>RFC 3696 (February 2004)</source>
-		<sourcelink>http://tools.ietf.org/html/rfc3696#section-3</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc3696#section-3</sourcelink>
 		<id>62</id>
 	</test>
 	<test>
@@ -607,7 +607,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>63</id>
 	</test>
 	<test>
@@ -616,7 +616,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>This example from RFC 3696 was corrected in an erratum</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>64</id>
 	</test>
 	<test>
@@ -625,7 +625,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>This example from RFC 3696 was corrected in an erratum</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>65</id>
 	</test>
 	<test>
@@ -633,7 +633,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>66</id>
 	</test>
 	<test>
@@ -642,7 +642,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Escaping can only happen in a quoted string</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>67</id>
 	</test>
 	<test>
@@ -650,7 +650,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>68</id>
 	</test>
 	<test>
@@ -659,7 +659,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>69</id>
 	</test>
 	<test>
@@ -668,7 +668,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>70</id>
 	</test>
 	<test>
@@ -677,7 +677,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>71</id>
 	</test>
 	<test>
@@ -686,7 +686,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>No local part</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>72</id>
 	</test>
 	<test>
@@ -695,7 +695,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>73</id>
 	</test>
 	<test>
@@ -704,7 +704,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>74</id>
 	</test>
 	<test>
@@ -713,7 +713,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>75</id>
 	</test>
 	<test>
@@ -722,7 +722,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>76</id>
 	</test>
 	<test>
@@ -731,7 +731,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>77</id>
 	</test>
 	<test>
@@ -740,7 +740,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>78</id>
 	</test>
 	<test>
@@ -749,7 +749,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>79</id>
 	</test>
 	<test>
@@ -758,7 +758,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>80</id>
 	</test>
 	<test>
@@ -767,7 +767,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>81</id>
 	</test>
 	<test>
@@ -776,7 +776,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Doug Lovell says this should fail</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>82</id>
 	</test>
 	<test>
@@ -784,7 +784,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>83</id>
 	</test>
 	<test>
@@ -792,7 +792,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>TEST@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>84</id>
 	</test>
 	<test>
@@ -800,7 +800,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>1234567890@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>85</id>
 	</test>
 	<test>
@@ -808,7 +808,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test+test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>86</id>
 	</test>
 	<test>
@@ -816,7 +816,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test-test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>87</id>
 	</test>
 	<test>
@@ -824,7 +824,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>t*est@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>88</id>
 	</test>
 	<test>
@@ -832,7 +832,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>+1~1+@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>89</id>
 	</test>
 	<test>
@@ -840,7 +840,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>{_test_}@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>90</id>
 	</test>
 	<test>
@@ -848,7 +848,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>"[[ test ]]"@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>91</id>
 	</test>
 	<test>
@@ -856,7 +856,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test.test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>92</id>
 	</test>
 	<test>
@@ -864,7 +864,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>"test.test"@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>93</id>
 	</test>
 	<test>
@@ -873,7 +873,7 @@ Version	Date		Notes
 		<address>test."test"@iana.org</address>
 		<comment>Obsolete form, but documented in RFC 5322</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>94</id>
 	</test>
 	<test>
@@ -881,7 +881,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>"test@test"@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>95</id>
 	</test>
 	<test>
@@ -889,7 +889,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>test@123.123.123.x123</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>96</id>
 	</test>
 	<test>
@@ -898,7 +898,7 @@ Version	Date		Notes
 		<address>test@123.123.123.123</address>
 		<comment>Top Level Domain won't be all-numeric (see RFC 3696 Section 2). I disagree with Dave Child on this one.</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>97</id>
 	</test>
 	<test>
@@ -906,7 +906,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>test@[123.123.123.123]</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>98</id>
 	</test>
 	<test>
@@ -914,7 +914,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>test@example.iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>99</id>
 	</test>
 	<test>
@@ -922,7 +922,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<address>test@example.example.iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>100</id>
 	</test>
 	<test>
@@ -930,7 +930,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test.iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>101</id>
 	</test>
 	<test>
@@ -938,7 +938,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test.@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>102</id>
 	</test>
 	<test>
@@ -946,7 +946,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test..test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>103</id>
 	</test>
 	<test>
@@ -954,7 +954,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>.test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>104</id>
 	</test>
 	<test>
@@ -962,7 +962,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test@test@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>105</id>
 	</test>
 	<test>
@@ -970,7 +970,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<address>test@@iana.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>106</id>
 	</test>
 	<test>
@@ -979,7 +979,7 @@ Version	Date		Notes
 		<address>-- test --@iana.org</address>
 		<comment>No spaces allowed in local part</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>107</id>
 	</test>
 	<test>
@@ -988,7 +988,7 @@ Version	Date		Notes
 		<address>[test]@iana.org</address>
 		<comment>Square brackets only allowed within quotes</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>108</id>
 	</test>
 	<test>
@@ -997,7 +997,7 @@ Version	Date		Notes
 		<address>"test\test"@iana.org</address>
 		<comment>Any character can be escaped in a quoted string</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>109</id>
 	</test>
 	<test>
@@ -1006,7 +1006,7 @@ Version	Date		Notes
 		<address>"test"test"@iana.org</address>
 		<comment>Quotes cannot be nested</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>110</id>
 	</test>
 	<test>
@@ -1015,7 +1015,7 @@ Version	Date		Notes
 		<address>()[]\;:,&gt;&lt;@iana.org</address>
 		<comment>Disallowed Characters</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>111</id>
 	</test>
 	<test>
@@ -1024,7 +1024,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@.</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>112</id>
 	</test>
 	<test>
@@ -1033,7 +1033,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@example.</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>113</id>
 	</test>
 	<test>
@@ -1042,7 +1042,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@.org</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>114</id>
 	</test>
 	<test>
@@ -1051,7 +1051,7 @@ Version	Date		Notes
 		<address>test@123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012.com</address>
 		<comment>255 characters is maximum length for domain. This is 256.</comment>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>115</id>
 	</test>
 	<test>
@@ -1060,7 +1060,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@example</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>116</id>
 	</test>
 	<test>
@@ -1069,7 +1069,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@[123.123.123.123</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>117</id>
 	</test>
 	<test>
@@ -1078,7 +1078,7 @@ Version	Date		Notes
 		<comment>Dave Child says so</comment>
 		<address>test@123.123.123.123]</address>
 		<source>Dave Child</source>
-		<sourcelink>http://code.google.com/p/php-email-address-validation/</sourcelink>
+		<sourcelink>https://code.google.com/p/php-email-address-validation/</sourcelink>
 		<id>118</id>
 	</test>
 	<test>
@@ -1087,7 +1087,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>119</id>
 	</test>
 	<test>
@@ -1096,7 +1097,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>120</id>
 	</test>
 	<test>
@@ -1104,7 +1106,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>121</id>
 	</test>
 	<test>
@@ -1113,7 +1116,8 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Any character can be escaped in a quoted string</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>122</id>
 	</test>
 	<test>
@@ -1122,7 +1126,8 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Quoted string specifically excludes carriage returns unless escaped</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>123</id>
 	</test>
 	<test>
@@ -1131,7 +1136,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Quoted string specifically excludes carriage returns</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>124</id>
 	</test>
 	<test>
@@ -1139,7 +1145,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>125</id>
 	</test>
 	<test>
@@ -1148,7 +1155,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>126</id>
 	</test>
 	<test>
@@ -1156,7 +1164,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>127</id>
 	</test>
 	<test>
@@ -1164,7 +1173,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>128</id>
 	</test>
 	<test>
@@ -1172,7 +1182,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>129</id>
 	</test>
 	<test>
@@ -1181,7 +1192,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>130</id>
 	</test>
 	<test>
@@ -1190,7 +1202,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>131</id>
 	</test>
 	<test>
@@ -1199,7 +1212,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>132</id>
 	</test>
 	<test>
@@ -1208,7 +1222,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>133</id>
 	</test>
 	<test>
@@ -1216,7 +1231,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>134</id>
 	</test>
 	<test>
@@ -1224,7 +1240,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>135</id>
 	</test>
 	<test>
@@ -1232,7 +1249,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>136</id>
 	</test>
 	<test>
@@ -1240,7 +1258,8 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>137</id>
 	</test>
 	<test>
@@ -1249,7 +1268,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Phil Haack says so</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>138</id>
 	</test>
 	<test>
@@ -1258,7 +1278,8 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Escaping can only happen in a quoted string</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>139</id>
 	</test>
 	<test>
@@ -1266,7 +1287,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>140</id>
 	</test>
 	<test>
@@ -1274,7 +1295,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>141</id>
 	</test>
 	<test>
@@ -1283,7 +1304,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Contains an unescaped quote</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>142</id>
 	</test>
 	<test>
@@ -1292,7 +1313,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>143</id>
 	</test>
 	<test>
@@ -1301,7 +1322,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>144</id>
 	</test>
 	<test>
@@ -1310,7 +1331,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>145</id>
 	</test>
 	<test>
@@ -1319,7 +1340,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>146</id>
 	</test>
 	<test>
@@ -1328,7 +1349,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>147</id>
 	</test>
 	<test>
@@ -1337,7 +1358,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-local-part form as described in RFC 5322</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>148</id>
 	</test>
 	<test>
@@ -1346,7 +1367,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>RFC 5321 specifies the syntax for address-literal and does not allow escaping</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>149</id>
 	</test>
 	<test>
@@ -1354,7 +1375,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>150</id>
 	</test>
 	<test>
@@ -1363,7 +1384,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Backslash can escape anything but must escape something</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>151</id>
 	</test>
 	<test>
@@ -1371,7 +1392,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>152</id>
 	</test>
 	<test>
@@ -1380,7 +1401,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Contains a zero-length element</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>153</id>
 	</test>
 	<test>
@@ -1389,7 +1410,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Unquoted string must be an atom</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>154</id>
 	</test>
 	<test>
@@ -1398,7 +1419,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Was incorrectly given as a valid address in the original RFC 3696</comment>
 		<source>RFC 3696 erratum 246</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>155</id>
 	</test>
 	<test>
@@ -1407,7 +1428,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Was incorrectly given as a valid address in the original RFC 3696</comment>
 		<source>RFC 3696 erratum 246</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>156</id>
 	</test>
 	<test>
@@ -1416,7 +1437,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Was incorrectly given as a valid address in the original RFC 3696</comment>
 		<source>RFC 3696 erratum 246</source>
-		<sourcelink>http://www.rfc-editor.org/errata_search.php?rfc=3696&amp;eid=246</sourcelink>
+		<sourcelink><![CDATA[https://www.rfc-editor.org/errata_search.php?rfc=3696&eid=246]]></sourcelink>
 		<id>157</id>
 	</test>
 	<test>
@@ -1425,7 +1446,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv4 part contains an invalid octet</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>158</id>
 	</test>
 	<test>
@@ -1434,7 +1455,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Folding white space can't appear within a quoted pair</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>159</id>
 	</test>
 	<test>
@@ -1443,7 +1464,8 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>This is a valid quoted string with folding white space</comment>
 		<source>Phil Haack</source>
-		<sourcelink>http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx</sourcelink>
+		<sourcelink>https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+		</sourcelink>
 		<id>160</id>
 	</test>
 	<test>
@@ -1452,7 +1474,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>This is a throwaway example from Doug Lovell's article. Actually it's not a valid address.</comment>
 		<source>Doug Lovell (LinuxJournal, June 2007)</source>
-		<sourcelink>http://www.linuxjournal.com/article/9585</sourcelink>
+		<sourcelink>https://www.linuxjournal.com/article/9585</sourcelink>
 		<id>161</id>
 	</test>
 	<test>
@@ -1461,7 +1483,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing comments</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>162</id>
 	</test>
 	<test>
@@ -1470,7 +1492,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing comments</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>163</id>
 	</test>
 	<test>
@@ -1479,7 +1501,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Address literal can't be commented (RFC 5321)</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>164</id>
 	</test>
 	<test>
@@ -1488,7 +1510,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing comments</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>165</id>
 	</test>
 	<test>
@@ -1497,7 +1519,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing comments</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>166</id>
 	</test>
 	<test>
@@ -1506,7 +1528,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing comments and an escaped parenthesis</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>167</id>
 	</test>
 	<test>
@@ -1515,7 +1537,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Unclosed parenthesis in comment</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>168</id>
 	</test>
 	<test>
@@ -1524,7 +1546,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Too many closing parentheses</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>169</id>
 	</test>
 	<test>
@@ -1533,7 +1555,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Backslash at end of comment has nothing to escape</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>170</id>
 	</test>
 	<test>
@@ -1542,7 +1564,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>A valid address containing an empty comment</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>171</id>
 	</test>
 	<test>
@@ -1551,7 +1573,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Comment with folding white space</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>172</id>
 	</test>
 	<test>
@@ -1560,7 +1582,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Too long with comments, not too long without</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>173</id>
 	</test>
 	<test>
@@ -1569,7 +1591,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Silly example from my blog post</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>174</id>
 	</test>
 	<test>
@@ -1578,7 +1600,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Canonical example from RFC 5322</comment>
 		<source>RFC 5322</source>
-		<sourcelink>http://tools.ietf.org/html/rfc5322</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc5322</sourcelink>
 		<id>175</id>
 	</test>
 	<test>
@@ -1587,7 +1609,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Canonical example from RFC 5322</comment>
 		<source>RFC 5322</source>
-		<sourcelink>http://tools.ietf.org/html/rfc5322</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc5322</sourcelink>
 		<id>176</id>
 	</test>
 	<test>
@@ -1596,7 +1618,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Canonical example from RFC 5322</comment>
 		<source>RFC 5322</source>
-		<sourcelink>http://tools.ietf.org/html/rfc5322</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc5322</sourcelink>
 		<id>177</id>
 	</test>
 	<test>
@@ -1605,7 +1627,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Canonical example from RFC 5322</comment>
 		<source>RFC 5322</source>
-		<sourcelink>http://tools.ietf.org/html/rfc5322</sourcelink>
+		<sourcelink>https://tools.ietf.org/html/rfc5322</sourcelink>
 		<id>178</id>
 	</test>
 	<test>
@@ -1614,7 +1636,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Can't have a comment or white space except at an element boundary</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>179</id>
 	</test>
 	<test>
@@ -1623,7 +1645,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Comment can contain a dot</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>180</id>
 	</test>
 	<test>
@@ -1632,7 +1654,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Comment can contain double quote</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>181</id>
 	</test>
 	<test>
@@ -1641,7 +1663,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Comment can contain a quote</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>182</id>
 	</test>
 	<test>
@@ -1650,7 +1672,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Can't have comments or white space except at an element boundary</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>183</id>
 	</test>
 	<test>
@@ -1659,7 +1681,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Comment can contain quoted-pair</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>184</id>
 	</test>
 	<test>
@@ -1668,7 +1690,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Label is longer than 63 octets, but not with comment removed</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>185</id>
 	</test>
 	<test>
@@ -1676,7 +1698,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>186</id>
 	</test>
 	<test>
@@ -1685,7 +1707,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Braces are not properly matched</comment>
 		<source>Cal Henderson</source>
-		<sourcelink>http://code.iamcal.com/php/rfc822/</sourcelink>
+		<sourcelink>https://code.iamcal.com/php/rfc822/</sourcelink>
 		<id>187</id>
 	</test>
 	<test>
@@ -1693,7 +1715,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>188</id>
 	</test>
 	<test>
@@ -1701,7 +1723,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>189</id>
 	</test>
 	<test>
@@ -1709,7 +1731,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>190</id>
 	</test>
 	<test>
@@ -1717,7 +1739,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>191</id>
 	</test>
 	<test>
@@ -1725,7 +1747,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>192</id>
 	</test>
 	<test>
@@ -1733,7 +1755,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>193</id>
 	</test>
 	<test>
@@ -1741,7 +1763,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>194</id>
 	</test>
 	<test>
@@ -1749,7 +1771,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>195</id>
 	</test>
 	<test>
@@ -1757,7 +1779,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>196</id>
 	</test>
 	<test>
@@ -1765,7 +1787,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>197</id>
 	</test>
 	<test>
@@ -1774,7 +1796,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>extra data outside ip</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>198</id>
 	</test>
 	<test>
@@ -1783,7 +1805,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>not a valid IP</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>199</id>
 	</test>
 	<test>
@@ -1791,7 +1813,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>200</id>
 	</test>
 	<test>
@@ -1799,7 +1821,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>201</id>
 	</test>
 	<test>
@@ -1807,7 +1829,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>202</id>
 	</test>
 	<test>
@@ -1816,7 +1838,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>TLDs can be any length</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>203</id>
 	</test>
 	<test>
@@ -1824,7 +1846,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>204</id>
 	</test>
 	<test>
@@ -1832,7 +1854,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>205</id>
 	</test>
 	<test>
@@ -1840,7 +1862,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>206</id>
 	</test>
 	<test>
@@ -1848,7 +1870,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>207</id>
 	</test>
 	<test>
@@ -1856,7 +1878,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>208</id>
 	</test>
 	<test>
@@ -1864,7 +1886,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>209</id>
 	</test>
 	<test>
@@ -1872,7 +1894,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>210</id>
 	</test>
 	<test>
@@ -1880,7 +1902,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>211</id>
 	</test>
 	<test>
@@ -1888,7 +1910,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>212</id>
 	</test>
 	<test>
@@ -1896,7 +1918,7 @@ Version	Date		Notes
 		<valid>false</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>213</id>
 	</test>
 	<test>
@@ -1905,7 +1927,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Disagree with Paul Gregg here</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>214</id>
 	</test>
 	<test>
@@ -1914,7 +1936,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>......</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>215</id>
 	</test>
 	<test>
@@ -1923,7 +1945,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>ip need to be []</comment>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>216</id>
 	</test>
 	<test>
@@ -1931,7 +1953,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>217</id>
 	</test>
 	<test>
@@ -1940,7 +1962,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<source>Paul Gregg</source>
 		<comment>This isn't FWS so Dominic Sayers says it's invalid</comment>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>218</id>
 	</test>
 	<test>
@@ -1948,7 +1970,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>219</id>
 	</test>
 	<test>
@@ -1956,7 +1978,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>false</warning>
 		<source>Paul Gregg</source>
-		<sourcelink>http://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
+		<sourcelink>https://pgregg.com/projects/php/code/showvalidemail.php</sourcelink>
 		<id>220</id>
 	</test>
 	<test>
@@ -1964,7 +1986,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>221</id>
 	</test>
 	<test>
@@ -1972,7 +1994,7 @@ Version	Date		Notes
 		<valid>true</valid>
 		<warning>true</warning>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>222</id>
 	</test>
 	<test>
@@ -1981,7 +2003,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>FWS is allowed after local part (this is similar to #152 but is the test proposed by John Kloor)</comment>
 		<source>John Kloor</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>223</id>
 	</test>
 	<test>
@@ -1990,7 +2012,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>obs-fws allows multiple lines (test 2: space before break)</comment>
 		<source>George Pollard</source>
-		<sourcelink>http://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
+		<sourcelink>https://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
 		<id>224</id>
 	</test>
 	<test>
@@ -1999,7 +2021,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>obs-fws must have at least one WSP per line</comment>
 		<source>George Pollard</source>
-		<sourcelink>http://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
+		<sourcelink>https://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
 		<id>225</id>
 	</test>
 	<test>
@@ -2008,7 +2030,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Can have escaped Unicode Character 'NULL' (U+0000)</comment>
 		<source>George Pollard</source>
-		<sourcelink>http://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
+		<sourcelink>https://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
 		<id>226</id>
 	</test>
 	<test>
@@ -2017,7 +2039,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Cannot have unescaped Unicode Character 'NULL' (U+0000)</comment>
 		<source>George Pollard</source>
-		<sourcelink>http://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
+		<sourcelink>https://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
 		<id>227</id>
 	</test>
 	<test>
@@ -2026,7 +2048,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Escaped Unicode Character 'NULL' (U+0000) must be in quoted string</comment>
 		<source>George Pollard</source>
-		<sourcelink>http://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
+		<sourcelink>https://porg.es/blog/properly-validating-e-mail-addresses</sourcelink>
 		<id>228</id>
 	</test>
 	<test>
@@ -2035,7 +2057,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Example given in comments</comment>
 		<source>cdburgess</source>
-		<sourcelink>http://www.dominicsayers.com/isemail/#comment-30024957</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail/#comment-30024957</sourcelink>
 		<id>229</id>
 	</test>
 	<test>
@@ -2044,7 +2066,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>:: only elides one zero group (IPv6 authority is RFC 4291)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>230</id>
 	</test>
 	<test>
@@ -2053,7 +2075,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>:: only elides one zero group (IPv6 authority is RFC 4291)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>231</id>
 	</test>
 	<test>
@@ -2062,7 +2084,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>232</id>
 	</test>
 	<test>
@@ -2071,7 +2093,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>233</id>
 	</test>
 	<test>
@@ -2080,7 +2102,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>234</id>
 	</test>
 	<test>
@@ -2089,7 +2111,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>235</id>
 	</test>
 	<test>
@@ -2098,7 +2120,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>236</id>
 	</test>
 	<test>
@@ -2107,7 +2129,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>237</id>
 	</test>
 	<test>
@@ -2116,7 +2138,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>238</id>
 	</test>
 	<test>
@@ -2125,7 +2147,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>239</id>
 	</test>
 	<test>
@@ -2134,7 +2156,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>240</id>
 	</test>
 	<test>
@@ -2143,7 +2165,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>241</id>
 	</test>
 	<test>
@@ -2152,7 +2174,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>242</id>
 	</test>
 	<test>
@@ -2161,7 +2183,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>243</id>
 	</test>
 	<test>
@@ -2170,7 +2192,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>244</id>
 	</test>
 	<test>
@@ -2179,7 +2201,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>245</id>
 	</test>
 	<test>
@@ -2188,7 +2210,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>246</id>
 	</test>
 	<test>
@@ -2197,7 +2219,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>247</id>
 	</test>
 	<test>
@@ -2206,7 +2228,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>248</id>
 	</test>
 	<test>
@@ -2215,7 +2237,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>249</id>
 	</test>
 	<test>
@@ -2224,7 +2246,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>250</id>
 	</test>
 	<test>
@@ -2233,7 +2255,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>251</id>
 	</test>
 	<test>
@@ -2242,7 +2264,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>:: only elides one zero group (IPv6 authority is RFC 4291)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>252</id>
 	</test>
 	<test>
@@ -2251,7 +2273,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>253</id>
 	</test>
 	<test>
@@ -2260,7 +2282,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>:: only elides one zero group (IPv6 authority is RFC 4291)</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>254</id>
 	</test>
 	<test>
@@ -2269,7 +2291,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>255</id>
 	</test>
 	<test>
@@ -2278,7 +2300,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>256</id>
 	</test>
 	<test>
@@ -2287,7 +2309,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>257</id>
 	</test>
 	<test>
@@ -2296,7 +2318,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>258</id>
 	</test>
 	<test>
@@ -2305,7 +2327,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>259</id>
 	</test>
 	<test>
@@ -2314,7 +2336,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>260</id>
 	</test>
 	<test>
@@ -2323,7 +2345,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>261</id>
 	</test>
 	<test>
@@ -2332,7 +2354,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>262</id>
 	</test>
 	<test>
@@ -2341,7 +2363,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>263</id>
 	</test>
 	<test>
@@ -2350,7 +2372,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>264</id>
 	</test>
 	<test>
@@ -2359,7 +2381,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>265</id>
 	</test>
 	<test>
@@ -2368,7 +2390,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>266</id>
 	</test>
 	<test>
@@ -2377,7 +2399,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>267</id>
 	</test>
 	<test>
@@ -2386,7 +2408,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>268</id>
 	</test>
 	<test>
@@ -2395,7 +2417,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>269</id>
 	</test>
 	<test>
@@ -2404,7 +2426,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>270</id>
 	</test>
 	<test>
@@ -2413,7 +2435,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>271</id>
 	</test>
 	<test>
@@ -2422,7 +2444,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>272</id>
 	</test>
 	<test>
@@ -2431,7 +2453,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>273</id>
 	</test>
 	<test>
@@ -2440,7 +2462,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>274</id>
 	</test>
 	<test>
@@ -2449,7 +2471,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>275</id>
 	</test>
 	<test>
@@ -2458,7 +2480,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>IPv6 authority is RFC 4291</comment>
 		<source>Daniel Marschall</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>276</id>
 	</test>
 	<test>
@@ -2467,7 +2489,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>test.com has an A-record but not an MX-record</comment>
 		<source>Dominic Sayers</source>
-		<sourcelink>http://www.dominicsayers.com/isemail</sourcelink>
+		<sourcelink>https://www.dominicsayers.com/isemail</sourcelink>
 		<id>277</id>
 	</test>
 	<test>
@@ -2476,7 +2498,7 @@ Version	Date		Notes
 		<warning>false</warning>
 		<comment>Address has a newline at the end</comment>
 		<source>Michael Rushton</source>
-		<sourcelink>http://squiloople.com/tag/email/</sourcelink>
+		<sourcelink>https://squiloople.com/tag/email/</sourcelink>
 		<id>278</id>
 	</test>
 	<test>
@@ -2485,7 +2507,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Address is at an Internationalized Domain Name (Punycode)</comment>
 		<source>Michael Rushton</source>
-		<sourcelink>http://squiloople.com/tag/email/</sourcelink>
+		<sourcelink>https://squiloople.com/tag/email/</sourcelink>
 		<id>279</id>
 	</test>
 	<test>
@@ -2494,7 +2516,7 @@ Version	Date		Notes
 		<warning>true</warning>
 		<comment>Address is at an Internationalized Domain Name (UTF-8)</comment>
 		<source>Michael Rushton</source>
-		<sourcelink>http://squiloople.com/tag/email/</sourcelink>
+		<sourcelink>https://squiloople.com/tag/email/</sourcelink>
 		<id>280</id>
 	</test>
 </tests>

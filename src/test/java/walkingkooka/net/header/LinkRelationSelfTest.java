@@ -37,7 +37,7 @@ public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelatio
 
     @Test
     public void testEqualsUrl() {
-        this.checkNotEquals(LinkRelation.with("http://example.com"));
+        this.checkNotEquals(LinkRelation.with("https://example.com"));
     }
 
     @Override

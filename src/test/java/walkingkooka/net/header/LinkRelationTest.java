@@ -32,7 +32,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         ParseStringTesting<List<LinkRelation<?>>> {
 
     private final static String TEXT = "abc123";
-    private final static String URL_TEXT = "http://example.com";
+    private final static String URL_TEXT = "https://example.com";
 
     @Override
     public void testWith2() {
@@ -63,7 +63,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("self http://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("http://example.com")));
+        this.parseStringAndCheck("self https://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("https://example.com")));
     }
 
     @Test
@@ -94,7 +94,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     public void testSortRegularBeforeHyperlinked() {
         final LinkRelation<?> about = LinkRelation.ABOUT;
         final LinkRelation<?> bookmark = LinkRelation.BOOKMARK;
-        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+        final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(bookmark, url, about,
                 about, bookmark, url);
@@ -104,7 +104,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     public void testSortRegularBeforeHyperlinked2() {
         final LinkRelation<?> about = LinkRelation.ABOUT;
         final LinkRelation<?> custom = LinkRelation.with("custom123");
-        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+        final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(url, custom, about,
                 about, custom, url);
@@ -113,7 +113,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Test
     public void testSortSelfBeforeHyperlinked() {
         final LinkRelation<?> self = LinkRelation.SELF;
-        final LinkRelation<?> url = LinkRelation.with("http://example.com");
+        final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(url, self,
                 self, url);
@@ -124,8 +124,8 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         final LinkRelation<?> about = LinkRelation.ABOUT;
         final LinkRelation<?> bookmark = LinkRelation.BOOKMARK;
         final LinkRelation<?> self = LinkRelation.SELF;
-        final LinkRelation<?> url = LinkRelation.with("http://example.com");
-        final LinkRelation<?> url2 = LinkRelation.with("http://example2.com");
+        final LinkRelation<?> url = LinkRelation.with("https://example.com");
+        final LinkRelation<?> url2 = LinkRelation.with("https://example2.com");
 
         this.compareToArraySortAndCheck(url2, bookmark, about, self, url,
                 self, about, bookmark, url, url2);

@@ -36,7 +36,7 @@ public final class UrlHeaderHandlerTest extends NonStringHeaderHandlerTestCase<U
 
     @Test
     public void testLocationAbsoluteUrl() {
-        final String url = "http://example.com";
+        final String url = "https://example.com";
         this.parseAndToTextAndCheck(url, AbsoluteUrl.parse(url));
     }
 

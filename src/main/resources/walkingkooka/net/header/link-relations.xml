@@ -238,7 +238,9 @@ using the <xref type="uri" data="https://github.com/link-relations/registry">reg
     <value>hub</value>
     <description>Refers to a hub that enables registration for
     notification of updates to the context.</description>    
-    <spec><xref type="uri" data="http://pubsubhubbub.googlecode.com"/></spec>
+    <spec>
+      <xref type="uri" data="https://pubsubhubbub.googlecode.com"/>
+    </spec>
     <note>This relation type was requested by Brett Slatkin.</note>
   </record>
   
@@ -470,8 +472,10 @@ using the <xref type="uri" data="https://github.com/link-relations/registry">reg
   
   <record date="2016-02-04">
     <value>pingback</value>
-    <description>Gives the address of the pingback resource for the link context.</description>    
-    <spec><xref type="uri" data="http://www.hixie.ch/specs/pingback/pingback"/></spec>
+    <description>Gives the address of the pingback resource for the link context.</description>
+    <spec>
+      <xref type="uri" data="https://www.hixie.ch/specs/pingback/pingback"/>
+    </spec>
   </record>
   
   <record date="2016-02-29">
@@ -589,7 +593,9 @@ profile URIs.</note>
     <value>search</value>
     <description>Refers to a resource that can be used to search through
       the link's context and related resources.</description>
-    <spec><xref type="uri" data="http://www.opensearch.org/Specifications/OpenSearch/1.1"/></spec>
+    <spec>
+      <xref type="uri" data="https://www.opensearch.org/Specifications/OpenSearch/1.1"/>
+    </spec>
   </record>
 
   <record>

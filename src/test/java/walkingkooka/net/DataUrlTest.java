@@ -52,7 +52,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
 
     @Test
     public void testParseNonDataUrlFails() {
-        this.parseStringFails("http://example.com", IllegalArgumentException.class);
+        this.parseStringFails("https://example.com", IllegalArgumentException.class);
     }
 
     @Test

@@ -35,7 +35,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
 
     @Test
     public void testParseAbsoluteUrlFails() {
-        assertThrows(IllegalArgumentException.class, () -> RelativeUrl.parseRelative0("http://example.com"));
+        assertThrows(IllegalArgumentException.class, () -> RelativeUrl.parseRelative0("https://example.com"));
     }
 
     @Test

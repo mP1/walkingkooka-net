@@ -24,7 +24,7 @@ import walkingkooka.net.Url;
 public final class AbsoluteUrlHeaderHandlerTest extends
         NonStringHeaderHandlerTestCase<AbsoluteUrlHeaderHandler, AbsoluteUrl> {
 
-    private final static String URL = "http://example.com";
+    private final static String URL = "https://example.com";
 
     @Override
     public String typeNamePrefix() {

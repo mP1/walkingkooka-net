@@ -53,13 +53,13 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
 
     @Test
     public void testInvalidValueFails() {
-        this.parseStringInvalidCharacterFails("http://example.com", 0);
+        this.parseStringInvalidCharacterFails("https://example.com", 0);
     }
 
     @Test
     public void testLinkAbsoluteUrl() {
-        this.parseStringAndCheck2("<http://example.com>",
-                Link.with(Url.parse("http://example.com")));
+        this.parseStringAndCheck2("<https://example.com>",
+                Link.with(Url.parse("https://example.com")));
     }
 
     @Test
@@ -82,8 +82,8 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
 
     @Test
     public void testLinkRelParameterUrlValue() {
-        this.parseStringAndCheck2("</path/file>; rel=http://example.com",
-                this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("http://example.com"))));
+        this.parseStringAndCheck2("</path/file>; rel=https://example.com",
+                this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("https://example.com"))));
     }
 
     @Test
