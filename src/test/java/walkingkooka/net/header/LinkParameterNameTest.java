@@ -73,7 +73,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     }
 
     private Link link() {
-        return Link.with(Url.parse("http://example.com"));
+        return Link.with(Url.parse("https://example.com"));
     }
 
     @Override

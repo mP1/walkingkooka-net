@@ -37,7 +37,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testParseAbsoluteUrl() {
-        final String text = "http://example.com";
+        final String text = "https://example.com";
 
         this.parseStringAndCheck(text, Url.parseAbsolute(text));
     }

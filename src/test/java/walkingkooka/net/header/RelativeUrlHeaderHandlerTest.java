@@ -47,7 +47,7 @@ public final class RelativeUrlHeaderHandlerTest extends
 
     @Override
     String invalidHeader() {
-        return "http://example.com";
+        return "https://example.com";
     }
 
     @Override

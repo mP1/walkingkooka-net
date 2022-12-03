@@ -32,7 +32,7 @@ public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
     @Test
     public void testStartVisitSkip() {
         final StringBuilder b = new StringBuilder();
-        final AbsoluteUrl url = Url.parseAbsolute("http://example.com");
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com");
 
         new FakeUrlVisitor() {
             @Override
@@ -55,7 +55,7 @@ public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
 
     @Test
     public void testAcceptAbsoluteUrl() {
-        this.createVisitor().accept(Url.parseAbsolute("http://example.com"));
+        this.createVisitor().accept(Url.parseAbsolute("https://example.com"));
     }
 
     @Test

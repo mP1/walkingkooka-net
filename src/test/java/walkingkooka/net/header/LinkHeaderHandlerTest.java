@@ -87,7 +87,7 @@ public final class LinkHeaderHandlerTest extends
     List<Link> value() {
         return Lists.of(
                 Link.with(Url.parse("/file")),
-                Link.with(Url.parse("http://example.com")));
+                Link.with(Url.parse("https://example.com")));
     }
 
     @Override

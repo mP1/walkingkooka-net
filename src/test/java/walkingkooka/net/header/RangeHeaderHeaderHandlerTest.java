@@ -59,7 +59,7 @@ public final class RangeHeaderHeaderHandlerTest extends
 
     @Override
     String invalidHeader() {
-        return "http://example.com";
+        return "https://example.com";
     }
 
     @Override

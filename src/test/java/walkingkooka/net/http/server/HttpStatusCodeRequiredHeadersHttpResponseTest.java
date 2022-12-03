@@ -198,7 +198,7 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     private void setStatusWithoutLocationHeader(final HttpStatusCode code) {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
                 code.status(),
-                HttpEntity.EMPTY.addHeader(HttpHeaderName.LOCATION, Url.parse("http://example.com")).setBody(this.binary("a1")));
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.LOCATION, Url.parse("https://example.com")).setBody(this.binary("a1")));
     }
 
     private HttpEntity httpEntityWithServerHeader() {

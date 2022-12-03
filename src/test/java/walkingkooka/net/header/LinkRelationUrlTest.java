@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl> {
 
-    private final static String TEXT = "http://example.com";
+    private final static String TEXT = "https://example.com";
 
     @Test
     public void testHeaderText() {
@@ -33,7 +33,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
 
     @Test
     public void testEqualsDifferentUrl() {
-        this.checkNotEquals(LinkRelation.with("http://example2.com"));
+        this.checkNotEquals(LinkRelation.with("https://example2.com"));
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
 
     @Override
     AbsoluteUrl differentValue() {
-        return Url.parseAbsolute("http://example.com/different");
+        return Url.parseAbsolute("https://example.com/different");
     }
 
     @Override
