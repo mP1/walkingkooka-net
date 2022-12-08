@@ -57,13 +57,9 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
 
     @Test
     public void testGetInvalidIndexFails() {
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> Lists.of(VALUE1).get(1)
-        );
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> this.createList().get(1)
+        this.getFails(
+                this.createList(),
+                1
         );
     }
 
