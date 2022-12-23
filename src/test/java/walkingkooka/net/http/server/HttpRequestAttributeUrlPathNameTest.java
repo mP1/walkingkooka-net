@@ -39,7 +39,10 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
 
     @Test
     public void testInvalidIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> HttpRequestAttributeUrlPathName.with(-1));
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> HttpRequestAttributeUrlPathName.with(-1)
+        );
     }
 
     @Test

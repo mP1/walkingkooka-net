@@ -279,7 +279,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testParseSeveralLinks() {
         this.parseStringAndCheck(
-                "<https://example.com>;rel=previous, <https:///example2.com>",
+                "<https://example.com>;rel=previous, <https://example2.com>",
                 this.createLink()
                         .setParameters(
                                 Maps.of(
