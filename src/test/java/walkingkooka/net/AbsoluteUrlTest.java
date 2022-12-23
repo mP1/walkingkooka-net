@@ -34,7 +34,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     // constants
 
-    private final static UrlScheme SCHEME = UrlScheme.HTTP;
+    private final static UrlScheme SCHEME = UrlScheme.HTTPS;
     private final static Optional<UrlCredentials> CREDENTIALS = UrlCredentials.NO_CREDENTIALS;
     private final static HostAddress HOST = HostAddress.with("host");
     private final static Optional<IpPort> PORT = Optional.of(IpPort.with(123));
@@ -121,7 +121,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testSetSchemeDifferent() {
         final AbsoluteUrl url = this.createUrl();
-        final UrlScheme value = UrlScheme.HTTPS;
+        final UrlScheme value = UrlScheme.HTTP;
         this.checkNotEquals(value, SCHEME);
 
         final AbsoluteUrl different = url.setScheme(value);
@@ -256,7 +256,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     public void testSetDifferent() {
         final AbsoluteUrl url = this.createUrl();
 
-        final UrlScheme scheme = UrlScheme.HTTPS;
+        final UrlScheme scheme = UrlScheme.HTTP;
         this.checkNotEquals(scheme, SCHEME);
 
         final HostAddress host = HostAddress.with("different.example.com");
@@ -419,7 +419,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testParseSchemeHost() {
         final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com");
-        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
         this.checkPortAbsent(url);
@@ -455,7 +455,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testParseSchemeHostPort() {
         final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com:789");
-        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
         this.checkPort(url, IpPort.with(789));
@@ -467,7 +467,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testParseSchemeHostPortSlash() {
         final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com:789/");
-        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
         this.checkPort(url, IpPort.with(789));
@@ -483,7 +483,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeCredentialsHost() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://abc:def@example.com");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://abc:def@example.com");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentials(url, UrlCredentials.with("abc", "def"));
         this.checkHost(url, HostAddress.with("example.com"));
@@ -495,7 +495,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeHostPath() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com/path/to/file");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -507,7 +507,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeHostPathEndsSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com/path/to/file/");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file/");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -519,7 +519,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeHostPathQueryStringFragment() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com/path123?query456#fragment789");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path123?query456#fragment789");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -544,24 +544,32 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testEqualsDifferentScheme() {
-        this.checkNotEquals(Url.absolute(UrlScheme.HTTPS,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT));
+        this.checkNotEquals(
+                Url.absolute(
+                        UrlScheme.HTTP,
+                        CREDENTIALS,
+                        HOST,
+                        PORT,
+                        PATH,
+                        QUERY,
+                        FRAGMENT
+                )
+        );
     }
 
     @Test
     public void testEqualsDifferentHost() {
-        this.checkNotEquals(Url.absolute(UrlScheme.HTTPS,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT));
+        this.checkNotEquals(
+                Url.absolute(
+                        UrlScheme.HTTPS,
+                        CREDENTIALS,
+                        HostAddress.with("different-" + HOST),
+                        PORT,
+                        PATH,
+                        QUERY,
+                        FRAGMENT
+                )
+        );
     }
 
     @Test

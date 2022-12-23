@@ -137,9 +137,13 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     @Test
     public void testToHeaderTextListListOfMany() {
-        this.toHeaderTextListAndCheck("<https://example.com>, https:///example2.com>",
+        this.toHeaderTextListAndCheck(
+                "<https://example.com>, <https://example2.com>",
                 this.createLink(),
-                Link.with(Url.parse("https://example2.com")));
+                Link.with(
+                        Url.parse("https://example2.com")
+                )
+        );
     }
 
     // marshall .....................................................................................................
@@ -274,9 +278,17 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     @Test
     public void testParseSeveralLinks() {
-        this.parseStringAndCheck("<https://example.com>;rel=previous, https:///example2.com>",
-                this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))),
-                Link.with(Url.parse("https://example2.com"))
+        this.parseStringAndCheck(
+                "<https://example.com>;rel=previous, <https:///example2.com>",
+                this.createLink()
+                        .setParameters(
+                                Maps.of(
+                                        LinkParameterName.REL, LinkRelation.parse("previous")
+                                )
+                        ),
+                Link.with(
+                        Url.parse("https://example2.com")
+                )
         );
     }
 
