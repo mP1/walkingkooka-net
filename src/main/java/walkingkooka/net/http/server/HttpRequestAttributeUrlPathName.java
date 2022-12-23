@@ -33,7 +33,7 @@ final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlP
      */
     static HttpRequestAttributeUrlPathName with(final int index) {
         if (index < 0) {
-            throw new IllegalArgumentException("Index " + index + " < 0");
+            throw new IndexOutOfBoundsException("Index " + index + " < 0");
         }
         return index < CONSTANT_COUNT ?
                 CACHE[index] :
