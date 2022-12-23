@@ -57,12 +57,18 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
 
     @Test
     public void testNameWithSlashes() {
-        this.createNameAndCheckWithSlashes("http", "https://");
+        this.createNameAndCheckWithSlashes(
+                "https",
+                "https://"
+        );
     }
 
     @Test
     public void testNameWithSlashes2() {
-        this.createNameAndCheckWithSlashes("HTTP", "https://");
+        this.createNameAndCheckWithSlashes(
+                "HTTPS",
+                "https://"
+        );
     }
 
     private void createNameAndCheckWithSlashes(final String value,
