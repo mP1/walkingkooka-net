@@ -622,28 +622,40 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkEquals(new URL(url), absoluteUrl.toURL());
     }
 
-    // toString..........................................................................................
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.checkEquals("https://host:123/path?query=value#fragment", this.createUrl().toString());
+        this.toStringAndCheck(
+                this.createUrl(),
+                "https://host:123/path?query=value#fragment"
+        );
     }
 
     @Test
     public void testToStringWithCredentials() {
-        this.checkEquals("https://host:123/path?query=value#fragment", this.createUrl().toString());
+        this.toStringAndCheck(
+                this.createUrl().setCredentials(
+                        Optional.of(
+                                UrlCredentials.with("user1", "password2")
+                        )
+                ),
+                "https://user1:password2@host:123/path?query=value#fragment"
+        );
     }
 
     @Test
     public void testToStringUpperCasedScheme() {
-        this.checkEquals("test://host:123",
+        this.toStringAndCheck(
                 AbsoluteUrl.with(UrlScheme.with("TEST"),
                         AbsoluteUrl.NO_CREDENTIALS,
                         HOST,
                         PORT,
                         UrlPath.EMPTY,
                         UrlQueryString.EMPTY,
-                        UrlFragment.EMPTY).toString());
+                        UrlFragment.EMPTY),
+                "test://host:123"
+        );
     }
 
     // factory
