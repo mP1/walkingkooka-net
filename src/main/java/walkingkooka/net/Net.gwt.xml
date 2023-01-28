@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+    <inherits name="walkingkooka.j2cl.java.util.locale.Locale"/>
+
+    <inherits name="java.util.Base64"/>
+    <inherits name="walkingkooka.j2cl.java.net.Net"/>
+    <inherits name="walkingkooka.route.Route"/>
+    <inherits name="walkingkooka.tree.json.Json"/>
+    <source path=""/>
+</module>
