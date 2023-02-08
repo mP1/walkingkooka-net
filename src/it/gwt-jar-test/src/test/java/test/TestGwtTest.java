@@ -5,6 +5,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.j2cl.locale.LocaleAware;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -22,6 +23,7 @@ import walkingkooka.net.header.RangeHeaderUnit;
 
 import java.util.Optional;
 
+@LocaleAware
 public class TestGwtTest extends GWTTestCase {
 
     @Override
