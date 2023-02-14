@@ -18,7 +18,9 @@
 package walkingkooka.net;
 
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
+import walkingkooka.text.Ascii;
 
 import java.util.Objects;
 
@@ -37,9 +39,31 @@ public final class UrlFragment implements Value<String> {
      */
     public static UrlFragment with(final String value) throws NullPointerException, IllegalArgumentException {
         Objects.requireNonNull(value, "value");
+
         return value.isEmpty() ?
                 EMPTY :
-                new UrlFragment(value);
+                new UrlFragment(
+                        checkAscii(value)
+                );
+    }
+
+    /**
+     * Complains if the fragment has a non ascii character.
+     */
+    private static String checkAscii(final String value) {
+        final int length = value.length();
+
+        for (int i = 0; i < length; i++) {
+            final char c = value.charAt(i);
+            if (!Ascii.is(c)) {
+                throw new InvalidCharacterException(
+                        value,
+                        i
+                );
+            }
+        }
+
+        return value;
     }
 
     /**
