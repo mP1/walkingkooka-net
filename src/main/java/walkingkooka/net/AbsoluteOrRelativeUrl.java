@@ -115,7 +115,7 @@ import java.util.Optional;
  *                  / "*" / "+" / "," / ";" / "="
  * </pre>
  */
-public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String> {
+public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>, HasUrlFragment {
 
     /**
      * Helper used by all parse methods.
@@ -229,6 +229,13 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
      * Factory that creates a new {@link AbsoluteOrRelativeUrl}
      */
     abstract AbsoluteOrRelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
+
+    // HasUrlFragment...................................................................................................
+
+    @Override
+    public final UrlFragment urlFragment() {
+        return this.fragment();
+    }
 
     // Object...........................................................................................................
 

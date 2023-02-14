@@ -157,6 +157,18 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         this.checkEquals(this.createUrl(PATH, QUERY, differentFragment), different);
     }
 
+    // HasUrlFragment...................................................................................................
+
+    @Test
+    public final void testHashUrlFragment() {
+        final U url = this.createUrl();
+
+        this.checkEquals(
+                url.fragment(),
+                url.urlFragment()
+        );
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test
