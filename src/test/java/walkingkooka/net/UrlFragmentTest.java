@@ -19,6 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -48,10 +49,65 @@ public final class UrlFragmentTest implements ClassTesting<UrlFragment>,
     }
 
     @Test
+    public void testWithNonAsciiCharFails() {
+        final String value = "abc\u0100";
+
+        final InvalidCharacterException thrown = assertThrows(
+                InvalidCharacterException.class,
+                () -> UrlFragment.with(value)
+        );
+
+        this.checkEquals(
+                value,
+                thrown.text(),
+                "text"
+        );
+
+        this.checkEquals(
+                3,
+                thrown.position(),
+                "position"
+        );
+    }
+
+    @Test
+    public void testWithNonAsciiCharFails2() {
+        final String value = "abc\u1234";
+
+        final InvalidCharacterException thrown = assertThrows(
+                InvalidCharacterException.class,
+                () -> UrlFragment.with(value)
+        );
+
+        this.checkEquals(
+                value,
+                thrown.text(),
+                "text"
+        );
+
+        this.checkEquals(
+                3,
+                thrown.position(),
+                "position"
+        );
+    }
+
+    @Test
     public void testWithEmpty() {
         assertSame(
                 UrlFragment.EMPTY,
                 UrlFragment.with("")
+        );
+    }
+
+    @Test
+    public void testWith() {
+        final String value = "abc123";
+
+        final UrlFragment urlFragment = UrlFragment.with(value);
+        this.checkEquals(
+                value,
+                urlFragment.value()
         );
     }
 
