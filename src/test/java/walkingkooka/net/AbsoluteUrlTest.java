@@ -24,6 +24,7 @@ import walkingkooka.visit.Visiting;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -409,6 +410,17 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         assertSame(fragment, relative.fragment(), "fragment");
     }
 
+
+    @Test
+    public void testFragmentRequiresEncoding() {
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute("http://example.com#space ");
+
+        this.checkEquals(
+                UrlFragment.parse("space"),
+                url.fragment()
+        );
+    }
+
     // parseAbsolute..........................................................................................
 
     @Test
@@ -527,6 +539,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.with("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
+    }
+
+    @Test
+    public void testParseFragmentRequiresEncoding() {
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path123?query456#fragment%20");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/path123"));
+        this.checkQueryString(url, UrlQueryString.with("query456"));
+        this.checkFragment(url, UrlFragment.with("fragment "));
     }
 
     @Test
@@ -656,6 +680,39 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
                         UrlFragment.EMPTY),
                 "test://host:123"
         );
+    }
+
+    @Test
+    public void testToStringFragmentPlus() {
+        this.toStringAndCheck(
+                AbsoluteUrl.parseAbsolute("http://example/path123?query456#fragment+"),
+                "http://example/path123?query456#fragment+"
+        );
+    }
+
+    @Test
+    public void testToStringFragmentPercent20() {
+        this.toStringAndCheck(
+                AbsoluteUrl.parseAbsolute("http://example/path123?query456#fragment%20"),
+                "http://example/path123?query456#fragment+"
+        );
+    }
+
+    @Test
+    public void testParseToStringRoundtrip() throws Exception {
+        final String string = "http://example/path123?query456#fragment";
+
+        for (int i = 128; i < Character.MAX_VALUE; i++) {
+            final String stringWith = string + URLEncoder.encode(
+                    String.valueOf((char) i),
+                    "UTF-8"
+            );
+
+            this.toStringAndCheck(
+                    AbsoluteUrl.parseAbsolute(stringWith),
+                    stringWith
+            );
+        }
     }
 
     // factory

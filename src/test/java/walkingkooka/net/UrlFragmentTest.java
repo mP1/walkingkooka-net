@@ -19,15 +19,16 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlFragmentTest implements ClassTesting<UrlFragment>,
+public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
+        ClassTesting<UrlFragment>,
         HashCodeEqualsDefinedTesting2<UrlFragment>,
         ToStringTesting<UrlFragment> {
 
@@ -40,55 +41,67 @@ public final class UrlFragmentTest implements ClassTesting<UrlFragment>,
         );
     }
 
+    // parse...........................................................................................................
+
+    @Test
+    public void testParseNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlFragment.parse(null)
+        );
+    }
+
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testParseEmpty() {
+        assertSame(
+                UrlFragment.EMPTY,
+                UrlFragment.parse("")
+        );
+    }
+
+    @Test
+    public void testParse() {
+        final String value = "abc123";
+
+        final UrlFragment urlFragment = UrlFragment.parse(value);
+        this.checkEquals(
+                value,
+                urlFragment.value()
+        );
+    }
+
+    @Test
+    public void testParsePlus() {
+        final String value = "space+";
+
+        final UrlFragment urlFragment = UrlFragment.parse(value);
+        this.checkEquals(
+                "space ",
+                urlFragment.value()
+        );
+    }
+
+    @Test
+    public void testParsePercent20() {
+        final UrlFragment urlFragment = UrlFragment.parse("space%20");
+        this.checkEquals(
+                "space ",
+                urlFragment.value()
+        );
+    }
+
+    // with............................................................................................................
+
     @Test
     public void testWithNullFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> UrlFragment.with(null)
-        );
-    }
-
-    @Test
-    public void testWithNonAsciiCharFails() {
-        final String value = "abc\u0100";
-
-        final InvalidCharacterException thrown = assertThrows(
-                InvalidCharacterException.class,
-                () -> UrlFragment.with(value)
-        );
-
-        this.checkEquals(
-                value,
-                thrown.text(),
-                "text"
-        );
-
-        this.checkEquals(
-                3,
-                thrown.position(),
-                "position"
-        );
-    }
-
-    @Test
-    public void testWithNonAsciiCharFails2() {
-        final String value = "abc\u1234";
-
-        final InvalidCharacterException thrown = assertThrows(
-                InvalidCharacterException.class,
-                () -> UrlFragment.with(value)
-        );
-
-        this.checkEquals(
-                value,
-                thrown.text(),
-                "text"
-        );
-
-        this.checkEquals(
-                3,
-                thrown.position(),
-                "position"
         );
     }
 
@@ -135,6 +148,14 @@ public final class UrlFragmentTest implements ClassTesting<UrlFragment>,
         );
     }
 
+    @Test
+    public void testToStringEncoded() {
+        this.toStringAndCheck(
+                UrlFragment.with("space "),
+                "space+"
+        );
+    }
+
     // HashCodeEqualsDefinedTesting2...................................................................................
 
     @Override
@@ -152,5 +173,22 @@ public final class UrlFragmentTest implements ClassTesting<UrlFragment>,
     @Override
     public Class<UrlFragment> type() {
         return UrlFragment.class;
+    }
+
+    // ParseStringTesting..............................................................................................
+
+    @Override
+    public UrlFragment parseString(final String fragment) {
+        return UrlFragment.parse(fragment);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 }

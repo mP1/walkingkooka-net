@@ -65,7 +65,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 ipPort(url),
                 UrlPath.parse(url.getPath()),
                 UrlQueryString.with(nullToEmpty(url.getQuery())),
-                UrlFragment.with(nullToEmpty(url.getRef())));
+                UrlFragment.parse(nullToEmpty(url.getRef())));
     }
 
     private static Optional<UrlCredentials> credentials(final URL url) {

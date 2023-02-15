@@ -43,29 +43,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Sample {
 
     public static void main(final String[] args) {
-        assertEquals(Url.absolute(UrlScheme.HTTPS,
+        new Sample();
+    }
+
+    public Sample() {
+        this.testAbsoluteUrl();
+        this.testEmail();
+        this.testContentRange();
+        this.testAcceptEncoding();
+    }
+
+    public void testAbsoluteUrl() {
+        assertEquals(
+                Url.absolute(UrlScheme.HTTPS,
                         AbsoluteUrl.NO_CREDENTIALS,
                         HostAddress.with("example.com"),
                         Optional.empty(),
                         UrlPath.parse("/path1/path2"),
                         UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
-                        UrlFragment.EMPTY),
-                Url.parse("https://example.com/path1/path2?query3=value3"));
+                        UrlFragment.with("fragment ")),
+                Url.parse("https://example.com/path1/path2?query3=value3#fragment%20")
+        );
+    }
 
+    public void testEmail() {
         final EmailAddress email = EmailAddress.parse("user4@example5.com");
         Assertions.assertEquals(HostAddress.with("example5.com"), email.host());
         Assertions.assertEquals("user4", email.user());
+    }
 
+    public void testContentRange() {
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range
         final ContentRange contentRange = ContentRange.parse("bytes 2-11/888");
         assertEquals(RangeHeaderUnit.BYTES, contentRange.unit());
         assertEquals(Optional.of(Range.greaterThanEquals(2L).and(Range.lessThanEquals(11L))), contentRange.range());
         assertEquals(Optional.of(888L), contentRange.size());
+    }
 
+    public void testAcceptEncoding() {
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding
         final AcceptEncoding acceptEncoding = AcceptEncoding.parse("a;q=0.5,b");
-        assertEquals(Lists.of(AcceptEncodingValue.with("b"),
-                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
+        assertEquals(
+                Lists.of(
+                        AcceptEncodingValue.with("b"),
+                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))
+                ),
                 acceptEncoding.qualityFactorSortedValues());
     }
 }
