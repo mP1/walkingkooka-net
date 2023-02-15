@@ -124,6 +124,45 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
+    // append...........................................................................................................
+
+    @Test
+    public void testAppendNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlFragment.EMPTY.append(null)
+        );
+    }
+
+    @Test
+    public void testAppendEmpty() {
+        final UrlFragment fragment = UrlFragment.with("abc");
+        assertSame(
+                fragment,
+                fragment.append(UrlFragment.EMPTY)
+        );
+    }
+
+    @Test
+    public void testAppendEmptyAppend() {
+        final UrlFragment fragment = UrlFragment.with("abc");
+        assertSame(
+                fragment,
+                UrlFragment.EMPTY.append(fragment)
+        );
+    }
+
+    @Test
+    public void testAppend() {
+        checkEquals(
+                UrlFragment.with("abc123"),
+                UrlFragment.with("abc")
+                        .append(UrlFragment.with("123"))
+        );
+    }
+
+    // equals..........................................................................................................
+
     @Test
     public void testDifferent() {
         this.checkNotEquals(
@@ -139,6 +178,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                 UrlFragment.with("ABC123")
         );
     }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
