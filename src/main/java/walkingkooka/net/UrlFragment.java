@@ -70,6 +70,20 @@ public final class UrlFragment implements Value<String> {
         this.value = value;
     }
 
+    public UrlFragment append(final UrlFragment fragment) {
+        Objects.requireNonNull(fragment, "fragment");
+
+        return this.isEmpty() ?
+                fragment :
+                fragment.isEmpty() ?
+                        this :
+                        with(this.value + fragment.value);
+    }
+
+    private boolean isEmpty() {
+        return this.value().isEmpty();
+    }
+
     /**
      * Returns the fragment in its original form.
      */
