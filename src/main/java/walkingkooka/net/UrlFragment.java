@@ -18,10 +18,11 @@
 package walkingkooka.net;
 
 
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
-import walkingkooka.text.Ascii;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Objects;
 
 /**
@@ -35,6 +36,22 @@ public final class UrlFragment implements Value<String> {
     public final static UrlFragment EMPTY = new UrlFragment("");
 
     /**
+     * Parses the given text typically from a URL into a {@link UrlFragment}.
+     */
+    public static UrlFragment parse(final String value) throws NullPointerException, IllegalArgumentException {
+        try {
+            return with(
+                    URLDecoder.decode(
+                            value,
+                            UTF8
+                    )
+            );
+        } catch (final UnsupportedEncodingException cause) {
+            throw new Error(cause);
+        }
+    }
+
+    /**
      * Factory that creates a {@link UrlFragment}.
      */
     public static UrlFragment with(final String value) throws NullPointerException, IllegalArgumentException {
@@ -42,28 +59,7 @@ public final class UrlFragment implements Value<String> {
 
         return value.isEmpty() ?
                 EMPTY :
-                new UrlFragment(
-                        checkAscii(value)
-                );
-    }
-
-    /**
-     * Complains if the fragment has a non ascii character.
-     */
-    private static String checkAscii(final String value) {
-        final int length = value.length();
-
-        for (int i = 0; i < length; i++) {
-            final char c = value.charAt(i);
-            if (!Ascii.is(c)) {
-                throw new InvalidCharacterException(
-                        value,
-                        i
-                );
-            }
-        }
-
-        return value;
+                new UrlFragment(value);
     }
 
     /**
@@ -103,13 +99,22 @@ public final class UrlFragment implements Value<String> {
 
     @Override
     public String toString() {
-        return this.value;
+        try {
+            return URLEncoder.encode(
+                    this.value,
+                    UTF8
+            );
+        } catch (final UnsupportedEncodingException cause) {
+            throw new Error(cause);
+        }
     }
+
+    private final static String UTF8 = "UTF-8";
 
     void toString0(final StringBuilder b) {
         if (!this.value.isEmpty()) {
             b.append(Url.FRAGMENT_START.character());
-            b.append(this.value);
+            b.append(this.toString());
         }
     }
 }
