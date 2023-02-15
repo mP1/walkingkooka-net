@@ -41,6 +41,14 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
+    @Test
+    public void testSlash() {
+        this.checkEquals(
+                "/",
+                UrlFragment.SLASH.value()
+        );
+    }
+
     // parse...........................................................................................................
 
     @Test

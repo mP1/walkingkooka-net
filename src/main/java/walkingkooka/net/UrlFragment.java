@@ -36,6 +36,11 @@ public final class UrlFragment implements Value<String> {
     public final static UrlFragment EMPTY = new UrlFragment("");
 
     /**
+     * An empty or absent fragment.
+     */
+    public final static UrlFragment SLASH = new UrlFragment("/");
+
+    /**
      * Parses the given text typically from a URL into a {@link UrlFragment}.
      */
     public static UrlFragment parse(final String value) throws NullPointerException, IllegalArgumentException {
