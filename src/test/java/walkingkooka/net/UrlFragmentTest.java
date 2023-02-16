@@ -191,14 +191,43 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
     @Test
     public void testToString() {
+        this.toStringAndCheck2("abc123");
+    }
+
+    @Test
+    public void testToStringColon() {
+        this.toStringAndCheck2(":abc:123");
+    }
+
+    @Test
+    public void testToStringSlash() {
+        this.toStringAndCheck2("/abc/123");
+    }
+
+    @Test
+    public void testToStringQuestionMark() {
+        this.toStringAndCheck2("abc?123");
+    }
+
+    @Test
+    public void testToStringLeftRightBracket() {
+        this.toStringAndCheck2("[abc]");
+    }
+
+    @Test
+    public void testToStringAtSign() {
+        this.toStringAndCheck2("email@example.com");
+    }
+
+    private void toStringAndCheck2(final String verbatim) {
         this.toStringAndCheck(
-                UrlFragment.with("abc123"),
-                "abc123"
+                UrlFragment.with(verbatim),
+                verbatim
         );
     }
 
     @Test
-    public void testToStringEncoded() {
+    public void testToStringSpace() {
         this.toStringAndCheck(
                 UrlFragment.with("space "),
                 "space+"

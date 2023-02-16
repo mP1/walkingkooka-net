@@ -116,17 +116,36 @@ public final class UrlFragment implements Value<String> {
         return this.value.equals(other.value);
     }
 
+    // *    unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+    // *    reserved      = gen-delims / sub-delims
+    // *    gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+    // *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
+    // *                  / "*" / "+" / "," / ";" / "="
     @Override
     public String toString() {
         try {
             return URLEncoder.encode(
-                    this.value,
-                    UTF8
-            );
+                            this.value,
+                            UTF8
+                    ).replace(ENCODED_COLON, ":")
+                    .replace(ENCODED_SLASH, "/")
+                    .replace(ENCODED_QUESTION_MARK, "?")
+                    .replace(ENCODED_HASH, "#")
+                    .replace(ENCODED_BRACKET_OPEN, "[")
+                    .replace(ENCODED_BRACKET_CLOSE, "]")
+                    .replace(ENCODED_AT_SIGN, "@");
         } catch (final UnsupportedEncodingException cause) {
             throw new Error(cause);
         }
     }
+
+    private final static String ENCODED_COLON = URLEncoder.encode(":");
+    private final static String ENCODED_SLASH = URLEncoder.encode("/");
+    private final static String ENCODED_QUESTION_MARK = URLEncoder.encode("?");
+    private final static String ENCODED_HASH = URLEncoder.encode(":");
+    private final static String ENCODED_BRACKET_OPEN = URLEncoder.encode("[");
+    private final static String ENCODED_BRACKET_CLOSE = URLEncoder.encode("]");
+    private final static String ENCODED_AT_SIGN = URLEncoder.encode("@");
 
     private final static String UTF8 = "UTF-8";
 
