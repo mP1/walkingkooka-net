@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparators;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -534,9 +535,17 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
 
         LinkRelation<?> relation = CONSTANTS.get(value);
         if (null == relation) {
-            try {
-                relation = LinkRelationUrl.url(value);
-            } catch (final RuntimeException cause) {
+            if (
+                    CaseSensitivity.INSENSITIVE.startsWith(value, "http://") ||
+                            CaseSensitivity.INSENSITIVE.startsWith(value, "https://")) {
+                try {
+                    relation = LinkRelationUrl.url(value);
+                } catch (final RuntimeException cause) {
+                    //
+                }
+            }
+
+            if (null == relation) {
                 relation = LinkRelationRegular.regular(value);
             }
         }
