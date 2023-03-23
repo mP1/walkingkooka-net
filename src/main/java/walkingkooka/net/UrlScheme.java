@@ -170,5 +170,8 @@ public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
         return CASE_SENSITIVITY;
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    /**
+     * The {@link CaseSensitivity} for {@link UrlScheme}
+     */
+    public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 }
