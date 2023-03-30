@@ -39,11 +39,11 @@ public final class UrlQueryString implements Value<String> {
     /**
      * An empty {@link UrlQueryString} with no length or parameters.
      */
-    public final static UrlQueryString EMPTY = new UrlQueryString("", Lists.empty(), Maps.empty());
-
-    private final static List<UrlParameterKeyValuePair> PARAMETER_PAIRS_ABSENT = null;
-
-    private final static Map<UrlParameterName, UrlParameterValueList> PARAMETERS_MAP_ABSENT = null;
+    public final static UrlQueryString EMPTY = new UrlQueryString(
+            "",
+            Lists.empty(),
+            Maps.empty()
+    );
 
     /**
      * Factory that creates a new {@link UrlQueryString}
@@ -339,7 +339,7 @@ public final class UrlQueryString implements Value<String> {
     /**
      * Cache of {@link Map} of all parameters taken from the query string.
      */
-    transient private List<UrlParameterKeyValuePair> pairs;
+    private final List<UrlParameterKeyValuePair> pairs;
 
     // Object.........................................................................................................
 
