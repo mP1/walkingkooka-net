@@ -41,7 +41,8 @@ public final class UrlQueryString implements Value<String> {
      */
     public final static UrlQueryString EMPTY = new UrlQueryString("", Lists.empty(), Maps.empty());
 
-    private final static List<UrlParameterKeyValuePair> ENTRIES_ABSENT = null;
+    private final static List<UrlParameterKeyValuePair> PARAMETER_PAIRS_ABSENT = null;
+
     private final static Map<UrlParameterName, UrlParameterValueList> PARAMETERS_MAP_ABSENT = null;
 
     /**
@@ -52,7 +53,11 @@ public final class UrlQueryString implements Value<String> {
 
         return value.length() == 0 ?
                 UrlQueryString.EMPTY :
-                new UrlQueryString(value, ENTRIES_ABSENT, PARAMETERS_MAP_ABSENT);
+                new UrlQueryString(
+                        value,
+                        PARAMETER_PAIRS_ABSENT,
+                        PARAMETERS_MAP_ABSENT
+                );
     }
 
     /**
@@ -121,10 +126,14 @@ public final class UrlQueryString implements Value<String> {
      * Retrieves the parameter with the name returning all values or an empty list.
      */
     public List<String> parameterValues(final UrlParameterName name) {
-        return this.parameters().getOrDefault(name, NO_VALUES);
+        return this.parameters()
+                .getOrDefault(
+                        name,
+                        PARAMETER_VALUES_MISSING
+                );
     }
 
-    private final static List<String> NO_VALUES = Lists.empty();
+    private final static List<String> PARAMETER_VALUES_MISSING = Lists.empty();
 
     /**
      * Lazily parses the query string which initializes the map and list of pairs.
