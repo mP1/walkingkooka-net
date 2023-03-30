@@ -201,7 +201,7 @@ public final class UrlQueryString implements Value<String> {
         final UrlParameterValueList values = UrlParameterValueList.empty();
         values.addParameterValue(value);
 
-        return new UrlQueryString(encode(name, value),
+        return new UrlQueryString(encodeParameter(name, value),
                 Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
                 Maps.of(name, values));
     }
@@ -227,7 +227,7 @@ public final class UrlQueryString implements Value<String> {
 
         // queryString already ends in separator just append new key/value.
         if (paramSeparator == last || paramSeparator2 == last) {
-            queryString = queryString + encode(name, value);
+            queryString = queryString + encodeParameter(name, value);
         } else {
             char lastParamSeparator = paramSeparator;
 
@@ -239,17 +239,21 @@ public final class UrlQueryString implements Value<String> {
                     break;
                 }
             }
-            queryString = queryString + lastParamSeparator + encode(name, value);
+            queryString = queryString + lastParamSeparator + encodeParameter(name, value);
         }
 
         return new UrlQueryString(queryString, pairs, parameters);
     }
 
-    private static String encode(final UrlParameterName name, final String value) {
-        return encode(name.value()) + Url.QUERY_NAME_VALUE_SEPARATOR.character() + encode(value);
+    private static String encodeParameter(final UrlParameterName name,
+                                          final String value) {
+        return encodeParameterValue(
+                name.value()
+        ) + Url.QUERY_NAME_VALUE_SEPARATOR.character() +
+                encodeParameterValue(value);
     }
 
-    private static String encode(final String value) {
+    private static String encodeParameterValue(final String value) {
         try {
             return URLEncoder.encode(value, "UTF-8");
         } catch (final UnsupportedEncodingException never) {
