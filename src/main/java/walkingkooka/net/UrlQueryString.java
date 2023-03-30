@@ -53,17 +53,51 @@ public final class UrlQueryString implements Value<String> {
 
         return value.length() == 0 ?
                 UrlQueryString.EMPTY :
-                new UrlQueryString(
-                        value,
-                        PARAMETER_PAIRS_ABSENT,
-                        PARAMETERS_MAP_ABSENT
-                );
+                parseNotEmpty(value);
+    }
+
+    private static UrlQueryString parseNotEmpty(final String queryString) {
+        final List<UrlParameterKeyValuePair> pairs = Lists.array();
+        final Map<UrlParameterName, UrlParameterValueList> parameters = Maps.ordered();
+
+        final char paramSeparator = Url.QUERY_PARAMETER_SEPARATOR.character();
+        final char paramSeparator2 = Url.QUERY_PARAMETER_SEPARATOR2.character();
+
+        // parse query
+        final int length = queryString.length();
+        int start = 0;
+
+        for (int i = 0; i < length; i++) {
+            final char c = queryString.charAt(i);
+
+            // end of name/value pair
+            if (paramSeparator == c || paramSeparator2 == c) {
+                final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithSeparator(queryString.substring(start, i), c);
+                add(pair, parameters);
+                pairs.add(pair);
+                start = i + 1;
+            }
+        }
+
+        if (start < length) {
+            final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithoutSeparator(queryString.substring(start, length));
+            add(pair, parameters);
+            pairs.add(pair);
+        }
+
+        return new UrlQueryString(
+                queryString,
+                Lists.immutable(pairs),
+                Maps.readOnly(parameters)
+        );
     }
 
     /**
      * Private constructor use factory
      */
-    private UrlQueryString(final String queryString, final List<UrlParameterKeyValuePair> pairs, final Map<UrlParameterName, UrlParameterValueList> parameters) {
+    private UrlQueryString(final String queryString,
+                           final List<UrlParameterKeyValuePair> pairs,
+                           final Map<UrlParameterName, UrlParameterValueList> parameters) {
         super();
         this.queryString = queryString;
         this.pairs = pairs;
@@ -86,14 +120,13 @@ public final class UrlQueryString implements Value<String> {
      * Returns a read-only {@link Map} holding all the parameters and values.
      */
     public Map<UrlParameterName, List<String>> parameters() {
-        this.parseQueryStringIfNecessary();
         return Cast.to(this.parameters);
     }
 
     /**
      * Lazily created map.
      */
-    private transient Map<UrlParameterName, UrlParameterValueList> parameters;
+    private final Map<UrlParameterName, UrlParameterValueList> parameters;
 
     /**
      * Makes a copy of all parameters.
@@ -108,8 +141,6 @@ public final class UrlQueryString implements Value<String> {
      * Retrieves the parameter with the name returning the first value.
      */
     public Optional<String> parameter(final UrlParameterName name) {
-        this.parseQueryStringIfNecessary();
-
         Optional<String> value = Optional.empty();
 
         for (UrlParameterKeyValuePair pair : this.pairs) {
@@ -136,55 +167,11 @@ public final class UrlQueryString implements Value<String> {
     private final static List<String> PARAMETER_VALUES_MISSING = Lists.empty();
 
     /**
-     * Lazily parses the query string which initializes the map and list of pairs.
-     */
-    private void parseQueryStringIfNecessary() {
-        if (null == this.parameters) {
-            this.parseQueryString();
-        }
-    }
-
-    /**
-     * Parses the query string and creates a map of decoded query parameters and key/value pairs.
-     */
-    private void parseQueryString() {
-        final List<UrlParameterKeyValuePair> pairs = Lists.array();
-        final Map<UrlParameterName, UrlParameterValueList> parameters = Maps.ordered();
-
-        final char paramSeparator = Url.QUERY_PARAMETER_SEPARATOR.character();
-        final char paramSeparator2 = Url.QUERY_PARAMETER_SEPARATOR2.character();
-        final String queryString = this.queryString;
-
-        // parse query
-        final int length = queryString.length();
-        int start = 0;
-
-        for (int i = 0; i < length; i++) {
-            final char c = queryString.charAt(i);
-
-            // end of name/value pair
-            if (paramSeparator == c || paramSeparator2 == c) {
-                final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithSeparator(queryString.substring(start, i), c);
-                add(pair, parameters);
-                pairs.add(pair);
-                start = i + 1;
-            }
-        }
-
-        if (start < length) {
-            final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithoutSeparator(queryString.substring(start, length));
-            add(pair, parameters);
-            pairs.add(pair);
-        }
-
-        this.parameters = Maps.readOnly(parameters);
-        this.pairs = Lists.immutable(pairs);
-    }
-
-    /**
      * Adds values to the multimap of values.
      */
-    private static void add(final UrlParameterKeyValuePair pair, final Map<UrlParameterName, UrlParameterValueList> parameters) {
+    private static void add(final UrlParameterKeyValuePair pair,
+                            final Map<UrlParameterName,
+                                    UrlParameterValueList> parameters) {
         final UrlParameterName name = pair.name;
         UrlParameterValueList values = parameters.get(name);
         if (null == values) {
@@ -197,7 +184,8 @@ public final class UrlQueryString implements Value<String> {
     /**
      * Adds a new parameter to this query string.
      */
-    public UrlQueryString addParameter(final UrlParameterName name, final String value) {
+    public UrlQueryString addParameter(final UrlParameterName name,
+                                       final String value) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
 
@@ -206,7 +194,8 @@ public final class UrlQueryString implements Value<String> {
                 this.addParameter1(name, value);
     }
 
-    private UrlQueryString addParameter0(final UrlParameterName name, final String value) {
+    private UrlQueryString addParameter0(final UrlParameterName name,
+                                         final String value) {
         final UrlParameterValueList values = UrlParameterValueList.empty();
         values.addParameterValue(value);
 
@@ -215,9 +204,8 @@ public final class UrlQueryString implements Value<String> {
                 Maps.of(name, values));
     }
 
-    private UrlQueryString addParameter1(final UrlParameterName name, final String value) {
-        this.parseQueryStringIfNecessary();
-
+    private UrlQueryString addParameter1(final UrlParameterName name,
+                                         final String value) {
         final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.nameAndValue(name, value);
 
         final List<UrlParameterKeyValuePair> pairs = this.pairsCopy();
@@ -282,16 +270,16 @@ public final class UrlQueryString implements Value<String> {
     /**
      * Removes all parameter values with the given name and value
      */
-    public UrlQueryString removeParameter(final UrlParameterName name, final String value) {
+    public UrlQueryString removeParameter(final UrlParameterName name,
+                                          final String value) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
 
         return this.removeParameter0(name, value);
     }
 
-    private UrlQueryString removeParameter0(final UrlParameterName name, final String value) {
-        this.parseQueryStringIfNecessary();
-
+    private UrlQueryString removeParameter0(final UrlParameterName name,
+                                            final String value) {
         final List<UrlParameterKeyValuePair> pairs = this.pairsCopy();
         boolean removed = false;
         final StringBuilder queryString = new StringBuilder();
@@ -357,11 +345,11 @@ public final class UrlQueryString implements Value<String> {
 
     @Override
     public int hashCode() {
-        return this.value().hashCode();
+        return this.parameters().hashCode();
     }
 
     /**
-     * Compares the query string for equality.
+     * Compares the decoded parameter pairs for equality, ignoring the query string form.
      */
     @Override
     public boolean equals(final Object other) {
@@ -371,7 +359,9 @@ public final class UrlQueryString implements Value<String> {
     }
 
     private boolean equals0(final UrlQueryString other) {
-        return this.value().equals(other.value());
+        return this.parameters().equals(
+                other.parameters()
+        );
     }
 
     /**

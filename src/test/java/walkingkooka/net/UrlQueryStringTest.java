@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
+public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
+        HashCodeEqualsDefinedTesting {
 
     @Test
     public void testWithNullFails() {
@@ -509,6 +511,26 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
     private void checkToString(final UrlQueryString queryString, final String toString) {
         this.checkEquals(toString, queryString.toString(), "UrlQueryString.toString failure");
     }
+
+    // equals...........................................................................................................
+
+    @Test
+    public void testEqualsDifferentParameters() {
+        this.checkNotEquals(
+                UrlQueryString.with("a=1"),
+                UrlQueryString.with("b=2")
+        );
+    }
+
+    @Test
+    public void testEqualsEquivalentButQueryStringDifferent() {
+        this.checkEquals(
+                UrlQueryString.with("a=%20"),
+                UrlQueryString.with("a= ")
+        );
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<UrlQueryString> type() {
