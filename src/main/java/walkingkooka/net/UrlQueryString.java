@@ -369,7 +369,12 @@ public final class UrlQueryString implements Value<String> {
         return this.queryString;
     }
 
-    void toString0(final StringBuilder b) {
+    /**
+     * This method is only called by {@link AbsoluteOrRelativeUrl#toString()} and auto adds {@link Url#QUERY_START}
+     * if the query string is not empty.
+     * Normal query string do not actually include the question mark within their value.
+     */
+    void absoluteOrRelativeUrlToString(final StringBuilder b) {
         final String queryString = this.queryString;
         if (!queryString.isEmpty()) {
             b.append(Url.QUERY_START.character());
