@@ -247,7 +247,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
         final StringBuilder b = new StringBuilder();
         this.toString0(b);
         b.append(this.path);
-        this.query.toString0(b);
+        this.query.absoluteOrRelativeUrlToString(b);
         this.fragment.toString0(b);
         return b.toString();
     }
