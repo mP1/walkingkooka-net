@@ -48,7 +48,7 @@ public final class UrlQueryString implements Value<String> {
     /**
      * Factory that creates a new {@link UrlQueryString}
      */
-    public static UrlQueryString with(final String value) {
+    public static UrlQueryString parse(final String value) {
         Objects.requireNonNull(value, "queryString");
 
         return value.length() == 0 ?

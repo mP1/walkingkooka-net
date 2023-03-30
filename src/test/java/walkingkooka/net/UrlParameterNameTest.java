@@ -232,7 +232,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     public void testParameterValueMap() {
         final UrlParameterName name = this.createName("param1");
         this.checkEquals(Optional.of(Lists.of("value1")),
-                name.parameterValue(UrlQueryString.with("param1=value1&param2=value2").parameters()));
+                name.parameterValue(UrlQueryString.parse("param1=value1&param2=value2").parameters()));
     }
 
     // Comparable.......................................................................................................

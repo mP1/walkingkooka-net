@@ -80,7 +80,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
             final String queryString = request.getQueryString();
 
             this.url = null != queryString ?
-                    relativeUrl.setQuery(UrlQueryString.with(queryString)) :
+                    relativeUrl.setQuery(UrlQueryString.parse(queryString)) :
                     relativeUrl;
         }
         return this.url;
