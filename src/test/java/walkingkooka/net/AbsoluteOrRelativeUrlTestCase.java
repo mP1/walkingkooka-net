@@ -35,7 +35,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     // constants
 
     final static UrlPath PATH = UrlPath.parse("/path");
-    final static UrlQueryString QUERY = UrlQueryString.with("query=value");
+    final static UrlQueryString QUERY = UrlQueryString.parse("query=value");
     final static UrlFragment FRAGMENT = UrlFragment.with("fragment");
 
     // tests
@@ -128,7 +128,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     public final void testSetQueryDifferent() {
         final U url = this.createUrl();
 
-        final UrlQueryString differentQueryString = UrlQueryString.with("different=value");
+        final UrlQueryString differentQueryString = UrlQueryString.parse("different=value");
         final Url different = url.setQuery(differentQueryString);
         assertNotSame(url, different);
         this.checkEquals(this.createUrl(PATH, differentQueryString, FRAGMENT), different);
@@ -179,7 +179,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testEqualsDifferentQuery() {
-        this.checkNotEquals(this.createUrl(PATH, UrlQueryString.with("differentQueryString"), FRAGMENT));
+        this.checkNotEquals(this.createUrl(PATH, UrlQueryString.parse("differentQueryString"), FRAGMENT));
     }
 
     @Test

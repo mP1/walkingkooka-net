@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -34,16 +35,17 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
-        HashCodeEqualsDefinedTesting {
+        HashCodeEqualsDefinedTesting,
+        ParseStringTesting<UrlQueryString> {
 
-    @Test
-    public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> UrlQueryString.with(null));
+    @Override
+    public void testParseStringEmptyFails() {
+        // nop
     }
 
     @Test
     public void testWithEmpty() {
-        final UrlQueryString queryString = UrlQueryString.with("");
+        final UrlQueryString queryString = UrlQueryString.parse("");
         assertSame(UrlQueryString.EMPTY, queryString);
 
         this.checkEquals(Maps.empty(), queryString.parameters(), "parameters");
@@ -54,35 +56,35 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testKeyOnly() {
-        final UrlQueryString queryString = UrlQueryString.with("a");
+        final UrlQueryString queryString = UrlQueryString.parse("a");
 
         this.parameterValuesAndCheck(queryString, "a", "");
     }
 
     @Test
     public void testKeyOnly2() {
-        final UrlQueryString queryString = UrlQueryString.with("abc");
+        final UrlQueryString queryString = UrlQueryString.parse("abc");
 
         this.parameterValuesAndCheck(queryString, "abc", "");
     }
 
     @Test
     public void testKeyValuePair() {
-        final UrlQueryString queryString = UrlQueryString.with("a=z");
+        final UrlQueryString queryString = UrlQueryString.parse("a=z");
 
         this.parameterValuesAndCheck(queryString, "a", "z");
     }
 
     @Test
     public void testKeyValuePair2() {
-        final UrlQueryString queryString = UrlQueryString.with("abc=def");
+        final UrlQueryString queryString = UrlQueryString.parse("abc=def");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
     }
 
     @Test
     public void testTwoKeyValuePair() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b&c=d");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b&c=d");
 
         this.parameterValuesAndCheck(queryString, "a", "b");
         this.parameterValuesAndCheck(queryString, "c", "d");
@@ -90,7 +92,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testTwoKeyValuePair2() {
-        final UrlQueryString queryString = UrlQueryString.with("abc=def&ghi=jkl");
+        final UrlQueryString queryString = UrlQueryString.parse("abc=def&ghi=jkl");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
         this.parameterValuesAndCheck(queryString, "ghi", "jkl");
@@ -98,7 +100,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testKeyValueSemiColonKeyValue2() {
-        final UrlQueryString queryString = UrlQueryString.with("abc=def;ghi=jkl");
+        final UrlQueryString queryString = UrlQueryString.parse("abc=def;ghi=jkl");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
         this.parameterValuesAndCheck(queryString, "ghi", "jkl");
@@ -106,14 +108,14 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testKeyMultipleValues() {
-        final UrlQueryString queryString = UrlQueryString.with("a=1&a=2");
+        final UrlQueryString queryString = UrlQueryString.parse("a=1&a=2");
 
         this.parameterValuesAndCheck(queryString, "a", "1", "2");
     }
 
     @Test
     public void testKeyMultipleValues2() {
-        final UrlQueryString queryString = UrlQueryString.with("a=1&def=ghi&a=2&a=3");
+        final UrlQueryString queryString = UrlQueryString.parse("a=1&def=ghi&a=2&a=3");
 
         this.parameterValuesAndCheck(queryString, "a", "1", "2", "3");
         this.parameterValuesAndCheck(queryString, "def", "ghi");
@@ -182,7 +184,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testAddParameterNonEmpty() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2");
         final UrlQueryString updated = first.addParameter(this.name("c"), "3");
 
         this.parameterWithValueCheck(updated, "a", "1");
@@ -194,7 +196,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testAddParameterNonEmpty2() {
-        final UrlQueryString first = UrlQueryString.with("a=1;b=2");
+        final UrlQueryString first = UrlQueryString.parse("a=1;b=2");
         final UrlQueryString updated = first.addParameter(this.name("c"), "3");
 
         this.parameterWithValueCheck(updated, "a", "1");
@@ -214,25 +216,25 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameAbsent() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         assertSame(queryString, queryString.removeParameter(name("absent")));
     }
 
     @Test
     public void testRemoveParameterNameOnly() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         assertSame(UrlQueryString.EMPTY, queryString.removeParameter(name("a")));
     }
 
     @Test
     public void testRemoveParameterNameOnlyMultipleValues() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b&a=c");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b&a=c");
         assertSame(UrlQueryString.EMPTY, queryString.removeParameter(name("a")));
     }
 
     @Test
     public void testRemoveParameterNameNotOnly() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("a"));
 
         this.parameterAbsent(updated, "a");
@@ -244,7 +246,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameNotOnly2() {
-        final UrlQueryString first = UrlQueryString.with("a=1;b=2;c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1;b=2;c=3");
         final UrlQueryString updated = first.removeParameter(this.name("a"));
 
         this.parameterAbsent(updated, "a");
@@ -256,7 +258,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameNotOnly3() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("b"));
 
         this.parameterAbsent(updated, "b");
@@ -268,7 +270,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameNotOnly4() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("c"));
 
         this.parameterAbsent(updated, "c");
@@ -288,31 +290,31 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueAbsent() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         assertSame(queryString, queryString.removeParameter(name("absent"), "1"));
     }
 
     @Test
     public void testRemoveParameterNameValueAbsentDifferentValue() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         assertSame(queryString, queryString.removeParameter(name("a"), "different"));
     }
 
     @Test
     public void testRemoveParameterNameValueOnly() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         assertSame(UrlQueryString.EMPTY, queryString.removeParameter(name("a"), "b"));
     }
 
     @Test
     public void testRemoveParameterNameValueOnlyMultipleValues() {
-        final UrlQueryString queryString = UrlQueryString.with("a=b&a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b&a=b");
         assertSame(UrlQueryString.EMPTY, queryString.removeParameter(name("a"), "b"));
     }
 
     @Test
     public void testRemoveParameterNameValueNotOnly() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "1");
         assertNotSame(first, updated);
 
@@ -325,7 +327,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnly2() {
-        final UrlQueryString first = UrlQueryString.with("a=1;b=2;c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1;b=2;c=3");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "1");
         assertNotSame(first, updated);
 
@@ -338,7 +340,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnly3() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("b"), "2");
         assertNotSame(first, updated);
 
@@ -351,7 +353,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnly4() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3");
         final UrlQueryString updated = first.removeParameter(this.name("c"), "3");
         assertNotSame(first, updated);
 
@@ -364,7 +366,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnlyIgnoresDifferentValue() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3&a=4");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3&a=4");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "4");
         assertNotSame(first, updated);
 
@@ -377,7 +379,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnlyIgnoresDifferentValue2() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3&a=4");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3&a=4");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "1");
         assertNotSame(first, updated);
 
@@ -390,7 +392,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnlyIgnoresDifferentValue3() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3&a=4&a=1");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3&a=4&a=1");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "1");
         assertNotSame(first, updated);
 
@@ -403,7 +405,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     @Test
     public void testRemoveParameterNameValueNotOnlyIgnoresDifferentValue4() {
-        final UrlQueryString first = UrlQueryString.with("a=1&b=2&c=3&a=4&a=1");
+        final UrlQueryString first = UrlQueryString.parse("a=1&b=2&c=3&a=4&a=1");
         final UrlQueryString updated = first.removeParameter(this.name("a"), "4");
         assertNotSame(first, updated);
 
@@ -517,16 +519,16 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     @Test
     public void testEqualsDifferentParameters() {
         this.checkNotEquals(
-                UrlQueryString.with("a=1"),
-                UrlQueryString.with("b=2")
+                UrlQueryString.parse("a=1"),
+                UrlQueryString.parse("b=2")
         );
     }
 
     @Test
     public void testEqualsEquivalentButQueryStringDifferent() {
         this.checkEquals(
-                UrlQueryString.with("a=%20"),
-                UrlQueryString.with("a= ")
+                UrlQueryString.parse("a=%20"),
+                UrlQueryString.parse("a= ")
         );
     }
 
@@ -540,5 +542,22 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting...............................................................................................
+
+    @Override
+    public UrlQueryString parseString(final String queryString) {
+        return UrlQueryString.parse(queryString);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> type) {
+        return type;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException cause) {
+        return cause;
     }
 }

@@ -64,7 +64,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
                 HostAddress.with(url.getHost()),
                 ipPort(url),
                 UrlPath.parse(url.getPath()),
-                UrlQueryString.with(nullToEmpty(url.getQuery())),
+                UrlQueryString.parse(nullToEmpty(url.getQuery())),
                 UrlFragment.parse(nullToEmpty(url.getRef())));
     }
 

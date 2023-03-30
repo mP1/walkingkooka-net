@@ -425,7 +425,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testAddQueryString() {
         final UrlPath path = this.createPath();
-        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
         final RelativeUrl url = path.addQueryString(queryString);
         assertSame(path, url.path(), "path");
         assertSame(queryString, url.query(), "queryString");

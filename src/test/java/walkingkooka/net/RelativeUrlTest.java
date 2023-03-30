@@ -66,7 +66,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     public void testParsePathQueryStringFragment() {
         final RelativeUrl url = RelativeUrl.parseRelative0("/path123?query456#fragment789");
         this.checkPath(url, UrlPath.parse("/path123"));
-        this.checkQueryString(url, UrlQueryString.with("query456"));
+        this.checkQueryString(url, UrlQueryString.parse("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }
 

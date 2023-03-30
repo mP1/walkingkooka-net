@@ -405,7 +405,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     @Test
     public void testQueryStringParameterWithMultipleValueFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createRouting().queryString(UrlQueryString.with("a=1&a=2"), Predicates.fake()));
+        assertThrows(IllegalArgumentException.class, () -> this.createRouting().queryString(UrlQueryString.parse("a=1&a=2"), Predicates.fake()));
     }
 
     @Test
@@ -449,7 +449,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
                                      final Predicate<String> ignoreValue,
                                      final Map<?, ?> expected) {
         final HttpRequestAttributeRouting routing = this.createRouting();
-        final HttpRequestAttributeRouting routing2 = routing.queryString(UrlQueryString.with(queryString), ignoreValue);
+        final HttpRequestAttributeRouting routing2 = routing.queryString(UrlQueryString.parse(queryString), ignoreValue);
 
         assertNotSame(routing, routing2);
 
@@ -737,7 +737,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .queryString(UrlQueryString.with("parameter1=a1&parameter2=b2"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
+                .queryString(UrlQueryString.parse("parameter1=a1&parameter2=b2"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -759,7 +759,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .queryString(UrlQueryString.with("parameter1=a1&parameter2=*"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
+                .queryString(UrlQueryString.parse("parameter1=a1&parameter2=*"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
