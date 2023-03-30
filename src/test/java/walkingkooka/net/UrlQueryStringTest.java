@@ -444,22 +444,62 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
         parameterValuesAndCheck0(queryString, key, Lists.of(values));
     }
 
-    private void parameterValuesAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
-        this.checkEquals(values,
-                queryString.parameterValues(this.name(key)),
-                "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString);
+    private void parameterValuesAndCheck0(final UrlQueryString queryString,
+                                          final String key,
+                                          final List<String> values) {
+        final List<String> actualValues = queryString.parameterValues(
+                this.name(key)
+        );
+
+        this.checkNotEquals(
+                null,
+                actualValues
+        );
+
+        this.checkEquals(
+                values,
+                actualValues,
+                "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString
+        );
+
+        // https://github.com/mP1/walkingkooka/issues/2575
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> actualValues.add(null)
+        );
     }
 
     // UrlQueryString.parameters().get() -> List
 
-    private void parametersGetAndCheck(final UrlQueryString queryString, final String key, final String... values) {
-        parametersGetAndCheck0(queryString, key, Lists.of(values));
+    private void parametersGetAndCheck(final UrlQueryString queryString,
+                                       final String key,
+                                       final String... values) {
+        parametersGetAndCheck0(
+                queryString,
+                key,
+                Lists.of(values)
+        );
     }
 
-    private void parametersGetAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
-        this.checkEquals(values,
-                queryString.parameters().get(this.name(key)),
-                "UrlQueryString.parameters().get(" + CharSequences.quote(key) + ") in: " + queryString);
+    private void parametersGetAndCheck0(final UrlQueryString queryString,
+                                        final String key,
+                                        final List<String> values) {
+        final List<String> actualValues = queryString.parameters()
+                .get(this.name(key));
+
+        this.checkEquals(
+                values,
+                actualValues,
+                "UrlQueryString.parameter().get(" + CharSequences.quote(key) + ") in: " + queryString
+        );
+
+        if (null != values) {
+            // https://github.com/mP1/walkingkooka/issues/2575
+            assertThrows(
+                    UnsupportedOperationException.class,
+                    () -> actualValues.add(null)
+            );
+        }
     }
 
     private UrlParameterName name(final String name) {

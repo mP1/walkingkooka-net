@@ -169,7 +169,7 @@ public final class UrlQueryString implements Value<String> {
         }
 
         this.parameters = Maps.readOnly(parameters);
-        this.pairs = pairs;
+        this.pairs = Lists.immutable(pairs);
     }
 
     /**
