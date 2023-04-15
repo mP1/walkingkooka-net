@@ -188,6 +188,41 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * Verifies the characters in the range. This is used to check all characters in the {@link String} as well as the content of a {@link String quoted
      * value}.
+     * <br>
+     * https://httpwg.org/http-extensions/draft-ietf-httpbis-rfc6265bis.html#section-4.1.1
+     * <pre>
+     * set-cookie        = set-cookie-string
+     * set-cookie-string = BWS cookie-pair *( BWS ";" OWS cookie-av )
+     * cookie-pair       = cookie-name BWS "=" BWS cookie-value
+     * cookie-name       = 1*cookie-octet
+     * cookie-value      = *cookie-octet / ( DQUOTE *cookie-octet DQUOTE )
+     * cookie-octet      = %x21 / %x23-2B / %x2D-3A / %x3C-5B / %x5D-7E
+     *                       ; US-ASCII characters excluding CTLs,
+     *                       ; whitespace DQUOTE, comma, semicolon,
+     *                       ; and backslash
+     *
+     * cookie-av         = expires-av / max-age-av / domain-av /
+     *                     path-av / secure-av / httponly-av /
+     *                     samesite-av / extension-av
+     * expires-av        = "Expires" BWS "=" BWS sane-cookie-date
+     * sane-cookie-date  =
+     *     <IMF-fixdate, defined in [HTTPSEM], Section 5.6.7>
+     * max-age-av        = "Max-Age" BWS "=" BWS non-zero-digit *DIGIT
+     * non-zero-digit    = %x31-39
+     *                       ; digits 1 through 9
+     * domain-av         = "Domain" BWS "=" BWS domain-value
+     * domain-value      = <subdomain>
+     *                       ; see details below
+     * path-av           = "Path" BWS "=" BWS path-value
+     * path-value        = *av-octet
+     * secure-av         = "Secure"
+     * httponly-av       = "HttpOnly"
+     * samesite-av       = "SameSite" BWS "=" BWS samesite-value
+     * samesite-value    = "Strict" / "Lax" / "None"
+     * extension-av      = *av-octet
+     * av-octet          = %x20-3A / %x3C-7E
+     *                       ; any CHAR except CTLs or ";"
+     * </pre>
      */
     private static void checkValue0(final String value, final int from, final int last) {
         for (int i = from; i < last; i++) {
@@ -195,12 +230,19 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
             if (0x21 == c) {
                 continue;
             }
+
+            if (c >= 0x23 && c <= 0x2b) {
+                continue;
+            }
+
             if (c >= 0x2d && c <= 0x3a) {
                 continue;
             }
+
             if (c >= 0x3c && c <= 0x5b) {
                 continue;
             }
+
             if (c >= 0x5d && c <= 0x7e) {
                 continue;
             }
