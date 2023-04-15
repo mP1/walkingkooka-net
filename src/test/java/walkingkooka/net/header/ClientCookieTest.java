@@ -151,6 +151,27 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
                 createCookie("cookie3", "value3"));
     }
 
+    // Caused by: walkingkooka.InvalidCharacterException: Invalid character '+' at 85 in "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
+    //	at walkingkooka.net.header.Cookie.checkValue0(Cookie.java:207)
+    //	at walkingkooka.net.header.Cookie.checkValue(Cookie.java:184)
+    //	at walkingkooka.net.header.ClientCookie.with(ClientCookie.java:96)
+    //	at walkingkooka.net.header.Cookie.client(Cookie.java:132)
+    //	at walkingkooka.net.header.ClientCookie.parseHeader(ClientCookie.java:75)
+    //	at walkingkooka.net.header.Cookie.parseClientHeader(Cookie.java:73)
+    //	at walkingkooka.net.header.ClientCookieListHeaderHandler.parse0(ClientCookieListHeaderHandler.java:43)
+    //	at walkingkooka.net.header.ClientCookieListHeaderHandler.parse0(ClientCookieListHeaderHandler.java:27)
+    //	at walkingkooka.net.header.HeaderHandler.parse(HeaderHandler.java:331)
+    @Test
+    public void testParseClientHeaderIncludesPlusSign() {
+        this.parseHeaderAndCheck(
+                "cookie1=U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=", //
+                createCookie(
+                        "cookie1",
+                        "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
+                )
+        );
+    }
+
     private void parseHeaderAndCheck(final String header, final ClientCookie... cookies) {
         this.checkEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
     }

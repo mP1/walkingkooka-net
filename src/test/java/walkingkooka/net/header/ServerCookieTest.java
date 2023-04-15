@@ -611,6 +611,26 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
                 PATH);
     }
 
+    // Caused by: walkingkooka.InvalidCharacterException: Invalid character '+' at 85 in "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
+    //	at walkingkooka.net.header.Cookie.checkValue0(Cookie.java:207)
+    //	at walkingkooka.net.header.Cookie.checkValue(Cookie.java:184)
+    //	at walkingkooka.net.header.ClientCookie.with(ClientCookie.java:96)
+    //	at walkingkooka.net.header.Cookie.client(Cookie.java:132)
+    //	at walkingkooka.net.header.ClientCookie.parseHeader(ClientCookie.java:75)
+    //	at walkingkooka.net.header.Cookie.parseClientHeader(Cookie.java:73)
+    //	at walkingkooka.net.header.ClientCookieListHeaderHandler.parse0(ClientCookieListHeaderHandler.java:43)
+    //	at walkingkooka.net.header.ClientCookieListHeaderHandler.parse0(ClientCookieListHeaderHandler.java:27)
+    //	at walkingkooka.net.header.HeaderHandler.parse(HeaderHandler.java:331)
+    @Test
+    public void testParseValueIncludsPlusSign() {
+        this.parseHeaderAndCheck(
+                "cookie2=U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=;domain=example.com;path=/PATH/TO;",
+                "cookie2",
+                "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=",
+                DOMAIN,
+                PATH);
+    }
+
     private void parseHeaderAndCheck(final String header,
                                      final String name,
                                      final String value,
