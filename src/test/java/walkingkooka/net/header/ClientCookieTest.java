@@ -172,6 +172,17 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         );
     }
 
+    @Test
+    public void testParseClientDoubleQuotedValue() {
+        this.parseHeaderAndCheck(
+                "cookie1=\"abc\"", //
+                createCookie(
+                        "cookie1",
+                        "\"abc\""
+                )
+        );
+    }
+
     private void parseHeaderAndCheck(final String header, final ClientCookie... cookies) {
         this.checkEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
     }

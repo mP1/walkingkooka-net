@@ -622,13 +622,24 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     //	at walkingkooka.net.header.ClientCookieListHeaderHandler.parse0(ClientCookieListHeaderHandler.java:27)
     //	at walkingkooka.net.header.HeaderHandler.parse(HeaderHandler.java:331)
     @Test
-    public void testParseValueIncludsPlusSign() {
+    public void testParseValueIncludesPlusSign() {
         this.parseHeaderAndCheck(
                 "cookie2=U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=;domain=example.com;path=/PATH/TO;",
                 "cookie2",
                 "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=",
                 DOMAIN,
                 PATH);
+    }
+
+    @Test
+    public void testParseValueDoubleQuoted() {
+        this.parseHeaderAndCheck(
+                "cookie2=\"U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=\";domain=example.com;path=/PATH/TO;",
+                "cookie2",
+                "\"U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=\"",
+                DOMAIN,
+                PATH
+        );
     }
 
     private void parseHeaderAndCheck(final String header,
