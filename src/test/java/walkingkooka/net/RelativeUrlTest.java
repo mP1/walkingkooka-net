@@ -70,6 +70,22 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }
 
+    @Test
+    public void testParseOnlyHash() {
+        final RelativeUrl url = RelativeUrl.parseRelative0("#");
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseOnlyHash2() {
+        final RelativeUrl url = RelativeUrl.parseRelative0("#123");
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.parse("123"));
+    }
+
     // UrlVisitor......................................................................................................
 
     @Test
