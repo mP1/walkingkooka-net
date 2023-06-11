@@ -82,7 +82,7 @@ public abstract class Url implements Value<String>,
      * Examines the URL and attempts to parse it as a relative or absolute url.
      */
     public static Url parse(final String url) {
-        Objects.requireNonNull(url, "url");
+        checkUrl(url);
 
         final int colon = url.indexOf(':');
         return -1 != colon ?
@@ -97,6 +97,20 @@ public abstract class Url implements Value<String>,
      */
     public static AbsoluteUrl parseAbsolute(final String url) {
         return AbsoluteUrl.parseAbsolute0(url);
+    }
+
+    /**
+     * Parses a {@link String url} expecting an {@link AbsoluteUrl} or {@link RelativeUrl}.
+     */
+    public static AbsoluteOrRelativeUrl parseAbsoluteOrRelative(final String url) {
+        checkUrl(url);
+
+        return -1 != url.indexOf(':') ? parseAbsolute(url) :
+                parseRelative(url);
+    }
+
+    private static String checkUrl(final String url) {
+        return Objects.requireNonNull(url, "url");
     }
 
     /**
