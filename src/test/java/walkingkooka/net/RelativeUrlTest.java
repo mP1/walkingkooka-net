@@ -40,34 +40,77 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
 
     @Test
     public void testParseEmptyPath() {
-        final RelativeUrl url = RelativeUrl.parseRelative0("");
+        final String string = "";
+
+        final RelativeUrl url = RelativeUrl.parseRelative0(string);
         this.checkPath(url, UrlPath.EMPTY);
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSlash() {
-        final RelativeUrl url = RelativeUrl.parseRelative0("/");
+        final String string = "/";
+
+        final RelativeUrl url = RelativeUrl.parseRelative0(string);
         this.checkPath(url, UrlPath.parse("/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParsePathEndingSlash() {
-        final RelativeUrl url = RelativeUrl.parseRelative0("/path/file/");
+        final String string = "/path/file/";
+
+        final RelativeUrl url = RelativeUrl.parseRelative0(string);
         this.checkPath(url, UrlPath.parse("/path/file/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParsePathQueryStringFragment() {
-        final RelativeUrl url = RelativeUrl.parseRelative0("/path123?query456#fragment789");
+        final String string = "/path123?query456#fragment789";
+
+        final RelativeUrl url = RelativeUrl.parseRelative0(string);
         this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.parse("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
+    }
+
+    @Test
+    public void testParsePathQueryStringFragmentWithSpace() {
+        final String string = "/path123?query456#fragment+789";
+
+        final RelativeUrl url = RelativeUrl.parseRelative0(string);
+        this.checkPath(url, UrlPath.parse("/path123"));
+        this.checkQueryString(url, UrlQueryString.parse("query456"));
+        this.checkFragment(url, UrlFragment.with("fragment 789"));
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
