@@ -19,6 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         HashCodeEqualsDefinedTesting,
-        ParseStringTesting<UrlQueryString> {
+        ParseStringTesting<UrlQueryString>,
+        ToStringTesting<UrlQueryString> {
 
     @Override
     public void testParseStringEmptyFails() {
@@ -130,7 +132,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
         this.parameterWithValueCheck(updated, "a", "1");
 
-        this.checkToString(updated, "a=1");
+        this.toStringAndCheck(
+                updated,
+                "a=1"
+        );
     }
 
     @Test
@@ -140,7 +145,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
         this.parameterWithValueCheck(updated, "a b", "x y");
 
-        this.checkToString(updated, "a+b=x+y"); // escaped form.
+        this.toStringAndCheck(
+                updated,
+                "a+b=x+y"
+        ); // escaped form.
     }
 
     @Test
@@ -152,7 +160,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "b", "2");
 
-        this.checkToString(updated, "a=1&b=2");
+        this.toStringAndCheck(
+                updated,
+                "a=1&b=2"
+        );
     }
 
     @Test
@@ -166,7 +177,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&b=2&c=3");
+        this.toStringAndCheck(
+                updated,
+                "a=1&b=2&c=3"
+        );
     }
 
     @Test
@@ -179,7 +193,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1", "3");
         this.parameterWithValueCheck(updated, "b", "2");
 
-        this.checkToString(updated, "a=1&b=2&a=3");
+        this.toStringAndCheck(
+                updated,
+                "a=1&b=2&a=3"
+        );
     }
 
     @Test
@@ -191,7 +208,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&b=2&c=3");
+        this.toStringAndCheck(
+                updated,
+                "a=1&b=2&c=3"
+        );
     }
 
     @Test
@@ -203,7 +223,10 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1;b=2;c=3");
+        this.toStringAndCheck(
+                updated,
+                "a=1;b=2;c=3"
+        );
     }
 
     // removeParameter(name) ..........................................................................................
@@ -241,7 +264,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2&c=3");
+        this.toStringAndCheck(updated, "b=2&c=3");
     }
 
     @Test
@@ -253,7 +276,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2;c=3");
+        this.toStringAndCheck(updated, "b=2;c=3");
     }
 
     @Test
@@ -265,7 +288,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&c=3");
+        this.toStringAndCheck(updated, "a=1&c=3");
     }
 
     @Test
@@ -277,7 +300,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "b", "2");
 
-        this.checkToString(updated, "a=1&b=2");
+        this.toStringAndCheck(updated, "a=1&b=2");
     }
 
     // removeParameter(name) ..........................................................................................
@@ -322,7 +345,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2&c=3");
+        this.toStringAndCheck(updated, "b=2&c=3");
     }
 
     @Test
@@ -335,7 +358,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2;c=3");
+        this.toStringAndCheck(updated, "b=2;c=3");
     }
 
     @Test
@@ -348,7 +371,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&c=3");
+        this.toStringAndCheck(updated, "a=1&c=3");
     }
 
     @Test
@@ -361,7 +384,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "b", "2");
 
-        this.checkToString(updated, "a=1&b=2");
+        this.toStringAndCheck(updated, "a=1&b=2");
     }
 
     @Test
@@ -374,7 +397,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&b=2&c=3");
+        this.toStringAndCheck(updated, "a=1&b=2&c=3");
     }
 
     @Test
@@ -387,7 +410,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2&c=3&a=4");
+        this.toStringAndCheck(updated, "b=2&c=3&a=4");
     }
 
     @Test
@@ -400,7 +423,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "b=2&c=3&a=4");
+        this.toStringAndCheck(updated, "b=2&c=3&a=4");
     }
 
     @Test
@@ -413,7 +436,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
-        this.checkToString(updated, "a=1&b=2&c=3&a=1");
+        this.toStringAndCheck(updated, "a=1&b=2&c=3&a=1");
     }
 
     // helpers ............................................................................................................
@@ -508,10 +531,6 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     private UrlParameterName name(final String name) {
         return UrlParameterName.with(name);
-    }
-
-    private void checkToString(final UrlQueryString queryString, final String toString) {
-        this.checkEquals(toString, queryString.toString(), "UrlQueryString.toString failure");
     }
 
     // equals...........................................................................................................
