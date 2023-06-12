@@ -41,9 +41,20 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
         }
 
         return RelativeUrl.with(
-                UrlPath.parse(uri.getPath()),
-                UrlQueryString.parse(nullToEmpty(uri.getQuery())),
-                UrlFragment.with(nullToEmpty(uri.getFragment())));
+                UrlPath.parse(
+                        uri.getPath()
+                ),
+                UrlQueryString.parse(
+                        nullToEmpty(
+                                uri.getQuery()
+                        )
+                ),
+                UrlFragment.parse(
+                        nullToEmpty(
+                                uri.getFragment()
+                        )
+                )
+        );
     }
 
     /**
