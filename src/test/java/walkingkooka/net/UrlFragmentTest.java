@@ -81,6 +81,10 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                 value,
                 urlFragment.value()
         );
+        this.toStringAndCheck(
+                urlFragment,
+                value
+        );
     }
 
     @Test
@@ -92,6 +96,10 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                 "space ",
                 urlFragment.value()
         );
+        this.toStringAndCheck(
+                urlFragment,
+                value
+        );
     }
 
     @Test
@@ -100,6 +108,10 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         this.checkEquals(
                 "space ",
                 urlFragment.value()
+        );
+        this.toStringAndCheck(
+                urlFragment,
+                "space+"
         );
     }
 
