@@ -430,7 +430,9 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeHost() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com");
+        final String string = "https://example.com";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -438,11 +440,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.EMPTY);
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHost2() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com");
+        final String string = "https://example.com";
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -450,11 +459,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.EMPTY);
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com/");
+        final String string = "https://example.com/";
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -462,11 +478,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostPort() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com:789");
+        final String string = "https://example.com:789";
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -474,11 +497,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.EMPTY);
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostPortSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com:789/");
+        final String string = "https://example.com:789/";
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -486,6 +516,11 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
@@ -495,7 +530,9 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseSchemeCredentialsHost() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://abc:def@example.com");
+        final String string = "http://abc:def@example.com";
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentials(url, UrlCredentials.with("abc", "def"));
         this.checkHost(url, HostAddress.with("example.com"));
@@ -503,11 +540,19 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.EMPTY);
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostPath() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file");
+        final String string = "http://example.com/path/to/file";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -515,11 +560,19 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/path/to/file"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostPathEndsSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file/");
+        final String string = "http://example.com/path/to/file/";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -527,11 +580,19 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/path/to/file/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
     public void testParseSchemeHostPathQueryStringFragment() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path123?query456#fragment789");
+        final String string = "http://example.com/path123?query456#fragment789";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -539,11 +600,19 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.parse("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
-    public void testParseFragmentRequiresEncoding() {
-        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path123?query456#fragment%20");
+    public void testParseFragmentWithPlus() {
+        final String string = "http://example.com/path123?query456#fragment+";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -551,6 +620,11 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.parse("query456"));
         this.checkFragment(url, UrlFragment.with("fragment "));
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
     }
 
     @Test
