@@ -51,7 +51,7 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
                 ),
                 UrlFragment.parse(
                         nullToEmpty(
-                                uri.getFragment()
+                                uri.getRawFragment() // will be raw not decoded
                         )
                 )
         );
