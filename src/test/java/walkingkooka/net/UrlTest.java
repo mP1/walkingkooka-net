@@ -33,6 +33,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlTest implements ClassTesting2<Url>,
         ParseStringTesting<Url> {
 
+    // EMPTY RELATIVE URL...............................................................................................
+
+    @Test
+    public void testEmptyRelativeUrl() {
+        final RelativeUrl relativeUrl = Url.EMPTY_RELATIVE_URL;
+        this.checkEquals("", relativeUrl.toString());
+    }
+
+    // parseXXX.........................................................................................................
+
     @Override
     public void testParseStringEmptyFails() {
         throw new UnsupportedOperationException();

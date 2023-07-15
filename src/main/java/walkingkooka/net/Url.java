@@ -76,6 +76,15 @@ public abstract class Url implements Value<String>,
      */
     public final static CharacterConstant FRAGMENT_START = CharacterConstant.with('#');
 
+    /**
+     * A {@link RelativeUrl} with all components set to empty.
+     */
+    public final static RelativeUrl EMPTY_RELATIVE_URL = RelativeUrl.with(
+            UrlPath.EMPTY,
+            UrlQueryString.EMPTY,
+            UrlFragment.EMPTY
+    );
+
     // factories..................................................................................................
 
     /**
