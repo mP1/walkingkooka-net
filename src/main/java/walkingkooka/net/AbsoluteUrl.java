@@ -235,7 +235,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     }
 
     /**
-     * Returns a {@link RelativeUrl} built from the path, query and fragment components.
+     * Returns a {@link RelativeUrl} built from the path, query and fragment components. The path and protocol will be lost.
      */
     public RelativeUrl relativeUrl() {
         return RelativeUrl.with(this.path, this.query, this.fragment);
