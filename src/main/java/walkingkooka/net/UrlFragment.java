@@ -82,7 +82,10 @@ public final class UrlFragment implements Value<String> {
                 fragment :
                 fragment.isEmpty() ?
                         this :
-                        with(this.value + fragment.value);
+                        new UrlFragment(
+                                this.value +
+                                        fragment.value
+                        );
     }
 
     private boolean isEmpty() {
