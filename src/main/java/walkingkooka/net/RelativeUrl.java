@@ -46,7 +46,7 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
                 ),
                 UrlQueryString.parse(
                         nullToEmpty(
-                                uri.getQuery()
+                                uri.getRawQuery() // UrlQueryString.parse assumes an encoded
                         )
                 ),
                 UrlFragment.parse(
