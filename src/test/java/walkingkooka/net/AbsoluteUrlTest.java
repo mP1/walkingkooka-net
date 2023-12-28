@@ -588,6 +588,46 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
+    public void testParseSchemeHostPathQueryString() {
+        final String string = "http://example.com/path123?query456";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/path123"));
+        this.checkQueryString(url, UrlQueryString.parse("query456"));
+        this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
+    }
+
+    @Test
+    public void testParseSchemeHostPathQueryStringEncoded() {
+        final String string = "http://example.com/path123?query=4%2B56";
+
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0(string);
+
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/path123"));
+        this.checkQueryString(url, UrlQueryString.parse("query=4%2B56"));
+        this.checkFragment(url, UrlFragment.EMPTY);
+
+        this.toStringAndCheck(
+                url,
+                string
+        );
+    }
+
+    @Test
     public void testParseSchemeHostPathQueryStringFragment() {
         final String string = "http://example.com/path123?query456#fragment789";
 
