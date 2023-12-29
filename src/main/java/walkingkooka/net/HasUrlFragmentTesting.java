@@ -21,8 +21,8 @@ import walkingkooka.test.Testing;
 
 public interface HasUrlFragmentTesting extends Testing {
 
-    default void hasUrlFragmentAndCheck(final HasUrlFragment has,
-                                        final UrlFragment expected) {
+    default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final UrlFragment expected) {
         this.checkEquals(
                 expected,
                 has.urlFragment(),
