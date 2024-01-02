@@ -19,14 +19,36 @@ package walkingkooka.net;
 
 import walkingkooka.test.Testing;
 
+import java.util.function.Supplier;
+
 public interface HasUrlFragmentTesting extends Testing {
 
     default void urlFragmentAndCheck(final HasUrlFragment has,
                                      final UrlFragment expected) {
+        this.urlFragmentAndCheck(
+                has,
+                expected,
+                () -> has.toString()
+        );
+    }
+
+    default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final UrlFragment expected,
+                                     final String message) {
+        this.urlFragmentAndCheck(
+                has,
+                expected,
+                () -> message
+        );
+    }
+
+    default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final UrlFragment expected,
+                                     final Supplier<String> message) {
         this.checkEquals(
                 expected,
                 has.urlFragment(),
-                () -> has.toString()
+                message
         );
     }
 }
