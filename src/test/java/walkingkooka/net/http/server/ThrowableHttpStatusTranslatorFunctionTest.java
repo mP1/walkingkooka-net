@@ -61,7 +61,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     public void testIllegalStateExceptionNull() {
         this.applyAndCheck(
                 new IllegalStateException(),
-                HttpStatusCode.NOT_FOUND.status()
+                HttpStatusCode.INTERNAL_SERVER_ERROR.status()
         );
     }
 
@@ -69,7 +69,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     public void testIllegalStateExceptionEmptyMessage() {
         this.applyAndCheck(
                 new IllegalStateException(""),
-                HttpStatusCode.NOT_FOUND.status()
+                HttpStatusCode.INTERNAL_SERVER_ERROR.status()
         );
     }
 
@@ -77,7 +77,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     public void testIllegalStateException() {
         this.applyAndCheck(
                 new IllegalStateException(MESSAGE_MULTI_LINE),
-                HttpStatusCode.NOT_FOUND
+                HttpStatusCode.INTERNAL_SERVER_ERROR
                         .setMessage(MESSAGE)
         );
     }

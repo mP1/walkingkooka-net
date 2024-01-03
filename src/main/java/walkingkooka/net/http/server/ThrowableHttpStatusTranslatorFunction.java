@@ -27,7 +27,7 @@ import java.util.function.Function;
  * A {@link Function} that handles translating the following exceptions.
  * <ul>
  *     <li>{@link IllegalArgumentException} -> {@link HttpStatusCode#BAD_REQUEST}</li>
- *     <li>{@link IllegalStateException} -> {@link HttpStatusCode#NOT_FOUND}</li>
+ *     <li>{@link IllegalStateException} -> {@link HttpStatusCode#INTERNAL_SERVER_ERROR}</li>
  *     <li>{@link HttpResponseHttpServerException} -> {@link HttpResponseHttpServerException#status()} the entity is ignored</li>
  *     <li>{@link UnsupportedOperationException} -> {@link HttpStatusCode#NOT_IMPLEMENTED}</li>
  *     <li>default -> {@link HttpStatusCode#INTERNAL_SERVER_ERROR}</li>
@@ -58,7 +58,7 @@ final class ThrowableHttpStatusTranslatorFunction implements Function<Throwable,
                 break;
             }
             if (throwable instanceof IllegalStateException) {
-                status = HttpStatusCode.NOT_FOUND.setMessageOrDefault(first);
+                status = HttpStatusCode.INTERNAL_SERVER_ERROR.setMessageOrDefault(first);
                 break;
             }
             if (throwable instanceof HttpResponseHttpServerException) {
