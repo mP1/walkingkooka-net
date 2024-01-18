@@ -114,6 +114,13 @@ public final class UrlQueryString implements Value<String> {
 
     private final String queryString;
 
+    /**
+     * Returns true if this query string is empty, no parameters etc.
+     */
+    public boolean isEmpty() {
+        return this.queryString.isEmpty();
+    }
+
     // parameters ................................................................................................
 
     /**
@@ -173,7 +180,7 @@ public final class UrlQueryString implements Value<String> {
         Objects.requireNonNull(queryString, "queryString");
 
         // if queryString i empty this will be returned by #addParameters0
-        return this.queryString.isEmpty() ?
+        return this.isEmpty() ?
                 queryString :
                 this.addParametersNonEmpty(queryString);
     }
@@ -221,7 +228,7 @@ public final class UrlQueryString implements Value<String> {
 
     private UrlQueryString addParameter0(final UrlParameterName name,
                                          final String value) {
-        return this.queryString.isEmpty() ?
+        return this.isEmpty() ?
                 this.addParameterToEmpty(name, value) :
                 this.addParameterToNotEmpty(name, value);
     }
@@ -410,10 +417,9 @@ public final class UrlQueryString implements Value<String> {
      * Normal query string do not actually include the question mark within their value.
      */
     void absoluteOrRelativeUrlToString(final StringBuilder b) {
-        final String queryString = this.queryString;
-        if (!queryString.isEmpty()) {
+        if (false == this.isEmpty()) {
             b.append(Url.QUERY_START.character());
-            b.append(queryString);
+            b.append(this.queryString);
         }
     }
 }
