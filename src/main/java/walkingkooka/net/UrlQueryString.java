@@ -52,7 +52,7 @@ public final class UrlQueryString implements Value<String> {
         Objects.requireNonNull(value, "queryString");
 
         return value.length() == 0 ?
-                UrlQueryString.EMPTY :
+                walkingkooka.net.UrlQueryString.EMPTY :
                 parseNotEmpty(value);
     }
 
@@ -73,7 +73,7 @@ public final class UrlQueryString implements Value<String> {
             // end of name/value pair
             if (paramSeparator == c || paramSeparator2 == c) {
                 final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithSeparator(queryString.substring(start, i), c);
-                add(pair, parameters);
+                addToMap(pair, parameters);
                 pairs.add(pair);
                 start = i + 1;
             }
@@ -81,7 +81,7 @@ public final class UrlQueryString implements Value<String> {
 
         if (start < length) {
             final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithoutSeparator(queryString.substring(start, length));
-            add(pair, parameters);
+            addToMap(pair, parameters);
             pairs.add(pair);
         }
 
@@ -167,10 +167,35 @@ public final class UrlQueryString implements Value<String> {
     private final static List<String> PARAMETER_VALUES_MISSING = Lists.empty();
 
     /**
+     * Adds the parameters in the given {@link UrlQueryString} to this returning a new {@link UrlQueryString} if necessary.
+     */
+    public UrlQueryString addParameters(final UrlQueryString queryString) {
+        Objects.requireNonNull(queryString, "queryString");
+
+        // if queryString i empty this will be returned by #addParameters0
+        return this.queryString.isEmpty() ?
+                queryString :
+                this.addParametersNonEmpty(queryString);
+    }
+
+    private UrlQueryString addParametersNonEmpty(final UrlQueryString queryString) {
+        UrlQueryString result = this;
+
+        for (final UrlParameterKeyValuePair nameAndValues : queryString.pairs) {
+            result = result.addParameter0(
+                    nameAndValues.name,
+                    nameAndValues.value
+            );
+        }
+
+        return result;
+    }
+
+    /**
      * Adds values to the multimap of values.
      */
-    private static void add(final UrlParameterKeyValuePair pair,
-                            final Map<UrlParameterName, UrlParameterValueList> parameters) {
+    private static void addToMap(final UrlParameterKeyValuePair pair,
+                                 final Map<UrlParameterName, UrlParameterValueList> parameters) {
         final UrlParameterName name = pair.name;
         UrlParameterValueList values = parameters.get(name);
         if (null == values) {
@@ -188,6 +213,14 @@ public final class UrlQueryString implements Value<String> {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
 
+        return addParameter0(
+                name,
+                value
+        );
+    }
+
+    private UrlQueryString addParameter0(final UrlParameterName name,
+                                         final String value) {
         return this.queryString.isEmpty() ?
                 this.addParameterToEmpty(name, value) :
                 this.addParameterToNotEmpty(name, value);
@@ -211,7 +244,7 @@ public final class UrlQueryString implements Value<String> {
         pairs.add(pair);
 
         final Map<UrlParameterName, UrlParameterValueList> parameters = this.parametersCopy();
-        add(pair, parameters);
+        addToMap(pair, parameters);
 
         // need to find the last param separator and append to query string if necessary and then append new param.
         final char paramSeparator = Url.QUERY_PARAMETER_SEPARATOR.character();
