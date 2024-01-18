@@ -170,8 +170,7 @@ public final class UrlQueryString implements Value<String> {
      * Adds values to the multimap of values.
      */
     private static void add(final UrlParameterKeyValuePair pair,
-                            final Map<UrlParameterName,
-                                    UrlParameterValueList> parameters) {
+                            final Map<UrlParameterName, UrlParameterValueList> parameters) {
         final UrlParameterName name = pair.name;
         UrlParameterValueList values = parameters.get(name);
         if (null == values) {
