@@ -189,12 +189,12 @@ public final class UrlQueryString implements Value<String> {
         Objects.requireNonNull(value, "value");
 
         return this.queryString.isEmpty() ?
-                this.addParameter0(name, value) :
-                this.addParameter1(name, value);
+                this.addParameterToEmpty(name, value) :
+                this.addParameterToNotEmpty(name, value);
     }
 
-    private UrlQueryString addParameter0(final UrlParameterName name,
-                                         final String value) {
+    private UrlQueryString addParameterToEmpty(final UrlParameterName name,
+                                               final String value) {
         final UrlParameterValueList values = UrlParameterValueList.empty();
         values.addParameterValue(value);
 
@@ -203,8 +203,8 @@ public final class UrlQueryString implements Value<String> {
                 Maps.of(name, values));
     }
 
-    private UrlQueryString addParameter1(final UrlParameterName name,
-                                         final String value) {
+    private UrlQueryString addParameterToNotEmpty(final UrlParameterName name,
+                                                  final String value) {
         final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.nameAndValue(name, value);
 
         final List<UrlParameterKeyValuePair> pairs = this.pairsCopy();
