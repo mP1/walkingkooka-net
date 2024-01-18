@@ -229,6 +229,84 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         );
     }
 
+    // addParameters....................................................................................................
+
+    @Test
+    public void testAddParametersNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlQueryString.EMPTY.addParameters(null)
+        );
+    }
+
+    @Test
+    public void testAddParametersFromEmpty() {
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
+
+        assertSame(
+                queryString,
+                queryString.addParameters(UrlQueryString.EMPTY)
+        );
+    }
+
+
+    @Test
+    public void testAddParametersToEmpty() {
+        final UrlQueryString queryString = UrlQueryString.parse("a=b");
+
+        assertSame(
+                queryString,
+                UrlQueryString.EMPTY.addParameters(queryString)
+        );
+    }
+
+    @Test
+    public void testAddParameters() {
+        this.addParametersAndCheck(
+                "a=b",
+                "c=d",
+                "a=b&c=d"
+        );
+    }
+
+    @Test
+    public void testAddParametersNotReplaced() {
+        this.addParametersAndCheck(
+                "a=11",
+                "a=22",
+                "a=11&a=22"
+        );
+    }
+
+    @Test
+    public void testAddParametersNotReplaced2() {
+        this.addParametersAndCheck(
+                "a=b",
+                "a=z&c=d",
+                "a=b&a=z&c=d"
+        );
+    }
+
+    private void addParametersAndCheck(final String before,
+                                       final String add,
+                                       final String expected) {
+        this.addParametersAndCheck(
+                UrlQueryString.parse(before),
+                UrlQueryString.parse(add),
+                UrlQueryString.parse(expected)
+        );
+    }
+
+    private void addParametersAndCheck(final UrlQueryString before,
+                                       final UrlQueryString add,
+                                       final UrlQueryString expected) {
+        this.checkEquals(
+                expected,
+                before.addParameters(add),
+                () -> before + " addParameters " + add
+        );
+    }
+
     // removeParameter(name) ..........................................................................................
 
     @Test
