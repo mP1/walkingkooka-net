@@ -50,6 +50,8 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         final UrlQueryString queryString = UrlQueryString.parse("");
         assertSame(UrlQueryString.EMPTY, queryString);
 
+        this.checkEquals(true, queryString.isEmpty(), "isEmpty");
+
         this.checkEquals(Maps.empty(), queryString.parameters(), "parameters");
         this.checkEquals(Sets.empty(), queryString.parameters().keySet(), "parameters.keySet");
 
@@ -541,6 +543,12 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.checkEquals(value,
                 queryString.parameter(this.name(key)),
                 "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
+
+        this.checkEquals(
+                queryString.toString().isEmpty(),
+                queryString.isEmpty(),
+                () -> queryString + " isEmpty"
+        );
     }
 
     // UrlQueryString.parameterValues(String) -> List<String> never null.
