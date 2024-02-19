@@ -181,6 +181,42 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
+    // roundtrip........................................................................................................
+
+    @Test
+    public void testParseAndToStringRoundtrip() {
+        this.parseAndToStringRoundtripAndCheck("abc123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripSlash() {
+        this.parseAndToStringRoundtripAndCheck("abc/123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripSpace() {
+        this.parseAndToStringRoundtripAndCheck("abc 123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripPlus() {
+        this.parseAndToStringRoundtripAndCheck("abc+123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripMathExpression() {
+        this.parseAndToStringRoundtripAndCheck("=1+2*3/4");
+    }
+
+    private void parseAndToStringRoundtripAndCheck(final String text) {
+        final UrlFragment urlFragment = UrlFragment.with(text);
+
+        this.parseStringAndCheck(
+                urlFragment.toString(),
+                urlFragment
+        );
+    }
+
     // equals..........................................................................................................
 
     @Test
