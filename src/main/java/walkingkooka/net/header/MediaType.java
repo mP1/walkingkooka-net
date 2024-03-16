@@ -498,7 +498,27 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return IS_RESPONSE;
     }
 
-    // additional isXXX.................................................................................................
+    // isNonStandard....................................................................................................
+
+    /**
+     * https://en.wikipedia.org/wiki/Media_type#Standards_tree
+     * <br>
+     * Media types that have been widely deployed (with a subtype prefixed with x- or X-) without being registered, should be, if possible, re-registered with a proper prefixed subtype. If this is not possible, the media type can, after an approval by both the media types reviewer and the IESG, be registered in the standards tree with its unprefixed subtype. application/x-www-form-urlencoded is an example of a widely deployed type that ended up registered with the x- prefix.[9]
+     * <br>
+     * https://www.nih-cfde.org/resource/intro-mime-type/
+     * <br>
+     * The x- prefix of a MIME subtype-identifier implies that it is non-standard i.e. not registered with IANA.
+     * <br>
+     * Returns true of the sub-type begins with x-.
+     */
+    public boolean isNonStandard() {
+        return this.caseSensitivity().startsWith(
+                this.subType(),
+                "x-"
+        );
+    }
+
+    // isVendorSpecific.................................................................................................
 
     /**
      * https://www.nih-cfde.org/resource/intro-mime-type/
