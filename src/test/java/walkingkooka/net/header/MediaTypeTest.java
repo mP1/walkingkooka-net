@@ -27,8 +27,10 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -42,6 +44,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     private final static String TYPE = "type";
     private final static String SUBTYPE = "subtype";
+    private final static List<String> SUFFIXES = Lists.empty();
     private final static String PARAMETER_NAME = "parameter123";
     private final static String PARAMETER_VALUE = "value456";
 
@@ -220,6 +223,54 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         check(different, TYPE, subtype, parameters());
     }
 
+    // setSuffixes......................................................................................................
+
+    @Test
+    public void testSetSuffixesNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.mediaType().setSuffixes(null)
+        );
+    }
+
+    @Test
+    public void testSetSuffixesSame() {
+        final MediaType mediaType = MediaType.TEXT_PLAIN;
+
+        assertSame(
+                mediaType,
+                mediaType.setSuffixes(MediaType.NO_SUFFIXES)
+        );
+    }
+
+    @Test
+    public void testSetSuffixesDifferent() {
+        this.setSuffixesAndCheck(
+                MediaType.parse("image/svg"),
+                Lists.of("xml"),
+                MediaType.parse("image/svg+xml")
+        );
+    }
+
+    @Test
+    public void testSetSuffixesDifferent2() {
+        this.setSuffixesAndCheck(
+                MediaType.parse("image/svg+xml"),
+                Lists.of("different-xml"),
+                MediaType.parse("image/svg+different-xml")
+        );
+    }
+
+    private void setSuffixesAndCheck(final MediaType mediaType,
+                                     final List<String> suffixes,
+                                     final MediaType expected) {
+        this.checkEquals(
+                expected,
+                mediaType.setSuffixes(suffixes),
+                () -> mediaType + " setSuffixes " + suffixes
+        );
+    }
+
     // setParameters ..........................................................................................
 
     @Test
@@ -260,9 +311,62 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                        final String type,
                        final String subtype,
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
-        this.checkEquals(type, mediaType.type(), "type=" + mediaType);
-        this.checkEquals(subtype, mediaType.subType(), "subType=" + mediaType);
-        this.checkParameters(mediaType, parameters);
+        this.check(
+                mediaType,
+                type,
+                subtype,
+                MediaType.NO_SUFFIXES,
+                parameters
+        );
+    }
+
+    private void check(final MediaType mediaType,
+                       final String type,
+                       final String subtype,
+                       final List<String> suffixes,
+                       final Map<MediaTypeParameterName<?>, Object> parameters) {
+        this.checkEquals(
+                type,
+                mediaType.type(),
+                () -> "type=" + mediaType
+        );
+
+        this.checkEquals(
+                subtype,
+                mediaType.subType(),
+                () -> "subType=" + mediaType
+        );
+
+        this.checkEquals(
+                suffixes,
+                mediaType.suffixes(),
+                () -> "suffixes " + mediaType
+        );
+
+        final int plusSign = subtype.indexOf('+');
+        this.checkEquals(
+                -1 == plusSign ?
+                        "" :
+                        subtype.substring(
+                                plusSign
+                        ),
+                suffixes.isEmpty() ?
+                        "" :
+                        suffixes.stream()
+                                .collect(
+                                        Collectors.joining(
+                                                "+",
+                                                "+",
+                                                ""
+                                        )
+                                ),
+                () -> "subType suffixes sub string=" + subtype
+        );
+
+        this.checkParameters(
+                mediaType,
+                parameters
+        );
     }
 
     @Test
@@ -483,12 +587,42 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.checkEquals(quality, type.qualityFactor(), () -> type + " quality factor");
     }
 
-    // parse .........................................................................
+    // parse ...........................................................................................................
 
     @Test
     public void testParse() {
         this.parseStringAndCheck("type1/subtype1",
                 MediaType.with("type1", "subtype1"));
+    }
+
+    @Test
+    public void testParseOneSuffix() {
+        this.parseStringAndCheck(
+                "type1/subtype1+suffix1",
+                MediaType.with(
+                        "type1",
+                        "subtype1"
+                ).setSuffixes(
+                        Lists.of("suffix1")
+                )
+        );
+    }
+
+    @Test
+    public void testParseSeveralSuffixes() {
+        this.parseStringAndCheck(
+                "type1/subtype1+suffix1+suffix2+suffix3",
+                MediaType.with(
+                        "type1",
+                        "subtype1"
+                ).setSuffixes(
+                        Lists.of(
+                                "suffix1",
+                                "suffix2",
+                                "suffix3"
+                        )
+                )
+        );
     }
 
     @Test
@@ -766,6 +900,30 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     @Test
+    public void testEqualsDifferentSuffix() {
+        this.checkNotEquals(
+                MediaType.parse("major/minor+suffix"),
+                MediaType.parse("major/minor")
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentSuffix2() {
+        this.checkNotEquals(
+                MediaType.parse("major/minor+suffix"),
+                MediaType.parse("major/minor+different-suffix")
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentSuffix3() {
+        this.checkNotEquals(
+                MediaType.parse("major/minor+suffix"),
+                MediaType.parse("major/minor+different-suffix-1+different-suffix-2")
+        );
+    }
+
+    @Test
     public void testEqualsDifferentParameter() {
         this.checkNotEquals(MediaType.parse("major/minor;parameter=value"));
     }
@@ -884,6 +1042,32 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     @Test
+    public void testToStringWithOneSuffix() {
+        this.toStringAndCheck(
+                MediaType.withParameters(
+                        TYPE,
+                        SUBTYPE,
+                        Lists.of("suffix1"),
+                        MediaType.NO_PARAMETERS
+                ),
+                TYPE + "/" + SUBTYPE + "+suffix1"
+        );
+    }
+
+    @Test
+    public void testToStringWithSeveralSuffixes() {
+        this.toStringAndCheck(
+                MediaType.withParameters(
+                        TYPE,
+                        SUBTYPE,
+                        Lists.of("suffix1", "suffix2", "suffix3"),
+                        MediaType.NO_PARAMETERS
+                ),
+                TYPE + "/" + SUBTYPE + "+suffix1+suffix2+suffix3"
+        );
+    }
+
+    @Test
     public void testToStringWithParameters() {
         this.toStringAndCheck(mediaType(), TYPE + "/" + SUBTYPE + "; parameter123=value456");
     }
@@ -934,7 +1118,12 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     private MediaType mediaType() {
-        return MediaType.withParameters(TYPE, SUBTYPE, parameters());
+        return MediaType.withParameters(
+                TYPE,
+                SUBTYPE,
+                SUFFIXES,
+                parameters()
+        );
     }
 
     @Override
