@@ -498,6 +498,20 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return IS_RESPONSE;
     }
 
+    // additional isXXX.................................................................................................
+
+    /**
+     * https://www.nih-cfde.org/resource/intro-mime-type/
+     * <br>
+     * Returns true of the sub-type begins with vnd.
+     */
+    public boolean isVendorSpecific() {
+        return this.caseSensitivity().startsWith(
+                this.subType(),
+                "vnd."
+        );
+    }
+
     // Object................................................................................................................
 
     @Override
