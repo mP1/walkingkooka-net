@@ -25,6 +25,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasCaseSensitivity;
 import walkingkooka.text.Whitespace;
 
 import java.nio.charset.Charset;
@@ -51,7 +52,9 @@ import java.util.function.Predicate;
  * </pre>
  */
 final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
-        implements HasQualityFactor,
+        implements
+        HasCaseSensitivity,
+        HasQualityFactor,
         Predicate<MediaType> {
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
@@ -293,7 +296,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public MediaType setType(final String type) {
         checkType(type);
-        return TYPE_CASE_SENSITIVITY.equals(this.type, type) ?
+        return this.caseSensitivity()
+                .equals(this.type, type) ?
                 this :
                 this.replace(type, this.subType, this.parameters);
     }
@@ -303,8 +307,6 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private static String checkType(final String type) {
         return check(type, "type");
     }
-
-    private final static CaseSensitivity TYPE_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     // sub type ...................................................................................................
 
@@ -320,7 +322,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public MediaType setSubType(final String subType) {
         checkSubType(subType);
-        return SUBTYPE_CASE_SENSITIVITY.equals(this.subType, subType) ?
+        return this.caseSensitivity()
+                .equals(this.subType, subType) ?
                 this :
                 this.replace(this.type, subType, this.parameters);
     }
@@ -339,7 +342,11 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return value;
     }
 
-    private final static CaseSensitivity SUBTYPE_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    // HasCaseSensitivity ...............................................................................................
+
+    public CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
 
     // parameters ...............................................................................................
 
@@ -429,11 +436,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         if (this != mediaType) {
             final String type = this.type();
             if (false == WILDCARD.string().equals(type)) {
-                compatible = TYPE_CASE_SENSITIVITY.equals(type, mediaType.type);
+                compatible = this.caseSensitivity()
+                        .equals(type, mediaType.type);
                 if (compatible) {
                     final String subType = this.subType;
                     if (false == WILDCARD.string().equals(subType)) {
-                        compatible = SUBTYPE_CASE_SENSITIVITY.equals(subType, mediaType.subType);
+                        compatible = this.caseSensitivity()
+                                .equals(subType, mediaType.subType);
                     }
                 }
             }
