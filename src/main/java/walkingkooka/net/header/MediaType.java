@@ -421,7 +421,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 .orElse(defaultCharset);
     }
 
-    // misc .......................................................................
+    // Predicate................................ .......................................................................
 
     /**
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
