@@ -664,6 +664,49 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.checkEquals(Accept.with(Lists.of(mediaType)), mediaType.accept());
     }
 
+    // isNonSpecific.....................................................................................................
+
+    @Test
+    public void testIsNonStandardApplicationOctet() {
+        this.isNonSpecificAndCheck(
+                "application/octet-stream",
+                false
+        );
+    }
+
+    @Test
+    public void testIsNonStandardMicrosoftExcel() {
+        this.isNonSpecificAndCheck(
+                "application/vnd.ms-excel",
+                false
+        );
+    }
+
+    @Test
+    public void testIsNonStandardapplicationDashLittleXWwwFormUrlencodedl() {
+        this.isNonSpecificAndCheck(
+                "application/x-www-form-urlencoded",
+                true
+        );
+    }
+
+    @Test
+    public void testIsNonStandardapplicationDashBigXWwwFormUrlencodedl() {
+        this.isNonSpecificAndCheck(
+                "application/X-www-form-urlencoded",
+                true
+        );
+    }
+
+    private void isNonSpecificAndCheck(final String mimeType,
+                                       final boolean expected) {
+        this.checkEquals(
+                expected,
+                MediaType.parse(mimeType).isNonStandard(),
+                mimeType
+        );
+    }
+
     // isVendorType.....................................................................................................
 
     @Test
