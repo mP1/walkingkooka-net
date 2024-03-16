@@ -664,6 +664,33 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.checkEquals(Accept.with(Lists.of(mediaType)), mediaType.accept());
     }
 
+    // isVendorType.....................................................................................................
+
+    @Test
+    public void testIsVendorSpecificApplicationOctet() {
+        this.isVendorTypeAndCheck(
+                "application/octet-stream",
+                false
+        );
+    }
+
+    @Test
+    public void testIsVendorSpecificMicrosoftExcel() {
+        this.isVendorTypeAndCheck(
+                "application/vnd.ms-excel",
+                true
+        );
+    }
+
+    private void isVendorTypeAndCheck(final String mimeType,
+                                      final boolean expected) {
+        this.checkEquals(
+                expected,
+                MediaType.parse(mimeType).isVendorSpecific(),
+                mimeType
+        );
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test
