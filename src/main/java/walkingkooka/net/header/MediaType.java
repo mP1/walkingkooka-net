@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 /**
@@ -63,6 +64,11 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
     public final static CharacterConstant TYPE_SUBTYPE_SEPARATOR = CharacterConstant.with('/');
+
+    /**
+     * No suffixes.
+     */
+    public final static List<String> NO_SUFFIXES = Lists.empty();
 
     /**
      * No parameters.
@@ -248,7 +254,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         checkType(type);
         checkSubType(subType);
 
-        return withParameters(type, subType, NO_PARAMETERS);
+        return withParameters(
+                type,
+                subType,
+                NO_SUFFIXES,
+                NO_PARAMETERS
+        );
     }
 
     /**
@@ -257,15 +268,19 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     static MediaType withParameters(final String type,
                                     final String subType,
+                                    final List<String> suffixes,
                                     final Map<MediaTypeParameterName<?>, Object> parameters) {
         final MediaType result = parameters.isEmpty() ?
                 CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
                 null;
         return null != result ?
                 result :
-                new MediaType(type,
+                new MediaType(
+                        type,
                         subType,
-                        parameters);
+                        suffixes,
+                        parameters
+                );
     }
 
     // ctor ...................................................................................................
@@ -275,11 +290,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     private MediaType(final String type,
                       final String subType,
+                      final List<String> suffixes,
                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         super(type + TYPE_SUBTYPE_SEPARATOR.character() + subType, parameters);
 
         this.type = type;
         this.subType = subType;
+        this.suffixes = suffixes;
     }
 
     // type .......................................................................................................
@@ -299,7 +316,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.caseSensitivity()
                 .equals(this.type, type) ?
                 this :
-                this.replace(type, this.subType, this.parameters);
+                this.replace(
+                        type,
+                        this.subType,
+                        this.suffixes,
+                        this.parameters
+                );
     }
 
     private final String type;
@@ -325,7 +347,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.caseSensitivity()
                 .equals(this.subType, subType) ?
                 this :
-                this.replace(this.type, subType, this.parameters);
+                this.replace(
+                        this.type,
+                        subType,
+                        this.suffixes,
+                        this.parameters
+                );
     }
 
     private final String subType;
@@ -340,6 +367,55 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private static String check(final String value, final String label) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
         return value;
+    }
+
+    // suffixes........................................................................................................
+
+    /**
+     * Suffixes are encoded within the sub-mime-type
+     */
+    public List<String> suffixes() {
+        return this.suffixes;
+    }
+
+    public MediaType setSuffixes(final List<String> suffixes) {
+        Objects.requireNonNull(suffixes, "suffixes");
+
+        final List<String> copy = Lists.immutable(suffixes);
+
+        final MediaType mediaType;
+        if (this.suffixes.equals(copy)) {
+            mediaType = this;
+        } else {
+            final String subType = this.subType;
+
+            final int plusSign = subType.indexOf('+');
+
+            mediaType = this.replace(
+                    this.type,
+                    (-1 == plusSign ?
+                            subType :
+                            subType.substring(0, plusSign)
+                    ).concat(toStringSuffixes(suffixes)),
+                    suffixes,
+                    this.parameters
+            );
+        }
+
+        return mediaType;
+    }
+
+    private final List<String> suffixes;
+
+    private static String toStringSuffixes(final List<String> suffixes) {
+        return suffixes.stream()
+                .collect(
+                        Collectors.joining(
+                                "+", // delimiter
+                                "+", // prefix
+                                "" // suffix
+                        )
+                );
     }
 
     // HasCaseSensitivity ...............................................................................................
@@ -361,15 +437,24 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     @Override
     MediaType replace(final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return this.replace(this.type,
+        return this.replace(
+                this.type,
                 this.subType,
-                parameters);
+                this.suffixes,
+                parameters
+        );
     }
 
-    private MediaType replace(final String type, final String subType, final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return withParameters(type,
+    private MediaType replace(final String type,
+                              final String subType,
+                              final List<String> suffixes,
+                              final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return withParameters(
+                type,
                 subType,
-                parameters);
+                suffixes,
+                parameters
+        );
     }
 
     // setCharset .................................................................................................
@@ -392,9 +477,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         parameters.putAll(this.parameters);
         parameters.put(MediaTypeParameterName.CHARSET, charset);
 
-        return this.replace(this.type,
+        return this.replace(
+                this.type,
                 this.subType,
-                Maps.readOnly(parameters));
+                this.suffixes,
+                Maps.readOnly(parameters)
+        );
     }
 
     /**
@@ -451,11 +539,21 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return compatible;
     }
 
-    // Header................................................................................................................
+    // Header...........................................................................................................
 
+    // mime-type COLON sub-mime-type PLUS suffix-1 PLUS suffix-2
     @Override
     String toHeaderTextValue() {
-        return this.value;
+        String value = this.value;
+
+        final List<String> suffixes = this.suffixes();
+        if (false == suffixes.isEmpty()) {
+            value = value.concat(
+                    toStringSuffixes(suffixes)
+            );
+        }
+
+        return value;
     }
 
     @Override
