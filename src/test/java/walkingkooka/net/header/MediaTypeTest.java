@@ -1046,9 +1046,32 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.toStringAndCheck(
                 MediaType.withParameters(
                         TYPE,
-                        SUBTYPE,
+                        SUBTYPE + "+suffix1",
                         Lists.of("suffix1"),
                         MediaType.NO_PARAMETERS
+                ),
+                TYPE + "/" + SUBTYPE + "+suffix1"
+        );
+    }
+
+    @Test
+    public void testToStringWithOneSuffix2() {
+        this.toStringAndCheck(
+                MediaType.withParameters(
+                        TYPE,
+                        SUBTYPE + "+suffix1a.suffix1b",
+                        Lists.of("suffix1a.suffix1b"),
+                        MediaType.NO_PARAMETERS
+                ),
+                TYPE + "/" + SUBTYPE + "+suffix1a.suffix1b"
+        );
+    }
+
+    @Test
+    public void testToStringWithOneSuffixParse() {
+        this.toStringAndCheck(
+                MediaType.parse(
+                        TYPE + "/" + SUBTYPE + "+suffix1"
                 ),
                 TYPE + "/" + SUBTYPE + "+suffix1"
         );
@@ -1059,9 +1082,26 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.toStringAndCheck(
                 MediaType.withParameters(
                         TYPE,
-                        SUBTYPE,
+                        SUBTYPE + "+suffix1+suffix2+suffix3",
                         Lists.of("suffix1", "suffix2", "suffix3"),
                         MediaType.NO_PARAMETERS
+                ),
+                TYPE + "/" + SUBTYPE + "+suffix1+suffix2+suffix3"
+        );
+    }
+
+    @Test
+    public void testToStringSetSeveralSuffixes() {
+        this.toStringAndCheck(
+                MediaType.with(
+                        TYPE,
+                        SUBTYPE
+                ).setSuffixes(
+                        Lists.of(
+                                "suffix1",
+                                "suffix2",
+                                "suffix3"
+                        )
                 ),
                 TYPE + "/" + SUBTYPE + "+suffix1+suffix2+suffix3"
         );

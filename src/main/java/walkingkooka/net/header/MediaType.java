@@ -541,19 +541,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // Header...........................................................................................................
 
-    // mime-type COLON sub-mime-type PLUS suffix-1 PLUS suffix-2
+    // mime-type COLON sub-mime-type, suffixes already included in sub-mime-type
     @Override
     String toHeaderTextValue() {
-        String value = this.value;
-
-        final List<String> suffixes = this.suffixes();
-        if (false == suffixes.isEmpty()) {
-            value = value.concat(
-                    toStringSuffixes(suffixes)
-            );
-        }
-
-        return value;
+        return this.value;
     }
 
     @Override
