@@ -110,17 +110,17 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     private final static int PORT = 80;
 
     @Test
-    public void testDifferentPort() {
+    public void testEqualsDifferentPort() {
         this.checkNotEquals(IpPort.HTTPS);
     }
 
     @Test
-    public void testEqual() {
+    public void testEquals() {
         this.checkEqualsAndHashCode(IpPort.with(PORT));
     }
 
     @Test
-    public void testLess() {
+    public void testCompareToLess() {
         this.compareToAndCheckLess(IpPort.HTTPS);
     }
 

@@ -82,12 +82,12 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     // Comparable ..................................................................................................
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(MediaTypeBoundary.with("different"));
     }
 
     @Test
-    public void testDifferentCase() {
+    public void testEqualsDifferentCase() {
         this.checkNotEquals(MediaTypeBoundary.with("ABC123"));
     }
 

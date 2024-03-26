@@ -75,12 +75,12 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     }
 
     @Test
-    public void testDifferentName() {
+    public void testEqualsDifferentName() {
         this.checkNotEquals(UrlPathName.with("different"));
     }
 
     @Test
-    public void testLess() {
+    public void testCompareLess() {
         this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
     }
 

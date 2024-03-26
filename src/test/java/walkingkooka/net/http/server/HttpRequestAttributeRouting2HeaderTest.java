@@ -41,17 +41,17 @@ public final class HttpRequestAttributeRouting2HeaderTest extends HttpRequestAtt
     }
 
     @Test
-    public void testDifferentHeader() {
+    public void testEqualsDifferentHeader() {
         this.testFalse(MediaType.BINARY);
     }
 
     @Test
-    public void testDifferentParameters() {
+    public void testEqualsDifferentParameters() {
         this.testFalse(MediaType.parse("major/minor;z=99"));
     }
 
     @Test
-    public void testDifferentParameters2() {
+    public void testEqualsDifferentParameters2() {
         this.testFalse(MediaType.parse("major/minor;a=1;z=99"));
     }
 

@@ -223,7 +223,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     // equals...........................................................................................................
 
     @Test
-    public void testDifferentCode() {
+    public void testEqualsDifferentCode() {
         this.checkNotEquals(HttpStatusCode.withCode(1000 + CODE));
     }
 
