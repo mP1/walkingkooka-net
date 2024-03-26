@@ -47,6 +47,11 @@ public class FakeUrlVisitor extends UrlVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final MailToUrl url) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final RelativeUrl url) {
         throw new UnsupportedOperationException();
     }

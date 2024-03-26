@@ -63,6 +63,16 @@ public final class UrlTest implements ClassTesting2<Url>,
     }
 
     @Test
+    public void testParseMailToUrl() {
+        final MailToUrl url = Url.parseMailTo("mailto:hello@example.com?subject=Subject123&body=body123");
+
+        this.parseStringAndCheck(
+                url.value(),
+                url
+        );
+    }
+
+    @Test
     public void testParseRelativeUrl() {
         final String text = "/path123?query456";
 

@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -93,6 +94,14 @@ public abstract class Url implements Value<String>,
     public static Url parse(final String url) {
         checkUrl(url);
 
+        return CharSequences.startsWith(
+                url,
+                MailToUrl.SCHEME
+        ) ? MailToUrl.parseMailTo0(url) :
+                parseNotMailToUrl(url);
+    }
+
+    private static Url parseNotMailToUrl(final String url) {
         final int colon = url.indexOf(':');
         return -1 != colon ?
                 CaseSensitivity.INSENSITIVE.startsWith(url, DataUrl.SCHEME) ?
@@ -127,6 +136,13 @@ public abstract class Url implements Value<String>,
      */
     public static DataUrl parseData(final String url) {
         return DataUrl.parseData0(url);
+    }
+
+    /**
+     * Parses a {@link String url} into a {@link MailToUrl}.
+     */
+    public static MailToUrl parseMailTo(final String url) {
+        return MailToUrl.parseMailTo0(url);
     }
 
     /**
@@ -190,6 +206,13 @@ public abstract class Url implements Value<String>,
     }
 
     /**
+     * Only {@link MailToUrl} returns true.
+     */
+    public final boolean isMailTo() {
+        return this instanceof MailToUrl;
+    }
+
+    /**
      * Only {@link RelativeUrl} returns true
      */
     public final boolean isRelative() {
@@ -236,6 +259,17 @@ public abstract class Url implements Value<String>,
     }
 
     /**
+     * Accepts a json string holding an {@link MailToUrl}.
+     */
+    static MailToUrl unmarshallMailTo(final JsonNode node,
+                                      final JsonNodeUnmarshallContext context) {
+        return unmarshall0(
+                node,
+                Url::parseMailTo
+        );
+    }
+
+    /**
      * Accepts a json string holding an {@link RelativeUrl}.
      */
     static RelativeUrl unmarshallRelative(final JsonNode node,
@@ -262,6 +296,7 @@ public abstract class Url implements Value<String>,
                 Url.class,
                 AbsoluteUrl.class,
                 DataUrl.class,
+                MailToUrl.class,
                 RelativeUrl.class);
     }
 }
