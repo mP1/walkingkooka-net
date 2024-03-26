@@ -58,6 +58,10 @@ public abstract class UrlVisitor extends Visitor<Url> {
         // nop
     }
 
+    protected void visit(final MailToUrl url) {
+        // nop
+    }
+
     protected void visit(final RelativeUrl url) {
         // nop
     }
