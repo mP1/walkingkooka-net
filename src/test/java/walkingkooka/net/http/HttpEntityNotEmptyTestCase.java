@@ -487,23 +487,23 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     // equals...........................................................................................................
 
     @Test
-    public final void testDifferentHeaders() {
+    public final void testEqualsDifferentHeaders() {
         this.checkNotEquals(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 777L));
     }
 
     @Test
-    public final void testDifferentHeaders2() {
+    public final void testEqualsDifferentHeaders2() {
         this.checkNotEquals(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 777L),
                 this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 999L));
     }
 
     @Test
-    public final void testDifferentBody() {
+    public final void testEqualsDifferentBody() {
         this.checkNotEquals(HttpEntityBinary.with(HttpEntity.NO_HEADERS2, Binary.with(new byte[1])));
     }
 
     @Test
-    public final void testDifferentText() {
+    public final void testEqualsDifferentText() {
         this.checkNotEquals(HttpEntityText.with(HttpEntity.NO_HEADERS2, "different"));
     }
 

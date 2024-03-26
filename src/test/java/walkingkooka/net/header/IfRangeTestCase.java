@@ -106,7 +106,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     @Test
-    public final void testDifferentValue() {
+    public final void testEqualsDifferentValue() {
         this.checkNotEquals(this.createHeader(this.differentValue()));
     }
 

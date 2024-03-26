@@ -77,7 +77,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     @Test
-    public void testDifferentCaseGet() {
+    public void testEqualsDifferentCaseGet() {
         assertSame(HttpMethod.GET, HttpMethod.with("GeT"));
     }
 

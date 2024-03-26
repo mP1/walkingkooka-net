@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(Ip6Address.with(new byte[]{9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0}));
     }
 

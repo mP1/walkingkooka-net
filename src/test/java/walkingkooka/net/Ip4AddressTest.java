@@ -115,7 +115,7 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
     }
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(Ip4Address.with(new byte[]{5, 6, 7, 8}));
     }
 

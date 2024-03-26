@@ -220,7 +220,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     // equals..........................................................................................................
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(
                 UrlFragment.with("123"),
                 UrlFragment.with("456")
@@ -228,7 +228,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     }
 
     @Test
-    public void testDifferentCase() {
+    public void testEqualsDifferentCase() {
         this.checkNotEquals(
                 UrlFragment.with("abc123"),
                 UrlFragment.with("ABC123")
