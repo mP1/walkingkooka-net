@@ -173,13 +173,30 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     abstract public AbsoluteOrRelativeUrl setPath(final UrlPath path);
 
     final AbsoluteOrRelativeUrl setPath0(final UrlPath path) {
-        Objects.requireNonNull(path, "path");
+        checkPath(path);
         return this.path.equals(path) ?
                 this :
                 this.replace(path, this.query, this.fragment);
     }
 
     final UrlPath path;
+
+    /**
+     * Appends the given {@link UrlPath} returning a {@link AbsoluteOrRelativeUrl} with the appended path result.
+     */
+    abstract public AbsoluteOrRelativeUrl appendPath(final UrlPath path);
+
+    final AbsoluteOrRelativeUrl appendPath0(final UrlPath path) {
+        checkPath(path);
+
+        return this.setPath0(
+                this.path.appendPath(path)
+        );
+    }
+
+    private static UrlPath checkPath(final UrlPath path) {
+        return Objects.requireNonNull(path, "path");
+    }
 
     /**
      * Returns the query string which may be empty but never null. Note the query string will have spaces and other similar invalid characters encoded.
