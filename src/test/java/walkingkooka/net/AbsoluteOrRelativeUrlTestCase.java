@@ -111,6 +111,45 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         this.checkEquals(this.createUrl(differentPath, QUERY, FRAGMENT), different);
     }
 
+    // appendPath .......................................................................................................
+
+    @Test
+    public final void testAppendPathNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createUrl()
+                        .appendPath(null)
+        );
+    }
+
+    @Test
+    public final void testAppendPathEmpty() {
+        final U url = this.createUrl();
+        assertSame(
+                url,
+                url.appendPath(UrlPath.EMPTY)
+        );
+    }
+
+    @Test
+    public final void testAppendPathExtra() {
+        final U url = this.createUrl();
+
+        final UrlPath append = UrlPath.parse("/extra-path");
+        final Url appended = url.appendPath(append);
+        assertNotSame(url, appended);
+
+        this.checkEquals(
+                this.createUrl(
+                        url.path()
+                                .appendPath(append),
+                        QUERY,
+                        FRAGMENT
+                ),
+                appended
+        );
+    }
+
     // setQuery .......................................................................................................
 
     @Test
