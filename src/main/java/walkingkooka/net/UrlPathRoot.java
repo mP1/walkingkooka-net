@@ -53,8 +53,19 @@ final class UrlPathRoot extends UrlPath {
     }
 
     @Override
-    UrlPath appendName(final UrlPathName name, final UrlPath parent) {
-        final String value = SEPARATOR.string() + name.value();
+    UrlPath appendName(final UrlPathName name,
+                       final UrlPath parent) {
+        final String nameString = name.value();
+        final String value;
+
+        final String separatorString = SEPARATOR.string();
+        ;
+        if (nameString.isEmpty()) {
+            value = separatorString + separatorString;
+        } else {
+            value = separatorString + nameString;
+        }
+
         final Optional<UrlPath> parent2 = Optional.of(parent);
 
         return name.isNormalized() ?
@@ -70,6 +81,11 @@ final class UrlPathRoot extends UrlPath {
     @Override
     UrlPath appendTo(final UrlPathLeaf leaf) {
         return leaf;
+    }
+
+    @Override
+    UrlPath parseTrailingSlash() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

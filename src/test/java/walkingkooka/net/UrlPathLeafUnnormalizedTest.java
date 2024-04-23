@@ -27,40 +27,55 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
     public void testAppendNameEmpty() {
         final UrlPathName name = UrlPathName.ROOT;
 
-        this.appendNameAndCheck(name,
-                unnormalized("/a1/", name));
+        this.appendNameAndCheck(
+                name,
+                unnormalized("/a1//", name),
+                "/a1//"
+        );
     }
 
     @Test
     public void testAppendNameDot() {
         final UrlPathName name = UrlPathName.with(".");
 
-        this.appendNameAndCheck(name,
-                unnormalized("/a1/.", name));
+        this.appendNameAndCheck(
+                name,
+                unnormalized("/a1/.", name),
+                "/a1/."
+        );
     }
 
     @Test
     public void testAppendNameDoubleDot() {
         final UrlPathName name = UrlPathName.with("..");
 
-        this.appendNameAndCheck(name,
-                unnormalized("/a1/..", name));
+        this.appendNameAndCheck(
+                name,
+                unnormalized("/a1/..", name),
+                "/a1/.."
+        );
     }
 
     @Test
     public void testAppendName() {
         final UrlPathName name = UrlPathName.with("b2");
 
-        this.appendNameAndCheck(name,
-                unnormalized("/a1/b2", name));
+        this.appendNameAndCheck(
+                name,
+                unnormalized("/a1/b2", name),
+                "/a1/b2"
+        );
     }
 
     @Test
     public void testAppendName2() {
         final UrlPathName name = UrlPathName.with("2");
 
-        this.appendNameAndCheck(name,
-                unnormalized("/a1/2", name));
+        this.appendNameAndCheck(
+                name,
+                unnormalized("/a1/2", name),
+                "/a1/2"
+        );
     }
 
     @Override

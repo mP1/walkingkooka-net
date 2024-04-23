@@ -60,9 +60,10 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendNameEmptyToRoot() {
-        this.appendNameAndCheck(UrlPath.ROOT,
+        this.appendNameAndCheck(
+                UrlPath.ROOT,
                 UrlPathName.ROOT,
-                "/");
+                "//");
     }
 
     @Test
@@ -74,9 +75,11 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendNameEmptyToLeaf() {
-        this.appendNameAndCheck(UrlPath.unnormalized("/a1", a1(), UrlPath.ROOT_PARENT),
+        this.appendNameAndCheck(
+                UrlPath.unnormalized("/a1", a1(), UrlPath.ROOT_PARENT),
                 UrlPathName.ROOT,
-                "/a1/");
+                "/a1//"
+        );
     }
 
     @Test

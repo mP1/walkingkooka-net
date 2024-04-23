@@ -17,6 +17,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.naming.PathSeparator;
+
 import java.util.Optional;
 
 /**
@@ -37,13 +39,40 @@ final class UrlPathLeafNormalized extends UrlPathLeaf {
     }
 
     @Override
-    UrlPath appendName(final UrlPathName name, final UrlPath parent) {
-        final String path = this.path + separator().character() + name.value();
+    UrlPath appendName(final UrlPathName name,
+                       final UrlPath parent) {
+        final String path = this.path;
+        final PathSeparator separator = this.separator();
+        final char separatorChar = separator.character();
+        final String nameString = name.value();
+
+        final String newPath;
+
+        if (nameString.isEmpty()) {
+            newPath = path + separatorChar + separatorChar;
+
+        } else {
+            if (path.endsWith(separator.string())) {
+                newPath = path + nameString;
+            } else {
+                newPath = path + separatorChar + nameString;
+            }
+        }
+
         final Optional<UrlPath> parent2 = Optional.of(parent);
 
         return name.isNormalized() ?
-                new UrlPathLeafNormalized(path, name, parent2) :
-                unnormalized(path, name, parent2);
+                new UrlPathLeafNormalized(newPath, name, parent2) :
+                unnormalized(newPath, name, parent2);
+    }
+
+    @Override
+    UrlPath parseTrailingSlash() {
+        return new UrlPathLeafNormalized(
+                this.path + this.separator().character(), // new path
+                UrlPathName.ROOT, // name
+                Optional.of(this)
+        );
     }
 
     @Override
