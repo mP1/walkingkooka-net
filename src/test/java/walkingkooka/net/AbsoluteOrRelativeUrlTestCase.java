@@ -150,6 +150,104 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         );
     }
 
+    @Test
+    public final void testAppendPathMissingLeadingSeparator() {
+        final U url = this.createUrl();
+
+        final UrlPath append = UrlPath.parse("path456");
+        final AbsoluteOrRelativeUrl appended = url.appendPath(append);
+        assertNotSame(url, appended);
+
+        this.checkEquals(
+                this.createUrl(
+                        url.path()
+                                .appendPath(append),
+                        QUERY,
+                        FRAGMENT
+                ),
+                appended
+        );
+
+        this.checkEquals(
+                url.path() + "/path456", // extra slash inserted before appending /path456
+                appended.path().value()
+        );
+    }
+
+    @Test
+    public final void testAppendPathMissingLeadingSeparator2() {
+        final U url = this.createUrl();
+
+        final UrlPath append = UrlPath.parse("path456/path789");
+        final AbsoluteOrRelativeUrl appended = url.appendPath(append);
+        assertNotSame(url, appended);
+
+        this.checkEquals(
+                this.createUrl(
+                        url.path()
+                                .appendPath(append),
+                        QUERY,
+                        FRAGMENT
+                ),
+                appended
+        );
+
+        this.checkEquals(
+                url.path() + "/path456/path789", // extra slash inserted before appending /path456
+                appended.path().value()
+        );
+    }
+
+    @Test
+    public final void testAppendPathTrailingSeparatorMissingLeadingSeparator() {
+        final AbsoluteOrRelativeUrl url = this.createUrl()
+                .setPath(UrlPath.parse("/path123/"));
+
+        final UrlPath append = UrlPath.parse("path456");
+        final AbsoluteOrRelativeUrl appended = url.appendPath(append);
+        assertNotSame(url, appended);
+
+        this.checkEquals(
+                this.createUrl(
+                        url.path()
+                                .appendPath(append),
+                        QUERY,
+                        FRAGMENT
+                ),
+                appended
+        );
+
+        this.checkEquals(
+                "/path123/path456",
+                appended.path().value()
+        );
+    }
+
+    @Test
+    public final void testAppendPathTrailingSeparatorMissingLeadingSeparator2() {
+        final AbsoluteOrRelativeUrl url = this.createUrl()
+                .setPath(UrlPath.parse("/path123/"));
+
+        final UrlPath append = UrlPath.parse("path456/path789");
+        final AbsoluteOrRelativeUrl appended = url.appendPath(append);
+        assertNotSame(url, appended);
+
+        this.checkEquals(
+                this.createUrl(
+                        url.path()
+                                .appendPath(append),
+                        QUERY,
+                        FRAGMENT
+                ),
+                appended
+        );
+
+        this.checkEquals(
+                "/path123/path456/path789",
+                appended.path().value()
+        );
+    }
+
     // setQuery .......................................................................................................
 
     @Test

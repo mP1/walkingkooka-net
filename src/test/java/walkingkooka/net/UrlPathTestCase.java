@@ -55,12 +55,22 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
     abstract String expectedToString();
 
     final void appendNameAndCheck(final UrlPathName name,
-                                  final UrlPath expected) {
+                                  final UrlPath expected,
+                                  final String expectedPathString) {
         final P path = this.createPath();
+        final UrlPath pathAppendedWithName = path.append(name);
 
-        this.checkEquals(expected,
-                path.append(name),
-                () -> path + " append name " + name);
+        this.checkEquals(
+                expected,
+                pathAppendedWithName,
+                () -> path + " append name " + name
+        );
+
+        this.checkEquals(
+                expectedPathString,
+                pathAppendedWithName.value(),
+                () -> path + " append name " + name
+        );
     }
 
     final UrlPathLeafNormalized normalized(final String path,

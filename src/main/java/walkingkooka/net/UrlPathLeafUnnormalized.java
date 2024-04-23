@@ -17,6 +17,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.naming.PathSeparator;
+
 import java.util.Optional;
 
 /**
@@ -39,9 +41,37 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
     @Override
     UrlPath appendName(final UrlPathName name,
                        final UrlPath parent) {
-        return new UrlPathLeafUnnormalized(this.path + separator().character() + name.value(),
+        final String path = this.path;
+        final PathSeparator separator = this.separator();
+        final char separatorChar = separator.character();
+        final String nameString = name.value();
+
+        final String newPath;
+
+        if (nameString.isEmpty()) {
+            newPath = path + separatorChar + separatorChar;
+        } else {
+            if (path.endsWith(separator.string())) {
+                newPath = path + nameString;
+            } else {
+                newPath = path + separatorChar + nameString;
+            }
+        }
+
+        return new UrlPathLeafUnnormalized(
+                newPath,
                 name,
-                Optional.of(parent));
+                Optional.of(parent)
+        );
+    }
+
+    @Override
+    UrlPath parseTrailingSlash() {
+        return new UrlPathLeafUnnormalized(
+                this.path + this.separator().character(), // path
+                UrlPathName.ROOT, // name
+                Optional.of(this)
+        );
     }
 
     @Override

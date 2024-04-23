@@ -104,15 +104,24 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
         for (; ; ) {
             final int end = value.indexOf(separator, begin);
+
+            // special case for trailing separator, dont want to append an empty UrlPathName
+            if (begin == length /*&& length == start*/) {
+                path = path.parseTrailingSlash();
+                break;
+            }
+
             if (-1 == end) {
                 path = path.append(UrlPathName.with(value.substring(begin, length)));
                 break;
             }
-            path = path.append(UrlPathName.with(value.substring(begin, end)));
+
+            path = path.append(
+                    UrlPathName.with(
+                            value.substring(begin, end)
+                    )
+            );
             begin = end + 1;
-            if (start >= length) {
-                break;
-            }
         }
 
         return path;
@@ -152,6 +161,13 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     abstract UrlPath appendPath(final UrlPath path);
 
     abstract UrlPath appendTo(final UrlPathLeaf leaf);
+
+    /**
+     * This is only called by {@link #parse1(String, int, UrlPath)}, when the given string ends in a slash.
+     * This is necessary otherwise the {@link UrlPath} will have a {@link UrlPathName} that is empty causing
+     * an empty path component when a new name is appended.
+     */
+    abstract UrlPath parseTrailingSlash();
 
     /**
      * Adds a query string to this path returning a {@link RelativeUrl}

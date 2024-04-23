@@ -73,6 +73,11 @@ final class UrlPathEmpty extends UrlPath {
     }
 
     @Override
+    UrlPath parseTrailingSlash() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public UrlPath normalize() {
         return ROOT;
     }
