@@ -235,42 +235,6 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendPathUnnormalizedToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1/", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.parse("234");
-
-        this.appendPathAndCheck(
-                start,
-                path,
-                UrlPath.parse("/a1/234")
-        );
-    }
-
-    @Test
-    public void testAppendPathUnnormalizedToNormalized2() {
-        final UrlPath start = UrlPath.normalized("/a1/", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.parse("234/56");
-
-        final UrlPath appended = start.append(path);
-
-        this.valueCheck(
-                appended,
-                "/a1/234/56"
-        );
-        this.parentCheck(
-                appended,
-                UrlPath.parse("/a1/234")
-        );
-        this.namesCheck(
-                appended,
-                UrlPathName.ROOT,
-                a1(),
-                UrlPathName.with("234"),
-                UrlPathName.with("56")
-        );
-    }
-
-    @Test
-    public void testAppendPathUnnormalizedToNormalized3() {
         final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
         final UrlPath path = UrlPath.unnormalized("/b2", b2(), UrlPath.EMPTY_PARENT);
         this.appendPathAndCheck(start,
