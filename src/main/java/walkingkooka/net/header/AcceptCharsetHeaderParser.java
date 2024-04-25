@@ -22,6 +22,7 @@ import walkingkooka.net.HasQualityFactor;
 import walkingkooka.predicate.character.CharPredicate;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Charset"></a>
@@ -35,6 +36,15 @@ import java.util.List;
 final class AcceptCharsetHeaderParser extends HeaderParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>> {
 
     static AcceptCharset parseAcceptCharset(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        // value is case insensitive
+        return "UTF-8".equalsIgnoreCase(text) ?
+                AcceptCharset.UTF_8 :
+                parseAcceptCharsetNonConstant(text);
+    }
+
+    private static AcceptCharset parseAcceptCharsetNonConstant(final String text) {
         final AcceptCharsetHeaderParser parser = new AcceptCharsetHeaderParser(text);
         parser.parse();
         parser.charsets.sort(HasQualityFactor.qualityFactorDescendingComparator());

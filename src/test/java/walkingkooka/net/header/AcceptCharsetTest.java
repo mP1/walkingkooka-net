@@ -28,6 +28,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<AcceptCharset>,
@@ -83,6 +85,14 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     public void testParse() {
         this.parseStringAndCheck("UTF-8;bcd=123 ",
                 AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
+    }
+
+    @Test
+    public void testParseUtf8Constant() {
+        assertSame(
+                AcceptCharset.UTF_8,
+                AcceptCharset.parse("utf-8")
+        );
     }
 
     // Predicate........................................................................................................

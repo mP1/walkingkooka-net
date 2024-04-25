@@ -17,6 +17,8 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.collect.list.Lists;
+
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +37,16 @@ import java.util.function.Predicate;
 public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
         implements Predicate<MediaType>,
         HasQualityFactorSortedValues<AcceptCharsetValue> {
+
+
+    /**
+     * Constant holding the frequently used <code>UTF-8</code> accept-charset.
+     */
+    public final static AcceptCharset UTF_8 = AcceptCharset.with(
+            Lists.of(
+                    AcceptCharsetValue.with(CharsetName.UTF_8)
+            )
+    );
 
     /**
      * Parses a header value that contains one or more charsets.

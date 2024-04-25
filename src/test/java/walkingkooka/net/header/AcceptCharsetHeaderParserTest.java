@@ -23,6 +23,8 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParametersTestCase<AcceptCharsetHeaderParser,
         AcceptCharset> {
 
@@ -74,8 +76,27 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     }
 
     @Test
-    public void testCharset() {
-        this.parseStringAndCheck("utf-8", "utf-8");
+    public void testCharsetUtf8() {
+        this.parseStringAndCheck(
+                "utf-8",
+                "utf-8"
+        );
+    }
+
+    @Test
+    public void testCharsetUtf8Constant() {
+        assertSame(
+                AcceptCharset.UTF_8,
+                AcceptCharsetHeaderParser.parseAcceptCharset("UTF-8")
+        );
+    }
+
+    @Test
+    public void testCharsetUtf8ConstantHeaderValueTextWrongCase() {
+        assertSame(
+                AcceptCharset.UTF_8,
+                AcceptCharsetHeaderParser.parseAcceptCharset("utF-8")
+        );
     }
 
     @Test
