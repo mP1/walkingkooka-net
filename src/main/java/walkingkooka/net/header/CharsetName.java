@@ -172,9 +172,9 @@ public abstract class CharsetName extends HeaderNameValue
                 INITIAL_CHAR_PREDICATE,
                 PART_CHAR_PREDICATE);
 
-        final CharsetName mediaType = CONSTANTS.get(value);
-        return null != mediaType ?
-                mediaType :
+        final CharsetName charsetName = CONSTANTS.get(value);
+        return null != charsetName ?
+                charsetName :
                 CharsetNameUnsupportedCharset.unsupportedCharset(value);
     }
 
