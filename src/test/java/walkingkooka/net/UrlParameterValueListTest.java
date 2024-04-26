@@ -18,12 +18,12 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.ListTesting2;
+import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
-        ListTesting2<UrlParameterValueList, String> {
+        ImmutableListTesting<UrlParameterValueList, String> {
 
     @Test
     public void testEmpty() {
@@ -63,6 +63,28 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
 
         this.getFails(list, -1);
         this.getFails(list, 3);
+    }
+
+    @Test
+    public void testSwap() {
+        final UrlParameterValueList list = UrlParameterValueList.empty();
+
+        list.addParameterValue("a1");
+        list.addParameterValue("b2");
+        list.addParameterValue("c3");
+
+        final UrlParameterValueList expected = UrlParameterValueList.empty();
+
+        expected.addParameterValue("c3");
+        expected.addParameterValue("b2");
+        expected.addParameterValue("a1");
+
+        this.swapAndCheck(
+                list,
+                0,
+                2,
+                expected
+        );
     }
 
     @Override
