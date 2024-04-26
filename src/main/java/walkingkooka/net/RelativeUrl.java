@@ -128,6 +128,15 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
         visitor.visit(this);
     }
 
+    // normalize........................................................................................................
+
+    @Override
+    public RelativeUrl normalize() {
+        return this.setPath(
+                this.path().normalize()
+        );
+    }
+
     // Object ..........................................................................................................
 
     @Override

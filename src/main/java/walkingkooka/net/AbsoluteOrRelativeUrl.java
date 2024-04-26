@@ -254,6 +254,13 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
         return this.fragment();
     }
 
+    // normalize........................................................................................................
+
+    /**
+     * Normalizes this {@link Url}. Currently this only affects the path where normalizing removes path navigations.
+     */
+    public abstract AbsoluteOrRelativeUrl normalize();
+
     // Object...........................................................................................................
 
     /**

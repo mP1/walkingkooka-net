@@ -294,6 +294,38 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         this.checkEquals(this.createUrl(PATH, QUERY, differentFragment), different);
     }
 
+    // normalize...................................................................................................
+
+    final void normalizeAndCheck(final String url) {
+        normalizeAndCheck(
+                this.parseString(url)
+        );
+    }
+
+    final void normalizeAndCheck(final AbsoluteOrRelativeUrl url) {
+        assertSame(
+                url,
+                url.normalize()
+        );
+    }
+
+    final void normalizeAndCheck(final String url,
+                                 final String expected) {
+        this.normalizeAndCheck(
+                this.parseString(url),
+                this.parseString(expected)
+        );
+    }
+
+    final void normalizeAndCheck(final AbsoluteOrRelativeUrl url,
+                                 final AbsoluteOrRelativeUrl expected) {
+        this.checkEquals(
+                expected,
+                url.normalize(),
+                () -> url + " normalize"
+        );
+    }
+
     // HasUrlFragment...................................................................................................
 
     @Test
