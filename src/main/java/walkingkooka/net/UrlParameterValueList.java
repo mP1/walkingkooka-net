@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.Lists;
 
 import java.util.AbstractList;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A custom immutable {@link List} that appears read only outside this package, but is mutable during the parsing process.
  */
-final class UrlParameterValueList extends AbstractList<String> {
+final class UrlParameterValueList extends AbstractList<String> implements ImmutableList<String> {
 
     static {
         Lists.registerImmutableType(UrlParameterValueList.class);
@@ -62,5 +63,22 @@ final class UrlParameterValueList extends AbstractList<String> {
     @Override
     public String toString() {
         return this.values.toString();
+    }
+
+    @Override
+    public ImmutableList<String> setElements(final List<String> list) {
+        return list instanceof UrlParameterValueList ?
+                (UrlParameterValueList) list :
+                this.createAndCopy(list);
+    }
+
+    private ImmutableList<String> createAndCopy(final List<String> list) {
+        final UrlParameterValueList copy = UrlParameterValueList.empty();
+        for (final String value : list) {
+            copy.addParameterValue(value);
+        }
+        return this.equals(copy) ?
+                this :
+                copy;
     }
 }
