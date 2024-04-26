@@ -253,6 +253,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         visitor.visit(this);
     }
 
+    // normalize........................................................................................................
+
+    @Override
+    public AbsoluteUrl normalize() {
+        return this.setPath(
+                this.path().normalize()
+        );
+    }
+
     // java.net.URL.....................................................................................................
 
     public URL toURL() throws MalformedURLException {

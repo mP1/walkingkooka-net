@@ -189,6 +189,45 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkEquals("152", b.toString());
     }
 
+    // normalize...................................................................................................
+
+    @Test
+    public void testNormalizeRequired() {
+        this.normalizeAndCheck(
+                "/path1/path2/../path3?query1=2",
+                "/path1/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeRequired2() {
+        this.normalizeAndCheck(
+                "/path1/path2/./path3?query1=2",
+                "/path1/path2/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeUnnecessary() {
+        this.normalizeAndCheck(
+                "/path1/path2/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeWithoutPathUnnecessary() {
+        this.normalizeAndCheck(
+                ""
+        );
+    }
+
+    @Test
+    public void testNormalizeEmptyPathUnnecessary() {
+        this.normalizeAndCheck(
+                "/"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test

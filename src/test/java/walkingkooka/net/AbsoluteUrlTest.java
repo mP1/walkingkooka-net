@@ -285,6 +285,38 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkFragment(url, FRAGMENT);
     }
 
+    // normalize...................................................................................................
+
+    @Test
+    public void testNormalizeRequired() {
+        this.normalizeAndCheck(
+                "https://example.com/path1/path2/../path3?query1=2",
+                "https://example.com/path1/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeRequired2() {
+        this.normalizeAndCheck(
+                "https://example.com/path1/path2/./path3?query1=2",
+                "https://example.com/path1/path2/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeUnnecessary() {
+        this.normalizeAndCheck(
+                "https://example.com/path1/path2/path3?query1=2"
+        );
+    }
+
+    @Test
+    public void testNormalizeWithoutPathUnnecessary() {
+        this.normalizeAndCheck(
+                "https://example.com"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
