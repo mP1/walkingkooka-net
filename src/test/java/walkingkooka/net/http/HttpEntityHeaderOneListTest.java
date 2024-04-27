@@ -48,29 +48,6 @@ public final class HttpEntityHeaderOneListTest extends HttpEntityHeaderListTestC
     }
 
     @Test
-    public void testAppendSameValue() {
-        final HttpEntityHeaderOneList list = HttpEntityHeaderOneList.with(HEADER, VALUE);
-        assertSame(list, list.append(HEADER, VALUE));
-    }
-
-    @Test
-    public void testAppendFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createList().append(HEADER, "Server 2"));
-    }
-
-    @Test
-    public void testRemoveValueDifferentValue() {
-        final HttpEntityHeaderOneList list = this.createList();
-        assertSame(list, list.removeValue("different"));
-    }
-
-    @Test
-    public void testRemoveValue() {
-        final HttpEntityHeaderOneList list = this.createList();
-        assertSame(null, list.removeValue(VALUE));
-    }
-
-    @Test
     public void testToString() {
         this.toStringAndCheck(this.createList(), Lists.of(VALUE).toString());
     }

@@ -42,14 +42,18 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
             header.check(value);
         }
 
-        return new HttpEntityHeaderMultiList(Arrays.copyOf(values, values.length));
+        return new HttpEntityHeaderMultiList(
+                header,
+                Arrays.copyOf(values, values.length)
+        );
     }
 
     /**
      * Private ctor.
      */
-    private HttpEntityHeaderMultiList(final Object[] values) {
-        super();
+    private HttpEntityHeaderMultiList(final HttpHeaderName<?> header,
+                                      final Object[] values) {
+        super(header);
         this.values = values;
     }
 
@@ -70,59 +74,4 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
     }
 
     final Object[] values;
-
-    // HttpEntityHeaderList.............................................................................................
-
-    /**
-     * Creates a new {@link HttpEntityHeaderMultiList} appending the given value to the current array.
-     */
-    @Override //
-    <T> HttpEntityHeaderMultiList append(final HttpHeaderName<T> header,
-                                         final T value) {
-        final int index = this.indexOf(value);
-        return -1 != index ?
-                this :
-                this.append0(header, value);
-    }
-
-
-    private HttpEntityHeaderMultiList append0(final HttpHeaderName<?> header,
-                                              final Object value) {
-        final Object[] old = this.values;
-        final int length = old.length;
-
-        final Object[] appended = new Object[length + 1];
-        System.arraycopy(old, 0, appended, 0, length);
-        appended[length] = value;
-
-        if (false == header.isMultiple()) {
-            throw new IllegalArgumentException(header + " does not support multiple entries: " + Arrays.toString(appended));
-        }
-
-        return new HttpEntityHeaderMultiList(appended);
-    }
-
-    /**
-     * If the value exists creates a new {@link HttpEntityHeaderMultiList} with the value removed.
-     */
-    @Override
-    HttpEntityHeaderMultiList removeValue(final Object value) {
-        final int index = this.indexOf(value);
-        return -1 == index ?
-                this :
-                this.values.length == 1 ?
-                        null :
-                        this.removeAndCompact(index);
-    }
-
-    private HttpEntityHeaderMultiList removeAndCompact(final int index) {
-        final Object[] values = this.values;
-        final int length = values.length;
-
-        final Object[] removedValues = new Object[length - 1];
-        System.arraycopy(values, 0, removedValues, 0, index);
-        System.arraycopy(values, index + 1, removedValues, index, length - index - 1);
-
-        return new HttpEntityHeaderMultiList(removedValues);
-    }
 }
