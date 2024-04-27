@@ -40,14 +40,18 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
             default:
                 throw new IllegalArgumentException("Expected only one value");
         }
-        return new HttpEntityHeaderOneList(header.check(values[0]));
+        return new HttpEntityHeaderOneList(
+                header,
+                header.check(values[0])
+        );
     }
 
     /**
      * Private ctor.
      */
-    private HttpEntityHeaderOneList(final Object value) {
-        super();
+    private HttpEntityHeaderOneList(final HttpHeaderName<?> header,
+                                    final Object value) {
+        super(header);
         this.value = value;
     }
 
@@ -67,25 +71,4 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
     }
 
     final Object value;
-
-    // HttpEntityHeaderList.............................................................................................
-
-    /**
-     * Attempts to add another header will always fail.
-     */
-    @Override //
-    <T> HttpEntityHeaderOneList append(final HttpHeaderName<T> header,
-                                       final T value) {
-        if (false == this.value.equals(value)) {
-            throw new IllegalArgumentException(header + " does not support multiple header values");
-        }
-        return this;
-    }
-
-    @Override
-    HttpEntityHeaderOneList removeValue(final Object value) {
-        return this.value.equals(value) ?
-                null :
-                this;
-    }
 }

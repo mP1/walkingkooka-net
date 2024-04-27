@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractList;
@@ -26,7 +27,7 @@ import java.util.List;
  * A read only {@link java.util.List} with operations to append and remove a value returning a new copy.
  * Note it is never
  */
-abstract class HttpEntityHeaderList extends AbstractList<Object> {
+abstract class HttpEntityHeaderList extends AbstractList<Object> implements ImmutableList<Object> {
 
     /**
      * If the {@link List} is not a {@link HttpEntityHeaderList} make a copy of using its values.
@@ -82,8 +83,9 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
     /**
      * Package private ctor to limit sub classing.
      */
-    HttpEntityHeaderList() {
+    HttpEntityHeaderList(final HttpHeaderName<?> header) {
         super();
+        this.header = header;
     }
 
     // HttpEntityHeaderList..............................................................................................
@@ -95,14 +97,15 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> {
         return this instanceof HttpEntityHeaderMultiList;
     }
 
-    /**
-     * Creates a new {@link HttpEntityHeaderList} appending the given value to the current array.
-     */
-    abstract <T> HttpEntityHeaderList append(final HttpHeaderName<T> header,
-                                             final T value);
+    // ImmutableList....................................................................................................
 
-    /**
-     * Removes the value if it is present or null if empty.
-     */
-    abstract HttpEntityHeaderList removeValue(final Object value);
+    @Override
+    public final ImmutableList<Object> setElements(final List<Object> values) {
+        final ImmutableList<Object> copy = copy(this.header, values);
+        return this.equals(copy) ?
+                this :
+                copy;
+    }
+
+    private final HttpHeaderName<?> header;
 }

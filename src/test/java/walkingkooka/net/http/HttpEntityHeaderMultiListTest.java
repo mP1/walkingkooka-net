@@ -26,7 +26,6 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTestCase2<HttpEntityHeaderMultiList> {
@@ -64,9 +63,9 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
     }
 
     @Test
-    public void testAppend() {
+    public void testAppendAndNew() {
         final HttpEntityHeaderMultiList list = this.createList();
-        final HttpEntityHeaderMultiList appended = list.append(HEADER, VALUE2);
+        final HttpEntityHeaderMultiList appended = (HttpEntityHeaderMultiList) list.appendAndNew(VALUE2);
         assertNotSame(list, appended);
 
         this.check(appended, VALUE1, VALUE2);
@@ -78,51 +77,7 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
         this.checkEquals(false, header.isMultiple(), "isMultiple should be false");
         final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(header, 1L);
 
-        assertThrows(IllegalArgumentException.class, () -> list.append(header, 999L));
-    }
-
-    @Test
-    public void testAppendExistingValue() {
-        final HttpEntityHeaderMultiList list = this.createList();
-        final HttpEntityHeaderMultiList appended = list.append(HEADER, VALUE1);
-        assertSame(list, appended);
-    }
-
-    @Test
-    public void testAppendExistingValue2() {
-        final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(HEADER, VALUE1, VALUE2);
-        final HttpEntityHeaderMultiList appended = list.append(HEADER, VALUE2);
-        assertSame(list, appended);
-    }
-
-    @Test
-    public void testRemoveValueDifferentValue() {
-        final HttpEntityHeaderMultiList list = this.createList();
-        assertSame(list, list.removeValue("different"));
-    }
-
-    @Test
-    public void testRemoveValueOnlyValue() {
-        final HttpEntityHeaderMultiList list = this.createHttpEntityHeaderList(VALUE1);
-        assertSame(null, list.removeValue(VALUE1));
-    }
-
-    @Test
-    public void testRemoveValue() {
-        final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(HEADER, VALUE1, VALUE2);
-        final HttpEntityHeaderMultiList removed = list.removeValue(VALUE1);
-        assertNotSame(list, removed);
-
-        this.check(removed, VALUE2);
-    }
-
-    @Test
-    public void testRemoveValue2() {
-        final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(HEADER, VALUE1, VALUE2);
-        final HttpEntityHeaderMultiList removed = list.removeValue(VALUE2);
-        assertNotSame(list, removed);
-
-        this.check(removed, VALUE1);
+        assertThrows(IllegalArgumentException.class, () -> list.appendAndNew(999L));
     }
 
     @Test
