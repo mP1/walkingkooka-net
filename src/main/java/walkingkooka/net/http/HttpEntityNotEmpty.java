@@ -92,7 +92,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                 // append value and return new entity
                 updated.put(
                         header,
-                        (HttpEntityHeaderList) values.appendAndNew(value)
+                        (HttpEntityHeaderList) values.concat(value)
                 );
                 added = this.replace(Maps.readOnly(updated));
             }

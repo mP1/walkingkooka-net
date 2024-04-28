@@ -63,9 +63,9 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
     }
 
     @Test
-    public void testAppendAndNew() {
+    public void testConcat() {
         final HttpEntityHeaderMultiList list = this.createList();
-        final HttpEntityHeaderMultiList appended = (HttpEntityHeaderMultiList) list.appendAndNew(VALUE2);
+        final HttpEntityHeaderMultiList appended = (HttpEntityHeaderMultiList) list.concat(VALUE2);
         assertNotSame(list, appended);
 
         this.check(appended, VALUE1, VALUE2);
@@ -77,7 +77,7 @@ public final class HttpEntityHeaderMultiListTest extends HttpEntityHeaderListTes
         this.checkEquals(false, header.isMultiple(), "isMultiple should be false");
         final HttpEntityHeaderMultiList list = HttpEntityHeaderMultiList.with(header, 1L);
 
-        assertThrows(IllegalArgumentException.class, () -> list.appendAndNew(999L));
+        assertThrows(IllegalArgumentException.class, () -> list.concat(999L));
     }
 
     @Test
