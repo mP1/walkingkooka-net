@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.collect.list.ImmutableList;
+import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractList;
@@ -27,7 +28,7 @@ import java.util.List;
  * A read only {@link java.util.List} with operations to append and remove a value returning a new copy.
  * Note it is never
  */
-abstract class HttpEntityHeaderList extends AbstractList<Object> implements ImmutableList<Object> {
+abstract class HttpEntityHeaderList extends AbstractList<Object> implements ImmutableListDefaults<ImmutableList<Object>, Object> {
 
     /**
      * If the {@link List} is not a {@link HttpEntityHeaderList} make a copy of using its values.
