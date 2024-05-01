@@ -24,7 +24,7 @@ jobs:
         run: mvn dependency:resolve
 
       - name: Maven install
-        run: mvn install -Dmaven.javadoc.skip=true -B -V -e > it-output.txt
+        run: mvn install -Dmaven.javadoc.skip=true -B -V -e > output.txt
 
       - name: Print logs
         if: ${{ always() }}
@@ -41,6 +41,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: it-output.txt
-          path: it-output.txt
+          name: output.txt
+          path: output.txt
 
