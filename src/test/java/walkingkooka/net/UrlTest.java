@@ -103,13 +103,33 @@ public final class UrlTest implements ClassTesting2<Url>,
         );
 
         this.checkEquals(
-                "unknown protocol: data",
+                "Unknown protocol \"data:text/plain;base64,YWJjMTIz\"",
                 thrown.getMessage()
         );
     }
 
     @Test
     public void testParseAbsoluteOrRelativeUrlWithAbsolute() {
+        final String text = "https://example.com";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseAbsolute(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithAbsoluteFragment() {
+        final String text = "https://example.com#fragment123";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseAbsolute(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithAbsolutePath() {
         final String text = "https://example.com/path1";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
@@ -119,8 +139,48 @@ public final class UrlTest implements ClassTesting2<Url>,
     }
 
     @Test
-    public void testParseAbsoluteOrRelativeUrlWithRelative() {
+    public void testParseAbsoluteOrRelativeUrlWithAbsoluteQueryString() {
+        final String text = "https://example.com?query123";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseAbsolute(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithRelativeEmpty() {
+        final String text = "";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseRelative(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithRelativeFragment() {
+        final String text = "#fragment123";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseRelative(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithRelativePath() {
         final String text = "/path/path2";
+
+        this.parseAbsoluteOrRelativeUrlAndCheck(
+                text,
+                Url.parseRelative(text)
+        );
+    }
+
+    @Test
+    public void testParseAbsoluteOrRelativeUrlWithRelativeQueryString() {
+        final String text = "?param=value";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
                 text,

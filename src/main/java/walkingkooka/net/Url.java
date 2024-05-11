@@ -123,7 +123,29 @@ public abstract class Url implements Value<String>,
     public static AbsoluteOrRelativeUrl parseAbsoluteOrRelative(final String url) {
         checkUrl(url);
 
-        return -1 != url.indexOf(':') ? parseAbsolute(url) :
+        if (url.startsWith("data:")) {
+            throw new IllegalArgumentException("Unknown protocol " + CharSequences.quoteAndEscape(url));
+        }
+
+        final boolean absolute;
+
+        if (url.isEmpty()) {
+            absolute = false;
+        } else {
+            final int fragment = url.indexOf('#');
+            final int queryString = url.indexOf('?');
+            final int path = url.indexOf('/');
+            final int protocol = url.indexOf("://");
+
+            absolute = -1 != protocol &&
+                    (protocol < fragment ||
+                            protocol < queryString ||
+                            protocol < path
+                    );
+        }
+
+        return absolute ?
+                parseAbsolute(url) :
                 parseRelative(url);
     }
 
