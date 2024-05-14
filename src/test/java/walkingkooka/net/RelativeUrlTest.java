@@ -129,13 +129,13 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     }
 
     @Test
-    public void testParsePathQueryStringFragmentWithSpace() {
+    public void testParsePathQueryStringFragmentWithPlus() {
         final String string = "/path123?query456#fragment+789";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
         this.checkPath(url, UrlPath.parse("/path123"));
         this.checkQueryString(url, UrlQueryString.parse("query456"));
-        this.checkFragment(url, UrlFragment.with("fragment 789"));
+        this.checkFragment(url, UrlFragment.with("fragment+789"));
 
         this.toStringAndCheck(
                 url,

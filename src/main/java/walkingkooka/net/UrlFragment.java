@@ -27,6 +27,9 @@ import java.util.Objects;
 
 /**
  * The fragment within a {@link Url}.
+ * <pre>
+ * https://datatracker.ietf.org/doc/html/rfc3986
+ * </pre>
  */
 public final class UrlFragment implements Value<String> {
 
@@ -47,7 +50,7 @@ public final class UrlFragment implements Value<String> {
         try {
             return with(
                     URLDecoder.decode(
-                            value,
+                            value.replace("+", ENCODED_PLUS_SIGN),
                             UTF8
                     )
             );
@@ -124,31 +127,98 @@ public final class UrlFragment implements Value<String> {
     // *    gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "@"
     // *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
     // *                  / "*" / "+" / "," / ";" / "="
+
+    // https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
+    //
+    // The scheme- or implementation-specific reserved character + may be used in the scheme, userinfo, host, path, query, and fragment,
+    // and the scheme- or implementation-specific reserved characters !, $, &, ', (, ), *, ,, ;, and = may be used in the
+    // userinfo, host, path, query, and fragment. Additionally, the generic reserved character : may be used in the userinfo,
+    // path, query and fragment, the generic reserved characters @ and / may be used in the path, query and fragment,
+    // and the generic reserved character ? may be used in the query and fragment.
+
     @Override
     public String toString() {
         try {
             return URLEncoder.encode(
                             this.value,
                             UTF8
-                    ).replace(ENCODED_COLON, ":")
+                    )
+                    .replace(ENCODED_SPACE, " ") // must happen before special case for encoded plus sign
+                    //
+                    .replace(ENCODED_PLUS_SIGN, "+")
+                    //
+                    .replace(ENCODED_EXCLAIMATION, "!")
+                    .replace(ENCODED_DOLLAR_SIGN, "$")
+                    .replace(ENCODED_AMPERSAND, "&")
+                    .replace(ENCODED_SINGLE_QUOTE, "'")
+                    .replace(ENCODED_OPEN_PARENS, "(")
+                    .replace(ENCODED_CLOSE_PARENS, ")")
+                    .replace(ENCODED_STAR, "*")
+                    .replace(ENCODED_COMMA, ",")
+                    .replace(ENCODED_SEMI_COLON, ";")
+                    .replace(ENCODED_EQUALS_SIGN, "=")
+                    //
+                    .replace(ENCODED_COLON, ":")
+                    //
+                    .replace(ENCODED_AT_SIGN, "@")
                     .replace(ENCODED_SLASH, "/")
+                    //
                     .replace(ENCODED_QUESTION_MARK, "?")
+                    //
                     .replace(ENCODED_HASH, "#")
                     .replace(ENCODED_BRACKET_OPEN, "[")
-                    .replace(ENCODED_BRACKET_CLOSE, "]")
-                    .replace(ENCODED_AT_SIGN, "@");
+                    .replace(ENCODED_BRACKET_CLOSE, "]");
         } catch (final UnsupportedEncodingException cause) {
             throw new Error(cause);
         }
     }
 
+    // The scheme- or implementation-specific reserved character + may be used in the scheme, userinfo, host, path, query, and fragment,
+
+    private final static String ENCODED_PLUS_SIGN = URLEncoder.encode("+");
+
+    // and the scheme- or implementation-specific reserved characters !, $, &, ', (, ), *, ,, ;, and = may be used in the
+    // userinfo, host, path, query, and fragment.
+    private final static String ENCODED_EXCLAIMATION = URLEncoder.encode("!");
+
+    private final static String ENCODED_DOLLAR_SIGN = URLEncoder.encode("$");
+
+    private final static String ENCODED_AMPERSAND = URLEncoder.encode("&");
+
+    private final static String ENCODED_SINGLE_QUOTE = URLEncoder.encode("'");
+
+    private final static String ENCODED_OPEN_PARENS = URLEncoder.encode("(");
+
+    private final static String ENCODED_CLOSE_PARENS = URLEncoder.encode(")");
+
+    private final static String ENCODED_STAR = URLEncoder.encode("*");
+
+    private final static String ENCODED_COMMA = URLEncoder.encode(",");
+
+    private final static String ENCODED_SEMI_COLON = URLEncoder.encode(";");
+
+    private final static String ENCODED_EQUALS_SIGN = URLEncoder.encode("=");
+
+    // The generic reserved character : may be used in the userinfo, path, query and fragment
+
     private final static String ENCODED_COLON = URLEncoder.encode(":");
+
+    // the generic reserved characters @ and / may be used in the path, query and fragment,
+    private final static String ENCODED_AT_SIGN = URLEncoder.encode("@");
+
     private final static String ENCODED_SLASH = URLEncoder.encode("/");
+
+    // and the generic reserved character ? may be used in the query and fragment.
+
     private final static String ENCODED_QUESTION_MARK = URLEncoder.encode("?");
-    private final static String ENCODED_HASH = URLEncoder.encode(":");
+
+    // additional characters
+
+    private final static String ENCODED_HASH = URLEncoder.encode("#");
     private final static String ENCODED_BRACKET_OPEN = URLEncoder.encode("[");
     private final static String ENCODED_BRACKET_CLOSE = URLEncoder.encode("]");
-    private final static String ENCODED_AT_SIGN = URLEncoder.encode("@");
+
+    private final static String ENCODED_SPACE = URLEncoder.encode(" ");
 
     private final static String UTF8 = "UTF-8";
 

@@ -93,7 +93,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
         final UrlFragment urlFragment = UrlFragment.parse(value);
         this.checkEquals(
-                "space ",
+                "space+",
                 urlFragment.value()
         );
         this.toStringAndCheck(
@@ -111,7 +111,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
         this.toStringAndCheck(
                 urlFragment,
-                "space+"
+                "space "
         );
     }
 
@@ -278,7 +278,17 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testToStringSpace() {
         this.toStringAndCheck(
                 UrlFragment.with("space "),
-                "space+"
+                "space "
+        );
+    }
+
+    @Test
+    public void testToStringSpecials() {
+        final String text = "+!$&'()*,;=:@/?#[]";
+
+        this.toStringAndCheck(
+                UrlFragment.with(text),
+                text
         );
     }
 
