@@ -840,7 +840,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     public void testToStringFragmentPercent20() {
         this.toStringAndCheck(
                 AbsoluteUrl.parseAbsolute("http://example/path123?query456#fragment%20"),
-                "http://example/path123?query456#fragment "
+                "http://example/path123?query456#fragment%20"
         );
     }
 
