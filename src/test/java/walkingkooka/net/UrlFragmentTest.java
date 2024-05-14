@@ -24,6 +24,8 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
+import java.net.URI;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -111,7 +113,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
         this.toStringAndCheck(
                 urlFragment,
-                "space "
+                "space%20"
         );
     }
 
@@ -208,6 +210,18 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         this.parseAndToStringRoundtripAndCheck("=1+2*3/4");
     }
 
+    @Test
+    public void testParseAndToStringRoundtripAllAsciiCharacters() {
+        final char[] c = new char[256];
+        for (int i = 0; i < c.length; i++) {
+            c[i] = (char) i;
+        }
+
+        this.parseAndToStringRoundtripAndCheck(
+                new String(c)
+        );
+    }
+
     private void parseAndToStringRoundtripAndCheck(final String text) {
         final UrlFragment urlFragment = UrlFragment.with(text);
 
@@ -278,17 +292,32 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testToStringSpace() {
         this.toStringAndCheck(
                 UrlFragment.with("space "),
-                "space "
+                "space%20"
         );
     }
 
     @Test
     public void testToStringSpecials() {
-        final String text = "+!$&'()*,;=:@/?#[]";
+        final String text = "+!$&'()*,;=:@/?[]";
 
         this.toStringAndCheck(
                 UrlFragment.with(text),
                 text
+        );
+    }
+
+    @Test
+    public void testToStringAndUriCreate() {
+        final char[] c = new char[256];
+        for (int i = 0; i < c.length; i++) {
+            c[i] = (char) i;
+        }
+
+        URI.create(
+                "http://example/path#" +
+                        UrlFragment.with(
+                                new String(c)
+                        ).toString()
         );
     }
 

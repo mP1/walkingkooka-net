@@ -143,7 +143,7 @@ public final class UrlFragment implements Value<String> {
                             this.value,
                             UTF8
                     )
-                    .replace(ENCODED_SPACE, " ") // must happen before special case for encoded plus sign
+                    .replace(ENCODED_SPACE, "%20")
                     //
                     .replace(ENCODED_PLUS_SIGN, "+")
                     //
@@ -165,7 +165,6 @@ public final class UrlFragment implements Value<String> {
                     //
                     .replace(ENCODED_QUESTION_MARK, "?")
                     //
-                    .replace(ENCODED_HASH, "#")
                     .replace(ENCODED_BRACKET_OPEN, "[")
                     .replace(ENCODED_BRACKET_CLOSE, "]");
         } catch (final UnsupportedEncodingException cause) {
@@ -213,8 +212,6 @@ public final class UrlFragment implements Value<String> {
     private final static String ENCODED_QUESTION_MARK = URLEncoder.encode("?");
 
     // additional characters
-
-    private final static String ENCODED_HASH = URLEncoder.encode("#");
     private final static String ENCODED_BRACKET_OPEN = URLEncoder.encode("[");
     private final static String ENCODED_BRACKET_CLOSE = URLEncoder.encode("]");
 
