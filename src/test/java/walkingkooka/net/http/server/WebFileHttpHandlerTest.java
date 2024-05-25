@@ -42,7 +42,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<WebFileHttpRequestHttpResponseBiConsumer> {
+public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHttpHandler> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -125,13 +125,13 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
 
     @Test
     public void testWithUrlNullUrlPathBaseFails() {
-        assertThrows(NullPointerException.class, () -> WebFileHttpRequestHttpResponseBiConsumer.with(null, FILES)
+        assertThrows(NullPointerException.class, () -> WebFileHttpHandler.with(null, FILES)
         );
     }
 
     @Test
     public void testWithNullFilesFails() {
-        assertThrows(NullPointerException.class, () -> WebFileHttpRequestHttpResponseBiConsumer.with(this.baseUrlPath(), null)
+        assertThrows(NullPointerException.class, () -> WebFileHttpHandler.with(this.baseUrlPath(), null)
         );
     }
 
@@ -142,8 +142,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request("file-not-found", NO_ETAG, NO_LAST_MODIFIED);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
@@ -157,8 +157,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request(FILE1, NO_ETAG, NO_LAST_MODIFIED);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -177,8 +177,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -197,8 +197,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -218,8 +218,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
@@ -237,8 +237,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1.minusSeconds(10));
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -257,8 +257,8 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
         final HttpRequest request = this.request(FILE2, ETAG2, LAST_MODIFIED2);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
@@ -287,13 +287,13 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), this.baseUrlPath().toString());
+        this.toStringAndCheck(this.createHttpHandler(), this.baseUrlPath().toString());
     }
 
     // helpers..........................................................................................................
 
-    private WebFileHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return WebFileHttpRequestHttpResponseBiConsumer.with(this.baseUrlPath(), FILES);
+    private WebFileHttpHandler createHttpHandler() {
+        return WebFileHttpHandler.with(this.baseUrlPath(), FILES);
     }
 
     private UrlPath baseUrlPath() {
@@ -338,7 +338,7 @@ public final class WebFileHttpRequestHttpResponseBiConsumerTest extends HttpRequ
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<WebFileHttpRequestHttpResponseBiConsumer> type() {
-        return WebFileHttpRequestHttpResponseBiConsumer.class;
+    public Class<WebFileHttpHandler> type() {
+        return WebFileHttpHandler.class;
     }
 }

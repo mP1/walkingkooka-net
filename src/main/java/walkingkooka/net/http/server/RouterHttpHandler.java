@@ -20,37 +20,36 @@ package walkingkooka.net.http.server;
 import walkingkooka.route.Router;
 
 import java.util.Objects;
-import java.util.function.BiConsumer;
 
 /**
- * A {@link BiConsumer} that attempts locate the handler from the request or uses the default handler.
+ * A {@link HttpHandler} that attempts locate the handler from the request or uses the default handler.
  */
-final class RouterHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class RouterHttpHandler implements HttpHandler {
 
-    static RouterHttpRequestHttpResponseBiConsumer with(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
-                                                        final BiConsumer<HttpRequest, HttpResponse> notFound) {
+    static RouterHttpHandler with(final Router<HttpRequestAttribute<?>, HttpHandler> router,
+                                  final HttpHandler notFound) {
         Objects.requireNonNull(router, "router");
         Objects.requireNonNull(notFound, "notFound");
 
-        return new RouterHttpRequestHttpResponseBiConsumer(router, notFound);
+        return new RouterHttpHandler(router, notFound);
     }
 
-    private RouterHttpRequestHttpResponseBiConsumer(final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router,
-                                                    final BiConsumer<HttpRequest, HttpResponse> notFound) {
+    private RouterHttpHandler(final Router<HttpRequestAttribute<?>, HttpHandler> router,
+                              final HttpHandler notFound) {
         super();
         this.router = router;
         this.notFound = notFound;
     }
 
     @Override
-    public void accept(final HttpRequest request, final HttpResponse response) {
+    public void handle(final HttpRequest request, final HttpResponse response) {
         this.router.route(request.routerParameters())
                 .orElse(this.notFound)
-                .accept(request, response);
+                .handle(request, response);
     }
 
-    private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router;
-    private final BiConsumer<HttpRequest, HttpResponse> notFound;
+    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+    private final HttpHandler notFound;
 
     @Override
     public String toString() {

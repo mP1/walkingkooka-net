@@ -20,9 +20,9 @@ package walkingkooka.net.http.server;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public abstract class HttpRequestHttpResponseBiConsumerTestCase<T> implements ClassTesting2<T> {
+public abstract class HttpHandlerTestCase<T> implements ClassTesting2<T> {
 
-    HttpRequestHttpResponseBiConsumerTestCase() {
+    HttpHandlerTestCase() {
         super();
     }
 

@@ -17,15 +17,11 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ToStringTesting;
+/**
+ * A functional SAM interface that defines the handing of requests and the production of responses.
+ */
+public interface HttpHandler {
 
-import java.util.function.BiConsumer;
-
-public abstract class HttpRequestHttpResponseBiConsumerTestCase2<H extends BiConsumer<HttpRequest, HttpResponse>>
-        extends HttpRequestHttpResponseBiConsumerTestCase<H>
-        implements ToStringTesting<H> {
-
-    HttpRequestHttpResponseBiConsumerTestCase2() {
-        super();
-    }
+    void handle(final HttpRequest request,
+                final HttpResponse response);
 }

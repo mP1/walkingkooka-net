@@ -29,19 +29,19 @@ import walkingkooka.net.http.HttpStatusCode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<ContentTypeHttpRequestHttpResponseBiConsumer> {
+public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<ContentTypeHttpHandler> {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
-    private final static BiConsumer<HttpRequest, HttpResponse> HANDLER = new BiConsumer<>() {
+    private final static HttpHandler HANDLER = new HttpHandler() {
         @Override
-        public void accept(final HttpRequest request, HttpResponse response) {
+        public void handle(final HttpRequest request,
+                           final HttpResponse response) {
             response.setStatus(STATUS);
             response.addEntity(ENTITY);
         }
@@ -49,12 +49,12 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
 
     @Test
     public void testWithNullContentTypeFails() {
-        assertThrows(NullPointerException.class, () -> ContentTypeHttpRequestHttpResponseBiConsumer.with(null, HANDLER));
+        assertThrows(NullPointerException.class, () -> ContentTypeHttpHandler.with(null, HANDLER));
     }
 
     @Test
     public void testWithNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> ContentTypeHttpRequestHttpResponseBiConsumer.with(CONTENT_TYPE, null));
+        assertThrows(NullPointerException.class, () -> ContentTypeHttpHandler.with(CONTENT_TYPE, null));
     }
 
     // accept...........................................................................................................
@@ -64,8 +64,11 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
         final HttpRequest request = this.request();
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(
+                        request,
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain missing " + HttpHeaderName.CONTENT_TYPE));
@@ -79,8 +82,11 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
         final HttpRequest request = this.request(MediaType.BINARY);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(
+                        request,
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain got application/octet-stream"));
@@ -94,8 +100,11 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
         final HttpRequest request = this.request(CONTENT_TYPE);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(
+                        request,
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(STATUS);
@@ -119,13 +128,13 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), CONTENT_TYPE + " " + HANDLER);
+        this.toStringAndCheck(this.createHttpHandler(), CONTENT_TYPE + " " + HANDLER);
     }
 
     // helpers..........................................................................................................
 
-    private ContentTypeHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return ContentTypeHttpRequestHttpResponseBiConsumer.with(CONTENT_TYPE, HANDLER);
+    private ContentTypeHttpHandler createHttpHandler() {
+        return ContentTypeHttpHandler.with(CONTENT_TYPE, HANDLER);
     }
 
     private HttpRequest request(final MediaType... contentType) {
@@ -146,7 +155,7 @@ public final class ContentTypeHttpRequestHttpResponseBiConsumerTest extends Http
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ContentTypeHttpRequestHttpResponseBiConsumer> type() {
-        return ContentTypeHttpRequestHttpResponseBiConsumer.class;
+    public Class<ContentTypeHttpHandler> type() {
+        return ContentTypeHttpHandler.class;
     }
 }

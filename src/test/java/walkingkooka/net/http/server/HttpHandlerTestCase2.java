@@ -17,25 +17,13 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.ToStringTesting;
 
-import java.lang.reflect.Method;
+public abstract class HttpHandlerTestCase2<H extends HttpHandler>
+        extends HttpHandlerTestCase<H>
+        implements ToStringTesting<H> {
 
-public final class HttpRequestHttpResponseBiConsumersTest implements PublicStaticHelperTesting<HttpRequestHttpResponseBiConsumers> {
-
-    @Override
-    public Class<HttpRequestHttpResponseBiConsumers> type() {
-        return HttpRequestHttpResponseBiConsumers.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
+    HttpHandlerTestCase2() {
+        super();
     }
 }

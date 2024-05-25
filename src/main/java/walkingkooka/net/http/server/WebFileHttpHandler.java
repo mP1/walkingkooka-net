@@ -29,7 +29,6 @@ import walkingkooka.text.CharSequences;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
@@ -37,28 +36,29 @@ import java.util.function.Function;
  * NOT_MODIFIED will be returned with an empty body. The content-type, last-modified headers will always be added to the response,
  * and a content-length when the body contains the file content.
  */
-final class WebFileHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class WebFileHttpHandler implements HttpHandler {
 
-    static WebFileHttpRequestHttpResponseBiConsumer with(final UrlPath basePath,
-                                                         final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
+    static WebFileHttpHandler with(final UrlPath basePath,
+                                   final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         Objects.requireNonNull(basePath, "basePath");
         Objects.requireNonNull(files, "files");
 
-        return new WebFileHttpRequestHttpResponseBiConsumer(basePath, files);
+        return new WebFileHttpHandler(basePath, files);
     }
 
     /**
      * Private ctor use factory
      */
-    private WebFileHttpRequestHttpResponseBiConsumer(final UrlPath basePath,
-                                                     final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
+    private WebFileHttpHandler(final UrlPath basePath,
+                               final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         super();
         this.basePath = basePath;
         this.files = files;
     }
 
     @Override
-    public void accept(final HttpRequest request, final HttpResponse response) {
+    public void handle(final HttpRequest request,
+                       final HttpResponse response) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
 

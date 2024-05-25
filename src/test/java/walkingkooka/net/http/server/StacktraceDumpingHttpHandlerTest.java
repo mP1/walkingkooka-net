@@ -26,25 +26,24 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<StacktraceDumpingHttpRequestHttpResponseBiConsumer> {
+public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase2<StacktraceDumpingHttpHandler> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
 
     @Test
     public void testWithNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(null, TRANSLATOR));
+        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpHandler.with(null, TRANSLATOR));
     }
 
     @Test
     public void testWithNullTranslatorFails() {
-        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpRequestHttpResponseBiConsumer.with((r, s) -> {
+        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpHandler.with((r, s) -> {
         }, null));
     }
 
@@ -55,7 +54,7 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.fake();
 
-        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(
+        StacktraceDumpingHttpHandler.with(
                         (r, rr) -> {
                             assertSame(r, request);
                             assertSame(rr, response);
@@ -63,7 +62,10 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
                             this.handled = true;
                         },
                         TRANSLATOR)
-                .accept(request, response);
+                .handle(
+                        request,
+                        response
+                );
 
         this.checkEquals(true, this.handled);
     }
@@ -74,7 +76,8 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
     public void testThrown() {
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.recording();
-        StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(
+
+        StacktraceDumpingHttpHandler.with(
                 (r, rr) -> {
                     assertSame(r, request);
                     assertSame(rr, response);
@@ -82,7 +85,10 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
                     throw new UnsupportedOperationException();
                 },
                 TRANSLATOR
-        ).accept(request, response);
+        ).handle(
+                request,
+                response
+        );
 
         this.checkEquals(
                 Optional.of(STATUS),
@@ -104,14 +110,15 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
 
     @Test
     public void testToString() {
-        final BiConsumer<HttpRequest, HttpResponse> wrapped = wrapped();
-        this.toStringAndCheck(StacktraceDumpingHttpRequestHttpResponseBiConsumer.with(wrapped, TRANSLATOR), wrapped + " " + TRANSLATOR);
+        final HttpHandler wrapped = wrapped();
+        this.toStringAndCheck(StacktraceDumpingHttpHandler.with(wrapped, TRANSLATOR), wrapped + " " + TRANSLATOR);
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> wrapped() {
-        return new BiConsumer<>() {
+    private HttpHandler wrapped() {
+        return new HttpHandler() {
             @Override
-            public void accept(final HttpRequest request, final HttpResponse response) {
+            public void handle(final HttpRequest request,
+                               final HttpResponse response) {
                 throw new UnsupportedOperationException();
             }
 
@@ -123,7 +130,7 @@ public final class StacktraceDumpingHttpRequestHttpResponseBiConsumerTest extend
     }
 
     @Override
-    public Class<StacktraceDumpingHttpRequestHttpResponseBiConsumer> type() {
-        return StacktraceDumpingHttpRequestHttpResponseBiConsumer.class;
+    public Class<StacktraceDumpingHttpHandler> type() {
+        return StacktraceDumpingHttpHandler.class;
     }
 }

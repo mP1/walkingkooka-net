@@ -21,41 +21,40 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.Objects;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
- * Wraps another handler, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
+ * Wraps another {@link HttpHandler}, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
  */
-final class StacktraceDumpingHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class StacktraceDumpingHttpHandler implements HttpHandler {
 
-    static StacktraceDumpingHttpRequestHttpResponseBiConsumer with(final BiConsumer<HttpRequest, HttpResponse> handler,
-                                                                   final Function<Throwable, HttpStatus> throwableTranslator) {
+    static StacktraceDumpingHttpHandler with(final HttpHandler handler,
+                                             final Function<Throwable, HttpStatus> throwableTranslator) {
         Objects.requireNonNull(handler, "handler");
         Objects.requireNonNull(throwableTranslator, "throwableTranslator");
 
-        return new StacktraceDumpingHttpRequestHttpResponseBiConsumer(handler, throwableTranslator);
+        return new StacktraceDumpingHttpHandler(handler, throwableTranslator);
     }
 
-    private StacktraceDumpingHttpRequestHttpResponseBiConsumer(final BiConsumer<HttpRequest, HttpResponse> handler,
-                                                               final Function<Throwable, HttpStatus> throwableTranslator) {
+    private StacktraceDumpingHttpHandler(final HttpHandler handler,
+                                         final Function<Throwable, HttpStatus> throwableTranslator) {
         super();
         this.handler = handler;
         this.throwableTranslator = throwableTranslator;
     }
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
         try {
-            this.handler.accept(request, response);
+            this.handler.handle(request, response);
         } catch (final Throwable cause) {
             response.setStatus(this.throwableTranslator.apply(cause));
             response.addEntity(HttpEntity.dumpStackTrace(cause));
         }
     }
 
-    private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private final HttpHandler handler;
     private final Function<Throwable, HttpStatus> throwableTranslator;
 
     @Override

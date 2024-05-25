@@ -22,36 +22,38 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Objects;
-import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 /**
- * A {@link BiConsumer} that tests if the request method is acceptable otherwise responds with a {@link walkingkooka.net.http.HttpStatusCode#METHOD_NOT_ALLOWED}.
+ * A {@link HttpHandler} that tests if the request method is acceptable otherwise responds with a {@link HttpStatusCode#METHOD_NOT_ALLOWED}.
  * The {@link Predicate#toString()} is also used to report the allowed methods.
  */
-final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class MethodNotAllowedHttpHandler implements HttpHandler {
 
-    static MethodNotAllowedHttpRequestHttpResponseBiConsumer with(final HttpMethod method,
-                                                                  final BiConsumer<HttpRequest, HttpResponse> handler) {
+    static MethodNotAllowedHttpHandler with(final HttpMethod method,
+                                            final HttpHandler handler) {
         Objects.requireNonNull(method, "method");
         Objects.requireNonNull(handler, "handler");
 
-        return new MethodNotAllowedHttpRequestHttpResponseBiConsumer(method, handler);
+        return new MethodNotAllowedHttpHandler(method, handler);
     }
 
-    private MethodNotAllowedHttpRequestHttpResponseBiConsumer(final HttpMethod method,
-                                                              final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private MethodNotAllowedHttpHandler(final HttpMethod method,
+                                        final HttpHandler handler) {
         super();
         this.method = method;
         this.handler = handler;
     }
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
         final HttpMethod method = request.method();
         if (this.method.equals(method)) {
-            this.handler.accept(request, response);
+            this.handler.handle(
+                    request,
+                    response
+            );
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));
             response.addEntity(HttpEntity.EMPTY);
@@ -63,7 +65,7 @@ final class MethodNotAllowedHttpRequestHttpResponseBiConsumer implements BiConsu
      */
     private final HttpMethod method;
 
-    private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private final HttpHandler handler;
 
     @Override
     public String toString() {

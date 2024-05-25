@@ -23,19 +23,18 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
-import java.util.function.BiConsumer;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<MethodNotAllowedHttpRequestHttpResponseBiConsumer> {
+public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<MethodNotAllowedHttpHandler> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
-    private final static BiConsumer<HttpRequest, HttpResponse> HANDLER = new BiConsumer<>() {
+    private final static HttpHandler HANDLER = new HttpHandler() {
         @Override
-        public void accept(final HttpRequest request, HttpResponse response) {
+        public void handle(final HttpRequest request,
+                           final HttpResponse response) {
             response.setStatus(STATUS);
             response.addEntity(ENTITY);
         }
@@ -43,12 +42,12 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
 
     @Test
     public void testWithNullMethodFails() {
-        assertThrows(NullPointerException.class, () -> MethodNotAllowedHttpRequestHttpResponseBiConsumer.with(null, HANDLER));
+        assertThrows(NullPointerException.class, () -> MethodNotAllowedHttpHandler.with(null, HANDLER));
     }
 
     @Test
     public void testWithNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> MethodNotAllowedHttpRequestHttpResponseBiConsumer.with(METHOD, null));
+        assertThrows(NullPointerException.class, () -> MethodNotAllowedHttpHandler.with(METHOD, null));
     }
 
     // accept...........................................................................................................
@@ -58,8 +57,8 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
         final HttpRequest request = this.request(HttpMethod.with("invalid"));
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected PATCH got invalid"));
@@ -73,8 +72,11 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
         final HttpRequest request = this.request(HttpMethod.PATCH);
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(request, response);
+        this.createHttpHandler()
+                .handle(
+                        request,
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(STATUS);
@@ -98,13 +100,13 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), METHOD + " " + HANDLER);
+        this.toStringAndCheck(this.createHttpHandler(), METHOD + " " + HANDLER);
     }
 
     // helpers..........................................................................................................
 
-    private MethodNotAllowedHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return MethodNotAllowedHttpRequestHttpResponseBiConsumer.with(METHOD, HANDLER);
+    private MethodNotAllowedHttpHandler createHttpHandler() {
+        return MethodNotAllowedHttpHandler.with(METHOD, HANDLER);
     }
 
     private HttpRequest request(final HttpMethod method) {
@@ -125,7 +127,7 @@ public final class MethodNotAllowedHttpRequestHttpResponseBiConsumerTest extends
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<MethodNotAllowedHttpRequestHttpResponseBiConsumer> type() {
-        return MethodNotAllowedHttpRequestHttpResponseBiConsumer.class;
+    public Class<MethodNotAllowedHttpHandler> type() {
+        return MethodNotAllowedHttpHandler.class;
     }
 }
