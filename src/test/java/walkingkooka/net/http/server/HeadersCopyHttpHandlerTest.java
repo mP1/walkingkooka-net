@@ -30,24 +30,23 @@ import walkingkooka.net.http.HttpStatusCode;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<HeadersCopyHttpRequestHttpResponseBiConsumer> {
+public final class HeadersCopyHttpHandlerTest extends HttpHandlerTestCase2<HeadersCopyHttpHandler> {
 
     @Test
     public void testWithNullHeadersFails() {
-        assertThrows(NullPointerException.class, () -> HeadersCopyHttpRequestHttpResponseBiConsumer.with(null, handler()));
+        assertThrows(NullPointerException.class, () -> HeadersCopyHttpHandler.with(null, httpHandler()));
     }
 
     @Test
     public void testWithNullHandlersFails() {
-        assertThrows(NullPointerException.class, () -> HeadersCopyHttpRequestHttpResponseBiConsumer.with(headers(), null));
+        assertThrows(NullPointerException.class, () -> HeadersCopyHttpHandler.with(headers(), null));
     }
 
     @Test
-    public void testAccept() {
+    public void testHandle() {
         final MediaType contentType = MediaType.parse("custon/media-type");
 
         final HttpRequest request = new FakeHttpRequest() {
@@ -57,7 +56,11 @@ public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends Http
             }
         };
         final HttpResponse response = HttpResponses.recording();
-        this.createBiConsumer().accept(request, response);
+        this.createHttpHandler()
+                .handle(
+                        request,
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status());
@@ -70,13 +73,13 @@ public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends Http
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), headers() + " " + TOSTRING);
+        this.toStringAndCheck(this.createHttpHandler(), headers() + " " + TOSTRING);
     }
 
-    private HeadersCopyHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return HeadersCopyHttpRequestHttpResponseBiConsumer.with(
+    private HeadersCopyHttpHandler createHttpHandler() {
+        return HeadersCopyHttpHandler.with(
                 headers(),
-                handler()
+                httpHandler()
         );
     }
 
@@ -84,10 +87,11 @@ public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends Http
         return Sets.of(HttpHeaderName.CONTENT_TYPE, HttpHeaderName.CONTENT_LENGTH, HttpHeaderName.with("X-Custom-Header"));
     }
 
-    private static BiConsumer<HttpRequest, HttpResponse> handler() {
-        return new BiConsumer<>() {
+    private static HttpHandler httpHandler() {
+        return new HttpHandler() {
             @Override
-            public void accept(final HttpRequest request, final HttpResponse response) {
+            public void handle(final HttpRequest request,
+                               final HttpResponse response) {
                 response.setStatus(status());
                 response.addEntity(entity());
             }
@@ -112,7 +116,7 @@ public final class HeadersCopyHttpRequestHttpResponseBiConsumerTest extends Http
     }
 
     @Override
-    public Class<HeadersCopyHttpRequestHttpResponseBiConsumer> type() {
-        return HeadersCopyHttpRequestHttpResponseBiConsumer.class;
+    public Class<HeadersCopyHttpHandler> type() {
+        return HeadersCopyHttpHandler.class;
     }
 }

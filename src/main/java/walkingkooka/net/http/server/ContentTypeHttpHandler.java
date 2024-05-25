@@ -24,36 +24,35 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 /**
- * A {@link BiConsumer} that tests if the request content type matches the requested {@link MediaType} or replies with
+ * A {@link HttpHandler} that tests if the request content type matches the requested {@link MediaType} or replies with
  * a {@link HttpStatusCode#BAD_REQUEST}.
  */
-final class ContentTypeHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class ContentTypeHttpHandler implements HttpHandler {
 
-    static ContentTypeHttpRequestHttpResponseBiConsumer with(final MediaType contentType,
-                                                             final BiConsumer<HttpRequest, HttpResponse> handler) {
+    static ContentTypeHttpHandler with(final MediaType contentType,
+                                       final HttpHandler handler) {
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(handler, "handler");
 
-        return new ContentTypeHttpRequestHttpResponseBiConsumer(contentType, handler);
+        return new ContentTypeHttpHandler(contentType, handler);
     }
 
-    private ContentTypeHttpRequestHttpResponseBiConsumer(final MediaType contentType,
-                                                         final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private ContentTypeHttpHandler(final MediaType contentType,
+                                   final HttpHandler handler) {
         super();
         this.contentType = contentType;
         this.handler = handler;
     }
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
         final MediaType expected = this.contentType;
         final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.header(request);
         if (mediaType.isPresent() && expected.test(mediaType.get())) {
-            this.handler.accept(request, response);
+            this.handler.handle(request, response);
         } else {
             response.setStatus(
                     HttpStatusCode.BAD_REQUEST
@@ -69,7 +68,7 @@ final class ContentTypeHttpRequestHttpResponseBiConsumer implements BiConsumer<H
      */
     private final MediaType contentType;
 
-    private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private final HttpHandler handler;
 
     @Override
     public String toString() {

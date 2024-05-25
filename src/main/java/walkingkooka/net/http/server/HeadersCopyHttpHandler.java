@@ -22,15 +22,14 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 /**
  * Copies headers from the request to the response. If a header is absent from the request it is skipped.
  */
-final class HeadersCopyHttpRequestHttpResponseBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class HeadersCopyHttpHandler implements HttpHandler {
 
-    static HeadersCopyHttpRequestHttpResponseBiConsumer with(final Set<HttpHeaderName<?>> headers,
-                                                             final BiConsumer<HttpRequest, HttpResponse> handler) {
+    static HeadersCopyHttpHandler with(final Set<HttpHeaderName<?>> headers,
+                                       final HttpHandler handler) {
         Objects.requireNonNull(headers, "headers");
         Objects.requireNonNull(handler, "handler");
 
@@ -39,21 +38,25 @@ final class HeadersCopyHttpRequestHttpResponseBiConsumer implements BiConsumer<H
             throw new IllegalArgumentException("Headers to copy must not be empty");
         }
 
-        return new HeadersCopyHttpRequestHttpResponseBiConsumer(copy, handler);
+        return new HeadersCopyHttpHandler(copy, handler);
     }
 
-    private HeadersCopyHttpRequestHttpResponseBiConsumer(final Set<HttpHeaderName<?>> headers,
-                                                         final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private HeadersCopyHttpHandler(final Set<HttpHeaderName<?>> headers,
+                                   final HttpHandler handler) {
         super();
         this.headers = headers;
         this.handler = handler;
     }
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
-        this.handler.accept(request,
-                HttpResponses.headersCopy(request, this.headers, response)
+        this.handler.handle(request,
+                HttpResponses.headersCopy(
+                        request,
+                        this.headers,
+                        response
+                )
         );
     }
 
@@ -62,7 +65,7 @@ final class HeadersCopyHttpRequestHttpResponseBiConsumer implements BiConsumer<H
      */
     private final Set<HttpHeaderName<?>> headers;
 
-    private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private final HttpHandler handler;
 
     @Override
     public String toString() {

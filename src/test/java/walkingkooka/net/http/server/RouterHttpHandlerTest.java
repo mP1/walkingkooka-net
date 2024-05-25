@@ -26,37 +26,40 @@ import walkingkooka.route.Router;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpRequestHttpResponseBiConsumerTestCase2<RouterHttpRequestHttpResponseBiConsumer> {
+public final class RouterHttpHandlerTest extends HttpHandlerTestCase2<RouterHttpHandler> {
 
     @Test
     public void testWithNullRouterFails() {
-        assertThrows(NullPointerException.class, () -> RouterHttpRequestHttpResponseBiConsumer.with(null, this.notFound()));
+        assertThrows(NullPointerException.class, () -> RouterHttpHandler.with(null, this.notFound()));
     }
 
     @Test
     public void testWithNotFoundFails() {
-        assertThrows(NullPointerException.class, () -> RouterHttpRequestHttpResponseBiConsumer.with(this.router(), null));
+        assertThrows(NullPointerException.class, () -> RouterHttpHandler.with(this.router(), null));
     }
 
     @Test
     public void testRouted() {
-        this.consumeAndCheck(HttpMethod.POST, HttpStatusCode.OK.status());
+        this.handleAndCheck(HttpMethod.POST, HttpStatusCode.OK.status());
     }
 
     @Test
     public void testNotFound() {
-        this.consumeAndCheck(HttpMethod.GET, HttpStatusCode.NOT_FOUND.status());
+        this.handleAndCheck(HttpMethod.GET, HttpStatusCode.NOT_FOUND.status());
     }
 
-    private void consumeAndCheck(final HttpMethod method, final HttpStatus status) {
+    private void handleAndCheck(final HttpMethod method,
+                                final HttpStatus status) {
         final HttpResponse response = HttpResponses.recording();
 
-        this.createBiConsumer()
-                .accept(this.request(method), response);
+        this.createHttpHandler()
+                .handle(
+                        this.request(method),
+                        response
+                );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status);
@@ -65,25 +68,25 @@ public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpReque
 
     @Test
     public void testToString() {
-        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = this.router();
-        final BiConsumer<HttpRequest, HttpResponse> notFound = this.notFound();
+        final Router<HttpRequestAttribute<?>, HttpHandler> router = this.router();
+        final HttpHandler notFound = this.notFound();
 
-        this.toStringAndCheck(RouterHttpRequestHttpResponseBiConsumer.with(router, notFound), router + " OR " + notFound);
+        this.toStringAndCheck(RouterHttpHandler.with(router, notFound), router + " OR " + notFound);
     }
 
-    private RouterHttpRequestHttpResponseBiConsumer createBiConsumer() {
-        return RouterHttpRequestHttpResponseBiConsumer.with(this.router(), this.notFound());
+    private RouterHttpHandler createHttpHandler() {
+        return RouterHttpHandler.with(this.router(), this.notFound());
     }
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router() {
+    private Router<HttpRequestAttribute<?>, HttpHandler> router() {
         return this::router0;
     }
 
-    private Optional<BiConsumer<HttpRequest, HttpResponse>> router0(Map<HttpRequestAttribute<?>, Object> parameters) {
+    private Optional<HttpHandler> router0(Map<HttpRequestAttribute<?>, Object> parameters) {
         return Optional.ofNullable(HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ? this.ok() : null);
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> ok() {
+    private HttpHandler ok() {
         return this::ok0;
     }
 
@@ -91,7 +94,7 @@ public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpReque
         response.setStatus(HttpStatusCode.OK.status());
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> notFound() {
+    private HttpHandler notFound() {
         return this::notFound0;
     }
 
@@ -119,7 +122,7 @@ public final class RouterHttpRequestHttpResponseBiConsumerTest extends HttpReque
     }
 
     @Override
-    public Class<RouterHttpRequestHttpResponseBiConsumer> type() {
-        return RouterHttpRequestHttpResponseBiConsumer.class;
+    public Class<RouterHttpHandler> type() {
+        return RouterHttpHandler.class;
     }
 }
