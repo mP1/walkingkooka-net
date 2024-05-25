@@ -61,8 +61,8 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
@@ -292,7 +292,7 @@ public class JunitTest {
     }
 
     @Test
-    public void testHttpRequestHttpResponseBiConsumersWebFile() {
+    public void testHttpRequestHttpResponseHttpHandlerWebFile() {
         final HttpRequest request = new FakeHttpRequest() {
 
             @Override
@@ -314,7 +314,8 @@ public class JunitTest {
         final HttpResponse response = HttpResponses.recording();
         final String body = "Body123";
 
-        HttpRequestHttpResponseBiConsumers.webFile(UrlPath.parse("/base/file/"),
+        HttpHandlers.webFile(
+                        UrlPath.parse("/base/file/"),
                         (urlPath -> Either.left(new WebFile() {
                             @Override
                             public LocalDateTime lastModified() throws WebFileException {
@@ -342,7 +343,7 @@ public class JunitTest {
                             }
                         })
                         ))
-                .accept(request, response);
+                .handle(request, response);
 
         Assert.assertEquals("http response status code\n" + response,
                 HttpStatusCode.OK,
