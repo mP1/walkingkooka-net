@@ -5,13 +5,6 @@
 **/*Testing2.*
 
 #
-# Ignore the entire package except for HttpRequestAttribute
-#
-
-*Testing*.*
-
-
-#
 # server.*
 #
 # Not all HttpResponse implementations are supported in javascript.
