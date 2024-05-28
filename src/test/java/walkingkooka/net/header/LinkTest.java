@@ -26,16 +26,11 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.xml.XmlNode;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
@@ -204,38 +199,6 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     private void marshallAndCheck2(final String link, final String json) {
         this.marshallAndCheck(Link.parse(link).get(0), json);
-    }
-
-    // toXmlNode .......................................................................................
-
-    @Test
-    public void testToXmlNode() throws Exception {
-        this.toXmlNodeAndCheck("<https://example.com>",
-                "<link href=\"https://example.com\"/>");
-    }
-
-    @Test
-    public void testToXmlNodeRel() throws Exception {
-        this.toXmlNodeAndCheck("<https://example.com>;type=text/plain;rel=previous",
-                "<link href=\"https://example.com\" rel=\"previous\" type=\"text/plain\"/>");
-    }
-
-    private void toXmlNodeAndCheck(final String link, final String xml) throws Exception {
-        this.checkEquals(XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
-                Link.parse(link).get(0).toXmlNode(),
-                "toXmlNode doesnt match=" + CharSequences.quoteAndEscape(link));
-    }
-
-    private DocumentBuilder documentBuilder() {
-        try {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(false);
-            factory.setValidating(false);
-            factory.setExpandEntityReferences(false);
-            return factory.newDocumentBuilder();
-        } catch (final Exception cause) {
-            throw new Error(cause);
-        }
     }
 
     // HashCodeEqualsDefined ..................................................................................................
