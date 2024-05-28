@@ -5,11 +5,6 @@
 **/*Testing2.*
 
 #
-# Ignore because junit is not translatable yet.
-#
-**/LinkRelationConstantGenerator*
-
-#
 # Ignore the entire package except for HttpRequestAttribute
 #
 
