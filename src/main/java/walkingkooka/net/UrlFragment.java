@@ -78,6 +78,9 @@ public final class UrlFragment implements Value<String> {
         this.value = value;
     }
 
+    /**
+     * Appends the give {@link UrlFragment} providing it is not empty and returns the result.
+     */
     public UrlFragment append(final UrlFragment fragment) {
         Objects.requireNonNull(fragment, "fragment");
 
