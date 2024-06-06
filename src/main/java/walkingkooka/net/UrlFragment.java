@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Value;
 
 import java.io.UnsupportedEncodingException;
@@ -31,7 +32,7 @@ import java.util.Objects;
  * https://datatracker.ietf.org/doc/html/rfc3986
  * </pre>
  */
-public final class UrlFragment implements Value<String> {
+public final class UrlFragment implements Value<String>, CanBeEmpty {
 
     /**
      * An empty or absent fragment.
@@ -94,7 +95,11 @@ public final class UrlFragment implements Value<String> {
                         );
     }
 
-    private boolean isEmpty() {
+    /**
+     * Returns true if this fragment is empty.
+     */
+    @Override
+    public boolean isEmpty() {
         return this.value().isEmpty();
     }
 
