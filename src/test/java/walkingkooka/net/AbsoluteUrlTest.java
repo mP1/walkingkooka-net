@@ -296,6 +296,22 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
+    public void testNormalizeHttpPort() {
+        this.normalizeAndCheck(
+                "http://EXAMPLE.COM:80",
+                "http://example.com"
+        );
+    }
+
+    @Test
+    public void testNormalizeHttpsPort() {
+        this.normalizeAndCheck(
+                "https://EXAMPLE.COM:443",
+                "https://example.com"
+        );
+    }
+
+    @Test
     public void testNormalizeRequired() {
         this.normalizeAndCheck(
                 "https://example.com/path1/path2/../path3?query1=2",
@@ -330,6 +346,14 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.normalizeAndCheck(
                 "https://EXAMPLE.COM/path1/PATH2/../path2/path3",
                 "https://example.com/path1/path2/path3"
+        );
+    }
+
+    @Test
+    public void testNormalizeHostnamePortAndPathRequired() {
+        this.normalizeAndCheck(
+                "http://EXAMPLE.COM:80/path1/PATH2/../path2/path3",
+                "http://example.com/path1/path2/path3"
         );
     }
 

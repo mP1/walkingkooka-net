@@ -256,7 +256,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     // normalize........................................................................................................
 
     /**
-     * Normalizes the hostname and path if necessary.<br>
+     * Normalizes the hostname, port and path if necessary.<br>
      * Other possible components that may require normalizing will not be changed.
      */
     @Override
@@ -268,6 +268,24 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
             normalized = normalized.setHost(
                     HostAddress.with(address.value().toLowerCase())
             );
+        }
+
+        final Optional<IpPort> maybePort = this.port;
+        if (maybePort.isPresent()) {
+            final UrlScheme scheme = this.scheme;
+            if (UrlScheme.HTTP.equals(scheme)) {
+
+                if (IpPort.HTTP.equals(maybePort.get())) {
+                    normalized = normalized.setPort(NO_PORT);
+                }
+            } else {
+                if (UrlScheme.HTTPS.equals(scheme)) {
+
+                    if (IpPort.HTTPS.equals(maybePort.get())) {
+                        normalized = normalized.setPort(NO_PORT);
+                    }
+                }
+            }
         }
 
         return normalized.setPath(
