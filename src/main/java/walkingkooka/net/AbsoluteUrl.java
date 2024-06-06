@@ -255,10 +255,24 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
 
     // normalize........................................................................................................
 
+    /**
+     * Normalizes the hostname and path if necessary.<br>
+     * Other possible components that may require normalizing will not be changed.
+     */
     @Override
     public AbsoluteUrl normalize() {
-        return this.setPath(
-                this.path().normalize()
+        AbsoluteUrl normalized = this;
+
+        final HostAddress address = this.host();
+        if (address.isName()) {
+            normalized = normalized.setHost(
+                    HostAddress.with(address.value().toLowerCase())
+            );
+        }
+
+        return normalized.setPath(
+                normalized.path()
+                        .normalize()
         );
     }
 

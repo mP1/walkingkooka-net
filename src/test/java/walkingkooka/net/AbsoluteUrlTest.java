@@ -288,6 +288,14 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     // normalize...................................................................................................
 
     @Test
+    public void testNormalizeUppercaseHostname() {
+        this.normalizeAndCheck(
+                "https://EXAMPLE.COM",
+                "https://example.com"
+        );
+    }
+
+    @Test
     public void testNormalizeRequired() {
         this.normalizeAndCheck(
                 "https://example.com/path1/path2/../path3?query1=2",
@@ -314,6 +322,14 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     public void testNormalizeWithoutPathUnnecessary() {
         this.normalizeAndCheck(
                 "https://example.com"
+        );
+    }
+
+    @Test
+    public void testNormalizeHostnameAndPathRequired() {
+        this.normalizeAndCheck(
+                "https://EXAMPLE.COM/path1/PATH2/../path2/path3",
+                "https://example.com/path1/path2/path3"
         );
     }
 
