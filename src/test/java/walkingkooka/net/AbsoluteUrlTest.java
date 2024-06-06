@@ -357,6 +357,14 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    @Test
+    public void testNormalizeEmptyPath() {
+        this.normalizeAndCheck(
+                "http://EXAMPLE.COM:80",
+                "http://example.com/"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
