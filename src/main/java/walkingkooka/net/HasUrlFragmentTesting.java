@@ -24,6 +24,34 @@ import java.util.function.Supplier;
 public interface HasUrlFragmentTesting extends Testing {
 
     default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final String expected) {
+        this.urlFragmentAndCheck(
+                has,
+                UrlFragment.parse(expected)
+        );
+    }
+
+    default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final String expected,
+                                     final String message) {
+        this.urlFragmentAndCheck(
+                has,
+                UrlFragment.parse(expected),
+                message
+        );
+    }
+
+    default void urlFragmentAndCheck(final HasUrlFragment has,
+                                     final String expected,
+                                     final Supplier<String> message) {
+        this.urlFragmentAndCheck(
+                has,
+                UrlFragment.parse(expected),
+                message
+        );
+    }
+
+    default void urlFragmentAndCheck(final HasUrlFragment has,
                                      final UrlFragment expected) {
         this.urlFragmentAndCheck(
                 has,
