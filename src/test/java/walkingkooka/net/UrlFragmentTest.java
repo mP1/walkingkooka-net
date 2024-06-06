@@ -183,6 +183,73 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
+
+    // appendSlashThen..................................................................................................
+
+    @Test
+    public void testAppendSlashThenNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlFragment.EMPTY.appendSlashThen(null)
+        );
+    }
+
+    @Test
+    public void testAppendSlashThenEmpty() {
+        final UrlFragment fragment = UrlFragment.with("abc");
+        assertSame(
+                fragment,
+                fragment.appendSlashThen(UrlFragment.EMPTY)
+        );
+    }
+
+    @Test
+    public void testAppendSlashThenEmptyAppendSlashThen() {
+        final UrlFragment fragment = UrlFragment.with("abc");
+        assertSame(
+                fragment,
+                UrlFragment.EMPTY.appendSlashThen(fragment)
+        );
+    }
+
+    @Test
+    public void testAppendSlashThen() {
+        this.appendSlashThenAndCheck(
+                "abc",
+                "123",
+                "abc/123"
+        );
+    }
+
+    @Test
+    public void testAppendSlashThen2() {
+        this.appendSlashThenAndCheck(
+                "abc",
+                "123/456",
+                "abc/123/456"
+        );
+    }
+
+    private void appendSlashThenAndCheck(final String fragment,
+                                         final String append,
+                                         final String expected) {
+        this.appendSlashThenAndCheck(
+                UrlFragment.parse(fragment),
+                UrlFragment.parse(append),
+                UrlFragment.parse(expected)
+        );
+    }
+
+    private void appendSlashThenAndCheck(final UrlFragment fragment,
+                                         final UrlFragment append,
+                                         final UrlFragment expected) {
+        this.checkEquals(
+                expected,
+                fragment.appendSlashThen(append),
+                () -> fragment + " append " + append
+        );
+    }
+
     // roundtrip........................................................................................................
 
     @Test

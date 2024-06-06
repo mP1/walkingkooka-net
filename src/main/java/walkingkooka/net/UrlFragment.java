@@ -80,6 +80,23 @@ public final class UrlFragment implements Value<String>, CanBeEmpty {
     }
 
     /**
+     * Appends slash then the give {@link UrlFragment} providing it is not empty and returns the result.
+     */
+    public UrlFragment appendSlashThen(final UrlFragment fragment) {
+        Objects.requireNonNull(fragment, "fragment");
+
+        return this.isEmpty() ?
+                fragment :
+                fragment.isEmpty() ?
+                        this :
+                        new UrlFragment(
+                                this.value +
+                                        "/" +
+                                        fragment.value
+                        );
+    }
+
+    /**
      * Appends the give {@link UrlFragment} providing it is not empty and returns the result.
      */
     public UrlFragment append(final UrlFragment fragment) {
