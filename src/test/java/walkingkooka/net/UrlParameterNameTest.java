@@ -108,7 +108,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                 IllegalArgumentException.class,
                 () -> this.createObject().firstParameterValueOrFail(Maps.empty())
         );
-        this.checkEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+        this.checkEquals("Missing query parameter \"param-1\"", thrown.getMessage(), "message");
     }
 
     @Test
@@ -117,7 +117,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                 IllegalArgumentException.class,
                 () -> this.createObject().firstParameterValueOrFail(Maps.of(UrlParameterName.with("different"), Lists.of("1a", "2b")))
         );
-        this.checkEquals("Missing parameter \"param-1\"", thrown.getMessage(), "message");
+        this.checkEquals("Missing query parameter \"param-1\"", thrown.getMessage(), "message");
     }
 
     @Test
