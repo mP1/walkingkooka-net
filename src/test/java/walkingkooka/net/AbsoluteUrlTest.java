@@ -505,7 +505,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     @Test
     public void testParseMissingSchemeFails() {
-        this.parseStringFails("example.com", IllegalArgumentException.class);
+        this.parseStringFails(
+                "example.com",
+                new IllegalArgumentException("no protocol: example.com")
+        );
+    }
+
+    @Test
+    public void testParseOnlySchemeFails() {
+        this.parseStringFails(
+                "http://",
+                new IllegalArgumentException("Missing host name in \"http://\"")
+        );
     }
 
     @Test
