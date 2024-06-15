@@ -52,20 +52,41 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         Objects.requireNonNull(url, "url");
 
         try {
-            return parseAbsolute1(new URL(url));
+            return parseAbsolute1(
+                    new URL(url),
+                    url
+            );
         } catch (final MalformedURLException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
     }
 
-    private static AbsoluteUrl parseAbsolute1(final URL url) {
+    private static AbsoluteUrl parseAbsolute1(final URL url,
+                                              final String urlString) {
         return AbsoluteUrl.with(UrlScheme.with(url.getProtocol()),
                 credentials(url),
-                HostAddress.with(url.getHost()),
+                HostAddress.with(
+                        checkHost(
+                                url,
+                                urlString
+                        )
+                ),
                 ipPort(url),
                 UrlPath.parse(url.getPath()),
                 UrlQueryString.parse(nullToEmpty(url.getQuery())),
                 UrlFragment.parse(nullToEmpty(url.getRef())));
+    }
+
+    private static String checkHost(final URL url,
+                                    final String urlString) {
+        final String host = url.getHost();
+        if (CharSequences.isNullOrEmpty(host)) {
+            throw new IllegalArgumentException(
+                    "Missing host name in " +
+                            CharSequences.quoteAndEscape(urlString)
+            );
+        }
+        return host;
     }
 
     private static Optional<UrlCredentials> credentials(final URL url) {
