@@ -57,9 +57,18 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testParseDataUrl() {
-        final DataUrl url = Url.data(Optional.of(MediaType.TEXT_PLAIN), Binary.with("abc123".getBytes(Charset.defaultCharset())));
+        final DataUrl url = Url.data(
+                Optional.of(MediaType.TEXT_PLAIN),
+                true, // base64
+                Binary.with(
+                        "abc123".getBytes(Charset.defaultCharset())
+                )
+        );
 
-        this.parseStringAndCheck(url.value(), Url.parseData(url.value()));
+        this.parseStringAndCheck(
+                url.value(),
+                Url.parseData(url.value())
+        );
     }
 
     @Test
@@ -92,8 +101,11 @@ public final class UrlTest implements ClassTesting2<Url>,
     public void testParseAbsoluteOrRelativeUrlWithDataFails() {
         final DataUrl url = Url.data(
                 Optional.of(
-                        MediaType.TEXT_PLAIN),
-                Binary.with("abc123".getBytes(Charset.defaultCharset())
+                        MediaType.TEXT_PLAIN
+                ),
+                true, // base64
+                Binary.with(
+                        "abc123".getBytes(Charset.defaultCharset())
                 )
         );
 

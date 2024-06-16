@@ -87,7 +87,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> false;
+        return (m) -> m.equals("isBase64");
     }
 
     // ParseStringTesting ..............................................................................................
