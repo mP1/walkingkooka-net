@@ -191,8 +191,13 @@ public abstract class Url implements Value<String>,
      * Creates a {@link DataUrl}.
      */
     public static DataUrl data(final Optional<MediaType> mediaType,
+                               final boolean base64,
                                final Binary binary) {
-        return DataUrl.with(mediaType, binary);
+        return DataUrl.with(
+                mediaType,
+                base64,
+                binary
+        );
     }
 
     /**

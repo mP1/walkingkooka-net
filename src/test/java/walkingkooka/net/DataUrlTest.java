@@ -35,17 +35,43 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
 
     @Test
     public void testWithNullMediaTypeFails() {
-        assertThrows(NullPointerException.class, () -> DataUrl.with(null, this.binary()));
+        assertThrows(
+                NullPointerException.class,
+                () -> DataUrl.with(
+                        null,
+                        true, // base64
+                        this.binary()
+                )
+        );
     }
 
     @Test
     public void testWithMediaTypeWithParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> DataUrl.with(Optional.of(this.mediaType().setCharset(CharsetName.UTF_8)), this.binary()));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DataUrl.with(
+                        Optional.of(
+                                this.mediaType()
+                                        .setCharset(CharsetName.UTF_8)
+                        ),
+                        true, // base64
+                        this.binary()
+                )
+        );
     }
 
     @Test
     public void testWithNullBinaryFails() {
-        assertThrows(NullPointerException.class, () -> DataUrl.with(Optional.of(this.mediaType()), null));
+        assertThrows(
+                NullPointerException.class,
+                () -> DataUrl.with(
+                        Optional.of(
+                                this.mediaType()
+                        ),
+                        true, // base64
+                        null
+                )
+        );
     }
 
     // ParseTesting.....................................................................................................
@@ -65,19 +91,105 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         this.parseStringFails("data:text/plain;base64", IllegalArgumentException.class);
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs
+    @Test
+    public void testParseEmptyContentType() throws Exception {
+        this.parseStringAndCheck(
+                "data:,Hello%2C%20World%21",
+                DataUrl.with(
+                        Optional.empty(),
+                        false, // base64=false
+                        Binary.with(
+                                "Hello, World!".getBytes("UTF-8")
+                        )
+                )
+        );
+    }
+
     @Test
     public void testParseWithContentTypeBase64AndEncoded() {
         this.parseStringAndCheck("data:text/plain;base64,YWJjMTIz", this.createUrl());
     }
 
     @Test
-    public void testParseWithContentTypeAndEncoded() {
-        this.parseStringAndCheck("data:text/plain,YWJjMTIz", this.createUrl());
+    public void testParseWithContentTypeAndEncoded() throws Exception {
+        this.parseStringAndCheck(
+                "data:text/plain,Hello%2C%20World%21",
+                DataUrl.with(
+                        Optional.of(
+                                MediaType.TEXT_PLAIN
+                        ),
+                        false, // base64=true
+                        Binary.with(
+                                "Hello, World!".getBytes("UTF-8")
+                        )
+                )
+        );
     }
 
     @Test
     public void testParseWithoutContentType() {
-        this.parseStringAndCheck("data:;base64,YWJjMTIz", DataUrl.with(Optional.empty(), this.binary()));
+        this.parseStringAndCheck(
+                "data:;base64,YWJjMTIz",
+                DataUrl.with(
+                        Optional.empty(),
+                        true, // base64=true
+                        this.binary()
+                )
+        );
+    }
+
+    @Test
+    public void testParseMdnPlainTextExample() throws Exception {
+        this.parseStringAndCheck(
+                "data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==",
+                DataUrl.with(
+                        Optional.of(
+                                MediaType.TEXT_PLAIN
+                        ),
+                        true, // base64=true
+                        Binary.with(
+                                "Hello, World!".getBytes("UTF-8")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testParseMdnPlainHtmlExample() throws Exception {
+        this.parseStringAndCheck(
+                "data:text/html,%3Ch1%3EHello%2C%20World%21%3C%2Fh1%3E",
+                DataUrl.with(
+                        Optional.of(
+                                MediaType.TEXT_HTML
+                        ),
+                        false, // base64=false
+                        Binary.with(
+                                "<h1>Hello, World!</h1>".getBytes("UTF-8")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testParseMdnJavascriptExample() throws Exception {
+        this.parseStringAndCheck(
+                "data:text/html,%3Cscript%3Ealert%28%27hi%27%29%3B%3C%2Fscript%3E",
+                DataUrl.with(
+                        Optional.of(
+                                MediaType.TEXT_HTML
+                        ),
+                        false, // base64=false
+                        Binary.with(
+                                "<script>alert('hi');</script>".getBytes("UTF-8")
+                        )
+                )
+        );
+    }
+
+    @Override
+    public DataUrl parseString(final String text) {
+        return DataUrl.parseData0(text);
     }
 
     // UrlVisitor......................................................................................................
@@ -110,16 +222,17 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         this.checkEquals("152", b.toString());
     }
 
-    // ToString.........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createUrl(), "data:text/plain;base64,YWJjMTIz");
-    }
+    // DataUrlTest......................................................................................................
 
     @Override
     DataUrl createUrl() {
-        return DataUrl.with(Optional.of(this.mediaType()), this.binary());
+        return DataUrl.with(
+                Optional.of(
+                        this.mediaType()
+                ),
+                true, // base64
+                this.binary()
+        );
     }
 
     private MediaType mediaType() {
@@ -130,19 +243,11 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         return Binary.with("abc123".getBytes(Charset.defaultCharset()));
     }
 
-    // JsonNodeMarshallTesting .........................................................................................
+    // ToString.........................................................................................................
 
-    @Override
-    public DataUrl unmarshall(final JsonNode node,
-                              final JsonNodeUnmarshallContext context) {
-        return Url.unmarshallData(node, context);
-    }
-
-    // ParseStringTesting...............................................................................................
-
-    @Override
-    public DataUrl parseString(final String text) {
-        return DataUrl.parseData0(text);
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createUrl(), "data:text/plain;base64,YWJjMTIz");
     }
 
     // ClassTesting.....................................................................................................
@@ -150,5 +255,13 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     @Override
     public Class<DataUrl> type() {
         return DataUrl.class;
+    }
+
+    // JsonNodeMarshallTesting .........................................................................................
+
+    @Override
+    public DataUrl unmarshall(final JsonNode node,
+                              final JsonNodeUnmarshallContext context) {
+        return Url.unmarshallData(node, context);
     }
 }

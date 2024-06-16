@@ -23,6 +23,9 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,7 +56,6 @@ import java.util.Optional;
 public final class DataUrl extends Url {
 
     final static String SCHEME = "data:";
-    private final static int CONTENT_TYPE_START = SCHEME.length();
 
     /**
      * <pre>
@@ -70,47 +72,81 @@ public final class DataUrl extends Url {
             throw new IllegalArgumentException("Url missing data: =" + CharSequences.quoteAndEscape(url));
         }
 
-        final int binaryStart = url.indexOf(',', 5);
-        if (-1 == binaryStart) {
-            throw new IllegalArgumentException("Url missing binary start =" + CharSequences.quoteAndEscape(url));
+        final int comma = url.indexOf(',');
+        if (-1 == comma) {
+            throw new IllegalArgumentException("Url missing ',' data start in " + CharSequences.quoteAndEscape(url));
         }
 
-        return new DataUrl(extractMediaType(url, binaryStart),
-                decodeBase64(url.substring(binaryStart + 1)));
-    }
+        final int semi = url.indexOf(';');
 
-    private static Optional<MediaType> extractMediaType(final String url,
-                                                        final int binaryStart) {
-        int contentTypeEnd = binaryStart;
-        final int base64Start = url.indexOf(';', CONTENT_TYPE_START);
-        if (-1 != base64Start) {
-            final String base64 = url.substring(base64Start, binaryStart);
-            if (!";base64".equals(base64)) {
-                throw new IllegalArgumentException("Data url encoding " + CharSequences.quoteAndEscape(base64) + " invalid in " + CharSequences.quoteAndEscape(url));
-            }
-            contentTypeEnd = base64Start;
+        // mime type
+        final String mimeTypeString = url.substring(
+                "data:".length(),
+                -1 == semi || semi > comma ?
+                        comma :
+                        semi
+        );
+        final Optional<MediaType> mediaType =
+                Optional.ofNullable(
+                        mimeTypeString.isEmpty() ?
+                                null :
+                                complainIfWithParameters(
+                                        MediaType.parse(mimeTypeString)
+                                )
+                );
+
+        final String encoding;
+        if (-1 != semi && semi < comma) {
+            encoding = url.substring(
+                    semi + 1,
+                    comma
+            );
+        } else {
+            encoding = "";
         }
 
-        return CONTENT_TYPE_START != contentTypeEnd ?
-                Optional.of(complainIfWithParameters(MediaType.parse(url.substring(CONTENT_TYPE_START, contentTypeEnd)))) :
-                Optional.empty();
-    }
+        final String encodedData = url.substring(comma + 1);
+        final boolean base64;
+        final byte[] binary;
 
-    private static Binary decodeBase64(final String data) {
-        return Binary.with(Base64.getDecoder().decode(data));
+        switch (encoding) {
+            case "":
+                base64 = false;
+                binary = URLDecoder.decode(encodedData)
+                        .getBytes(StandardCharsets.UTF_8);
+                break;
+            case "base64":
+                base64 = true;
+                binary = Base64.getDecoder()
+                        .decode(encodedData);
+                break;
+            default:
+                throw new IllegalArgumentException("Got unknown encoding " + CharSequences.quoteAndEscape(encoding) + " in " + CharSequences.quoteAndEscape(url));
+        }
+
+        return new DataUrl(
+                mediaType,
+                base64,
+                Binary.with(binary)
+        );
     }
 
     /**
      * Creates a data url.
      */
     public static DataUrl with(final Optional<MediaType> mediaType,
+                               final boolean base64,
                                final Binary binary) {
         Objects.requireNonNull(mediaType, "mediaType");
         mediaType.ifPresent(DataUrl::complainIfWithParameters);
 
         Objects.requireNonNull(binary, "binary");
 
-        return new DataUrl(mediaType, binary);
+        return new DataUrl(
+                mediaType,
+                base64,
+                binary
+        );
     }
 
     private static MediaType complainIfWithParameters(final MediaType mediaType) {
@@ -121,9 +157,11 @@ public final class DataUrl extends Url {
     }
 
     private DataUrl(final Optional<MediaType> mediaType,
+                    final boolean base64,
                     final Binary binary) {
         super();
         this.mediaType = mediaType;
+        this.base64 = base64;
         this.binary = binary;
     }
 
@@ -141,12 +179,48 @@ public final class DataUrl extends Url {
      */
     @Override
     public String value() {
-        return SCHEME +
-                (this.mediaType.map(MediaType::toString).orElse("")) +
-                ";base64," +
-                Base64.getEncoder().encodeToString(binary.value());
+        final StringBuilder b = new StringBuilder()
+                .append(SCHEME)
+                .append(
+                        this.mediaType.map(MediaType::toString)
+                                .orElse("")
+                );
+
+        final byte[] binary = this.binary()
+                .value();
+        if (this.base64) {
+            b.append(";base64,")
+                    .append(
+                            Base64.getEncoder()
+                                    .encodeToString(binary)
+                    );
+        } else {
+            b.append(',')
+                    .append(
+                            URLEncoder.encode(
+                                    new String(
+                                            binary,
+                                            StandardCharsets.UTF_8
+                                    )
+                            )
+                    );
+        }
+
+        return b.toString();
     }
 
+    /**
+     * Returns true if the value should be base64 encoded.
+     */
+    public boolean isBase64() {
+        return this.base64;
+    }
+
+    private boolean base64;
+
+    /**
+     * Getter that returns the data as {@link Binary}.
+     */
     public Binary binary() {
         return this.binary;
     }
@@ -163,15 +237,22 @@ public final class DataUrl extends Url {
     // Object...........................................................................................................
 
     public int hashCode() {
-        return Objects.hash(this.mediaType, this.binary);
+        return Objects.hash(
+                this.mediaType,
+                this.base64,
+                this.binary
+        );
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof DataUrl && this.equals0(Cast.to(other));
+        return this == other ||
+                other instanceof DataUrl && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final DataUrl other) {
-        return this.mediaType.equals(other.mediaType) && this.binary.equals(other.binary);
+        return this.mediaType.equals(other.mediaType) &&
+                this.base64 == other.base64 &&
+                this.binary.equals(other.binary);
     }
 
     @Override
