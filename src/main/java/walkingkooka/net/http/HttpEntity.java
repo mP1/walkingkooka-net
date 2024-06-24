@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
@@ -36,7 +37,9 @@ import java.util.Objects;
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
  */
-public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStringBuilder {
+public abstract class HttpEntity implements HasHeaders,
+        CanBeEmpty,
+        walkingkooka.UsesToStringBuilder {
 
     /**
      * {@link Binary} with no body or bytes.
@@ -233,6 +236,7 @@ public abstract class HttpEntity implements HasHeaders, walkingkooka.UsesToStrin
     /**
      * Returns true if this entity is empty, without headers and without any body.
      */
+    @Override
     public final boolean isEmpty() {
         return this instanceof HttpEntityEmpty;
     }
