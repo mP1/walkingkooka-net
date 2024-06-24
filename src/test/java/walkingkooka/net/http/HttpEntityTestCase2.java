@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
@@ -42,6 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEntityTestCase<H>
         implements HashCodeEqualsDefinedTesting2<H>,
+        CanBeEmptyTesting<H>,
         ToStringTesting<H> {
 
     HttpEntityTestCase2() {
@@ -258,7 +260,15 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     @Test
     public final void testIsEmpty() {
-        this.checkEquals(this instanceof HttpEntityEmptyTest, this.createHttpEntity().isEmpty());
+        this.isEmptyAndCheck(
+                this.createHttpEntity(),
+                this instanceof HttpEntityEmptyTest
+        );
+    }
+
+    @Override
+    public final H createCanBeEmpty() {
+        return this.createHttpEntity();
     }
 
     // helpers..........................................................................................................
