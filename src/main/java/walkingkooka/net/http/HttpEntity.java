@@ -187,7 +187,6 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Would be setter that returns a {@link HttpEntity} with the given body creating a new instance if necessary.
      */
-    @GwtIncompatible
     public final HttpEntity setBody(final Binary body) {
         checkBody(body);
 
