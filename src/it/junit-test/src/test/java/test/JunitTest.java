@@ -19,6 +19,8 @@ package test;
 import com.google.j2cl.junit.apt.J2clTestInput;
 import org.junit.Assert;
 import org.junit.Test;
+
+import walkingkooka.Binary;
 import walkingkooka.Either;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
@@ -70,6 +72,7 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.WebFileException;
 import walkingkooka.net.http.server.WebFiles;
 
+import java.nio.charset.StandardCharsets;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -360,5 +363,18 @@ public class JunitTest {
         final String url = "http://example.com/123";
         final AbsoluteUrl absoluteUrl = Url.parseAbsolute(url);
         Assert.assertEquals(new URL(url), absoluteUrl.toURL());
+    }
+
+    @Test
+    public void testHttpEntitySetBodyBinary() {
+        final String text = "Text123";
+
+        final HttpEntity entity = HttpEntity.EMPTY.setBody(
+                Binary.with(text.getBytes(StandardCharsets.UTF_8))
+        );
+        Assert.assertEquals(
+                text,
+                entity.bodyText()
+        );
     }
 }
