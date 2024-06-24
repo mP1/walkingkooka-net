@@ -18,6 +18,7 @@
 package walkingkooka.net.sample;
 
 import org.junit.jupiter.api.Assertions;
+import walkingkooka.Binary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -35,7 +36,9 @@ import walkingkooka.net.header.AcceptEncodingValue;
 import walkingkooka.net.header.AcceptEncodingValueParameterName;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.RangeHeaderUnit;
+import walkingkooka.net.http.HttpEntity;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,6 +54,7 @@ public class Sample {
         this.testEmail();
         this.testContentRange();
         this.testAcceptEncoding();
+        this.testHttpEntitySetBodyBinary();
     }
 
     public void testAbsoluteUrl() {
@@ -89,5 +93,17 @@ public class Sample {
                         AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))
                 ),
                 acceptEncoding.qualityFactorSortedValues());
+    }
+
+    public void testHttpEntitySetBodyBinary() {
+        final String text = "Text123";
+
+        final HttpEntity entity = HttpEntity.EMPTY.setBody(
+                Binary.with(text.getBytes(StandardCharsets.UTF_8))
+        );
+        assertEquals(
+                text,
+                entity.bodyText()
+        );
     }
 }

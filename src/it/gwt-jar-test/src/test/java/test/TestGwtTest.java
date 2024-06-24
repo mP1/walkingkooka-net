@@ -2,10 +2,10 @@ package test;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
+import walkingkooka.Binary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.j2cl.locale.LocaleAware;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -20,10 +20,12 @@ import walkingkooka.net.header.AcceptEncodingValue;
 import walkingkooka.net.header.AcceptEncodingValueParameterName;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.RangeHeaderUnit;
+import walkingkooka.net.http.HttpEntity;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-@LocaleAware
+@walkingkooka.j2cl.locale.LocaleAware
 public class TestGwtTest extends GWTTestCase {
 
     @Override
@@ -74,5 +76,17 @@ public class TestGwtTest extends GWTTestCase {
                         AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))
                 ),
                 acceptEncoding.qualityFactorSortedValues());
+    }
+
+    public void testHttpEntitySetBodyBinary() {
+        final String text = "Text123";
+
+        final HttpEntity entity = HttpEntity.EMPTY.setBody(
+                Binary.with(text.getBytes(StandardCharsets.UTF_8))
+        );
+        assertEquals(
+                text,
+                entity.bodyText()
+        );
     }
 }
