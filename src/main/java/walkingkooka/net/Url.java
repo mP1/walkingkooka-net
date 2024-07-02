@@ -89,6 +89,18 @@ public abstract class Url implements Value<String>,
     // factories..................................................................................................
 
     /**
+     * Tests if the given {@link Class} is a sub-class of {@link Url}.
+     * This method exists because of GWT reflective limitations.
+     */
+    public static boolean isUrl(final Class<?> type) {
+        return Url.class == type ||
+                AbsoluteUrl.class == type ||
+                DataUrl.class == type ||
+                MailToUrl.class == type ||
+                RelativeUrl.class == type;
+    }
+
+    /**
      * Examines the URL and attempts to parse it as a relative or absolute url.
      */
     public static Url parse(final String url) {

@@ -41,6 +41,73 @@ public final class UrlTest implements ClassTesting2<Url>,
         this.checkEquals("", relativeUrl.toString());
     }
 
+    // isClass..........................................................................................................
+
+    @Test
+    public void testIsClassWithNull() {
+        this.isClass(
+                null,
+                false
+        );
+    }
+
+    @Test
+    public void testIsClassWithNonUrlClass() {
+        this.isClass(
+                String.class,
+                false
+        );
+    }
+
+    @Test
+    public void testIsClassWithUrl() {
+        this.isClass(
+                Url.class,
+                true
+        );
+    }
+
+    @Test
+    public void testIsClassWithAbsoluteUrl() {
+        this.isClass(
+                AbsoluteUrl.class,
+                true
+        );
+    }
+
+    @Test
+    public void testIsClassWithDataUrl() {
+        this.isClass(
+                DataUrl.class,
+                true
+        );
+    }
+
+    @Test
+    public void testIsClassWithMailToUrl() {
+        this.isClass(
+                MailToUrl.class,
+                true
+        );
+    }
+
+    @Test
+    public void testIsClassWithRelativeUrl() {
+        this.isClass(
+                RelativeUrl.class,
+                true
+        );
+    }
+
+    private boolean isClass(final Class<?> type,
+                            final boolean expected) {
+        this.checkEquals(
+                expected,
+                Url.isUrl(type),
+                () -> null != type ? type.getName() : null
+        );
+    }
+
     // parseXXX.........................................................................................................
 
     @Override
