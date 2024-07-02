@@ -27,6 +27,7 @@ import walkingkooka.text.CharSequences;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -105,6 +106,121 @@ public final class UrlTest implements ClassTesting2<Url>,
                 expected,
                 Url.isUrl(type),
                 () -> null != type ? type.getName() : null
+        );
+    }
+
+    // parseUrl.........................................................................................................
+
+    @Test
+    public void testParseAsUrlWithNullUrlFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> Url.parseAsUrl(
+                        null,
+                        Url.class
+                )
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithNullTypeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> Url.parseAsUrl(
+                        "",
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWitWrongUrlFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Url.parseAsUrl(
+                        "https://example.com",
+                        RelativeUrl.class
+                )
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithAbsoluteUrlAndUrlType() {
+        final String url = "https://example.com";
+
+        this.parseAsUrlAndCheck2(
+                url,
+                Url.class,
+                Url.parseAbsolute(url)
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithRelativeUrlAndUrlType() {
+        final String url = "/relative-url/path";
+
+        this.parseAsUrlAndCheck2(
+                url,
+                Url.class,
+                Url.parseRelative(url)
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithAbsoluteUrl() {
+        this.parseAsUrlAndCheck(
+                "https://example.com",
+                AbsoluteUrl.class,
+                Url::parseAbsolute
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithDataUrl() {
+        this.parseAsUrlAndCheck(
+                "data:,Hello%2C%20World%21",
+                DataUrl.class,
+                Url::parseData
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithMailToUrl() {
+        this.parseAsUrlAndCheck(
+                "me@example.com",
+                MailToUrl.class,
+                Url::parseMailTo
+        );
+    }
+
+    @Test
+    public void testParseAsUrlWithRelativeUrl() {
+        this.parseAsUrlAndCheck(
+                "/path2",
+                RelativeUrl.class,
+                Url::parseRelative
+        );
+    }
+
+    private <T extends Url> void parseAsUrlAndCheck(final String url,
+                                                    final Class<T> type,
+                                                    final Function<String, T> expected) {
+        this.parseAsUrlAndCheck2(
+                url,
+                type,
+                expected.apply(url)
+        );
+    }
+
+    private <T extends Url> void parseAsUrlAndCheck2(final String url,
+                                                     final Class<T> type,
+                                                     final T expected) {
+        this.checkEquals(
+                expected,
+                Url.parseAsUrl(
+                        url,
+                        type
+                )
         );
     }
 
