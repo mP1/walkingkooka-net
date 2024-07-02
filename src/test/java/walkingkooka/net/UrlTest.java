@@ -45,7 +45,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithNull() {
-        this.isClass(
+        this.isClassAndCheck(
                 null,
                 false
         );
@@ -53,7 +53,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithNonUrlClass() {
-        this.isClass(
+        this.isClassAndCheck(
                 String.class,
                 false
         );
@@ -61,7 +61,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithUrl() {
-        this.isClass(
+        this.isClassAndCheck(
                 Url.class,
                 true
         );
@@ -69,7 +69,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithAbsoluteUrl() {
-        this.isClass(
+        this.isClassAndCheck(
                 AbsoluteUrl.class,
                 true
         );
@@ -77,7 +77,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithDataUrl() {
-        this.isClass(
+        this.isClassAndCheck(
                 DataUrl.class,
                 true
         );
@@ -85,7 +85,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithMailToUrl() {
-        this.isClass(
+        this.isClassAndCheck(
                 MailToUrl.class,
                 true
         );
@@ -93,14 +93,14 @@ public final class UrlTest implements ClassTesting2<Url>,
 
     @Test
     public void testIsClassWithRelativeUrl() {
-        this.isClass(
+        this.isClassAndCheck(
                 RelativeUrl.class,
                 true
         );
     }
 
-    private boolean isClass(final Class<?> type,
-                            final boolean expected) {
+    private void isClassAndCheck(final Class<?> type,
+                                 final boolean expected) {
         this.checkEquals(
                 expected,
                 Url.isUrl(type),
