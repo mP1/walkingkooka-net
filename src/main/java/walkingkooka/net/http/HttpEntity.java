@@ -27,6 +27,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasText;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -39,6 +40,7 @@ import java.util.Objects;
  */
 public abstract class HttpEntity implements HasHeaders,
         CanBeEmpty,
+        HasText,
         walkingkooka.UsesToStringBuilder {
 
     /**
@@ -256,6 +258,13 @@ public abstract class HttpEntity implements HasHeaders,
 
     abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                 final Binary body);
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.bodyText();
+    }
 
     // Object...........................................................................................................
 
