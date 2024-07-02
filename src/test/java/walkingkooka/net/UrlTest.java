@@ -104,7 +104,7 @@ public final class UrlTest implements ClassTesting2<Url>,
                                  final boolean expected) {
         this.checkEquals(
                 expected,
-                Url.isUrl(type),
+                Url.isClass(type),
                 () -> null != type ? type.getName() : null
         );
     }

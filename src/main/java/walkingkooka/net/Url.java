@@ -92,7 +92,7 @@ public abstract class Url implements Value<String>,
      * Tests if the given {@link Class} is a sub-class of {@link Url}.
      * This method exists because of GWT reflective limitations.
      */
-    public static boolean isUrl(final Class<?> type) {
+    public static boolean isClass(final Class<?> type) {
         return Url.class == type ||
                 AbsoluteUrl.class == type ||
                 DataUrl.class == type ||
