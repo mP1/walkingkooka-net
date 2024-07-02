@@ -187,7 +187,7 @@ public final class UrlTest implements ClassTesting2<Url>,
     @Test
     public void testParseAsUrlWithMailToUrl() {
         this.parseAsUrlAndCheck(
-                "me@example.com",
+                "mailto:me@example.com",
                 MailToUrl.class,
                 Url::parseMailTo
         );

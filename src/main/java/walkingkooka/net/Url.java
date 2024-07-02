@@ -124,7 +124,7 @@ public abstract class Url implements Value<String>,
             throw new IllegalArgumentException("Unknown Url type " + type.getName());
         }
 
-        return Cast.to(url);
+        return Cast.to(parsed);
     }
 
     /**
