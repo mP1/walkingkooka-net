@@ -17,7 +17,20 @@
 
 package walkingkooka.net.http;
 
-public final class HttpEntityNotEmptyTest extends HttpEntityTestCase<HttpEntityNotEmpty> {
+import org.junit.jupiter.api.Test;
+import walkingkooka.text.HasTextTesting;
+
+public final class HttpEntityNotEmptyTest extends HttpEntityTestCase<HttpEntityNotEmpty> implements HasTextTesting {
+
+    @Test
+    public void testText() {
+        final String text = "ABC123";
+
+        this.textAndCheck(
+                HttpEntity.EMPTY.setBodyText(text),
+                text
+        );
+    }
 
     @Override
     public Class<HttpEntityNotEmpty> type() {
