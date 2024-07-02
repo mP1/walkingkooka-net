@@ -101,6 +101,33 @@ public abstract class Url implements Value<String>,
     }
 
     /**
+     * Parses the {@link String url} as if it was the requested {@link Class} which must be a sub-class of {@link Url}.
+     * Requesting as {@link Url} wil try {@link #parse(String)}.
+     */
+    public static <T extends Url> T parseAsUrl(final String url,
+                                               final Class<T> type) {
+        Objects.requireNonNull(url, "url");
+        Objects.requireNonNull(type, "type");
+
+        Url parsed = Url.class == type ?
+                Url.parse(url) :
+                AbsoluteUrl.class == type ?
+                        Url.parseAbsolute(url) :
+                        DataUrl.class == type ?
+                                Url.parseData(url) :
+                                MailToUrl.class == type ?
+                                        Url.parseMailTo(url) :
+                                        RelativeUrl.class == type ?
+                                                Url.parseRelative(url) :
+                                                null;
+        if (null == parsed) {
+            throw new IllegalArgumentException("Unknown Url type " + type.getName());
+        }
+
+        return Cast.to(url);
+    }
+
+    /**
      * Examines the URL and attempts to parse it as a relative or absolute url.
      */
     public static Url parse(final String url) {
