@@ -32,7 +32,7 @@ import java.util.function.Function;
 public final class HttpHandlers implements PublicStaticHelper {
 
     /**
-     * {@see ContentTypeHttpRequestHttpResponseBiConsumer}
+     * {@see ContentTypeHttpHandler}
      */
     public static HttpHandler contentType(final MediaType contentType,
                                           final HttpHandler handler) {
@@ -40,7 +40,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
+     * {@see HeadersCopyHttpHandler}
      */
     public static HttpHandler headerCopy(final Set<HttpHeaderName<?>> headers,
                                          final HttpHandler handler) {
@@ -48,7 +48,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeadersCopyHttpRequestHttpResponseBiConsumer}
+     * {@see MethodNotAllowedHttpHandler}
      */
     public static HttpHandler methodNotAllowed(final HttpMethod method,
                                                final HttpHandler handler) {
@@ -56,7 +56,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see RouterHttpRequestHttpResponseBiConsumer}
+     * {@see RouterHttpHandler}
      */
     public static HttpHandler router(final Router<HttpRequestAttribute<?>, HttpHandler> router,
                                      final HttpHandler notFound) {
@@ -64,7 +64,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see StacktraceDumpingHttpRequestHttpResponseBiConsumer}
+     * {@see StacktraceDumpingHttpHandler}
      */
     public static HttpHandler stacktraceDumping(final HttpHandler handler,
                                                 final Function<Throwable, HttpStatus> throwableTranslator) {
@@ -82,7 +82,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see WebFileHttpRequestHttpResponseBiConsumer}
+     * {@see WebFileHttpHandler}
      */
     public static HttpHandler webFile(final UrlPath basePath,
                                       final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
