@@ -40,6 +40,13 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
+     * {@see FakeHttpHandler}
+     */
+    public static HttpHandler fake() {
+        return new FakeHttpHandler();
+    }
+
+    /**
      * {@see HeadersCopyHttpHandler}
      */
     public static HttpHandler headerCopy(final Set<HttpHeaderName<?>> headers,
