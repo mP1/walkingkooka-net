@@ -279,6 +279,37 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     /**
      * Normalizes the hostname, port and path if necessary.<br>
      * Other possible components that may require normalizing will not be changed.
+     * <br>
+     * https://en.wikipedia.org/wiki/URI_normalization
+     * <pre>
+     * Normalizations that preserve semantics
+     * The following normalizations are described in RFC 3986 [1] to result in equivalent URIs:
+     *
+     * Converting percent-encoded triplets to uppercase. The hexadecimal digits within a percent-encoding triplet of the
+     * URI (e.g., %3a versus %3A) are case-insensitive and therefore should be normalized to use uppercase letters for the digits A-F.[2] Example:
+     * http://example.com/foo%2a → http://example.com/foo%2A
+     *
+     * Converting the scheme and host to lowercase. The scheme and host components of the URI are case-insensitive and
+     * therefore should be normalized to lowercase.[3] Example:
+     * HTTP://User@Example.COM/Foo → http://User@example.com/Foo
+     *
+     * Decoding percent-encoded triplets of unreserved characters. Percent-encoded triplets of the URI in the ranges of
+     * ALPHA (%41–%5A and %61–%7A), DIGIT (%30–%39), hyphen (%2D), period (%2E), underscore (%5F), or tilde (%7E)
+     * do not require percent-encoding and should be decoded to their corresponding unreserved characters.[4] Example:
+     * http://example.com/%7Efoo → http://example.com/~foo
+     *
+     * Removing dot-segments. Dot-segments . and .. in the path component of the URI should be removed by applying
+     * the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
+     * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
+     *
+     * Converting an empty path to a "/" path. In presence of an authority component, an empty path component should be
+     * normalized to a path component of "/".[7] Example:
+     * http://example.com → http://example.com/
+     *
+     * Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
+     * with its ":" delimiter should be removed.[8] Example:
+     * http://example.com:80/ → http://example.com/
+     * </pre>
      */
     @Override
     public AbsoluteUrl normalize() {
@@ -286,11 +317,17 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
 
         final HostAddress address = this.host();
         if (address.isName()) {
+            // * Converting the scheme and host to lowercase. The scheme and host components of the URI are case-insensitive
+            //   and therefore should be normalized to lowercase.[3] Example:
+            // * HTTP://User@Example.COM/Foo → http://User@example.com/Foo
             normalized = normalized.setHost(
                     HostAddress.with(address.value().toLowerCase())
             );
         }
 
+        // Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
+        // with its ":" delimiter should be removed.[8] Example:
+        // http://example.com:80/ → http://example.com/
         final Optional<IpPort> maybePort = this.port;
         if (maybePort.isPresent()) {
             final UrlScheme scheme = this.scheme;
@@ -309,6 +346,9 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
             }
         }
 
+        // * Removing dot-segments. Dot-segments . and .. in the path component of the URI should be removed by applying
+        // * the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
+        // * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
         return normalized.setPath(
                 normalized.path()
                         .normalize()
