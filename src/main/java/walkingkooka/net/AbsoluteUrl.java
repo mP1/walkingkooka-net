@@ -346,6 +346,10 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
             }
         }
 
+        // * Converting an empty path to a "/" path. In presence of an authority component, an empty path component should be
+        // * normalized to a path component of "/".[7] Example:
+        // * http://example.com → http://example.com/
+        //
         // * Removing dot-segments. Dot-segments . and .. in the path component of the URI should be removed by applying
         // * the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
         // * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
