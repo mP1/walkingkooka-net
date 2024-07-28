@@ -380,6 +380,27 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    // * Converting percent-encoded triplets to uppercase. The hexadecimal digits within a percent-encoding triplet of the
+    // * URI (e.g., %3a versus %3A) are case-insensitive and therefore should be normalized to use uppercase letters for the digits A-F.[2] Example:
+    // * http://example.com/foo%2a → http://example.com/foo%2A
+    //
+    // TODO https://github.com/mP1/walkingkooka-net/issues/521
+    // Uri normalization lower case percent encoded triplets should be uppercased
+    @Test
+    public void testNormalizePercentEncodedLowercase() {
+        this.normalizeAndCheck(
+                "http://example.com/foo%2a",
+                "http://example.com/foo%2a"
+        );
+    }
+
+    @Test
+    public void testNormalizePercentEncodedUppercase() {
+        this.normalizeAndCheck(
+                "http://example.com/foo%2A"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
