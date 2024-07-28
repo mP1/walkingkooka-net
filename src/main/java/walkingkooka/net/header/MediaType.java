@@ -517,7 +517,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     @Override
     public boolean test(final MediaType mediaType) {
-        Objects.requireNonNull(mediaType, "mimeType");
+        Objects.requireNonNull(mediaType, "mediaType");
 
         boolean compatible = true;
 
