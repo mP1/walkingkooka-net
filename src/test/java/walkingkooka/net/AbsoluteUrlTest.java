@@ -401,6 +401,21 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    // Decoding percent-encoded triplets of unreserved characters. Percent-encoded triplets of the URI in the ranges of
+    // ALPHA (%41–%5A and %61–%7A), DIGIT (%30–%39), hyphen (%2D), period (%2E), underscore (%5F), or tilde (%7E)
+    // do not require percent-encoding and should be decoded to their corresponding unreserved characters.[4] Example:
+    //
+    // http://example.com/%7Efoo → http://example.com/~foo
+    //
+    // TODO https://github.com/mP1/walkingkooka-net/issues/522
+    // Url normalization Decoding percent-encoded triplets of unreserved characters
+    @Test
+    public void testNormalizePercentEncodedTripletsOfUnreservedCharacters() {
+        this.normalizeAndCheck(
+                "http://example.com/%7Efoo" // ,"http://example.com/~foo"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
