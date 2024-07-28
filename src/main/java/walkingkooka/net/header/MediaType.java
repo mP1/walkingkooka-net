@@ -519,24 +519,14 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public boolean test(final MediaType mediaType) {
         Objects.requireNonNull(mediaType, "mediaType");
 
-        boolean compatible = true;
+        return testComponent(this.type, mediaType.type) &&
+                testComponent(this.subType, mediaType.subType);
+    }
 
-        if (this != mediaType) {
-            final String type = this.type();
-            if (false == WILDCARD.string().equals(type)) {
-                compatible = this.caseSensitivity()
-                        .equals(type, mediaType.type);
-                if (compatible) {
-                    final String subType = this.subType;
-                    if (false == WILDCARD.string().equals(subType)) {
-                        compatible = this.caseSensitivity()
-                                .equals(subType, mediaType.subType);
-                    }
-                }
-            }
-        }
-
-        return compatible;
+    private static boolean testComponent(final String component,
+                                         final String otherComponent) {
+        return WILDCARD.string().equals(component) ||
+                CASE_SENSITIVITY.equals(component, otherComponent);
     }
 
     // Header...........................................................................................................
