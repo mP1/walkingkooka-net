@@ -529,6 +529,16 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 CASE_SENSITIVITY.equals(component, otherComponent);
     }
 
+    /**
+     * Tests if the given {@link MediaType} throwing a {@link IllegalArgumentException} if the test fails.
+     * This useful for handlers wishing to verify the given content-type is compatible with the required type.
+     */
+    public void testOrFail(final MediaType mediaType) {
+        if (false == this.test(mediaType)) {
+            throw new IllegalArgumentException("Requested " + this + " but got " + mediaType);
+        }
+    }
+
     // Header...........................................................................................................
 
     // mime-type COLON sub-mime-type, suffixes already included in sub-mime-type

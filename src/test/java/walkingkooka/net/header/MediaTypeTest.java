@@ -727,6 +727,43 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.testFalse(MediaType.with(type, "subtype"), MediaType.with(type, "different"));
     }
 
+    // testOrFail.......................................................................................................
+
+    @Test
+    public void testTestOrFailAllWithTextPlain() {
+        MediaType.ALL.testOrFail(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testTestOrFailTextAnyWithTextPlain() {
+        MediaType.ANY_TEXT.testOrFail(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testTestOrFailTextPlainWithTextPlain() {
+        MediaType.TEXT_PLAIN.testOrFail(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testTestOrFailTextPlainWithTextPlainCharset() {
+        MediaType.TEXT_PLAIN.testOrFail(
+                MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+        );
+    }
+
+    @Test
+    public void testTestOrFailTextPlainWithTextRichTextFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> MediaType.TEXT_PLAIN.testOrFail(MediaType.TEXT_RICHTEXT)
+        );
+
+        this.checkEquals(
+                "Requested text/plain but got text/richtext",
+                thrown.getMessage()
+        );
+    }
+
     // toHeaderText........................................................................................................
 
     @Test
