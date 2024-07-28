@@ -287,32 +287,43 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     // normalize...................................................................................................
 
-    @Test
-    public void testNormalizeUppercaseHostname() {
+    // * Converting the scheme and host to lowercase. The scheme and host components of the URI are case-insensitive
+    //   and therefore should be normalized to lowercase.[3] Example:
+    // * HTTP://User@Example.COM/Foo → http://User@example.com/Foo    @Test
+    public void testNormalizeUppercaseHostnameNormalizedToLowercase() {
         this.normalizeAndCheck(
                 "https://EXAMPLE.COM",
                 "https://example.com"
         );
     }
 
+    // Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
+    // with its ":" delimiter should be removed.[8] Example:
+    // http://example.com:80/ → http://example.com/
     @Test
-    public void testNormalizeHttpPort() {
+    public void testNormalizeHttpDefaultPortRemoved() {
         this.normalizeAndCheck(
                 "http://EXAMPLE.COM:80",
                 "http://example.com"
         );
     }
 
+    // Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
+    // with its ":" delimiter should be removed.[8] Example:
+    // http://example.com:80/ → http://example.com/
     @Test
-    public void testNormalizeHttpsPort() {
+    public void testNormalizeHttpsDefaultPortRemoved() {
         this.normalizeAndCheck(
                 "https://EXAMPLE.COM:443",
                 "https://example.com"
         );
     }
 
+    // * Removing dot-segments. Dot-segments . and .. in the path component of the URI should be removed by applying
+    // * the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
+    // * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
     @Test
-    public void testNormalizeRequired() {
+    public void testNormalizePathNavigationSegmentsRequired() {
         this.normalizeAndCheck(
                 "https://example.com/path1/path2/../path3?query1=2",
                 "https://example.com/path1/path3?query1=2"
@@ -320,7 +331,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testNormalizeRequired2() {
+    public void testNormalizePathNavigationSegmentsRequired2() {
         this.normalizeAndCheck(
                 "https://example.com/path1/path2/./path3?query1=2",
                 "https://example.com/path1/path2/path3?query1=2"
@@ -357,6 +368,9 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    // * Converting an empty path to a "/" path. In presence of an authority component, an empty path component should be
+    // * normalized to a path component of "/".[7] Example:
+    // * http://example.com → http://example.com/
     @Test
     public void testNormalizeEmptyPath() {
         this.normalizeAndCheck(
