@@ -535,7 +535,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public void testOrFail(final MediaType mediaType) {
         if (false == this.test(mediaType)) {
-            throw new IllegalArgumentException("Requested " + this + " but got " + mediaType);
+            throw new IllegalArgumentException("Got " + mediaType + " requested " + this);
         }
     }
 
