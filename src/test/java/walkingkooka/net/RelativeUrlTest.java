@@ -217,7 +217,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Test
     public void testNormalizeWithoutPathUnnecessary() {
         this.normalizeAndCheck(
-                ""
+                "",
+                "/"
         );
     }
 

@@ -303,8 +303,8 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testNormalizeHttpDefaultPortRemoved() {
         this.normalizeAndCheck(
-                "http://EXAMPLE.COM:80",
-                "http://example.com"
+                "http://EXAMPLE.COM:80/path123",
+                "http://example.com/path123"
         );
     }
 
@@ -314,8 +314,8 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testNormalizeHttpsDefaultPortRemoved() {
         this.normalizeAndCheck(
-                "https://EXAMPLE.COM:443",
-                "https://example.com"
+                "https://EXAMPLE.COM:443/path123",
+                "https://example.com/path123"
         );
     }
 
@@ -346,13 +346,6 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testNormalizeWithoutPathUnnecessary() {
-        this.normalizeAndCheck(
-                "https://example.com"
-        );
-    }
-
-    @Test
     public void testNormalizeHostnameAndPathRequired() {
         this.normalizeAndCheck(
                 "https://EXAMPLE.COM/path1/PATH2/../path2/path3",
@@ -372,10 +365,18 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     // * normalized to a path component of "/".[7] Example:
     // * http://example.com → http://example.com/
     @Test
-    public void testNormalizeEmptyPath() {
+    public void testNormalizeWithoutPathAndDefaultPort() {
         this.normalizeAndCheck(
                 "http://EXAMPLE.COM:80",
                 "http://example.com/"
+        );
+    }
+
+    @Test
+    public void testNormalizeWithoutPath() {
+        this.normalizeAndCheck(
+                "https://example.com",
+                "https://example.com/"
         );
     }
 
