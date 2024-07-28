@@ -759,7 +759,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
 
         this.checkEquals(
-                "Requested text/plain but got text/richtext",
+                "Got text/richtext requested text/plain",
                 thrown.getMessage()
         );
     }
