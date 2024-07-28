@@ -35,9 +35,14 @@ final class UrlPathRoot extends UrlPath {
         super();
     }
 
+    // https://en.wikipedia.org/wiki/URI_normalization
+    //
+    // * Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
+    // * with its ":" delimiter should be removed.[8] Example:
+    // * http://example.com:80/ → http://example.com/
     @Override
     public String value() {
-        return this.name().value();
+        return this.separator().string();
     }
 
     @Override
