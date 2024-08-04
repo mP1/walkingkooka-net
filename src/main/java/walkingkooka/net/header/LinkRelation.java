@@ -616,7 +616,7 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
     /**
      * Tries to create a {@link UrlPathName} from this {@link LinkRelation}. Depending on the value this may fail.
      */
-    public UrlPathName toUrlName() {
+    public UrlPathName toUrlPathName() {
         if (this.isSelf() || this.isUrl()) {
             throw new IllegalStateException("Cannot convert " + this + " to UrlPathName");
         }
