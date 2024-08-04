@@ -173,7 +173,8 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     abstract public AbsoluteOrRelativeUrl setPath(final UrlPath path);
 
     final AbsoluteOrRelativeUrl setPath0(final UrlPath path) {
-        checkPath(path);
+        Objects.requireNonNull(path, "path");
+
         return this.path.equals(path) ?
                 this :
                 this.replace(path, this.query, this.fragment);
@@ -187,15 +188,9 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     abstract public AbsoluteOrRelativeUrl appendPath(final UrlPath path);
 
     final AbsoluteOrRelativeUrl appendPath0(final UrlPath path) {
-        checkPath(path);
-
         return this.setPath0(
                 this.path.appendPath(path)
         );
-    }
-
-    private static UrlPath checkPath(final UrlPath path) {
-        return Objects.requireNonNull(path, "path");
     }
 
     /**
