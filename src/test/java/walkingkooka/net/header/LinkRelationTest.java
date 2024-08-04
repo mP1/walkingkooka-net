@@ -170,47 +170,47 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         return LinkRelation.parse(text);
     }
 
-    // ToUrlName........................................................................................................
+    // ToUrlPathName....................................................................................................
 
     @Test
-    public void testToUrlNameSelfFails() {
+    public void testToUrlPathNameSelfFails() {
         assertThrows(
                 IllegalStateException.class,
-                () -> LinkRelation.SELF.toUrlName()
+                () -> LinkRelation.SELF.toUrlPathName()
         );
     }
 
     @Test
-    public void testToUrlNameUrlFails() {
+    public void testToUrlPathNameUrlFails() {
         assertThrows(
                 IllegalStateException.class,
                 () -> LinkRelation.parse("https://example.com/123")
                         .get(0)
-                        .toUrlName()
+                        .toUrlPathName()
         );
     }
 
     @Test
-    public void testToUrlNameAbout() {
-        this.toUrlNameAndCheck(
+    public void testToUrlPathNameAbout() {
+        this.toUrlPathNameAndCheck(
                 LinkRelation.ABOUT,
                 UrlPathName.with("about")
         );
     }
 
     @Test
-    public void testToUrlNameNext() {
-        this.toUrlNameAndCheck(
+    public void testToUrlPathNameNext() {
+        this.toUrlPathNameAndCheck(
                 LinkRelation.NEXT,
                 UrlPathName.with("next")
         );
     }
 
-    private void toUrlNameAndCheck(final LinkRelation<?> linkRelation,
+    private void toUrlPathNameAndCheck(final LinkRelation<?> linkRelation,
                                    final UrlPathName expected) {
         this.checkEquals(
                 expected,
-                linkRelation.toUrlName()
+                linkRelation.toUrlPathName()
         );
     }
 }
