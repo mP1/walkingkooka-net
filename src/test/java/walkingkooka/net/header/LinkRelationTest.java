@@ -22,10 +22,13 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
         implements ComparableTesting,
@@ -165,5 +168,49 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Override
     public List<LinkRelation<?>> parseString(final String text) {
         return LinkRelation.parse(text);
+    }
+
+    // ToUrlName........................................................................................................
+
+    @Test
+    public void testToUrlNameSelfFails() {
+        assertThrows(
+                IllegalStateException.class,
+                () -> LinkRelation.SELF.toUrlName()
+        );
+    }
+
+    @Test
+    public void testToUrlNameUrlFails() {
+        assertThrows(
+                IllegalStateException.class,
+                () -> LinkRelation.parse("https://example.com/123")
+                        .get(0)
+                        .toUrlName()
+        );
+    }
+
+    @Test
+    public void testToUrlNameAbout() {
+        this.toUrlNameAndCheck(
+                LinkRelation.ABOUT,
+                UrlPathName.with("about")
+        );
+    }
+
+    @Test
+    public void testToUrlNameNext() {
+        this.toUrlNameAndCheck(
+                LinkRelation.NEXT,
+                UrlPathName.with("next")
+        );
+    }
+
+    private void toUrlNameAndCheck(final LinkRelation<?> linkRelation,
+                                   final UrlPathName expected) {
+        this.checkEquals(
+                expected,
+                linkRelation.toUrlName()
+        );
     }
 }

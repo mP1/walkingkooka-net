@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparators;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlScheme;
 import walkingkooka.text.CharSequences;
 
@@ -609,6 +610,27 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
     public final boolean isResponse() {
         return true;
     }
+
+    // UrlName..........................................................................................................
+
+    /**
+     * Tries to create a {@link UrlPathName} from this {@link LinkRelation}. Depending on the value this may fail.
+     */
+    public UrlPathName toUrlName() {
+        if (this.isSelf() || this.isUrl()) {
+            throw new IllegalStateException("Cannot convert " + this + " to UrlPathName");
+        }
+
+        if (null == this.urlPathName) {
+            this.urlPathName = UrlPathName.with(
+                    this.value.toString()
+            );
+        }
+
+        return this.urlPathName;
+    }
+
+    private UrlPathName urlPathName;
 
     // Comparable.......................................................................................................
 
