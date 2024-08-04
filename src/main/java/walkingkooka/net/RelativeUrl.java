@@ -88,6 +88,12 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
     }
 
     @Override
+    public RelativeUrl appendPathName(final UrlPathName name) {
+        return this.appendPathName0(name)
+                .cast();
+    }
+
+    @Override
     public RelativeUrl setQuery(final UrlQueryString query) {
         return this.setQuery0(query).cast();
     }

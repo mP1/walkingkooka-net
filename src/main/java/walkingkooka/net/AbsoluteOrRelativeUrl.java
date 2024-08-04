@@ -199,6 +199,17 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     }
 
     /**
+     * Appends the given {@link UrlPathName} returning a {@link AbsoluteOrRelativeUrl} with the result.
+     */
+    abstract public AbsoluteOrRelativeUrl appendPathName(final UrlPathName name);
+
+    final AbsoluteOrRelativeUrl appendPathName0(final UrlPathName name) {
+        return this.setPath(
+                this.path.append(name)
+        );
+    }
+
+    /**
      * Returns the query string which may be empty but never null. Note the query string will have spaces and other similar invalid characters encoded.
      */
     public final UrlQueryString query() {

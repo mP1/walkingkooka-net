@@ -165,6 +165,12 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     }
 
     @Override
+    public AbsoluteUrl appendPathName(final UrlPathName name) {
+        return this.appendPathName0(name)
+                .cast();
+    }
+
+    @Override
     public AbsoluteUrl setQuery(final UrlQueryString query) {
         return this.setQuery0(query).cast();
     }

@@ -248,6 +248,36 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         );
     }
 
+    // appendPathName .......................................................................................................
+
+    @Test
+    public final void testAppendNameNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createUrl()
+                        .appendPathName(null)
+        );
+    }
+
+    @Test
+    public final void testAppendName() {
+        this.appendNameAndCheck(
+                this.createUrl(UrlPath.parse("/path1"), UrlQueryString.EMPTY, UrlFragment.EMPTY),
+                UrlPathName.with("path2"),
+                this.createUrl(UrlPath.parse("/path1/path2"), UrlQueryString.EMPTY, UrlFragment.EMPTY)
+        );
+    }
+
+    private void appendNameAndCheck(final U url,
+                                    final UrlPathName name,
+                                    final U expected) {
+        this.checkEquals(
+                expected,
+                url.appendPathName(name),
+                () -> url + " appendPathName " + name
+        );
+    }
+    
     // setQuery .......................................................................................................
 
     @Test
