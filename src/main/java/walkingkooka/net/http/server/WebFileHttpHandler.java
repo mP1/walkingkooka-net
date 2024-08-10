@@ -145,7 +145,7 @@ final class WebFileHttpHandler implements HttpHandler {
 
     private static HttpEntity headers(final WebFile file) {
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, file.contentType())
+                .setContentType(file.contentType())
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
                 .addHeader(HttpHeaderName.LAST_MODIFIED, file.lastModified());
         return file.etag()

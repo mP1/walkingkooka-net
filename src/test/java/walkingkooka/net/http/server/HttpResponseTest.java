@@ -71,10 +71,12 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
-        response.addEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
-                .setBodyText("body-text-123"));
+        response.addEntity(
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBodyText("body-text-123")
+        );
         return response;
     }
 

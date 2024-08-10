@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
@@ -52,7 +51,7 @@ final class MultiPartAwareHttpResponse extends BufferingHttpResponse {
     @Override
     void addFirstEntity(final HttpStatus status,
                         final HttpEntity entity) {
-        this.multipart = HttpHeaderName.CONTENT_TYPE.header(entity)
+        this.multipart = entity.contentType()
                 .map(this::isMultipart)
                 .orElse(Boolean.FALSE);
         this.response.setStatus(status);

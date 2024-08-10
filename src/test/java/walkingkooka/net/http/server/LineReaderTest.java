@@ -109,8 +109,11 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
 
     @Test
     public void testReadHeaders() {
-        this.checkEquals(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN).addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
-                LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders());
+        this.checkEquals(
+                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
+                LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders()
+        );
     }
 
     // ToString.........................................................................................................

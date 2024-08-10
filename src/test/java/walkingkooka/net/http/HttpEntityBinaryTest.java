@@ -71,12 +71,10 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final MediaType contentType = MediaType.TEXT_PLAIN;
 
         this.contentTypeAndCheck(
-                HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        contentType
-                ).setBody(
-                        Binary.with("Hello".getBytes(Charset.defaultCharset()))
-                ),
+                HttpEntity.EMPTY.setContentType(contentType)
+                        .setBody(
+                                Binary.with("Hello".getBytes(Charset.defaultCharset()))
+                        ),
                 contentType
         );
     }
@@ -96,7 +94,9 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testBodyTextUsesCharset() {
         final HttpEntity entity = this.createHttpEntity();
-        final HttpEntity different = entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_16));
+        final HttpEntity different = entity.setContentType(
+                MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_16)
+        );
         assertNotSame(entity, different);
 
         this.check(different, new String(BINARY.value(), StandardCharsets.UTF_16));
@@ -112,7 +112,9 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
 
     @Test
     public void testToStringText() {
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L,
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH, 257L,
                         HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
                         HttpHeaderName.SERVER, "Server 123", "AB\nC"),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
