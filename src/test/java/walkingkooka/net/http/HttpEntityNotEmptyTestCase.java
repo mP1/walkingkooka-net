@@ -30,7 +30,6 @@ import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -439,26 +438,12 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     // setContentType...................................................................................................
 
     @Test
-    public final void testSetContentTypeEmpty() {
+    public final void testSetContentType() {
         final HttpEntity httpEntity = this.createHttpEntity();
 
         this.setContentTypeAndCheck(
                 httpEntity,
-                Optional.empty(),
-                httpEntity.setHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        Lists.empty()
-                )
-        );
-    }
-
-    @Test
-    public final void testSetContentTypeNotEmpty() {
-        final HttpEntity httpEntity = this.createHttpEntity();
-
-        this.setContentTypeAndCheck(
-                httpEntity,
-                Optional.of(MediaType.TEXT_PLAIN),
+                MediaType.TEXT_PLAIN,
                 httpEntity.setHeader(
                         HttpHeaderName.CONTENT_TYPE,
                         Lists.of(
