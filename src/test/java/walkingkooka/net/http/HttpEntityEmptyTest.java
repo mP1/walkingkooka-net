@@ -139,6 +139,16 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         );
     }
 
+    // isMultipartFormData..............................................................................................
+
+    @Test
+    public void testIsMultipartFormData() {
+        this.isMultipartFormDataAndCheck(
+                HttpEntity.EMPTY,
+                false
+        );
+    }
+
     // body.............................................................................................................
 
     @Test

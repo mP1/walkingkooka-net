@@ -286,6 +286,18 @@ public abstract class HttpEntity implements HasHeaders,
         return this.bodyText();
     }
 
+    // multipart........................................................................................................
+
+    /**
+     * Only returns true if the content-type is multipart/form-data
+     */
+    public final boolean isMultipartFormData() {
+        return MediaType.MULTIPART_FORM_DATA.test(
+                this.contentType()
+                        .orElse(null)
+        );
+    }
+
     // Object...........................................................................................................
 
     @Override

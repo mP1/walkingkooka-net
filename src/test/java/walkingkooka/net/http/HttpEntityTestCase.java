@@ -55,6 +55,17 @@ public abstract class HttpEntityTestCase<T> implements ClassTesting<T> {
         );
     }
 
+    // isMultipartFormData..............................................................................................
+
+    final void isMultipartFormDataAndCheck(final HttpEntity entity,
+                                           final boolean expected) {
+        this.checkEquals(
+                expected,
+                entity.isMultipartFormData(),
+                entity::toString
+        );
+    }
+
     // Class............................................................................................................
 
     @Override

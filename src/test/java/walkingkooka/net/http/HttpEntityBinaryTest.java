@@ -79,6 +79,28 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         );
     }
 
+    // isMultipartFormData..............................................................................................
+
+    @Test
+    public void testIsMultipartFormDataWhenMultipartFormData() {
+        this.isMultipartFormDataAndCheck(
+                HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
+                        .setBody(BINARY),
+                true
+        );
+    }
+
+    @Test
+    public void testIsMultipartFormDataWhenTextPlain() {
+        this.isMultipartFormDataAndCheck(
+                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                        .setBody(BINARY),
+                false
+        );
+    }
+
+    // bodyText.........................................................................................................
+
     @Test
     public void testBodyText() {
         this.check(this.createHttpEntity(), HttpEntity.NO_HEADERS, TEXT);
