@@ -37,6 +37,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -159,6 +160,26 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     public final void testSetHeadersSame2() {
         final H entity = this.createHttpEntity();
         assertSame(entity, entity.setHeaders(new HashMap<>(entity.headers())));
+    }
+
+    // setContentType...................................................................................................
+
+    @Test
+    public final void testSetContentTypeWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity()
+                        .setContentType(null)
+        );
+    }
+
+    final void setContentTypeAndCheck(final HttpEntity entity,
+                                      final Optional<MediaType> contentType,
+                                      final HttpEntity expected) {
+        this.checkEquals(
+                expected,
+                entity.setContentType(contentType)
+        );
     }
 
     // setBody..........................................................................................................

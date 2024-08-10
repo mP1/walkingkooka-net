@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -124,6 +125,17 @@ public abstract class HttpEntity implements HasHeaders,
      * Returns the content-type if one is present.
      */
     public abstract Optional<MediaType> contentType();
+
+    /**
+     * Sets the content-type replacing any existing value as necessary.
+     */
+    public final HttpEntity setContentType(final Optional<MediaType> contentType) {
+        return this.setHeader(
+                HttpHeaderName.CONTENT_TYPE,
+                contentType.map(Lists::of)
+                        .orElse(Lists.empty())
+        );
+    }
 
     /**
      * Sets one or multiple values, replacing any previous or if the list is empty removes the header.

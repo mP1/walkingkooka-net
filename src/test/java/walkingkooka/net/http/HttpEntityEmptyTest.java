@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
@@ -27,6 +28,7 @@ import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -125,6 +127,34 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     public void testContentType() {
         this.contentTypeAndCheck(
                 HttpEntity.EMPTY
+        );
+    }
+
+    // setContentType...................................................................................................
+
+    @Test
+    public void testSetContentTypeWithEmpty() {
+        this.setContentTypeAndCheck(
+                HttpEntity.EMPTY,
+                Optional.empty(),
+                HttpEntity.EMPTY.setHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        Lists.empty()
+                )
+        );
+    }
+
+    @Test
+    public void testSetContentTypeWithNotEmpty() {
+        this.setContentTypeAndCheck(
+                HttpEntity.EMPTY,
+                Optional.of(MediaType.TEXT_PLAIN),
+                HttpEntity.EMPTY.setHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        Lists.of(
+                                MediaType.TEXT_PLAIN
+                        )
+                )
         );
     }
 
