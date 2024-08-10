@@ -57,8 +57,11 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
     public void testSuccessMultiPart() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
                 HttpStatusCode.OK.status(),
-                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-1a")),
-                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.parse("multipart/text")).setBody(this.binary("part-2b")));
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.parse("multipart/text")
+                ).setBody(this.binary("part-1a")),
+                HttpEntity.EMPTY.setContentType(MediaType.parse("multipart/text"))
+                        .setBody(this.binary("part-2b")));
     }
 
     @Test
@@ -221,7 +224,10 @@ public final class HttpStatusCodeRequiredHeadersHttpResponseTest extends Bufferi
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
                     status,
-                    Lists.of(entity, HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
+                    Lists.of(
+                            entity,
+                            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                    ),
                     version,
                     HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
                     HttpEntity.EMPTY);

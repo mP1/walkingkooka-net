@@ -70,7 +70,10 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
 
         response.addEntity(entity);
 
-        this.checkEquals(Lists.of(entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)),
+        this.checkEquals(
+                Lists.of(
+                        entity.setContentType(MediaType.TEXT_PLAIN)
+                ),
                 entities,
                 "entities");
     }
@@ -90,7 +93,7 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
                 entities);
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.IMAGE_BMP) // wins will not be overwritten
+                .setContentType(MediaType.IMAGE_BMP) // wins will not be overwritten
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, 456L)
                 .addHeader(HttpHeaderName.E_TAG, ETag.wildcard());
 
@@ -121,11 +124,11 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
         response.addEntity(entity);
 
         final HttpEntity entity2 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.ANY_TEXT);
+                .setContentType(MediaType.ANY_TEXT);
         response.addEntity(entity2);
 
         this.checkEquals(Lists.of(
-                        entity.addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN),
+                        entity.setContentType(MediaType.TEXT_PLAIN),
                         entity2
                 ),
                 entities,

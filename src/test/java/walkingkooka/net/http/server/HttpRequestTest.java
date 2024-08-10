@@ -165,7 +165,7 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                        .setContentType(MediaType.TEXT_PLAIN)
                         .setBodyText("body-text-123"));
     }
 

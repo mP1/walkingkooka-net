@@ -18,7 +18,6 @@
 package walkingkooka.net.http;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 
 import java.io.IOException;
@@ -40,7 +39,7 @@ abstract class HttpEntityStackTrace extends HttpEntityStackTraceJ2cl {
                 printWriter.flush();
 
                 result = HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                        .setContentType(MediaType.TEXT_PLAIN)
                         .setBodyText(stringWriter.toString())
                         .setContentLength();
             }

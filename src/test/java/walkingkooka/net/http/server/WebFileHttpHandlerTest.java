@@ -163,11 +163,13 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
-                .setBody(CONTENT1));
+        expected.addEntity(
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+                        .setContentType(CONTENT_TYPE1)
+                        .setBody(CONTENT1)
+        );
 
         this.checkResponse(request, response, expected);
     }
@@ -183,11 +185,12 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
-                .setBody(CONTENT1));
+        expected.addEntity(
+                HttpEntity.EMPTY
+                        .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+                        .setContentType(CONTENT_TYPE1)
+                        .setBody(CONTENT1));
 
         this.checkResponse(request, response, expected);
     }

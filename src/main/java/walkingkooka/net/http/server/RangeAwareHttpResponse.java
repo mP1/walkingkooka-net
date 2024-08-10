@@ -180,8 +180,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
 
         this.response.setStatus(HttpStatusCode.PARTIAL_CONTENT.status());
         this.response.addEntity(
-                entity.removeHeader(HttpHeaderName.CONTENT_TYPE)
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, boundary.multipartByteRanges())
+                entity.setContentType(boundary.multipartByteRanges())
                         .setBody(HttpEntity.NO_BODY)
         );
 

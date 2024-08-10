@@ -20,7 +20,6 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.ClientCookie;
@@ -444,12 +443,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         this.setContentTypeAndCheck(
                 httpEntity,
                 MediaType.TEXT_PLAIN,
-                httpEntity.setHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        Lists.of(
-                                MediaType.TEXT_PLAIN
-                        )
-                )
+                httpEntity.setContentType(MediaType.TEXT_PLAIN)
         );
     }
 

@@ -103,8 +103,10 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN));
+        response.addEntity(
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .setContentType(MediaType.TEXT_PLAIN)
+        );
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\nContent-Type: text/plain\r\n\r\n", response);
     }

@@ -81,10 +81,8 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         final MediaType contentType = MediaType.TEXT_PLAIN;
 
         this.contentTypeAndCheck(
-                HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        contentType
-                ).setBodyText("BodyText123"),
+                HttpEntity.EMPTY.setContentType(contentType)
+                        .setBodyText("BodyText123"),
                 contentType
         );
     }
