@@ -25,6 +25,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
@@ -117,6 +119,11 @@ public abstract class HttpEntity implements HasHeaders,
     public final HttpEntity setContentLength() {
         return this.setHeader0(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.contentLength())));
     }
+
+    /**
+     * Returns the content-type if one is present.
+     */
+    public abstract Optional<MediaType> contentType();
 
     /**
      * Sets one or multiple values, replacing any previous or if the list is empty removes the header.

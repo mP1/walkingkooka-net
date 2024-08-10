@@ -77,6 +77,19 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     }
 
     @Test
+    public void testContentType() {
+        final MediaType contentType = MediaType.TEXT_PLAIN;
+
+        this.contentTypeAndCheck(
+                HttpEntity.EMPTY.addHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        contentType
+                ).setBodyText("BodyText123"),
+                contentType
+        );
+    }
+
+    @Test
     public void testBodyText() {
         final HttpEntity entity = this.createHttpEntity();
         final HttpEntity different = entity

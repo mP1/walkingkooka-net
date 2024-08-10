@@ -145,6 +145,17 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
                 text);
     }
 
+    // contentType......................................................................................................
+
+    @Test
+    public void testContentType() {
+        this.contentTypeAndCheck(
+                HttpEntity.EMPTY
+        );
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToString() {
         this.toStringAndCheck("", this.createHttpEntity().toString());

@@ -21,9 +21,11 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 /**
  * A {@link HttpEntity} that captures the common functionalitu of {@link HttpEntityBinary} and {@link HttpEntityText}.
@@ -120,6 +122,13 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         return changed ?
                 this.replace(removed) :
                 this;
+    }
+
+    // contentType......................................................................................................
+
+    @Override
+    public Optional<MediaType> contentType() {
+        return HttpHeaderName.CONTENT_TYPE.header(this);
     }
 
     // setBodyText......................................................................................................
