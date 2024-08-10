@@ -129,11 +129,12 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Sets the content-type replacing any existing value as necessary.
      */
-    public final HttpEntity setContentType(final Optional<MediaType> contentType) {
+    public final HttpEntity setContentType(final MediaType contentType) {
+        Objects.requireNonNull(contentType, "contentType");
+
         return this.setHeader(
                 HttpHeaderName.CONTENT_TYPE,
-                contentType.map(Lists::of)
-                        .orElse(Lists.empty())
+                Lists.of(contentType)
         );
     }
 

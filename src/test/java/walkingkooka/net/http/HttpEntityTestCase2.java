@@ -37,7 +37,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -174,7 +173,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     }
 
     final void setContentTypeAndCheck(final HttpEntity entity,
-                                      final Optional<MediaType> contentType,
+                                      final MediaType contentType,
                                       final HttpEntity expected) {
         this.checkEquals(
                 expected,
