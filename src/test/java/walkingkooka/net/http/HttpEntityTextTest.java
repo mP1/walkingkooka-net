@@ -87,6 +87,28 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         );
     }
 
+    // isMultipartFormData..............................................................................................
+
+    @Test
+    public void testIsMultipartFormDataWhenMultipartFormData() {
+        this.isMultipartFormDataAndCheck(
+                HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
+                        .setBodyText("BodyText123"),
+                true
+        );
+    }
+
+    @Test
+    public void testIsMultipartFormDataWhenTextPlain() {
+        this.isMultipartFormDataAndCheck(
+                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                        .setBodyText("BodyText123"),
+                false
+        );
+    }
+
+    // bodyText.........................................................................................................
+
     @Test
     public void testBodyText() {
         final HttpEntity entity = this.createHttpEntity();
