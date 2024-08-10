@@ -21,8 +21,10 @@ import walkingkooka.Binary;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A {@link HttpEntity} without headers or body
@@ -82,6 +84,13 @@ final class HttpEntityEmpty extends HttpEntity {
     @Override
     public long contentLength() {
         return 0;
+    }
+
+    // contentType......................................................................................................
+
+    @Override
+    public Optional<MediaType> contentType() {
+        return Optional.empty();
     }
 
     // body.............................................................................................................

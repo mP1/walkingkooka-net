@@ -25,6 +25,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.LineEnding;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,21 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         assertNotSame(added, removed);
 
         this.check(removed, HttpEntity.NO_HEADERS, BINARY);
+    }
+
+    @Test
+    public void testContentType() {
+        final MediaType contentType = MediaType.TEXT_PLAIN;
+
+        this.contentTypeAndCheck(
+                HttpEntity.EMPTY.addHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        contentType
+                ).setBody(
+                        Binary.with("Hello".getBytes(Charset.defaultCharset()))
+                ),
+                contentType
+        );
     }
 
     @Test

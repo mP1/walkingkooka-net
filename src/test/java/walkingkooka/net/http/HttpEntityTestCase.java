@@ -17,14 +17,45 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+
+import java.util.Optional;
 
 public abstract class HttpEntityTestCase<T> implements ClassTesting<T> {
 
     HttpEntityTestCase() {
         super();
     }
+
+    // contentType......................................................................................................
+
+    final void contentTypeAndCheck(final HttpEntity entity) {
+        this.contentTypeAndCheck(
+                entity,
+                Optional.empty()
+        );
+    }
+
+    final void contentTypeAndCheck(final HttpEntity entity,
+                                   final MediaType expected) {
+        this.contentTypeAndCheck(
+                entity,
+                Optional.of(expected)
+        );
+    }
+
+    final void contentTypeAndCheck(final HttpEntity entity,
+                                   final Optional<MediaType> expected) {
+        this.checkEquals(
+                expected,
+                entity.contentType(),
+                entity::toString
+        );
+    }
+
+    // Class............................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
