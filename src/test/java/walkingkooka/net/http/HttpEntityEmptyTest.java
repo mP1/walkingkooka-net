@@ -119,6 +119,17 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertSame(entity, entity.removeHeader(HttpHeaderName.ACCEPT));
     }
 
+    // contentType......................................................................................................
+
+    @Test
+    public void testContentType() {
+        this.contentTypeAndCheck(
+                HttpEntity.EMPTY
+        );
+    }
+
+    // body.............................................................................................................
+
     @Test
     public void testSetBody() {
         final HttpEntity entity = this.createHttpEntity();
@@ -143,15 +154,6 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         this.check(set,
                 HttpEntity.NO_HEADERS,
                 text);
-    }
-
-    // contentType......................................................................................................
-
-    @Test
-    public void testContentType() {
-        this.contentTypeAndCheck(
-                HttpEntity.EMPTY
-        );
     }
 
     // toString.........................................................................................................
