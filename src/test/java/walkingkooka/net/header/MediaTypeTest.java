@@ -55,43 +55,67 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     @Test
-    public void testNullType() {
-        assertThrows(NullPointerException.class, () -> MediaType.with(null, SUBTYPE));
+    public void testWithNullTypeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> MediaType.with(null, SUBTYPE)
+        );
     }
 
     @Test
-    public void testEmptyTypeAndSubTypeFails() {
-        assertThrows(IllegalArgumentException.class, () -> MediaType.with("", SUBTYPE));
+    public void testWithEmptyTypeAndSubTypeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> MediaType.with("", SUBTYPE)
+        );
     }
 
     @Test
-    public void testTypeContainsSlashFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaType.with("ty/pe", SUBTYPE));
+    public void testWithTypeContainsSlashFails() {
+        assertThrows(
+                InvalidCharacterException.class,
+                () -> MediaType.with("ty/pe", SUBTYPE)
+        );
     }
 
     @Test
-    public void testTypeContainsInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaType.with("ty?pe", SUBTYPE));
+    public void testWithTypeContainsInvalidCharacterFails() {
+        assertThrows(
+                InvalidCharacterException.class,
+                () -> MediaType.with("ty?pe", SUBTYPE)
+        );
     }
 
     @Test
-    public void testNullSubTypeFails() {
-        assertThrows(NullPointerException.class, () -> MediaType.with(TYPE, null));
+    public void testWithNullSubTypeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> MediaType.with(TYPE, null)
+        );
     }
 
     @Test
-    public void testTypeAndEmptySubTypeFails() {
-        assertThrows(IllegalArgumentException.class, () -> MediaType.with(TYPE, ""));
+    public void testWithTypeAndEmptySubTypeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> MediaType.with(TYPE, "")
+        );
     }
 
     @Test
-    public void testEmptyIncludesSlashFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaType.with(TYPE, "s/ub"));
+    public void testWithEmptyIncludesSlashFails() {
+        assertThrows(
+                InvalidCharacterException.class,
+                () -> MediaType.with(TYPE, "s/ub")
+        );
     }
 
     @Test
-    public void testEmptyIncludesInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaType.with(TYPE, "s?ub"));
+    public void testWithEmptyIncludesInvalidCharacterFails() {
+        assertThrows(
+                InvalidCharacterException.class,
+                () -> MediaType.with(TYPE, "s?ub")
+        );
     }
 
     @Test
