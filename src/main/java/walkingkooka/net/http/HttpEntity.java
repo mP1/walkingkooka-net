@@ -248,7 +248,7 @@ public abstract class HttpEntity implements HasHeaders,
      * Extracts the desired range returning an entity with the selected bytes creating a new instance if necessary.
      */
     @GwtIncompatible
-    public HttpEntity extractRange(final Range<Long> range) {
+    public final HttpEntity extractRange(final Range<Long> range) {
         return this.setBody(this.body().extract(range));
     }
 
@@ -262,7 +262,7 @@ public abstract class HttpEntity implements HasHeaders,
     // HasText..........................................................................................................
 
     @Override
-    public String text() {
+    public final String text() {
         return this.bodyText();
     }
 
