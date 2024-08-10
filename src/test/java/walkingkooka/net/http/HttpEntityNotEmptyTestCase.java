@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.ClientCookie;
@@ -29,6 +30,7 @@ import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -432,6 +434,38 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setContentLength();
         final HttpEntity already = set.setContentLength();
         assertSame(set, already);
+    }
+
+    // setContentType...................................................................................................
+
+    @Test
+    public final void testSetContentTypeEmpty() {
+        final HttpEntity httpEntity = this.createHttpEntity();
+
+        this.setContentTypeAndCheck(
+                httpEntity,
+                Optional.empty(),
+                httpEntity.setHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        Lists.empty()
+                )
+        );
+    }
+
+    @Test
+    public final void testSetContentTypeNotEmpty() {
+        final HttpEntity httpEntity = this.createHttpEntity();
+
+        this.setContentTypeAndCheck(
+                httpEntity,
+                Optional.of(MediaType.TEXT_PLAIN),
+                httpEntity.setHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        Lists.of(
+                                MediaType.TEXT_PLAIN
+                        )
+                )
+        );
     }
 
     // extractRange................................................................................................
