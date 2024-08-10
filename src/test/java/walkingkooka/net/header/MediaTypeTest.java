@@ -55,7 +55,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     }
 
     @Test
-    public void testNullTypeFails() {
+    public void testNullType() {
         assertThrows(NullPointerException.class, () -> MediaType.with(null, SUBTYPE));
     }
 
@@ -680,7 +680,16 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                 MediaType.parseList("type1/subtype1,type2/subtype2"));
     }
 
-    // test .........................................................................
+    // test ............................................................................................................
+
+    @Override
+    public void testTestNullFails() {
+    }
+
+    @Test
+    public void testTestNull() {
+        this.testFalse(null);
+    }
 
     @Test
     public void testTestWithSelfDifferentCase() {

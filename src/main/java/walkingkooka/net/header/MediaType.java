@@ -517,9 +517,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     @Override
     public boolean test(final MediaType mediaType) {
-        Objects.requireNonNull(mediaType, "mediaType");
-
-        return testComponent(this.type, mediaType.type) &&
+        return null != mediaType &&
+                testComponent(this.type, mediaType.type) &&
                 testComponent(this.subType, mediaType.subType);
     }
 
