@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEntityTestCase<H>
         implements HashCodeEqualsDefinedTesting2<H>,
-        CanBeEmptyTesting<H>,
+        CanBeEmptyTesting,
         ToStringTesting<H> {
 
     HttpEntityTestCase2() {
@@ -284,11 +284,6 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
                 this.createHttpEntity(),
                 this instanceof HttpEntityEmptyTest
         );
-    }
-
-    @Override
-    public final H createCanBeEmpty() {
-        return this.createHttpEntity();
     }
 
     // helpers..........................................................................................................
