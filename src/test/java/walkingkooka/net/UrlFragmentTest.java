@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
@@ -32,14 +33,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         ClassTesting<UrlFragment>,
         HashCodeEqualsDefinedTesting2<UrlFragment>,
+        CanBeEmptyTesting,
         ToStringTesting<UrlFragment> {
 
     @Test
     public void testEmpty() {
-        final UrlFragment empty = UrlFragment.EMPTY;
-        this.checkEquals(
-                "",
-                empty.value()
+        this.isEmptyAndCheck(
+                UrlFragment.EMPTY,
+                true
+        );
+    }
+
+    @Test
+    public void testNotEmpty() {
+        this.isEmptyAndCheck(
+                UrlFragment.parse("not-empty"),
+                false
         );
     }
 
