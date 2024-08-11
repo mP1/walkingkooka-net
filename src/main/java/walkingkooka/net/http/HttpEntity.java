@@ -28,6 +28,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.WebFile;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
 
@@ -79,6 +80,140 @@ public abstract class HttpEntity implements HasHeaders,
      */
     public static HttpEntity dumpStackTrace(final Throwable thrown) {
         return HttpEntityStackTrace.dumpStackTrace(thrown);
+    }
+
+    /**
+     * Parses a binary as if it were a request with headers and an optional body.
+     * <br>
+     * https://datatracker.ietf.org/doc/html/rfc7230
+     * <pre>
+     * HeaderName COLON HeaderValue CRLF
+     * CRLF
+     * optional Body
+     * </pre>
+     */
+    public static HttpEntity parse(final Binary binary) {
+        Objects.requireNonNull(binary, "binary");
+
+        HttpEntity httpEntity = EMPTY;
+
+        final byte[] bytes = binary.value();
+        final int length = bytes.length;
+
+        // parse headers
+        final StringBuilder headerName = new StringBuilder();
+        final StringBuilder headerValue = new StringBuilder();
+
+        final byte CR = '\r';
+        final byte LF = '\n';
+        final byte HEADER_SEPARATOR = ':';
+
+        final int MODE_HEADER_NAME_OR_CR = 0;
+        final int MODE_HEADER_VALUE_OR_CR = 1;
+        final int MODE_CRLF = 2;
+        final int MODE_BODY = 3;
+
+        int mode = MODE_HEADER_NAME_OR_CR;
+
+        HeadersLoop:
+        for (int i = 0; i < length; i++) {
+            final byte b = bytes[i];
+
+            switch (mode) {
+                case MODE_HEADER_NAME_OR_CR:
+                    switch (b) {
+                        case CR:
+                            mode = MODE_CRLF; // empty line ?
+                            break;
+                        case LF:
+                            throw new IllegalArgumentException("Got NL expected header name or CR");
+                        case HEADER_SEPARATOR:
+                            mode = MODE_HEADER_VALUE_OR_CR;
+                            break;
+                        default:
+                            headerName.append((char) b);
+                            break;
+                    }
+                    break;
+                case MODE_HEADER_VALUE_OR_CR:
+                    switch (b) {
+                        case CR:
+                            mode = MODE_CRLF; // empty line ?
+                            break;
+                        case LF:
+                            throw new IllegalArgumentException("Got NL expected header value or CR");
+                        default:
+                            headerValue.append((char) b);
+                            break;
+                    }
+                    break;
+                case MODE_CRLF:
+                    switch (b) {
+                        case CR:
+                            throw new IllegalArgumentException("Got NL expected header value or CR");
+                        case LF:
+                            mode = MODE_HEADER_NAME_OR_CR; // empty line ?
+                            // header line is empty must be end of headers.
+                            if (headerName.length() + headerValue.length() == 0) {
+                                httpEntity = httpEntity.setBody(
+                                        binary.extract(
+                                                Range.greaterThanEquals(
+                                                        Long.valueOf(3 + i) // CR LF CR
+                                                )
+                                        )
+                                );
+                                mode = MODE_BODY;
+                                break HeadersLoop;
+                            }
+
+                            final HttpHeaderName<?> httpHeaderName = HttpHeaderName.with(
+                                    CharSequences.trimRight(
+                                            headerName
+                                    ).toString()
+                            );
+
+                            final Object httpHeaderValue;
+
+                            try {
+                                httpHeaderValue = httpHeaderName.parse(
+                                        headerValue.toString()
+                                );
+                            } catch (final RuntimeException cause) {
+                                throw new IllegalArgumentException(
+                                        cause.getMessage(),
+                                        cause
+                                );
+                            }
+
+                            httpEntity = httpEntity.addHeader(
+                                    httpHeaderName,
+                                    Cast.to(httpHeaderValue)
+                            );
+                            headerName.setLength(0);
+                            headerValue.setLength(0);
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Got " + CharSequences.quoteAndEscape((char) b) + " expected NL");
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException("Bad mode=" + mode);
+            }
+        }
+
+        switch (mode) {
+            case MODE_HEADER_NAME_OR_CR:
+            case MODE_HEADER_VALUE_OR_CR:
+                throw new IllegalArgumentException("Header missing CR");
+            case MODE_CRLF:
+                throw new IllegalArgumentException("Header CR missing NL");
+            case MODE_BODY:
+                break;
+            default:
+                throw new IllegalArgumentException("Bad mode=" + mode);
+        }
+
+        return httpEntity;
     }
 
     /**
