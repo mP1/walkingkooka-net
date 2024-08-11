@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -29,8 +30,11 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
         ClassTesting<HttpEntity> {
@@ -215,6 +219,222 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Override
     public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
         return thrown;
+    }
+
+    // multiparts................................................................................................
+
+    @Test
+    public void testMultipartsWhenNotMultipartFails() {
+        this.extractMultipartsFails(
+                "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Body123",
+                "Not multipart, wrong content-type text/plain"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartMissingNextBoundaryFails() {
+        this.extractMultipartsFails(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1\r\n",
+                "Part 0 missing boundary after 15"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartMissingContentDispositionFails() {
+        this.extractMultipartsFails(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "\r\n" +
+                        "Part1\r\n" +
+                        "--boundary123--",
+                "Part 0 missing header \"Content-Disposition\""
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartWithInvalidHeaderFails() {
+        this.extractMultipartsFails(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "not-content-disposition: hello\r\n" +
+                        "\r\n" +
+                        "Part1\r\n" +
+                        "--boundary123--",
+                "Part 0 missing header \"Content-Disposition\""
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPart() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartIncludesContentType() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartWithEmptyBody() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPreambleAndPart() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n" +
+                        "Preamble123" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartAndEpilogue() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--\r\n" +
+                        "Epilogue123",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPreamblePartAndEpilogue() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n" +
+                        "Preamble123" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--\r\n" +
+                        "Epilogue123",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenTwoParts() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part2-name\"\r\n" +
+                        "\r\n" +
+                        "Part2" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "\r\n" +
+                        "Part1",
+                "content-disposition: form-data; name=\"part2-name\"\r\n" +
+                        "\r\n" +
+                        "Part2"
+        );
+    }
+
+    private void extractMultipartsFails(final String entity,
+                                        final String expected) {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> httpEntity(entity).multiparts()
+        );
+
+        this.checkEquals(
+                expected,
+                thrown.getMessage(),
+                "message"
+        );
+    }
+
+    private void multipartsAndCheck(final String entity,
+                                           final String... parts) {
+        this.multipartsAndCheck(
+                httpEntity(entity),
+                Arrays.stream(parts)
+                        .map(this::httpEntity)
+                        .toArray(HttpEntity[]::new)
+        );
+    }
+
+    private void multipartsAndCheck(final HttpEntity entity,
+                                           final HttpEntity... parts) {
+        this.multipartsAndCheck(
+                entity,
+                Lists.of(parts)
+        );
+    }
+
+    private void multipartsAndCheck(final HttpEntity entity,
+                                           final List<HttpEntity> parts) {
+        this.checkEquals(
+                parts,
+                entity.multiparts(),
+                entity::toString
+        );
+    }
+
+    private HttpEntity httpEntity(final String httpEntity) {
+        return HttpEntity.parse(
+                Binary.with(
+                        httpEntity.getBytes(Charset.defaultCharset())
+                )
+        );
     }
 
     // ClassTesting.....................................................................................................

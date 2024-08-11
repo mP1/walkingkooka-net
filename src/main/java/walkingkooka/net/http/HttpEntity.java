@@ -28,6 +28,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeBoundary;
+import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
@@ -41,6 +43,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
@@ -439,6 +443,233 @@ public abstract class HttpEntity implements HasHeaders,
                 this.contentType()
                         .orElse(null)
         );
+    }
+
+    /**
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+     * <pre>
+     * POST /test HTTP/1.1
+     * Host: foo.example
+     * Content-Type: multipart/form-data;boundary="boundary"
+     *
+     * --boundary
+     * Content-Disposition: form-data; name="field1"
+     *
+     * value1
+     * --boundary
+     * Content-Disposition: form-data; name="field2"; filename="example.txt"
+     *
+     * value2
+     * --boundary--
+     * </pre>
+     * <p>
+     * https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
+     */
+    public final List<HttpEntity> multiparts() {
+        final Optional<MediaType> maybeContentType = this.contentType();
+        if (false == maybeContentType.isPresent()) {
+            throw new IllegalArgumentException("Not multipart, missing content-type");
+        }
+
+        final MediaType contentType = maybeContentType.get();
+        if (false == MediaType.MULTIPART_FORM_DATA.test(contentType)) {
+            throw new IllegalArgumentException("Not multipart, wrong content-type " + contentType);
+        }
+
+        final Optional<MediaTypeBoundary> maybeBoundary = MediaTypeParameterName.BOUNDARY.parameterValue(contentType);
+        if (false == maybeBoundary.isPresent()) {
+            throw new IllegalArgumentException("Multipart, content-type missing boundary");
+        }
+
+        final List<HttpEntity> parts = Lists.array();
+
+        final Binary binary = this.body();
+        final int binaryEnd = binary.size();
+
+        final MediaTypeBoundary mediaTypeBoundary = maybeBoundary.get();
+
+        // first boundary
+        byte[] boundary = dashDashBoundaryBytes(mediaTypeBoundary);
+
+        int partStart = 0;
+
+        // find initial boundary........................................................................................
+        int boundaryStart = binary.indexOf(
+                boundary,
+                partStart,
+                binaryEnd
+        );
+
+        if (-1 == boundaryStart) {
+            throw new IllegalArgumentException("Missing initial boundary");
+        }
+
+        // --boundary-- ???
+        if (false == isDashDash(binary, boundaryStart + boundary.length)) {
+            partStart = boundaryStart + boundary.length + CR_LF.length;
+
+            boundary = crLfDashDashBoundaryBytes(mediaTypeBoundary);
+
+            for (; ; ) {
+                // find boundary
+                boundaryStart = binary.indexOf(
+                        boundary,
+                        partStart,
+                        binaryEnd
+                );
+
+                if (-1 == boundaryStart) {
+                    throw new IllegalArgumentException("Part " + parts.size() + " missing boundary after " + partStart);
+                }
+
+                final int partEnd = boundaryStart;
+
+                final HttpEntity part;
+
+                try {
+                    part = HttpEntity.parse(
+                            binary.extract(
+                                    Range.greaterThanEquals(
+                                            Long.valueOf(partStart)
+                                    ).and(
+                                            Range.lessThan(
+                                                    Long.valueOf(partEnd)
+                                            )
+                                    )
+                            )
+                    );
+                } catch (final RuntimeException cause) {
+                    throw new IllegalArgumentException("Part " + parts.size() + " " + cause.getMessage(), cause);
+                }
+                part.validateMultipartHeaders(parts.size());
+                parts.add(part);
+
+                // --boundary-- ???
+                if (isDashDash(binary, boundaryStart + boundary.length)) {
+                    break;
+                }
+                // --boundaryCRLF
+                requireCrLf(binary, boundaryStart + boundary.length);
+
+                partStart = partEnd + boundary.length + CR_LF.length;
+            }
+        }
+
+        return Lists.immutable(parts);
+    }
+
+    /**
+     * Tests if a DASH DASH is at the given offset assuming it follows a boundary.
+     * <pre>
+     * --boundary--
+     * </pre>
+     */
+    private boolean isDashDash(final Binary binary,
+                               final int offset) {
+        return -1 != binary.indexOf(
+                DASH_DASH,
+                offset,
+                offset + 2
+        );
+    }
+
+    private final static byte[] DASH_DASH = new byte[]{
+            '-',
+            '-'
+    };
+
+    private void requireCrLf(final Binary binary,
+                             final int offset) {
+        if (-1 == binary.indexOf(
+                CR_LF,
+                offset,
+                offset + 2
+        )) {
+            throw new IllegalArgumentException("Boundary missing CRLF at " + offset);
+        }
+    }
+
+    private final static byte[] CR_LF = new byte[]{
+            '\r',
+            '\n'
+    };
+
+    /**
+     * Returns boundary bytes without the initial CRLF followed by the boundary text and without any trailing CRLF.
+     * <pre>
+     * --boundary
+     * </pre>
+     */
+    private static byte[] dashDashBoundaryBytes(final MediaTypeBoundary boundary) {
+        return boundary(
+                boundary,
+                new byte[DASH_DASH.length + boundary.value().length()],
+                0
+        );
+    }
+
+    /**
+     * Returns the boundary bytes with the leading CRLF followed by the boundary.
+     * <pre>
+     * CRLF
+     * --boundary
+     * </pre>
+     */
+    private static byte[] crLfDashDashBoundaryBytes(final MediaTypeBoundary boundary) {
+        final byte[] bytes = new byte[CR_LF.length + DASH_DASH.length + boundary.value().length()];
+
+        bytes[0] = CR;
+        bytes[1] = LF;
+
+        return boundary(
+                boundary,
+                bytes,
+                CR_LF.length
+        );
+    }
+
+    private static byte[] boundary(final MediaTypeBoundary boundary,
+                                   final byte[] bytes,
+                                   final int offset) {
+        int i = offset;
+
+        bytes[i++] = '-';
+        bytes[i++] = '-';
+
+        final String chars = boundary.value();
+        final int charsLength = chars.length();
+
+        for (int j = 0; j < charsLength; j++) {
+            bytes[i++] = (byte) chars.charAt(j);
+        }
+        return bytes;
+    }
+
+    /**
+     * Verifies the part has the content-disposition and maybe content-type headers. Any other headers will result in an {@link IllegalArgumentException}.
+     */
+    private void validateMultipartHeaders(final int partNumber) {
+        HttpHeaderName.CONTENT_DISPOSITION.header(this)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Part " + partNumber + " missing header " + CharSequences.quoteAndEscape(HttpHeaderName.CONTENT_DISPOSITION.value()))
+                );
+        final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.header(this);
+
+        final Set<HttpHeaderName<?>> headers = this.headers()
+                .keySet();
+
+        // content-disposition & content-type
+        if (headers.size() > (1 + (contentType.isPresent() ? 1 : 0))) {
+            throw new IllegalArgumentException(
+                    "Part " +
+                            partNumber +
+                            " contains invalid headers " +
+                            headers.stream()
+                                    .filter(h -> false == h.equals(HttpHeaderName.CONTENT_DISPOSITION) && h.equals(HttpHeaderName.CONTENT_TYPE))
+                                    .map(HttpHeaderName::toString)
+                                    .collect(Collectors.joining(", "))
+            );
+        }
     }
 
     // Object...........................................................................................................
