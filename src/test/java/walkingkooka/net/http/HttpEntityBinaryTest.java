@@ -143,6 +143,21 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     }
 
     @Test
+    public void testToStringEmptyBinary() {
+        final HttpEntityBinary httpEntityBinary = this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, "");
+
+        this.isEmptyAndCheck(
+                httpEntityBinary.body(),
+                true
+        );
+
+        this.toStringAndCheck(
+                httpEntityBinary,
+                "Content-Length: 257\r\n\r\n"
+        );
+    }
+
+    @Test
     public void testToStringBinary() {
         final String letters = "a";
         this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, letters),

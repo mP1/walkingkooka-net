@@ -110,27 +110,29 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
      */
     @Override
     void toStringBody(final ToStringBuilder b) {
-        byte[] body = this.body.value();
+        final Binary body = this.body;
+        byte[] bodyBytes = body.value();
+
         final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.header(this);
         if (mediaType.isPresent()) {
             final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());
             if (charsetName.isPresent()) {
                 final Optional<Charset> charset = charsetName.get().charset();
                 if (charset.isPresent()) {
-                    b.value(new String(body, charset.get()));
-                    body = null;
+                    b.value(new String(bodyBytes, charset.get()));
+                    bodyBytes = null;
                 }
             }
         }
 
-        if (null != body) {
+        if (null != bodyBytes && false == body.isEmpty()) {
             // hex dump
             // offset-HEX_DUMP_WIDTH-chars space hexdigit *HEX_DUMP_WIDTH space separated ascii
             b.enable(ToStringBuilderOption.HEX_BYTES);
             b.valueSeparator(" ");
             b.labelSeparator(" ");
 
-            final int length = body.length;
+            final int length = bodyBytes.length;
             for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
                 // offset
                 b.append(CharSequences.padLeft(Integer.toHexString(i), 8, '0').toString());
@@ -139,7 +141,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
                 for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
                     final int k = i + j;
                     if (k < length) {
-                        b.value(body[k]);
+                        b.value(bodyBytes[k]);
                     } else {
                         b.value("  ");
                     }
@@ -150,7 +152,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
                 for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
                     final int k = i + j;
                     if (k < length) {
-                        final char c = (char) body[k];
+                        final char c = (char) bodyBytes[k];
                         b.append(Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR);
                     } else {
                         b.append(' ');
