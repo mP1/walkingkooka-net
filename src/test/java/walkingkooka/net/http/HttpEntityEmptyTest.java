@@ -183,6 +183,21 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
                 text);
     }
 
+    @Override
+    HttpEntityEmpty createHttpEntity() {
+        return HttpEntityEmpty.instance();
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        this.treePrintAndCheck(
+                HttpEntityEmpty.instance(),
+                "HttpEntity\n"
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -190,13 +205,10 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         this.toStringAndCheck("", this.createHttpEntity().toString());
     }
 
+    // class...........................................................................................................
+
     @Override
     public Class<HttpEntityEmpty> type() {
         return HttpEntityEmpty.class;
-    }
-
-    @Override
-    HttpEntityEmpty createHttpEntity() {
-        return HttpEntityEmpty.instance();
     }
 }

@@ -165,5 +165,4 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     }
 
     private final static int HEX_DUMP_WIDTH = 16;
-    private final static char UNPRINTABLE_CHAR = '.';
 }
