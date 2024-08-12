@@ -54,7 +54,7 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
     }
 
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         HttpEntity add = entity;
 
         if (this.first) {
@@ -73,7 +73,7 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
                 }
             }
         }
-        this.response.addEntity(add);
+        this.response.setEntity(add);
     }
 
     /**

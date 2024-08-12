@@ -34,11 +34,11 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
         HeaderScopeHttpResponse.with(new FakeHttpResponse() {
 
             @Override
-            public void addEntity(final HttpEntity e) {
+            public void setEntity(final HttpEntity e) {
                 added.add(e);
             }
 
-        }).addEntity(entity);
+        }).setEntity(entity);
 
         this.checkEquals(Lists.of(entity), added, "added entities");
     }

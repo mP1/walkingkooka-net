@@ -147,7 +147,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
-        expected.addEntity(HttpEntity.EMPTY);
+        expected.setEntity(HttpEntity.EMPTY);
 
         this.checkResponse(request, response, expected);
     }
@@ -163,7 +163,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(
+        expected.setEntity(
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
@@ -185,7 +185,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(
+        expected.setEntity(
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
@@ -206,7 +206,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(HttpEntity.EMPTY
+        expected.setEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
@@ -227,7 +227,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
-        expected.addEntity(HttpEntity.EMPTY
+        expected.setEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
@@ -246,7 +246,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
-        expected.addEntity(HttpEntity.EMPTY
+        expected.setEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
@@ -266,7 +266,7 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
-        expected.addEntity(HttpEntity.EMPTY
+        expected.setEntity(HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
@@ -278,12 +278,16 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHt
     private void checkResponse(final HttpRequest request,
                                final HttpResponse response,
                                final HttpResponse expected) {
-        this.checkEquals(expected.status(),
+        this.checkEquals(
+                expected.status(),
                 response.status(),
-                () -> "request.status " + request);
-        this.checkEquals(expected.entities(),
-                response.entities(),
-                () -> "request.entities " + request);
+                () -> "response.status " + request
+        );
+        this.checkEquals(
+                expected.entity(),
+                response.entity(),
+                () -> "response.entity " + request
+        );
     }
 
     // toString.........................................................................................................

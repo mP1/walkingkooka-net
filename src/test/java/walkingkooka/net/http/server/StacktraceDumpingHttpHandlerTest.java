@@ -95,7 +95,7 @@ public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase2
                 response.status(),
                 "status"
         );
-        final HttpEntity entity = response.entities().get(0);
+        final HttpEntity entity = response.entity();
 
         this.checkEquals(
                 Lists.of(MediaType.TEXT_PLAIN),

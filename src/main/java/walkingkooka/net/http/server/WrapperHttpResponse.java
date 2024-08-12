@@ -21,7 +21,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -59,8 +58,8 @@ abstract class WrapperHttpResponse implements HttpResponse {
     }
 
     @Override
-    public final List<HttpEntity> entities() {
-        return this.response.entities();
+    public final HttpEntity entity() {
+        return this.response.entity();
     }
 
     /**

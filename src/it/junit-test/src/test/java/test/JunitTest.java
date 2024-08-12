@@ -353,9 +353,12 @@ public class JunitTest {
                 response.status()
                         .orElse(HttpStatusCode.BAD_REQUEST.status())
                         .value());
-        Assert.assertEquals("response body",
+        Assert.assertEquals(
+                "response body",
                 body,
-                response.entities().get(0).bodyText());
+                response.entity()
+                        .bodyText()
+        );
     }
 
     @Test

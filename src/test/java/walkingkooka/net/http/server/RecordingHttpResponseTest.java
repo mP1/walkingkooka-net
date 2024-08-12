@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -43,11 +42,11 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(version);
         response.setStatus(status);
-        response.addEntity(entity);
+        response.setEntity(entity);
 
         this.checkEquals(Optional.ofNullable(version), response.version(), "version");
         this.checkEquals(Optional.ofNullable(status), response.status(), "status");
-        this.checkEquals(Lists.of(entity), response.entities(), "entities");
+        this.checkEquals(entity, response.entity(), "entity");
     }
 
     @Test
@@ -60,7 +59,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(version);
         response.setStatus(status);
-        response.addEntity(entity);
+        response.setEntity(entity);
 
         this.checkResponse(response, HttpRequests.fake(), version, status, entity);
     }
@@ -77,8 +76,8 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
                 .setBody(Binary.with(new byte[123]));
         response.setVersion(version);
         response.setStatus(status);
-        response.addEntity(entity);
-        response.addEntity(entity2);
+        response.setEntity(entity);
+        response.setEntity(entity2);
 
         this.checkResponse(response, HttpRequests.fake(), version, status, entity, entity2);
     }
@@ -93,7 +92,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(version);
         response.setStatus(status);
-        response.addEntity(entity);
+        response.setEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
                 version,
@@ -113,7 +112,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(version);
         response.setStatus(status);
-        response.addEntity(entity);
+        response.setEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
                 version,
@@ -131,7 +130,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(this.status());
-        response.addEntity(this.entity());
+        response.setEntity(this.entity());
 
         this.checkNotEquals(response);
     }
@@ -142,7 +141,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(this.version());
         response.setStatus(HttpStatusCode.withCode(9999).setMessage("Different"));
-        response.addEntity(this.entity());
+        response.setEntity(this.entity());
 
         this.checkNotEquals(response);
     }
@@ -153,7 +152,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(this.version());
         response.setStatus(this.status());
-        response.addEntity(HttpEntity.EMPTY.setBodyText("Different"));
+        response.setEntity(HttpEntity.EMPTY.setBodyText("Different"));
 
         this.checkNotEquals(response);
     }
@@ -164,7 +163,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
     public void testToStringWithoutVersion() {
         final RecordingHttpResponse response = this.createResponse();
         response.setStatus(this.status());
-        response.addEntity(this.entity());
+        response.setEntity(this.entity());
 
         this.toStringAndCheck(response,
                 "503 Problem x y z\r\n" +
@@ -178,7 +177,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         final RecordingHttpResponse response = this.createResponse();
         response.setVersion(this.version());
         response.setStatus(this.status());
-        response.addEntity(this.entity());
+        response.setEntity(this.entity());
 
         this.toStringAndCheck(response,
                 "HTTP/1.1 503 Problem x y z\r\n" +
@@ -217,7 +216,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
         response.setVersion(this.version());
         response.setStatus(this.status());
-        response.addEntity(this.entity());
+        response.setEntity(this.entity());
 
         return response;
     }

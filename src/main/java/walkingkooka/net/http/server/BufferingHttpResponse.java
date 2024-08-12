@@ -48,7 +48,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     }
 
     @Override
-    public final void addEntity(final HttpEntity entity) {
+    public final void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
         if (this.committed) {

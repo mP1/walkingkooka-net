@@ -230,7 +230,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         final R response = this.createResponse(request, wrapped);
         response.setVersion(version);
         response.setStatus(status);
-        entities.forEach(response::addEntity);
+        entities.forEach(response::setEntity);
 
         this.checkResponse(wrapped, request, expectedVersion, expectedStatus, expectedEntities);
     }

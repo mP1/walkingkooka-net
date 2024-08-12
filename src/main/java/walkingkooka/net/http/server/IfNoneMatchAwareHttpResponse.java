@@ -103,7 +103,7 @@ final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpR
         }
 
         this.response.setStatus(finalStatus);
-        this.response.addEntity(addEntity);
+        this.response.setEntity(addEntity);
     }
 
     /**

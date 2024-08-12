@@ -93,11 +93,11 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         response.setVersion(version);
         response.setStatus(status);
 
-        response.addEntity(httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])));
+        response.setEntity(httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])));
 
         final byte[] bytes2 = new byte[CONTENT_LENGTH];
         Arrays.fill(bytes2, (byte) 'A');
-        response.addEntity(httpEntity(headers).setBody(Binary.with(bytes2)));
+        response.setEntity(httpEntity(headers).setBody(Binary.with(bytes2)));
 
         this.checkResponse(recording,
                 request,

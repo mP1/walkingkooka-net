@@ -47,10 +47,10 @@ final class HeaderScopeHttpResponse extends WrapperHttpResponse {
     }
 
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
-        this.response.addEntity(entity);
+        this.response.setEntity(entity);
     }
 
     private void checkHeader(final Entry<HttpHeaderName<?>, Object> entry) {

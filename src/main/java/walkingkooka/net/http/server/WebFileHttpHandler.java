@@ -118,7 +118,7 @@ final class WebFileHttpHandler implements HttpHandler {
     private void notModified(final WebFile file,
                              final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        response.addEntity(headers(file));
+        response.setEntity(headers(file));
     }
 
     /**
@@ -140,7 +140,7 @@ final class WebFileHttpHandler implements HttpHandler {
             entity = HttpEntity.EMPTY;
         }
         response.setStatus(status);
-        response.addEntity(entity);
+        response.setEntity(entity);
     }
 
     private static HttpEntity headers(final WebFile file) {
@@ -159,7 +159,7 @@ final class WebFileHttpHandler implements HttpHandler {
     private void notFound(final HttpStatus status,
                           final HttpResponse response) {
         response.setStatus(status);
-        response.addEntity(HttpEntity.EMPTY);
+        response.setEntity(HttpEntity.EMPTY);
     }
 
     @Override

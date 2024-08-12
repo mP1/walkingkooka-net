@@ -65,7 +65,7 @@ final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpRe
             case REDIRECTION:
                 if (this.isServerPresent(entity)) {
                     response.setStatus(status);
-                    response.addEntity(entity);
+                    response.setEntity(entity);
                 } else {
                     response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.status());
                     this.committed = true;
@@ -75,7 +75,7 @@ final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpRe
             case CLIENT_ERROR:
             case SERVER_ERROR:
                 response.setStatus(status);
-                response.addEntity(entity);
+                response.setEntity(entity);
                 break;
             default:
                 NeverError.unhandledCase(codeCategory, HttpStatusCodeCategory.values());

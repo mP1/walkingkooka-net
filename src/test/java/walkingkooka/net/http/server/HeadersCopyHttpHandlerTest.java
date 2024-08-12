@@ -64,7 +64,7 @@ public final class HeadersCopyHttpHandlerTest extends HttpHandlerTestCase2<Heade
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status());
-        expected.addEntity(entity()
+        expected.setEntity(entity()
                 .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
         );
 
@@ -93,7 +93,7 @@ public final class HeadersCopyHttpHandlerTest extends HttpHandlerTestCase2<Heade
             public void handle(final HttpRequest request,
                                final HttpResponse response) {
                 response.setStatus(status());
-                response.addEntity(entity());
+                response.setEntity(entity());
             }
 
             @Override

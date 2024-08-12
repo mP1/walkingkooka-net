@@ -82,13 +82,13 @@ final class HeadersCopyHttpResponse extends WrapperHttpRequestHttpResponse {
      * Merges the request headers followed by the entity's original headers.
      */
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
-        HttpEntity add = entity;
+        HttpEntity set = entity;
 
         final HttpResponse response = this.response;
-        if (response.entities().isEmpty()) {
+        if (response.entity().isEmpty()) {
 
             final Map<HttpHeaderName<?>, List<?>> requestHeaders = this.request.headers();
             final Map<HttpHeaderName<?>, List<?>> allHeaders = Maps.sorted();
@@ -106,9 +106,9 @@ final class HeadersCopyHttpResponse extends WrapperHttpRequestHttpResponse {
                 allHeaders.put(nameAndHeader.getKey(), nameAndHeader.getValue());
             }
 
-            add = entity.setHeaders(allHeaders);
+            set = entity.setHeaders(allHeaders);
         }
-        response.addEntity(add);
+        response.setEntity(set);
     }
 
     private final Set<HttpHeaderName<?>> headers;

@@ -20,17 +20,15 @@ package walkingkooka.net.http.server;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HttpResponse} that records set status and added entities.
+ * A {@link HttpResponse} that records set status and added entity.
  */
 final class RecordingHttpResponse implements HttpResponse {
 
@@ -46,6 +44,7 @@ final class RecordingHttpResponse implements HttpResponse {
      */
     private RecordingHttpResponse() {
         super();
+        this.entity = HttpEntity.EMPTY;
     }
 
     @Override
@@ -75,21 +74,21 @@ final class RecordingHttpResponse implements HttpResponse {
     private HttpStatus status;
 
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
-        this.entities.add(entity);
+        this.entity = entity;
     }
 
     @Override
-    public List<HttpEntity> entities() {
-        return Lists.readOnly(this.entities);
+    public HttpEntity entity() {
+        return this.entity;
     }
 
-    private final List<HttpEntity> entities = Lists.array();
+    private HttpEntity entity;
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.version, this.status, this.entities);
+        return Objects.hash(this.version, this.status, this.entity);
     }
 
     public boolean equals(final Object other) {
@@ -101,7 +100,7 @@ final class RecordingHttpResponse implements HttpResponse {
     private boolean equals0(final RecordingHttpResponse other) {
         return Objects.equals(this.version, other.version) &&
                 Objects.equals(this.status, other.status) &&
-                Objects.equals(this.entities, other.entities);
+                Objects.equals(this.entity, other.entity);
     }
 
     @Override
@@ -115,7 +114,7 @@ final class RecordingHttpResponse implements HttpResponse {
                 .separator("\r\n")
                 .disable(ToStringBuilderOption.QUOTE)
                 .value(ToStringBuilder.empty().valueSeparator(" ").value(this.version).value(this.status).build())
-                .value(this.entities)
+                .value(this.entity)
                 .build();
     }
 }
