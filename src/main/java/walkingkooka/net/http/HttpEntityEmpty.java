@@ -54,7 +54,7 @@ final class HttpEntityEmpty extends HttpEntity {
 
     @Override //
     Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
-        return NO_HEADERS2;
+        return NO_HEADERS_HTTP_ENTITY_HEADER_LIST;
     }
 
     @Override //
@@ -109,7 +109,7 @@ final class HttpEntityEmpty extends HttpEntity {
     HttpEntity setBodyText0(final String bodyText) {
         return bodyText.isEmpty() ?
                 this :
-                HttpEntityText.with(NO_HEADERS2, bodyText);
+                HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);
     }
 
     @Override

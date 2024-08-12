@@ -54,7 +54,10 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testSetHeaders() {
         final HttpEntityEmpty entity = this.createHttpEntity();
-        this.checkEquals(HttpEntity.NO_HEADERS2, entity.headers());
+        this.checkEquals(
+                HttpEntity.NO_HEADERS,
+                entity.headers()
+        );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
@@ -69,7 +72,10 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testSetHeadersList() {
         final HttpEntityEmpty entity = this.createHttpEntity();
-        this.checkEquals(HttpEntity.NO_HEADERS2, entity.headers());
+        this.checkEquals(
+                HttpEntity.NO_HEADERS,
+                entity.headers()
+        );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
         final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1");
