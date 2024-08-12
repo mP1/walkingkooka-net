@@ -21,7 +21,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,10 +52,10 @@ public interface HttpResponse {
     /**
      * Adds an entity to the response.
      */
-    void addEntity(final HttpEntity entity);
+    void setEntity(final HttpEntity entity);
 
     /**
-     * Returns the added {@link HttpEntity}.
+     * Returns the {@link HttpEntity}.
      */
-    List<HttpEntity> entities();
+    HttpEntity entity();
 }

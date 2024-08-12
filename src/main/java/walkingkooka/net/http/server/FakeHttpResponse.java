@@ -22,7 +22,6 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.Fake;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -51,13 +50,13 @@ public class FakeHttpResponse implements HttpResponse, Fake {
     }
 
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<HttpEntity> entities() {
+    public HttpEntity entity() {
         throw new UnsupportedOperationException();
     }
 }

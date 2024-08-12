@@ -38,7 +38,7 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     public void testVersionMissingJsonMarshallFails() {
         final HttpResponse response = HttpResponses.recording();
         response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
-        response.addEntity(HttpEntity.EMPTY);
+        response.setEntity(HttpEntity.EMPTY);
 
         assertThrows(JsonNodeMarshallException.class, () -> this.marshallContext().marshall(response));
     }
@@ -47,7 +47,7 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     public void testStatusMissingJsonMarshallFails() {
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
-        response.addEntity(HttpEntity.EMPTY);
+        response.setEntity(HttpEntity.EMPTY);
 
         assertThrows(JsonNodeMarshallException.class, () -> this.marshallContext().marshall(response));
     }
@@ -71,7 +71,7 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
-        response.addEntity(
+        response.setEntity(
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
                         .setContentType(MediaType.TEXT_PLAIN)

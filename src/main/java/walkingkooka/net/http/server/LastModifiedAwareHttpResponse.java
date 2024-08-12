@@ -90,7 +90,7 @@ final class LastModifiedAwareHttpResponse extends NonMultiPartAwareBufferingHttp
         }
 
         this.response.setStatus(finalStatus);
-        this.response.addEntity(addEntity);
+        this.response.setEntity(addEntity);
     }
 
     /**

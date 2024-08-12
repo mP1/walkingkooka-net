@@ -50,7 +50,7 @@ final class StacktraceDumpingHttpHandler implements HttpHandler {
             this.handler.handle(request, response);
         } catch (final Throwable cause) {
             response.setStatus(this.throwableTranslator.apply(cause));
-            response.addEntity(HttpEntity.dumpStackTrace(cause));
+            response.setEntity(HttpEntity.dumpStackTrace(cause));
         }
     }
 

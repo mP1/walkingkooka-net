@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Wraps a {@link HttpResponse} sets if the content-length in {@link #addEntity(HttpEntity)} if necessary or verifies
+ * Wraps a {@link HttpResponse} sets if the content-length in {@link #setEntity(HttpEntity)} if necessary or verifies
  * if the existing content-length matches.
  */
 final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse {
@@ -60,7 +60,7 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
      * add a content-length if necessary.
      */
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
         HttpEntity add = entity;
@@ -78,6 +78,6 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
         } else {
             add = add.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength);
         }
-        this.response.addEntity(add);
+        this.response.setEntity(add);
     }
 }

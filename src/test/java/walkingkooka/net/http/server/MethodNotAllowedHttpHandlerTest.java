@@ -36,7 +36,7 @@ public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<
         public void handle(final HttpRequest request,
                            final HttpResponse response) {
             response.setStatus(STATUS);
-            response.addEntity(ENTITY);
+            response.setEntity(ENTITY);
         }
     };
 
@@ -62,7 +62,7 @@ public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected PATCH got invalid"));
-        expected.addEntity(HttpEntity.EMPTY);
+        expected.setEntity(HttpEntity.EMPTY);
 
         this.checkResponse(request, response, expected);
     }
@@ -80,7 +80,7 @@ public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(STATUS);
-        expected.addEntity(ENTITY);
+        expected.setEntity(ENTITY);
 
         this.checkResponse(request, response, expected);
     }
@@ -88,12 +88,15 @@ public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<
     private void checkResponse(final HttpRequest request,
                                final HttpResponse response,
                                final HttpResponse expected) {
-        this.checkEquals(expected.status(),
+        this.checkEquals(
+                expected.status(),
                 response.status(),
-                () -> "request.status " + request);
-        this.checkEquals(expected.entities(),
-                response.entities(),
-                () -> "request.entities " + request);
+                () -> "response.status " + request);
+        this.checkEquals(
+                expected.entity(),
+                response.entity(),
+                () -> "response.entities " + request
+        );
     }
 
     // toString.........................................................................................................

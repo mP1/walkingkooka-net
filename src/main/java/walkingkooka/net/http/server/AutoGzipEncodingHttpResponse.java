@@ -62,7 +62,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
      * If the content-encoding request header includes gzip then the bytes will be compressed.
      */
     @Override
-    public void addEntity(final HttpEntity entity) {
+    public void setEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
         HttpEntity add = entity;
@@ -79,7 +79,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
             }
         }
 
-        this.response.addEntity(add);
+        this.response.setEntity(add);
     }
 
     /**

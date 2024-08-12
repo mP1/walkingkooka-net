@@ -61,17 +61,17 @@ final class HttpStatusCodeRequiredHeadersHttpResponse extends BufferingHttpRespo
                 .allMatch(headers::containsKey);
         if (this.ignore) {
             response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.status());
-            response.addEntity(HttpEntity.EMPTY);
+            response.setEntity(HttpEntity.EMPTY);
         } else {
             response.setStatus(status);
-            response.addEntity(entity);
+            response.setEntity(entity);
         }
     }
 
     @Override
     void addAdditionalEntity(final HttpEntity entity) {
         if (!this.ignore) {
-            this.response.addEntity(entity);
+            this.response.setEntity(entity);
         }
     }
 

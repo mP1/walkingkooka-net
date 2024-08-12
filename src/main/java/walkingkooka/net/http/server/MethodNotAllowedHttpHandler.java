@@ -56,7 +56,7 @@ final class MethodNotAllowedHttpHandler implements HttpHandler {
             );
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));
-            response.addEntity(HttpEntity.EMPTY);
+            response.setEntity(HttpEntity.EMPTY);
         }
     }
 

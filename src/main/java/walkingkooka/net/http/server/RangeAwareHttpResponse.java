@@ -103,15 +103,15 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
                     this.addMultipartEntities(entity);
                 } else {
                     this.response.setStatus(HttpStatusCode.REQUESTED_RANGE_NOT_SATISFIABLE.status());
-                    this.response.addEntity(entity.setBody(HttpEntity.NO_BODY)); // need to remove content-headers.
+                    this.response.setEntity(entity.setBody(HttpEntity.NO_BODY)); // need to remove content-headers.
                 }
             } else {
                 this.response.setStatus(status);
-                this.response.addEntity(entity);
+                this.response.setEntity(entity);
             }
         } else {
             this.response.setStatus(status);
-            this.response.addEntity(entity);
+            this.response.setEntity(entity);
         }
     }
 
@@ -179,7 +179,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
         final MediaTypeBoundary boundary = MediaTypeBoundary.generate(body.value(), this.boundaryCharacters);
 
         this.response.setStatus(HttpStatusCode.PARTIAL_CONTENT.status());
-        this.response.addEntity(
+        this.response.setEntity(
                 entity.setContentType(boundary.multipartByteRanges())
                         .setBody(HttpEntity.NO_BODY)
         );
@@ -192,7 +192,7 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
             headers.put(HttpHeaderName.CONTENT_TYPE, List.of(contentType));
             headers.put(HttpHeaderName.CONTENT_RANGE, List.of(contentRange.setRange(Optional.of(this.replaceUpperBoundsIfWildcard(range, body.size())))));
 
-            this.response.addEntity(entity.extractRange(range).setHeaders(headers));
+            this.response.setEntity(entity.extractRange(range).setHeaders(headers));
         }
     }
 

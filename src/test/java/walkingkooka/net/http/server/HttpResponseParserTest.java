@@ -92,7 +92,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\n", response);
     }
@@ -103,7 +103,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(
+        response.setEntity(
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
                         .setContentType(MediaType.TEXT_PLAIN)
         );
@@ -117,7 +117,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(HttpEntity.EMPTY.setBodyText("Body123"));
+        response.setEntity(HttpEntity.EMPTY.setBodyText("Body123"));
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\n\r\nBody123", response);
     }
@@ -128,7 +128,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body123"));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body123"));
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody123", response);
     }
@@ -139,7 +139,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
-        response.addEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body\r123"));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body\r123"));
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody\r123", response);
     }

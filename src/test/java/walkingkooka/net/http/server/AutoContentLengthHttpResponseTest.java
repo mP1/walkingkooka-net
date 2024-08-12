@@ -59,13 +59,13 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
                 new FakeHttpResponse() {
 
                     @Test
-                    public void addEntity(final HttpEntity e) {
+                    public void setEntity(final HttpEntity e) {
                         added.add(e);
                     }
                 });
 
         final Binary bodyBinary = Binary.with(body);
-        response.addEntity((null == contentLength ?
+        response.setEntity((null == contentLength ?
                 HttpEntity.EMPTY :
                 HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength)).setBody(bodyBinary));
         this.checkEquals(Lists.of(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.length).setBody(bodyBinary)),

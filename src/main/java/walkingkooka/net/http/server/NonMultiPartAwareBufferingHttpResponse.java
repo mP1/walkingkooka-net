@@ -35,6 +35,6 @@ abstract class NonMultiPartAwareBufferingHttpResponse extends BufferingHttpRespo
      * Unconditionally adds parts that are not the first.
      */
     @Override final void addAdditionalEntity(final HttpEntity entity) {
-        this.response.addEntity(entity);
+        this.response.setEntity(entity);
     }
 }

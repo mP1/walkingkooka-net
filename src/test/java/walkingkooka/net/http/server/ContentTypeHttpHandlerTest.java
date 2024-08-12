@@ -43,7 +43,7 @@ public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<Conte
         public void handle(final HttpRequest request,
                            final HttpResponse response) {
             response.setStatus(STATUS);
-            response.addEntity(ENTITY);
+            response.setEntity(ENTITY);
         }
     };
 
@@ -72,7 +72,7 @@ public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<Conte
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain missing " + HttpHeaderName.CONTENT_TYPE));
-        expected.addEntity(HttpEntity.EMPTY);
+        expected.setEntity(HttpEntity.EMPTY);
 
         this.checkResponse(request, response, expected);
     }
@@ -90,7 +90,7 @@ public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<Conte
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain got application/octet-stream"));
-        expected.addEntity(HttpEntity.EMPTY);
+        expected.setEntity(HttpEntity.EMPTY);
 
         this.checkResponse(request, response, expected);
     }
@@ -108,7 +108,7 @@ public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<Conte
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(STATUS);
-        expected.addEntity(ENTITY);
+        expected.setEntity(ENTITY);
 
         this.checkResponse(request, response, expected);
     }
@@ -116,12 +116,16 @@ public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<Conte
     private void checkResponse(final HttpRequest request,
                                final HttpResponse response,
                                final HttpResponse expected) {
-        this.checkEquals(expected.status(),
+        this.checkEquals(
+                expected.status(),
                 response.status(),
-                () -> "request.status " + request);
-        this.checkEquals(expected.entities(),
-                response.entities(),
-                () -> "request.entities " + request);
+                () -> "response.status " + request
+        );
+        this.checkEquals(
+                expected.entity(),
+                response.entity(),
+                () -> "response.entity " + request
+        );
     }
 
     // toString.........................................................................................................

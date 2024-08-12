@@ -42,7 +42,7 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
 
     @Test
     default void testAddEntityNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createResponse().addEntity(null));
+        assertThrows(NullPointerException.class, () -> this.createResponse().setEntity(null));
     }
 
     R createResponse();
@@ -57,7 +57,7 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
         expected.setStatus(status);
 
         Arrays.stream(entities)
-                .forEach(expected::addEntity);
+                .forEach(expected::setEntity);
 
         this.checkEquals(expected,
                 response,
