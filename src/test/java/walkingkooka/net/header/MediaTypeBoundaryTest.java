@@ -69,9 +69,9 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
         checkValue(MediaTypeBoundary.with(text), text);
     }
 
-    private void checkValue(final MediaTypeBoundary boundary, final String value) {
+    private void checkValue(final MediaTypeBoundary boundary,
+                            final String value) {
         this.checkEquals(value, boundary.value(), "value");
-        this.checkEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
     }
 
     @Test
@@ -119,30 +119,6 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     @Test
     public void testIsWildcard() {
         this.isWildcardAndCheck(false);
-    }
-
-    // multipartBoundaryText........................................................................................................
-
-    @Test
-    public void testMultipartBoundaryDelimiter() {
-        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("abc"),
-                "--abc");
-    }
-
-    @Test
-    public void testMultipartBoundaryDelimiter2() {
-        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("--abc"),
-                "----abc");
-    }
-
-    @Test
-    public void testMultipartBoundaryDelimiterQuoted() {
-        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("abc+def"),
-                "--abc+def");
-    }
-
-    private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
-        this.checkEquals(delimiter, boundary.multipartBoundaryDelimiter(), boundary::toString);
     }
 
     // generate ....................................................................................................
