@@ -22,6 +22,10 @@ import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.text.Ascii;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -177,4 +181,94 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     }
 
     abstract void toStringBody(final ToStringBuilder b);
+
+    // TreePrintable....................................................................................................
+
+    // TreePrintable....................................................................................................
+
+    @Override final void printTreeBody(final IndentingPrinter printer) {
+        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.header(this)
+                .orElse(null);
+        if (MediaType.ANY_TEXT.test(contentType)) {
+            this.printTreeBodyText(printer);
+        } else {
+            this.printTreeBodyBinary(printer);
+        }
+    }
+
+    private void printTreeBodyBinary(final IndentingPrinter printer) {
+        printer.println("body");
+        printer.indent();
+        {
+            final byte[] bodyBytes = this.body().value();
+            final int length = bodyBytes.length;
+            for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
+
+                // hex bytes
+                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        printer.print(
+                                hex(
+                                        bodyBytes[k]
+                                )
+                        );
+                    } else {
+                        printer.print("  ");
+                    }
+                    printer.print(" ");
+                }
+
+                printer.print(" ");
+
+                // ascii chars
+                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        final char c = (char) bodyBytes[k];
+                        printer.print(
+                                String.valueOf(
+                                        Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR
+                                )
+                        );
+                    } else {
+                        printer.print(" ");
+                    }
+                }
+
+                printer.println();
+            }
+        }
+        printer.outdent();
+    }
+
+    private static CharSequence hex(final byte value) {
+        return CharSequences.padLeft(
+                Integer.toHexString(0xff & value),
+                2,
+                '0'
+        );
+    }
+
+    final void printTreeBodyText(final IndentingPrinter printer) {
+        final String bodyText = this.bodyText();
+        if (false == bodyText.isEmpty()) {
+            printer.println("bodyText");
+            printer.indent();
+            {
+                final LineEnding lineEnding = printer.lineEnding();
+
+                printer.println(
+                        bodyText.replace("\r\n", "\\r\\n" + lineEnding)
+                                .replace("\r", "\\r" + lineEnding)
+                                .replace("\n", "\\n" + lineEnding)
+                );
+            }
+            printer.outdent();
+        }
+    }
+
+    private final static int HEX_DUMP_WIDTH = 20;
+
+    final static char UNPRINTABLE_CHAR = '.';
 }

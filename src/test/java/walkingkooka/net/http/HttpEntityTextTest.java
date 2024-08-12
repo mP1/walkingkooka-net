@@ -137,6 +137,11 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         assertSame(entity, entity.setBody(BINARY));
     }
 
+    @Override
+    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+        return HttpEntityText.with(headers, TEXT);
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -147,12 +152,80 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 
-    // helpers..........................................................................................................
+    // TreePrintable....................................................................................................
 
-    @Override
-    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return HttpEntityText.with(headers, TEXT);
+    @Test
+    public void testTreePrintHeader() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n"
+        );
     }
+
+    @Test
+    public void testTreePrintSeveralHeader() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .addHeader(HttpHeaderName.SERVER, "Server123"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Length: 123\n" +
+                        "    Content-Type: text/plain\n" +
+                        "    Server: Server123\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintHeaderAndBodyText() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBodyText("Body123"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n" +
+                        "  bodyText\n" +
+                        "    Body123\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBodyText() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBodyText("Body123"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n" +
+                        "  bodyText\n" +
+                        "    Body123\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBodyTextIncludesLineBreaks() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBodyText("Line1\nLine2\rLine3\r\n"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n" +
+                        "  bodyText\n" +
+                        "    Line1\\n\n" +
+                        "    Line2\\r\\n\n" +
+                        "    Line3\\r\\n\\n\n" +
+                        "    \n"
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<HttpEntityText> type() {

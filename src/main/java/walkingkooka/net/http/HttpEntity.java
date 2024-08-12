@@ -32,6 +32,8 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -46,6 +48,7 @@ import java.util.Optional;
 public abstract class HttpEntity implements HasHeaders,
         CanBeEmpty,
         HasText,
+        TreePrintable,
         UsesToStringBuilder {
 
     /**
@@ -458,4 +461,48 @@ public abstract class HttpEntity implements HasHeaders,
     }
 
     public abstract String toString();
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        printer.println(HttpEntity.class.getSimpleName());
+        printer.indent();
+        {
+            {
+                // headers
+                final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = Maps.sorted();
+                headers.putAll(
+                        this.headers2()
+                );
+                ;
+                if (false == headers.isEmpty()) {
+                    printer.println("header(s)");
+                    printer.indent();
+                    {
+                        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValues : headers.entrySet()) {
+                            final HttpHeaderName<?> name = headerAndValues.getKey();
+
+                            for (final Object value : headerAndValues.getValue()) {
+                                printer.println(
+                                        "" +
+                                                name +
+                                                HttpEntity.HEADER_NAME_SEPARATOR +
+                                                " " +
+                                                name.headerText(
+                                                        Cast.to(value)
+                                                )
+                                );
+                            }
+                        }
+                    }
+                    printer.outdent();
+                }
+            }
+            this.printTreeBody(printer);
+        }
+        printer.outdent();
+    }
+
+    abstract void printTreeBody(final IndentingPrinter printer);
 }

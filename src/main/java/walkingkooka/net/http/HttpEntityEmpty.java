@@ -22,6 +22,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Map;
 import java.util.Optional;
@@ -134,6 +135,13 @@ final class HttpEntityEmpty extends HttpEntity {
 
     @Override
     public void buildToString(final ToStringBuilder toStringBuilder) {
+        // nop
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    void printTreeBody(final IndentingPrinter printer) {
         // nop
     }
 }

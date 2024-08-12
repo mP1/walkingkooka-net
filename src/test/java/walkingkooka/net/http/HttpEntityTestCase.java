@@ -20,10 +20,12 @@ package walkingkooka.net.http;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Optional;
 
-public abstract class HttpEntityTestCase<T> implements ClassTesting<T> {
+public abstract class HttpEntityTestCase<T> implements ClassTesting<T>,
+        TreePrintableTesting {
 
     HttpEntityTestCase() {
         super();

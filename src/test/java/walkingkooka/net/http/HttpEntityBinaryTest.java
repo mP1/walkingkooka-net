@@ -234,6 +234,160 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         return HttpEntityBinary.with(headers, BINARY);
     }
 
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testTreePrintHeader() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintSeveralHeader() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                        .addHeader(HttpHeaderName.SERVER, "Server123"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Length: 123\n" +
+                        "    Content-Type: text/plain\n" +
+                        "    Server: Server123\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintHeaderContentTypeTextAndBody() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBody(
+                                binary("Body123")
+                        ),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n" +
+                        "  bodyText\n" +
+                        "    Body123\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintHeaderContentTypeTextAndBodyMultiLine() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .setBody(
+                                binary("Line1\rLine2\nLine3\r\n")
+                        ),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: text/plain\n" +
+                        "  bodyText\n" +
+                        "    Line1\\r\\n\n" +
+                        "    Line2\\n\n" +
+                        "    Line3\\r\\n\\n\n" +
+                        "    \n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBodyBinary() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setBody(
+                                Binary.with(
+                                        new byte[]{
+                                                0,
+                                                1,
+                                                2,
+                                                3,
+                                                4,
+                                                5,
+                                                6,
+                                                7,
+                                                8,
+                                                9,
+                                                10
+                                        }
+                                )
+                        ),
+                "HttpEntity\n" +
+                        "  body\n" +
+                        "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBodyContenTypeNonTextBinary() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.BINARY)
+                        .setBody(
+                                Binary.with(
+                                        new byte[]{
+                                                0,
+                                                1,
+                                                2,
+                                                3,
+                                                4,
+                                                5,
+                                                6,
+                                                7,
+                                                8,
+                                                9,
+                                                10
+                                        }
+                                )
+                        ),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: application/octet-stream\n" +
+                        "  body\n" +
+                        "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBody() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setBody(
+                                binary("Body123")
+                        ),
+                "HttpEntity\n" +
+                        "  body\n" +
+                        "    42 6f 64 79 31 32 33                                         Body123             \n"
+        );
+    }
+
+    @Test
+    public void testTreePrintBodyIncludesLineBreaks() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setBody(
+                                binary("Line1\nLine2\rLine3\r\n")
+                        ),
+                "HttpEntity\n" +
+                        "  body\n" +
+                        "    4c 69 6e 65 31 0a 4c 69 6e 65 32 0d 4c 69 6e 65 33 0d 0a     Line1.Line2.Line3.. \n"
+        );
+    }
+
+    private static Binary binary(final String text) {
+        return Binary.with(
+                text.getBytes(Charset.defaultCharset())
+        );
+    }
+
+    // Class............................................................................................................
+
     @Override
     public Class<HttpEntityBinary> type() {
         return HttpEntityBinary.class;
