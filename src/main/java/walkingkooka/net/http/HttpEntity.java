@@ -69,7 +69,7 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Internal constant
      */
-    final static Map<HttpHeaderName<?>, HttpEntityHeaderList> NO_HEADERS2 = Maps.empty();
+    final static Map<HttpHeaderName<?>, HttpEntityHeaderList> NO_HEADERS_HTTP_ENTITY_HEADER_LIST = Maps.empty();
 
     /**
      * A {@link HttpEntity} with no headers and no body.
