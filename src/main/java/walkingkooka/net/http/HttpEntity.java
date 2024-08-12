@@ -21,6 +21,7 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -45,7 +46,7 @@ import java.util.Optional;
 public abstract class HttpEntity implements HasHeaders,
         CanBeEmpty,
         HasText,
-        walkingkooka.UsesToStringBuilder {
+        UsesToStringBuilder {
 
     /**
      * {@link Binary} with no body or bytes.
