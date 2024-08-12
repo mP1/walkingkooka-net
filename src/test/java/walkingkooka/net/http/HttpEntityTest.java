@@ -70,7 +70,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Test
     public void testParseEmptyHeadersEmptyBody() {
         this.parseStringAndCheck(
-                "\r\n\r\n",
+                "\r\n",
                 HttpEntity.EMPTY
         );
     }
@@ -78,7 +78,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Test
     public void testParseEmptyHeaders() {
         this.parseStringAndCheck(
-                "\r\n\r\nBody",
+                "\r\nBody",
                 HttpEntity.EMPTY.setBodyText("Body")
         );
     }
@@ -87,7 +87,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderAndEmptyBody() {
         this.parseStringAndCheck(
                 "Content-Type: text/plain\r\n" +
-                        "\r\n\r\n",
+                        "\r\n",
                 HttpEntity.EMPTY.setContentType(
                         MediaType.TEXT_PLAIN
                 )
@@ -98,7 +98,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderWithoutValueAndEmptyBody() {
         this.parseStringAndCheck(
                 "X-CustomHeader\r\n" +
-                        "\r\n\r\n",
+                        "\r\n",
                 HttpEntity.EMPTY.addHeader(
                         HttpHeaderName.with("X-CustomHeader"),
                         Cast.to("")
@@ -111,7 +111,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
         this.parseStringAndCheck(
                 "Content-Type: text/plain\r\n" +
                         "Accept: */*\r\n" +
-                        "\r\n\r\n",
+                        "\r\n",
                 HttpEntity.EMPTY.setContentType(
                         MediaType.TEXT_PLAIN
                 ).addHeader(
@@ -127,7 +127,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
                 "Content-Type: text/plain\r\n" +
                         "Accept: */*\r\n" +
                         "Accept-Language: EN-AU\r\n" +
-                        "\r\n\r\n",
+                        "\r\n",
                 HttpEntity.EMPTY.setContentType(
                         MediaType.TEXT_PLAIN
                 ).addHeader(
@@ -144,7 +144,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeadersAndBody() {
         this.parseStringAndCheck(
                 "Content-Type: text/plain\r\n" +
-                        "\r\n\r\n" +
+                        "\r\n" +
                         "Body123",
                 HttpEntity.EMPTY.setContentType(
                         MediaType.TEXT_PLAIN
@@ -156,8 +156,20 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeadersAndBody2() {
         this.parseStringAndCheck(
                 "Content-Type: text/plain\r\n" +
+                        "\r\n" +
+                        "\r\n",
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.TEXT_PLAIN
+                ).setBodyText("\r\n")
+        );
+    }
+
+    @Test
+    public void testParseHeadersAndBody3() {
+        this.parseStringAndCheck(
+                "Content-Type: text/plain\r\n" +
                         "Accept: */*\r\n" +
-                        "\r\n\r\n" +
+                        "\r\n" +
                         "Body123",
                 HttpEntity.EMPTY.setContentType(
                         MediaType.TEXT_PLAIN

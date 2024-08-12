@@ -158,7 +158,7 @@ public abstract class HttpEntity implements HasHeaders,
                                 httpEntity = httpEntity.setBody(
                                         binary.extract(
                                                 Range.greaterThanEquals(
-                                                        Long.valueOf(3 + i) // CR LF CR
+                                                        Long.valueOf(1 + i) // CR
                                                 )
                                         )
                                 );
