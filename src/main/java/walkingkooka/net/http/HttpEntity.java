@@ -53,10 +53,14 @@ public abstract class HttpEntity implements HasHeaders,
      */
     public final static Binary NO_BODY = Binary.EMPTY;
 
+    private final static byte HEADER_SEPARATOR_BYTE = ':';
+
     /**
      * The separator that follows a header name and comes before a any values.
      */
-    public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(':');
+    public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(
+            (char) HEADER_SEPARATOR_BYTE
+    );
 
     //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
     public final static Charset DEFAULT_BODY_CHARSET = CharsetName.ISO_8859_1.charset().get();
@@ -83,6 +87,10 @@ public abstract class HttpEntity implements HasHeaders,
         return HttpEntityStackTrace.dumpStackTrace(thrown);
     }
 
+    private final static byte CR = '\r';
+
+    private final static byte LF = '\n';
+
     /**
      * Parses a binary as if it were a request with headers and an optional body.
      * <br>
@@ -105,10 +113,6 @@ public abstract class HttpEntity implements HasHeaders,
         final StringBuilder headerName = new StringBuilder();
         final StringBuilder headerValue = new StringBuilder();
 
-        final byte CR = '\r';
-        final byte LF = '\n';
-        final byte HEADER_SEPARATOR = ':';
-
         final int MODE_HEADER_NAME_OR_CR = 0;
         final int MODE_HEADER_VALUE_OR_CR = 1;
         final int MODE_CRLF = 2;
@@ -128,7 +132,7 @@ public abstract class HttpEntity implements HasHeaders,
                             break;
                         case LF:
                             throw new IllegalArgumentException("Got NL expected header name or CR");
-                        case HEADER_SEPARATOR:
+                        case HEADER_SEPARATOR_BYTE:
                             mode = MODE_HEADER_VALUE_OR_CR;
                             break;
                         default:
