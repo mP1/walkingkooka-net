@@ -237,25 +237,8 @@ public final class MediaTypeBoundary implements Value<String>,
         return false;
     }
 
-    // MediaTypeBoundary.............................................................................
+    // MediaTypeBoundary................................................................................................
 
-    /**
-     * Returns the boundary delimiter form that would be used in constructing a multipart message, without the trailing
-     * CRLF.
-     * <pre>
-     * POST /test.html HTTP/1.1
-     * Host: example.org
-     * Content-Type: multipart/form-data;boundary="boundary"
-     *
-     * --boundary
-     * Content-Disposition: form-data; name="field1"
-     * </pre>
-     */
-    public String multipartBoundaryDelimiter() {
-        return PREFIX.concat(this.value);
-    }
-
-    private final static String PREFIX = "--";
     private final static int PREFIX_LENGTH = 2;
 
     /**
