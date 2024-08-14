@@ -43,16 +43,16 @@ final class RangeHeaderUnitHeaderHandler extends NonStringHeaderHandler<RangeHea
     }
 
     @Override
-    RangeHeaderUnit parse0(final String text, final Name name) {
+    RangeHeaderUnit parse0(final String text) {
         return RangeHeaderUnit.parse(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof RangeHeaderUnit,
-                RangeHeaderUnit.class,
-                name);
+                RangeHeaderUnit.class
+        );
     }
 
     @Override

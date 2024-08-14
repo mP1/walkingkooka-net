@@ -31,7 +31,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
      * Factory that creates a {@link ContentDispositionFileNameNotEncoded}.
      */
     static ContentDispositionFileNameNotEncoded with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", FILENAME);
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "filename", FILENAME);
 
         return new ContentDispositionFileNameNotEncoded(name);
     }

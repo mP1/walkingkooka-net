@@ -25,6 +25,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HasHeaders;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -780,7 +781,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     @Override
     public T check(final Object header) {
-        return this.handler.check(header, this);
+        return this.handler.check(header);
     }
 
     /**
@@ -813,7 +814,18 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public T parse(final String value) {
         Objects.requireNonNull(value, "value");
 
-        return this.handler.parse(value, this);
+        // Accept: Invalid character '?' at 1 in " ?"
+        try {
+            return this.handler.parse(
+                    value
+            );
+        } catch (final Exception cause) {
+            // Accept: Invalid character '?' at 1 in " ?"
+            throw new HeaderException(
+                    this.name + HttpEntity.HEADER_NAME_SEPARATOR + " " + cause.getMessage(),
+                    cause
+            );
+        }
     }
 
     /**

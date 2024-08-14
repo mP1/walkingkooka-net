@@ -40,16 +40,16 @@ final class AbsoluteUrlHeaderHandler extends NonStringHeaderHandler<AbsoluteUrl>
     }
 
     @Override
-    AbsoluteUrl parse0(final String text, final Name name) {
+    AbsoluteUrl parse0(final String text) {
         return Url.parseAbsolute(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof AbsoluteUrl,
-                AbsoluteUrl.class,
-                name);
+                AbsoluteUrl.class
+        );
     }
 
     @Override

@@ -37,16 +37,16 @@ final class ServerCookieHeaderHandler extends NonStringHeaderHandler<ServerCooki
     }
 
     @Override
-    ServerCookie parse0(final String text, final Name name) {
+    ServerCookie parse0(final String text) {
         return Cookie.parseServerHeader(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof ServerCookie,
-                ServerCookie.class,
-                name);
+                ServerCookie.class
+        );
     }
 
     @Override

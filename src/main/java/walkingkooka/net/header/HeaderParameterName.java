@@ -52,7 +52,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     public final V parse(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.handler.parse(text, this);
+        return this.handler.parse(text);
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
      */
     @Override
     public final V check(final Object header) {
-        return this.handler.check(header, this);
+        return this.handler.check(header);
     }
 
     final HeaderHandler<V> handler;

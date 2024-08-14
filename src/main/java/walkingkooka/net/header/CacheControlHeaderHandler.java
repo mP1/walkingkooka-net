@@ -37,16 +37,16 @@ final class CacheControlHeaderHandler extends NonStringHeaderHandler<CacheContro
     }
 
     @Override
-    CacheControl parse0(final String text, final Name name) {
+    CacheControl parse0(final String text) {
         return CacheControlHeaderParser.parseCacheControl(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 (v) -> v instanceof CacheControl,
-                CacheControl.class,
-                name);
+                CacheControl.class
+        );
     }
 
     @Override

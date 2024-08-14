@@ -40,8 +40,8 @@ final class MediaTypeBoundaryHeaderHandler extends NonStringHeaderHandler<MediaT
     }
 
     @Override
-    MediaTypeBoundary parse0(final String text, final Name name) {
-        return MediaTypeBoundary.with(STRING_PARSER.parse(text, name));
+    MediaTypeBoundary parse0(final String text) {
+        return MediaTypeBoundary.with(STRING_PARSER.parse(text));
     }
 
     private final HeaderHandler<String> STRING_PARSER = HeaderHandler.quotedUnquotedString(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
@@ -49,11 +49,11 @@ final class MediaTypeBoundaryHeaderHandler extends NonStringHeaderHandler<MediaT
             MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 (v) -> v instanceof MediaTypeBoundary,
-                MediaTypeBoundary.class,
-                name);
+                MediaTypeBoundary.class
+        );
     }
 
     /**

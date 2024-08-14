@@ -413,8 +413,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testCreationDateInvalidFails() {
-        this.parseStringFails("V; creation-date=123",
-                "Failed to convert \"creation-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
+        this.parseStringFails(
+                "V; creation-date=123",
+                "Invalid character '1' at 0 in \"123\""
+        );
     }
 
     @Test
@@ -429,8 +431,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testFilenameMissingFails() {
-        this.parseStringFails("V; filename=\"\"",
-                "Failed to convert \"filename\" value \"\"\"\", message: name is empty");
+        this.parseStringFails(
+                "V; filename=\"\"",
+                "filename is empty"
+        );
     }
 
     @Test
@@ -471,8 +475,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testModificationDateInvalidFails() {
-        this.parseStringFails("V; modification-date=123",
-                "Failed to convert \"modification-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
+        this.parseStringFails(
+                "V; modification-date=123",
+                "Invalid character '1' at 0 in \"123\""
+        );
     }
 
     @Test
@@ -487,8 +493,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testReadDateInvalidFails() {
-        this.parseStringFails("V; read-date=123",
-                "Failed to convert \"read-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
+        this.parseStringFails(
+                "V; read-date=123",
+                "Invalid character '1' at 0 in \"123\""
+        );
     }
 
     @Test
@@ -505,7 +513,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testSizeInvalidFails() {
         this.parseStringFails(
                 "V; size=A",
-                "Failed to convert \"size\" value \"A\", message: Invalid number in \"A\""
+                "Invalid number in \"A\""
         );
     }
 

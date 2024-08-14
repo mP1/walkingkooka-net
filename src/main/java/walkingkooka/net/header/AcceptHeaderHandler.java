@@ -37,16 +37,16 @@ final class AcceptHeaderHandler extends NonStringHeaderHandler<Accept> {
     }
 
     @Override
-    Accept parse0(final String text, final Name name) {
+    Accept parse0(final String text) {
         return Accept.with(MediaType.parseList(text));
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 (v) -> v instanceof Accept,
-                Accept.class,
-                name);
+                Accept.class
+        );
     }
 
     @Override

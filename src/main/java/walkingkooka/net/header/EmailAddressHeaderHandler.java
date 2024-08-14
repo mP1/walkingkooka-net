@@ -43,20 +43,20 @@ final class EmailAddressHeaderHandler extends NonStringHeaderHandler<EmailAddres
     }
 
     @Override
-    EmailAddress parse0(final String text, final Name name) {
+    EmailAddress parse0(final String text) {
         final Optional<EmailAddress> emailAddress = EmailAddress.tryParse(text);
         if (!emailAddress.isPresent()) {
-            throw new IllegalArgumentException(name + " contains invalid email " + CharSequences.quote(text));
+            throw new IllegalArgumentException("Invalid email " + CharSequences.quote(text));
         }
         return emailAddress.get();
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof EmailAddress,
-                EmailAddress.class,
-                name);
+                EmailAddress.class
+        );
     }
 
     @Override

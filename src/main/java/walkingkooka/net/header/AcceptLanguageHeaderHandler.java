@@ -44,16 +44,16 @@ final class AcceptLanguageHeaderHandler extends NonStringHeaderHandler<AcceptLan
     }
 
     @Override
-    AcceptLanguage parse0(final String text, final Name name) {
+    AcceptLanguage parse0(final String text) {
         return AcceptLanguageHeaderParser.parseAcceptLanguage(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 (v) -> v instanceof AcceptLanguage,
-                AcceptLanguage.class,
-                name);
+                AcceptLanguage.class
+        );
     }
 
     @Override

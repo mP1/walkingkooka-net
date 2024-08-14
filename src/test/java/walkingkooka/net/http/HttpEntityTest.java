@@ -72,6 +72,207 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     }
 
     @Test
+    public void testParseHeaderAcceptFails() {
+        this.parseStringFails(
+                "Accept: ???\r\n",
+                new IllegalArgumentException("Accept: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderAcceptCharsetFails() {
+        this.parseStringFails(
+                "Accept-Charset: ???\r\n",
+                new IllegalArgumentException("Accept-Charset: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderAcceptEncodingFails() {
+        this.parseStringFails(
+                "Accept-Encoding: ???\r\n",
+                new IllegalArgumentException("Accept-Encoding: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderAcceptLanguageFails() {
+        this.parseStringFails(
+                "Accept-Language: ???\r\n",
+                new IllegalArgumentException("Accept-Language: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderAgeFails() {
+        this.parseStringFails(
+                "Age: ???\r\n",
+                new IllegalArgumentException("Age: Invalid number in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderCacheControlFails() {
+        this.parseStringFails(
+                "Cache-Control: ???\r\n",
+                new IllegalArgumentException("Cache-Control: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderContentDispositionFails() {
+        this.parseStringFails(
+                "Content-Disposition: ???\r\n",
+                new IllegalArgumentException("Content-Disposition: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderContentEncodingFails() {
+        this.parseStringFails(
+                "Content-ENcoding: ???\r\n",
+                new IllegalArgumentException("Content-Encoding: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderContentLanguageFails() {
+        this.parseStringFails(
+                "Content-Language: ???\r\n",
+                new IllegalArgumentException("Content-Language: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+
+    @Test
+    public void testParseHeaderContentLengthFails() {
+        this.parseStringFails(
+                "Content-Length: ???\r\n",
+                new IllegalArgumentException("Content-Length: Invalid number in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderContentRangeFails() {
+        this.parseStringFails(
+                "Content-Range: ???\r\n",
+                new IllegalArgumentException("Content-Range: Unit missing from \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderContentTypeFails() {
+        this.parseStringFails(
+                "Content-Type: type/?\r\n",
+                new IllegalArgumentException("Content-Type: Invalid character '?' at 6 in \" type/?\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderCookieFails() {
+        this.parseStringFails(
+                "Cookie: ???\r\n",
+                new IllegalArgumentException("Cookie: Invalid character '?' at 0 in \"???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderDateFails() {
+        this.parseStringFails(
+                "Date: ???\r\n",
+                new IllegalArgumentException("Date: Invalid date in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderEtagFails() {
+        this.parseStringFails(
+                "Etag: ???\r\n",
+                new IllegalArgumentException("ETag: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderFromFails() {
+        this.parseStringFails(
+                "From: ???\r\n",
+                new IllegalArgumentException("From: Invalid email \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderIfMatchFails() {
+        this.parseStringFails(
+                "If-Match: ???\r\n",
+                new IllegalArgumentException("If-Match: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderIfModifiedSinceFails() {
+        this.parseStringFails(
+                "If-Modified-Since: ???\r\n",
+                new IllegalArgumentException("If-Modified-Since: Invalid date in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderIfNoneMatchFails() {
+        this.parseStringFails(
+                "If-None-Match: ???\r\n",
+                new IllegalArgumentException("If-None-Match: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderIfRangeFails() {
+        this.parseStringFails(
+                "If-Range: ???\r\n",
+                new IllegalArgumentException("If-Range: Invalid date in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderIfUnmodifiedSinceFails() {
+        this.parseStringFails(
+                "If-Unmodified-Since: ???\r\n",
+                new IllegalArgumentException("If-Unmodified-Since: Invalid date in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderLinkFails() {
+        this.parseStringFails(
+                "Link: ???\r\n",
+                new IllegalArgumentException("Link: Invalid character '?' at 1 in \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderRangeFails() {
+        this.parseStringFails(
+                "Range: ???\r\n",
+                new IllegalArgumentException("Range: Missing unit and '=' from header value \" ???\"")
+        );
+    }
+
+    @Test
+    public void testParseHeaderRefererFails() {
+        this.parseStringFails(
+                "Referer: ???\r\n",
+                new IllegalArgumentException("Referer: no protocol:  ???")
+        );
+    }
+
+    @Test
+    public void testParseHeaderSetCookieFails() {
+        this.parseStringFails(
+                "Set-Cookie: ???\r\n",
+                new IllegalArgumentException("Set-Cookie: Invalid character '?' at 0 in \"???\"")
+        );
+    }
+
+    @Test
     public void testParseEmptyHeadersEmptyBody() {
         this.parseStringAndCheck(
                 "\r\n",
@@ -181,22 +382,6 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
                         HttpHeaderName.ACCEPT,
                         Accept.parse("*/*")
                 ).setBodyText("Body123")
-        );
-    }
-
-    @Test
-    public void testParseHeaderMissingValueFails() {
-        this.parseStringFails(
-                "Content-Type\r\n",
-                new IllegalArgumentException("Failed to convert \"Content-Type\" value \"\", message: text contains only whitespace=\"\"")
-        );
-    }
-
-    @Test
-    public void testParseHeaderInvalidValueFails() {
-        this.parseStringFails(
-                "Content-Type: BAD\r\n",
-                new IllegalArgumentException("Missing type at 4 in \" BAD\"")
         );
     }
 

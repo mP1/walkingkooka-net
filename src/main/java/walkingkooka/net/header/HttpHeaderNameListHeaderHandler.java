@@ -42,18 +42,18 @@ final class HttpHeaderNameListHeaderHandler extends NonStringHeaderHandler<List<
     }
 
     @Override
-    List<HttpHeaderName<?>> parse0(final String text, final Name name) {
+    List<HttpHeaderName<?>> parse0(final String text) {
         return Arrays.stream(text.split(","))
                 .map(m -> Cast.<HttpHeaderName<?>>to(HttpHeaderName.with(m.trim())))
                 .collect(Collectors.toList());
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkListOfType(value,
                 v -> v instanceof HttpHeaderName,
-                HttpHeaderName.class,
-                name);
+                HttpHeaderName.class
+        );
     }
 
     @Override

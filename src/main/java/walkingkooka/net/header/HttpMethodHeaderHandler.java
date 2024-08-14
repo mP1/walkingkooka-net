@@ -38,16 +38,16 @@ final class HttpMethodHeaderHandler extends NonStringHeaderHandler<HttpMethod> {
     }
 
     @Override
-    HttpMethod parse0(final String text, final Name name) {
+    HttpMethod parse0(final String text) {
         return HttpMethod.with(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof HttpMethod,
-                HttpMethod.class,
-                name);
+                HttpMethod.class
+        );
     }
 
     @Override

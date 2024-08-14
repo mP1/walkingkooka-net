@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 /**
  * A {@link HeaderHandler} that parses a header text into a quality weights and verifies the value is within the
@@ -38,16 +39,23 @@ final class QualityFactorHeaderHandler extends NonStringHeaderHandler<Float> {
     }
 
     @Override
-    Float parse0(final String text, final Name name) {
-        return this.checkValue(Float.parseFloat(text.trim()));
+    Float parse0(final String text) {
+        final String trimmed = text.trim();
+        CharSequences.failIfNullOrEmpty(trimmed, "text");
+
+        try {
+            return Float.parseFloat(trimmed);
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid number in " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof Float,
-                Float.class,
-                name);
+                Float.class
+        );
         this.checkValue((Float) value);
     }
 

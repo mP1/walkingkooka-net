@@ -56,8 +56,10 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
 
     @Test
     public final void testWildcardQWeightInvalidValueFails() {
-        this.parseStringFails("*; q=ABC",
-                "Failed to convert \"q\" value \"ABC\", message: For input string: \"ABC\"");
+        this.parseStringFails(
+                "*; q=ABC",
+                "Invalid number in \"ABC\""
+        );
     }
 
     @Test

@@ -39,16 +39,16 @@ final class UrlHeaderHandler extends NonStringHeaderHandler<Url> {
     }
 
     @Override
-    Url parse0(final String text, final Name name) {
+    Url parse0(final String text) {
         return Url.parse(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof Url,
-                Url.class,
-                name);
+                Url.class
+        );
     }
 
     @Override

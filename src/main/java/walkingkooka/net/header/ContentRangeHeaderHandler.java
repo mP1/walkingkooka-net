@@ -37,16 +37,16 @@ final class ContentRangeHeaderHandler extends NonStringHeaderHandler<ContentRang
     }
 
     @Override
-    ContentRange parse0(final String text, final Name name) {
+    ContentRange parse0(final String text) {
         return ContentRange.parse(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof ContentRange,
-                ContentRange.class,
-                name);
+                ContentRange.class
+        );
     }
 
     @Override

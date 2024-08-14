@@ -38,16 +38,16 @@ final class EncodedTextHeaderHandler extends NonStringHeaderHandler<EncodedText>
     }
 
     @Override
-    EncodedText parse0(final String text, final Name name) {
-        return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text, name.value());
+    EncodedText parse0(final String text) {
+        return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof EncodedText,
-                EncodedText.class,
-                name);
+                EncodedText.class
+        );
     }
 
     @Override

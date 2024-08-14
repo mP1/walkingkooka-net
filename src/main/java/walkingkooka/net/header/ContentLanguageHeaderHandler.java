@@ -42,16 +42,16 @@ final class ContentLanguageHeaderHandler extends NonStringHeaderHandler<ContentL
     }
 
     @Override
-    ContentLanguage parse0(final String text, final Name name) {
+    ContentLanguage parse0(final String text) {
         return ContentLanguageHeaderParser.parseContentLanguage(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof ContentLanguage,
-                ContentLanguage.class,
-                name);
+                ContentLanguage.class
+        );
     }
 
     @Override

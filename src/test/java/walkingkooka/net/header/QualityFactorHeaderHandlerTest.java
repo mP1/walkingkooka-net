@@ -28,6 +28,22 @@ public final class QualityFactorHeaderHandlerTest extends
     }
 
     @Test
+    public void testParseEmptyStringFails() {
+        this.parseStringFails(
+                "",
+                new HeaderException("text is empty")
+        );
+    }
+
+    @Test
+    public void testParseInvalidNumberFails() {
+        this.parseStringFails(
+                "ABC",
+                new HeaderException("Invalid number in \"ABC\"")
+        );
+    }
+
+    @Test
     public void testParseNegativeFails() {
         this.parseStringFails(
                 "-0.1",

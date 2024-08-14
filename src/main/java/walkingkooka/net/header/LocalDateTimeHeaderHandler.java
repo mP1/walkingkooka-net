@@ -18,10 +18,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.format.SignStyle;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,16 +59,23 @@ final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateT
     }
 
     @Override
-    LocalDateTime parse0(final String text, final Name name) {
-        return LocalDateTime.parse(text, FORMATTER);
+    LocalDateTime parse0(final String text) {
+        try {
+            return LocalDateTime.parse(
+                    text,
+                    FORMATTER
+            );
+        } catch (final DateTimeParseException cause) {
+            throw new HeaderException("Invalid date in " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof LocalDateTime,
-                LocalDateTime.class,
-                name);
+                LocalDateTime.class
+        );
     }
 
     @Override

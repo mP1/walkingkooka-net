@@ -39,16 +39,16 @@ final class LinkHeaderHandler extends NonStringHeaderHandler<List<Link>> {
     }
 
     @Override
-    List<Link> parse0(final String text, final Name name) {
+    List<Link> parse0(final String text) {
         return LinkHeaderParser.parseLink(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkListOfType(value,
                 v -> v instanceof Link,
-                Link.class,
-                name);
+                Link.class
+        );
     }
 
     @Override

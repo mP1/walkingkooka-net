@@ -114,7 +114,9 @@ final class CacheControlHeaderParser extends HeaderParser {
     void token() {
         if (this.requireDirectiveName) {
             this.requireDirectiveName = false;
-            this.directiveName = CacheControlDirectiveName.with(this.token(RFC2045TOKEN));
+            this.directiveName = CacheControlDirectiveName.with(
+                    this.rfc2045Token()
+            );
             this.parameterValue = Optional.empty();
         } else {
             if (!this.expectsParameterValue) {

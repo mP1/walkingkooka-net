@@ -27,12 +27,12 @@ public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
 
     @Test
     public void testCheckLong() {
-        CacheControlDirectiveExtensionHeaderHandler.INSTANCE.check(123L, this.name());
+        CacheControlDirectiveExtensionHeaderHandler.INSTANCE.check(123L);
     }
 
     @Test
     public void testCheckString() {
-        CacheControlDirectiveExtensionHeaderHandler.INSTANCE.check("abc123", this.name());
+        CacheControlDirectiveExtensionHeaderHandler.INSTANCE.check("abc123");
     }
 
     @Test

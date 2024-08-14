@@ -21,6 +21,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.Ascii;
+import walkingkooka.text.CharSequences;
 
 /**
  * A {@link HeaderHandler} that handles string values in quotes with possible backslash escaping.
@@ -45,7 +46,12 @@ final class QuotedStringHeaderHandler extends QuotedOrUnquotedStringHeaderHandle
     }
 
     @Override
-    String parse0(final String text, final Name name) {
+    String parse0(final String text) {
+        CharSequences.failIfNullOrEmpty(
+                text,
+                "text"
+        );
+
         final int length = text.length();
 
         final int last = length - 1;

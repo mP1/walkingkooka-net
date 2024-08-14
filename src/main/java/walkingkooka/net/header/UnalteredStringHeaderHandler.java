@@ -37,7 +37,7 @@ final class UnalteredStringHeaderHandler extends StringHeaderHandler {
     }
 
     @Override
-    String parse0(final String text, final Name name) {
+    String parse0(final String text) {
         return text;
     }
 

@@ -22,20 +22,19 @@ package walkingkooka.net.header;
  */
 final class EncodedTextHeaderHandlerHeaderParser extends HeaderParser {
 
-    static EncodedText parseEncodedText(final String text, final String label) {
-        final EncodedTextHeaderHandlerHeaderParser parser = new EncodedTextHeaderHandlerHeaderParser(text, label);
+    static EncodedText parseEncodedText(final String text) {
+        final EncodedTextHeaderHandlerHeaderParser parser = new EncodedTextHeaderHandlerHeaderParser(text);
         parser.parse();
         return parser.encodedText;
     }
 
-    static EncodedTextHeaderHandlerHeaderParser with(final String text, final String label) {
-        return new EncodedTextHeaderHandlerHeaderParser(text, label);
+    static EncodedTextHeaderHandlerHeaderParser with(final String text) {
+        return new EncodedTextHeaderHandlerHeaderParser(text);
     }
 
     // @VisibleForTesting
-    private EncodedTextHeaderHandlerHeaderParser(final String text, final String label) {
+    private EncodedTextHeaderHandlerHeaderParser(final String text) {
         super(text);
-        this.label = label;
     }
 
     @Override
@@ -90,10 +89,8 @@ final class EncodedTextHeaderHandlerHeaderParser extends HeaderParser {
 
     @Override
     void missingValue() {
-        this.failMissingValue(this.label);
+        this.failMissingValue("text");
     }
-
-    private final String label;
 
     private EncodedText encodedText;
 }
