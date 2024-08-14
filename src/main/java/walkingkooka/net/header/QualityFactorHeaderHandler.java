@@ -54,7 +54,7 @@ final class QualityFactorHeaderHandler extends NonStringHeaderHandler<Float> {
     // https://restfulapi.net/q-parameter-in-http-accept-header/
     private float checkValue(final float value) {
         if (value < 0 || value > 1.0) {
-            throw new HeaderException("Q factor " + value + " must be bewteen 0.0 and 1.0");
+            throw new HeaderException("Q factor " + value + " must be between 0.0 and 1.0");
         }
         return value;
     }
