@@ -651,24 +651,33 @@ public abstract class HttpEntity implements HasHeaders,
                 .orElseThrow(
                         () -> new IllegalArgumentException("Part " + partNumber + " missing header " + CharSequences.quoteAndEscape(HttpHeaderName.CONTENT_DISPOSITION.value()))
                 );
+        final Optional<?> contentTransferEncoding = CONTENT_TRANSFER_ENCODING.header(this);
         final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.header(this);
 
         final Set<HttpHeaderName<?>> headers = this.headers()
                 .keySet();
 
         // content-disposition & content-type
-        if (headers.size() > (1 + (contentType.isPresent() ? 1 : 0))) {
+        if (headers.size() > (1 + (contentTransferEncoding.isPresent() ? 1 : 0) + (contentType.isPresent() ? 1 : 0))) {
             throw new IllegalArgumentException(
                     "Part " +
                             partNumber +
                             " contains invalid headers " +
                             headers.stream()
-                                    .filter(h -> false == h.equals(HttpHeaderName.CONTENT_DISPOSITION) && h.equals(HttpHeaderName.CONTENT_TYPE))
+                                    .filter(h -> false == isMultipartHeader(h))
                                     .map(HttpHeaderName::toString)
                                     .collect(Collectors.joining(", "))
             );
         }
     }
+
+    private boolean isMultipartHeader(final HttpHeaderName<?> header) {
+        return header.equals(HttpHeaderName.CONTENT_DISPOSITION) ||
+                header.equals(CONTENT_TRANSFER_ENCODING) ||
+                header.equals(HttpHeaderName.CONTENT_TYPE);
+    }
+
+    private final static HttpHeaderName<?> CONTENT_TRANSFER_ENCODING = HttpHeaderName.with("Content-Transfer-Encoding");
 
     // Object...........................................................................................................
 

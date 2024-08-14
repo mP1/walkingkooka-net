@@ -488,6 +488,42 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     }
 
     @Test
+    public void testMultipartsWhenPartIncludesContentTransferEncoding() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
+    public void testMultipartsWhenPartIncludesContentTransferEncodingAndContentType() {
+        this.multipartsAndCheck(
+                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                        "\r\n--boundary123\r\n" +
+                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-Transfer-Encoding: 8BIT\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1" +
+                        "\r\n--boundary123--",
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                        "content-Transfer-Encoding: 8BIT\r\n" +
+                        "content-type: text/plain\r\n" +
+                        "\r\n" +
+                        "Part1"
+        );
+    }
+
+    @Test
     public void testMultipartsWhenPartWithEmptyBody() {
         this.multipartsAndCheck(
                 "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
