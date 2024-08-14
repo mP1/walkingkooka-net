@@ -41,7 +41,7 @@ final class UnquotedStringHeaderHandler extends QuotedOrUnquotedStringHeaderHand
     }
 
     @Override
-    String parse0(final String text, final Name name) {
+    String parse0(final String text) {
         this.checkText(text);
         return text;
     }

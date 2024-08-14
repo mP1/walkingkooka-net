@@ -37,16 +37,16 @@ final class LanguageNameHeaderHandler extends NonStringHeaderHandler<LanguageNam
     }
 
     @Override
-    LanguageName parse0(final String value, final Name name) {
+    LanguageName parse0(final String value) {
         return LanguageName.with(value);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof LanguageName,
-                LanguageName.class,
-                name);
+                LanguageName.class
+        );
     }
 
     @Override

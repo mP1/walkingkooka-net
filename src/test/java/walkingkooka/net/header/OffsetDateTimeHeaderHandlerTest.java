@@ -31,7 +31,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseEmptyFails() {
         this.parseStringFails(
                 "",
-                new HeaderException("Failed to convert \"creation-date\" value \"\", message: String index out of range: 0")
+                new HeaderException("text is empty")
         );
     }
 
@@ -39,7 +39,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseMissingOpeningDoubleQuoteFails() {
         this.parseStringFails(
                 "abc\"",
-                new HeaderException("Failed to convert \"creation-date\" value \"abc\"\", message: Invalid character 'a' at 0 in \"abc\"\"")
+                new HeaderException("Invalid character 'a' at 0 in \"abc\"\"")
         );
     }
 
@@ -47,7 +47,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseMissingClosingDoubleQuoteFails() {
         this.parseStringFails(
                 "\"abc",
-                new HeaderException("Failed to convert \"creation-date\" value \"\"abc\", message: Invalid character 'c' at 3 in \"\"abc\"")
+                new HeaderException("Invalid character 'c' at 3 in \"\"abc\"")
         );
     }
 
@@ -58,8 +58,8 @@ public final class OffsetDateTimeHeaderHandlerTest extends
 
     @Test
     public void testDateWithGmtFails() {
-        assertThrows(HeaderException.class, () -> OffsetDateTimeHeaderHandler.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
-                ContentDispositionParameterName.CREATION_DATE));
+        assertThrows(HeaderException.class, () -> OffsetDateTimeHeaderHandler.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\""
+        ));
     }
 
     @Test

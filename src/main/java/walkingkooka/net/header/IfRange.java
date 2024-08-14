@@ -74,8 +74,7 @@ public abstract class IfRange<T> implements Header, Value<T> {
      */
     public static IfRange<?> parse(final String text) {
         return IfRangeHeaderHandler.INSTANCE.parse(
-                CharSequences.failIfNullOrEmpty(text, "text"),
-                HEADER_NAME
+                CharSequences.failIfNullOrEmpty(text, "text")
         );
     }
 

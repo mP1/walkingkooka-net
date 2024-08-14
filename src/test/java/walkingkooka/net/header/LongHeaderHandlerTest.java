@@ -29,7 +29,7 @@ public final class LongHeaderHandlerTest extends
     public void testParseEmptyStringFails() {
         this.parseStringFails(
                 "",
-                new HeaderException("Failed to convert \"Content-Length\" value \"\", message: text is empty")
+                new HeaderException("text is empty")
         );
     }
 
@@ -37,7 +37,7 @@ public final class LongHeaderHandlerTest extends
     public void testParseInvalidNumberFails() {
         this.parseStringFails(
                 "ABC",
-                new HeaderException("Failed to convert \"Content-Length\" value \"ABC\", message: Invalid number in \"ABC\"")
+                new HeaderException("Invalid number in \"ABC\"")
         );
     }
 

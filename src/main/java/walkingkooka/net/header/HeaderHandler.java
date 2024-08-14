@@ -324,49 +324,53 @@ abstract class HeaderHandler<T> {
     /**
      * The entry point that accepts a value and tries to parse it.
      */
-    final T parse(final String text, final Name name) {
+    final T parse(final String text) {
         Objects.requireNonNull(text, "text");
 
         try {
-            return this.parse0(text, name);
+            return this.check(
+                    this.parse0(text)
+            );
         } catch (final HeaderException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
-            throw new HeaderException("Failed to convert " + CharSequences.quote(name.value()) +
-                    " value " + CharSequences.quote(text) +
-                    ", message: " + cause.getMessage(),
-                    cause);
+            throw new HeaderException(
+                    cause.getMessage(),
+                    cause
+            );
         }
     }
 
     /**
      * Sub classes parse the {@link String} value.
      */
-    abstract T parse0(final String text, final Name name) throws HeaderException;
+    abstract T parse0(final String text) throws HeaderException;
 
     // checkValue...........................................................
 
-    final T check(final Object value, final Name name) {
+    final T check(final Object value) {
         Objects.requireNonNull(value, "value");
-        this.check0(value, name);
+        this.checkNonNull(value);
         return Cast.to(value);
     }
 
-    abstract void check0(final Object value, final Name name);
+    abstract void checkNonNull(final Object value);
 
     /**
      * Checks the type of the given value and throws a {@link HeaderException} if this test fails.
      */
     final void checkType(final Object value,
                          final Predicate<Object> instanceofTester,
-                         final Class<?> type,
-                         final Name name) {
-        if (!instanceofTester.test(value)) {
-            throw new HeaderException(invalidTypeNameMessage(name, value, type.getSimpleName()));
+                         final Class<?> type) {
+        if (false == instanceofTester.test(value)) {
+            throw new HeaderException(
+                    invalidTypeNameMessage(
+                            value,
+                            type.getSimpleName()
+                    )
+            );
         }
     }
-
-    private final static String JAVA_LANG = "java.lang";
 
     // VisibleForTesting
     final static String PACKAGE = "walkingkooka.net.header";
@@ -376,44 +380,30 @@ abstract class HeaderHandler<T> {
      */
     final void checkListOfType(final Object value,
                                final Predicate<Object> instanceofTester,
-                               final Class<?> type,
-                               final Name name) {
+                               final Class<?> type) {
         if (!(value instanceof List)) {
-            throw new HeaderException(invalidTypeNameMessage(name, value, "List of " + type.getSimpleName()));
+            throw new HeaderException(invalidTypeNameMessage(value, "List of " + type.getSimpleName()));
         }
 
         final List<?> list = Cast.to(value);
         for (Object element : list) {
             if (null == element) {
-                throw new HeaderException(header(name, value) + " includes a null");
+                throw new HeaderException("null found");
             }
             if (!instanceofTester.test(element)) {
-                throw new HeaderException(header(name, value) + " includes an element " + CharSequences.quoteIfChars(element) + "(" + typeName(element) + ") that is not a " + type.getName());
+                throw new HeaderException(
+                        "Invalid element " +
+                                CharSequences.quoteIfChars(element) +
+                                " is not a " +
+                                type.getSimpleName()
+                );
             }
         }
     }
 
-    private static String invalidTypeNameMessage(final Name name,
-                                                 final Object value,
+    private static String invalidTypeNameMessage(final Object value,
                                                  final String requiredType) {
-        return header(name, value) + " value type(" + typeName(value) + ") is not a " + requiredType;
-    }
-
-    private static String header(final Name name, final Object value) {
-        return "Header " + CharSequences.quote(name + ": " + value);
-    }
-
-    private static String typeName(final Object value) {
-        // try and use simple name otherwise include fqn in message.
-        String typeName = value.getClass().getName();
-        if (typeName.startsWith(JAVA_LANG)) {
-            typeName = typeName.substring(JAVA_LANG.length() + 1);
-        } else {
-            if (typeName.startsWith(PACKAGE) && typeName.indexOf(PACKAGE.length() + 1) == -1) {
-                typeName = typeName.substring(PACKAGE.length() + 1);
-            }
-        }
-        return typeName;
+        return "Invalid value type got " + value + " required " + requiredType;
     }
 
     // toText ....................................................................................................

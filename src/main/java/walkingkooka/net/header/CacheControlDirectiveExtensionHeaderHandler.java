@@ -43,13 +43,13 @@ final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderH
      * Try parsing as a {@link Long} and then {@link String}
      */
     @Override
-    Object parse0(final String text, final Name name) throws HeaderException {
+    Object parse0(final String text) throws HeaderException {
         Object value;
 
         try {
-            value = LONG.parse(text, name);
+            value = LONG.parse(text);
         } catch (final HeaderException cause) {
-            value = QUOTED_UNQUOTED_STRING.parse(text, name);
+            value = QUOTED_UNQUOTED_STRING.parse(text);
         }
 
         return value;
@@ -59,11 +59,11 @@ final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderH
      * Try checking as a {@link Long} and then {@link String}
      */
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         try {
-            LONG.check(value, name);
+            LONG.check(value);
         } catch (final HeaderException cause) {
-            QUOTED_UNQUOTED_STRING.check(value, name);
+            QUOTED_UNQUOTED_STRING.check(value);
         }
     }
 

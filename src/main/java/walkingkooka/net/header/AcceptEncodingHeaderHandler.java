@@ -48,16 +48,16 @@ final class AcceptEncodingHeaderHandler extends NonStringHeaderHandler<AcceptEnc
     }
 
     @Override
-    AcceptEncoding parse0(final String text, final Name name) {
+    AcceptEncoding parse0(final String text) {
         return AcceptEncodingHeaderParser.parseAcceptEncoding(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof AcceptEncoding,
-                AcceptEncoding.class,
-                name);
+                AcceptEncoding.class
+        );
     }
 
     @Override

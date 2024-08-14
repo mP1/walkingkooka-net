@@ -77,7 +77,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     }
 
     private EncodedTextHeaderHandlerHeaderParser createHeaderParser() {
-        return EncodedTextHeaderHandlerHeaderParser.with("text", LABEL);
+        return EncodedTextHeaderHandlerHeaderParser.with("text");
     }
 
     @Override
@@ -87,7 +87,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
 
     @Override
     public EncodedText parseString(final String text) {
-        return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text, LABEL);
+        return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text);
     }
 
     @Override

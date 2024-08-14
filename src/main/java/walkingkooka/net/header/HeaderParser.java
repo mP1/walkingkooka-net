@@ -509,6 +509,14 @@ abstract class HeaderParser {
         return this.text.substring(start, this.position);
     }
 
+    final String rfc2045Token() {
+        final String token = this.token(RFC2045TOKEN);
+        if (token.isEmpty()) {
+            this.failInvalidCharacter();
+        }
+        return token;
+    }
+
     // whitespace.................................................................................................
 
     /**

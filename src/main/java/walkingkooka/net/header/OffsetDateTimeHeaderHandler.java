@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CharSequences;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,18 +60,22 @@ final class OffsetDateTimeHeaderHandler extends NonStringHeaderHandler<OffsetDat
     }
 
     @Override
-    OffsetDateTime parse0(final String text, final Name name) {
-        return OffsetDateTime.parse(
-                QUOTED_STRING.parse(text, name),
-                FORMATTER);
+    OffsetDateTime parse0(final String text) {
+        try {
+            return OffsetDateTime.parse(
+                    QUOTED_STRING.parse(text),
+                    FORMATTER);
+        } catch (final IllegalArgumentException cause) {
+            throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof OffsetDateTime,
-                OffsetDateTime.class,
-                name);
+                OffsetDateTime.class
+        );
     }
 
     @Override

@@ -37,16 +37,16 @@ final class MediaTypeHeaderHandler extends NonStringHeaderHandler<MediaType> {
     }
 
     @Override
-    MediaType parse0(final String text, final Name name) {
+    MediaType parse0(final String text) {
         return MediaType.parse(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof MediaType,
-                MediaType.class,
-                name);
+                MediaType.class
+        );
     }
 
     @Override

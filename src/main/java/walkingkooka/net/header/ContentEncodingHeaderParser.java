@@ -95,7 +95,11 @@ final class ContentEncodingHeaderParser extends HeaderParser {
 
     @Override
     void token() {
-        this.encodings.add(Encoding.with(this.token(RFC2045TOKEN)));
+        this.encodings.add(
+                Encoding.with(
+                        this.rfc2045Token()
+                )
+        );
     }
 
     @Override

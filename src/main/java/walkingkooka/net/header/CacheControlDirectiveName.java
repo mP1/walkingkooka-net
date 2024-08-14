@@ -206,7 +206,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
 
     @Override
     public Optional<V> parse(final String text) {
-        return Optional.of(this.handler.parse(text, this));
+        return Optional.of(this.handler.parse(text));
     }
 
     boolean requiresParameter() {

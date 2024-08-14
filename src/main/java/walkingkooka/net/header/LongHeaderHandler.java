@@ -38,7 +38,7 @@ final class LongHeaderHandler extends NonStringHeaderHandler<Long> {
     }
 
     @Override
-    Long parse0(final String text, final Name name) {
+    Long parse0(final String text) {
         final String trimmed = text.trim();
         CharSequences.failIfNullOrEmpty(trimmed, "text");
 
@@ -50,11 +50,11 @@ final class LongHeaderHandler extends NonStringHeaderHandler<Long> {
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof Long,
-                Long.class,
-                name);
+                Long.class
+        );
     }
 
     @Override

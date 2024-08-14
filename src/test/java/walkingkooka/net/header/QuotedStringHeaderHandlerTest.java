@@ -25,7 +25,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     public void testParseControlCharacterFails() {
         this.parseStringFails(
                 "a\\0",
-                new HeaderException("Failed to convert \"Server\" value \"a\\0\", message: Invalid character 'a' at 0 in \"a\\0\"")
+                new HeaderException("Invalid character 'a' at 0 in \"a\\0\"")
         );
     }
 
@@ -33,7 +33,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     public void testParseNonAsciiFails() {
         this.parseStringFails(
                 "a\u0080",
-                new HeaderException("Failed to convert \"Server\" value \"a\u0080\", message: Invalid character 'a' at 0 in \"a\u0080\"")
+                new HeaderException("Invalid character 'a' at 0 in \"a\u0080\"")
         );
     }
 
@@ -41,7 +41,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     public void testParseMissingOpeningDoubleQuoteFails() {
         this.parseStringFails(
                 "abc\"",
-                new HeaderException("Failed to convert \"Server\" value \"abc\"\", message: Invalid character 'a' at 0 in \"abc\"\"")
+                new HeaderException("Invalid character 'a' at 0 in \"abc\"\"")
         );
     }
 
@@ -49,7 +49,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     public void testParseUnsupportedBackslashFails() {
         this.parseStringFails(
                 "a\\bc",
-                new HeaderException("Failed to convert \"Server\" value \"a\\bc\", message: Invalid character 'a' at 0 in \"a\\bc\"")
+                new HeaderException("Invalid character 'a' at 0 in \"a\\bc\"")
         );
     }
 
@@ -63,8 +63,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         this.parseStringAndCheck(
                 (text) -> this.handlerSupportingBackslashes()
                         .parse(
-                                text,
-                                this.name()
+                                text
                         ),
                 "\"a\\\"bc\"",
                 "a\"bc"
@@ -76,8 +75,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         this.parseStringAndCheck(
                 (text) -> this.handlerSupportingBackslashes()
                         .parse(
-                                text,
-                                this.name()
+                                text
                         ),
                 "\"a\\\\bc\"",
                 "a\\bc"
@@ -123,8 +121,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
 
         this.parseStringAndCheck(
                 (t) -> handler.parse(
-                        t,
-                        this.name()
+                        t
                 ),
                 text,
                 value

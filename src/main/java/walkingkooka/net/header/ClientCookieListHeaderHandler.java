@@ -39,16 +39,17 @@ final class ClientCookieListHeaderHandler extends NonStringHeaderHandler<List<Cl
     }
 
     @Override
-    List<ClientCookie> parse0(final String text, final Name name) {
+    List<ClientCookie> parse0(final String text) {
         return Cookie.parseClientHeader(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
-        this.checkListOfType(value,
+    void checkNonNull(final Object value) {
+        this.checkListOfType(
+                value,
                 (v) -> v instanceof ClientCookie,
-                ClientCookie.class,
-                name);
+                ClientCookie.class
+        );
     }
 
     @Override

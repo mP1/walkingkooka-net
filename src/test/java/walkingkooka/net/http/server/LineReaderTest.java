@@ -108,7 +108,7 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
                 () -> LineReader.with("Content-Length:A").readHeaders()
         );
         this.checkEquals(
-                "Failed to convert \"Content-Length\" value \"A\", message: Invalid number in \"A\"",
+                "Content-Length: Invalid number in \"A\"",
                 thrown.getMessage()
         );
     }

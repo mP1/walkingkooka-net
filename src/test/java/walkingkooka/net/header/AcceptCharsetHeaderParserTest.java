@@ -433,8 +433,10 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
 
     @Test
     public void testQInvalidValueFails() {
-        this.parseStringFails("utf-8; q=X",
-                "Failed to convert \"q\" value \"X\", message: For input string: \"X\"");
+        this.parseStringFails(
+                "utf-8; q=X",
+                "Invalid number in \"X\""
+        );
     }
 
     @Test

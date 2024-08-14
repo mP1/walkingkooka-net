@@ -22,7 +22,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.util.SystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,7 +37,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
 
     @Test
     public void testInvalidHeaderFails() {
-        assertThrows(HeaderException.class, () -> this.handler().parse(this.invalidHeader(), this.name()));
+        assertThrows(HeaderException.class, () -> this.handler().parse(this.invalidHeader()));
     }
 
     abstract String invalidHeader();
@@ -48,26 +47,26 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
         assertThrows(NullPointerException.class, () -> this.check(null));
     }
 
+    // Invalid value type got walkingkooka.net.header.AbsoluteUrlHeaderHandlerTest@29a1505c required AbsoluteUrl
     @Test
     public void testCheckWrongTypeFails() {
-        this.checkTypeFails(this, "Header \"" + this.name() + ": " + this + "\" value type(" + this.getClass().getSimpleName() + ") is not a " + this.valueType());
+        this.checkTypeFails(
+                this,
+                "Invalid value type got " + this + " required " + this.valueType()
+        );
     }
 
-    @Test
-    public void testCheckWrongTypeJavaLangFails() {
-        this.checkTypeFails(new StringBuilder(), "Header \"" + this.name() + ": \" value type(StringBuilder) is not a " + this.valueType());
-    }
-
-    @Test
-    public void testCheckWrongTypeFullyQualifiedTypeNameFails() {
-        this.checkTypeFails(SystemProperty.FILE_SEPARATOR, "Header \"" + this.name() + ": " + SystemProperty.FILE_SEPARATOR + "\" value type(" + SystemProperty.class.getName() + ") is not a " + this.valueType());
-    }
-
-    private void checkTypeFails(final Object value, final String message) {
-        final Exception expected = assertThrows(Exception.class, () -> this.check(value));
-        this.checkEquals(message,
+    private void checkTypeFails(final Object value,
+                                final String message) {
+        final Exception expected = assertThrows(
+                Exception.class,
+                () -> this.check(value)
+        );
+        this.checkEquals(
+                message,
                 expected.getMessage(),
-                "message");
+                "message"
+        );
     }
 
     @Test
@@ -111,8 +110,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     public final T parseString(final String text) {
         return this.handler()
                 .parse(
-                        text,
-                        this.name()
+                        text
                 );
     }
 
@@ -132,7 +130,7 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     }
 
     final void check(final Object value) {
-        this.handler().check(value, this.name());
+        this.handler().check(value);
     }
 
     final void toTextAndCheck(final T value, final String expected) {

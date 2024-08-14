@@ -39,16 +39,16 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<List<ETag>> {
     }
 
     @Override
-    List<ETag> parse0(final String text, final Name name) {
+    List<ETag> parse0(final String text) {
         return ETag.parseList(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkListOfType(value,
                 v -> v instanceof ETag,
-                ETag.class,
-                name);
+                ETag.class
+        );
     }
 
     @Override

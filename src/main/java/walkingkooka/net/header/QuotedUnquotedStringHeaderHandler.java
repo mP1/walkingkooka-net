@@ -52,11 +52,11 @@ final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
      * If the text begins witn a double quote and then selects either the quoted or unquoted handler to parse.
      */
     @Override
-    String parse0(final String text, final Name name) {
+    String parse0(final String text) {
         final HeaderHandler<String> handler = text.isEmpty() || text.charAt(0) != '"' ?
                 this.unquoted :
                 this.quoted;
-        return handler.parse(text, name);
+        return handler.parse(text);
     }
 
     @Override

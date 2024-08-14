@@ -48,16 +48,16 @@ final class ContentEncodingHeaderHandler extends NonStringHeaderHandler<ContentE
     }
 
     @Override
-    ContentEncoding parse0(final String text, final Name name) {
+    ContentEncoding parse0(final String text) {
         return ContentEncodingHeaderParser.parseContentEncoding(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof ContentEncoding,
-                ContentEncoding.class,
-                name);
+                ContentEncoding.class
+        );
     }
 
     @Override

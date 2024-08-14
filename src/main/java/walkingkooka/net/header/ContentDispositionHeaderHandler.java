@@ -38,16 +38,16 @@ final class ContentDispositionHeaderHandler extends NonStringHeaderHandler<Conte
     }
 
     @Override
-    ContentDisposition parse0(final String text, final Name name) {
+    ContentDisposition parse0(final String text) {
         return ContentDisposition.parse(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 (v) -> v instanceof ContentDisposition,
-                ContentDisposition.class,
-                name);
+                ContentDisposition.class
+        );
     }
 
     @Override

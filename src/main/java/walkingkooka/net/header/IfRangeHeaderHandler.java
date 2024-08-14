@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
 
@@ -39,12 +40,23 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
     }
 
     @Override
-    IfRange<?> parse0(final String text, final Name name) {
+    IfRange<?> parse0(final String text) {
         IfRange<?> parsed;
         try {
             parsed = IfRangeETag.with(ETag.parseOne(text));
         } catch (final HeaderException mustBeLastModified) {
-            parsed = IfRangeLastModified.with(DATE_TIME.parse(text, HttpHeaderName.IF_RANGE));
+            final LocalDateTime date;
+
+            try {
+                date = DATE_TIME.parse(
+                        text
+                );
+            } catch (final HeaderException cause) {
+                throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
+            }
+            parsed = IfRangeLastModified.with(
+                    date
+            );
         }
         return parsed;
     }
@@ -52,11 +64,11 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
     final static HeaderHandler<LocalDateTime> DATE_TIME = HeaderHandler.localDateTime();
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof IfRange,
-                IfRange.class,
-                name);
+                IfRange.class
+        );
     }
 
     @Override

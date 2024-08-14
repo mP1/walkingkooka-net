@@ -39,16 +39,16 @@ final class ContentDispositionFileNameNotEncodedHeaderHandler extends NonStringH
     }
 
     @Override
-    ContentDispositionFileName parse0(final String text, final Name name) {
-        return ContentDispositionFileName.notEncoded(QUOTED_UNQUOTED_STRING.parse(text, name));
+    ContentDispositionFileName parse0(final String text) {
+        return ContentDispositionFileName.notEncoded(QUOTED_UNQUOTED_STRING.parse(text));
     }
 
     @Override
-    void check0(Object value, Name name) {
+    void checkNonNull(Object value) {
         this.checkType(value,
                 v -> v instanceof ContentDispositionFileNameNotEncoded,
-                ContentDispositionFileNameNotEncoded.class,
-                name);
+                ContentDispositionFileNameNotEncoded.class
+        );
     }
 
     @Override

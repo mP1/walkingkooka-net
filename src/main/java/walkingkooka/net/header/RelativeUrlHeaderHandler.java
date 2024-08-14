@@ -40,16 +40,16 @@ final class RelativeUrlHeaderHandler extends NonStringHeaderHandler<RelativeUrl>
     }
 
     @Override
-    RelativeUrl parse0(final String text, final Name name) {
+    RelativeUrl parse0(final String text) {
         return Url.parseRelative(text);
     }
 
     @Override
-    void check0(final Object value, final Name name) {
+    void checkNonNull(final Object value) {
         this.checkType(value,
                 v -> v instanceof RelativeUrl,
-                RelativeUrl.class,
-                name);
+                RelativeUrl.class
+        );
     }
 
     @Override
