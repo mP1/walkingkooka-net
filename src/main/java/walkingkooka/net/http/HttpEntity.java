@@ -21,7 +21,6 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
-import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -52,8 +51,7 @@ import java.util.stream.Collectors;
 public abstract class HttpEntity implements HasHeaders,
         CanBeEmpty,
         HasText,
-        TreePrintable,
-        UsesToStringBuilder {
+        TreePrintable {
 
     /**
      * {@link Binary} with no body or bytes.
@@ -702,30 +700,16 @@ public abstract class HttpEntity implements HasHeaders,
         {
             {
                 // headers
-                final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = Maps.sorted();
-                headers.putAll(
-                        this.headers2()
-                );
-                ;
+                final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.alphaSortedHeaders();
+
                 if (false == headers.isEmpty()) {
                     printer.println("header(s)");
                     printer.indent();
                     {
-                        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValues : headers.entrySet()) {
-                            final HttpHeaderName<?> name = headerAndValues.getKey();
-
-                            for (final Object value : headerAndValues.getValue()) {
-                                printer.println(
-                                        "" +
-                                                name +
-                                                HttpEntity.HEADER_NAME_SEPARATOR +
-                                                " " +
-                                                name.headerText(
-                                                        Cast.to(value)
-                                                )
-                                );
-                            }
-                        }
+                        this.printHeaders(
+                                headers,
+                                printer
+                        );
                     }
                     printer.outdent();
                 }
@@ -733,6 +717,33 @@ public abstract class HttpEntity implements HasHeaders,
             this.printTreeBody(printer);
         }
         printer.outdent();
+    }
+
+    final Map<HttpHeaderName<?>, HttpEntityHeaderList> alphaSortedHeaders() {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = Maps.sorted();
+        headers.putAll(
+                this.headers2()
+        );
+        return headers;
+    }
+
+    final void printHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+                            final IndentingPrinter printer) {
+        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValues : headers.entrySet()) {
+            final HttpHeaderName<?> name = headerAndValues.getKey();
+
+            for (final Object value : headerAndValues.getValue()) {
+                printer.println(
+                        "" +
+                                name +
+                                HttpEntity.HEADER_NAME_SEPARATOR +
+                                " " +
+                                name.headerText(
+                                        Cast.to(value)
+                                )
+                );
+            }
+        }
     }
 
     abstract void printTreeBody(final IndentingPrinter printer);

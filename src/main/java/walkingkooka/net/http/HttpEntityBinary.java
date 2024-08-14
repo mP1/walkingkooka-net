@@ -18,20 +18,10 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Binary;
-import walkingkooka.ToStringBuilder;
-import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.MediaTypeParameterName;
-import walkingkooka.text.Ascii;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.LineEnding;
 
-import java.nio.charset.Charset;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or
@@ -101,68 +91,4 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
                 EMPTY :
                 new HttpEntityBinary(Maps.readOnly(headers), body);
     }
-
-    // Object....................................................................................................
-
-    /**
-     * The {@link String} produced looks almost like a http entity, each header will appear on a single, a colon separates
-     * the header name and value, and a blank line between headers and body, with the body bytes appearing in hex form.
-     */
-    @Override
-    void toStringBody(final ToStringBuilder b) {
-        final Binary body = this.body;
-        byte[] bodyBytes = body.value();
-
-        final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.header(this);
-        if (mediaType.isPresent()) {
-            final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());
-            if (charsetName.isPresent()) {
-                final Optional<Charset> charset = charsetName.get().charset();
-                if (charset.isPresent()) {
-                    b.value(new String(bodyBytes, charset.get()));
-                    bodyBytes = null;
-                }
-            }
-        }
-
-        if (null != bodyBytes && false == body.isEmpty()) {
-            // hex dump
-            // offset-HEX_DUMP_WIDTH-chars space hexdigit *HEX_DUMP_WIDTH space separated ascii
-            b.enable(ToStringBuilderOption.HEX_BYTES);
-            b.valueSeparator(" ");
-            b.labelSeparator(" ");
-
-            final int length = bodyBytes.length;
-            for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
-                // offset
-                b.append(CharSequences.padLeft(Integer.toHexString(i), 8, '0').toString());
-                b.append(' ');
-
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
-                    final int k = i + j;
-                    if (k < length) {
-                        b.value(bodyBytes[k]);
-                    } else {
-                        b.value("  ");
-                    }
-                }
-
-                b.append(' ');
-
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
-                    final int k = i + j;
-                    if (k < length) {
-                        final char c = (char) bodyBytes[k];
-                        b.append(Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR);
-                    } else {
-                        b.append(' ');
-                    }
-                }
-
-                b.append(LineEnding.SYSTEM);
-            }
-        }
-    }
-
-    private final static int HEX_DUMP_WIDTH = 16;
 }
