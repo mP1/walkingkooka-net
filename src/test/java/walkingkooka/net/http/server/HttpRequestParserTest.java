@@ -68,7 +68,10 @@ public final class HttpRequestParserTest implements ClassTesting2<HttpRequestPar
 
     @Test
     public void testInvalidHeaderFails3() {
-        this.parseStringFails("GET / HTTP/1.0\r\nContent-Length:A", new HeaderException("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\""));
+        this.parseStringFails(
+                "GET / HTTP/1.0\r\nContent-Length:A",
+                new HeaderException("Failed to convert \"Content-Length\" value \"A\", message: Invalid number in \"A\"")
+        );
     }
 
     @Test

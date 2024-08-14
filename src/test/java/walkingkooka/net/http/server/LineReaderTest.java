@@ -103,8 +103,14 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
 
     @Test
     public void testInvalidHeaderFails2() {
-        final HeaderException thrown = assertThrows(HeaderException.class, () -> LineReader.with("Content-Length:A").readHeaders());
-        this.checkEquals("Failed to convert \"Content-Length\" value \"A\", message: For input string: \"A\"", thrown.getMessage());
+        final HeaderException thrown = assertThrows(
+                HeaderException.class,
+                () -> LineReader.with("Content-Length:A").readHeaders()
+        );
+        this.checkEquals(
+                "Failed to convert \"Content-Length\" value \"A\", message: Invalid number in \"A\"",
+                thrown.getMessage()
+        );
     }
 
     @Test

@@ -503,8 +503,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testSizeInvalidFails() {
-        this.parseStringFails("V; size=A",
-                "Failed to convert \"size\" value \"A\", message: For input string: \"A\"");
+        this.parseStringFails(
+                "V; size=A",
+                "Failed to convert \"size\" value \"A\", message: Invalid number in \"A\""
+        );
     }
 
     @Test
