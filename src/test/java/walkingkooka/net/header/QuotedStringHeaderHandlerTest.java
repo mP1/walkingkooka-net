@@ -19,28 +19,38 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTestCase<QuotedStringHeaderHandler> {
 
     @Test
     public void testParseControlCharacterFails() {
-        assertThrows(HeaderException.class, () -> this.parse("a\\0"));
+        this.parseStringFails(
+                "a\\0",
+                new HeaderException("Failed to convert \"Server\" value \"a\\0\", message: Invalid character 'a' at 0 in \"a\\0\"")
+        );
     }
 
     @Test
     public void testParseNonAsciiFails() {
-        assertThrows(HeaderException.class, () -> this.parse("a\u0080"));
+        this.parseStringFails(
+                "a\u0080",
+                new HeaderException("Failed to convert \"Server\" value \"a\u0080\", message: Invalid character 'a' at 0 in \"a\u0080\"")
+        );
     }
 
     @Test
     public void testParseMissingOpeningDoubleQuoteFails() {
-        assertThrows(HeaderException.class, () -> this.parse("abc\""));
+        this.parseStringFails(
+                "abc\"",
+                new HeaderException("Failed to convert \"Server\" value \"abc\"\", message: Invalid character 'a' at 0 in \"abc\"\"")
+        );
     }
 
     @Test
     public void testParseUnsupportedBackslashFails() {
-        assertThrows(HeaderException.class, () -> this.parse("a\\bc"));
+        this.parseStringFails(
+                "a\\bc",
+                new HeaderException("Failed to convert \"Server\" value \"a\\bc\", message: Invalid character 'a' at 0 in \"a\\bc\"")
+        );
     }
 
     @Test
@@ -50,16 +60,28 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
 
     @Test
     public void testParseWithBackslashSupportedEscapedDoubleQuote() {
-        this.parseStringAndCheck(this.handlerSupportingBackslashes(),
+        this.parseStringAndCheck(
+                (text) -> this.handlerSupportingBackslashes()
+                        .parse(
+                                text,
+                                this.name()
+                        ),
                 "\"a\\\"bc\"",
-                "a\"bc");
+                "a\"bc"
+        );
     }
 
     @Test
     public void testParseWithBackslashSupportedEscapedBackslash() {
-        this.parseStringAndCheck(this.handlerSupportingBackslashes(),
+        this.parseStringAndCheck(
+                (text) -> this.handlerSupportingBackslashes()
+                        .parse(
+                                text,
+                                this.name()
+                        ),
                 "\"a\\\\bc\"",
-                "a\\bc");
+                "a\\bc"
+        );
     }
 
     @Test
@@ -99,7 +121,14 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         final String text = "\"a\\\"bc\"";
         final String value = "a\"bc";
 
-        this.parseStringAndCheck(handler, text, value);
+        this.parseStringAndCheck(
+                (t) -> handler.parse(
+                        t,
+                        this.name()
+                ),
+                text,
+                value
+        );
         this.toTextAndCheck(handler, value, text);
     }
 

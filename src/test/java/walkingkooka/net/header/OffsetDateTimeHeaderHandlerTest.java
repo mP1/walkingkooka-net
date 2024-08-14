@@ -29,17 +29,26 @@ public final class OffsetDateTimeHeaderHandlerTest extends
 
     @Test
     public void testyParseEmptyFails() {
-        assertThrows(HeaderException.class, () -> this.parse(""));
+        this.parseStringFails(
+                "",
+                new HeaderException("Failed to convert \"creation-date\" value \"\", message: String index out of range: 0")
+        );
     }
 
     @Test
     public void testyParseMissingOpeningDoubleQuoteFails() {
-        assertThrows(HeaderException.class, () -> this.parse("abc\""));
+        this.parseStringFails(
+                "abc\"",
+                new HeaderException("Failed to convert \"creation-date\" value \"abc\"\", message: Invalid character 'a' at 0 in \"abc\"\"")
+        );
     }
 
     @Test
     public void testyParseMissingClosingDoubleQuoteFails() {
-        assertThrows(HeaderException.class, () -> this.parse("\"abc"));
+        this.parseStringFails(
+                "\"abc",
+                new HeaderException("Failed to convert \"creation-date\" value \"\"abc\", message: Invalid character 'c' at 3 in \"\"abc\"")
+        );
     }
 
     @Override

@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.naming.Name;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.SystemProperty;
 
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> extends HeaderHandlerTestCase<C>
-        implements ToStringTesting<C> {
+        implements ParseStringTesting<T>,
+        ToStringTesting<C> {
 
     HeaderHandlerTestCase2() {
         super();
@@ -98,33 +100,35 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
 
     abstract C handler();
 
-    final T parse(final String value) {
-        return this.handler().parse(value, this.name());
+    abstract Name name();
+
+    @Override
+    public final void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final T parseString(final String text) {
+        return this.handler()
+                .parse(
+                        text,
+                        this.name()
+                );
+    }
+
+    @Override
+    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public final RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     final void parseAndToTextAndCheck(final String text, final T value) {
         this.parseStringAndCheck(text, value);
         this.toTextAndCheck(value, text);
-    }
-
-    final void parseStringAndCheck(final String value, final T expected) {
-        this.parseStringAndCheck(value, this.name(), expected);
-    }
-
-    abstract Name name();
-
-    final void parseStringAndCheck(final String value, final Name name, final T expected) {
-        this.parseStringAndCheck(this.handler(), value, name, expected);
-    }
-
-    final void parseStringAndCheck(final C handler, final String value, final T expected) {
-        this.parseStringAndCheck(handler, value, this.name(), expected);
-    }
-
-    final void parseStringAndCheck(final C handler, final String value, final Name name, final T expected) {
-        this.checkEquals(expected,
-                handler.parse(value, name),
-                () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));
     }
 
     final void check(final Object value) {

@@ -19,18 +19,22 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class UnquotedStringHeaderHandlerTest extends QuotedOrUnquotedStringHeaderHandlerTestCase<UnquotedStringHeaderHandler> {
 
     @Test
     public void testParseOpeningDoubleQuoteFails() {
-        assertThrows(HeaderException.class, () -> this.parse("\"abc"));
+        this.parseStringFails(
+                "\"abc",
+                new HeaderException("Failed to convert \"Server\" value \"\"abc\", message: Invalid character '\\\"' at 0 in \"\"abc\"")
+        );
     }
 
     @Test
     public void testParseBackslashFails() {
-        assertThrows(HeaderException.class, () -> this.parse("a\\bc"));
+        this.parseStringFails(
+                "a\\bc",
+                new HeaderException("Failed to convert \"Server\" value \"a\\bc\", message: Invalid character '\\\\' at 1 in \"a\\bc\"")
+        );
     }
 
     @Test
