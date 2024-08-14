@@ -19,8 +19,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class QualityFactorHeaderHandlerTest extends
         NonStringHeaderHandlerTestCase<QualityFactorHeaderHandler, Float> {
 
@@ -31,12 +29,18 @@ public final class QualityFactorHeaderHandlerTest extends
 
     @Test
     public void testParseNegativeFails() {
-        assertThrows(HeaderException.class, () -> this.parse("-0.1"));
+        this.parseStringFails(
+                "-0.1",
+                new HeaderException("Q factor -0.1 must be bewteen 0.0 and 1.0")
+        );
     }
 
     @Test
     public void testMoreThanOneFails() {
-        assertThrows(HeaderException.class, () -> this.parse("1.01"));
+        this.parseStringFails(
+                "1.01",
+                new HeaderException("Q factor 1.01 must be bewteen 0.0 and 1.0")
+        );
     }
 
     @Test
