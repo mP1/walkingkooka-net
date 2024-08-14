@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 /**
  * A {@link HeaderHandler} that parses a header value into a {@link Long}
@@ -38,7 +39,14 @@ final class LongHeaderHandler extends NonStringHeaderHandler<Long> {
 
     @Override
     Long parse0(final String text, final Name name) {
-        return Long.parseLong(text.trim());
+        final String trimmed = text.trim();
+        CharSequences.failIfNullOrEmpty(trimmed, "text");
+
+        try {
+            return Long.parseLong(trimmed);
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid number in " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     @Override

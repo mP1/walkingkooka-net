@@ -25,6 +25,22 @@ public final class LongHeaderHandlerTest extends
     private final static String TEXT = "123";
     private final static Long VALUE = 123L;
 
+    @Test
+    public void testParseEmptyStringFails() {
+        this.parseStringFails(
+                "",
+                new HeaderException("Failed to convert \"Content-Length\" value \"\", message: text is empty")
+        );
+    }
+
+    @Test
+    public void testParseInvalidNumberFails() {
+        this.parseStringFails(
+                "ABC",
+                new HeaderException("Failed to convert \"Content-Length\" value \"ABC\", message: Invalid number in \"ABC\"")
+        );
+    }
+
     @Override
     public String typeNamePrefix() {
         return Long.class.getSimpleName();
