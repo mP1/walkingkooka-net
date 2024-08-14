@@ -17,15 +17,16 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.ToStringBuilder;
-import walkingkooka.ToStringBuilderOption;
+import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.Ascii;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.Printers;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -152,44 +153,87 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     @Override
     public final String toString() {
-        return ToStringBuilder.buildFrom(this);
+        final StringBuilder b = new StringBuilder();
+
+        final IndentingPrinter printer = Printers.stringBuilder(b, LineEnding.CRNL)
+                .indenting(Indentation.EMPTY);
+        this.printHeaders(
+                this.alphaSortedHeaders(),
+                printer
+        );
+
+        printer.println();
+
+        if (this.isText()) {
+            this.toStringText(b);
+        } else {
+            this.toStringBinary(b);
+        }
+
+        return b.toString();
     }
 
-    // UsesToStringBuilder..............................................................................................
+    private void toStringBinary(final StringBuilder b) {
+        final Binary body = this.body();
+        byte[] bodyBytes = body.value();
 
-    @Override
-    public final void buildToString(final ToStringBuilder b) {
-        final int globalAndValueLength = 32 * 1024;
+        if (null != bodyBytes && false == body.isEmpty()) {
+            final int length = bodyBytes.length;
+            for (int i = 0; i < length; i = i + TOSTRING_HEX_DUMP_WIDTH) {
+                // offset
+                b.append(CharSequences.padLeft(Integer.toHexString(i), 8, '0').toString());
+                b.append(' ');
 
-        b.defaults().disable(ToStringBuilderOption.QUOTE)
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .globalLength(globalAndValueLength)
-                .valueLength(globalAndValueLength);
+                for (int j = 0; j < TOSTRING_HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        b.append(
+                                hex(
+                                        bodyBytes[k]
+                                )
+                        );
+                    } else {
+                        b.append("  ");
+                    }
 
-        final String eol = LINE_ENDING.toString();
+                    b.append(' ');
+                }
 
-        // headers
-        b.valueSeparator(eol);
-        b.labelSeparator(HEADER_NAME_SEPARATOR.string().concat(" "));
-        b.value(this.headers());
-        b.append(eol).append(eol);
+                for (int j = 0; j < TOSTRING_HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        final char c = (char) bodyBytes[k];
+                        b.append(
+                                Ascii.isPrintable(c) ?
+                                        c :
+                                        UNPRINTABLE_CHAR
+                        );
+                    } else {
+                        b.append(' ');
+                    }
+                }
 
-        // body
-        b.valueSeparator("");
-
-        this.toStringBody(b);
+                b.append(LineEnding.CRNL);
+            }
+        }
     }
 
-    abstract void toStringBody(final ToStringBuilder b);
+    private final static int TOSTRING_HEX_DUMP_WIDTH = 16;
+
+    private void toStringText(final StringBuilder b) {
+        b.append(
+                this.bodyText()
+                        .replace("\r\n", "\\r\\n" + LineEnding.CRNL)
+                        .replace("\r", "\\r" + LineEnding.CRNL)
+                        .replace("\n", "\\n" + LineEnding.CRNL)
+        );
+    }
 
     // TreePrintable....................................................................................................
 
-    // TreePrintable....................................................................................................
-
-    @Override final void printTreeBody(final IndentingPrinter printer) {
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.header(this)
-                .orElse(null);
-        if (MediaType.ANY_TEXT.test(contentType)) {
+    @Override //
+    final void printTreeBody(final IndentingPrinter printer) {
+        if (this.isText()) {
             this.printTreeBodyText(printer);
         } else {
             this.printTreeBodyBinary(printer);
@@ -202,10 +246,10 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         {
             final byte[] bodyBytes = this.body().value();
             final int length = bodyBytes.length;
-            for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
+            for (int i = 0; i < length; i = i + TREE_PRINT_HEX_DUMP_WIDTH) {
 
                 // hex bytes
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                for (int j = 0; j < TREE_PRINT_HEX_DUMP_WIDTH; j++) {
                     final int k = i + j;
                     if (k < length) {
                         printer.print(
@@ -222,7 +266,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                 printer.print(" ");
 
                 // ascii chars
-                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                for (int j = 0; j < TREE_PRINT_HEX_DUMP_WIDTH; j++) {
                     final int k = i + j;
                     if (k < length) {
                         final char c = (char) bodyBytes[k];
@@ -240,14 +284,6 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
             }
         }
         printer.outdent();
-    }
-
-    private static CharSequence hex(final byte value) {
-        return CharSequences.padLeft(
-                Integer.toHexString(0xff & value),
-                2,
-                '0'
-        );
     }
 
     final void printTreeBodyText(final IndentingPrinter printer) {
@@ -268,7 +304,24 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         }
     }
 
-    private final static int HEX_DUMP_WIDTH = 20;
+    private final static int TREE_PRINT_HEX_DUMP_WIDTH = 20;
 
     final static char UNPRINTABLE_CHAR = '.';
+
+    // printTree & toString.............................................................................................
+
+    private static CharSequence hex(final byte value) {
+        return CharSequences.padLeft(
+                Integer.toHexString(0xff & value),
+                2,
+                '0'
+        );
+    }
+
+    private boolean isText() {
+        return MediaType.ANY_TEXT.test(
+                HttpHeaderName.CONTENT_TYPE.header(this)
+                        .orElse(null)
+        );
+    }
 }

@@ -18,7 +18,6 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Binary;
-import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -131,11 +130,6 @@ final class HttpEntityEmpty extends HttpEntity {
     @Override
     public String toString() {
         return "";
-    }
-
-    @Override
-    public void buildToString(final ToStringBuilder toStringBuilder) {
-        // nop
     }
 
     // TreePrintable....................................................................................................

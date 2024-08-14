@@ -169,7 +169,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
                 "503 Problem x y z\r\n" +
                         "Server: Server 123\r\n" +
                         "\r\n" +
-                        "00000000 41 42 43                                        ABC             \n");
+                        "00000000 41 42 43                                        ABC             \r\n");
     }
 
     @Test
@@ -183,7 +183,7 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
                 "HTTP/1.1 503 Problem x y z\r\n" +
                         "Server: Server 123\r\n" +
                         "\r\n" +
-                        "00000000 41 42 43                                        ABC             \n");
+                        "00000000 41 42 43                                        ABC             \r\n");
     }
 
     @Override

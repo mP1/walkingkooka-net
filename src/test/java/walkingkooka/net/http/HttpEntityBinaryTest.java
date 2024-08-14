@@ -139,7 +139,8 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                         HttpHeaderName.CONTENT_LENGTH, 257L,
                         HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
                         HttpHeaderName.SERVER, "Server 123", "AB\nC"),
-                "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
+                "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\\n\r\nC"
+        );
     }
 
     @Test
@@ -160,48 +161,76 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testToStringBinary() {
         final String letters = "a";
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, letters),
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        257L, letters
+                ),
                 "Content-Length: 257\r\n\r\n" +
-                        "00000000 61                                              a               " + LineEnding.SYSTEM);
+                        "00000000 61                                              a               " + LineEnding.CRNL
+        );
     }
 
     @Test
     public void testToStringBinaryUnprintable() {
         final String letters = "\0";
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, letters),
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        257L,
+                        letters
+                ),
                 "Content-Length: 257\r\n\r\n" +
-                        "00000000 00                                              .               " + LineEnding.SYSTEM);
+                        "00000000 00                                              .               " + LineEnding.CRNL
+        );
     }
 
     @Test
     public void testToStringBinaryMultiLine() {
         final String letters = "abcdefghijklmnopq";
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, letters),
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        257L,
+                        letters
+                ),
                 "Content-Length: 257\r\n\r\n" +
-                        "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.SYSTEM +
-                        "00000010 71                                              q               " + LineEnding.SYSTEM);
+                        "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.CRNL +
+                        "00000010 71                                              q               " + LineEnding.CRNL
+        );
     }
 
     @Test
     public void testToStringBinaryMultiLine2() {
         final String letters = "\n\0cdefghijklmnopq";
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, letters),
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        257L,
+                        letters
+                ),
                 "Content-Length: 257\r\n\r\n" +
-                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.SYSTEM +
-                        "00000010 71                                              q               " + LineEnding.SYSTEM);
+                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
+                        "00000010 71                                              q               " + LineEnding.CRNL
+        );
     }
 
     @Test
     public void testToStringMultipleHeadersBinary() {
         final String letters = "\n\0cdefghijklmnopq";
-        this.toStringAndCheck(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L,
+        this.toStringAndCheck(
+                this.createHttpEntity(
+                        HttpHeaderName.CONTENT_LENGTH, 257L,
                         HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
-                        HttpHeaderName.SERVER, "Server 123", letters),
+                        HttpHeaderName.SERVER, "Server 123",
+                        letters
+                ),
                 "Content-Length: 257\r\n" +
                         "Content-Type: application/octet-stream\r\n" +
                         "Server: Server 123\r\n\r\n" +
-                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.SYSTEM +
-                        "00000010 71                                              q               " + LineEnding.SYSTEM);
+                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
+                        "00000010 71                                              q               " + LineEnding.CRNL
+        );
     }
 
     // helper...........................................................................................................

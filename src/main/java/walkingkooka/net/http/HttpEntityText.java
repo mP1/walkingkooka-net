@@ -18,7 +18,6 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Binary;
-import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
@@ -81,10 +80,5 @@ final class HttpEntityText extends HttpEntityNotEmpty {
         return headers.isEmpty() && this.bodyText().isEmpty() ?
                 EMPTY :
                 HttpEntityBinary.with(headers, body);
-    }
-
-    @Override
-    void toStringBody(final ToStringBuilder b) {
-        b.append(this.bodyText());
     }
 }
