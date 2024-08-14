@@ -184,7 +184,7 @@ public final class RangeHeader implements Header,
             for (int j = i + 1; j < count; j++) {
                 final Range<Long> other = copy.get(j);
                 if (range.isOverlapping(other)) {
-                    throw new HeaderException("Range overlap bewteen " + range + " and " + other);
+                    throw new HeaderException("Range overlap between " + range + " and " + other);
                 }
             }
         }
@@ -204,7 +204,7 @@ public final class RangeHeader implements Header,
             for (int j = i + 1; j < count; j++) {
                 final Range<Long> other = ranges.get(j);
                 if (range.isOverlapping(other)) {
-                    throw new HeaderException("Range overlap bewteen " + range + " and " + other);
+                    throw new HeaderException("Range overlap between " + range + " and " + other);
                 }
             }
         }
