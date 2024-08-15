@@ -209,7 +209,7 @@ public class JunitTest {
 
     @Test
     public void testHttpHeaderNameAndMediaType() {
-        HttpHeaderName.CONTENT_TYPE.check(MediaType.TEXT_PLAIN);
+        HttpHeaderName.CONTENT_TYPE.checkValue(MediaType.TEXT_PLAIN);
     }
 
     @Test
