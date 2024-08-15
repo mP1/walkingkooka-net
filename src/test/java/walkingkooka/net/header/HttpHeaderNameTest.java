@@ -58,7 +58,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Test
-    public void testCustomHeaderIsConditiojnal() {
+    public void testCustomHeaderIsConditional() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
         this.checkEquals(false, header.isConditional(), header + ".isConditional");
     }
