@@ -325,48 +325,68 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertThrows(HeaderException.class, () -> header.check(Cast.to("invalid!")));
     }
 
-    // parse ...............................................................................................
+    // parse ...........................................................................................................
 
     @Test
     public void testParseAcceptString() {
-        this.parseAndCheck(HttpHeaderName.ACCEPT,
+        this.parseStringAndCheck(
+                HttpHeaderName.ACCEPT::parseValue,
                 "text/html, application/xhtml+xml",
-                Accept.with(list(
-                        MediaType.with("text", "html"),
-                        MediaType.with("application", "xhtml+xml"))));
+                Accept.with(
+                        list(
+                                MediaType.with("text", "html"),
+                                MediaType.with("application", "xhtml+xml")
+                        )
+                )
+        );
     }
 
     @Test
     public void testParseAccessControlMaxAge() {
-        this.parseAndCheck(HttpHeaderName.ACCESS_CONTROL_MAX_AGE,
+        this.parseStringAndCheck(
+                HttpHeaderName.ACCESS_CONTROL_MAX_AGE::parseValue,
                 "591",
-                591L);
+                591L
+        );
     }
 
     @Test
     public void testParseContentLengthString() {
-        this.parseAndCheck(HttpHeaderName.CONTENT_LENGTH,
+        this.parseStringAndCheck(
+                HttpHeaderName.CONTENT_LENGTH::parseValue,
                 "123",
-                123L);
+                123L
+        );
     }
 
     @Test
     public void testParseIfRangeETag() {
-        this.parseAndCheck(HttpHeaderName.IF_RANGE,
+        this.parseStringAndCheck(
+                HttpHeaderName.IF_RANGE::parseValue,
                 "W/\"etag-1234567890\"",
-                IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890")));
+                IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890"))
+        );
     }
 
     @Test
     public void testParseIfRangeLastModified() {
-        final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
+        final LocalDateTime lastModified = LocalDateTime.of(
+                2000,
+                12,
+                31,
+                6,
+                28,
+                29
+        );
 
-        this.parseAndCheck(HttpHeaderName.IF_RANGE,
+        this.parseStringAndCheck(
+                HttpHeaderName.IF_RANGE::parseValue,
                 HeaderHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
-                IfRange.with(lastModified));
+                IfRange.with(lastModified)
+        );
     }
 
-    // headerText.........................................................................
+    // headerText.......................................................................................................
 
     @Test
     public void testHeaderTextNullFails() {

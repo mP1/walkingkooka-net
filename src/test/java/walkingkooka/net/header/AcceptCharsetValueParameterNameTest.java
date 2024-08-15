@@ -83,26 +83,32 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
                 .setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f));
     }
 
-    // parse...........................................................................................
-
-    @Test
-    public void testParseQFactor() {
-        this.parseAndCheck(AcceptCharsetValueParameterName.Q,
-                "0.5",
-                0.5f);
-    }
-
-    @Test
-    public void testParseString() {
-        this.parseAndCheck(Cast.to(AcceptCharsetValueParameterName.with("xyz")),
-                "abc",
-                "abc");
-    }
-
     @Override
     public AcceptCharsetValueParameterName<Object> createName(final String name) {
         return Cast.to(AcceptCharsetValueParameterName.with(name));
     }
+
+    // parse............................................................................................................
+
+    @Test
+    public void testParseQFactor() {
+        this.parseStringAndCheck(
+                AcceptCharsetValueParameterName.Q::parseValue,
+                "0.5",
+                0.5f
+        );
+    }
+
+    @Test
+    public void testParseString() {
+        this.parseStringAndCheck(
+                AcceptCharsetValueParameterName.with("xyz")::parseValue,
+                "abc",
+                "abc"
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<AcceptCharsetValueParameterName<?>> type() {
