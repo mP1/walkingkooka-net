@@ -68,7 +68,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     /**
      * Gets a value wrapped in an {@link Optional} in a type safe manner.
      */
-    public Optional<V> parameterValue(final HeaderWithParameters<?> hasParameters) {
+    public final Optional<V> parameterValue(final HeaderWithParameters<?> hasParameters) {
         Objects.requireNonNull(hasParameters, "hasParameters");
         return Optional.ofNullable(Cast.to(hasParameters.parameters().get(this)));
     }
@@ -76,7 +76,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     /**
      * Retrieves the value or throws a {@link HeaderException} if absent.
      */
-    public V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
+    public final V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
         if (!value.isPresent()) {
             throw new HeaderException("Required value is absent for " + this);
