@@ -32,6 +32,14 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
         extends NameTesting2<N, C>,
         ParseStringTesting<Object> {
 
+    // NameTesting......................................................................................................
+
+    default N createName() {
+        return this.createName(this.nameText());
+    }
+
+    String nameText();
+
     // toString.........................................................................................................
 
     @Test
@@ -40,32 +48,32 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
         this.toStringAndCheck(this.createName(nameText), nameText);
     }
 
-    // checkValue...........................................................................................
+    // checkValue.......................................................................................................
 
     @Test
-    default void testCheckNullFails() {
-        assertThrows(NullPointerException.class, () -> this.check(null));
+    default void testCheckValueWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.checkValue(null)
+        );
     }
 
     @Test
-    default void testCheckInvalidTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(this));
+    default void testCheckValueWithInvalidTypeFails() {
+        assertThrows(
+                HeaderException.class,
+                () -> this.checkValue(this)
+        );
     }
 
-    default void check(final Object header) {
-        this.createName().check(header);
+    default void checkValue(final Object header) {
+        this.createName().checkValue(header);
     }
 
-    default void check(final HeaderName<?> name,
-                       final Object header) {
+    default void checkValue(final HeaderName<?> name,
+                            final Object header) {
         assertSame(header,
-                name.check(header),
+                name.checkValue(header),
                 name + " didnt return correct header=" + CharSequences.quoteIfChars(header));
     }
-
-    default N createName() {
-        return this.createName(this.nameText());
-    }
-
-    String nameText();
 }

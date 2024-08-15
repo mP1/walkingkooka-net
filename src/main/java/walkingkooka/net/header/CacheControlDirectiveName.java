@@ -195,7 +195,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     }
 
     @Override
-    public Optional<V> check(final Object parameter) {
+    public Optional<V> checkValue(final Object parameter) {
         Objects.requireNonNull(parameter, "parameter");
         return this.parameter.check(parameter, this);
     }
@@ -217,8 +217,10 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      * Factory that creates a {@link CacheControlDirective} with the parameter which may or may not be empty or present.
      */
     public CacheControlDirective<V> setParameter(final Optional<V> parameter) {
-        return CacheControlDirective.with(this,
-                this.check(parameter));
+        return CacheControlDirective.with(
+                this,
+                this.checkValue(parameter)
+        );
     }
 
     // Header...........................................................................................................

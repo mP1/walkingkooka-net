@@ -42,7 +42,7 @@ final class HttpEntityHeaderOneList extends HttpEntityHeaderList {
         }
         return new HttpEntityHeaderOneList(
                 header,
-                header.check(values[0])
+                header.checkValue(values[0])
         );
     }
 

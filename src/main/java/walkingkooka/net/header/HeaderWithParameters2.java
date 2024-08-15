@@ -89,7 +89,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         for (Entry<P, Object> nameAndValue : parameters.entrySet()) {
             final P name = nameAndValue.getKey();
             copy.put(name,
-                    name.check(nameAndValue.getValue()));
+                    name.checkValue(nameAndValue.getValue()));
         }
         return Maps.immutable(copy);
     }

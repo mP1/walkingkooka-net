@@ -305,24 +305,24 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testCheckNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpHeaderName.ACCEPT.check(null));
+        assertThrows(NullPointerException.class, () -> HttpHeaderName.ACCEPT.checkValue(null));
     }
 
     @Test
     public void testCheck() {
-        HttpHeaderName.CONTENT_LENGTH.check(123L);
+        HttpHeaderName.CONTENT_LENGTH.checkValue(123L);
     }
 
     @Test
     public void testCheckList() {
         final HttpHeaderName<?> header = HttpHeaderName.COOKIE;
-        header.check(Cast.to(Cookie.parseClientHeader("cookie1=value2")));
+        header.checkValue(Cast.to(Cookie.parseClientHeader("cookie1=value2")));
     }
 
     @Test
     public void testCheckInvalidValueTypeFails() {
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
-        assertThrows(HeaderException.class, () -> header.check(Cast.to("invalid!")));
+        assertThrows(HeaderException.class, () -> header.checkValue(Cast.to("invalid!")));
     }
 
     // parse ...........................................................................................................
