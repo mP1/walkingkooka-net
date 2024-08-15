@@ -185,7 +185,7 @@ public abstract class HttpEntity implements HasHeaders,
                             final Object httpHeaderValue;
 
                             try {
-                                httpHeaderValue = httpHeaderName.parse(
+                                httpHeaderValue = httpHeaderName.parseValue(
                                         headerValue.toString()
                                 );
                             } catch (final RuntimeException cause) {

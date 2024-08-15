@@ -53,7 +53,16 @@ final class LineReader {
                 throw new IllegalArgumentException("Header missing separator/value=" + CharSequences.quoteAndEscape(line));
             }
             final HttpHeaderName<?> header = HttpHeaderName.with(line.substring(0, separator).trim());
-            entity = entity.addHeader(header, Cast.to(header.parse(line.substring(separator + 1))));
+            entity = entity.addHeader(
+                    header,
+                    Cast.to(
+                            header.parseValue(
+                                    line.substring(
+                                            separator + 1
+                                    )
+                            )
+                    )
+            );
         }
 
         return entity;

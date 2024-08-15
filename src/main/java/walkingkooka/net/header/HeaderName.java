@@ -26,9 +26,9 @@ import walkingkooka.naming.Name;
 public interface HeaderName<V> extends Name {
 
     /**
-     * Converts the header text to the value.
+     * Parses the text following a header name into a value.
      */
-    V parse(final String text);
+    V parseValue(final String text);
 
     /**
      * Validates the value and returns it as its type.

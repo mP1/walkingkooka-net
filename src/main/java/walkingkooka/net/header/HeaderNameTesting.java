@@ -30,19 +30,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C>>
         extends NameTesting2<N, C> {
 
-    // parameterValue...........................................................................................
+    // parseValue.......................................................................................................
 
     @Test
-    default void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createName().parse(null));
+    default void testParseValueNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createName()
+                        .parseValue(null)
+        );
     }
 
     default <V> void parseAndCheck(final HeaderName<V> name,
-                                   final String header,
-                                   final V value) {
-        this.checkEquals(value,
-                name.parse(header),
-                name + "=" + CharSequences.quoteIfNecessary(header));
+                                   final String textValue,
+                                   final V expected) {
+        this.checkEquals(
+                expected,
+                name.parseValue(textValue),
+                () -> name + "=" + CharSequences.quoteIfNecessary(textValue)
+        );
     }
 
     // toString.................................................................................

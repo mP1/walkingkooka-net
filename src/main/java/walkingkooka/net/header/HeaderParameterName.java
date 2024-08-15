@@ -49,7 +49,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
      * Accepts text and converts it into its value.
      */
     @Override
-    public final V parse(final String text) {
+    public final V parseValue(final String text) {
         Objects.requireNonNull(text, "text");
 
         return this.handler.parse(text);
