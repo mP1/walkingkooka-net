@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Base class for any {@link HeaderName}.
+ * Base class for any parameter belonging to a header.
  */
 abstract class HeaderParameterName<V> extends HeaderName2<V> {
 
