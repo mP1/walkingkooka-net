@@ -34,6 +34,35 @@ public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Co
         return CaseSensitivity.INSENSITIVE;
     }
 
+    // ParseStringTesting...............................................................................................
+
+    @Override
+    public final void testParseStringNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final Object parseString(final String text) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    // class............................................................................................................
+
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;

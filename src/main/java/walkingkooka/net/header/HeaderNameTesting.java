@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -28,30 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing interface to assist testing of {@link HeaderName} implementations.
  */
 public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C>>
-        extends NameTesting2<N, C> {
+        extends NameTesting2<N, C>,
+        ParseStringTesting<Object> {
 
-    // parseValue.......................................................................................................
-
-    @Test
-    default void testParseValueNullFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> this.createName()
-                        .parseValue(null)
-        );
-    }
-
-    default <V> void parseAndCheck(final HeaderName<V> name,
-                                   final String textValue,
-                                   final V expected) {
-        this.checkEquals(
-                expected,
-                name.parseValue(textValue),
-                () -> name + "=" + CharSequences.quoteIfNecessary(textValue)
-        );
-    }
-
-    // toString.................................................................................
+    // toString.........................................................................................................
 
     @Test
     default void testToString() {
