@@ -780,8 +780,8 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Validates the given header value.
      */
     @Override
-    public T check(final Object header) {
-        return this.handler.check(header);
+    public T checkValue(final Object value) {
+        return this.handler.check(value);
     }
 
     /**

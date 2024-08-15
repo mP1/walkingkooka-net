@@ -39,7 +39,7 @@ final class HttpEntityHeaderMultiList extends HttpEntityHeaderList {
         }
 
         for (final Object value : values) {
-            header.check(value);
+            header.checkValue(value);
         }
 
         return new HttpEntityHeaderMultiList(

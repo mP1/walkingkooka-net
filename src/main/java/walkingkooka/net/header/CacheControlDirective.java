@@ -60,7 +60,7 @@ public final class CacheControlDirective<T> implements Header {
      */
     private static <T> CacheControlDirective<T> register(final CacheControlDirectiveName<T> name) {
         final Optional<T> parameter = Optional.empty();
-        name.check(parameter);
+        name.checkValue(parameter);
 
         final CacheControlDirective<T> directive = new CacheControlDirective<>(name, parameter);
         CONSTANTS.put(name, directive);
@@ -124,7 +124,7 @@ public final class CacheControlDirective<T> implements Header {
     public static <T> CacheControlDirective<T> with(final CacheControlDirectiveName<T> name,
                                                     final Optional<T> parameter) {
         Objects.requireNonNull(name, "name");
-        name.check(parameter);
+        name.checkValue(parameter);
 
         return parameter.isPresent() ?
                 new CacheControlDirective<>(name, parameter) :
@@ -166,7 +166,7 @@ public final class CacheControlDirective<T> implements Header {
      * creating a new instance if necessary.
      */
     public CacheControlDirective<T> setParameter(final Optional<T> parameter) {
-        this.name.check(parameter);
+        this.name.checkValue(parameter);
 
         return this.parameter().equals(parameter) ?
                 this :

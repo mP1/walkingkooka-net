@@ -65,7 +65,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
      */
     private static HttpEntityHeaderList check0(final HttpHeaderName<?> header,
                                                final HttpEntityHeaderList values) {
-        values.forEach(header::check);
+        values.forEach(header::checkValue);
         return values;
     }
 

@@ -59,8 +59,8 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
      * Validates the value and casts it to its correct type.
      */
     @Override
-    public final V check(final Object header) {
-        return this.handler.check(header);
+    public final V checkValue(final Object value) {
+        return this.handler.check(value);
     }
 
     final HeaderHandler<V> handler;

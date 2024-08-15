@@ -82,8 +82,6 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
         assertSame(cookie, cookie.setValue(VALUE));
     }
 
-    // check ..................................................................................................
-
     @Test
     public final void testIsWildcard() {
         this.isWildcardAndCheck(false);
