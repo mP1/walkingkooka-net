@@ -26,11 +26,6 @@ public final class AbsoluteUrlHeaderHandlerTest extends
 
     private final static String URL = "https://example.com";
 
-    @Override
-    public String typeNamePrefix() {
-        return AbsoluteUrl.class.getSimpleName();
-    }
-
     @Test
     public void testReferer() {
         this.parseAndToTextAndCheck(URL, Url.parseAbsolute(URL));
@@ -66,10 +61,15 @@ public final class AbsoluteUrlHeaderHandlerTest extends
         return AbsoluteUrl.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<AbsoluteUrlHeaderHandler> type() {
         return AbsoluteUrlHeaderHandler.class;
     }
 
-
+    @Override
+    public String typeNamePrefix() {
+        return AbsoluteUrl.class.getSimpleName();
+    }
 }
