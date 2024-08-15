@@ -49,7 +49,7 @@ final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
     }
 
     /**
-     * If the text begins witn a double quote and then selects either the quoted or unquoted handler to parse.
+     * If the text begins witn a double quote and then selects either the quoted or unquoted handler to parseValue.
      */
     @Override
     String parse0(final String text) {

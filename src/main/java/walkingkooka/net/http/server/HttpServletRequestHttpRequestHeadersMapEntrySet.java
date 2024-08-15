@@ -63,7 +63,13 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
 
         final List<?> values = Lists.array();
         for (final Enumeration<String> stringValues = this.request.getHeaders(headerName); stringValues.hasMoreElements(); ) {
-            values.add(Cast.to(header.parse(stringValues.nextElement())));
+            values.add(
+                    Cast.to(
+                            header.parseValue(
+                                    stringValues.nextElement()
+                            )
+                    )
+            );
         }
 
 
