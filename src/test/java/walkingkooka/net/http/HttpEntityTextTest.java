@@ -247,6 +247,20 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         );
     }
 
+    @Test
+    public void testTreePrintBodyTextContentTypeApplicationJson() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .setBodyText("Body123"),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: application/json\n" +
+                        "  bodyText\n" +
+                        "    Body123\n"
+        );
+    }
+
     // class............................................................................................................
 
     @Override

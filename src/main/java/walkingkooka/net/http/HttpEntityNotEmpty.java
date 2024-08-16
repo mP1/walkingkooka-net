@@ -319,9 +319,10 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     }
 
     private boolean isText() {
-        return MediaType.ANY_TEXT.test(
-                HttpHeaderName.CONTENT_TYPE.header(this)
-                        .orElse(null)
-        );
+        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.header(this)
+                .orElse(null);
+
+        return MediaType.ANY_TEXT.test(contentType) ||
+                MediaType.APPLICATION_JSON.test(contentType);
     }
 }

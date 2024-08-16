@@ -409,6 +409,20 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         );
     }
 
+    @Test
+    public void testTreePrintBodyTextContentTypeApplicationJson() {
+        this.treePrintAndCheck(
+                HttpEntity.EMPTY
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .setBody(binary("Body123")),
+                "HttpEntity\n" +
+                        "  header(s)\n" +
+                        "    Content-Type: application/json\n" +
+                        "  bodyText\n" +
+                        "    Body123\n"
+        );
+    }
+
     private static Binary binary(final String text) {
         return Binary.with(
                 text.getBytes(Charset.defaultCharset())
