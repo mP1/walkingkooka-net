@@ -292,13 +292,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
             printer.println("bodyText");
             printer.indent();
             {
-                final LineEnding lineEnding = printer.lineEnding();
-
-                printer.println(
-                        bodyText.replace("\r\n", "\\r\\n" + lineEnding)
-                                .replace("\r", "\\r" + lineEnding)
-                                .replace("\n", "\\n" + lineEnding)
-                );
+                printer.println(bodyText);
             }
             printer.outdent();
         }

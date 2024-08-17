@@ -319,9 +319,9 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                         "  header(s)\n" +
                         "    Content-Type: text/plain\n" +
                         "  bodyText\n" +
-                        "    Line1\\r\\n\n" +
-                        "    Line2\\n\n" +
-                        "    Line3\\r\\n\\n\n" +
+                        "    Line1\r" +
+                        "    Line2\n" +
+                        "    Line3\r\n" +
                         "    \n"
         );
     }

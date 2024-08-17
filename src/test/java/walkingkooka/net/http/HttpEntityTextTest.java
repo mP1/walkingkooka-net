@@ -240,9 +240,9 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
                         "  header(s)\n" +
                         "    Content-Type: text/plain\n" +
                         "  bodyText\n" +
-                        "    Line1\\n\n" +
-                        "    Line2\\r\\n\n" +
-                        "    Line3\\r\\n\\n\n" +
+                        "    Line1\n" +
+                        "    Line2\r" +
+                        "    Line3\r\n" +
                         "    \n"
         );
     }
