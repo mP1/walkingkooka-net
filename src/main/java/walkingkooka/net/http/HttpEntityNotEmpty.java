@@ -223,9 +223,6 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     private void toStringText(final StringBuilder b) {
         b.append(
                 this.bodyText()
-                        .replace("\r\n", "\\r\\n" + LineEnding.CRNL)
-                        .replace("\r", "\\r" + LineEnding.CRNL)
-                        .replace("\n", "\\n" + LineEnding.CRNL)
         );
     }
 
