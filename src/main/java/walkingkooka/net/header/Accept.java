@@ -157,4 +157,13 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
         return this.value.stream()
                 .anyMatch(m -> m.test(contentType));
     }
+
+    /**
+     * Tests if the given {@link MediaType} satisfies this ACCEPT header.
+     */
+    public void testOrFail(final MediaType mediaType) {
+        if (false == this.test(mediaType)) {
+            throw new IllegalArgumentException("Got " + mediaType + " require " + this);
+        }
+    }
 }
