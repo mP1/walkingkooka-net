@@ -104,6 +104,28 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_HTML.setParameters(Maps.of(MediaTypeParameterName.Q, 0.5f)));
     }
 
+    // testOrFail.......................................................................................................
+
+    @Test
+    public void testTestOrFailWithTextPlainPass() {
+        Accept.parse("text/plain,text/html")
+                .testOrFail(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void testTestOrFailWithTextPlainFail() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> Accept.parse("text/html,text/json")
+                        .testOrFail(MediaType.TEXT_PLAIN)
+        );
+
+        this.checkEquals(
+                "Got text/plain require text/html, text/json",
+                thrown.getMessage()
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
