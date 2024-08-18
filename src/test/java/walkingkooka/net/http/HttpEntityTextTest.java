@@ -169,7 +169,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
                         "Content-Type: text/plain; charset=UTF-8\r\n" +
                         "Server: Server 123\r\n" +
                         "\r\n" +
-                        "AB\\n\r\n" +
+                        "AB\n" +
                         "C"
         );
     }
