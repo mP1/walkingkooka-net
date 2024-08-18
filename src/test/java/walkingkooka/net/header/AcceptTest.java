@@ -60,48 +60,77 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     // Predicate........................................................................................................
 
     @Test
-    public void testAcceptWildcardWildcard() {
-        this.testTrue(Accept.parse("*/*"), MediaType.TEXT_PLAIN);
+    public void testTestWildcardWildcard() {
+        this.testTrue(
+                Accept.parse("*/*"),
+                MediaType.TEXT_PLAIN
+        );
     }
 
     @Test
-    public void testAcceptIncludesWildcardWildcard() {
-        this.testTrue(Accept.parse("text/custom,*/*"), MediaType.IMAGE_BMP);
+    public void testTestIncludesWildcardWildcard() {
+        this.testTrue(
+                Accept.parse("text/custom,*/*"),
+                MediaType.IMAGE_BMP
+        );
     }
 
     @Test
-    public void testAcceptSubTypeWildcardTypeMatched() {
-        this.testTrue(Accept.parse("text/*"), MediaType.TEXT_PLAIN);
+    public void testTestSubTypeWildcardTypeMatched() {
+        this.testTrue(
+                Accept.parse("text/*"),
+                MediaType.TEXT_PLAIN
+        );
     }
 
     @Test
-    public void testAcceptSubTypeWildcardTypeUnmatched() {
-        this.testFalse(Accept.parse("text/*"), MediaType.IMAGE_BMP);
+    public void testTestSubTypeWildcardTypeUnmatched() {
+        this.testFalse(
+                Accept.parse("text/*"),
+                MediaType.IMAGE_BMP
+        );
     }
 
     @Test
-    public void testAcceptUnmatched() {
-        this.testFalse(Accept.parse("text/plain,text/html"), MediaType.TEXT_RICHTEXT);
+    public void testTestUnmatched() {
+        this.testFalse(
+                Accept.parse("text/plain,text/html"),
+                MediaType.TEXT_RICHTEXT
+        );
     }
 
     @Test
-    public void testAcceptUnmatched2() {
-        this.testFalse(Accept.parse("text/plain,image/bmp"), MediaType.with("text", "bmp"));
+    public void testTestUnmatched2() {
+        this.testFalse(
+                Accept.parse("text/plain,image/bmp"),
+                MediaType.with("text", "bmp")
+        );
     }
 
     @Test
-    public void testAcceptParametersIgnored() {
-        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_PLAIN);
+    public void testTestParametersIgnored() {
+        this.testTrue(
+                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+                MediaType.TEXT_PLAIN
+        );
     }
 
     @Test
-    public void testAcceptParametersIgnored2() {
-        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_HTML);
+    public void testTestParametersIgnored2() {
+        this.testTrue(
+                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+                MediaType.TEXT_HTML
+        );
     }
 
     @Test
-    public void testAcceptParametersIgnored3() {
-        this.testTrue(Accept.parse("text/plain;a=1;b=2,text/html;c=3"), MediaType.TEXT_HTML.setParameters(Maps.of(MediaTypeParameterName.Q, 0.5f)));
+    public void testTestParametersIgnored3() {
+        this.testTrue(
+                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+                MediaType.TEXT_HTML.setParameters(
+                        Maps.of(MediaTypeParameterName.Q, 0.5f)
+                )
+        );
     }
 
     // testOrFail.......................................................................................................
