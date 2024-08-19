@@ -760,39 +760,52 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         this.testFalse(MediaType.with(type, "subtype"), MediaType.with(type, "different"));
     }
 
-    // testOrFail.......................................................................................................
+    // requireContentType................................................................................................
 
     @Test
-    public void testTestOrFailAllWithTextPlain() {
-        MediaType.ALL.testOrFail(MediaType.TEXT_PLAIN);
+    public void testRequireContentTypeAllWithTextPlain() {
+        MediaType.ALL.requireContentType(MediaType.TEXT_PLAIN);
     }
 
     @Test
-    public void testTestOrFailTextAnyWithTextPlain() {
-        MediaType.ANY_TEXT.testOrFail(MediaType.TEXT_PLAIN);
+    public void testRequireContentTypeTextAnyWithTextPlain() {
+        MediaType.ANY_TEXT.requireContentType(MediaType.TEXT_PLAIN);
     }
 
     @Test
-    public void testTestOrFailTextPlainWithTextPlain() {
-        MediaType.TEXT_PLAIN.testOrFail(MediaType.TEXT_PLAIN);
+    public void testRequireContentTypeTextPlainWithTextPlain() {
+        MediaType.TEXT_PLAIN.requireContentType(MediaType.TEXT_PLAIN);
     }
 
     @Test
-    public void testTestOrFailTextPlainWithTextPlainCharset() {
-        MediaType.TEXT_PLAIN.testOrFail(
+    public void testRequireContentTypeTextPlainWithTextPlainCharset() {
+        MediaType.TEXT_PLAIN.requireContentType(
                 MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
         );
     }
 
     @Test
-    public void testTestOrFailTextPlainWithTextRichTextFails() {
+    public void testRequireContentTypeMissingFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> MediaType.TEXT_PLAIN.testOrFail(MediaType.TEXT_RICHTEXT)
+                () -> MediaType.TEXT_PLAIN.requireContentType(null)
         );
 
         this.checkEquals(
-                "Got text/richtext requested text/plain",
+                "Content-Type: Missing require text/plain",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testRequireContentTypeTextPlainWithTextRichTextFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> MediaType.TEXT_PLAIN.requireContentType(MediaType.TEXT_RICHTEXT)
+        );
+
+        this.checkEquals(
+                "Content-Type: Got text/richtext require text/plain",
                 thrown.getMessage()
         );
     }
