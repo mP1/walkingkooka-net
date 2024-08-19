@@ -150,7 +150,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
 
         this.checkEquals(
-                "Accept: Got text/plain require text/html, text/json",
+                "Accept: Got text/html, text/json require text/plain",
                 thrown.getMessage()
         );
     }
