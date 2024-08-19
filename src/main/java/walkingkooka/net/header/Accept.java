@@ -166,7 +166,7 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
 
             // Accept: Got text/plain require text/json
             throw new IllegalArgumentException(
-                    HttpHeaderName.ACCEPT + ": Got " + mediaType + " require " + this
+                    HttpHeaderName.ACCEPT + ": Got " + this + " require " + mediaType
             );
         }
     }
