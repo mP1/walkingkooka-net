@@ -532,9 +532,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Tests if the given {@link MediaType} throwing a {@link IllegalArgumentException} if the test fails.
      * This useful for handlers wishing to verify the given content-type is compatible with the required type.
      */
-    public void testOrFail(final MediaType mediaType) {
+    public void requireContentType(final MediaType mediaType) {
+        if (null == mediaType) {
+            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Missing require " + this);
+        }
         if (false == this.test(mediaType)) {
-            throw new IllegalArgumentException("Got " + mediaType + " requested " + this);
+            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType + " require " + this);
         }
     }
 
