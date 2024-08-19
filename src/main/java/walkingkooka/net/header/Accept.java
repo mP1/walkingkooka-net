@@ -163,7 +163,11 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
      */
     public void testOrFail(final MediaType mediaType) {
         if (false == this.test(mediaType)) {
-            throw new IllegalArgumentException("Got " + mediaType + " require " + this);
+
+            // Accept: Got text/plain require text/json
+            throw new IllegalArgumentException(
+                    HttpHeaderName.ACCEPT + ": Got " + mediaType + " require " + this
+            );
         }
     }
 }
