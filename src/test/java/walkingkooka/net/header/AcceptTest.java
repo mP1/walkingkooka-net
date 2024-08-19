@@ -142,7 +142,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     }
 
     @Test
-    public void testTestOrFailWithTextPlainFail() {
+    public void testTestOrFailWithTextPlainFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
                 () -> Accept.parse("text/html,text/json")
@@ -150,7 +150,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
 
         this.checkEquals(
-                "Got text/plain require text/html, text/json",
+                "Accept: Got text/plain require text/html, text/json",
                 thrown.getMessage()
         );
     }
