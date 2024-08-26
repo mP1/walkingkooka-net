@@ -27,7 +27,6 @@ import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -69,7 +68,7 @@ public final class WebEntity implements HasText,
         final HttpEntity httpEntity = this.httpEntity;
         final HttpEntity after = httpEntity.setHeader(
                 HttpHeaderName.CONTENT_TYPE,
-                contentType.map(List::of)
+                contentType.map(Lists::of)
                         .orElse(Lists.empty())
         );
 
