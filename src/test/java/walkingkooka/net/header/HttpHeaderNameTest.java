@@ -335,7 +335,10 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 Accept.with(
                         list(
                                 MediaType.with("text", "html"),
-                                MediaType.with("application", "xhtml+xml")
+                                MediaType.with("application", "xhtml")
+                                        .setSuffix(
+                                                Optional.of("xml")
+                                        )
                         )
                 )
         );
