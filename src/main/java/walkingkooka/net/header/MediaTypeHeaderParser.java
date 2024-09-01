@@ -18,6 +18,9 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+
+import java.util.Optional;
 
 /**
  * Base class which parses text containing one or many media types.
@@ -77,25 +80,36 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         final String type = "" + WILDCARD;
         this.position++;
 
-        this.expectSlash();
+        this.requireSlash();
 
-        return MediaType.with(type,
-                this.subType());
+        return MediaType.withParameters(
+                type,
+                this.subType(),
+                this.suffix(),
+                MediaType.NO_PARAMETERS
+        );
     }
 
     @Override
     final MediaType value() {
-        return MediaType.with(this.type(),
-                this.subType());
+        return MediaType.withParameters(
+                this.type(),
+                this.subType(),
+                this.suffix(),
+                MediaType.NO_PARAMETERS
+        );
     }
 
+    /**
+     * Handles parsing the type part of a media type.
+     */
     private String type() {
         final String type = this.token(RFC2045TOKEN);
         if (!this.hasMoreCharacters()) {
             failEmptyToken(TYPE);
         }
 
-        this.expectSlash();
+        this.requireSlash();
 
         if (type.isEmpty()) {
             this.failEmptyToken(TYPE);
@@ -104,7 +118,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         return type;
     }
 
-    private void expectSlash() {
+    private void requireSlash() {
         if (!this.hasMoreCharacters()) {
             this.failEmptyToken(SUBTYPE);
         }
@@ -114,6 +128,9 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         this.position++;
     }
 
+    /**
+     * Handles parsing the sub-type part of a media type, but not any following suffix or parameters.
+     */
     private String subType() {
         String subType;
 
@@ -121,9 +138,9 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
             subType = "" + WILDCARD;
             this.position++;
         } else {
-            subType = this.token(RFC2045TOKEN);
+            subType = this.token(SUB_TYPE);
             if (subType.isEmpty()) {
-                if (!this.hasMoreCharacters()) {
+                if (false == this.hasMoreCharacters()) {
                     this.failEmptyToken(SUBTYPE);
                 }
 
@@ -132,6 +149,38 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         }
         return subType;
     }
+
+    private final static CharPredicate SUB_TYPE = RFC2045TOKEN.andNot(
+            CharPredicates.any("+;")
+    );
+
+    /**
+     * Handle parsing the suffix.
+     */
+    private Optional<String> suffix() {
+        String suffix;
+
+        if (this.hasMoreCharacters() && this.character() == MediaType.SUFFIX_SEPARATOR.character()) {
+            this.position++;
+
+            suffix = this.token(SUFFIX);
+            if (suffix.isEmpty()) {
+                if (!this.hasMoreCharacters()) {
+                    this.failEmptyToken(SUBTYPE);
+                }
+
+                this.failInvalidCharacter();
+            }
+        } else {
+            suffix = null;
+        }
+
+        return Optional.ofNullable(suffix);
+    }
+
+    private final static CharPredicate SUFFIX = RFC2045TOKEN.andNot(
+            CharPredicates.any(";")
+    );
 
     @Override
     final void missingValue() {

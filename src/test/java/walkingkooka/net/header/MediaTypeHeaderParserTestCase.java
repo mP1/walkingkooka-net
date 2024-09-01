@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserWithParametersTestCase<P,
         V> {
@@ -277,54 +278,94 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testTypeSlashSubTypeTabSpace() {
-        this.parseStringAndCheck("abc/def\t ",
+        this.parseStringAndCheck(
+                "abc/def\t ",
                 "abc",
-                "def");
+                "def"
+        );
     }
 
     @Test
     public final void testTypeSlashSubTypePlusSuffix() {
-        this.parseStringAndCheck("abc/def+suffix",
+        this.parseStringAndCheck(
+                "abc/def+suffix123",
                 "abc",
-                "def+suffix");
+                "def",
+                Optional.of("suffix123"),
+                MediaType.NO_PARAMETERS
+        );
     }
 
     @Test
     public final void testTypeSlashSubTypePrefixSuffix() {
-        this.parseStringAndCheck("a/b+suffix",
+        this.parseStringAndCheck(
+                "a/b+suffix123",
                 "a",
-                "b+suffix");
+                "b",
+                Optional.of("suffix123"),
+                MediaType.NO_PARAMETERS
+        );
     }
 
     @Test
     public final void testTypeSlashVendorDotSubType() {
-        this.parseStringAndCheck("a/vnd.b",
+        this.parseStringAndCheck(
+                "a/vnd.b",
                 "a",
-                "vnd.b");
+                "vnd.b"
+        );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameter() {
-        this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";p=v",
+        this.parseStringAndCheck(
+                TYPE + "/" + SUBTYPE + ";p=v",
                 TYPE,
                 SUBTYPE,
-                parameters("p", "v"));
+                parameters("p", "v")
+        );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameter2() {
-        this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value",
+        this.parseStringAndCheck(
+                TYPE + "/" + SUBTYPE + ";parameter=value",
                 TYPE,
                 SUBTYPE,
-                parameters("parameter", "value"));
+                parameters("parameter", "value")
+        );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameterQuotedValue() {
-        this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
+        this.parseStringAndCheck(
+                TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
                 TYPE,
                 SUBTYPE,
-                parameters("parameter", "value"));
+                parameters("parameter", "value")
+        );
+    }
+
+    @Test
+    public final void testTypeSlashSubTypePlusSuffixParameter() {
+        this.parseStringAndCheck(
+                TYPE + "/" + SUBTYPE + "+suffix123;parameter=\"quoted-value-123\"",
+                TYPE,
+                SUBTYPE,
+                Optional.of("suffix123"),
+                parameters("parameter", "quoted-value-123")
+        );
+    }
+
+    @Test
+    public final void testTypeSlashSubTypePlusSuffixParameterParameter() {
+        this.parseStringAndCheck(
+                TYPE + "/" + SUBTYPE + "+suffix123;parameter1=value1;parameter2=value2",
+                TYPE,
+                SUBTYPE,
+                Optional.of("suffix123"),
+                parameters("parameter1", "value1", "parameter2", "value2")
+        );
     }
 
     @Test
@@ -514,25 +555,66 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                 MediaTypeParameterName.with(name2), value2);
     }
 
-    private void parseStringAndCheck(final String text, final String type, final String subtype) {
-        this.check(MediaType.parse(text), type, subtype);
+    private void parseStringAndCheck(final String text,
+                                     final String type,
+                                     final String subtype) {
+        this.check(
+                MediaType.parse(text),
+                type,
+                subtype
+        );
+    }
+
+    private void parseStringAndCheck(final String text,
+                                     final String type,
+                                     final String subtype,
+                                     final Map<MediaTypeParameterName<?>, Object> parameters) {
+        this.parseStringAndCheck(
+                text,
+                type,
+                subtype,
+                MediaType.NO_SUFFIX,
+                parameters
+        );
     }
 
     abstract void parseStringAndCheck(final String text,
                                       final String type,
                                       final String subtype,
+                                      final Optional<String> suffix,
                                       final Map<MediaTypeParameterName<?>, Object> parameters);
 
     final void check(final MediaType mediaType, final String type, final String subtype) {
-        check(mediaType, type, subtype, MediaType.NO_PARAMETERS);
+        check(
+                mediaType,
+                type,
+                subtype,
+                MediaType.NO_SUFFIX,
+                MediaType.NO_PARAMETERS
+        );
     }
 
     final void check(final MediaType mediaType,
                      final String type,
                      final String subtype,
                      final Map<MediaTypeParameterName<?>, Object> parameters) {
+        this.check(
+                mediaType,
+                type,
+                subtype,
+                MediaType.NO_SUFFIX,
+                parameters
+        );
+    }
+
+    final void check(final MediaType mediaType,
+                     final String type,
+                     final String subtype,
+                     final Optional<String> suffix,
+                     final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.checkEquals(type, mediaType.type(), "type=" + mediaType);
         this.checkEquals(subtype, mediaType.subType(), "subType=" + mediaType);
+        this.checkEquals(suffix, mediaType.suffix(), "suffix=" + mediaType);
         this.checkEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 

@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 
 /**
@@ -66,9 +65,16 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public final static CharacterConstant TYPE_SUBTYPE_SEPARATOR = CharacterConstant.with('/');
 
     /**
-     * No suffixes.
+     * The separator character notes the start of a suffix following a sub-type.
+     * <br>
+     * https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/
      */
-    public final static List<String> NO_SUFFIXES = Lists.empty();
+    public final static CharacterConstant SUFFIX_SEPARATOR = CharacterConstant.with('+');
+
+    /**
+     * No suffix.
+     */
+    public final static Optional<String> NO_SUFFIX = Optional.empty();
 
     /**
      * No parameters.
@@ -257,7 +263,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return withParameters(
                 type,
                 subType,
-                NO_SUFFIXES,
+                NO_SUFFIX,
                 NO_PARAMETERS
         );
     }
@@ -268,9 +274,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     static MediaType withParameters(final String type,
                                     final String subType,
-                                    final List<String> suffixes,
+                                    final Optional<String> suffix,
                                     final Map<MediaTypeParameterName<?>, Object> parameters) {
-        final MediaType result = parameters.isEmpty() ?
+        final MediaType result = parameters.isEmpty() && false == suffix.isPresent() ?
                 CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
                 null;
         return null != result ?
@@ -278,7 +284,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 new MediaType(
                         type,
                         subType,
-                        suffixes,
+                        suffix,
                         parameters
                 );
     }
@@ -290,13 +296,20 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     private MediaType(final String type,
                       final String subType,
-                      final List<String> suffixes,
+                      final Optional<String> suffix,
                       final Map<MediaTypeParameterName<?>, Object> parameters) {
-        super(type + TYPE_SUBTYPE_SEPARATOR.character() + subType, parameters);
+        super(
+                // note non empty parameters will be appended in super-class
+                type +
+                        TYPE_SUBTYPE_SEPARATOR.character() +
+                        subType +
+                        suffix.map(s -> SUFFIX_SEPARATOR + s).orElse(""),
+                parameters
+        );
 
         this.type = type;
         this.subType = subType;
-        this.suffixes = suffixes;
+        this.suffix = suffix;
     }
 
     // type .......................................................................................................
@@ -319,7 +332,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 this.replace(
                         type,
                         this.subType,
-                        this.suffixes,
+                        this.suffix,
                         this.parameters
                 );
     }
@@ -350,7 +363,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 this.replace(
                         this.type,
                         subType,
-                        this.suffixes,
+                        this.suffix,
                         this.parameters
                 );
     }
@@ -369,35 +382,29 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return value;
     }
 
-    // suffixes........................................................................................................
+    // suffix........................................................................................................
 
     /**
-     * Suffixes are encoded within the sub-mime-type
+     * Suffix are encoded within the sub-mime-type
      */
-    public List<String> suffixes() {
-        return this.suffixes;
+    public Optional<String> suffix() {
+        return this.suffix;
     }
 
-    public MediaType setSuffixes(final List<String> suffixes) {
-        Objects.requireNonNull(suffixes, "suffixes");
-
-        final List<String> copy = Lists.immutable(suffixes);
+    /**
+     * Would be setter that returns a {@link MediaType} with the given suffix creating a new instance if necessary.
+     */
+    public MediaType setSuffix(final Optional<String> suffix) {
+        Objects.requireNonNull(suffix, "suffix");
 
         final MediaType mediaType;
-        if (this.suffixes.equals(copy)) {
+        if (this.suffix.equals(suffix)) {
             mediaType = this;
         } else {
-            final String subType = this.subType;
-
-            final int plusSign = subType.indexOf('+');
-
             mediaType = this.replace(
                     this.type,
-                    (-1 == plusSign ?
-                            subType :
-                            subType.substring(0, plusSign)
-                    ).concat(toStringSuffixes(suffixes)),
-                    suffixes,
+                    this.subType,
+                    suffix,
                     this.parameters
             );
         }
@@ -405,18 +412,20 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return mediaType;
     }
 
-    private final List<String> suffixes;
-
-    private static String toStringSuffixes(final List<String> suffixes) {
-        return suffixes.stream()
-                .collect(
-                        Collectors.joining(
-                                "+", // delimiter
-                                "+", // prefix
-                                "" // suffix
-                        )
-                );
-    }
+    // https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/
+    //
+    // A structured suffix is defined as all of the characters to the right
+    //   of the left-most "+" sign in a media type, including the left-most
+    //   "+" sign itself.  The structured suffix MUST NOT contain more than
+    //
+    //Sporny & Guy            Expires 21 December 2024                [Page 2]
+    //Internet-Draft             Media Type Suffixes                 June 2024
+    //
+    //   one "+" sign.  As an example, given the "application/foo+bar" media
+    //   type: "application" is the top-level type, "foo" is the base subtype
+    //   name, and "+bar" is the structured suffix.  A media type such as
+    //   "application/foo+bar+baz" is not allowed.
+    private final Optional<String> suffix;
 
     // HasCaseSensitivity ...............................................................................................
 
@@ -440,19 +449,19 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.replace(
                 this.type,
                 this.subType,
-                this.suffixes,
+                this.suffix,
                 parameters
         );
     }
 
     private MediaType replace(final String type,
                               final String subType,
-                              final List<String> suffixes,
+                              final Optional<String> suffix,
                               final Map<MediaTypeParameterName<?>, Object> parameters) {
         return withParameters(
                 type,
                 subType,
-                suffixes,
+                suffix,
                 parameters
         );
     }
@@ -480,7 +489,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.replace(
                 this.type,
                 this.subType,
-                this.suffixes,
+                this.suffix,
                 Maps.readOnly(parameters)
         );
     }
@@ -543,7 +552,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // Header...........................................................................................................
 
-    // mime-type COLON sub-mime-type, suffixes already included in sub-mime-type
+    // mime-type COLON sub-mime-type, suffix already included in sub-mime-type
     @Override
     String toHeaderTextValue() {
         return this.value;

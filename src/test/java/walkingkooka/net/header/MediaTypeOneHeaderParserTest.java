@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
+import java.util.Optional;
 
 public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeOneHeaderParser,
         MediaType> {
@@ -38,11 +39,19 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
         this.parseStringInvalidCharacterFails("type/subtype;p=v,");
     }
 
-    @Override void parseStringAndCheck(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
-        this.check(MediaTypeOneHeaderParser.parseMediaType(text), type, subtype, parameters);
+    @Override //
+    void parseStringAndCheck(final String text,
+                             final String type,
+                             final String subtype,
+                             final Optional<String> suffix,
+                             final Map<MediaTypeParameterName<?>, Object> parameters) {
+        this.check(
+                MediaTypeOneHeaderParser.parseMediaType(text),
+                type,
+                subtype,
+                suffix,
+                parameters
+        );
     }
 
     @Override
