@@ -23,6 +23,7 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeListHeaderParser,
         List<MediaType>> {
@@ -96,38 +97,51 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
-    @Override void parseStringAndCheck(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
-        parseStringAndCheckOne(text, type, subtype, parameters);
-        parseStringAndCheckRepeated(text, type, subtype, parameters);
-        parseStringAndCheckSeveral(text, type, subtype, parameters);
+    @Override
+    void parseStringAndCheck(final String text,
+                             final String type,
+                             final String subtype,
+                             final Optional<String> suffix,
+                             final Map<MediaTypeParameterName<?>, Object> parameters) {
+        parseStringAndCheckOne(text, type, subtype, suffix, parameters);
+        parseStringAndCheckRepeated(text, type, subtype, suffix, parameters);
+        parseStringAndCheckSeveral(text, type, subtype, suffix, parameters);
     }
 
     private void parseStringAndCheckOne(final String text,
                                         final String type,
                                         final String subtype,
+                                        final Optional<String> suffix,
                                         final Map<MediaTypeParameterName<?>, Object> parameters) {
         final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(text);
         this.checkEquals(1, result.size(), "parse " + CharSequences.quote(text) + " got " + result);
-        this.check(result.get(0), type, subtype, parameters);
+
+        this.check(
+                result.get(0),
+                type,
+                subtype,
+                suffix,
+                parameters
+        );
     }
 
     private void parseStringAndCheckRepeated(final String text,
                                              final String type,
                                              final String subtype,
+                                             final Optional<String> suffix,
                                              final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = text + MediaType.SEPARATOR + text;
         final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
         this.checkEquals(2, result.size(), "parse " + CharSequences.quote(parsed) + " got " + result);
-        this.check(result.get(0), type, subtype, parameters);
-        this.check(result.get(1), type, subtype, parameters);
+
+        this.check(result.get(0), type, subtype, suffix, parameters);
+        this.check(result.get(1), type, subtype, suffix, parameters);
     }
 
     private void parseStringAndCheckSeveral(final String text,
                                             final String type,
                                             final String subtype,
+                                            final Optional<String> suffix,
                                             final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = "TYPE1/SUBTYPE1," + text + ",TYPE2/SUBTYPE2;x=y," + text;
         final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
@@ -135,10 +149,10 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
         this.checkEquals(4, result.size(), "parse " + CharSequences.quote(parsed) + " got " + result);
 
         this.check(result.get(0), "TYPE1", "SUBTYPE1");
-        this.check(result.get(1), type, subtype, parameters);
+        this.check(result.get(1), type, subtype, suffix, parameters);
 
-        this.check(result.get(2), "TYPE2", "SUBTYPE2", parameters("x", "y"));
-        this.check(result.get(3), type, subtype, parameters);
+        this.check(result.get(2), "TYPE2", "SUBTYPE2", MediaType.NO_SUFFIX, parameters("x", "y"));
+        this.check(result.get(3), type, subtype, suffix, parameters);
     }
 
     private void parseStringAndCheck2(final String text, final MediaType... mediaTypes) {
