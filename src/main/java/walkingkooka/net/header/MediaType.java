@@ -340,7 +340,11 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private final String type;
 
     private static String checkType(final String type) {
-        return check(type, "type");
+        return check(
+                type,
+                "type",
+                MediaTypeHeaderParser.TYPE
+        );
     }
 
     // sub type ...................................................................................................
@@ -371,14 +375,24 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private final String subType;
 
     private static String checkSubType(final String subType) {
-        return check(subType, "subType");
+        return check(
+                subType,
+                "subType",
+                MediaTypeHeaderParser.SUB_TYPE
+        );
     }
 
     /**
      * Checks that the value contains valid token characters.
      */
-    private static String check(final String value, final String label) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
+    private static String check(final String value,
+                                final String label,
+                                final CharPredicate predicate) {
+        CharPredicates.failIfNullOrEmptyOrFalse(
+                value,
+                label,
+                predicate
+        );
         return value;
     }
 
@@ -395,7 +409,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Would be setter that returns a {@link MediaType} with the given suffix creating a new instance if necessary.
      */
     public MediaType setSuffix(final Optional<String> suffix) {
-        Objects.requireNonNull(suffix, "suffix");
+        checkSuffix(suffix);
 
         final MediaType mediaType;
         if (this.suffix.equals(suffix)) {
@@ -426,6 +440,20 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     //   name, and "+bar" is the structured suffix.  A media type such as
     //   "application/foo+bar+baz" is not allowed.
     private final Optional<String> suffix;
+
+    private static Optional<String> checkSuffix(final Optional<String> suffix) {
+        Objects.requireNonNull(suffix, "suffix");
+
+        if (suffix.isPresent()) {
+            CharPredicates.failIfNullOrEmptyOrFalse(
+                    suffix.get(),
+                    "suffix",
+                    MediaTypeHeaderParser.SUFFIX
+            );
+        }
+
+        return suffix;
+    }
 
     // HasCaseSensitivity ...............................................................................................
 

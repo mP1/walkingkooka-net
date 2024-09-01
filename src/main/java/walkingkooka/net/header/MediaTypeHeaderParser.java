@@ -104,19 +104,21 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
      * Handles parsing the type part of a media type.
      */
     private String type() {
-        final String type = this.token(RFC2045TOKEN);
+        final String type = this.token(TYPE);
         if (!this.hasMoreCharacters()) {
-            failEmptyToken(TYPE);
+            failEmptyToken(TYPE_STRING);
         }
 
         this.requireSlash();
 
         if (type.isEmpty()) {
-            this.failEmptyToken(TYPE);
+            this.failEmptyToken(TYPE_STRING);
         }
 
         return type;
     }
+
+    final static CharPredicate TYPE = RFC2045TOKEN;
 
     private void requireSlash() {
         if (!this.hasMoreCharacters()) {
@@ -150,7 +152,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         return subType;
     }
 
-    private final static CharPredicate SUB_TYPE = RFC2045TOKEN.andNot(
+    final static CharPredicate SUB_TYPE = RFC2045TOKEN.andNot(
             CharPredicates.any("+;")
     );
 
@@ -178,7 +180,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
         return Optional.ofNullable(suffix);
     }
 
-    private final static CharPredicate SUFFIX = RFC2045TOKEN.andNot(
+    final static CharPredicate SUFFIX = RFC2045TOKEN.andNot(
             CharPredicates.any(";")
     );
 
@@ -190,7 +192,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
     final static String MEDIATYPE = "media type";
 
     private final static char SLASH = '/';
-    private final static String TYPE = "type";
+    private final static String TYPE_STRING = "type";
     private final static String SUBTYPE = "sub type";
 
     @Override
