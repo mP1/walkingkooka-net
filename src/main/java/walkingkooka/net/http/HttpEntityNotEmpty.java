@@ -313,7 +313,13 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         final MediaType contentType = HttpHeaderName.CONTENT_TYPE.header(this)
                 .orElse(null);
 
-        return MediaType.ANY_TEXT.test(contentType) ||
-                MediaType.APPLICATION_JSON.test(contentType);
+        return null != contentType &&
+                (MediaType.ANY_TEXT.test(contentType) ||
+                        MediaType.APPLICATION_JSON.test(contentType) ||
+                        contentType.suffix()
+                                .equals(JSON_SUFFIX)
+                );
     }
+
+    private final static Optional<String> JSON_SUFFIX = Optional.of("json");
 }
