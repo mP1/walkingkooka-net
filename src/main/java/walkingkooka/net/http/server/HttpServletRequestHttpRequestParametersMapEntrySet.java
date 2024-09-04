@@ -19,7 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.ImmutableSetDefaults;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
@@ -31,11 +31,8 @@ import java.util.Set;
 /**
  * The {@link Set} view of all entries in a parameters {@link Map}.
  */
-final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestParameterName, List<String>>> {
-
-    static {
-        Sets.registerImmutableType(HttpServletRequestHttpRequestParametersMapEntrySet.class);
-    }
+final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestParameterName, List<String>>>
+        implements ImmutableSetDefaults<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
 
     static HttpServletRequestHttpRequestParametersMapEntrySet with(final Set<Entry<String, String[]>> parameters) {
         return new HttpServletRequestHttpRequestParametersMapEntrySet(parameters);
@@ -66,4 +63,16 @@ final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractS
     }
 
     private final Set<Entry<String, String[]>> parameters;
+
+    // ImmutableSet.....................................................................................................
+
+    @Override
+    public HttpServletRequestHttpRequestParametersMapEntrySet setElements(final Set<Entry<HttpRequestParameterName, List<String>>> elements) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Entry<HttpRequestParameterName, List<String>>> toSet() {
+        throw new UnsupportedOperationException();
+    }
 }

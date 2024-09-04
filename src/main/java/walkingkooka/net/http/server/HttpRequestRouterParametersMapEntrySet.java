@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.ImmutableSetDefaults;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 
@@ -28,15 +28,13 @@ import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * The {@link Map#entrySet()} for {@link HttpRequestRouterParametersMap}.
  */
-final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>> {
-
-    static {
-        Sets.registerImmutableType(HttpRequestRouterParametersMapEntrySet.class);
-    }
+final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>>
+        implements ImmutableSetDefaults<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
 
     /**
      * Factory only called by {@link HttpRequestRouterParametersMap}.
@@ -118,5 +116,17 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
     @Override
     public String toString() {
         return this.map.toString();
+    }
+
+    // ImmutableSet.....................................................................................................
+
+    @Override
+    public HttpRequestRouterParametersMapEntrySet setElements(final Set<Entry<HttpRequestAttribute<?>, Object>> elements) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Entry<HttpRequestAttribute<?>, Object>> toSet() {
+        throw new UnsupportedOperationException();
     }
 }
