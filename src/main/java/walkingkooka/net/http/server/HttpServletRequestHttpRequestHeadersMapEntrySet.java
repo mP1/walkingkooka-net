@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.ImmutableSetDefaults;
 import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +35,8 @@ import java.util.Set;
 /**
  * The {@link Set} view of all entries in a headers from a request.
  */
-final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, List<?>>> {
-
-    static {
-        Sets.registerImmutableType(HttpServletRequestHttpRequestHeadersMapEntrySet.class);
-    }
+final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, List<?>>>
+        implements ImmutableSetDefaults<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
 
     static HttpServletRequestHttpRequestHeadersMapEntrySet with(final HttpServletRequest request) {
         return new HttpServletRequestHttpRequestHeadersMapEntrySet(request);
@@ -93,4 +90,16 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
     private int size = -1;
 
     private final HttpServletRequest request;
+
+    // ImmutableSet.....................................................................................................
+
+    @Override
+    public HttpServletRequestHttpRequestHeadersMapEntrySet setElements(final Set<Entry<HttpHeaderName<?>, List<?>>> elements) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<Entry<HttpHeaderName<?>, List<?>>> toSet() {
+        throw new UnsupportedOperationException();
+    }
 }
