@@ -20,6 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
@@ -130,7 +131,7 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
         final IpPort two = IpPort.with(2);
         final IpPort three = IpPort.with(3);
 
-        final Set<IpPort> set = Sets.sorted();
+        final Set<IpPort> set = SortedSets.tree();
         set.add(one);
         set.add(two);
         set.add(three);
