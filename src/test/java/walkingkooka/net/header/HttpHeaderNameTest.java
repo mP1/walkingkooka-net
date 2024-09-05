@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.server.FakeHttpRequest;
@@ -54,7 +55,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 HttpHeaderName.CONSTANTS.values()
                         .stream()
                         .filter(HttpHeaderName::isConditional)
-                        .collect(Collectors.toCollection(Sets::sorted)));
+                        .collect(Collectors.toCollection(SortedSets::tree)));
     }
 
     @Test
