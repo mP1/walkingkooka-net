@@ -61,7 +61,7 @@ public final class LanguageNameWildcardTest extends LanguageNameTestCase<Languag
     }
 
     @Override
-    public void testDifferentText() {
+    public void testEqualsDifferentText() {
         throw new UnsupportedOperationException();
     }
 
