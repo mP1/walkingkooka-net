@@ -70,40 +70,26 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
-    /**
-     * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
-     */
-    private final static Map<String, ContentDispositionType> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
-
-    /**
-     * Creates and adds a new {@link ContentDispositionType} to the cache being built.
-     */
-    private static ContentDispositionType registerConstant(final String name) {
-        final ContentDispositionType type = new ContentDispositionType(name);
-        ContentDispositionType.CONSTANTS.put(name, type);
-        return type;
-    }
-
     private final static String ATTACHMENT_STRING = "attachment";
 
     /**
      * A {@link ContentDispositionType} <code>attachment</code>
      */
-    public final static ContentDispositionType ATTACHMENT = registerConstant(ATTACHMENT_STRING);
+    public final static ContentDispositionType ATTACHMENT = new ContentDispositionType(ATTACHMENT_STRING);
 
     private final static String FORM_DATA_STRING = "form-data";
 
     /**
      * A {@link ContentDispositionType} <code>form-data</code>
      */
-    public final static ContentDispositionType FORM_DATA = registerConstant(FORM_DATA_STRING);
+    public final static ContentDispositionType FORM_DATA = new ContentDispositionType(FORM_DATA_STRING);
 
     private final static String INLINE_STRING = "inline";
 
     /**
      * A {@link ContentDispositionType} <code>inline</code>
      */
-    public final static ContentDispositionType INLINE = registerConstant(INLINE_STRING);
+    public final static ContentDispositionType INLINE = new ContentDispositionType(INLINE_STRING);
 
     /**
      * Factory that creates a {@link ContentDispositionType}.
@@ -111,10 +97,24 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
     public static ContentDispositionType with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        final ContentDispositionType httpHeaderParameterName = CONSTANTS.get(name);
-        return null != httpHeaderParameterName ?
-                httpHeaderParameterName :
-                new ContentDispositionType(name);
+        ContentDispositionType contentDispositionType;
+
+        switch (name.toLowerCase()) {
+            case ATTACHMENT_STRING:
+                contentDispositionType = ATTACHMENT;
+                break;
+            case FORM_DATA_STRING:
+                contentDispositionType = FORM_DATA;
+                break;
+            case INLINE_STRING:
+                contentDispositionType = INLINE;
+                break;
+            default:
+                contentDispositionType = new ContentDispositionType(name);
+                break;
+        }
+
+        return contentDispositionType;
     }
 
     /**
