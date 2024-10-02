@@ -78,6 +78,58 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
                 "parameters");
     }
 
+    // isXXX............................................................................................................
+
+    @Test
+    public void testIsAttachmentTrue() {
+        this.checkEquals(
+                true,
+                ContentDispositionType.ATTACHMENT.isAttachment()
+        );
+    }
+
+    @Test
+    public void testIsAttachmentFalse() {
+        this.checkEquals(
+                false,
+                ContentDispositionType.FORM_DATA.isAttachment()
+        );
+    }
+
+    @Test
+    public void testIsFormDataTrue() {
+        this.checkEquals(
+                true,
+                ContentDispositionType.FORM_DATA.isFormData()
+        );
+    }
+
+    @Test
+    public void testIsFormDataFalse() {
+        this.checkEquals(
+                false,
+                ContentDispositionType.INLINE.isFormData()
+        );
+    }
+
+    @Test
+    public void testIsInlineTrue() {
+        this.checkEquals(
+                true,
+                ContentDispositionType.INLINE.isInline()
+        );
+    }
+
+    @Test
+    public void testIsInlineFalse() {
+        this.checkEquals(
+                false,
+                ContentDispositionType.ATTACHMENT.isInline()
+        );
+    }
+
+    // equals...........................................................................................................
+
     @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(ContentDispositionType.ATTACHMENT);

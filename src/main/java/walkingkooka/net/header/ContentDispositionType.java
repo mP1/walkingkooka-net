@@ -141,6 +141,36 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
                 .setParameters(parameters);
     }
 
+    /**
+     * Returns true if this is an attachment.
+     */
+    public boolean isAttachment() {
+        return CASE_SENSITIVITY.equals(
+                this.value(),
+                ATTACHMENT_STRING
+        );
+    }
+
+    /**
+     * Returns true if this is an attachment.
+     */
+    public boolean isFormData() {
+        return CASE_SENSITIVITY.equals(
+                this.value(),
+                FORM_DATA_STRING
+        );
+    }
+
+    /**
+     * Returns true if this is an attachment.
+     */
+    public boolean isInline() {
+        return CASE_SENSITIVITY.equals(
+                this.value(),
+                INLINE_STRING
+        );
+    }
+
     // Comparable..............................................................................................
 
     @Override
