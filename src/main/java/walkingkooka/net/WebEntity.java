@@ -20,6 +20,9 @@ package walkingkooka.net;
 import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.ContentDisposition;
+import walkingkooka.net.header.ContentDispositionFileName;
+import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -106,6 +109,51 @@ public final class WebEntity implements HasText,
         return httpEntity.equals(after) ?
                 this :
                 with(after);
+    }
+
+    /**
+     * Returns the filename if one is present.
+     */
+    public Optional<WebEntityFileName> filename() {
+        WebEntityFileName webEntityFileName = null;
+
+        final Optional<ContentDisposition> maybeContentDisposition = HttpHeaderName.CONTENT_DISPOSITION.header(this.httpEntity);
+        if (maybeContentDisposition.isPresent()) {
+            final ContentDisposition contentDisposition = maybeContentDisposition.get();
+            if (contentDisposition.type().isAttachment()) {
+                final Optional<ContentDispositionFileName> maybeFilename = contentDisposition.filename();
+                if (maybeFilename.isPresent()) {
+                    final ContentDispositionFileName filename = maybeFilename.get();
+                    if (maybeFilename.isPresent()) {
+                        webEntityFileName = WebEntityFileName.with(
+                                maybeFilename.get()
+                                        .value()
+                        );
+                    }
+
+                }
+            }
+        }
+        return Optional.ofNullable(webEntityFileName);
+    }
+
+    public WebEntity setFilename(final Optional<WebEntityFileName> filename) {
+        Objects.requireNonNull(filename, "filename");
+
+        final HttpEntity before = this.httpEntity;
+        final HttpEntity after = before.setHeader(
+                HttpHeaderName.CONTENT_DISPOSITION,
+                filename.isPresent() ?
+                        Lists.of(
+                                ContentDispositionType.ATTACHMENT.setFilename(
+                                        ContentDispositionFileName.notEncoded(filename.get().text()))
+                        ) :
+                        Lists.empty()
+        );
+
+        return before.equals(after) ?
+                this :
+                new WebEntity(after);
     }
 
     // @VisibleForTesting

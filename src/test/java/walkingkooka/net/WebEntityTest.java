@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -256,6 +257,175 @@ public final class WebEntityTest implements CanBeEmptyTesting,
                         .setContentType(Optional.empty())
         );
     }
+
+    // filename.........................................................................................................
+
+    @Test
+    public void testFilenameEmptyMissing() {
+        this.filenameAndCheck(
+                WebEntity.empty()
+        );
+    }
+
+    @Test
+    public void testFilenameMissing() {
+        this.filenameAndCheck(
+                WebEntity.empty()
+                        .setContentType(Optional.of(MediaType.TEXT_PLAIN))
+                        .setText("content")
+        );
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+    // Content-Disposition: inline
+    @Test
+    public void testFilenameContentDispositionInline() {
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse("inline")
+                        ).setBodyText("bodyText123")
+                )
+        );
+    }
+
+    // Content-Disposition: attachment; filename="filename.jpg"
+    @Test
+    public void testFilenameContentDispositionAttachment() {
+        final String filename = "file123.txt";
+
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse("attachment; filename=" + filename)
+                        ).setBodyText("bodyText123")
+                ),
+                WebEntityFileName.with(filename)
+        );
+    }
+
+    // Content-Disposition: attachment; filename*="filename.jpg"
+    @Test
+    public void testFilenameContentDispositionAttachmentFilenameStar() {
+        final String filename = "file123";
+
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse(
+                                        "attachment; filename*=UTF-8''" + filename
+                                )
+                        ).setBodyText("bodyText123")
+                ),
+                WebEntityFileName.with(filename)
+        );
+    }
+
+    @Test
+    public void testSetFilenameWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> WebEntity.empty().setFilename(null)
+        );
+    }
+
+    @Test
+    public void testSetFilenameSame() {
+        final String filename = "file1.txt";
+
+        final WebEntity webEntity = WebEntity.with(
+                HttpEntity.EMPTY.addHeader(
+                        HttpHeaderName.CONTENT_DISPOSITION,
+                        ContentDisposition.parse("attachment; filename=" + filename)
+                ).setBodyText("bodyText123")
+        );
+
+        assertSame(
+                webEntity,
+                webEntity.setFilename(
+                        Optional.of(
+                                WebEntityFileName.with(filename)
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testSetFilenameClears() {
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse("attachment; filename=file1.txt")
+                        )
+                ).setFilename(
+                        Optional.empty()
+                )
+        );
+    }
+
+    @Test
+    public void testSetFilenameDifferent() {
+        final WebEntityFileName different = WebEntityFileName.with("different.txt");
+
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse("attachment; filename=file1.txt")
+                        )
+                ).setFilename(
+                        Optional.of(different)
+                ),
+                different
+        );
+    }
+
+    @Test
+    public void testSetFilenameDifferentFilenameStar() {
+        final WebEntityFileName different = WebEntityFileName.with("different.txt");
+
+        this.filenameAndCheck(
+                WebEntity.with(
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDisposition.parse("attachment; filename*=UTF-8''file123.txt")
+                        )
+                ).setFilename(
+                        Optional.of(different)
+                ),
+                different
+        );
+    }
+
+    private void filenameAndCheck(final WebEntity webEntity) {
+        this.filenameAndCheck(
+                webEntity,
+                Optional.empty()
+        );
+    }
+
+    private void filenameAndCheck(final WebEntity webEntity,
+                                  final WebEntityFileName expected) {
+        this.filenameAndCheck(
+                webEntity,
+                Optional.of(expected)
+        );
+    }
+
+    private void filenameAndCheck(final WebEntity webEntity,
+                                  final Optional<WebEntityFileName> expected) {
+        this.checkEquals(
+                expected,
+                webEntity.filename(),
+                webEntity::toString
+        );
+    }
+
+    // helpers..........................................................................................................
 
     private void checkHttpEntity(final WebEntity webEntity,
                                  final HttpEntity httpEntity) {
