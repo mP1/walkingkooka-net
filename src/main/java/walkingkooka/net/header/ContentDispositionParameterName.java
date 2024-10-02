@@ -117,8 +117,9 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
     // factory ......................................................................................................
 
     /**
-     * Factory that creates a {@link ContentDispositionParameterName}. If the {@link #parse} is not a constant
-     * it will return a parameter name with value of type {@link String}.
+     * Factory that creates a {@link ContentDispositionParameterName}.
+     * <br>
+     * If the name is not a constant it will return a parameter name with value of type {@link String}.
      */
     public static ContentDispositionParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
