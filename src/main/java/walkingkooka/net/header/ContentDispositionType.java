@@ -84,20 +84,26 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
         return type;
     }
 
+    private final static String ATTACHMENT_STRING = "attachment";
+
     /**
      * A {@link ContentDispositionType} <code>attachment</code>
      */
-    public final static ContentDispositionType ATTACHMENT = registerConstant("attachment");
+    public final static ContentDispositionType ATTACHMENT = registerConstant(ATTACHMENT_STRING);
+
+    private final static String FORM_DATA_STRING = "form-data";
 
     /**
      * A {@link ContentDispositionType} <code>form-data</code>
      */
-    public final static ContentDispositionType FORM_DATA = registerConstant("form-data");
+    public final static ContentDispositionType FORM_DATA = registerConstant(FORM_DATA_STRING);
+
+    private final static String INLINE_STRING = "inline";
 
     /**
      * A {@link ContentDispositionType} <code>inline</code>
      */
-    public final static ContentDispositionType INLINE = registerConstant("inline");
+    public final static ContentDispositionType INLINE = registerConstant(INLINE_STRING);
 
     /**
      * Factory that creates a {@link ContentDispositionType}.
