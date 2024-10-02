@@ -21,6 +21,7 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a content disposition header and its component values.<br>
@@ -98,6 +99,35 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
 
     private ContentDisposition replace(final ContentDispositionType type, final Map<ContentDispositionParameterName<?>, Object> parameters) {
         return new ContentDisposition(type, parameters);
+    }
+
+    // filename.........................................................................................................
+
+    /**
+     * Getter that returns any filename that is present preferring to return FILENAME* before FILENAME>
+     * <br>
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+     * <pre>
+     * The parameters filename and filename* differ only in that filename* uses the encoding defined in RFC 5987.
+     * When both filename and filename* are present in a single header field value, filename* is preferred over filename
+     * when both are understood. It's recommended to include both for maximum compatibility, and you can convert filename*
+     * to filename by substituting non-ASCII characters with ASCII equivalents (such as converting é to e).
+     * You may want to avoid percent escape sequences in filename, because they are handled inconsistently across browsers.
+     * (Firefox and Chrome decode them, while Safari does not.)
+     * </pre>
+     */
+    public Optional<ContentDispositionFileName> filename() {
+        Optional<ContentDispositionFileName> filename = Optional.empty();
+
+        if (this.type().isAttachment()) {
+            filename = ContentDispositionParameterName.FILENAME_STAR.parameterValue(this);
+
+            if (false == filename.isPresent()) {
+                filename = ContentDispositionParameterName.FILENAME.parameterValue(this);
+            }
+        }
+
+        return filename;
     }
 
     // Header.................................................................

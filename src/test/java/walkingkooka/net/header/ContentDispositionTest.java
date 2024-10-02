@@ -23,6 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -145,6 +146,90 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         this.parseStringAndCheck(
                 "inline;",
                 ContentDispositionType.INLINE.setParameters(ContentDisposition.NO_PARAMETERS)
+        );
+    }
+
+    // filename.........................................................................................................
+
+    // Content-Disposition: inline
+
+    @Test
+    public void testFilenameInline() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("inline")
+        );
+    }
+
+
+    // Content-Disposition: attachment
+
+    @Test
+    public void testFilenameAttachmentMissingFilename() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("attachment")
+        );
+    }
+
+    // Content-Disposition: attachment; filename="filename.jpg"
+
+    @Test
+    public void testFilenameAttachmentFilename() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("attachment; filename=\"file123.txt\""),
+                ContentDispositionFileName.notEncoded("file123.txt")
+        );
+    }
+
+    // Content-Disposition: attachment; filename*="filename.jpg"
+    @Test
+    public void testFilenameAttachmentFilenameStar() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("attachment; filename*=UTF-8''file123.txt"),
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "file123.txt"
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testFilenameAttachmentFilenameStarAndFilename() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("attachment; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "filename-star.txt"
+                        )
+                )
+        );
+    }
+
+    private void filenameAndCheck(final ContentDisposition disposition) {
+        this.filenameAndCheck(
+                disposition,
+                Optional.empty()
+        );
+    }
+
+    private void filenameAndCheck(final ContentDisposition disposition,
+                                  final ContentDispositionFileName expected) {
+        this.filenameAndCheck(
+                disposition,
+                Optional.of(expected)
+        );
+    }
+
+    private void filenameAndCheck(final ContentDisposition disposition,
+                                  final Optional<ContentDispositionFileName> expected) {
+        this.checkEquals(
+                expected,
+                disposition.filename(),
+                disposition::toString
         );
     }
 
