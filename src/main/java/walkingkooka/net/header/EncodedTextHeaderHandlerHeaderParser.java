@@ -69,7 +69,7 @@ final class EncodedTextHeaderHandlerHeaderParser extends HeaderParser {
 
     @Override
     void quotedText() {
-        this.failCommentPresent();
+        this.failInvalidCharacter();
     }
 
     @Override
