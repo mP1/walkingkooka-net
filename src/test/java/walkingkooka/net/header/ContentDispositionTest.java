@@ -77,12 +77,75 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         this.check(disposition);
     }
 
-    // parse ...........................................................................................
+    // parse ...........................................................................................................
 
     @Test
-    public void testParse() {
-        this.parseStringAndCheck("attachment; filename=\"abc.jpg\"",
-                ContentDispositionType.ATTACHMENT.setParameters(Maps.of(ContentDispositionParameterName.FILENAME, ContentDispositionFileName.notEncoded("abc.jpg"))));
+    public void testParseAttachment() {
+        this.parseStringAndCheck(
+                "attachment;",
+                ContentDispositionType.ATTACHMENT.setParameters(ContentDisposition.NO_PARAMETERS)
+        );
+    }
+
+    @Test
+    public void testParseAttachmentFilename() {
+        this.parseStringAndCheck(
+                "attachment; filename=\"abc.jpg\"",
+                ContentDispositionType.ATTACHMENT.setParameters(
+                        Maps.of(
+                                ContentDispositionParameterName.FILENAME,
+                                ContentDispositionFileName.notEncoded("abc.jpg")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testParseAttachmentFilenameStar() {
+        this.parseStringAndCheck(
+                "attachment; filename*=UTF-8''Hello.txt",
+                ContentDispositionType.ATTACHMENT.setParameters(
+                        Maps.of(
+                                ContentDispositionParameterName.FILENAME_STAR,
+                                ContentDispositionFileName.encoded(
+                                        EncodedText.with(
+                                                CharsetName.UTF_8,
+                                                EncodedText.NO_LANGUAGE,
+                                                "Hello.txt"
+                                        )
+                                )
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testParseFormData() {
+        this.parseStringAndCheck(
+                "form-data;",
+                ContentDispositionType.FORM_DATA.setParameters(ContentDisposition.NO_PARAMETERS)
+        );
+    }
+
+    @Test
+    public void testParseFormDataName() {
+        this.parseStringAndCheck(
+                "form-data; name=\"field123\"",
+                ContentDispositionType.FORM_DATA.setParameters(
+                        Maps.of(
+                                ContentDispositionParameterName.with("name"),
+                                "field123"
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testParseInline() {
+        this.parseStringAndCheck(
+                "inline;",
+                ContentDispositionType.INLINE.setParameters(ContentDisposition.NO_PARAMETERS)
+        );
     }
 
     // toHeaderText ...........................................................................................
