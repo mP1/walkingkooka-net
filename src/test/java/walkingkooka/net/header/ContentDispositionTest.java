@@ -35,11 +35,14 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     private final static ContentDispositionType TYPE = ContentDispositionType.ATTACHMENT;
     private final static String PARAMETER_VALUE = "v1";
 
-    // with.........................................................................................
+    // with.............................................................................................................
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> ContentDisposition.with(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> ContentDisposition.with(null)
+        );
     }
 
     @Test
@@ -47,7 +50,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         this.check(this.createHeaderWithParameters());
     }
 
-    // setType ...........................................................................................
+    // setType .........................................................................................................
 
     @Test
     public void testSetTypeNullFails() {
@@ -68,7 +71,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         this.check(disposition);
     }
 
-    // setParameters ...........................................................................................
+    // setParameters ...................................................................................................
 
     @Test
     public void testSetParametersDifferent() {
@@ -147,6 +150,11 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                 "inline;",
                 ContentDispositionType.INLINE.setParameters(ContentDisposition.NO_PARAMETERS)
         );
+    }
+
+    @Override
+    public ContentDisposition parseString(final String text) {
+        return ContentDisposition.parse(text);
     }
 
     // filename.........................................................................................................
@@ -233,7 +241,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         );
     }
 
-    // toHeaderText ...........................................................................................
+    // toHeaderText ....................................................................................................
 
     @Test
     public void testToHeaderTextNoParameters() {
@@ -254,14 +262,14 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                 "attachment; p1=v1; p2=v2");
     }
 
-    // isWildcard ..................................................................................................
+    // isWildcard ......................................................................................................
 
     @Test
     public void testIsWildcard() {
         this.isWildcardAndCheck(false);
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // HashCodeEqualsDefined ...........................................................................................
 
     @Test
     public void testEqualsDifferentContentDispositionType() {
@@ -301,7 +309,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                 true);
     }
 
-    // equalsOnlyPresentParameters.........................................................................................
+    // equalsOnlyPresentParameters......................................................................................
 
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
@@ -347,24 +355,30 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
 
     @Test
     public void testToStringNoParameters() {
-        this.toStringAndCheck(ContentDisposition.with(TYPE),
-                "attachment");
+        this.toStringAndCheck(
+                ContentDisposition.with(TYPE),
+                "attachment"
+        );
     }
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.createHeaderWithParameters(),
-                "attachment; p1=v1");
+        this.toStringAndCheck(
+                this.createHeaderWithParameters(),
+                "attachment; p1=v1"
+        );
     }
 
     @Test
     public void testToStringWithSeveralParameters() {
-        this.toStringAndCheck(ContentDisposition.with(TYPE)
+        this.toStringAndCheck(
+                ContentDisposition.with(TYPE)
                         .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-                "attachment; p1=v1; p2=v2");
+                "attachment; p1=v1; p2=v2"
+        );
     }
 
-    // helpers ...........................................................................................
+    // helpers .........................................................................................................
 
     @Override
     public ContentDisposition createHeaderWithParameters() {
@@ -438,6 +452,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         return true;
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ContentDisposition> type() {
         return ContentDisposition.class;
@@ -446,12 +462,5 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public ContentDisposition parseString(final String text) {
-        return ContentDisposition.parse(text);
     }
 }
