@@ -159,6 +159,11 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.parse("123"));
     }
 
+    @Override
+    public RelativeUrl parseString(final String text) {
+        return RelativeUrl.parseRelative0(text);
+    }
+
     // UrlVisitor......................................................................................................
 
     @Test
@@ -229,6 +234,17 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         );
     }
 
+    @Test
+    public void testToRelative() {
+        final RelativeUrl url = this.createUrl();
+        assertSame(url, url.relativeUrl());
+    }
+
+    @Override
+    protected RelativeUrl createUrl(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+        return Url.relative(path, query, fragment);
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -254,17 +270,6 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         toStringAndCheck(Url.relative(PATH, UrlQueryString.EMPTY, UrlFragment.EMPTY), "/path");
     }
 
-    @Test
-    public void testToRelative() {
-        final RelativeUrl url = this.createUrl();
-        assertSame(url, url.relativeUrl());
-    }
-
-    @Override
-    protected RelativeUrl createUrl(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
-        return Url.relative(path, query, fragment);
-    }
-
     // ClassTesting ....................................................................................................
 
     @Override
@@ -272,18 +277,11 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         return RelativeUrl.class;
     }
 
-    // JsonNodeMarshallTesting .........................................................................................
+    // json.............................................................................................................
 
     @Override
     public RelativeUrl unmarshall(final JsonNode node,
                                   final JsonNodeUnmarshallContext context) {
         return Url.unmarshallRelative(node, context);
-    }
-
-    // ParseStringTesting ..............................................................................................
-
-    @Override
-    public RelativeUrl parseString(final String text) {
-        return RelativeUrl.parseRelative0(text);
     }
 }
