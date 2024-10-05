@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.Value;
+import walkingkooka.compare.Comparators;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -283,4 +284,21 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     }
 
     abstract void toString0(final StringBuilder b);
+
+    // Comparable.......................................................................................................
+
+    /**
+     * Compares the path, query string and then fragment in that order.
+     */
+    final int compareToAbsoluteOrRelativeUrl(final AbsoluteOrRelativeUrl other) {
+        int result = this.path.compareTo(other.path);
+        if (Comparators.EQUAL == result) {
+            result = this.query.compareTo(other.query);
+
+            if (Comparators.EQUAL == result) {
+                result = this.fragment.compareTo(other.fragment);
+            }
+        }
+        return result;
+    }
 }

@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.compare.Comparators;
 import walkingkooka.text.CharSequences;
 
 import java.net.MalformedURLException;
@@ -27,7 +28,7 @@ import java.util.Optional;
 /**
  * Note that equality is based by comparing all components, with only the scheme being compared while ignoring case.
  */
-public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
+public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparable<AbsoluteUrl> {
 
     public final static Optional<UrlCredentials> NO_CREDENTIALS = Optional.empty();
     public final static Optional<IpPort> NO_PORT = Optional.empty();
@@ -408,5 +409,33 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         this.credentials.ifPresent((c) -> c.absoluteUrlToString(b));
         this.host.toString0(b);
         this.port.ifPresent((p) -> p.toString0(b));
+    }
+
+    // Comparable.......................................................................................................
+
+    /**
+     * Comparing involves comparing various components in the following order, until a non zero result is found.
+     * <ol>
+     *     <li>{@link UrlScheme}</li>
+     *     <li>{@link HostAddress}</li>
+     *     <li>{@link UrlPath}</li>
+     *     <li>{@link UrlQueryString}</li>
+     *     <li>{@link UrlFragment}</li>
+     * </ol>
+     * Identical urls will of course return zero
+     */
+    @Override
+    public int compareTo(final AbsoluteUrl other) {
+        int result = this.scheme.compareTo(other.scheme);
+        if (Comparators.EQUAL == result) {
+
+            result = this.host.compareTo(other.host);
+            if (Comparators.EQUAL == result) {
+
+                result = this.compareToAbsoluteOrRelativeUrl(other);
+            }
+        }
+
+        return result;
     }
 }
