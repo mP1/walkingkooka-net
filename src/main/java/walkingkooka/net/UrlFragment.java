@@ -32,7 +32,9 @@ import java.util.Objects;
  * https://datatracker.ietf.org/doc/html/rfc3986
  * </pre>
  */
-public final class UrlFragment implements Value<String>, CanBeEmpty {
+public final class UrlFragment implements Value<String>,
+        CanBeEmpty,
+        Comparable<UrlFragment> {
 
     /**
      * An empty or absent fragment.
@@ -249,5 +251,12 @@ public final class UrlFragment implements Value<String>, CanBeEmpty {
             b.append(Url.FRAGMENT_START.character());
             b.append(this.toString());
         }
+    }
+
+    // Comparable.......................................................................................................
+
+    @Override
+    public int compareTo(final UrlFragment other) {
+        return this.value.compareTo(other.value);
     }
 }
