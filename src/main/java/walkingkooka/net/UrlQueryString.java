@@ -34,7 +34,8 @@ import java.util.Optional;
  * The query string component within a {@link Url}. Methods are available to retrieve the first parameter value, or all parameter values
  * or to view all parameters as a {@link Map}.
  */
-public final class UrlQueryString implements Value<String> {
+public final class UrlQueryString implements Value<String>,
+        Comparable<UrlQueryString> {
 
     /**
      * An empty {@link UrlQueryString} with no length or parameters.
@@ -421,5 +422,15 @@ public final class UrlQueryString implements Value<String> {
             b.append(Url.QUERY_START.character());
             b.append(this.queryString);
         }
+    }
+
+    // Comparable.......................................................................................................
+
+    /**
+     * Strings comparison is case-sensitive
+     */
+    @Override
+    public int compareTo(UrlQueryString other) {
+        return this.queryString.compareTo(other.queryString);
     }
 }

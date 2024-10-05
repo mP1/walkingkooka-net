@@ -18,11 +18,11 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.HashCodeEqualsDefinedTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
@@ -36,9 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
-        HashCodeEqualsDefinedTesting,
         ParseStringTesting<UrlQueryString>,
-        ToStringTesting<UrlQueryString> {
+        ToStringTesting<UrlQueryString>,
+        ComparableTesting2<UrlQueryString> {
 
     @Override
     public void testParseStringEmptyFails() {
@@ -635,6 +635,21 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
                 UrlQueryString.parse("a=%20"),
                 UrlQueryString.parse("a= ")
         );
+    }
+
+    // CompareTo........................................................................................................
+
+    @Test
+    public void testCompareToCaseSensitive() {
+        this.compareToAndCheckLess(
+                UrlQueryString.parse("XYZ123"),
+                UrlQueryString.parse("abc123")
+        );
+    }
+
+    @Override
+    public UrlQueryString createComparable() {
+        return UrlQueryString.parse("abc123");
     }
 
     // ClassTesting.....................................................................................................
