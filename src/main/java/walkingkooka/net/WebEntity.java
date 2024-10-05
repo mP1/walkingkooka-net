@@ -123,7 +123,6 @@ public final class WebEntity implements HasText,
             if (contentDisposition.type().isAttachment()) {
                 final Optional<ContentDispositionFileName> maybeFilename = contentDisposition.filename();
                 if (maybeFilename.isPresent()) {
-                    final ContentDispositionFileName filename = maybeFilename.get();
                     if (maybeFilename.isPresent()) {
                         webEntityFileName = WebEntityFileName.with(
                                 maybeFilename.get()
