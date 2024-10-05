@@ -19,8 +19,8 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         ClassTesting<UrlFragment>,
-        HashCodeEqualsDefinedTesting2<UrlFragment>,
+        ComparableTesting2<UrlFragment>,
         CanBeEmptyTesting,
         ToStringTesting<UrlFragment> {
 
@@ -294,6 +294,29 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
     @Override
     public UrlFragment createObject() {
+        return UrlFragment.with("abc123");
+    }
+
+    // Comparable.......................................................................................................
+
+    @Test
+    public void testCompareToEmptyAndNotEmpty() {
+        this.compareToAndCheckLess(
+                UrlFragment.EMPTY,
+                UrlFragment.parse("/abc")
+        );
+    }
+
+    @Test
+    public void testCompareToLessCaseSensitive() {
+        this.compareToAndCheckLess(
+                UrlFragment.parse("/XYZ"),
+                UrlFragment.parse("/abc")
+        );
+    }
+
+    @Override
+    public UrlFragment createComparable() {
         return UrlFragment.with("abc123");
     }
 
