@@ -37,7 +37,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         ToStringTesting<UrlFragment> {
 
     @Test
-    public void testEmpty() {
+    public void testSlashConstant() {
+        this.checkEquals(
+                "/",
+                UrlFragment.SLASH.value()
+        );
+    }
+
+    // CanBeEmpty.......................................................................................................
+    @Test
+    public void testIsEmptyWhenEmpty() {
         this.isEmptyAndCheck(
                 UrlFragment.EMPTY,
                 true
@@ -45,22 +54,14 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     }
 
     @Test
-    public void testNotEmpty() {
+    public void testIsEmptyWhenNotEmpty() {
         this.isEmptyAndCheck(
                 UrlFragment.parse("not-empty"),
                 false
         );
     }
 
-    @Test
-    public void testSlash() {
-        this.checkEquals(
-                "/",
-                UrlFragment.SLASH.value()
-        );
-    }
-
-    // parse...........................................................................................................
+    // parse............................................................................................................
 
     @Test
     public void testParseNullFails() {
@@ -124,6 +125,21 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                 urlFragment,
                 "space%20"
         );
+    }
+
+    @Override
+    public UrlFragment parseString(final String fragment) {
+        return UrlFragment.parse(fragment);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     // with............................................................................................................
@@ -192,7 +208,6 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
-
     // appendSlashThen..................................................................................................
 
     @Test
@@ -259,54 +274,6 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
-    // roundtrip........................................................................................................
-
-    @Test
-    public void testParseAndToStringRoundtrip() {
-        this.parseAndToStringRoundtripAndCheck("abc123");
-    }
-
-    @Test
-    public void testParseAndToStringRoundtripSlash() {
-        this.parseAndToStringRoundtripAndCheck("abc/123");
-    }
-
-    @Test
-    public void testParseAndToStringRoundtripSpace() {
-        this.parseAndToStringRoundtripAndCheck("abc 123");
-    }
-
-    @Test
-    public void testParseAndToStringRoundtripPlus() {
-        this.parseAndToStringRoundtripAndCheck("abc+123");
-    }
-
-    @Test
-    public void testParseAndToStringRoundtripMathExpression() {
-        this.parseAndToStringRoundtripAndCheck("=1+2*3/4");
-    }
-
-    @Test
-    public void testParseAndToStringRoundtripAllAsciiCharacters() {
-        final char[] c = new char[256];
-        for (int i = 0; i < c.length; i++) {
-            c[i] = (char) i;
-        }
-
-        this.parseAndToStringRoundtripAndCheck(
-                new String(c)
-        );
-    }
-
-    private void parseAndToStringRoundtripAndCheck(final String text) {
-        final UrlFragment urlFragment = UrlFragment.with(text);
-
-        this.parseStringAndCheck(
-                urlFragment.toString(),
-                urlFragment
-        );
-    }
-
     // equals..........................................................................................................
 
     @Test
@@ -323,6 +290,11 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                 UrlFragment.with("abc123"),
                 UrlFragment.with("ABC123")
         );
+    }
+
+    @Override
+    public UrlFragment createObject() {
+        return UrlFragment.with("abc123");
     }
 
     // toString.........................................................................................................
@@ -397,11 +369,52 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
-    // HashCodeEqualsDefinedTesting2...................................................................................
+    // roundtrip........................................................................................................
 
-    @Override
-    public UrlFragment createObject() {
-        return UrlFragment.with("abc123");
+    @Test
+    public void testParseAndToStringRoundtrip() {
+        this.parseAndToStringRoundtripAndCheck("abc123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripSlash() {
+        this.parseAndToStringRoundtripAndCheck("abc/123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripSpace() {
+        this.parseAndToStringRoundtripAndCheck("abc 123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripPlus() {
+        this.parseAndToStringRoundtripAndCheck("abc+123");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripMathExpression() {
+        this.parseAndToStringRoundtripAndCheck("=1+2*3/4");
+    }
+
+    @Test
+    public void testParseAndToStringRoundtripAllAsciiCharacters() {
+        final char[] c = new char[256];
+        for (int i = 0; i < c.length; i++) {
+            c[i] = (char) i;
+        }
+
+        this.parseAndToStringRoundtripAndCheck(
+                new String(c)
+        );
+    }
+
+    private void parseAndToStringRoundtripAndCheck(final String text) {
+        final UrlFragment urlFragment = UrlFragment.with(text);
+
+        this.parseStringAndCheck(
+                urlFragment.toString(),
+                urlFragment
+        );
     }
 
     // ClassTesting....................................................................................................
@@ -414,22 +427,5 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Override
     public Class<UrlFragment> type() {
         return UrlFragment.class;
-    }
-
-    // ParseStringTesting..............................................................................................
-
-    @Override
-    public UrlFragment parseString(final String fragment) {
-        return UrlFragment.parse(fragment);
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
     }
 }
