@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link RelativeUrl} holds a URL with getters available to retrieve components.
  */
-public final class RelativeUrl extends AbsoluteOrRelativeUrl {
+public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparable<RelativeUrl> {
 
     static RelativeUrl parseRelative0(final String url) {
         Objects.requireNonNull(url, "url");
@@ -168,5 +168,12 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
     @Override
     void toString0(final StringBuilder b) {
         // no additional properties to add.
+    }
+
+    // Comparable.......................................................................................................
+
+    @Override
+    public int compareTo(final RelativeUrl other) {
+        return this.compareToAbsoluteOrRelativeUrl(other);
     }
 }

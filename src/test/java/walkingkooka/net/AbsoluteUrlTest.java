@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<AbsoluteUrl> {
+public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<AbsoluteUrl>
+        implements ComparableTesting2<AbsoluteUrl> {
 
     // constants
 
@@ -1015,6 +1017,37 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     private void checkPort(final AbsoluteUrl url, final Optional<IpPort> port) {
         this.checkEquals(port, url.port(), "port");
+    }
+
+    // compare .........................................................................................................
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(
+                Url.parseAbsolute("https://example.com/path1?query2#fragment3"),
+                Url.parseAbsolute("https://example.com/path1/path2?query2#fragment3")
+        );
+    }
+
+    @Test
+    public void testCompareCaseSensitivity() {
+        this.compareToAndCheckLess(
+                Url.parseAbsolute("https://example.com/ABC?query2#fragment3"),
+                Url.parseAbsolute("https://example.com/xyz?query2#fragment3")
+        );
+    }
+
+    @Test
+    public void testCompareDifferentCaseUnimportant() {
+        this.compareToAndCheckEquals(
+                Url.parseAbsolute("https://EXAMPLE.com/path?query2#fragment3"),
+                Url.parseAbsolute("HTTPS://example.com/path?query2#fragment3")
+        );
+    }
+
+    @Override
+    public AbsoluteUrl createComparable() {
+        return Url.parseAbsolute("https://example.com/path1?query2#fragment3");
     }
 
     // ClassTesting ....................................................................................................

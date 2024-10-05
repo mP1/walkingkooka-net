@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
@@ -25,7 +26,8 @@ import walkingkooka.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<RelativeUrl> {
+public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<RelativeUrl>
+        implements ComparableTesting2<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
@@ -268,6 +270,29 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Override
     public void testToStringWithoutQueryAndFragment() {
         toStringAndCheck(Url.relative(PATH, UrlQueryString.EMPTY, UrlFragment.EMPTY), "/path");
+    }
+
+    // compare .........................................................................................................
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(
+                Url.parseRelative("/path1?query2#fragment3"),
+                Url.parseRelative("/path1/path2?query2#fragment3")
+        );
+    }
+
+    @Test
+    public void testCompareCaseSensitivity() {
+        this.compareToAndCheckLess(
+                Url.parseRelative("/ABC?query2#fragment3"),
+                Url.parseRelative("/xyz?query2#fragment3")
+        );
+    }
+
+    @Override
+    public RelativeUrl createComparable() {
+        return Url.parseRelative("/path1?query2#fragment3");
     }
 
     // ClassTesting ....................................................................................................
