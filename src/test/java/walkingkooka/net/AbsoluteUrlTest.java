@@ -250,6 +250,15 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
+    public void testSetPath() {
+        this.setPathAndCheck(
+                Url.parseAbsolute("https://example.com/path123"),
+                UrlPath.parse("/path456"),
+                Url.parseAbsolute("https://example.com/path456")
+        );
+    }
+
+    @Test
     public void testSetSame() {
         final AbsoluteUrl url = this.createUrl();
         assertSame(url, url.set(url.scheme(), url.credentials(), url.host(), url.port()));
