@@ -106,7 +106,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
             final int end = value.indexOf(separator, begin);
 
             // special case for trailing separator, dont want to append an empty UrlPathName
-            if (begin == length /*&& length == start*/) {
+            if (begin == length) {
                 path = path.parseTrailingSlash();
                 break;
             }

@@ -822,6 +822,19 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkEquals(Optional.of(AbsoluteUrl.parseAbsolute0(url)), AbsoluteUrl.tryParse(url));
     }
 
+    // appendPath.......................................................................................................
+
+    @Test
+    public void testAppendPathWithName() {
+        this.checkEquals(
+                Url.parseAbsolute("https://example.com/name1"),
+                Url.parseAbsolute("https://example.com")
+                        .appendPath(
+                                UrlPath.parse("name1")
+                        )
+        );
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test
