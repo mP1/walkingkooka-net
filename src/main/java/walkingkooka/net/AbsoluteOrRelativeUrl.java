@@ -176,9 +176,35 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     final AbsoluteOrRelativeUrl setPath0(final UrlPath path) {
         Objects.requireNonNull(path, "path");
 
-        return this.path.equals(path) ?
-                this :
-                this.replace(path, this.query, this.fragment);
+        final AbsoluteOrRelativeUrl after;
+        if (this.path.equals(path)) {
+            after = this;
+        } else {
+            final UrlPath replacePath;
+
+            final String pathValue = path.value();
+            if (pathValue.isEmpty()) {
+                replacePath = path;
+            } else {
+                // add leading slash if missing and new path is not empty
+                final String separator = UrlPath.SEPARATOR.string();
+                if (false == pathValue.startsWith(separator)) {
+                    replacePath = UrlPath.parse(
+                            separator + pathValue
+                    );
+                } else {
+                    replacePath = path;
+                }
+            }
+
+            after = this.replace(
+                    replacePath,
+                    this.query,
+                    this.fragment
+            );
+        }
+
+        return after;
     }
 
     final UrlPath path;

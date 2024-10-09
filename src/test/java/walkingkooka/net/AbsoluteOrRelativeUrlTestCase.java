@@ -88,7 +88,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     // would be setters
 
-    // setPath .......................................................................................................
+    // setPath .........................................................................................................
 
     @Test
     public final void testSetPathNullFails() {
@@ -103,12 +103,124 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testSetPathDifferent() {
-        final U url = this.createUrl();
-
         final UrlPath differentPath = UrlPath.parse("/different-path");
-        final Url different = url.setPath(differentPath);
-        assertNotSame(url, different);
-        this.checkEquals(this.createUrl(differentPath, QUERY, FRAGMENT), different);
+
+        this.setPathAndCheck(
+                this.createUrl(),
+                differentPath,
+                this.createUrl(
+                        differentPath,
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    @Test
+    public final void testSetPathWithEmpty() {
+        final UrlPath emptyPath = UrlPath.EMPTY;
+
+        this.setPathAndCheck(
+                this.createUrl(
+                        UrlPath.parse("/path123"),
+                        QUERY,
+                        FRAGMENT
+                ),
+                emptyPath,
+                this.createUrl(
+                        emptyPath,
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    @Test
+    public final void testSetPathReplacesEmpty() {
+        final UrlPath differentPath = UrlPath.parse("/different-path");
+
+        this.setPathAndCheck(
+                this.createUrl(
+                        UrlPath.EMPTY,
+                        QUERY,
+                        FRAGMENT
+                ),
+                differentPath,
+                this.createUrl(
+                        differentPath,
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    @Test
+    public final void testSetPathWithRoot() {
+        final UrlPath rootPath = UrlPath.ROOT;
+
+        this.setPathAndCheck(
+                this.createUrl(
+                        UrlPath.EMPTY,
+                        QUERY,
+                        FRAGMENT
+                ),
+                rootPath,
+                this.createUrl(
+                        rootPath,
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    @Test
+    public final void testSetPathReplacesRoot() {
+        final UrlPath differentPath = UrlPath.parse("/different-path");
+
+        this.setPathAndCheck(
+                this.createUrl(
+                        UrlPath.ROOT,
+                        QUERY,
+                        FRAGMENT
+                ),
+                differentPath,
+                this.createUrl(
+                        differentPath,
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    @Test
+    public final void testSetPathDifferentMissingLeadingSlash() {
+        final UrlPath differentPath = UrlPath.parse("different-path");
+
+        this.setPathAndCheck(
+                this.createUrl(),
+                differentPath,
+                this.createUrl(
+                        UrlPath.parse("/" + differentPath),
+                        QUERY,
+                        FRAGMENT
+                )
+
+        );
+    }
+
+    final void setPathAndCheck(final U url,
+                               final UrlPath path,
+                               final U expected) {
+        this.checkEquals(
+                expected,
+                url.setPath(path),
+                () -> url + " setPath " + path
+        );
     }
 
     // appendPath .......................................................................................................
