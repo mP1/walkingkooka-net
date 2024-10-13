@@ -21,6 +21,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         HashCodeEqualsDefinedTesting2<UrlCredentials>,
+        ComparableTesting2<UrlCredentials>,
         ToStringTesting<UrlCredentials> {
 
     private final static String USER = "user123";
@@ -72,6 +74,29 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
 
     @Override
     public UrlCredentials createObject() {
+        return UrlCredentials.with(USER, PASSWORD);
+    }
+
+    // compareTo........................................................................................................
+
+    @Test
+    public void testCompareToDifferentCase() {
+        this.compareToAndCheckNotEquals(
+                UrlCredentials.with(USER.toLowerCase(), PASSWORD.toLowerCase()),
+                UrlCredentials.with(USER.toUpperCase(), PASSWORD.toUpperCase())
+        );
+    }
+
+    @Test
+    public void testCompareToLess() {
+        this.compareToAndCheckLess(
+                UrlCredentials.with("A", PASSWORD.toLowerCase()),
+                UrlCredentials.with("B", PASSWORD.toUpperCase())
+        );
+    }
+
+    @Override
+    public UrlCredentials createComparable() {
         return UrlCredentials.with(USER, PASSWORD);
     }
 
