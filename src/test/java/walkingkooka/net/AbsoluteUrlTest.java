@@ -1044,7 +1044,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     // compare .........................................................................................................
 
     @Test
-    public void testCompareLess() {
+    public void testCompareToLess() {
         this.compareToAndCheckLess(
                 Url.parseAbsolute("https://example.com/path1?query2#fragment3"),
                 Url.parseAbsolute("https://example.com/path1/path2?query2#fragment3")
@@ -1052,7 +1052,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testCompareCaseSensitivity() {
+    public void testCompareToCaseSensitivity() {
         this.compareToAndCheckLess(
                 Url.parseAbsolute("https://example.com/ABC?query2#fragment3"),
                 Url.parseAbsolute("https://example.com/xyz?query2#fragment3")
@@ -1060,7 +1060,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testCompareDifferentCaseUnimportant() {
+    public void testCompareToDifferentCaseUnimportant() {
         this.compareToAndCheckEquals(
                 Url.parseAbsolute("https://EXAMPLE.com/path?query2#fragment3"),
                 Url.parseAbsolute("HTTPS://example.com/path?query2#fragment3")
