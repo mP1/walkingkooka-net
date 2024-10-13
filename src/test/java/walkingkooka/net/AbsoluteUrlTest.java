@@ -300,11 +300,12 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
 
     // * Converting the scheme and host to lowercase. The scheme and host components of the URI are case-insensitive
     //   and therefore should be normalized to lowercase.[3] Example:
-    // * HTTP://User@Example.COM/Foo → http://User@example.com/Foo    @Test
+    // * HTTP://User@Example.COM/Foo → http://User@example.com/Foo
+    @Test
     public void testNormalizeUppercaseHostnameNormalizedToLowercase() {
         this.normalizeAndCheck(
                 "https://EXAMPLE.COM",
-                "https://example.com"
+                "https://example.com/" // slash path also added
         );
     }
 
