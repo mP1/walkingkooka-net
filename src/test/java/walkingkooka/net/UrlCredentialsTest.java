@@ -33,14 +33,22 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
 
+    // with.............................................................................................................
+
     @Test
-    public void testNullUserFails() {
-        assertThrows(NullPointerException.class, () -> UrlCredentials.with(null, PASSWORD));
+    public void testWithNullUserFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlCredentials.with(null, PASSWORD)
+        );
     }
 
     @Test
-    public void testNullPasswordFails() {
-        assertThrows(NullPointerException.class, () -> UrlCredentials.with(USER, null));
+    public void testWithNullPasswordFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> UrlCredentials.with(USER, null)
+        );
     }
 
     @Test
@@ -49,6 +57,8 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         this.checkEquals(USER, credentials.user(), "user");
         this.checkEquals(PASSWORD, credentials.password(), "password");
     }
+
+    // hashCode/equals..................................................................................................
 
     @Test
     public void testEqualsDifferentUser() {
@@ -60,6 +70,13 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         this.checkNotEquals(UrlCredentials.with(USER, "different"));
     }
 
+    @Override
+    public UrlCredentials createObject() {
+        return UrlCredentials.with(USER, PASSWORD);
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.credentials(), USER + ":" + PASSWORD);
@@ -69,6 +86,8 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         return UrlCredentials.with(USER, PASSWORD);
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<UrlCredentials> type() {
         return UrlCredentials.class;
@@ -77,10 +96,5 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public UrlCredentials createObject() {
-        return UrlCredentials.with(USER, PASSWORD);
     }
 }
