@@ -24,6 +24,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasText;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -36,8 +37,10 @@ import java.util.function.Function;
 
 /**
  * Base class with getters that return the common components of a {@link Url}.
+ * Note {@link #text()} will return the complete {@link Url#toString()}.
  */
 public abstract class Url implements Value<String>,
+        HasText,
         Visitable {
 
     // constants.......................................................................................................
@@ -364,5 +367,12 @@ public abstract class Url implements Value<String>,
                 DataUrl.class,
                 MailToUrl.class,
                 RelativeUrl.class);
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    public final String text() {
+        return this.value();
     }
 }
