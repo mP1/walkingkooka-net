@@ -417,6 +417,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
      * Comparing involves comparing various components in the following order, until a non zero result is found.
      * <ol>
      *     <li>{@link UrlScheme}</li>
+     *     <li>{@link UrlCredentials}</li>
      *     <li>{@link HostAddress}</li>
      *     <li>{@link UrlPath}</li>
      *     <li>{@link UrlQueryString}</li>
@@ -428,11 +429,29 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     public int compareTo(final AbsoluteUrl other) {
         int result = this.scheme.compareTo(other.scheme);
         if (Comparators.EQUAL == result) {
+            final UrlCredentials credentials = this.credentials.orElse(null);
+            final UrlCredentials otherCredentials = other.credentials.orElse(null);
 
-            result = this.host.compareTo(other.host);
+            if (null == credentials || null == otherCredentials) {
+                if (null == credentials && null == otherCredentials) {
+                    result = Comparators.EQUAL;
+                } else {
+                    result = null == credentials ?
+                            Comparators.LESS :
+                            Comparators.MORE;
+                }
+            } else {
+                result = credentials.compareTo(otherCredentials);
+            }
+
             if (Comparators.EQUAL == result) {
+                result = this.host.compareTo(other.host);
+                if (Comparators.EQUAL == result) {
 
-                result = this.compareToAbsoluteOrRelativeUrl(other);
+                    if (Comparators.EQUAL == result) {
+                        result = this.compareToAbsoluteOrRelativeUrl(other);
+                    }
+                }
             }
         }
 
