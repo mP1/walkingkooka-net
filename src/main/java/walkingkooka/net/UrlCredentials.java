@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.compare.Comparators;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharacterConstant;
 
@@ -27,7 +28,7 @@ import java.util.Optional;
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication>Mozilla HTTP Authentication</a>
  */
-public final class UrlCredentials {
+public final class UrlCredentials implements Comparable<UrlCredentials> {
 
     /**
      * A constant useful for a url without credentials.
@@ -107,5 +108,18 @@ public final class UrlCredentials {
     void absoluteUrlToString(final StringBuilder b) {
         this.toString0(b);
         b.append(SUFFIX);
+    }
+
+    // Comparable.......................................................................................................
+
+    @Override
+    public int compareTo(final UrlCredentials other) {
+        int result = this.user.compareTo(other.user);
+        if (Comparators.EQUAL == result) {
+
+            result = this.password.compareTo(other.password);
+        }
+
+        return result;
     }
 }
