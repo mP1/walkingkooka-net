@@ -234,7 +234,14 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
         return this.host.equals(host) ?
                 this :
-                new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
+                this.replaceHost(host);
+    }
+
+    /**
+     * Unconditionally replaces the host.
+     */
+    private AbsoluteUrl replaceHost(final HostAddress host) {
+        return new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
     }
 
     private final HostAddress host;
@@ -327,9 +334,14 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             // * Converting the scheme and host to lowercase. The scheme and host components of the URI are case-insensitive
             //   and therefore should be normalized to lowercase.[3] Example:
             // * HTTP://User@Example.COM/Foo → http://User@example.com/Foo
-            normalized = normalized.setHost(
-                    HostAddress.with(address.value().toLowerCase())
-            );
+
+            final String addressString = address.value();
+            final String addressStringLowerCase = addressString.toLowerCase();
+            if (false == addressString.equals(addressStringLowerCase)) {
+                normalized = normalized.replaceHost(
+                        HostAddress.with(addressStringLowerCase)
+                );
+            }
         }
 
         // Removing the default port. An empty or default port component of the URI (port 80 for the http scheme)
