@@ -1067,6 +1067,22 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    @Test
+    public void testCompareToDifferentUserCredentials() {
+        this.compareToAndCheckLess(
+                Url.parseAbsolute("https://user1:password@example.com"),
+                Url.parseAbsolute("HTTPS://user1:password2@example.com")
+        );
+    }
+
+    @Test
+    public void testCompareToDifferentUserCredentials2() {
+        this.compareToAndCheckLess(
+                Url.parseAbsolute("https://example.com"),
+                Url.parseAbsolute("HTTPS://user1:password2@example2.com")
+        );
+    }
+
     @Override
     public AbsoluteUrl createComparable() {
         return Url.parseAbsolute("https://example.com/path1?query2#fragment3");
