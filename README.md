@@ -4,6 +4,7 @@
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/mP1/walkingkooka-net.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mP1/walkingkooka-net/context:java)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/mP1/walkingkooka-net.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mP1/walkingkooka-net/alerts/)
 ![](https://tokei.rs/b1/github/mP1/walkingkooka-net)
+[![J2CL compatible](https://img.shields.io/badge/J2CL-compatible-brightgreen.svg)](https://github.com/mP1/j2cl-central)
 
 # Basic Project
 
