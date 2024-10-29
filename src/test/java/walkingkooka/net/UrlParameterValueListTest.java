@@ -22,12 +22,17 @@ import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.util.Collection;
+
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
         ImmutableListTesting<UrlParameterValueList, String> {
 
     @Test
-    public void testEmpty() {
-        this.isEmptyAndCheck(UrlParameterValueList.empty(), true);
+    public void testIsEmpty() {
+        this.isEmptyAndCheck(
+                (Collection) UrlParameterValueList.empty(),
+                true
+        );
     }
 
     @Test
