@@ -27,6 +27,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasTextTesting;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         ParseStringTesting<UrlQueryString>,
         ToStringTesting<UrlQueryString>,
-        ComparableTesting2<UrlQueryString> {
+        ComparableTesting2<UrlQueryString>,
+        HasTextTesting {
 
     @Override
     public void testParseStringEmptyFails() {
@@ -617,6 +619,17 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
 
     private UrlParameterName name(final String name) {
         return UrlParameterName.with(name);
+    }
+
+    // text.............................................................................................................
+
+    @Test
+    public void testText() {
+        final String text = "abc=123&def=456;def=789";
+        this.textAndCheck(
+                UrlQueryString.parse(text),
+                text
+        );
     }
 
     // equals...........................................................................................................

@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.text.HasText;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -35,7 +36,8 @@ import java.util.Optional;
  * or to view all parameters as a {@link Map}.
  */
 public final class UrlQueryString implements Value<String>,
-        Comparable<UrlQueryString> {
+        Comparable<UrlQueryString>,
+        HasText {
 
     /**
      * An empty {@link UrlQueryString} with no length or parameters.
@@ -432,5 +434,12 @@ public final class UrlQueryString implements Value<String>,
     @Override
     public int compareTo(UrlQueryString other) {
         return this.queryString.compareTo(other.queryString);
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.queryString;
     }
 }
