@@ -96,11 +96,12 @@ public final class UrlQueryString implements Value<String>,
     }
 
     /**
-     * Private constructor use factory
+     * Package private constructor use factory
      */
-    private UrlQueryString(final String queryString,
-                           final List<UrlParameterKeyValuePair> pairs,
-                           final Map<UrlParameterName, UrlParameterValueList> parameters) {
+    //@VisibleForTesting
+    UrlQueryString(final String queryString,
+                   final List<UrlParameterKeyValuePair> pairs,
+                   final Map<UrlParameterName, UrlParameterValueList> parameters) {
         super();
         this.queryString = queryString;
         this.pairs = pairs;

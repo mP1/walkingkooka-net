@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
@@ -36,16 +36,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
+public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         ParseStringTesting<UrlQueryString>,
         ToStringTesting<UrlQueryString>,
         ComparableTesting2<UrlQueryString>,
         HasTextTesting {
-
-    @Override
-    public void testParseStringEmptyFails() {
-        // nop
-    }
 
     @Test
     public void testWithEmpty() {
@@ -60,36 +55,94 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
         this.parameterAbsent(queryString, "abc");
     }
 
+    // parse............................................................................................................
+
+    @Override
+    public void testParseStringEmptyFails() {
+        // nop
+    }
+
     @Test
-    public void testKeyOnly() {
+    public void testParse() {
+        final String text = "a=1&bcd=234";
+
+        final UrlParameterValueList a = UrlParameterValueList.empty();
+        a.addParameterValue("1");
+
+        final UrlParameterValueList bcd = UrlParameterValueList.empty();
+        bcd.addParameterValue("234");
+
+        this.parseStringAndCheck(
+                text,
+                new UrlQueryString(
+                        text,
+                        Lists.of(
+                                UrlParameterKeyValuePair.nameAndValue(
+                                        UrlParameterName.with("a"),
+                                        "1"
+                                ),
+                                UrlParameterKeyValuePair.nameAndValue(
+                                        UrlParameterName.with("bcd"),
+                                        "234"
+                                )
+                        ),
+                        Maps.of(
+                                UrlParameterName.with("a"),
+                                a,
+                                UrlParameterName.with("bcd"),
+                                bcd
+                        )
+                )
+        );
+    }
+
+    @Override
+    public UrlQueryString parseString(final String queryString) {
+        return UrlQueryString.parse(queryString);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> type) {
+        return type;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException cause) {
+        return cause;
+    }
+
+    // parameterValues..................................................................................................
+
+    @Test
+    public void testParameterValuesKeyOnly() {
         final UrlQueryString queryString = UrlQueryString.parse("a");
 
         this.parameterValuesAndCheck(queryString, "a", "");
     }
 
     @Test
-    public void testKeyOnly2() {
+    public void testParameterValuesKeyOnly2() {
         final UrlQueryString queryString = UrlQueryString.parse("abc");
 
         this.parameterValuesAndCheck(queryString, "abc", "");
     }
 
     @Test
-    public void testKeyValuePair() {
+    public void testParameterValuesKeyValuePair() {
         final UrlQueryString queryString = UrlQueryString.parse("a=z");
 
         this.parameterValuesAndCheck(queryString, "a", "z");
     }
 
     @Test
-    public void testKeyValuePair2() {
+    public void testParameterValuesKeyValuePair2() {
         final UrlQueryString queryString = UrlQueryString.parse("abc=def");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
     }
 
     @Test
-    public void testTwoKeyValuePair() {
+    public void testParameterValuesTwoKeyValuePair() {
         final UrlQueryString queryString = UrlQueryString.parse("a=b&c=d");
 
         this.parameterValuesAndCheck(queryString, "a", "b");
@@ -97,7 +150,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     }
 
     @Test
-    public void testTwoKeyValuePair2() {
+    public void testParameterValuesTwoKeyValuePair2() {
         final UrlQueryString queryString = UrlQueryString.parse("abc=def&ghi=jkl");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
@@ -105,7 +158,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     }
 
     @Test
-    public void testKeyValueSemiColonKeyValue2() {
+    public void testParameterValuesKeyValueSemiColonKeyValue2() {
         final UrlQueryString queryString = UrlQueryString.parse("abc=def;ghi=jkl");
 
         this.parameterValuesAndCheck(queryString, "abc", "def");
@@ -113,14 +166,14 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     }
 
     @Test
-    public void testKeyMultipleValues() {
+    public void testParameterValuesKeyMultipleValues() {
         final UrlQueryString queryString = UrlQueryString.parse("a=1&a=2");
 
         this.parameterValuesAndCheck(queryString, "a", "1", "2");
     }
 
     @Test
-    public void testKeyMultipleValues2() {
+    public void testParameterValuesKeyMultipleValues2() {
         final UrlQueryString queryString = UrlQueryString.parse("a=1&def=ghi&a=2&a=3");
 
         this.parameterValuesAndCheck(queryString, "a", "1", "2", "3");
@@ -675,22 +728,5 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // ParseStringTesting...............................................................................................
-
-    @Override
-    public UrlQueryString parseString(final String queryString) {
-        return UrlQueryString.parse(queryString);
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> type) {
-        return type;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException cause) {
-        return cause;
     }
 }
