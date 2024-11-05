@@ -31,7 +31,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseEmptyFails() {
         this.parseStringFails(
                 "",
-                new HeaderException("text is empty")
+                new HeaderException("Empty \"text\"")
         );
     }
 
