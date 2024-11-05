@@ -433,7 +433,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testFilenameMissingFails() {
         this.parseStringFails(
                 "V; filename=\"\"",
-                "filename is empty"
+                "Empty \"filename\""
         );
     }
 

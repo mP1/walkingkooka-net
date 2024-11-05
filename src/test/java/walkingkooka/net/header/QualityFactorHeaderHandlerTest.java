@@ -31,7 +31,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseEmptyStringFails() {
         this.parseStringFails(
                 "",
-                new HeaderException("text is empty")
+                new HeaderException("Empty \"text\"")
         );
     }
 
