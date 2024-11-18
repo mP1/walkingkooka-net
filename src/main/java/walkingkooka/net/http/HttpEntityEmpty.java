@@ -57,15 +57,17 @@ final class HttpEntityEmpty extends HttpEntity {
         return NO_HEADERS_HTTP_ENTITY_HEADER_LIST;
     }
 
-    @Override //
+    @Override
     HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return this.replace(headers);
+        return HttpEntityInterop.BINARY ?
+                HttpEntityBinary.with(headers, Binary.EMPTY) :
+                HttpEntityText.with(headers, "");
     }
 
     @Override //
     <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
                               final HttpEntityHeaderList value) {
-        return this.replace(Maps.of(header, value));
+        return this.replaceHeaders(Maps.of(header, value));
     }
 
     @Override //
@@ -110,13 +112,6 @@ final class HttpEntityEmpty extends HttpEntity {
         return bodyText.isEmpty() ?
                 this :
                 HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);
-    }
-
-    @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return HttpEntityInterop.BINARY ?
-                HttpEntityBinary.with(headers, Binary.EMPTY) :
-                HttpEntityText.with(headers, "");
     }
 
     @Override
