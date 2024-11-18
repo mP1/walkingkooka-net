@@ -20,11 +20,13 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.ListTesting2;
+import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderList> extends HttpEntityHeaderListTestCase<L>
         implements ListTesting2<L, Object>,
+        TypeNameTesting<L>,
         ToStringTesting<L> {
 
     HttpEntityHeaderListTestCase2() {
@@ -40,4 +42,16 @@ public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderLi
     }
 
     abstract L createHttpEntityHeaderList(final Object... values);
+
+    // TypeNameTesting...................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return HttpEntityHeaderList.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
+    }
 }

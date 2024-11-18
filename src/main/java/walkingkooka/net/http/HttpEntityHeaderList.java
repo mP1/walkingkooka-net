@@ -36,8 +36,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     static HttpEntityHeaderList one(final HttpHeaderName<?> header,
                                     final Object value) {
         return header.isMultiple() ?
-                HttpEntityHeaderMultiList.with(header, value) :
-                HttpEntityHeaderOneList.with(header, value);
+                HttpEntityHeaderListMulti.with(header, value) :
+                HttpEntityHeaderListOne.with(header, value);
     }
 
     /**
@@ -77,8 +77,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
         return values.length == 0 ?
                 null :
                 header.isMultiple() ?
-                        HttpEntityHeaderMultiList.with(header, values) :
-                        HttpEntityHeaderOneList.with(header, values);
+                        HttpEntityHeaderListMulti.with(header, values) :
+                        HttpEntityHeaderListOne.with(header, values);
     }
 
     /**
@@ -95,7 +95,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
      * Only returns true if a list for holding multiple header values.
      */
     final boolean isMultipleHeaders() {
-        return this instanceof HttpEntityHeaderMultiList;
+        return this instanceof HttpEntityHeaderListMulti;
     }
 
     // ImmutableList....................................................................................................
