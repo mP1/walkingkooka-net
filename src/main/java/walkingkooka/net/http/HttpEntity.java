@@ -383,10 +383,10 @@ public abstract class HttpEntity implements HasHeaders,
     public final HttpEntity setBodyText(final String bodyText) {
         Objects.requireNonNull(bodyText, "bodyText");
 
-        return this.setBodyText0(bodyText);
+        return this.replaceBodyText(bodyText);
     }
 
-    abstract HttpEntity setBodyText0(final String bodyText);
+    abstract HttpEntity replaceBodyText(final String bodyText);
 
     /**
      * Copies the content of the {@link WebFile} into this {@link HttpEntity}
