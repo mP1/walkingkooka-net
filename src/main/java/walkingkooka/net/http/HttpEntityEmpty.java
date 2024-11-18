@@ -106,7 +106,7 @@ final class HttpEntityEmpty extends HttpEntity {
     }
 
     @Override
-    HttpEntity setBodyText0(final String bodyText) {
+    HttpEntity replaceBodyText(final String bodyText) {
         return bodyText.isEmpty() ?
                 this :
                 HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);

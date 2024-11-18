@@ -139,7 +139,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     // setBodyText......................................................................................................
 
     @Override //
-    final HttpEntity setBodyText0(final String bodyText) {
+    final HttpEntity replaceBodyText(final String bodyText) {
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
 
         return bodyText.isEmpty() && headers.isEmpty() ?
