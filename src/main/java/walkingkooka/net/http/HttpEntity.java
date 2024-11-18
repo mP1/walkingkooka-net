@@ -417,9 +417,7 @@ public abstract class HttpEntity implements HasHeaders,
         return this.setBody(this.body().extract(range));
     }
 
-    // replace....................................................................................................
-
-    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
+    // replace..........................................................................................................
 
     abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                 final Binary body);

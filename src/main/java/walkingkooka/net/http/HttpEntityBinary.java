@@ -52,7 +52,10 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
 
     @Override
     HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return new HttpEntityBinary(headers, this.body);
+        return this.replace(
+                headers,
+                this.body
+        );
     }
 
     // contentLength....................................................................................................
@@ -77,12 +80,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
         return new String(this.body.value(), this.charset());
     }
 
-    // replace....................................................................................................
-
-    @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
-        return this.replace(headers, this.body);
-    }
+    // replace..........................................................................................................
 
     @Override
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,

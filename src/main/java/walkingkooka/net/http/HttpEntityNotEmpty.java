@@ -72,7 +72,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         updated.putAll(this.headers2());
         updated.put(header, value);
 
-        return this.replace(Maps.readOnly(updated));
+        return this.replaceHeaders(Maps.readOnly(updated));
     }
 
     @Override//
@@ -88,7 +88,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
             updated.putAll(headers);
             updated.put(header, HttpEntityHeaderList.one(header, value));
 
-            added = this.replace(Maps.readOnly(updated));
+            added = this.replaceHeaders(Maps.readOnly(updated));
         } else {
             final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
             updated.putAll(headers);
@@ -101,7 +101,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                         header,
                         (HttpEntityHeaderList) values.concat(value)
                 );
-                added = this.replace(Maps.readOnly(updated));
+                added = this.replaceHeaders(Maps.readOnly(updated));
             }
         }
 
@@ -125,7 +125,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         }
 
         return changed ?
-                this.replace(removed) :
+                this.replaceHeaders(removed) :
                 this;
     }
 
