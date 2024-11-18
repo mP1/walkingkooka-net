@@ -249,10 +249,10 @@ public abstract class HttpEntity implements HasHeaders,
 
         return this.headers().equals(copy) ?
                 this :
-                this.setHeaders0(copy);
+                this.replaceHeaders(copy);
     }
 
-    abstract HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
+    abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
 
     /**
      * Getter that returns the content length
