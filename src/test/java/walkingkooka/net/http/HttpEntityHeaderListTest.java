@@ -28,14 +28,14 @@ public final class HttpEntityHeaderListTest extends HttpEntityHeaderListTestCase
     public void testOneNonMultiHeader() {
         final HttpHeaderName<MediaType> contentType = HttpHeaderName.CONTENT_TYPE;
         this.checkEquals(false, contentType.isMultiple());
-        this.checkEquals(HttpEntityHeaderOneList.class, HttpEntityHeaderList.one(contentType, MediaType.TEXT_PLAIN).getClass());
+        this.checkEquals(HttpEntityHeaderListOne.class, HttpEntityHeaderList.one(contentType, MediaType.TEXT_PLAIN).getClass());
     }
 
     @Test
     public void testOneMultiHeader() {
         final HttpHeaderName<AcceptLanguage> acceptLanguage = HttpHeaderName.ACCEPT_LANGUAGE;
         this.checkEquals(true, acceptLanguage.isMultiple());
-        this.checkEquals(HttpEntityHeaderMultiList.class, HttpEntityHeaderList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
+        this.checkEquals(HttpEntityHeaderListMulti.class, HttpEntityHeaderList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
     }
 
     @Override
