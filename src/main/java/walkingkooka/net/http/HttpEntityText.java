@@ -40,7 +40,7 @@ final class HttpEntityText extends HttpEntityNotEmpty {
     }
 
     @Override
-    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return new HttpEntityText(headers, this.bodyText());
     }
 

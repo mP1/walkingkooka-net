@@ -51,7 +51,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     // headers..........................................................................................................
 
     @Override
-    HttpEntity setHeaders0(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return new HttpEntityBinary(headers, this.body);
     }
 
