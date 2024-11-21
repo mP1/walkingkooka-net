@@ -165,84 +165,77 @@ public final class UrlFragment implements Value<String>,
 
     @Override
     public String toString() {
-        try {
-            return URLEncoder.encode(
-                            this.value,
-                            UTF8
-                    )
-                    .replace(ENCODED_SPACE, "%20")
-                    //
-                    .replace(ENCODED_PLUS_SIGN, "+")
-                    //
-                    .replace(ENCODED_EXCLAIMATION, "!")
-                    .replace(ENCODED_DOLLAR_SIGN, "$")
-                    .replace(ENCODED_AMPERSAND, "&")
-                    .replace(ENCODED_SINGLE_QUOTE, "'")
-                    .replace(ENCODED_OPEN_PARENS, "(")
-                    .replace(ENCODED_CLOSE_PARENS, ")")
-                    .replace(ENCODED_STAR, "*")
-                    .replace(ENCODED_COMMA, ",")
-                    .replace(ENCODED_SEMI_COLON, ";")
-                    .replace(ENCODED_EQUALS_SIGN, "=")
-                    //
-                    .replace(ENCODED_COLON, ":")
-                    //
-                    .replace(ENCODED_AT_SIGN, "@")
-                    .replace(ENCODED_SLASH, "/")
-                    //
-                    .replace(ENCODED_QUESTION_MARK, "?")
-                    //
-                    .replace(ENCODED_BRACKET_OPEN, "[")
-                    .replace(ENCODED_BRACKET_CLOSE, "]");
-        } catch (final UnsupportedEncodingException cause) {
-            throw new Error(cause);
-        }
+        return encode(this.value)
+                .replace(ENCODED_SPACE, "%20")
+                //
+                .replace(ENCODED_PLUS_SIGN, "+")
+                //
+                .replace(ENCODED_EXCLAIMATION, "!")
+                .replace(ENCODED_DOLLAR_SIGN, "$")
+                .replace(ENCODED_AMPERSAND, "&")
+                .replace(ENCODED_SINGLE_QUOTE, "'")
+                .replace(ENCODED_OPEN_PARENS, "(")
+                .replace(ENCODED_CLOSE_PARENS, ")")
+                .replace(ENCODED_STAR, "*")
+                .replace(ENCODED_COMMA, ",")
+                .replace(ENCODED_SEMI_COLON, ";")
+                .replace(ENCODED_EQUALS_SIGN, "=")
+                //
+                .replace(ENCODED_COLON, ":")
+                //
+                .replace(ENCODED_AT_SIGN, "@")
+                .replace(ENCODED_SLASH, "/")
+                //
+                .replace(ENCODED_QUESTION_MARK, "?")
+                //
+                .replace(ENCODED_BRACKET_OPEN, "[")
+                .replace(ENCODED_BRACKET_CLOSE, "]");
     }
 
     // The scheme- or implementation-specific reserved character + may be used in the scheme, userinfo, host, path, query, and fragment,
 
-    private final static String ENCODED_PLUS_SIGN = URLEncoder.encode("+");
+    private final static String ENCODED_PLUS_SIGN = encode("+");
 
     // and the scheme- or implementation-specific reserved characters !, $, &, ', (, ), *, ,, ;, and = may be used in the
     // userinfo, host, path, query, and fragment.
-    private final static String ENCODED_EXCLAIMATION = URLEncoder.encode("!");
+    private final static String ENCODED_EXCLAIMATION = encode("!");
 
-    private final static String ENCODED_DOLLAR_SIGN = URLEncoder.encode("$");
+    private final static String ENCODED_DOLLAR_SIGN = encode("$");
 
-    private final static String ENCODED_AMPERSAND = URLEncoder.encode("&");
+    private final static String ENCODED_AMPERSAND = encode("&");
 
-    private final static String ENCODED_SINGLE_QUOTE = URLEncoder.encode("'");
+    private final static String ENCODED_SINGLE_QUOTE = encode("'");
 
-    private final static String ENCODED_OPEN_PARENS = URLEncoder.encode("(");
+    private final static String ENCODED_OPEN_PARENS = encode("(");
 
-    private final static String ENCODED_CLOSE_PARENS = URLEncoder.encode(")");
+    private final static String ENCODED_CLOSE_PARENS = encode(")");
 
-    private final static String ENCODED_STAR = URLEncoder.encode("*");
+    private final static String ENCODED_STAR = encode("*");
 
-    private final static String ENCODED_COMMA = URLEncoder.encode(",");
+    private final static String ENCODED_COMMA = encode(",");
 
-    private final static String ENCODED_SEMI_COLON = URLEncoder.encode(";");
+    private final static String ENCODED_SEMI_COLON = encode(";");
 
-    private final static String ENCODED_EQUALS_SIGN = URLEncoder.encode("=");
+    private final static String ENCODED_EQUALS_SIGN = encode("=");
 
     // The generic reserved character : may be used in the userinfo, path, query and fragment
 
-    private final static String ENCODED_COLON = URLEncoder.encode(":");
+    private final static String ENCODED_COLON = encode(":");
 
     // the generic reserved characters @ and / may be used in the path, query and fragment,
-    private final static String ENCODED_AT_SIGN = URLEncoder.encode("@");
+    private final static String ENCODED_AT_SIGN = encode("@");
 
-    private final static String ENCODED_SLASH = URLEncoder.encode("/");
+    private final static String ENCODED_SLASH = encode("/");
 
     // and the generic reserved character ? may be used in the query and fragment.
 
-    private final static String ENCODED_QUESTION_MARK = URLEncoder.encode("?");
+    private final static String ENCODED_QUESTION_MARK = encode("?");
 
     // additional characters
-    private final static String ENCODED_BRACKET_OPEN = URLEncoder.encode("[");
-    private final static String ENCODED_BRACKET_CLOSE = URLEncoder.encode("]");
+    private final static String ENCODED_BRACKET_OPEN = encode("[");
+    private final static String ENCODED_BRACKET_CLOSE = encode("]");
 
-    private final static String ENCODED_SPACE = URLEncoder.encode(" ");
+    private final static String ENCODED_SPACE = encode(" ");
 
     private final static String UTF8 = "UTF-8";
 
@@ -258,5 +251,12 @@ public final class UrlFragment implements Value<String>,
     @Override
     public int compareTo(final UrlFragment other) {
         return this.value.compareTo(other.value);
+    }
+
+    // UrlEncode........................................................................................................
+
+    @SuppressWarnings("deprecation") //
+    private static String encode(final String raw) {
+        return URLEncoder.encode(raw);
     }
 }
