@@ -778,7 +778,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
 
         this.checkEquals(
-                "Content-Type: Missing require text/plain",
+                "Content-Type: Missing required text/plain",
                 thrown.getMessage()
         );
     }

@@ -569,7 +569,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public void requireContentType(final MediaType mediaType) {
         if (null == mediaType) {
-            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Missing require " + this);
+            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Missing required " + this);
         }
         if (false == this.test(mediaType)) {
             throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType + " require " + this);
