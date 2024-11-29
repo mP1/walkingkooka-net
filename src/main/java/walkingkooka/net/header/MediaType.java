@@ -468,7 +468,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.qualityFactor(MediaTypeParameterName.Q);
     }
 
-    // replace .......................................................................
+    // replace .........................................................................................................
 
     @Override
     MediaType replace(final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -492,7 +492,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         );
     }
 
-    // setCharset .................................................................................................
+    // setCharset ......................................................................................................
 
     /**
      * Returns a {@link MediaType} with the given charset creating a new instance if necessary.
@@ -601,7 +601,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return Accept.with(Lists.of(this));
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ..................................................................................................
 
     final static boolean IS_MULTIPART = true;
 
@@ -658,7 +658,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         );
     }
 
-    // Object................................................................................................................
+    // Object...........................................................................................................
 
     @Override
     int hashCode0(final String value) {
