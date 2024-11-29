@@ -691,9 +691,11 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testParseWithBoundary() {
-        this.parseStringAndCheck("type1/subtype1;boundary=def",
+        this.parseStringAndCheck(
+                "type1/subtype1;boundary=def",
                 MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.of(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))));
+                        .setBoundary(MediaTypeBoundary.with("def"))
+        );
     }
 
     @Test
