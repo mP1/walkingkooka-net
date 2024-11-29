@@ -461,39 +461,6 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // parameters ......................................................................................................
 
-    /**
-     * Retrieves the quality factor for this value.
-     */
-    public Optional<Float> qualityFactor() {
-        return this.qualityFactor(MediaTypeParameterName.Q);
-    }
-
-    // replaceParameters ...............................................................................................
-
-    @Override
-    MediaType replaceParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return this.replace(
-                this.type,
-                this.subType,
-                this.suffix,
-                parameters
-        );
-    }
-
-    // replace..........................................................................................................
-
-    private MediaType replace(final String type,
-                              final String subType,
-                              final Optional<String> suffix,
-                              final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return withParameters(
-                type,
-                subType,
-                suffix,
-                parameters
-        );
-    }
-
     // setCharset ......................................................................................................
 
     /**
@@ -544,6 +511,39 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return MediaTypeParameterName.CHARSET.parameterValue(this)
                 .map(CharsetName::charsetFailNotSupported)
                 .orElse(defaultCharset);
+    }
+
+    /**
+     * Retrieves the quality factor for this value.
+     */
+    public Optional<Float> qualityFactor() {
+        return this.qualityFactor(MediaTypeParameterName.Q);
+    }
+
+    // replaceParameters ...............................................................................................
+
+    @Override
+    MediaType replaceParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return this.replace(
+                this.type,
+                this.subType,
+                this.suffix,
+                parameters
+        );
+    }
+
+    // replace..........................................................................................................
+
+    private MediaType replace(final String type,
+                              final String subType,
+                              final Optional<String> suffix,
+                              final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return withParameters(
+                type,
+                subType,
+                suffix,
+                parameters
+        );
     }
 
     // Predicate................................ .......................................................................
