@@ -386,7 +386,65 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertSame(constant, withParameters.setParameters(MediaType.NO_PARAMETERS));
     }
 
-    // setCharset .......................................................................
+    // setBoundary .....................................................................................................
+
+    @Test
+    public void testSetBoundaryWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> MediaType.TEXT_PLAIN.setBoundary(null)
+        );
+    }
+
+    @Test
+    public void testSetBoundary() {
+        final MediaTypeBoundary boundary = MediaTypeBoundary.with("boundary123");
+
+        this.check(
+                MediaType.MULTIPART_FORM_DATA.setBoundary(boundary),
+                "multipart",
+                "form-data",
+                Maps.of(MediaTypeParameterName.BOUNDARY, boundary)
+        );
+    }
+
+    @Test
+    public void testSetBoundarySame() {
+        final MediaTypeBoundary boundary = MediaTypeBoundary.with("boundary123");
+        final MediaType mediaType = MediaType.MULTIPART_FORM_DATA.setBoundary(boundary);
+
+        assertSame(
+                mediaType,
+                mediaType.setBoundary(boundary)
+        );
+    }
+
+    @Test
+    public void testSetBoundaryDifferent() {
+        final MediaType mediaType111 = MediaType.MULTIPART_FORM_DATA.setBoundary(
+                MediaTypeBoundary.with("boundary111")
+        );
+
+        final MediaTypeBoundary differentBoundary = MediaTypeBoundary.with("boundary-different");
+        final MediaType different = mediaType111.setBoundary(differentBoundary);
+
+        this.checkEquals(
+                MediaType.MULTIPART_FORM_DATA.setBoundary(differentBoundary),
+                different
+        );
+
+        this.check(
+                different,
+                "multipart",
+                "form-data",
+                Maps.of(
+                        MediaTypeParameterName.BOUNDARY,
+                        differentBoundary
+                )
+        );
+    }
+
+    // setCharset ......................................................................................................
 
     @Test
     public void testSetCharsetNullFails() {
