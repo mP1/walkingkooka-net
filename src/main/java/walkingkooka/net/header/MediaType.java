@@ -57,8 +57,6 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         HasQualityFactor,
         Predicate<MediaType> {
 
-    private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
-
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
