@@ -217,6 +217,45 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         );
     }
 
+    // Content-Disposition: form-data; filename="filename.jpg"
+
+    @Test
+    public void testFilenameFormDataFilename() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("form-data; filename=\"file123.txt\""),
+                ContentDispositionFileName.notEncoded("file123.txt")
+        );
+    }
+
+    // Content-Disposition: form-data; filename*="filename.jpg"
+    @Test
+    public void testFilenameFormDataFilenameStar() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("form-data; filename*=UTF-8''file123.txt"),
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "file123.txt"
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testFilenameFormDataFilenameStarAndFilename() {
+        this.filenameAndCheck(
+                ContentDisposition.parse("form-data; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "filename-star.txt"
+                        )
+                )
+        );
+    }
+    
     private void filenameAndCheck(final ContentDisposition disposition) {
         this.filenameAndCheck(
                 disposition,
