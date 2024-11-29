@@ -119,7 +119,8 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
     public Optional<ContentDispositionFileName> filename() {
         Optional<ContentDispositionFileName> filename = Optional.empty();
 
-        if (this.type().isAttachment()) {
+        final ContentDispositionType type = this.type();
+        if (type.isAttachment() || type.isFormData()) {
             filename = ContentDispositionParameterName.FILENAME_STAR.parameterValue(this);
 
             if (false == filename.isPresent()) {
