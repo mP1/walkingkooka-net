@@ -25,10 +25,15 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.LineEnding;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+import java.util.jar.JarOutputStream;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -163,6 +168,58 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                 HttpEntityText.EMPTY.setBodyText(
                         binaryHttpEntity.text()
                 )
+        );
+    }
+
+    @Test
+    public void testBodyTextBodyWithJarFile() throws IOException {
+        final String text = "Hello";
+        final String filename = "Hello.txt";
+
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        {
+            final JarOutputStream jos = new JarOutputStream(baos);
+
+            final JarEntry entry = new JarEntry(filename);
+            jos.putNextEntry(entry);
+            jos.write(
+                    text.getBytes(Charset.defaultCharset())
+            );
+            jos.closeEntry();
+
+            jos.finish();
+            jos.flush();
+            jos.close();
+        }
+        final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
+                Binary.with(baos.toByteArray())
+        );
+        final HttpEntity textHttpEntity = HttpEntity.EMPTY.setBodyText(
+                binaryHttpEntity.text()
+        );
+
+        final JarInputStream jis = new JarInputStream(
+                textHttpEntity.body().inputStream()
+        );
+
+        String text2 = null;
+
+        for (; ; ) {
+            final JarEntry entry = jis.getNextJarEntry();
+            if (null == entry) {
+                break;
+            }
+            if (entry.getName().equals(filename)) {
+                text2 = new String(
+                        jis.readAllBytes(),
+                        Charset.defaultCharset()
+                );
+            }
+        }
+
+        this.checkEquals(
+                text,
+                text2
         );
     }
 
