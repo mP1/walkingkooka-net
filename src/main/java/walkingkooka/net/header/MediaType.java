@@ -461,6 +461,21 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // parameters ......................................................................................................
 
+    // boundary.........................................................................................................
+
+    public Optional<MediaTypeBoundary> boundary() {
+        return MediaTypeParameterName.BOUNDARY.parameterValue(this);
+    }
+
+    public MediaType setBoundary(final MediaTypeBoundary boundary) {
+        Objects.requireNonNull(boundary, "boundary");
+
+        return this.setParameter(
+                MediaTypeParameterName.BOUNDARY,
+                boundary
+        );
+    }
+
     // setCharset ......................................................................................................
 
     /**
@@ -469,23 +484,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public MediaType setCharset(final CharsetName charset) {
         Objects.requireNonNull(charset, "charset");
 
-        return charset.equals(this.parameters.get(MediaTypeParameterName.CHARSET)) ?
-                this :
-                this.setCharset0(charset);
-    }
-
-    private MediaType setCharset0(final CharsetName charset) {
-        Objects.requireNonNull(charset, "charset");
-
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.putAll(this.parameters);
-        parameters.put(MediaTypeParameterName.CHARSET, charset);
-
-        return this.replace(
-                this.type,
-                this.subType,
-                this.suffix,
-                Maps.readOnly(parameters)
+        return this.setParameter(
+                MediaTypeParameterName.CHARSET,
+                charset
         );
     }
 
@@ -518,6 +519,29 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public Optional<Float> qualityFactor() {
         return this.qualityFactor(MediaTypeParameterName.Q);
+    }
+
+    <T> MediaType setParameter(final MediaTypeParameterName<T> name,
+                               final T value) {
+        final MediaType after;
+
+        final Map<MediaTypeParameterName<?>, Object> parameters = this.parameters;
+        if (value.equals(parameters.get(name))) {
+            after = this;
+        } else {
+            final Map<MediaTypeParameterName<?>, Object> newParameters = Maps.ordered();
+            newParameters.putAll(parameters);
+            newParameters.put(name, value);
+
+            after = this.replace(
+                    this.type,
+                    this.subType,
+                    this.suffix,
+                    Maps.readOnly(newParameters)
+            );
+        }
+
+        return after;
     }
 
     // replaceParameters ...............................................................................................
