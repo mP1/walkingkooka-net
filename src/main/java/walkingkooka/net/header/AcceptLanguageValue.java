@@ -102,14 +102,14 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         Objects.requireNonNull(value, "value");
     }
 
-    // replace ........................................................................................................
+    // replaceParameters ...............................................................................................
 
     private AcceptLanguageValue replace(final LanguageName value) {
         return this.replace0(value, this.parameters);
     }
 
     @Override
-    AcceptLanguageValue replace(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
+    AcceptLanguageValue replaceParameters(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 

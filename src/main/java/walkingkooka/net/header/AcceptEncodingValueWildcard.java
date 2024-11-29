@@ -38,7 +38,7 @@ final class AcceptEncodingValueWildcard extends AcceptEncodingValue {
     }
 
     @Override
-    AcceptEncodingValue replace(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+    AcceptEncodingValue replaceParameters(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         return new AcceptEncodingValueWildcard(parameters);
     }
 

@@ -210,7 +210,7 @@ public final class RangeHeader implements Header,
         }
     }
 
-    // replace.............................................................................
+    // replaceParameters.............................................................................
 
     private RangeHeader replace(final RangeHeaderUnit unit, final List<Range<Long>> ranges) {
         return new RangeHeader(unit, ranges);
