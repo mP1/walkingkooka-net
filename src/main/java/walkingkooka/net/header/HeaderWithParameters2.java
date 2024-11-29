@@ -74,7 +74,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         final Map<P, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 Cast.to(this) :
-                this.replace(copy);
+                this.replaceParameters(copy);
     }
 
     final Map<P, Object> parameters;
@@ -94,9 +94,9 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         return Maps.immutable(copy);
     }
 
-    // replace................................................................................................................
+    // replaceParameters................................................................................................
 
-    abstract H replace(final Map<P, Object> parameters);
+    abstract H replaceParameters(final Map<P, Object> parameters);
 
     // qWeight .................................................................................................
 

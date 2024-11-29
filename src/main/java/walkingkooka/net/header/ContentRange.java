@@ -451,7 +451,7 @@ public final class ContentRange implements Header {
         }
     }
 
-    // replace ..................................................................................................
+    // replaceParameters ..................................................................................................
 
     /**
      * Factory that creates a new {@link ContentRange}

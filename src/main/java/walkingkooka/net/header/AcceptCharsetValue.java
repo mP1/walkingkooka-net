@@ -122,10 +122,10 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
         return this.qualityFactor(AcceptCharsetValueParameterName.Q);
     }
 
-    // replace .................................................................................................
+    // replaceParameters .................................................................................................
 
     @Override
-    AcceptCharsetValue replace(final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
+    AcceptCharsetValue replaceParameters(final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         return this.replace(this.value, parameters);
     }
 

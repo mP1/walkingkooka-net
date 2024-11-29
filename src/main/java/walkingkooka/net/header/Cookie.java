@@ -306,7 +306,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
 
     final String value;
 
-    // replace............................................................................................
+    // replaceParameters............................................................................................
 
     abstract Cookie replace(final CookieName name, final String value);
 

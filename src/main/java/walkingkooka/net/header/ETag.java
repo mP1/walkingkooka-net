@@ -132,7 +132,7 @@ public abstract class ETag implements Header,
         Objects.requireNonNull(validator, "validator");
     }
 
-    // replace ........................................................................................................
+    // replaceParameters ...............................................................................................
 
     private ETag replace(final String value, final ETagValidator validator) {
         return with(value, validator);

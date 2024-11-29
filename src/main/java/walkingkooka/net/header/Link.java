@@ -98,14 +98,14 @@ final public class Link extends HeaderWithParameters2<Link,
         Objects.requireNonNull(value, "value");
     }
 
-    // replace ........................................................................................................
+    // replaceParameters ...............................................................................................
 
     private Link replace(final Url value) {
         return this.replace0(value, this.parameters);
     }
 
     @Override
-    Link replace(final Map<LinkParameterName<?>, Object> parameters) {
+    Link replaceParameters(final Map<LinkParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 

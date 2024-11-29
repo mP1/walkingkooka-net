@@ -47,7 +47,7 @@ final class AcceptEncodingValueNonWildcard extends AcceptEncodingValue {
     }
 
     @Override
-    AcceptEncodingValueNonWildcard replace(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+    AcceptEncodingValueNonWildcard replaceParameters(final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         return new AcceptEncodingValueNonWildcard(this.value, parameters);
     }
 

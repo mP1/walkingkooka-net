@@ -90,10 +90,10 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
         Objects.requireNonNull(type, "type");
     }
 
-    // replace ...........................................................................................................
+    // replaceParameters ..................................................................................................
 
     @Override
-    ContentDisposition replace(final Map<ContentDispositionParameterName<?>, Object> parameters) {
+    ContentDisposition replaceParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
         return this.replace(this.value, parameters);
     }
 

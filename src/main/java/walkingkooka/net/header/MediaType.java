@@ -459,7 +459,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return CaseSensitivity.INSENSITIVE;
     }
 
-    // parameters ...............................................................................................
+    // parameters ......................................................................................................
 
     /**
      * Retrieves the quality factor for this value.
@@ -468,10 +468,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.qualityFactor(MediaTypeParameterName.Q);
     }
 
-    // replace .........................................................................................................
+    // replaceParameters ...............................................................................................
 
     @Override
-    MediaType replace(final Map<MediaTypeParameterName<?>, Object> parameters) {
+    MediaType replaceParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
         return this.replace(
                 this.type,
                 this.subType,
@@ -479,6 +479,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 parameters
         );
     }
+
+    // replace..........................................................................................................
 
     private MediaType replace(final String type,
                               final String subType,
