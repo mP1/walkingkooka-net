@@ -130,6 +130,42 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         assertSame(entity, entity.setBodyText(TEXT));
     }
 
+    @Test
+    public void testBodyTextBody() {
+        final byte[] bytes = new byte[127];
+        for (byte i = 0; i < bytes.length; i++) {
+            bytes[i] = i;
+        }
+
+        final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
+                Binary.with(bytes)
+        );
+        this.checkEquals(
+                binaryHttpEntity,
+                binaryHttpEntity.setBodyText(
+                        binaryHttpEntity.text()
+                )
+        );
+    }
+
+    @Test
+    public void testBodyTextBody2() {
+        final byte[] bytes = new byte[127];
+        for (byte i = 0; i < bytes.length; i++) {
+            bytes[i] = i;
+        }
+
+        final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
+                Binary.with(bytes)
+        );
+        this.checkEquals(
+                binaryHttpEntity,
+                HttpEntityText.EMPTY.setBodyText(
+                        binaryHttpEntity.text()
+                )
+        );
+    }
+
     // toString ....................................................................................................
 
     @Test
