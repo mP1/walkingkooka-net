@@ -42,7 +42,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpHandlerTest extends HttpHandlerTestCase2<WebFileHttpHandler> {
+public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHttpHandler> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);

@@ -29,7 +29,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpHandlerTest extends HttpHandlerTestCase2<RouterHttpHandler> {
+public final class RouterHttpHandlerTest extends HttpHandlerTestCase<RouterHttpHandler> {
 
     @Test
     public void testWithNullRouterFails() {
