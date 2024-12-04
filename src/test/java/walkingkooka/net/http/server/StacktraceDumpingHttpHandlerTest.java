@@ -31,7 +31,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase2<StacktraceDumpingHttpHandler> {
+public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase<StacktraceDumpingHttpHandler> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;

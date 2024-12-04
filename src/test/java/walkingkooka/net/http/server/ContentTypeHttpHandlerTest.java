@@ -32,7 +32,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase2<ContentTypeHttpHandler> {
+public final class ContentTypeHttpHandlerTest extends HttpHandlerTestCase<ContentTypeHttpHandler> {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");

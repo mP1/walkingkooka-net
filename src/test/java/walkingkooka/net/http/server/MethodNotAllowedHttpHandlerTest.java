@@ -25,7 +25,7 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase2<MethodNotAllowedHttpHandler> {
+public final class MethodNotAllowedHttpHandlerTest extends HttpHandlerTestCase<MethodNotAllowedHttpHandler> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");

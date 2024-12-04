@@ -33,7 +33,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeadersCopyHttpHandlerTest extends HttpHandlerTestCase2<HeadersCopyHttpHandler> {
+public final class HeadersCopyHttpHandlerTest extends HttpHandlerTestCase<HeadersCopyHttpHandler> {
 
     @Test
     public void testWithNullHeadersFails() {

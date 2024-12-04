@@ -17,10 +17,13 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public abstract class HttpHandlerTestCase<T> implements ClassTesting2<T> {
+public abstract class HttpHandlerTestCase<H extends HttpHandler>
+        implements ClassTesting2<H>,
+        ToStringTesting<H> {
 
     HttpHandlerTestCase() {
         super();
