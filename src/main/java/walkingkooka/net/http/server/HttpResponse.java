@@ -20,6 +20,8 @@ package walkingkooka.net.http.server;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ import java.util.Optional;
  * Defines a mutable HTTP response that accepts status and entities and provides methods as these may be filtered
  * or processed in some way.
  */
-public interface HttpResponse {
+public interface HttpResponse extends TreePrintable {
 
     /**
      * Version setter.
@@ -58,4 +60,23 @@ public interface HttpResponse {
      * Returns the {@link HttpEntity}.
      */
     HttpEntity entity();
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    default void printTree(final IndentingPrinter printer) {
+        printer.println(HttpResponse.class.getSimpleName());
+        printer.indent();
+        {
+            final HttpStatus status = this.status()
+                    .orElse(null);
+            if (null != status) {
+                printer.println(status.toString());
+            }
+            this.entity()
+                    .printTree(printer);
+            printer.lineStart();
+        }
+        printer.outdent();
+    }
 }

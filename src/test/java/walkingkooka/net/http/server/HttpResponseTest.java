@@ -22,17 +22,22 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonNodeMarshallingTesting<HttpResponse> {
+public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonNodeMarshallingTesting<HttpResponse>,
+        TreePrintableTesting {
 
     @Test
     public void testVersionMissingJsonMarshallFails() {
@@ -50,6 +55,48 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
         response.setEntity(HttpEntity.EMPTY);
 
         assertThrows(JsonNodeMarshallException.class, () -> this.marshallContext().marshall(response));
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        this.treePrintAndCheck(
+                new FakeHttpResponse() {
+                    @Override
+                    public Optional<HttpProtocolVersion> version() {
+                        return Optional.of(
+                                HttpProtocolVersion.VERSION_1_0
+                        );
+                    }
+
+                    @Override
+                    public Optional<HttpStatus> status() {
+                        return Optional.of(
+                                HttpStatusCode.OK.setMessage("OK hello")
+                        );
+                    }
+
+                    @Override
+                    public HttpEntity entity() {
+                        return HttpEntity.EMPTY.setContentType(
+                                MediaType.TEXT_PLAIN
+                        ).setBodyText(
+                                "Hello111\n" +
+                                        "Hello222\n"
+                        );
+                    }
+                },
+                "HttpResponse\n" +
+                        "  200 OK hello\n" +
+                        "  HttpEntity\n" +
+                        "    header(s)\n" +
+                        "      Content-Type: text/plain\n" +
+                        "    bodyText\n" +
+                        "      Hello111\n" +
+                        "      Hello222\n" +
+                        "      \n"
+        );
     }
 
     // ClassTesting.....................................................................................................
