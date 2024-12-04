@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -254,6 +255,25 @@ public abstract class HttpEntity implements HasHeaders,
 
     abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
 
+    /**
+     * Returns the {@link Accept} if one is present.
+     */
+    public final Optional<Accept> accept() {
+        return HttpHeaderName.ACCEPT.header(this);
+    }
+
+    /**
+     * Sets the {@link Accept} replacing any existing value as necessary.
+     */
+    public final HttpEntity setAccept(final Accept accept) {
+        Objects.requireNonNull(accept, "accept");
+
+        return this.setHeader(
+                HttpHeaderName.ACCEPT,
+                Lists.of(accept)
+        );
+    }
+    
     /**
      * Getter that returns the content length
      */

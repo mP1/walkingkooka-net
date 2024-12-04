@@ -25,6 +25,7 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -161,6 +162,26 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         assertSame(entity, entity.setHeaders(new HashMap<>(entity.headers())));
     }
 
+    // setAccept........................................................................................................
+
+    @Test
+    public final void testSetAcceptWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHttpEntity()
+                        .setAccept(null)
+        );
+    }
+
+    final void setAcceptAndCheck(final HttpEntity entity,
+                                 final Accept accept,
+                                 final HttpEntity expected) {
+        this.checkEquals(
+                expected,
+                entity.setAccept(accept)
+        );
+    }
+    
     // setContentType...................................................................................................
 
     @Test
