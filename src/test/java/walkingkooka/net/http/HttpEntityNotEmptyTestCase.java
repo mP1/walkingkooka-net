@@ -494,6 +494,19 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         assertSame(set, already);
     }
 
+    // setAccept...................................................................................................
+
+    @Test
+    public final void testSetAccept() {
+        final HttpEntity httpEntity = this.createHttpEntity();
+
+        this.setAcceptAndCheck(
+                httpEntity,
+                MediaType.TEXT_PLAIN.accept(),
+                httpEntity.setAccept(MediaType.TEXT_PLAIN.accept())
+        );
+    }
+    
     // setContentType...................................................................................................
 
     @Test
