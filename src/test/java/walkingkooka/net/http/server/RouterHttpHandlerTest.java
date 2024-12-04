@@ -18,10 +18,12 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
 
 import java.util.Map;
@@ -29,53 +31,66 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpHandlerTest extends HttpHandlerTestCase<RouterHttpHandler> {
+public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHttpHandler>,
+        ToStringTesting<RouterHttpHandler> {
 
     @Test
     public void testWithNullRouterFails() {
-        assertThrows(NullPointerException.class, () -> RouterHttpHandler.with(null, this.notFound()));
+        assertThrows(
+                NullPointerException.class,
+                () -> RouterHttpHandler.with(
+                        null,
+                        this.notFound()
+                )
+        );
     }
 
     @Test
     public void testWithNotFoundFails() {
-        assertThrows(NullPointerException.class, () -> RouterHttpHandler.with(this.router(), null));
+        assertThrows(
+                NullPointerException.class,
+                () -> RouterHttpHandler.with(
+                        this.router(),
+                        null
+                )
+        );
+    }
+
+    // handler..........................................................................................................
+
+    @Test
+    public void testHandleRouted() {
+        this.handleAndCheck(
+                HttpMethod.POST,
+                HttpStatusCode.OK.status()
+        );
     }
 
     @Test
-    public void testRouted() {
-        this.handleAndCheck(HttpMethod.POST, HttpStatusCode.OK.status());
-    }
-
-    @Test
-    public void testNotFound() {
-        this.handleAndCheck(HttpMethod.GET, HttpStatusCode.NOT_FOUND.status());
+    public void testHandleNotFound() {
+        this.handleAndCheck(
+                HttpMethod.GET,
+                HttpStatusCode.NOT_FOUND.status()
+        );
     }
 
     private void handleAndCheck(final HttpMethod method,
                                 final HttpStatus status) {
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(
-                        this.request(method),
-                        response
-                );
-
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status);
-        this.checkEquals(expected, response);
+
+        this.handleAndCheck(
+                this.request(method),
+                expected
+        );
     }
 
-    @Test
-    public void testToString() {
-        final Router<HttpRequestAttribute<?>, HttpHandler> router = this.router();
-        final HttpHandler notFound = this.notFound();
-
-        this.toStringAndCheck(RouterHttpHandler.with(router, notFound), router + " OR " + notFound);
-    }
-
-    private RouterHttpHandler createHttpHandler() {
-        return RouterHttpHandler.with(this.router(), this.notFound());
+    @Override
+    public RouterHttpHandler createHttpHandler() {
+        return RouterHttpHandler.with(
+                this.router(),
+                this.notFound()
+        );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> router() {
@@ -83,14 +98,19 @@ public final class RouterHttpHandlerTest extends HttpHandlerTestCase<RouterHttpH
     }
 
     private Optional<HttpHandler> router0(Map<HttpRequestAttribute<?>, Object> parameters) {
-        return Optional.ofNullable(HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ? this.ok() : null);
+        return Optional.ofNullable(
+                HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ?
+                        this.ok() :
+                        null
+        );
     }
 
     private HttpHandler ok() {
         return this::ok0;
     }
 
-    private void ok0(final HttpRequest request, final HttpResponse response) {
+    private void ok0(final HttpRequest request,
+                     final HttpResponse response) {
         response.setStatus(HttpStatusCode.OK.status());
     }
 
@@ -98,7 +118,8 @@ public final class RouterHttpHandlerTest extends HttpHandlerTestCase<RouterHttpH
         return this::notFound0;
     }
 
-    private void notFound0(final HttpRequest request, final HttpResponse response) {
+    private void notFound0(final HttpRequest request,
+                           final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_FOUND.status());
     }
 
@@ -121,8 +142,25 @@ public final class RouterHttpHandlerTest extends HttpHandlerTestCase<RouterHttpH
         };
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        final Router<HttpRequestAttribute<?>, HttpHandler> router = this.router();
+        final HttpHandler notFound = this.notFound();
+
+        this.toStringAndCheck(RouterHttpHandler.with(router, notFound), router + " OR " + notFound);
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<RouterHttpHandler> type() {
         return RouterHttpHandler.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -48,6 +48,9 @@ final class MethodNotAllowedHttpHandler implements HttpHandler {
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         final HttpMethod method = request.method();
         if (this.method.equals(method)) {
             this.handler.handle(
