@@ -46,6 +46,9 @@ final class StacktraceDumpingHttpHandler implements HttpHandler {
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         try {
             this.handler.handle(request, response);
         } catch (final Throwable cause) {

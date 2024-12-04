@@ -42,7 +42,11 @@ final class RouterHttpHandler implements HttpHandler {
     }
 
     @Override
-    public void handle(final HttpRequest request, final HttpResponse response) {
+    public void handle(final HttpRequest request,
+                       final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         this.router.route(request.routerParameters())
                 .orElse(this.notFound)
                 .handle(request, response);

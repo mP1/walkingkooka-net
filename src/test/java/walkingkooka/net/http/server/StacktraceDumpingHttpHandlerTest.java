@@ -18,37 +18,55 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.reflect.JavaVisibility;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase<StacktraceDumpingHttpHandler> {
+public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTesting<StacktraceDumpingHttpHandler>,
+        ToStringTesting<StacktraceDumpingHttpHandler> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
 
     @Test
     public void testWithNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpHandler.with(null, TRANSLATOR));
+        assertThrows(
+                NullPointerException.class,
+                () -> StacktraceDumpingHttpHandler.with(
+                        null,
+                        TRANSLATOR
+                )
+        );
     }
 
     @Test
     public void testWithNullTranslatorFails() {
-        assertThrows(NullPointerException.class, () -> StacktraceDumpingHttpHandler.with((r, s) -> {
-        }, null));
+        assertThrows(
+                NullPointerException.class,
+                () -> StacktraceDumpingHttpHandler.with(
+                        (r, s) -> {
+                        },
+                        null
+                )
+        );
     }
 
+    // handle...........................................................................................................
+
     @Test
-    public void testNothingThrown() {
+    public void testHandleNothingThrown() {
         this.handled = false;
 
         final HttpRequest request = HttpRequests.fake();
@@ -73,7 +91,7 @@ public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase<
     private boolean handled;
 
     @Test
-    public void testThrown() {
+    public void testHandleThrown() {
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.recording();
 
@@ -108,17 +126,22 @@ public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase<
         this.checkEquals(true, body.contains(UnsupportedOperationException.class.getSimpleName()), () -> body);
     }
 
-    @Test
-    public void testToString() {
-        final HttpHandler wrapped = wrapped();
-        this.toStringAndCheck(StacktraceDumpingHttpHandler.with(wrapped, TRANSLATOR), wrapped + " " + TRANSLATOR);
+    @Override
+    public StacktraceDumpingHttpHandler createHttpHandler() {
+        return StacktraceDumpingHttpHandler.with(
+                wrappedHttpHandler(),
+                TRANSLATOR
+        );
     }
 
-    private HttpHandler wrapped() {
+    private HttpHandler wrappedHttpHandler() {
         return new HttpHandler() {
             @Override
             public void handle(final HttpRequest request,
                                final HttpResponse response) {
+                Objects.requireNonNull(request, "request");
+                Objects.requireNonNull(response, "response");
+
                 throw new UnsupportedOperationException();
             }
 
@@ -129,8 +152,29 @@ public final class StacktraceDumpingHttpHandlerTest extends HttpHandlerTestCase<
         };
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        final HttpHandler wrapped = wrappedHttpHandler();
+        this.toStringAndCheck(
+                StacktraceDumpingHttpHandler.with(
+                        wrapped,
+                        TRANSLATOR
+                ),
+                wrapped + " " + TRANSLATOR
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<StacktraceDumpingHttpHandler> type() {
         return StacktraceDumpingHttpHandler.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Either;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
@@ -31,6 +32,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -42,7 +44,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHttpHandler> {
+public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileHttpHandler>,
+        ToStringTesting<WebFileHttpHandler> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -138,27 +141,23 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
     // accept...........................................................................................................
 
     @Test
-    public void testFileNotFound() {
-        final HttpRequest request = this.request("file-not-found", NO_ETAG, NO_LAST_MODIFIED);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
-
+    public void testHandleFileNotFound() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
         expected.setEntity(HttpEntity.EMPTY);
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                this.request(
+                        "file-not-found",
+                        NO_ETAG, NO_LAST_MODIFIED
+                ),
+                expected
+        );
     }
 
     @Test
-    public void testRequestWithoutIfNotModifiedHeader() {
+    public void testHandleRequestWithoutIfNotModifiedHeader() {
         final HttpRequest request = this.request(FILE1, NO_ETAG, NO_LAST_MODIFIED);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -171,17 +170,14 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                         .setBody(CONTENT1)
         );
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                request,
+                expected
+        );
     }
 
     @Test
-    public void testRequestUrlRequiresNormalizationFileFound() {
-        final HttpRequest request = this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
-
+    public void testHandleRequestUrlRequiresNormalizationFileFound() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
@@ -192,17 +188,14 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                         .setContentType(CONTENT_TYPE1)
                         .setBody(CONTENT1));
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED),
+                expected
+        );
     }
 
     @Test
-    public void testFileFound() {
-        final HttpRequest request = this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
-
+    public void testHandleFileFound() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
 
@@ -213,17 +206,14 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                 .addHeader(HttpHeaderName.E_TAG, ETAG2)
                 .setBody(CONTENT2));
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED),
+                expected
+        );
     }
 
     @Test
-    public void testRequestIfNotModifiedMatch() {
-        final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
-
+    public void testHandleRequestIfNotModifiedMatch() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
@@ -232,16 +222,15 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                this.request(FILE1, NO_ETAG, LAST_MODIFIED1),
+                expected
+        );
     }
 
     @Test
-    public void testRequestIfNotModifiedOlder() {
+    public void testHandleRequestIfNotModifiedOlder() {
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1.minusSeconds(10));
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.OK.status());
@@ -252,17 +241,14 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
                 .setBody(CONTENT1));
 
-        this.checkResponse(request, response, expected);
+        this.handleAndCheck(
+                request,
+                expected
+        );
     }
 
     @Test
-    public void testRequestIfMatchETag() {
-        final HttpRequest request = this.request(FILE2, ETAG2, LAST_MODIFIED2);
-        final HttpResponse response = HttpResponses.recording();
-
-        this.createHttpHandler()
-                .handle(request, response);
-
+    public void testHandleRequestIfMatchETag() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
@@ -272,34 +258,18 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
                 .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
                 .addHeader(HttpHeaderName.E_TAG, ETAG2));
 
-        this.checkResponse(request, response, expected);
-    }
-
-    private void checkResponse(final HttpRequest request,
-                               final HttpResponse response,
-                               final HttpResponse expected) {
-        this.checkEquals(
-                expected.status(),
-                response.status(),
-                () -> "response.status " + request
-        );
-        this.checkEquals(
-                expected.entity(),
-                response.entity(),
-                () -> "response.entity " + request
+        this.handleAndCheck(
+                this.request(
+                        FILE2,
+                        ETAG2,
+                        LAST_MODIFIED2
+                ),
+                expected
         );
     }
 
-    // toString.........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createHttpHandler(), this.baseUrlPath().toString());
-    }
-
-    // helpers..........................................................................................................
-
-    private WebFileHttpHandler createHttpHandler() {
+    @Override
+    public WebFileHttpHandler createHttpHandler() {
         return WebFileHttpHandler.with(this.baseUrlPath(), FILES);
     }
 
@@ -342,10 +312,26 @@ public final class WebFileHttpHandlerTest extends HttpHandlerTestCase<WebFileHtt
         return Lists.of(values);
     }
 
-    // ClassTesting.....................................................................................................
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createHttpHandler(),
+                this.baseUrlPath()
+                        .toString()
+        );
+    }
+
+    // Class...........................................................................................................
 
     @Override
     public Class<WebFileHttpHandler> type() {
         return WebFileHttpHandler.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
