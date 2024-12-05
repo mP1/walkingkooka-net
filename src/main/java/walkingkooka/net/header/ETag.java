@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Value;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
@@ -101,8 +100,11 @@ public abstract class ETag implements Header,
                 this.replace(value, this.validator());
     }
 
-    static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", ETagHeaderParser.ETAG_VALUE);
+    static String checkValue(final String value) {
+        return ETagHeaderParser.ETAG_VALUE.failIfNullOrFalse(
+                "value",
+                value
+        );
     }
 
     // weak...........................................................................................................
