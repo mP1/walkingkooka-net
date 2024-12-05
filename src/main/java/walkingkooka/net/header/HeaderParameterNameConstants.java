@@ -79,7 +79,10 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
      * Checks the characters are all valid and then calls the factory
      */
     private N checkAndCreate(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", RFC2045);
+        RFC2045.failIfNullOrEmptyOrFalse(
+                "name",
+                name
+        );
         return this.factory.apply(name, this.defaultHandler);
     }
 

@@ -62,7 +62,10 @@ final class LanguageNameNonWildcard extends LanguageName {
      * exists it not performed because in a j2cl environment not all locales will be available in a javascript environment.
      */
     private static LanguageNameNonWildcard nonWildcard0(final String language) {
-        CharPredicates.failIfNullOrEmptyOrFalse(language, "language", PREDICATE);
+        PREDICATE.failIfNullOrEmptyOrFalse(
+                "language",
+                language
+        );
 
         return new LanguageNameNonWildcard(language, Optional.of(Locale.forLanguageTag(language)));
     }

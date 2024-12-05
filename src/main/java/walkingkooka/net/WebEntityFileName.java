@@ -34,7 +34,10 @@ public final class WebEntityFileName implements Name,
     public final static int MAX_LENGTH = 255;
 
     public static WebEntityFileName with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "filename", FILENAME);
+        FILENAME.failIfNullOrEmptyOrFalse(
+                "filename",
+                value
+        );
         Name.checkLength(
                 "filename",
                 value,

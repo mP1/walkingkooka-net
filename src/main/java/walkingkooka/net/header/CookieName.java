@@ -47,7 +47,7 @@ final public class CookieName extends HeaderNameValue
      * Factory that creates a {@link CookieName}
      */
     public static CookieName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
+        PREDICATE.failIfNullOrEmptyOrFalse("name", name);
         return new CookieName(name);
     }
 

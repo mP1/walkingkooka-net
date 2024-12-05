@@ -19,7 +19,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -105,14 +104,17 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
     public static AcceptEncodingValue with(final String value) {
         return "*".equals(value) ?
                 wildcard(NO_PARAMETERS) :
-                nonWildcard(checkValue(value), NO_PARAMETERS);
+                nonWildcard(
+                        checkValue(value),
+                        NO_PARAMETERS
+                );
     }
 
     private static String checkValue(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value,
+        return AcceptEncodingValueHeaderParser.RFC2045TOKEN.failIfNullOrEmptyOrFalse(
                 "value",
-                AcceptEncodingValueHeaderParser.RFC2045TOKEN);
-        return value;
+                value
+        );
     }
 
     /**
