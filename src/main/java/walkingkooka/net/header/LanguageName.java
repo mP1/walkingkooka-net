@@ -48,7 +48,10 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      * Factory that creates a new {@link LanguageName}
      */
     public static LanguageName with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", PREDICATE);
+        PREDICATE.failIfNullOrEmptyOrFalse(
+                "value",
+                value
+        );
 
         return Header.WILDCARD.string().equals(value) ?
                 WILDCARD :

@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -94,10 +93,10 @@ public final class Encoding extends Header2<String>
     }
 
     private static String checkValue(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value,
+        return EncodingHeaderParser.RFC2045TOKEN.failIfNullOrEmptyOrFalse(
                 "value",
-                EncodingHeaderParser.RFC2045TOKEN);
-        return value;
+                value
+        );
     }
 
     /**

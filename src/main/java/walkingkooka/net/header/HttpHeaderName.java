@@ -686,8 +686,10 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     private static String checkName(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
-        return name;
+        return PREDICATE.failIfNullOrEmptyOrFalse(
+                "name",
+                name
+        );
     }
 
     /**

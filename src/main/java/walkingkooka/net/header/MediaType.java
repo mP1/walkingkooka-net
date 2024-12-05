@@ -21,8 +21,6 @@ import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasCaseSensitivity;
@@ -338,10 +336,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private final String type;
 
     private static String checkType(final String type) {
-        return check(
-                type,
+        return MediaTypeHeaderParser.TYPE.failIfNullOrEmptyOrFalse(
                 "type",
-                MediaTypeHeaderParser.TYPE
+                type
         );
     }
 
@@ -373,25 +370,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     private final String subType;
 
     private static String checkSubType(final String subType) {
-        return check(
-                subType,
+        return MediaTypeHeaderParser.SUB_TYPE.failIfNullOrEmptyOrFalse(
                 "subType",
-                MediaTypeHeaderParser.SUB_TYPE
+                subType
         );
-    }
-
-    /**
-     * Checks that the value contains valid token characters.
-     */
-    private static String check(final String value,
-                                final String label,
-                                final CharPredicate predicate) {
-        CharPredicates.failIfNullOrEmptyOrFalse(
-                value,
-                label,
-                predicate
-        );
-        return value;
     }
 
     // suffix........................................................................................................
@@ -443,10 +425,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         Objects.requireNonNull(suffix, "suffix");
 
         if (suffix.isPresent()) {
-            CharPredicates.failIfNullOrEmptyOrFalse(
-                    suffix.get(),
+            MediaTypeHeaderParser.SUFFIX.failIfNullOrEmptyOrFalse(
                     "suffix",
-                    MediaTypeHeaderParser.SUFFIX
+                    suffix.get()
             );
         }
 

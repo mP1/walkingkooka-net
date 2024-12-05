@@ -95,7 +95,11 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      * Factory that creates a {@link ContentDispositionType}.
      */
     public static ContentDispositionType with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
+        CharPredicates.rfc2045Token()
+                .failIfNullOrEmptyOrFalse(
+                        "name",
+                        name
+                );
 
         ContentDispositionType contentDispositionType;
 
