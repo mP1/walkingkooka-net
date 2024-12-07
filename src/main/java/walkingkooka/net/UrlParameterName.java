@@ -81,6 +81,7 @@ public final class UrlParameterName extends NetName
                 break;
             default:
                 first = values.get(0);
+                break;
         }
 
         return Optional.ofNullable(first);
