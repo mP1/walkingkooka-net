@@ -45,7 +45,7 @@ import java.util.function.Supplier;
 /**
  * A {@link HttpResponse} wrapper that honours any range header ranges for 2xx responses, creating multi parts for each range.
  */
-final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpResponse {
+final class RangeAwareHttpResponse extends BufferingHttpResponse {
 
     /**
      * Conditionally creates a {@link RangeAwareHttpResponse} if the request has a range header.
@@ -85,8 +85,8 @@ final class RangeAwareHttpResponse extends NonMultiPartAwareBufferingHttpRespons
     }
 
     @Override
-    void addFirstEntity(final HttpStatus status,
-                        final HttpEntity entity) {
+    void prepareEntity(final HttpStatus status,
+                       final HttpEntity entity) {
 
         // only range chunk 2xx responses...
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
