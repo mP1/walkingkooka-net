@@ -52,10 +52,10 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
         Objects.requireNonNull(entity, "entity");
 
         if (this.committed) {
-            this.addAdditionalEntity(entity);
+            this.response.setEntity(entity);
         } else {
             this.committed = true;
-            this.addFirstEntity(this.statusOrFail(), entity);
+            this.prepareEntity(this.statusOrFail(), entity);
         }
     }
 
@@ -75,15 +75,10 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     boolean committed = false;
 
     /**
-     * Called when a buffered entity and status is added.
+     * Called after both the status and entity are both set.
      */
-    abstract void addFirstEntity(final HttpStatus status,
-                                 final HttpEntity entity);
-
-    /**
-     * Adds additional entities that are not the first, assumes the status and first part are done.
-     */
-    abstract void addAdditionalEntity(final HttpEntity entity);
+    abstract void prepareEntity(final HttpStatus status,
+                                final HttpEntity entity);
 
     /**
      * Removes any content headers in the given entity.

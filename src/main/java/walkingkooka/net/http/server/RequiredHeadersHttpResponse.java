@@ -32,7 +32,7 @@ import walkingkooka.net.http.HttpStatusCodeCategory;
  * Mandatory since HTTP/1.1.[16] If the request is generated directly in HTTP/2, it should not be used.[17]
  * </pre>
  */
-final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpResponse {
+final class RequiredHeadersHttpResponse extends BufferingHttpResponse {
 
     /**
      * Conditionally creates a {@link RequiredHeadersHttpResponse} if the request has a range header.
@@ -55,8 +55,8 @@ final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpRe
     }
 
     @Override
-    void addFirstEntity(final HttpStatus status,
-                        final HttpEntity entity) {
+    void prepareEntity(final HttpStatus status,
+                       final HttpEntity entity) {
         final HttpResponse response = this.response;
 
         final HttpStatusCodeCategory codeCategory = status.value().category();
