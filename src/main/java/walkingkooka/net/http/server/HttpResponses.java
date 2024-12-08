@@ -105,14 +105,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see HttpStatusCodeRequiredHeadersHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse httpStatusCodeRequiredHeaders(final HttpResponse response) {
-        return HttpStatusCodeRequiredHeadersHttpResponse.with(response);
-    }
-
-    /**
      * {@see IfNoneMatchAwareHttpResponse}
      */
     @GwtIncompatible
