@@ -132,14 +132,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see MultiPartAwareHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse multiPartAware(final HttpResponse response) {
-        return MultiPartAwareHttpResponse.with(response);
-    }
-
-    /**
      * {@see RangeAwareHttpResponse}
      */
     @GwtIncompatible
