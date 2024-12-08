@@ -18,15 +18,12 @@
 package walkingkooka.net.http;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Holds all possible http status codes.<br>
@@ -61,9 +58,11 @@ public final class HttpStatusCode {
      * Private factory where each constant registers itself.
      */
     private static HttpStatusCode register(final int code,
-                                           final String message,
-                                           final HttpHeaderName<?>... requiredHttpHeaders) {
-        final HttpStatusCode constant = new HttpStatusCode(code, message, requiredHttpHeaders);
+                                           final String message) {
+        final HttpStatusCode constant = new HttpStatusCode(
+                code,
+                message
+        );
         CONSTANTS.putIfAbsent(code, constant);
         return constant;
     }
@@ -113,7 +112,7 @@ public final class HttpStatusCode {
     /**
      * Partial content={@link javax.servlet.http.HttpServletResponse#SC_PARTIAL_CONTENT}
      */
-    public final static HttpStatusCode PARTIAL_CONTENT = register(206/*javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT*/, "Partial content", HttpHeaderName.RANGE);
+    public final static HttpStatusCode PARTIAL_CONTENT = register(206/*javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT*/, "Partial content");
 
     // Redirect
 
@@ -285,23 +284,13 @@ public final class HttpStatusCode {
      * Package private ctor, use factory.
      */
     private HttpStatusCode(final int code,
-                           final String message,
-                           final HttpHeaderName<?>... requiredHttpHeaders) {
+                           final String message) {
         this.code = code;
         this.message = message;
 
         final HttpStatusCodeCategory category = HttpStatusCodeCategory.category(code);
         this.category = category;
         this.status = HttpStatus.with(this, this.message);
-
-        // all redirects except for multiple choices require a location header.
-        this.requiredHttpHeaders = isNotMultipleChoicesAndDirect(code, category) ?
-                Sets.of(HttpHeaderName.LOCATION) :
-                Sets.of(requiredHttpHeaders);
-    }
-
-    private static boolean isNotMultipleChoicesAndDirect(final int code, final HttpStatusCodeCategory category) {
-        return 300/*javax.servlet.http.HttpServletResponse.SC_MULTIPLE_CHOICES*/ != code && category == HttpStatusCodeCategory.REDIRECTION;
     }
 
     /**
@@ -354,16 +343,6 @@ public final class HttpStatusCode {
      * The default message for this code.
      */
     final String message;
-
-    /**
-     * Some http status codes require one or more heades, eg a {@link #TEMPORARY_REDIRECT} require a {@link HttpHeaderName#LOCATION} header.
-     * For non standard status codes this will always be empty.
-     */
-    public Set<HttpHeaderName<?>> requiredHttpHeaders() {
-        return this.requiredHttpHeaders;
-    }
-
-    private final Set<HttpHeaderName<?>> requiredHttpHeaders;
 
     // Object...........................................................................................................
 

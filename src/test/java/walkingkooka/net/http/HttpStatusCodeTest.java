@@ -20,10 +20,8 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -32,7 +30,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -82,23 +79,6 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
             assertSame(code, status.value(), "code");
             this.checkNotEquals("", status.message(), "message");
         }
-    }
-
-    @Test
-    public void testPartialContentRangesHeader() {
-        this.checkEquals(Sets.of(HttpHeaderName.RANGE), HttpStatusCode.PARTIAL_CONTENT.requiredHttpHeaders());
-    }
-
-    @Test
-    public void testRedirectRequireLocationHeader() {
-        this.checkEquals(Lists.empty(),
-                HttpStatusCode.CONSTANTS.values()
-                        .stream()
-                        .filter(c -> HttpStatusCodeCategory.REDIRECTION == c.category())
-                        .filter(c -> HttpStatusCode.MULTIPLE_CHOICES != c)
-                        .filter(c -> false == c.requiredHttpHeaders().equals(Sets.of(HttpHeaderName.LOCATION)))
-                        .map(c -> c + " " + c.requiredHttpHeaders())
-                        .collect(Collectors.toList()));
     }
 
     @Test
