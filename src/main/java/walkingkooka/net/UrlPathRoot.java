@@ -64,7 +64,7 @@ final class UrlPathRoot extends UrlPath {
         final String value;
 
         final String separatorString = SEPARATOR.string();
-        ;
+
         if (nameString.isEmpty()) {
             value = separatorString + separatorString;
         } else {
