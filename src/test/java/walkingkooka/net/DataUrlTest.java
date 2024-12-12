@@ -26,6 +26,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -100,7 +101,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Optional.empty(),
                         false, // base64=false
                         Binary.with(
-                                "Hello, World!".getBytes("UTF-8")
+                                "Hello, World!".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
@@ -121,7 +122,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         ),
                         false, // base64=true
                         Binary.with(
-                                "Hello, World!".getBytes("UTF-8")
+                                "Hello, World!".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
@@ -149,7 +150,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         ),
                         true, // base64=true
                         Binary.with(
-                                "Hello, World!".getBytes("UTF-8")
+                                "Hello, World!".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
@@ -165,7 +166,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         ),
                         false, // base64=false
                         Binary.with(
-                                "<h1>Hello, World!</h1>".getBytes("UTF-8")
+                                "<h1>Hello, World!</h1>".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
@@ -181,7 +182,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         ),
                         false, // base64=false
                         Binary.with(
-                                "<script>alert('hi');</script>".getBytes("UTF-8")
+                                "<script>alert('hi');</script>".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
