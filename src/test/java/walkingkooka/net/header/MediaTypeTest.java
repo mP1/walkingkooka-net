@@ -300,6 +300,57 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
     }
 
+    // isText...........................................................................................................
+
+    @Test
+    public void testIsTextWithTextPlaintext() {
+        this.isTextAndCheck(
+                MediaType.TEXT_PLAIN,
+                true
+        );
+    }
+
+    @Test
+    public void testIsTextWithTextXml() {
+        this.isTextAndCheck(
+                MediaType.TEXT_XML,
+                true
+        );
+    }
+
+    @Test
+    public void testIsTextWithApplicationJson() {
+        this.isTextAndCheck(
+                MediaType.APPLICATION_JSON,
+                true
+        );
+    }
+
+    @Test
+    public void testIsTextWithApplicationBinary() {
+        this.isTextAndCheck(
+                MediaType.BINARY,
+                false
+        );
+    }
+
+    private void isTextAndCheck(final String mediaType,
+                                final boolean expected) {
+        this.isTextAndCheck(
+                MediaType.parse(mediaType),
+                expected
+        );
+    }
+
+    private void isTextAndCheck(final MediaType mediaType,
+                                final boolean expected) {
+        this.checkEquals(
+                expected,
+                mediaType.isText(),
+                mediaType::toString
+        );
+    }
+
     // setParameters ..........................................................................................
 
     @Test
