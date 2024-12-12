@@ -792,10 +792,13 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public Optional<T> header(final HasHeaders headers) {
         Objects.requireNonNull(headers, "headers");
 
-        final List<?> values = headers.headers().get(this);
-        return Optional.ofNullable(null != values && values.size() > 0 ?
-                Cast.to(values.get(0)) :
-                null);
+        final List<?> values = headers.headers()
+                .get(this);
+        return Optional.ofNullable(
+                null == values || values.isEmpty() ?
+                        null :
+                        Cast.to(values.get(0))
+        );
     }
 
     /**

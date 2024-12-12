@@ -54,7 +54,7 @@ public final class UrlQueryString implements Value<String>,
     public static UrlQueryString parse(final String value) {
         Objects.requireNonNull(value, "queryString");
 
-        return value.length() == 0 ?
+        return value.isEmpty() ?
                 walkingkooka.net.UrlQueryString.EMPTY :
                 parseNotEmpty(value);
     }
