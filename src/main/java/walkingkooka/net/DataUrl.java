@@ -216,7 +216,7 @@ public final class DataUrl extends Url {
         return this.base64;
     }
 
-    private boolean base64;
+    private final boolean base64;
 
     /**
      * Getter that returns the data as {@link Binary}.
