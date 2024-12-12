@@ -18,11 +18,10 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-
-import java.util.Collection;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
         ImmutableListTesting<UrlParameterValueList, String> {
@@ -30,7 +29,7 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
     @Test
     public void testIsEmpty() {
         this.isEmptyAndCheck(
-                (Collection) UrlParameterValueList.empty(),
+                (CanBeEmpty) UrlParameterValueList.empty(),
                 true
         );
     }
