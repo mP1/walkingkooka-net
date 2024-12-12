@@ -368,7 +368,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     }
 
     final void check(final HttpEntity entity) {
-        if ((entity.body().size() == 0 || entity.bodyText().isEmpty()) && entity.headers().isEmpty()) {
+        if ((entity.body().isEmpty() || entity.bodyText().isEmpty()) && entity.headers().isEmpty()) {
             this.checkEquals(HttpEntityEmpty.class, entity.getClass(), () -> "Entity without headers, body/bodyText");
         }
 

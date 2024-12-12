@@ -242,7 +242,7 @@ public final class UrlFragment implements Value<String>,
     void toString0(final StringBuilder b) {
         if (!this.value.isEmpty()) {
             b.append(Url.FRAGMENT_START.character());
-            b.append(this.toString());
+            b.append(this);
         }
     }
 
