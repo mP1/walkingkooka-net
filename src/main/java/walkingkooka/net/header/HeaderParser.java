@@ -198,7 +198,7 @@ abstract class HeaderParser {
 
     /**
      * Returns the quoted string in its raw form which will include the surrounding double quotes.
-     *
+     * <br>
      * <a href="https://tools.ietf.org/html/rfc2616#section-3.11"></a>
      * <pre>
      * A string of text is parsed as a single word if it is quoted using
