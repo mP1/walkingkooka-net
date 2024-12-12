@@ -42,8 +42,11 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     // HttpEntity.EMPTY.................................................................................................
 
     @Test
-    public void testEmptySingleton() {
-        assertSame(HttpEntity.EMPTY, HttpEntity.EMPTY);
+    public void testEmptySetBodyTextWithEmptyString() {
+        assertSame(
+                HttpEntity.EMPTY.setBodyText(""),
+                HttpEntity.EMPTY
+        );
     }
 
     @Test
