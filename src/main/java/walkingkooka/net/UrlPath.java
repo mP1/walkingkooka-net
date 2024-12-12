@@ -18,9 +18,11 @@
 package walkingkooka.net;
 
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -211,6 +213,21 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Returns the parent of this path or itself if its a root.
      */
     abstract UrlPath parentOrSelf();
+
+    // pathNameList.....................................................................................................
+
+    /**
+     * Returns a {@link List} view of all {@link UrlPathName}, effectively the names of all parents.
+     */
+    public final List<UrlPathName> namesList() {
+        final List<UrlPathName> list = Lists.array();
+
+        this.appendNameAndParent(list);
+
+        return Lists.readOnly(list);
+    }
+
+    abstract void appendNameAndParent(final List<UrlPathName> names);
 
     // Comparable........................................................................................................
 
