@@ -28,6 +28,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -512,6 +513,74 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
         this.checkEquals(expected, normalized);
         this.checkEquals(true, normalized.isNormalized(), () -> "normalized " + path);
+    }
+
+    // namesList........................................................................................................
+
+    @Test
+    public void testNamesListWhenEmptyPath() {
+        this.namesListAndCheck(
+                UrlPath.EMPTY,
+                UrlPath.EMPTY.name()
+        );
+    }
+
+    @Test
+    public void testNamesListWhenSlash() {
+        this.namesListAndCheck(
+                UrlPath.parse("/"),
+                UrlPathName.ROOT
+        );
+    }
+
+    @Test
+    public void testNamesListWhenMultipleComponents() {
+        this.namesListAndCheck(
+                "/dir1/dir2/file3",
+                "",
+                "dir1",
+                "dir2",
+                "file3"
+        );
+    }
+
+    @Test
+    public void testNamesListWhenMultipleComponentsUnnormalized() {
+        this.namesListAndCheck(
+                "/dir1/dir2/../file3",
+                "",
+                "dir1",
+                "dir2",
+                "..",
+                "file3"
+        );
+    }
+
+    private void namesListAndCheck(final String path,
+                                   final String... names) {
+        this.namesListAndCheck(
+                UrlPath.parse(path),
+                Arrays.stream(names)
+                        .map(UrlPathName::with)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    private void namesListAndCheck(final UrlPath path,
+                                   final UrlPathName... names) {
+        this.namesListAndCheck(
+                path,
+                Lists.of(names)
+        );
+    }
+
+    private void namesListAndCheck(final UrlPath path,
+                                   final List<UrlPathName> names) {
+        this.checkEquals(
+                names,
+                path.namesList(),
+                path::toString
+        );
     }
 
     // equals/compare....................................................................................................

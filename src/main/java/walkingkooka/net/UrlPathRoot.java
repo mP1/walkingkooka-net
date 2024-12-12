@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -106,6 +107,13 @@ final class UrlPathRoot extends UrlPath {
     @Override
     UrlPath parentOrSelf() {
         return this;
+    }
+
+    // pathNameList.....................................................................................................
+
+    @Override
+    void appendNameAndParent(final List<UrlPathName> names) {
+        names.add(NAME);
     }
 
     // Object...........................................................................................................

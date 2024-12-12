@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import walkingkooka.naming.Path;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -78,6 +79,16 @@ abstract class UrlPathLeaf extends UrlPath {
     @Override
     final UrlPath parentOrSelf() {
         return this.parent.get();
+    }
+
+    // pathNameList.....................................................................................................
+
+    @Override
+    void appendNameAndParent(final List<UrlPathName> names) {
+        this.parent.get()
+                .appendNameAndParent(names);
+
+        names.add(this.name);
     }
 
     // Object...........................................................................................................
