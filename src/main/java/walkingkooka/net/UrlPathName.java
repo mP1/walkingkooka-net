@@ -42,6 +42,13 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
      */
     final static UrlPathName ROOT = new UrlPathName(ROOT_STRING);
 
+    public final static String WILDCARD_STRING = "*";
+
+    /**
+     * Only used by {@link UrlPath} to note a wildcard.
+     */
+    public final static UrlPathName WILDCARD = new UrlPathName(WILDCARD_STRING);
+
     /**
      * Creates a new valid {@link UrlPathName}.
      */
@@ -53,6 +60,9 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         switch (name) {
             case ROOT_STRING:
                 urlPathName = ROOT;
+                break;
+            case WILDCARD_STRING:
+                urlPathName = WILDCARD;
                 break;
             default:
                 urlPathName = nonConstant(name);

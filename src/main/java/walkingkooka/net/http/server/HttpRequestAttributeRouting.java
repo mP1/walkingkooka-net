@@ -134,7 +134,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         int i = 0;
         for (UrlPathName name : path) {
             if (0 != i) {
-                if (WILDCARD.equals(name)) {
+                if (UrlPathName.WILDCARD.equals(name)) {
                     that = that.pathComponent(i, HttpRequestAttributeRoutingWildcardPredicate.INSTANCE);
                 } else {
                     that = that.pathComponent(i, name);
@@ -145,11 +145,6 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
 
         return that;
     }
-
-    /**
-     * A wildcard path component.
-     */
-    private final static UrlPathName WILDCARD = UrlPathName.with("*");
 
     /**
      * Adds a requirement for a particular path component by name.
