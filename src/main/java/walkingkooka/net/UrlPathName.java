@@ -35,10 +35,12 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
      */
     public final static int MAXIMUM_LENGTH = 1024;
 
+    final static String ROOT_STRING = "";
+
     /**
      * Only used by {@link UrlPath} to note a root path.
      */
-    final static UrlPathName ROOT = new UrlPathName("");
+    final static UrlPathName ROOT = new UrlPathName(ROOT_STRING);
 
     /**
      * Creates a new valid {@link UrlPathName}.
@@ -46,15 +48,21 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
     public static UrlPathName with(final String name) {
         Objects.requireNonNull(name, "name");
 
-        return name.isEmpty() ?
-                ROOT :
-                with0(name);
+        final UrlPathName urlPathName;
+
+        switch (name) {
+            case ROOT_STRING:
+                urlPathName = ROOT;
+                break;
+            default:
+                urlPathName = nonConstant(name);
+                break;
+        }
+
+        return urlPathName;
     }
 
-
-    private static UrlPathName with0(final String name) {
-        Objects.requireNonNull(name, "name");
-
+    private static UrlPathName nonConstant(final String name) {
         if (name.length() > MAXIMUM_LENGTH) {
             throw new InvalidTextLengthException("url path", name, 0, MAXIMUM_LENGTH);
         }
