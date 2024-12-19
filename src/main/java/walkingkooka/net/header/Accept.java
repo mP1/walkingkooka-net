@@ -17,6 +17,8 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.collect.list.Lists;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -90,6 +92,17 @@ import java.util.function.Predicate;
 public final class Accept extends Header2<List<MediaType>> implements Predicate<MediaType>,
         HasQualityFactorSortedValues<MediaType> {
 
+    // @VisibleForTesting
+    final static List<MediaType> ALL_MEDIA_TYPE = Lists.of(MediaType.ALL);
+
+    /**
+     * The default Accept equivalent to
+     * <pre>
+     * Accept: *\/*
+     * </pre>
+     */
+    public static Accept DEFAULT = new Accept(ALL_MEDIA_TYPE);
+
     /**
      * Parses a header value that contains {@link Accept}
      */
@@ -101,7 +114,15 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
      * Factory that creates a new {@link Accept}
      */
     public static Accept with(final List<MediaType> mediaTypes) {
-        return new Accept(nonEmptyImmutableList(mediaTypes, "media types"));
+        return withCopy(
+                nonEmptyImmutableList(mediaTypes, "media types")
+        );
+    }
+
+    private static Accept withCopy(final List<MediaType> mediaTypes) {
+        return ALL_MEDIA_TYPE.equals(mediaTypes) ?
+                DEFAULT :
+                new Accept(mediaTypes);
     }
 
     /**

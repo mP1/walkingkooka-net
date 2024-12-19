@@ -26,12 +26,23 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         implements HasQualityFactorSortedValuesTesting,
         ParseStringTesting<Accept>,
         PredicateTesting {
+
+    @Test
+    public void testWithDefault() {
+        assertSame(
+                Accept.DEFAULT,
+                Accept.with(
+                        Accept.ALL_MEDIA_TYPE
+                )
+        );
+    }
 
     @Test
     public void testWithNullFails() {
@@ -41,6 +52,16 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Test
     public void testWithEmptyMediaTypesFails() {
         assertThrows(IllegalArgumentException.class, () -> Accept.with(Lists.empty()));
+    }
+
+    // parse............................................................................................................
+
+    @Test
+    public void testParseStarStar() {
+        assertSame(
+                Accept.DEFAULT,
+                Accept.parse("*/*")
+        );
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
