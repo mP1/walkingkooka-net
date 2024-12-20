@@ -378,7 +378,7 @@ public abstract class HttpEntity implements HasHeaders,
         checkBody(body);
 
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
-        return body.size() == 0L && headers.isEmpty() ?
+        return body.isEmpty() && headers.isEmpty() ?
                 EMPTY :
                 body.equals(this.body()) ?
                         this :
