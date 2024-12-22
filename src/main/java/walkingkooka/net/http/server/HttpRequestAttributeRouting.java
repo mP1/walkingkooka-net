@@ -188,7 +188,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
                                                           final H header) {
         return this.header(name,
                 header instanceof Header ?
-                        Cast.to(HttpRequestAttributeRouting2Header.with((Header) header)) :
+                        Cast.to(HttpRequestAttributeRoutingPredicateHeader.with((Header) header)) :
                         Predicates.is(header));
     }
 
@@ -290,7 +290,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         Objects.requireNonNull(parameter, "parameter");
         Objects.requireNonNull(parameterValue, "parameterValue");
 
-        return this.addAttribute(parameter, HttpRequestAttributeRouting2ParameterValue.with(parameterValue));
+        return this.addAttribute(parameter, HttpRequestAttributeRoutingPredicateParameterValue.with(parameterValue));
     }
 
     // helpers .........................................................................................................

@@ -19,10 +19,10 @@ package walkingkooka.net.http.server;
 
 import java.util.function.Predicate;
 
-public abstract class HttpRequestAttributeRouting2TestCase<P extends Predicate<T>, T>
+public abstract class HttpRequestAttributeRoutingPredicateTestCase<P extends Predicate<T>, T>
         extends HttpRequestAttributeRoutingTestCase2<P, T> {
 
-    HttpRequestAttributeRouting2TestCase() {
+    HttpRequestAttributeRoutingPredicateTestCase() {
         super();
     }
 
@@ -30,7 +30,7 @@ public abstract class HttpRequestAttributeRouting2TestCase<P extends Predicate<T
 
     @Override
     public final String typeNamePrefix() {
-        return HttpRequestAttributeRouting2.class.getSimpleName();
+        return HttpRequestAttributeRoutingPredicate.class.getSimpleName();
     }
 
     @Override

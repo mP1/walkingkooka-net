@@ -24,12 +24,12 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that tests a component of a request during a routing.
  */
-abstract class HttpRequestAttributeRouting2<T> {
+abstract class HttpRequestAttributeRoutingPredicate<T> {
 
     /**
      * Package private ctor
      */
-    HttpRequestAttributeRouting2(final T predicate) {
+    HttpRequestAttributeRoutingPredicate(final T predicate) {
         this.predicate = predicate;
     }
 
@@ -51,7 +51,7 @@ abstract class HttpRequestAttributeRouting2<T> {
 
     abstract boolean canBeEquals(final Object other);
 
-    private boolean equals0(final HttpRequestAttributeRouting2<?> other) {
+    private boolean equals0(final HttpRequestAttributeRoutingPredicate<?> other) {
         return this.predicate.equals(other.predicate);
     }
 
