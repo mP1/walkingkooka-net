@@ -76,8 +76,8 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     /**
      * {@see UrlPathPredicate}
      */
-    public Predicate<UrlPath> predicate(final String pattern) {
-        return UrlPathPredicate.with(pattern);
+    public Predicate<UrlPath> predicate() {
+        return UrlPathPredicate.with(this);
     }
 
     // parse............................................................................................................
