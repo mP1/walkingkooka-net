@@ -25,6 +25,7 @@ import walkingkooka.naming.PathSeparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * A {@link Path} which may be part of a {@link Url} after the host and port but before any present query string or anchor.
@@ -68,6 +69,15 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
                                                 final UrlPathName name,
                                                 final Optional<UrlPath> parent) {
         return UrlPathLeafUnnormalized.withUnnormalized(path, name, parent);
+    }
+
+    // predicate........................................................................................................
+
+    /**
+     * {@see UrlPathPredicate}
+     */
+    public Predicate<UrlPath> predicate(final String pattern) {
+        return UrlPathPredicate.with(pattern);
     }
 
     // parse............................................................................................................
