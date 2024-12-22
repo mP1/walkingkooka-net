@@ -126,7 +126,7 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         return CASE_SENSITIVITY;
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+    public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // Serializable......................................................................................................
 
