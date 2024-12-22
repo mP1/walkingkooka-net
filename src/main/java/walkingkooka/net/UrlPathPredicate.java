@@ -32,21 +32,19 @@ import java.util.function.Predicate;
  */
 final class UrlPathPredicate implements Predicate<UrlPath> {
 
-    static UrlPathPredicate with(final String pattern) {
-        final UrlPath path = UrlPath.parse(pattern);
-
+    static UrlPathPredicate with(final UrlPath path) {
         return new UrlPathPredicate(
-                pattern,
+                path,
                 component(
                         path.namesList()
                                 .iterator(),
-                        pattern
+                        path
                 )
         );
     }
 
     private static UrlPathPredicateComponent component(final Iterator<UrlPathName> names,
-                                                       final String pattern) {
+                                                       final UrlPath path) {
         final UrlPathPredicateComponent component;
 
         if (names.hasNext()) {
@@ -57,13 +55,18 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
                     component = UrlPathPredicateComponent.star(
                             component(
                                     names,
-                                    pattern
+                                    path
                             )
                     );
                     break;
                 case "**":
                     if (names.hasNext()) {
-                        throw new IllegalArgumentException("Pattern should only contain \"**\" at the end, " + CharSequences.quoteAndEscape(pattern));
+                        throw new IllegalArgumentException(
+                                "Pattern should only contain \"**\" at the end, " +
+                                        CharSequences.quoteAndEscape(
+                                                path.value()
+                                        )
+                        );
                     }
                     component = UrlPathPredicateComponent.starStar();
                     break;
@@ -72,7 +75,7 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
                             name,
                             component(
                                     names,
-                                    pattern
+                                    path
                             )
                     );
                     break;
@@ -84,9 +87,9 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
         return component;
     }
 
-    private UrlPathPredicate(final String pattern,
+    private UrlPathPredicate(final UrlPath path,
                              final UrlPathPredicateComponent first) {
-        this.pattern = pattern;
+        this.path = path;
         this.first = first;
     }
 
@@ -104,7 +107,7 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
 
     @Override
     public int hashCode() {
-        return UrlPathName.CASE_SENSITIVITY.hash(this.pattern);
+        return this.path.hashCode();
     }
 
     @Override
@@ -114,18 +117,15 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
     }
 
     private boolean equals0(final UrlPathPredicate other) {
-        return UrlPathName.CASE_SENSITIVITY.equals(
-                this.pattern,
-                other.pattern
-        );
+        return this.path.equals(other.path);
     }
 
     @Override
     public String toString() {
-        return this.pattern;
+        return this.path.toString();
     }
 
-    private final String pattern;
+    private final UrlPath path;
 
     private final UrlPathPredicateComponent first;
 }
