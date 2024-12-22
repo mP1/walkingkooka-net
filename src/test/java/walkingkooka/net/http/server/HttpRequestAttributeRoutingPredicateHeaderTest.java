@@ -23,11 +23,11 @@ import walkingkooka.net.header.MediaType;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRouting2HeaderTest extends HttpRequestAttributeRouting2TestCase<HttpRequestAttributeRouting2Header, Header> {
+public final class HttpRequestAttributeRoutingPredicateHeaderTest extends HttpRequestAttributeRoutingPredicateTestCase<HttpRequestAttributeRoutingPredicateHeader, Header> {
 
     @Test
     public void testWithNullHeaderFails() {
-        assertThrows(NullPointerException.class, () -> HttpRequestAttributeRouting2Header.with(null));
+        assertThrows(NullPointerException.class, () -> HttpRequestAttributeRoutingPredicateHeader.with(null));
     }
 
     @Test
@@ -78,8 +78,8 @@ public final class HttpRequestAttributeRouting2HeaderTest extends HttpRequestAtt
     // PredicateTesting.................................................................................................
 
     @Override
-    public HttpRequestAttributeRouting2Header createPredicate() {
-        return HttpRequestAttributeRouting2Header.with(this.requiredHeader());
+    public HttpRequestAttributeRoutingPredicateHeader createPredicate() {
+        return HttpRequestAttributeRoutingPredicateHeader.with(this.requiredHeader());
     }
 
     private Header requiredHeader() {
@@ -89,7 +89,7 @@ public final class HttpRequestAttributeRouting2HeaderTest extends HttpRequestAtt
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HttpRequestAttributeRouting2Header> type() {
-        return HttpRequestAttributeRouting2Header.class;
+    public Class<HttpRequestAttributeRoutingPredicateHeader> type() {
+        return HttpRequestAttributeRoutingPredicateHeader.class;
     }
 }

@@ -17,40 +17,43 @@
 
 package walkingkooka.net.http.server;
 
-import java.util.List;
+import walkingkooka.net.header.Header;
+
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
+ * A {@link Predicate} that tests a {@link Header#equalsOnlyPresentParameters(Object)}.
  */
-final class HttpRequestAttributeRouting2ParameterValue extends HttpRequestAttributeRouting2<Predicate<String>>
-        implements Predicate<List<String>> {
+final class HttpRequestAttributeRoutingPredicateHeader extends HttpRequestAttributeRoutingPredicate<Header>
+        implements Predicate<Header> {
 
     /**
-     * Creates a new {@link HttpRequestAttributeRouting2ParameterValue}.
+     * Creates a new {@link HttpRequestAttributeRoutingPredicateHeader}.
      */
-    static HttpRequestAttributeRouting2ParameterValue with(final Predicate<String> predicate) {
-        return new HttpRequestAttributeRouting2ParameterValue(predicate);
+    static HttpRequestAttributeRoutingPredicateHeader with(final Header header) {
+        Objects.requireNonNull(header, "header");
+
+        return new HttpRequestAttributeRoutingPredicateHeader(header);
     }
 
     /**
      * Private ctor
      */
-    private HttpRequestAttributeRouting2ParameterValue(final Predicate<String> predicate) {
-        super(predicate);
+    private HttpRequestAttributeRoutingPredicateHeader(final Header header) {
+        super(header);
     }
 
     // Predicate .......................................................................................................
 
     @Override
-    public boolean test(final List<String> values) {
-        return null != values &&
-                values.stream()
-                        .anyMatch(this.predicate);
+    public boolean test(final Header header) {
+        return this.predicate.equalsOnlyPresentParameters(header);
     }
 
+    @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof HttpRequestAttributeRouting2ParameterValue;
+        return other instanceof HttpRequestAttributeRoutingPredicateHeader;
     }
 }
 

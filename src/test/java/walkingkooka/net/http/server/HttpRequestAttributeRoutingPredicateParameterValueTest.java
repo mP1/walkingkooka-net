@@ -24,7 +24,7 @@ import walkingkooka.predicate.Predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class HttpRequestAttributeRouting2ParameterValueTest extends HttpRequestAttributeRouting2TestCase<HttpRequestAttributeRouting2ParameterValue, List<String>> {
+public final class HttpRequestAttributeRoutingPredicateParameterValueTest extends HttpRequestAttributeRoutingPredicateTestCase<HttpRequestAttributeRoutingPredicateParameterValue, List<String>> {
 
     private final static String VALUE = "value123";
 
@@ -55,7 +55,7 @@ public final class HttpRequestAttributeRouting2ParameterValueTest extends HttpRe
 
     @Test
     public void testEqualsDifferentPredicate() {
-        this.checkNotEquals(HttpRequestAttributeRouting2ParameterValue.with(Predicates.fake()));
+        this.checkNotEquals(HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.fake()));
     }
 
     @Test
@@ -66,8 +66,8 @@ public final class HttpRequestAttributeRouting2ParameterValueTest extends HttpRe
     // PredicateTesting.................................................................................................
 
     @Override
-    public HttpRequestAttributeRouting2ParameterValue createPredicate() {
-        return HttpRequestAttributeRouting2ParameterValue.with(this.wrappedPredicate());
+    public HttpRequestAttributeRoutingPredicateParameterValue createPredicate() {
+        return HttpRequestAttributeRoutingPredicateParameterValue.with(this.wrappedPredicate());
     }
 
     private Predicate<String> wrappedPredicate() {
@@ -77,7 +77,7 @@ public final class HttpRequestAttributeRouting2ParameterValueTest extends HttpRe
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<HttpRequestAttributeRouting2ParameterValue> type() {
-        return HttpRequestAttributeRouting2ParameterValue.class;
+    public Class<HttpRequestAttributeRoutingPredicateParameterValue> type() {
+        return HttpRequestAttributeRoutingPredicateParameterValue.class;
     }
 }
