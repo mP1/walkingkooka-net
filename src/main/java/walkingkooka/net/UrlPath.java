@@ -82,22 +82,24 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
                 EMPTY :
                 path.equals(SEPARATOR.string()) ?
                         ROOT :
-                        parse0(path);
+                        parseNonRoot(path);
     }
 
     /**
      * Parses and creates the path chain.
      */
-    private static UrlPath parse0(final String value) {
+    private static UrlPath parseNonRoot(final String value) {
         final boolean slash = value.charAt(0) == SEPARATOR.character();
-        return parse1(value,
+        return parseNonRoot0(
+                value,
                 slash ? 1 : 0,
-                slash ? ROOT : EMPTY);
+                slash ? ROOT : EMPTY
+        );
     }
 
-    private static UrlPath parse1(final String value,
-                                  final int start,
-                                  final UrlPath parent) {
+    private static UrlPath parseNonRoot0(final String value,
+                                         final int start,
+                                         final UrlPath parent) {
         UrlPath path = parent;
 
         final char separator = SEPARATOR.character();
@@ -165,7 +167,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     abstract UrlPath appendTo(final UrlPathLeaf leaf);
 
     /**
-     * This is only called by {@link #parse1(String, int, UrlPath)}, when the given string ends in a slash.
+     * This is only called by {@link #parseNonRoot0(String, int, UrlPath)}, when the given string ends in a slash.
      * This is necessary otherwise the {@link UrlPath} will have a {@link UrlPathName} that is empty causing
      * an empty path component when a new name is appended.
      */
