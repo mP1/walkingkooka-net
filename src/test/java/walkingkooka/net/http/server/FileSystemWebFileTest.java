@@ -25,6 +25,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -38,7 +39,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,23 +56,42 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testWithNullPathFails() {
-        this.withFails(null, this::contentTypeGuesser, this::etagComputer);
+        this.withFails(
+                null,
+                this::mediaTypeDetector,
+                this::etagComputer
+        );
     }
 
     @Test
-    public void testWithNullContentTypeGuesserFails() {
-        this.withFails(this.path(), null, this::etagComputer);
+    public void testWithNullMediaTypeDetectorFails() {
+        this.withFails(
+                this.path(),
+                null,
+                this::etagComputer
+        );
     }
 
     @Test
     public void testWithNullETagComputerFails() {
-        this.withFails(this.path(), this::contentTypeGuesser, null);
+        this.withFails(
+                this.path(),
+                this::mediaTypeDetector,
+                null
+        );
     }
 
     private void withFails(final Path path,
-                           final BiFunction<String, Binary, MediaType> contentTypeGuesser,
+                           final MediaTypeDetector mediaTypeDetector,
                            final Function<Binary, Optional<ETag>> etagComputer) {
-        assertThrows(NullPointerException.class, () -> FileSystemWebFile.with(path, contentTypeGuesser, etagComputer));
+        assertThrows(
+                NullPointerException.class,
+                () -> FileSystemWebFile.with(
+                        path,
+                        mediaTypeDetector,
+                        etagComputer
+                )
+        );
     }
 
     // WebFile..........................................................................................................
@@ -136,7 +155,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     // helpers..........................................................................................................
 
     private FileSystemWebFile webFile() {
-        return FileSystemWebFile.with(this.path(), this::contentTypeGuesser, this::etagComputer);
+        return FileSystemWebFile.with(this.path(), this::mediaTypeDetector, this::etagComputer);
     }
 
     private Path path() {
@@ -149,7 +168,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
         }
     }
 
-    private MediaType contentTypeGuesser(final String filename,
+    private MediaType mediaTypeDetector(final String filename,
                                          final Binary content) {
         return this.contentType();
     }

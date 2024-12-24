@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -42,7 +42,7 @@ final class FileSystemWebFile implements WebFile {
      * Creates a new {@link FileSystemWebFile} assuming the file exists.
      */
     static FileSystemWebFile with(final Path path,
-                                  final BiFunction<String, Binary, MediaType> contentTypeGuesser,
+                                  final MediaTypeDetector contentTypeGuesser,
                                   final Function<Binary, Optional<ETag>> etagComputer) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(contentTypeGuesser, "contentTypeGuesser");
@@ -60,7 +60,7 @@ final class FileSystemWebFile implements WebFile {
      * Private ctor
      */
     private FileSystemWebFile(final Path path,
-                              final BiFunction<String, Binary, MediaType> contentTypeGuesser,
+                              final MediaTypeDetector contentTypeGuesser,
                               final Function<Binary, Optional<ETag>> etagComputer) {
         super();
         this.path = path;
@@ -92,7 +92,11 @@ final class FileSystemWebFile implements WebFile {
     @Override
     public MediaType contentType() throws WebFileException {
         if (null == this.contentType) {
-            this.contentType = this.contentTypeGuesser.apply(this.path.getFileName().toString(), this.binary());
+            this.contentType = this.contentTypeGuesser.detect(
+                    this.path.getFileName()
+                            .toString(),
+                    this.binary()
+            );
         }
         return this.contentType;
     }
@@ -137,7 +141,7 @@ final class FileSystemWebFile implements WebFile {
     /**
      * Attempts to determine the {@link MediaType} by examining the filename and content.
      */
-    private final BiFunction<String, Binary, MediaType> contentTypeGuesser;
+    private final MediaTypeDetector contentTypeGuesser;
 
     /**
      * Attempts to determine the {@link MediaType} by examining the filename and content.
