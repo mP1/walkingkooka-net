@@ -19,17 +19,18 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 
-public final class HostAddressProbablyIp4ProblemTest extends HostAddressProblemTestCase<HostAddressProbablyIp4Problem> {
+public final class HostAddressProblemInvalidLengthTest
+        extends HostAddressProblemTestCase<HostAddressProblemInvalidLength> {
 
     @Test
     public void testMessage() {
-        this.messageAndCheck(HostAddressProbablyIp4Problem.INSTANCE,
-                "1.2.3.999",
-                "Host probably an ip4 dot notation address=\"1.2.3.999\"");
+        this.messageAndCheck(HostAddressProblemInvalidLength.with(5),
+                "example.com",
+                "Invalid host length at 5=\"example.com\"");
     }
 
     @Override
-    public Class<HostAddressProbablyIp4Problem> type() {
-        return HostAddressProbablyIp4Problem.class;
+    public Class<HostAddressProblemInvalidLength> type() {
+        return HostAddressProblemInvalidLength.class;
     }
 }

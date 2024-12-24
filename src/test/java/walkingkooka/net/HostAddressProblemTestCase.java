@@ -36,20 +36,22 @@ abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> i
                 () -> problem + " " + address);
     }
 
+    // class.................. .........................................................................................
+
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return HostAddress.class.getSimpleName();
+        return HostAddressProblem.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return this.subtractTypeNamePrefix();
+        return "";
     }
 }

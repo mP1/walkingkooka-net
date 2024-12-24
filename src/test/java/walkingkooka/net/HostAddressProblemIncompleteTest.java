@@ -19,17 +19,17 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 
-public final class HostAddressProbablyIp6ProblemTest extends HostAddressProblemTestCase<HostAddressProbablyIp6Problem> {
+public final class HostAddressProblemIncompleteTest extends HostAddressProblemTestCase<HostAddressProblemIncomplete> {
 
     @Test
     public void testMessage() {
-        this.messageAndCheck(HostAddressProbablyIp6Problem.INSTANCE,
-                "!invalid",
-                "Host probably an ip6 dot notation address=\"!invalid\"");
+        this.messageAndCheck(HostAddressProblemIncomplete.INSTANCE,
+                "example.com!",
+                "Incomplete host in \"example.com!\"");
     }
 
     @Override
-    public Class<HostAddressProbablyIp6Problem> type() {
-        return HostAddressProbablyIp6Problem.class;
+    public Class<HostAddressProblemIncomplete> type() {
+        return HostAddressProblemIncomplete.class;
     }
 }

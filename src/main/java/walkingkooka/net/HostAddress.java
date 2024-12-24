@@ -147,11 +147,11 @@ public final class HostAddress implements Value<String>,
         // brackets only valid for ip6 OR ip4 AND mayHaveXXX
         if (openSquareBracket) {
             if (false == (hostAddress.isIp6() || (hostAddress.isIp4() && mayHaveSquareBrackets))) {
-                HostAddressInvalidCharacterProblem.with(offset).report(address);
+                HostAddressProblemInvalidCharacter.with(offset).report(address);
             }
         }
         if (missingClosingBracket) {
-            HostAddressIncompleteProblem.INSTANCE.report(address);
+            HostAddressProblemIncomplete.INSTANCE.report(address);
         }
 
         return hostAddress;
@@ -228,7 +228,7 @@ public final class HostAddress implements Value<String>,
             // special case for the first letter
             if (labelStart == i) {
                 if (Ip4Address.SEPARATOR.equals(c) || ('-' == c)) {
-                    problem = HostAddressInvalidCharacterProblem.with(i);
+                    problem = HostAddressProblemInvalidCharacter.with(i);
                     break;
                 }
                 if (Character.isLetter(c)) {
@@ -238,18 +238,18 @@ public final class HostAddress implements Value<String>,
                 if (Character.isDigit(c)) {
                     continue;
                 }
-                problem = HostAddressInvalidCharacterProblem.with(i);
+                problem = HostAddressProblemInvalidCharacter.with(i);
                 break;
             }
 
             if (last == i) {
                 if (Ip4Address.SEPARATOR.equals(c)) {
-                    problem = HostAddressIncompleteProblem.INSTANCE;
+                    problem = HostAddressProblemIncomplete.INSTANCE;
                     break;
                 }
                 // cannot end with dash
                 if ('-' == c) {
-                    problem = HostAddressInvalidCharacterProblem.with(i);
+                    problem = HostAddressProblemInvalidCharacter.with(i);
                     break;
                 }
                 if (Character.isLetter(c)) {
@@ -269,14 +269,14 @@ public final class HostAddress implements Value<String>,
                     labelStart = i + 1;
                     continue;
                 }
-                problem = HostAddressInvalidCharacterProblem.with(i);
+                problem = HostAddressProblemInvalidCharacter.with(i);
                 break;
             }
 
             // not the first character or last in this address
             if (Ip4Address.SEPARATOR.equals(c)) {
                 if ('-' == wasPrevious) {
-                    problem = HostAddressInvalidCharacterProblem.with(i - 1);
+                    problem = HostAddressProblemInvalidCharacter.with(i - 1);
                     break;
                 }
 
@@ -295,16 +295,16 @@ public final class HostAddress implements Value<String>,
                 continue;
             }
             if (':' == c) {
-                problem = HostAddressProbablyIp6Problem.INSTANCE;
+                problem = HostAddressProblemProbablyIp6.INSTANCE;
                 break;
             }
-            problem = HostAddressInvalidCharacterProblem.with(i);
+            problem = HostAddressProblemInvalidCharacter.with(i);
             break;
         }
 
         // if no letters were found fail as probably an ip4
         if ((null == problem) && ip4) {
-            problem = HostAddressProbablyIp4Problem.INSTANCE;
+            problem = HostAddressProblemProbablyIp4.INSTANCE;
         }
 
         return problem;
@@ -315,7 +315,7 @@ public final class HostAddress implements Value<String>,
      * {@link HostAddressProblem}
      */
     static Object tryParseIp4(final String address, final int start, final int end, final boolean insideIp6) {
-        HostAddressProblem problem = HostAddressIncompleteProblem.INSTANCE;
+        HostAddressProblem problem = HostAddressProblemIncomplete.INSTANCE;
         long value = 0;
 
         if (start != end) {
@@ -336,21 +336,21 @@ public final class HostAddress implements Value<String>,
                 if (Ip4Address.SEPARATOR.equals(c)) {
                     // might be starting with dot or double dot (an empty octet).
                     if (i == octetStart) {
-                        problem = HostAddressInvalidCharacterProblem.with(i);
+                        problem = HostAddressProblemInvalidCharacter.with(i);
                         break;
                     }
                     if (octetValue > HostAddress.MAX_OCTET_VALUE) {
-                        problem = HostAddressInvalidValueProblem.with(octetStart);
+                        problem = HostAddressProblemInvalidValue.with(octetStart);
                         break;
                     }
                     octetCounter++;
                     if (HostAddress.IP4_OCTET_COUNT == octetCounter) {
-                        problem = HostAddressInvalidCharacterProblem.with(i);
+                        problem = HostAddressProblemInvalidCharacter.with(i);
                         break;
                     }
                     // check if this dot is the last character
                     if (last == i) {
-                        problem = HostAddressInvalidCharacterProblem.with(last);
+                        problem = HostAddressProblemInvalidCharacter.with(last);
                         break;
                     }
                     octetStart = i + 1;
@@ -361,14 +361,14 @@ public final class HostAddress implements Value<String>,
                 // if not inside ip6 report a probably ip6 for these characters
                 if (false == insideIp6) {
                     if (Ip6Address.SEPARATOR.equals(c) || ((c >= 'A') && (c <= 'F')) || ((c >= 'a') && (c <= 'f'))) {
-                        problem = HostAddressProbablyIp6Problem.INSTANCE;
+                        problem = HostAddressProblemProbablyIp6.INSTANCE;
                         break;
                     }
                 }
                 // expecting a digit.
                 final int digit = Character.digit(c, 10);
                 if (digit < 0) {
-                    problem = HostAddressInvalidCharacterProblem.with(i);
+                    problem = HostAddressProblemInvalidCharacter.with(i);
                     break;
                 }
                 octetValue = (octetValue * 10) + digit;
@@ -379,12 +379,12 @@ public final class HostAddress implements Value<String>,
                         break;
                     }
                     if (octetValue > HostAddress.MAX_OCTET_VALUE) {
-                        problem = HostAddressInvalidValueProblem.with(octetStart);
+                        problem = HostAddressProblemInvalidValue.with(octetStart);
                         break;
                     }
                     value = (value << 8) | octetValue;
                     if (octetCounter != (HostAddress.IP4_OCTET_COUNT - 1)) {
-                        problem = HostAddressIncompleteProblem.INSTANCE;
+                        problem = HostAddressProblemIncomplete.INSTANCE;
                     }
                     break;
                 }
@@ -399,7 +399,7 @@ public final class HostAddress implements Value<String>,
      * Tries to parse an {@link String address} returning an array with the ip6 as a byte array form if successful or {@link HostAddressProblem}.
      */
     static Object tryParseIp6(final String address, final int start, final int end) {
-        HostAddressProblem problem = HostAddressIncompleteProblem.INSTANCE;
+        HostAddressProblem problem = HostAddressProblemIncomplete.INSTANCE;
         byte[] values = null;
 
         if (start != end) {
@@ -423,12 +423,12 @@ public final class HostAddress implements Value<String>,
                     if (start == i) {
                         // if only a solitary colon then incomplete
                         if (i == last) {
-                            problem = HostAddressIncompleteProblem.INSTANCE;
+                            problem = HostAddressProblemIncomplete.INSTANCE;
                             break;
                         }
                         // complain if next is not also a colon.
                         if (false == Ip6Address.SEPARATOR.equals(address.charAt(i + 1))) {
-                            problem = HostAddressInvalidCharacterProblem.with(0);
+                            problem = HostAddressProblemInvalidCharacter.with(0);
                             break;
                         }
                         // continue next will be a colon.
@@ -437,14 +437,14 @@ public final class HostAddress implements Value<String>,
 
                     // if last character is colon, and not an empty
                     if ((i == last) && (0 != groupDigitCounter)) {
-                        problem = HostAddressIncompleteProblem.INSTANCE;
+                        problem = HostAddressProblemIncomplete.INSTANCE;
                         break;
                     }
 
                     // empty found.. verify first and only
                     if (0 == groupDigitCounter) {
                         if (-1 != emptyGroupAt) {
-                            problem = HostAddressInvalidCharacterProblem.with(i);
+                            problem = HostAddressProblemInvalidCharacter.with(i);
                             break;
                         }
                         emptyGroupAt = groupCounter;
@@ -452,12 +452,12 @@ public final class HostAddress implements Value<String>,
                     groupCounter++;
                     // too many groups ?
                     if (groupCounter > HostAddress.IP6_GROUP_COUNT) {
-                        problem = HostAddressInvalidCharacterProblem.with(i);
+                        problem = HostAddressProblemInvalidCharacter.with(i);
                         break;
                     }
                     // if another block follows when already full invalid character
                     if ((last != i) && (groupCounter == HostAddress.IP6_GROUP_COUNT)) {
-                        problem = HostAddressInvalidCharacterProblem.with(i);
+                        problem = HostAddressProblemInvalidCharacter.with(i);
                         break;
                     }
 
@@ -484,12 +484,12 @@ public final class HostAddress implements Value<String>,
                     // if no empty was found must have already processed 6 groups
                     if (-1 == emptyGroupAt) {
                         if (groupCounter != HostAddress.MAX_BLOCKS_BEFORE_IP4) {
-                            problem = HostAddressInvalidCharacterProblem.with(i);
+                            problem = HostAddressProblemInvalidCharacter.with(i);
                             break;
                         }
                     } else {
                         if (groupCounter > HostAddress.MAX_BLOCKS_BEFORE_IP4) {
-                            problem = HostAddressInvalidCharacterProblem.with(i);
+                            problem = HostAddressProblemInvalidCharacter.with(i);
                             break;
                         }
                     }
@@ -518,11 +518,11 @@ public final class HostAddress implements Value<String>,
                 // expecting a hex digit
                 final int digit = Character.digit(c, 16);
                 if (digit < 0) {
-                    problem = HostAddressInvalidCharacterProblem.with(i);
+                    problem = HostAddressProblemInvalidCharacter.with(i);
                     break;
                 }
                 if (HostAddress.IP6_GROUP_LENGTH == groupDigitCounter) {
-                    problem = HostAddressInvalidValueProblem.with(i - groupDigitCounter);// gives start
+                    problem = HostAddressProblemInvalidValue.with(i - groupDigitCounter);// gives start
                     break;
                 }
                 groupDigitCounter++;
@@ -532,7 +532,7 @@ public final class HostAddress implements Value<String>,
                 if (last == i) {
                     // did not include a empty block and was wrong number of blocks...
                     if ((-1 == emptyGroupAt) && ((groupCounter + 1) != HostAddress.IP6_GROUP_COUNT)) {
-                        problem = HostAddressIncompleteProblem.INSTANCE;
+                        problem = HostAddressProblemIncomplete.INSTANCE;
                         break;
                     }
 
@@ -577,7 +577,7 @@ public final class HostAddress implements Value<String>,
      */
     static private HostAddressProblem checkLength(final int start, final int end) {
         return (end - start) >= HostAddress.MAX_LABEL_LENGTH ?
-                HostAddressInvalidLengthProblem.with(start) :
+                HostAddressProblemInvalidLength.with(start) :
                 null;
     }
 

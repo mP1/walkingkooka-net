@@ -20,18 +20,18 @@ package walkingkooka.net;
 import walkingkooka.text.CharSequences;
 
 /**
- * Represents an invalid label length such as an ip with long string of zeros
+ * Represents an invalid octet or atom value.
  */
-final class HostAddressInvalidLengthProblem extends HostAddressProblem {
+final class HostAddressProblemInvalidValue extends HostAddressProblem {
 
-    static HostAddressInvalidLengthProblem with(final int at) {
-        return new HostAddressInvalidLengthProblem(at);
+    static HostAddressProblemInvalidValue with(final int at) {
+        return new HostAddressProblemInvalidValue(at);
     }
 
     /**
      * Private constructor use static factory
      */
-    private HostAddressInvalidLengthProblem(final int at) {
+    private HostAddressProblemInvalidValue(final int at) {
         super();
         this.at = at;
     }
@@ -51,11 +51,11 @@ final class HostAddressInvalidLengthProblem extends HostAddressProblem {
 
     @Override
     public String message(final String address) {
-        return this.toString() + "=" + CharSequences.quoteAndEscape(address);
+        return this + "=" + CharSequences.quoteAndEscape(address);
     }
 
     /**
-     * Uses the character position as the priority
+     * The first character of the invalid value
      */
     @Override
     int priority() {
@@ -72,16 +72,16 @@ final class HostAddressInvalidLengthProblem extends HostAddressProblem {
     @Override
     public boolean equals(final Object other) {
         return (this == other)
-                || ((other instanceof HostAddressInvalidLengthProblem)
-                && this.equals0((HostAddressInvalidLengthProblem) other));
+                || ((other instanceof HostAddressProblemInvalidValue)
+                && this.equals0((HostAddressProblemInvalidValue) other));
     }
 
-    private boolean equals0(final HostAddressInvalidLengthProblem other) {
+    private boolean equals0(final HostAddressProblemInvalidValue other) {
         return this.at == other.at;
     }
 
     @Override
     public String toString() {
-        return "Invalid host length at " + this.at;
+        return "Host contains invalid value at " + this.at;
     }
 }

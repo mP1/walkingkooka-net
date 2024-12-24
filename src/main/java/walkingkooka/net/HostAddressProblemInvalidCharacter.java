@@ -22,16 +22,16 @@ import walkingkooka.InvalidCharacterException;
 /**
  * Represents an invalid character.
  */
-final class HostAddressInvalidCharacterProblem extends HostAddressProblem {
+final class HostAddressProblemInvalidCharacter extends HostAddressProblem {
 
-    static HostAddressInvalidCharacterProblem with(final int at) {
-        return new HostAddressInvalidCharacterProblem(at);
+    static HostAddressProblemInvalidCharacter with(final int at) {
+        return new HostAddressProblemInvalidCharacter(at);
     }
 
     /**
      * Private constructor use static factory
      */
-    private HostAddressInvalidCharacterProblem(final int at) {
+    private HostAddressProblemInvalidCharacter(final int at) {
         super();
         this.at = at;
     }
@@ -76,11 +76,11 @@ final class HostAddressInvalidCharacterProblem extends HostAddressProblem {
     @Override
     public boolean equals(final Object other) {
         return (this == other)
-                || ((other instanceof HostAddressInvalidCharacterProblem)
-                && this.equals0((HostAddressInvalidCharacterProblem) other));
+                || ((other instanceof HostAddressProblemInvalidCharacter)
+                && this.equals0((HostAddressProblemInvalidCharacter) other));
     }
 
-    private boolean equals0(final HostAddressInvalidCharacterProblem other) {
+    private boolean equals0(final HostAddressProblemInvalidCharacter other) {
         return this.at == other.at;
     }
 

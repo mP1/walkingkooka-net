@@ -23,45 +23,45 @@ package walkingkooka.net;
 abstract public class HostAddressProblem {
 
     /**
-     * {@see HostAddressIncompleteProblem}
+     * {@see HostAddressProblemIncomplete}
      */
     public static HostAddressProblem incomplete() {
-        return HostAddressIncompleteProblem.INSTANCE;
+        return HostAddressProblemIncomplete.INSTANCE;
     }
 
     /**
-     * {@see HostAddressInvalidCharacterProblem}
+     * {@see HostAddressProblemInvalidCharacter}
      */
     public static HostAddressProblem invalidCharacter(final int at) {
-        return HostAddressInvalidCharacterProblem.with(at);
+        return HostAddressProblemInvalidCharacter.with(at);
     }
 
     /**
-     * {@see HostAddressInvalidLengthProblem}
+     * {@see HostAddressProblemInvalidLength}
      */
     public static HostAddressProblem invalidLength(final int at) {
-        return HostAddressInvalidLengthProblem.with(at);
+        return HostAddressProblemInvalidLength.with(at);
     }
 
     /**
-     * {@see HostAddressInvalidValueProblem}
+     * {@see HostAddressProblemInvalidValue}
      */
     public static HostAddressProblem invalidValue(final int at) {
-        return HostAddressInvalidValueProblem.with(at);
+        return HostAddressProblemInvalidValue.with(at);
     }
 
     /**
-     * {@see HostAddressProbablyIp4Problem}
+     * {@see HostAddressProblemProbablyIp4}
      */
     public static HostAddressProblem probablyIp4() {
-        return HostAddressProbablyIp4Problem.INSTANCE;
+        return HostAddressProblemProbablyIp4.INSTANCE;
     }
 
     /**
-     * {@see HostAddressProbablyIp6Problem}
+     * {@see HostAddressProblemProbablyIp6}
      */
     public static HostAddressProblem probablyIp6() {
-        return HostAddressProbablyIp6Problem.INSTANCE;
+        return HostAddressProblemProbablyIp6.INSTANCE;
     }
 
     /**
