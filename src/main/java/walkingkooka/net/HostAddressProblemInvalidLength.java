@@ -20,18 +20,18 @@ package walkingkooka.net;
 import walkingkooka.text.CharSequences;
 
 /**
- * Represents an invalid octet or atom value.
+ * Represents an invalid label length such as an ip with long string of zeros
  */
-final class HostAddressInvalidValueProblem extends HostAddressProblem {
+final class HostAddressProblemInvalidLength extends HostAddressProblem {
 
-    static HostAddressInvalidValueProblem with(final int at) {
-        return new HostAddressInvalidValueProblem(at);
+    static HostAddressProblemInvalidLength with(final int at) {
+        return new HostAddressProblemInvalidLength(at);
     }
 
     /**
      * Private constructor use static factory
      */
-    private HostAddressInvalidValueProblem(final int at) {
+    private HostAddressProblemInvalidLength(final int at) {
         super();
         this.at = at;
     }
@@ -51,11 +51,11 @@ final class HostAddressInvalidValueProblem extends HostAddressProblem {
 
     @Override
     public String message(final String address) {
-        return this + "=" + CharSequences.quoteAndEscape(address);
+        return this.toString() + "=" + CharSequences.quoteAndEscape(address);
     }
 
     /**
-     * The first character of the invalid value
+     * Uses the character position as the priority
      */
     @Override
     int priority() {
@@ -72,16 +72,16 @@ final class HostAddressInvalidValueProblem extends HostAddressProblem {
     @Override
     public boolean equals(final Object other) {
         return (this == other)
-                || ((other instanceof HostAddressInvalidValueProblem)
-                && this.equals0((HostAddressInvalidValueProblem) other));
+                || ((other instanceof HostAddressProblemInvalidLength)
+                && this.equals0((HostAddressProblemInvalidLength) other));
     }
 
-    private boolean equals0(final HostAddressInvalidValueProblem other) {
+    private boolean equals0(final HostAddressProblemInvalidLength other) {
         return this.at == other.at;
     }
 
     @Override
     public String toString() {
-        return "Host contains invalid value at " + this.at;
+        return "Invalid host length at " + this.at;
     }
 }

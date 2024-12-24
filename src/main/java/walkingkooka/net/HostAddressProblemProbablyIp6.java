@@ -20,52 +20,52 @@ package walkingkooka.net;
 import walkingkooka.text.CharSequences;
 
 /**
- * Represents an ip4 or ip6 address without the required octets/atoms etc.
+ * Represents an address that most likely an ip6 without actually validating
  */
-final class HostAddressIncompleteProblem extends HostAddressProblem {
+final class HostAddressProblemProbablyIp6 extends HostAddressProblem {
 
     /**
      * Singleton
      */
-    final static HostAddressIncompleteProblem INSTANCE = new HostAddressIncompleteProblem();
+    final static HostAddressProblemProbablyIp6 INSTANCE = new HostAddressProblemProbablyIp6();
 
     /**
      * Private constructor use singleton
      */
-    private HostAddressIncompleteProblem() {
+    private HostAddressProblemProbablyIp6() {
         super();
     }
 
-    private final static String MESSAGE = "Incomplete host in";
+    /**
+     * While parsing a name which failed an ip4 was probably found. This problem notifies that only digits and dots were found.
+     */
+    @Override
+    boolean stopTrying() {
+        return false;
+    }
 
     @Override
     void report(final String address) {
         throw new IllegalArgumentException(this.message(address));
     }
 
+    private final static String MESSAGE = "Host probably an ip6 dot notation address";
+
     @Override
     public String message(final String address) {
-        return HostAddressIncompleteProblem.MESSAGE + " " + CharSequences.quoteAndEscape(address);
+        return MESSAGE + "=" + CharSequences.quoteAndEscape(address);
     }
 
     /**
-     * Was an ip4/6 no point trying again
-     */
-    @Override
-    boolean stopTrying() {
-        return true;
-    }
-
-    /**
-     * The highest possible priority
+     * Let other problems take precedence
      */
     @Override
     int priority() {
-        return Integer.MAX_VALUE;
+        return Integer.MIN_VALUE;
     }
 
     @Override
     public String toString() {
-        return HostAddressIncompleteProblem.MESSAGE;
+        return MESSAGE;
     }
 }

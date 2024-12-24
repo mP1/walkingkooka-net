@@ -19,17 +19,18 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 
-public final class HostAddressIncompleteProblemTest extends HostAddressProblemTestCase<HostAddressIncompleteProblem> {
+public final class HostAddressProblemInvalidCharacterTest
+        extends HostAddressProblemTestCase<HostAddressProblemInvalidCharacter> {
 
     @Test
     public void testMessage() {
-        this.messageAndCheck(HostAddressIncompleteProblem.INSTANCE,
-                "example.com!",
-                "Incomplete host in \"example.com!\"");
+        this.messageAndCheck(HostAddressProblemInvalidCharacter.with(5),
+                "example.com",
+                "Invalid character 'l' at 5 in \"example.com\"");
     }
 
     @Override
-    public Class<HostAddressIncompleteProblem> type() {
-        return HostAddressIncompleteProblem.class;
+    public Class<HostAddressProblemInvalidCharacter> type() {
+        return HostAddressProblemInvalidCharacter.class;
     }
 }

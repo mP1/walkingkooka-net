@@ -65,31 +65,31 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     @Test
     public void testInvalidNameStartsWithDashFails() {
         final String address = "-invalid.last";
-        this.withFails(address, HostAddressInvalidCharacterProblem.with(0));
+        this.withFails(address, HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testInvalidNameStartsWithDash2Fails() {
         final String address = "first.-invalid.last";
-        this.withFails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('-')));
+        this.withFails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('-')));
     }
 
     @Test
     public void testInvalidNameStartsWithDotFails() {
         final String address = ".invalid";
-        this.withFails(address, HostAddressInvalidCharacterProblem.with(0));
+        this.withFails(address, HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testIp4WithInvalidValue() {
         final String address = "1.2.345.6";
-        this.withFails(address, HostAddressInvalidValueProblem.with(address.indexOf('3')));
+        this.withFails(address, HostAddressProblemInvalidValue.with(address.indexOf('3')));
     }
 
     @Test
     public void testIp6WithInvalidValueFails() {
         final String address = "1:2:34567:4:5:6:7:8";
-        this.withFails(address, HostAddressInvalidValueProblem.with(address.indexOf('3')));
+        this.withFails(address, HostAddressProblemInvalidValue.with(address.indexOf('3')));
     }
 
     private void withFails(final String address) {
@@ -288,119 +288,119 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testParseProbablyIp6Fails() {
-        this.parseStringFails("a.b:c", HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseStringFails("a.b:c", HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseDotAtStartFails() {
-        this.parseStringFails(".n", HostAddressInvalidCharacterProblem.with(0));
+        this.parseStringFails(".n", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseDotAtEndFails() {
-        this.parseStringFails("n.", HostAddressIncompleteProblem.INSTANCE);
+        this.parseStringFails("n.", HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseDashAtStartFails() {
-        this.parseStringFails("-n", HostAddressInvalidCharacterProblem.with(0));
+        this.parseStringFails("-n", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseDashAtEndFails() {
         final String name = "n-";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('-')));
     }
 
     @Test
     public void testParseOneLabelInvalidAtStartFails() {
-        this.parseStringFails("!b", HostAddressInvalidCharacterProblem.with(0));
+        this.parseStringFails("!b", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseOneLabelInvalidAtStarts2Fails() {
-        this.parseStringFails("!bc", HostAddressInvalidCharacterProblem.with(0));
+        this.parseStringFails("!bc", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseOneLabelInvalidFails() {
-        this.parseStringFails("n!ame", HostAddressInvalidCharacterProblem.with(1));
+        this.parseStringFails("n!ame", HostAddressProblemInvalidCharacter.with(1));
     }
 
     @Test
     public void testParseOneLabelEndsWithInvalidFails() {
-        this.parseStringFails("a!", HostAddressInvalidCharacterProblem.with(1));
+        this.parseStringFails("a!", HostAddressProblemInvalidCharacter.with(1));
     }
 
     @Test
     public void testParseOneLabelEndsWithInvalid2Fails() {
-        this.parseStringFails("ab!", HostAddressInvalidCharacterProblem.with(2));
+        this.parseStringFails("ab!", HostAddressProblemInvalidCharacter.with(2));
     }
 
     @Test
     public void testParseDashThenDotFails() {
         final String address = "exampl-.com";
-        this.parseStringFails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('-')));
+        this.parseStringFails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('-')));
     }
 
     @Test
     public void testParseSecondLabelInvalidAtStartFails() {
         final String name = "a.!b";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('!')));
     }
 
     @Test
     public void testParseSecondLabelInvalidFails() {
         final String name = "a.b!c.d";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('!')));
     }
 
     @Test
     public void testParseSecondLabelEndsWithInvalidFails() {
         final String name = "a.b!.c";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('!')));
     }
 
     @Test
     public void testParseSecondLabelEndsWithDashFails() {
         final String name = "a.b-.c";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('-')));
     }
 
     @Test
     public void testParseLastLabelEndWithInvalidFails() {
         final String name = "a.b!";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('!')));
     }
 
     @Test
     public void testParseLastLabelEndsWithDashFails() {
         final String name = "a.b-";
-        this.parseStringFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+        this.parseStringFails(name, HostAddressProblemInvalidCharacter.with(name.indexOf('-')));
     }
 
     @Test
     public void testParseIp4PartialFails() {
         final String name = "1.2";
-        this.parseStringFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+        this.parseStringFails(name, HostAddressProblemProbablyIp4.INSTANCE);
     }
 
     @Test
     public void testParseIp4Fails() {
         final String name = "1.2.3.4";
-        this.parseStringFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+        this.parseStringFails(name, HostAddressProblemProbablyIp4.INSTANCE);
     }
 
     @Test
     public void testParseIp4WithExtraOctetsFails() {
         final String name = "1.2.3.4.5.6";
-        this.parseStringFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+        this.parseStringFails(name, HostAddressProblemProbablyIp4.INSTANCE);
     }
 
     @Test
     public void testParseIp6Fails() {
         final String name = "1:2:3:4:5:6:7:8";
-        this.parseStringFails(name, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseStringFails(name, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
@@ -408,7 +408,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, 'x');
         final String name = new String(array);
-        this.parseStringFails(name, HostAddressInvalidLengthProblem.with(0));
+        this.parseStringFails(name, HostAddressProblemInvalidLength.with(0));
     }
 
     @Test
@@ -416,21 +416,21 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, 'x');
         final String name = new String(array);
-        this.parseStringFails(name + ".second", HostAddressInvalidLengthProblem.with(0));
+        this.parseStringFails(name + ".second", HostAddressProblemInvalidLength.with(0));
     }
 
     @Test
     public void testParseLabelTooLongSecondFails() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, 'x');
-        this.parseStringFails("first." + new String(array) + ".last", HostAddressInvalidLengthProblem.with("first.".length()));
+        this.parseStringFails("first." + new String(array) + ".last", HostAddressProblemInvalidLength.with("first.".length()));
     }
 
     @Test
     public void testParseLabelTooLongLastFails() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, 'x');
-        this.parseStringFails("first." + new String(array), HostAddressInvalidLengthProblem.with("first.".length()));
+        this.parseStringFails("first." + new String(array), HostAddressProblemInvalidLength.with("first.".length()));
     }
 
     @Test
@@ -495,78 +495,78 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testParseIp4ActuallyIp6Fails() {
-        this.parseIp4Fails("1234:2:3:4:5:6:7", false, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseIp4Fails("1234:2:3:4:5:6:7", false, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseIp4ActuallyIp6WithHexDigitCharacterFails() {
-        this.parseIp4Fails("A234:2:3:4:5:6:7", false, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseIp4Fails("A234:2:3:4:5:6:7", false, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseIp4ActuallyIp6WithHexDigitCharacter2Fails() {
-        this.parseIp4Fails("a234:2:3:4:5:6:7", false, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseIp4Fails("a234:2:3:4:5:6:7", false, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseIp4Ip4WithColonFails() {
-        this.parseIp4Fails("1:2.3.4", true, HostAddressInvalidCharacterProblem.with(1));
+        this.parseIp4Fails("1:2.3.4", true, HostAddressProblemInvalidCharacter.with(1));
     }
 
     @Test
     public void testParseIp4FirstOctetEmptyFails() {
-        this.parseIp4Fails(".2.3.4", false, HostAddressInvalidCharacterProblem.with(0));
+        this.parseIp4Fails(".2.3.4", false, HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseIp4SecondOctetEmptyFails() {
-        this.parseIp4Fails("1..3.4", false, HostAddressInvalidCharacterProblem.with(2));
+        this.parseIp4Fails("1..3.4", false, HostAddressProblemInvalidCharacter.with(2));
     }
 
     @Test
     public void testParseIp4ThirdOctetEmptyFails() {
-        this.parseIp4Fails("1.2..4", false, HostAddressInvalidCharacterProblem.with(4));
+        this.parseIp4Fails("1.2..4", false, HostAddressProblemInvalidCharacter.with(4));
     }
 
     @Test
     public void testParseIp4LastOctetEmptyFails() {
         final String address = "1.2.3.";
-        this.parseIp4Fails(address, false, HostAddressInvalidCharacterProblem.with(address.lastIndexOf('.')));
+        this.parseIp4Fails(address, false, HostAddressProblemInvalidCharacter.with(address.lastIndexOf('.')));
     }
 
     @Test
     public void testParseIp4FirstOctetStartsWithAlphaFails() {
-        this.parseIp4Fails("a.2.3.4", false, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseIp4Fails("a.2.3.4", false, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseIp4FirstOctetStartsWithInvalidFails() {
-        this.parseIp4Fails("!.2.3.4", false, HostAddressInvalidCharacterProblem.with(0));
+        this.parseIp4Fails("!.2.3.4", false, HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseIp4FirstOctetIncludesAlphaFails() {
-        this.parseIp4Fails("1a.2.3.4", false, HostAddressProbablyIp6Problem.INSTANCE);
+        this.parseIp4Fails("1a.2.3.4", false, HostAddressProblemProbablyIp6.INSTANCE);
     }
 
     @Test
     public void testParseIp4FirstOctetIsInvalidValueFails() {
-        this.parseIp4Fails("987.2.3.4", false, HostAddressInvalidValueProblem.with(0));
+        this.parseIp4Fails("987.2.3.4", false, HostAddressProblemInvalidValue.with(0));
     }
 
     @Test
     public void testParseIp4SecondOctetIsInvalidValueFails() {
-        this.parseIp4Fails("1.987.3.4", false, HostAddressInvalidValueProblem.with(2));
+        this.parseIp4Fails("1.987.3.4", false, HostAddressProblemInvalidValue.with(2));
     }
 
     @Test
     public void testParseIp4ThirdOctetIsInvalidValueFails() {
-        this.parseIp4Fails("1.2.987.4", false, HostAddressInvalidValueProblem.with(4));
+        this.parseIp4Fails("1.2.987.4", false, HostAddressProblemInvalidValue.with(4));
     }
 
     @Test
     public void testParseIp4LastOctetIsInvalidValueFails() {
-        this.parseIp4Fails("1.2.3.987", false, HostAddressInvalidValueProblem.with(6));
+        this.parseIp4Fails("1.2.3.987", false, HostAddressProblemInvalidValue.with(6));
     }
 
     @Test
@@ -627,23 +627,23 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testParseIp4OnlyOneOctet() {
-        this.parseIp4Fails("1", false, HostAddressIncompleteProblem.INSTANCE);
+        this.parseIp4Fails("1", false, HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseIp4TwoOctets() {
-        this.parseIp4Fails("1.2", false, HostAddressIncompleteProblem.INSTANCE);
+        this.parseIp4Fails("1.2", false, HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseIp4ThreeOctets() {
-        this.parseIp4Fails("1.2.3", false, HostAddressIncompleteProblem.INSTANCE);
+        this.parseIp4Fails("1.2.3", false, HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseIp4FiveOctets() {
         final String address = "1.2.3.4.5";
-        this.parseIp4Fails(address, false, HostAddressInvalidCharacterProblem.with(address.indexOf('4') + 1));
+        this.parseIp4Fails(address, false, HostAddressProblemInvalidCharacter.with(address.indexOf('4') + 1));
     }
 
     @Test
@@ -651,7 +651,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, '0');
         final String name = new String(array);
-        this.parseIp4Fails(name, false, HostAddressInvalidLengthProblem.with(0));
+        this.parseIp4Fails(name, false, HostAddressProblemInvalidLength.with(0));
     }
 
     @Test
@@ -659,28 +659,28 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, '0');
         final String name = new String(array);
-        this.parseIp4Fails(name + ".1", false, HostAddressInvalidLengthProblem.with(0));
+        this.parseIp4Fails(name + ".1", false, HostAddressProblemInvalidLength.with(0));
     }
 
     @Test
     public void testParseIp4TooLongSecondOctet() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, '0');
-        this.parseIp4Fails("1." + new String(array) + ".3.4", false, HostAddressInvalidLengthProblem.with(2));
+        this.parseIp4Fails("1." + new String(array) + ".3.4", false, HostAddressProblemInvalidLength.with(2));
     }
 
     @Test
     public void testParseIp4TooLongThirdOctet() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, '0');
-        this.parseIp4Fails("1.2." + new String(array) + ".4", false, HostAddressInvalidLengthProblem.with(4));
+        this.parseIp4Fails("1.2." + new String(array) + ".4", false, HostAddressProblemInvalidLength.with(4));
     }
 
     @Test
     public void testParseIp4TooLongLastOctet() {
         final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
         Arrays.fill(array, '0');
-        this.parseIp4Fails("1.2.3." + new String(array), false, HostAddressInvalidLengthProblem.with(6));
+        this.parseIp4Fails("1.2.3." + new String(array), false, HostAddressProblemInvalidLength.with(6));
     }
 
     // helpers
@@ -710,83 +710,83 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testParseIp6OnlyColonFails() {
-        this.parseIp6Fails(":", HostAddressIncompleteProblem.INSTANCE);
+        this.parseIp6Fails(":", HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseIp6StartsWithColonFails() {
-        this.parseIp6Fails(":2:3:4:5:6:7:8", HostAddressInvalidCharacterProblem.with(0));
+        this.parseIp6Fails(":2:3:4:5:6:7:8", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseIp6EndsWithColonFails() {
-        this.parseIp6Fails("1:2:3:4:5:6:7:", HostAddressIncompleteProblem.INSTANCE);
+        this.parseIp6Fails("1:2:3:4:5:6:7:", HostAddressProblemIncomplete.INSTANCE);
     }
 
     @Test
     public void testParseIp6FirstGroupStartsWithInvalidCharacterFails() {
-        this.parseIp6Fails("!1:2:3:4:5:6:7:8", HostAddressInvalidCharacterProblem.with(0));
+        this.parseIp6Fails("!1:2:3:4:5:6:7:8", HostAddressProblemInvalidCharacter.with(0));
     }
 
     @Test
     public void testParseIp6FirstGroupIncludesInvalidCharacterFails() {
-        this.parseIp6Fails("1!:2:3:4:5:6:7:8", HostAddressInvalidCharacterProblem.with(1));
+        this.parseIp6Fails("1!:2:3:4:5:6:7:8", HostAddressProblemInvalidCharacter.with(1));
     }
 
     @Test
     public void testParseIp6FirstGroupIncludesInvalidValueFails() {
-        this.parseIp6Fails("12345:2:3:4:5:6:7:8", HostAddressInvalidValueProblem.with(0));
+        this.parseIp6Fails("12345:2:3:4:5:6:7:8", HostAddressProblemInvalidValue.with(0));
     }
 
     @Test
     public void testParseIp6FirstGroupIncludesInvalidValueTooManyZeroesFails() {
-        this.parseIp6Fails("00000:2:3:4:5:6:7:8", HostAddressInvalidValueProblem.with(0));
+        this.parseIp6Fails("00000:2:3:4:5:6:7:8", HostAddressProblemInvalidValue.with(0));
     }
 
     @Test
     public void testParseIp6SecondGroupStartsWithInvalidCharacterFails() {
-        this.parseIp6Fails("1:!2:3:4:5:6:7:8", HostAddressInvalidCharacterProblem.with(2));
+        this.parseIp6Fails("1:!2:3:4:5:6:7:8", HostAddressProblemInvalidCharacter.with(2));
     }
 
     @Test
     public void testParseIp6SecondGroupIncludesInvalidCharacterFails() {
-        this.parseIp6Fails("1:2!:3:4:5:6:7:8", HostAddressInvalidCharacterProblem.with(3));
+        this.parseIp6Fails("1:2!:3:4:5:6:7:8", HostAddressProblemInvalidCharacter.with(3));
     }
 
     @Test
     public void testParseIp6SecondGroupIncludesInvalidValueFails() {
-        this.parseIp6Fails("1:23456:3:4:5:6:7:8", HostAddressInvalidValueProblem.with(2));
+        this.parseIp6Fails("1:23456:3:4:5:6:7:8", HostAddressProblemInvalidValue.with(2));
     }
 
     @Test
     public void testParseIp6SecondGroupIncludesInvalidValueTooManyZeroesFails() {
-        this.parseIp6Fails("1:00000:3:4:5:6:7:8", HostAddressInvalidValueProblem.with(2));
+        this.parseIp6Fails("1:00000:3:4:5:6:7:8", HostAddressProblemInvalidValue.with(2));
     }
 
     @Test
     public void testParseIp6LastGroupStartsWithInvalidCharacterFails() {
-        this.parseIp6Fails("1:2:3:4:5:6:7:!", HostAddressInvalidCharacterProblem.with(14));
+        this.parseIp6Fails("1:2:3:4:5:6:7:!", HostAddressProblemInvalidCharacter.with(14));
     }
 
     @Test
     public void testParseIp6LastGroupIncludesInvalidCharacterFails() {
-        this.parseIp6Fails("1:2:3:4:5:6:7:8!", HostAddressInvalidCharacterProblem.with(14 + 1));
+        this.parseIp6Fails("1:2:3:4:5:6:7:8!", HostAddressProblemInvalidCharacter.with(14 + 1));
     }
 
     @Test
     public void testParseIp6LastGroupIncludesInvalidValueFails() {
-        this.parseIp6Fails("1:2:3:4:5:6:7:89ABC", HostAddressInvalidValueProblem.with(14));
+        this.parseIp6Fails("1:2:3:4:5:6:7:89ABC", HostAddressProblemInvalidValue.with(14));
     }
 
     @Test
     public void testParseIp6LastGroupIncludesInvalidValueTooManyZeroesFails() {
-        this.parseIp6Fails("1:2:3:4:5:6:7:00000", HostAddressInvalidValueProblem.with(14));
+        this.parseIp6Fails("1:2:3:4:5:6:7:00000", HostAddressProblemInvalidValue.with(14));
     }
 
     @Test
     public void testParseIp6TooManyGroupsFails() {
         final String address = "1:2:3:4:5:6:7:8:9";
-        this.parseIp6Fails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('9') - 1));
+        this.parseIp6Fails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('9') - 1));
     }
 
     @Test
@@ -808,7 +808,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     @Test
     public void testParseIp6MoreThanOneEmptyFails() {
         final String address = "1::3:4::6:7:8";
-        this.parseIp6Fails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('6') - 1));
+        this.parseIp6Fails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('6') - 1));
     }
 
     @Test
@@ -874,25 +874,25 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     @Test
     public void testParseIp6Ip4WithInvalidValueFails() {
         final String address = "1:2:3:4:5:6:7.8.900.1";
-        this.parseIp6Fails(address, HostAddressInvalidValueProblem.with(address.indexOf('9')));
+        this.parseIp6Fails(address, HostAddressProblemInvalidValue.with(address.indexOf('9')));
     }
 
     @Test
     public void testParseIp6Ip4WithColonFails() {
         final String address = "1:2:3:4:5:6:7.8:9.0";
-        this.parseIp6Fails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('8') + 1));
+        this.parseIp6Fails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('8') + 1));
     }
 
     @Test
     public void testParseIp6Ip4BeforeTooFewGroupsFails() {
         final String address = "1:2:3.4.5.6";
-        this.parseIp6Fails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('.')));
+        this.parseIp6Fails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('.')));
     }
 
     @Test
     public void testParseIp6Ip4BeforeTooManyGroupsFails() {
         final String address = "1:2:3:4:5:6:7:1.2.3.4";
-        this.parseIp6Fails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('.')));
+        this.parseIp6Fails(address, HostAddressProblemInvalidCharacter.with(address.indexOf('.')));
     }
 
     @Test

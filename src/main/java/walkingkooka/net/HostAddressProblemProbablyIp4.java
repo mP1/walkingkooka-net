@@ -20,19 +20,19 @@ package walkingkooka.net;
 import walkingkooka.text.CharSequences;
 
 /**
- * Represents an address that most likely an ip6 without actually validating
+ * Represents an address that most likely an ip4 without actually validating
  */
-final class HostAddressProbablyIp6Problem extends HostAddressProblem {
+final class HostAddressProblemProbablyIp4 extends HostAddressProblem {
 
     /**
      * Singleton
      */
-    final static HostAddressProbablyIp6Problem INSTANCE = new HostAddressProbablyIp6Problem();
+    final static HostAddressProblemProbablyIp4 INSTANCE = new HostAddressProblemProbablyIp4();
 
     /**
      * Private constructor use singleton
      */
-    private HostAddressProbablyIp6Problem() {
+    private HostAddressProblemProbablyIp4() {
         super();
     }
 
@@ -49,7 +49,7 @@ final class HostAddressProbablyIp6Problem extends HostAddressProblem {
         throw new IllegalArgumentException(this.message(address));
     }
 
-    private final static String MESSAGE = "Host probably an ip6 dot notation address";
+    private final static String MESSAGE = "Host probably an ip4 dot notation address";
 
     @Override
     public String message(final String address) {
