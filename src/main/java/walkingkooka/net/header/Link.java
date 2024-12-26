@@ -176,7 +176,7 @@ final public class Link extends HeaderWithParameters2<Link,
         }
 
         if (null == href) {
-            JsonNodeUnmarshallContext.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(HREF_JSON_PROPERTY, node);
         }
         return Link.with(Url.parse(href));
     }
