@@ -97,7 +97,7 @@ public final class UrlParameterName extends NetName
 
         final Optional<List<String>> maybeValues = this.parameterValue(parameters);
         if (!maybeValues.isPresent()) {
-            throw new IllegalArgumentException("Required parameter " + this + " missing");
+            throw new IllegalArgumentException("Missing query parameter " + this);
         }
         final List<String> values = maybeValues.get();
         if (values.size() != 1) {

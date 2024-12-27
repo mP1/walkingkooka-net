@@ -147,23 +147,29 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
 
     @Test
     public void testParameterValueOrFailNullParametersFail() {
-        this.parameterValueOrFail(null,
+        this.parameterValueOrFail(
+                null,
                 Function.identity(),
-                NullPointerException.class);
+                NullPointerException.class
+        );
     }
 
     @Test
     public void testParameterValueOrFailNullConverterFail() {
-        this.parameterValueOrFail(Maps.empty(),
+        this.parameterValueOrFail(
+                Maps.empty(),
                 null,
-                NullPointerException.class);
+                NullPointerException.class
+        );
     }
 
     @Test
-    public void testParameterValueOrFailMissing() {
-        this.parameterValueOrFail(Maps.empty(),
+    public void testParameterValueOrFailMissingFails() {
+        this.parameterValueOrFail(
+                Maps.empty(),
                 Function.identity(),
-                IllegalArgumentException.class);
+                new IllegalArgumentException("Missing query parameter param-1")
+        );
     }
 
     @Test
@@ -171,10 +177,12 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         final UrlParameterName parameter = this.createComparable();
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("1", "2", "3"));
 
-        this.parameterValueOrFail(parameter,
+        this.parameterValueOrFail(
+                parameter,
                 parameters,
                 Function.identity(),
-                IllegalArgumentException.class);
+                IllegalArgumentException.class
+        );
     }
 
     @Test
@@ -182,26 +190,62 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         final UrlParameterName parameter = this.createComparable();
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("A!!!"));
 
-        this.parameterValueOrFail(parameter,
+        this.parameterValueOrFail(
+                parameter,
                 parameters,
                 BigDecimal::new,
-                IllegalArgumentException.class);
+                new IllegalArgumentException("Character A is neither a decimal digit number, decimal point, nor \"e\" notation exponential mark.")
+        );
     }
 
     private void parameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters,
                                       final Function<String, ?> converter,
                                       final Class<? extends Throwable> thrown) {
-        this.parameterValueOrFail(this.createComparable(),
+        this.parameterValueOrFail(
+                this.createComparable(),
                 parameters,
                 converter,
-                thrown);
+                thrown
+        );
     }
 
     private void parameterValueOrFail(final UrlParameterName parameter,
                                       final Map<HttpRequestAttribute<?>, ?> parameters,
                                       final Function<String, ?> converter,
                                       final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> parameter.parameterValueOrFail(parameters, converter));
+        assertThrows(
+                thrown,
+                () -> parameter.parameterValueOrFail(
+                        parameters,
+                        converter
+                )
+        );
+    }
+
+    private void parameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters,
+                                      final Function<String, ?> converter,
+                                      final IllegalArgumentException thrown) {
+        this.parameterValueOrFail(
+                this.createComparable(),
+                parameters,
+                converter,
+                thrown
+        );
+    }
+
+    private void parameterValueOrFail(final UrlParameterName parameter,
+                                      final Map<HttpRequestAttribute<?>, ?> parameters,
+                                      final Function<String, ?> converter,
+                                      final IllegalArgumentException thrown) {
+        final Throwable throwable = assertThrows(
+                thrown.getClass(),
+                () -> parameter.parameterValueOrFail(parameters, converter)
+        );
+
+        this.checkEquals(
+                thrown.getMessage(),
+                throwable.getMessage()
+        );
     }
 
     @Test
