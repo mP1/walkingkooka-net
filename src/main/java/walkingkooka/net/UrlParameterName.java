@@ -101,7 +101,16 @@ public final class UrlParameterName extends NetName
         }
         final List<String> values = maybeValues.get();
         if (values.size() != 1) {
-            throw new IllegalArgumentException("Required parameter " + this + " incorrect=" + values);
+            // Query parameter ABC: Multiple values= 1, 2, 3
+            throw new IllegalArgumentException(
+                    "Query parameter " +
+                            this +
+                            ": Multiple values got " +
+                            String.join(
+                                    ", ",
+                                    values
+                            )
+            );
         }
         final String value = values.get(0);
         try {
