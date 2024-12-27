@@ -272,13 +272,29 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     // headerOrFail..............................................................................
 
     @Test
-    public void testHeaderOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpHeaderName.ALLOW.headerOrFail(null));
+    public void testHeaderOrFailWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> HttpHeaderName.ALLOW.headerOrFail(null)
+        );
     }
 
     @Test
     public void testHeaderOrFailAbsent() {
-        assertThrows(HeaderException.class, () -> HttpHeaderName.ALLOW.headerOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L)));
+        final HeaderException thrown = assertThrows(
+                HeaderException.class,
+                () -> HttpHeaderName.ALLOW.headerOrFail(
+                        this.headers(
+                                HttpHeaderName.CONTENT_LENGTH,
+                                123L
+                        )
+                )
+        );
+
+        this.checkEquals(
+                "Missing header Allow",
+                thrown.getMessage()
+        );
     }
 
     @Test
