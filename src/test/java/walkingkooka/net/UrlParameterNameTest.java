@@ -175,13 +175,16 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueOrFailSeveralValuesFails() {
         final UrlParameterName parameter = this.createComparable();
-        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("1", "2", "3"));
+        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(
+                parameter,
+                Lists.of("1", "2", "3")
+        );
 
         this.parameterValueOrFail(
                 parameter,
                 parameters,
                 Function.identity(),
-                IllegalArgumentException.class
+                new IllegalArgumentException("Query parameter param-1: Multiple values got 1, 2, 3")
         );
     }
 
