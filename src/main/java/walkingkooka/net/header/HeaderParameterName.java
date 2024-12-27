@@ -79,7 +79,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     public final V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
         if (!value.isPresent()) {
-            throw new HeaderException("Required value is absent for " + this);
+            throw new HeaderException("Missing header parameter " + this);
         }
         return value.get();
     }
