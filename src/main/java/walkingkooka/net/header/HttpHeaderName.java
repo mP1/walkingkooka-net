@@ -807,7 +807,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public T headerOrFail(final HasHeaders headers) {
         final Optional<T> value = this.header(headers);
         if (!value.isPresent()) {
-            throw new HeaderException("Required value is absent for " + this);
+            throw new HeaderException("Missing header " + this);
         }
         return value.get();
     }
