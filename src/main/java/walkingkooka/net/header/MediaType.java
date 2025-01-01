@@ -122,6 +122,11 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public final static MediaType TEXT_XML = registerConstant("text/xml");
 
     /**
+     * Holds a {@link MediaType} for binary payloads that have been base64 encoded, text/base64
+     */
+    public final static MediaType TEXT_BASE64 = registerConstant("text/base64");
+
+    /**
      * Holds a {@link MediaType} for MULTIPART BYTE RANGES that contains <code>multipart/byteranges</code>.
      */
     public final static MediaType MULTIPART_BYTE_RANGES = registerConstant("multipart/byteranges");
