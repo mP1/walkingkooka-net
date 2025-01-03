@@ -324,7 +324,7 @@ public final class MailToUrl extends Url {
     }
 
     private boolean equals0(final MailToUrl other) {
-        return Objects.equals(this.url, other.url) ||
+        return null != this.url && Objects.equals(this.url, other.url) ||
                 (
                         this.emailAddresses.equals(other.emailAddresses) &&
                                 this.headers.equals(other.headers)
