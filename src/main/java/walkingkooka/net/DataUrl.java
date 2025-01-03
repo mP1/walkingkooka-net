@@ -257,7 +257,6 @@ public final class DataUrl extends Url {
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.url,
                 this.mediaType,
                 this.base64,
                 this.binary
