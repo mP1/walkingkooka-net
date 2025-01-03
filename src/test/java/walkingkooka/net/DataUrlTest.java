@@ -94,7 +94,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
 
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs
     @Test
-    public void testParseEmptyContentType() throws Exception {
+    public void testParseEmptyContentType() {
         this.parseStringAndCheck(
                 "data:,Hello%2C%20World%21",
                 DataUrl.with(
@@ -113,7 +113,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     }
 
     @Test
-    public void testParseWithContentTypeAndEncoded() throws Exception {
+    public void testParseWithContentTypeAndEncoded() {
         this.parseStringAndCheck(
                 "data:text/plain,Hello%2C%20World%21",
                 DataUrl.with(
@@ -141,7 +141,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     }
 
     @Test
-    public void testParseMdnPlainTextExample() throws Exception {
+    public void testParseMdnPlainTextExample() {
         this.parseStringAndCheck(
                 "data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==",
                 DataUrl.with(
@@ -157,7 +157,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     }
 
     @Test
-    public void testParseMdnPlainHtmlExample() throws Exception {
+    public void testParseMdnPlainHtmlExample() {
         this.parseStringAndCheck(
                 "data:text/html,%3Ch1%3EHello%2C%20World%21%3C%2Fh1%3E",
                 DataUrl.with(
@@ -173,7 +173,7 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     }
 
     @Test
-    public void testParseMdnJavascriptExample() throws Exception {
+    public void testParseMdnJavascriptExample() {
         this.parseStringAndCheck(
                 "data:text/html,%3Cscript%3Ealert%28%27hi%27%29%3B%3C%2Fscript%3E",
                 DataUrl.with(
