@@ -92,6 +92,18 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         this.parseStringFails("data:text/plain;base64", IllegalArgumentException.class);
     }
 
+    @Test
+    public void testParseEmptyData() {
+        this.parseStringAndCheck(
+                "data:,",
+                DataUrl.with(
+                        Optional.empty(),
+                        false, // base64=false
+                        Binary.EMPTY
+                )
+        );
+    }
+
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs
     @Test
     public void testParseEmptyContentType() {
@@ -124,7 +136,8 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Binary.with(
                                 "Hello, World!".getBytes(StandardCharsets.UTF_8)
                         )
-                )
+                ),
+                "Hello%2C%20World%21"
         );
     }
 
@@ -136,7 +149,8 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Optional.empty(),
                         true, // base64=true
                         this.binary()
-                )
+                ),
+                "YWJjMTIz"
         );
     }
 
@@ -152,7 +166,8 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Binary.with(
                                 "Hello, World!".getBytes(StandardCharsets.UTF_8)
                         )
-                )
+                ),
+                "SGVsbG8sIFdvcmxkIQ=="
         );
     }
 
@@ -168,7 +183,8 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Binary.with(
                                 "<h1>Hello, World!</h1>".getBytes(StandardCharsets.UTF_8)
                         )
-                )
+                ),
+                "%3Ch1%3EHello%2C%20World%21%3C%2Fh1%3E"
         );
     }
 
@@ -184,7 +200,8 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
                         Binary.with(
                                 "<script>alert('hi');</script>".getBytes(StandardCharsets.UTF_8)
                         )
-                )
+                ),
+                "%3Cscript%3Ealert%28%27hi%27%29%3B%3C%2Fscript%3E"
         );
     }
 
@@ -202,6 +219,30 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     @Override
     public DataUrl parseString(final String text) {
         return DataUrl.parseData0(text);
+    }
+
+    private DataUrl parseStringAndCheck(final String text,
+                                        final DataUrl expected,
+                                        final String data) {
+        final DataUrl dataUrl = this.parseStringAndCheck(
+                text,
+                expected
+        );
+        this.dataAndCheck(
+                dataUrl,
+                data
+        );
+
+        return dataUrl;
+    }
+
+    private void dataAndCheck(final DataUrl dataUrl,
+                              final String expected) {
+        this.checkEquals(
+                expected,
+                dataUrl.data(),
+                dataUrl::toString
+        );
     }
 
     // UrlVisitor......................................................................................................
