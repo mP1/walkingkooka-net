@@ -125,6 +125,7 @@ public final class DataUrl extends Url {
         }
 
         return new DataUrl(
+                url,
                 mediaType,
                 base64,
                 Binary.with(binary)
@@ -143,6 +144,7 @@ public final class DataUrl extends Url {
         Objects.requireNonNull(binary, "binary");
 
         return new DataUrl(
+                null, // stringValue lazily computed
                 mediaType,
                 base64,
                 binary
@@ -156,10 +158,12 @@ public final class DataUrl extends Url {
         return mediaType;
     }
 
-    private DataUrl(final Optional<MediaType> mediaType,
+    private DataUrl(final String url,
+                    final Optional<MediaType> mediaType,
                     final boolean base64,
                     final Binary binary) {
         super();
+        this.url = url;
         this.mediaType = mediaType;
         this.base64 = base64;
         this.binary = binary;
@@ -172,13 +176,27 @@ public final class DataUrl extends Url {
     private final Optional<MediaType> mediaType;
 
     /**
-     * Builds a data {@link Url}
+     * Builds a data {@link Url} if necessary or returns the original {@link String} passed to {@link #parseData(String)}.
      * <pre>
      * data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D
      * </pre>
      */
     @Override
     public String value() {
+        if (null == url) {
+            this.url = this.rebuildDataUrl(); // parse keeps the original url String, #with requires url to be rebuilt here.
+        }
+
+        return this.url;
+    }
+
+    /**
+     * This data url in String form. If this instance was created using {@link #parse(String)}, this original string value
+     * will be stored here.
+     */
+    private String url;
+
+    private String rebuildDataUrl() {
         final StringBuilder b = new StringBuilder()
                 .append(SCHEME)
                 .append(
@@ -236,23 +254,27 @@ public final class DataUrl extends Url {
 
     // Object...........................................................................................................
 
+    @Override
     public int hashCode() {
         return Objects.hash(
+                this.url,
                 this.mediaType,
                 this.base64,
                 this.binary
         );
     }
 
+    @Override
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof DataUrl && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final DataUrl other) {
-        return this.mediaType.equals(other.mediaType) &&
+        return (null != this.url && Objects.equals(this.url, other.url)) ||
+                this.mediaType.equals(other.mediaType) &&
                 this.base64 == other.base64 &&
-                this.binary.equals(other.binary);
+                        this.binary().equals(other.binary);
     }
 
     @Override

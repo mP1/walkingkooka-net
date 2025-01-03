@@ -188,6 +188,17 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         );
     }
 
+    @Test
+    public void testParseCachesUrl() {
+        final String url = "data:text/html,%3Cscript%3Ealert%28%27hi%27%29%3B%3C%2Fscript%3E";
+        final DataUrl dataUrl = DataUrl.parseData(url);
+
+        assertSame(
+                url,
+                dataUrl.value()
+        );
+    }
+
     @Override
     public DataUrl parseString(final String text) {
         return DataUrl.parseData0(text);
