@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.CharacterConstant;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -57,6 +58,8 @@ public final class DataUrl extends Url {
 
     final static String SCHEME = "data:";
 
+    final static CharacterConstant ENCODED_DATA_START = CharacterConstant.with(',');
+
     /**
      * <pre>
      * SyntaxSection
@@ -72,9 +75,9 @@ public final class DataUrl extends Url {
             throw new IllegalArgumentException("Url missing data: =" + CharSequences.quoteAndEscape(url));
         }
 
-        final int comma = url.indexOf(',');
+        final int comma = url.indexOf(ENCODED_DATA_START.character());
         if (-1 == comma) {
-            throw new IllegalArgumentException("Url missing ',' data start in " + CharSequences.quoteAndEscape(url));
+            missingEncodedDataStart(url);
         }
 
         final int semi = url.indexOf(';');
@@ -225,6 +228,41 @@ public final class DataUrl extends Url {
         }
 
         return b.toString();
+    }
+
+    /**
+     * Returns the datq (encoded portion) of a complete data url. The data is NOT decoded.
+     * <br>
+     * https://www.rfc-editor.org/rfc/rfc2397#section-3
+     * <pre>
+     * Syntax
+     *
+     *        dataurl    := "data:" [ mediatype ] [ ";base64" ] "," data
+     *        mediatype  := [ type "/" subtype ] *( ";" parameter )
+     *        data       := *urlchar
+     *        parameter  := attribute "=" value
+     * </pre>
+     */
+    public String data() {
+        final String url = this.url;
+
+        final int start = url.lastIndexOf(
+                ENCODED_DATA_START.character()
+        );
+        if (-1 == start) {
+            missingEncodedDataStart(url);
+        }
+
+        return this.value()
+                .substring(start + 1);
+    }
+
+    /**
+     * Throws a {@link IllegalArgumentException} to report that the given DATA URL is missing the data start character.
+     */
+    private static void missingEncodedDataStart(final String url) {
+        // Url missing ',' data start in "data://etc
+        throw new IllegalArgumentException("Url missing '" + ENCODED_DATA_START + "' data start in " + CharSequences.quoteAndEscape(url));
     }
 
     /**
