@@ -121,6 +121,7 @@ public final class MailToUrl extends Url {
                 );
 
         return with(
+                url,
                 emailAddresses,
                 headers
         );
@@ -174,16 +175,20 @@ public final class MailToUrl extends Url {
         );
     }
 
-    static MailToUrl with(final List<EmailAddress> emailAddresses,
+    static MailToUrl with(final String url,
+                          final List<EmailAddress> emailAddresses,
                           final UrlQueryString headers) {
         return new MailToUrl(
+                url,
                 checkEmailAddresses(emailAddresses),
                 checkHeaders(headers)
         );
     }
 
-    private MailToUrl(final List<EmailAddress> emailAddresses,
+    private MailToUrl(final String url,
+                      final List<EmailAddress> emailAddresses,
                       final UrlQueryString headers) {
+        this.url = url;
         this.emailAddresses = emailAddresses;
         this.headers = headers;
     }
@@ -234,6 +239,7 @@ public final class MailToUrl extends Url {
     private MailToUrl replace(final List<EmailAddress> emailAddresses,
                               final UrlQueryString headers) {
         return new MailToUrl(
+                null, // url
                 emailAddresses,
                 headers
         );
@@ -262,27 +268,33 @@ public final class MailToUrl extends Url {
 
     @Override
     public String value() {
-        final StringBuilder b = new StringBuilder();
-        b.append(SCHEME);
+        if (null == this.url) {
+            final StringBuilder b = new StringBuilder();
+            b.append(SCHEME);
 
-        String separator = "";
+            String separator = "";
 
-        for (final EmailAddress emailAddress : this.emailAddresses) {
-            b.append(separator);
-            b.append(
-                    MailToUrl.encode(emailAddress)
-            );
+            for (final EmailAddress emailAddress : this.emailAddresses) {
+                b.append(separator);
+                b.append(
+                        MailToUrl.encode(emailAddress)
+                );
 
-            separator = EMAIL_SEPARATOR.string();
+                separator = EMAIL_SEPARATOR.string();
+            }
+
+            final UrlQueryString headers = this.headers;
+            if (false == headers.isEmpty()) {
+                b.append(QUERY_START);
+                b.append(headers);
+            }
+            this.url = b.toString();
         }
 
-        final UrlQueryString headers = this.headers;
-        if (false == headers.isEmpty()) {
-            b.append(QUERY_START);
-            b.append(headers);
-        }
-        return b.toString();
+        return this.url;
     }
+
+    private String url;
 
     // According to RFC 822, the characters "?", "&", and even "%" may occur
     //   in addr-specs. The fact that they are reserved characters in this URL
@@ -299,7 +311,11 @@ public final class MailToUrl extends Url {
     // Object...........................................................................................................
 
     public int hashCode() {
-        return Objects.hash(this.emailAddresses, this.headers);
+        // do not include url
+        return Objects.hash(
+                this.emailAddresses,
+                this.headers
+        );
     }
 
     public boolean equals(final Object other) {
@@ -308,8 +324,11 @@ public final class MailToUrl extends Url {
     }
 
     private boolean equals0(final MailToUrl other) {
-        return this.emailAddresses.equals(other.emailAddresses) &&
-                this.headers.equals(other.headers);
+        return Objects.equals(this.url, other.url) ||
+                (
+                        this.emailAddresses.equals(other.emailAddresses) &&
+                                this.headers.equals(other.headers)
+                );
     }
 
     @Override

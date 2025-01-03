@@ -38,6 +38,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         assertThrows(
                 NullPointerException.class,
                 () -> MailToUrl.with(
+                        null, // url can be null
                         null,
                         this.headers()
                 )
@@ -49,6 +50,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         assertThrows(
                 NullPointerException.class,
                 () -> MailToUrl.with(
+                        null, // url can be null
                         Lists.empty(),
                         null
                 )
@@ -60,6 +62,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         final List<EmailAddress> addresses = this.emailAddresses();
         final UrlQueryString headers = this.headers();
         final MailToUrl mailToUrl = MailToUrl.with(
+                null, // url can be null
                 addresses,
                 headers
         );
@@ -165,6 +168,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.parseStringAndCheck(
                 "mailto:hello@example.com",
                 MailToUrl.with(
+                        null, // url
                         Lists.of(
                                 EmailAddress.parse("hello@example.com")
                         ),
@@ -178,6 +182,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.parseStringAndCheck(
                 "mailto:gorby%25kremvax@example.com",
                 MailToUrl.with(
+                        null, // url
                         Lists.of(
                                 EmailAddress.parse("gorby%kremvax@example.com")
                         ),
@@ -191,6 +196,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.parseStringAndCheck(
                 "mailto:hello@example.com?",
                 MailToUrl.with(
+                        null, // url
                         Lists.of(
                                 EmailAddress.parse("hello@example.com")
                         ),
@@ -204,6 +210,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.parseStringAndCheck(
                 "mailto:?subject=Hello",
                 MailToUrl.with(
+                        null, // url,
                         Lists.empty(),
                         UrlQueryString.parse(
                                 "subject=Hello"
@@ -217,6 +224,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.parseStringAndCheck(
                 "mailto:hello@example.com?subject=Hello",
                 MailToUrl.with(
+                        null, // url
                         Lists.of(
                                 EmailAddress.parse("hello@example.com")
                         ),
@@ -229,9 +237,12 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
 
     @Test
     public void testParseEmailSubjectAndBody() {
+        final String url = "mailto:hello@example.com?subject=Hello&body=123";
+
         final MailToUrl mailToUrl = this.parseStringAndCheck(
-                "mailto:hello@example.com?subject=Hello&body=123",
+                url,
                 MailToUrl.with(
+                        url, // url
                         Lists.of(
                                 EmailAddress.parse("hello@example.com")
                         ),
@@ -239,6 +250,11 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
                                 "subject=Hello&body=123"
                         )
                 )
+        );
+        assertSame(
+                url,
+                mailToUrl.value(),
+                "url"
         );
         this.checkEquals(
                 Optional.of("Hello"),
@@ -310,6 +326,40 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
         this.checkEquals("152", b.toString());
     }
 
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentUser() {
+        this.checkNotEquals(
+                this.parseString("mailto:hello@example.com"),
+                this.parseString("mailto:different@example.com")
+        );
+    }
+
+    @Test
+    public void testEqualsUserDifferentCase() {
+        this.checkNotEquals(
+                this.parseString("mailto:hello@example.com"),
+                this.parseString("mailto:HELLO@example.com")
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentDomain() {
+        this.checkNotEquals(
+                this.parseString("mailto:hello@example.com"),
+                this.parseString("mailto:hello@different.com")
+        );
+    }
+
+    @Test
+    public void testEqualsDomainDifferentCase() {
+        this.checkEquals(
+                this.parseString("mailto:hello@example.com"),
+                this.parseString("mailto:hello@EXAMPLE.COM")
+        );
+    }
+
     // ToString.........................................................................................................
 
     @Test
@@ -323,6 +373,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
     public void testToStringNoEmails() {
         this.toStringAndCheck(
                 MailToUrl.with(
+                        null, // null url is ok
                         Lists.of(),
                         UrlQueryString.parse("a=b")
                 ),
@@ -338,6 +389,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
     public void testToStringUrlEncodedEmailAddresses() {
         this.toStringAndCheck(
                 MailToUrl.with(
+                        null, // null url is ok
                         Lists.of(
                                 EmailAddress.parse("unlikely?address@example.com")
                         ),
@@ -353,6 +405,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
     public void testToStringRfcEmail() {
         this.toStringAndCheck(
                 MailToUrl.with(
+                        null, // null url is ok
                         Lists.of(
                                 EmailAddress.parse("gorby%kremvax@example.com")
                         ),
@@ -365,6 +418,7 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
     @Override
     MailToUrl createUrl() {
         return MailToUrl.with(
+                null, // null url is ok
                 this.emailAddresses(),
                 this.headers()
         );
