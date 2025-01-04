@@ -80,7 +80,7 @@ public final class EncodedText implements Value<String>,
      * matched case-insensitively (see [RFC2978], Section 2.3 and [RFC5646],
      * Section 2.1.1).
      */
-    final static Optional<LanguageName> NO_LANGUAGE = Optional.empty();
+    public final static Optional<LanguageName> NO_LANGUAGE = Optional.empty();
 
     /**
      * Factory that creates a new {@link EncodedText}
