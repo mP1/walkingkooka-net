@@ -44,22 +44,71 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         assertSame(ContentDispositionType.INLINE, ContentDispositionType.with(ContentDispositionType.INLINE.value().toUpperCase()));
     }
 
+    // setFilename......................................................................................................
+
     @Test
     public void testSetFilenameNullFails() {
-        assertThrows(NullPointerException.class, () -> ContentDispositionType.ATTACHMENT.setFilename(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> ContentDispositionType.ATTACHMENT.setFilename(null)
+        );
     }
 
     @Test
-    public void testSetFilename() {
-        final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
-        final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
-
-        final ContentDisposition disposition = type.setFilename(filename);
-        this.checkEquals(type, disposition.type(), "type");
-        this.checkEquals(Maps.of(ContentDispositionParameterName.FILENAME, filename),
-                disposition.parameters(),
-                "parameters");
+    public void testSetFilenameWithAttachmentAndEncoded() {
+        this.setFilenameAndCheck(
+                ContentDispositionType.ATTACHMENT,
+                ContentDispositionFileName.notEncoded("readme.txt"),
+                "attachment; filename=readme.txt"
+        );
     }
+
+    @Test
+    public void testSetFilenameWithInlineAndEncoded() {
+        this.setFilenameAndCheck(
+                ContentDispositionType.INLINE,
+                ContentDispositionFileName.notEncoded("readme.txt"),
+                "inline; filename=readme.txt"
+        );
+    }
+
+    @Test
+    public void testSetFilenameWithAttachmentAndNotEncoded() {
+        this.setFilenameAndCheck(
+                ContentDispositionType.ATTACHMENT,
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "readme.txt"
+                        )
+                ),
+                // Content-Disposition: attachment; filename="filename.jpg"
+                "attachment; filename*=UTF-8''readme.txt"
+        );
+    }
+
+    private void setFilenameAndCheck(final ContentDispositionType type,
+                                     final ContentDispositionFileName filename,
+                                     final String expected) {
+        this.setFilenameAndCheck(
+                type,
+                filename,
+                ContentDisposition.parse(expected)
+        );
+    }
+
+    private void setFilenameAndCheck(final ContentDispositionType type,
+                                     final ContentDispositionFileName filename,
+                                     final ContentDisposition expected) {
+        this.checkEquals(
+                expected,
+                type.setFilename(filename),
+                () -> type + " " + filename
+        );
+    }
+
+    // setParameters....................................................................................................
 
     @Test
     public void testSetParametersNullFails() {
