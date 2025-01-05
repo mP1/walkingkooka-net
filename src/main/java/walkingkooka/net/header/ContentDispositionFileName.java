@@ -53,6 +53,20 @@ abstract public class ContentDispositionFileName implements Name, Header {
         super();
     }
 
+    /**
+     * Only returns true if this filename is encoded.
+     */
+    public final boolean isEncoded() {
+        return this instanceof ContentDispositionFileNameEncoded;
+    }
+
+    /**
+     * Only returns true if this filename is NOT encoded.
+     */
+    public final boolean isNotEncoded() {
+        return this instanceof ContentDispositionFileNameNotEncoded;
+    }
+
     public abstract Optional<CharsetName> charsetName();
 
     public abstract Optional<LanguageName> language();

@@ -18,14 +18,17 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
-        HeaderTestCase<F> {
+        HeaderTestCase<F>
+        implements IsMethodTesting<F> {
 
     ContentDispositionFileNameTestCase() {
         super();
@@ -75,6 +78,46 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     public final void testWithoutPathCacheEqualsUnimportant() {
         this.checkEqualsAndHashCode(this.createHeader().withoutPath(), this.createHeader());
     }
+
+    // isMethodTesting..................................................................................................
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> {
+            final boolean ignore;
+
+            switch (m) {
+                case "isWildcard":
+                case "isRequest":
+                case "isResponse":
+                case "isMultipart":
+                    ignore = true;
+                    break;
+                default:
+                    ignore = false;
+                    break;
+            }
+
+            return ignore;
+        };
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return ContentDispositionFileName.class.getSimpleName();
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public final F createIsMethodObject() {
+        return this.createHeader();
+    }
+
+    // class............................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
