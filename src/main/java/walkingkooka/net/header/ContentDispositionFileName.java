@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 
@@ -132,7 +131,7 @@ abstract public class ContentDispositionFileName implements Name, Header {
         return true;
     }
 
-    // Object .................................................................................
+    // Object ..........................................................................................................
 
     @Override
     public final int hashCode() {
@@ -142,13 +141,15 @@ abstract public class ContentDispositionFileName implements Name, Header {
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.equals0(Cast.to(other));
+                other instanceof ContentDispositionFileName &&
+                        this.equals0((ContentDispositionFileName) other);
     }
 
-    abstract boolean canBeEquals(final Object other);
+    private boolean equals0(final ContentDispositionFileName other) {
+        return this.equalsValue().equals(other.equalsValue());
+    }
 
-    abstract boolean equals0(final ContentDispositionFileName other);
+    abstract Object equalsValue();
 
     @Override
     public final String toString() {

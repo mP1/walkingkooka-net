@@ -75,20 +75,15 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
                 new ContentDispositionFileNameNotEncoded(without);
     }
 
-    // Header .................................................................................
+    @Override
+    Object equalsValue() {
+        return this.name;
+    }
+
+    // Header .........................................................................................................
 
     @Override
     public String toHeaderText() {
         return ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
-    }
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof ContentDispositionFileNameNotEncoded;
-    }
-
-    @Override
-    boolean equals0(final ContentDispositionFileName other) {
-        return this.value().equals(other.value());
     }
 }

@@ -17,8 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -71,7 +69,12 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
                 new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
     }
 
-    // Header .................................................................................
+    @Override
+    Object equalsValue() {
+        return this.encodedText;
+    }
+
+    // Header ..........................................................................................................
 
     @Override
     public String toHeaderText() {
@@ -79,18 +82,4 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
     }
 
     private final EncodedText encodedText;
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof ContentDispositionFileNameEncoded;
-    }
-
-    @Override
-    boolean equals0(final ContentDispositionFileName other) {
-        return this.equals1(Cast.to(other));
-    }
-
-    private boolean equals1(final ContentDispositionFileNameEncoded other) {
-        return this.encodedText.equals(other.encodedText);
-    }
 }
