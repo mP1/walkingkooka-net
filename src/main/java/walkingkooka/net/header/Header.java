@@ -69,7 +69,16 @@ public interface Header extends HasHeaderScope {
     CharacterConstant PARAMETER_SEPARATOR = CharacterConstant.with(';');
 
     /**
-     * Converts this value to its text form.
+     * Returns the value as header text and never includes the header name or colon separator.
+     * <pre>
+     * Content-Range: bytes STAR/STAR
+     * ->
+     * bytes STAR/STAR
+     *
+     * Content-Length: 123
+     * ->
+     * 123
+     * </pre>
      */
     String toHeaderText();
 
