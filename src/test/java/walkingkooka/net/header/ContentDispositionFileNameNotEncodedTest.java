@@ -113,6 +113,17 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         );
     }
 
+    // toNotEncodedIfPossible...........................................................................................
+
+    @Test
+    public void testToNotEncodedIfPossible() {
+        this.toNotEncodedIfPossibleAndCheck(
+                ContentDispositionFileNameNotEncoded.with("filename123")
+        );
+    }
+
+    // toHeaderText.....................................................................................................
+
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(FILENAME);
