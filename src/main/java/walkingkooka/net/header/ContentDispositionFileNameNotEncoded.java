@@ -54,6 +54,12 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         super();
         this.name = name;
     }
+
+    @Override
+    public ContentDispositionParameterName<?> parameterName() {
+        return ContentDispositionParameterName.FILENAME;
+    }
+
     // Value .................................................................................
 
     @Override

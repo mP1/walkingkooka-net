@@ -40,6 +40,15 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
         assertSame(contentDisposition.withoutPath(), contentDisposition.withoutPath());
     }
 
+    final void parameterNameAndCheck(final F filename,
+                                     final ContentDispositionParameterName<?> expected) {
+        this.checkEquals(
+                expected,
+                filename.parameterName(),
+                filename::toString
+        );
+    }
+
     final void check(final ContentDispositionFileName filename,
                      final String value,
                      final Optional<CharsetName> charsetName,

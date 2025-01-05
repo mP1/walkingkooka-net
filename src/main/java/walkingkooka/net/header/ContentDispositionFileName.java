@@ -53,6 +53,11 @@ abstract public class ContentDispositionFileName implements Name, Header {
     }
 
     /**
+     * The {@link ContentDisposition} parameter name for this value.
+     */
+    public abstract ContentDispositionParameterName<?> parameterName();
+
+    /**
      * Only returns true if this filename is encoded.
      */
     public final boolean isEncoded() {
