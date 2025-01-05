@@ -42,6 +42,11 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         this.encodedText = encodedText;
     }
 
+    @Override
+    public ContentDispositionParameterName<?> parameterName() {
+        return ContentDispositionParameterName.FILENAME_STAR;
+    }
+
     // Value .................................................................................
 
     @Override

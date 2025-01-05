@@ -91,6 +91,18 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         this.checkWithoutPath(contentDisposition, ContentDispositionFileNameNotEncoded.with("filename123"));
     }
 
+    // parameterName....................................................................................................
+
+    @Test
+    public void testParameterName() {
+        this.parameterNameAndCheck(
+                this.createHeader(),
+                ContentDispositionParameterName.FILENAME
+        );
+    }
+
+    // toNotEncoded.....................................................................................................
+
     @Test
     public void testToNotEncoded() {
         final ContentDispositionFileNameNotEncoded notEncoded = ContentDispositionFileNameNotEncoded.with("filename123");
