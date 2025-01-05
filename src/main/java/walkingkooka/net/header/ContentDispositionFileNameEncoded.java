@@ -69,6 +69,28 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
                 new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
     }
 
+    /**
+     * Potentially may return an {@link Optional#empty()} if any of the given characters requires encoding.
+     */
+    @Override
+    public Optional<ContentDispositionFileName> toNotDecoded() {
+        final String value = this.encodedText.value();
+        boolean notEncoded = true;
+
+        for (final char c : value.toCharArray()) {
+            if (false == ContentDispositionFileNameNotEncoded.FILENAME.test(c)) {
+                notEncoded = false;
+                break;
+            }
+        }
+
+        return Optional.ofNullable(
+                notEncoded ?
+                        ContentDispositionFileName.notEncoded(value) :
+                        null
+        );
+    }
+
     @Override
     Object equalsValue() {
         return this.encodedText;

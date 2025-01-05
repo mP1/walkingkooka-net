@@ -92,6 +92,16 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     }
 
     @Test
+    public void testToNotEncoded() {
+        final ContentDispositionFileNameNotEncoded notEncoded = ContentDispositionFileNameNotEncoded.with("filename123");
+
+        this.toNotEncodedAndCheck(
+                notEncoded,
+                notEncoded.toNotDecoded()
+        );
+    }
+
+    @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(FILENAME);
     }
