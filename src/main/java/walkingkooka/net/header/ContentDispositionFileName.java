@@ -116,7 +116,7 @@ abstract public class ContentDispositionFileName implements Name, Header {
      * If the filename contains not encoded characters a {@link ContentDispositionFileName#isNotEncoded()} instance will
      * be returned.
      */
-    public abstract Optional<ContentDispositionFileName> toNotDecoded();
+    public abstract Optional<ContentDispositionFileName> toNotEncoded();
 
     // Header .................................................................................
 

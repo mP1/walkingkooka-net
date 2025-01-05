@@ -109,7 +109,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
 
         this.toNotEncodedAndCheck(
                 notEncoded,
-                notEncoded.toNotDecoded()
+                notEncoded.toNotEncoded()
         );
     }
 

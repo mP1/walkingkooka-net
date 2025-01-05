@@ -67,7 +67,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                                     final Optional<ContentDispositionFileName> expected) {
         this.checkEquals(
                 expected,
-                filename.toNotDecoded(),
+                filename.toNotEncoded(),
                 filename::toString
         );
     }

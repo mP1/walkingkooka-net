@@ -78,7 +78,7 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
      * Potentially may return an {@link Optional#empty()} if any of the given characters requires encoding.
      */
     @Override
-    public Optional<ContentDispositionFileName> toNotDecoded() {
+    public Optional<ContentDispositionFileName> toNotEncoded() {
         final String value = this.encodedText.value();
         boolean notEncoded = true;
 

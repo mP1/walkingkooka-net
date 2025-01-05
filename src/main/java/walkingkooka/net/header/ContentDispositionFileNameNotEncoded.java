@@ -88,7 +88,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
     }
 
     @Override
-    public Optional<ContentDispositionFileName> toNotDecoded() {
+    public Optional<ContentDispositionFileName> toNotEncoded() {
         // always works!
         return Optional.of(this);
     }
