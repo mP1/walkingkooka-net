@@ -111,8 +111,15 @@ abstract class HeaderHandler<T> {
     /**
      * {@see ContentDispositionFileNameEncodedHeaderHandler}
      */
-    static HeaderHandler<ContentDispositionFileName> contentDispositionFilename() {
+    static HeaderHandler<ContentDispositionFileName> contentDispositionFilenameEncoded() {
         return ContentDispositionFileNameEncodedHeaderHandler.INSTANCE;
+    }
+
+    /**
+     * {@see ContentDispositionFileNameNotEncodedHeaderHandler}
+     */
+    static HeaderHandler<ContentDispositionFileName> contentDispositionFilenameNotEncoded() {
+        return ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE;
     }
 
     /**
