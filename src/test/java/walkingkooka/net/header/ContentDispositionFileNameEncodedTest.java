@@ -100,6 +100,37 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         );
     }
 
+    // toNotEncodedIfPossible...........................................................................................
+
+    @Test
+    public void testToNotEncodedIfPossibleWhenNotEncoded() {
+        final String filename = "Filename123";
+
+        this.toNotEncodedIfPossibleAndCheck(
+                ContentDispositionFileNameEncoded.with(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                filename
+                        )
+                ),
+                ContentDispositionFileNameNotEncoded.with(filename)
+        );
+    }
+
+    @Test
+    public void testToNotEncodedIfPossibleWhenEncodingNotPossible() {
+        this.toNotEncodedIfPossibleAndCheck(
+                ContentDispositionFileNameEncoded.with(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "Filename123\u0fff"
+                        )
+                )
+        );
+    }
+
     // toHeaderText.....................................................................................................
 
     @Test
