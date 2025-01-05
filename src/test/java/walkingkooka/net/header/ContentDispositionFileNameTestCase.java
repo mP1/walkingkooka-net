@@ -75,7 +75,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     final void toNotEncodedIfPossibleAndCheck(final ContentDispositionFileName filename) {
         assertSame(
                 filename,
-                filename.toEncodedIfPossible(),
+                filename.toNotEncodedIfPossible(),
                 filename::toString
         );
     }
@@ -84,7 +84,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                                               final ContentDispositionFileName expected) {
         this.checkEquals(
                 expected,
-                filename.toEncodedIfPossible(),
+                filename.toNotEncodedIfPossible(),
                 filename::toString
         );
     }

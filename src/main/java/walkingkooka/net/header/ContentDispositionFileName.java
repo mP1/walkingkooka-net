@@ -121,7 +121,7 @@ abstract public class ContentDispositionFileName implements Name, Header {
     /**
      * If possible returns a {@link ContentDispositionFileName#isNotEncoded()} = true.
      */
-    public final ContentDispositionFileName toEncodedIfPossible() {
+    public final ContentDispositionFileName toNotEncodedIfPossible() {
         return this.toNotEncoded()
                 .orElse(this);
     }
