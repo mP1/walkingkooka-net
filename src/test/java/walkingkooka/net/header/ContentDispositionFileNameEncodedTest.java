@@ -56,6 +56,42 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         this.checkWithoutPath(contentDisposition, ContentDispositionFileNameEncoded.with(encodedText("filename123")));
     }
 
+    // toNotEncoded.....................................................................................................
+
+    @Test
+    public void testToNotEncodedWhenRequiresEncoding() {
+        this.toNotEncodedAndCheck(
+                ContentDispositionFileNameEncoded.with(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                "filename\u00ff"
+                        )
+                ),
+                Optional.empty()
+        );
+    }
+
+    @Test
+    public void testToNotEncodedWhenEncodingNotRequired() {
+        final String filename = "Filename123";
+
+        this.toNotEncodedAndCheck(
+                ContentDispositionFileNameEncoded.with(
+                        EncodedText.with(
+                                CharsetName.UTF_8,
+                                EncodedText.NO_LANGUAGE,
+                                filename
+                        )
+                ),
+                Optional.of(
+                        ContentDispositionFileName.notEncoded(filename)
+                )
+        );
+    }
+
+    // toHeaderText.....................................................................................................
+
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck("UTF-8'en'filename%20123");

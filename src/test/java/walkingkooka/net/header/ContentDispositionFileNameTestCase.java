@@ -54,6 +54,15 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
         this.checkEquals(withoutPath, contentDisposition.withoutPath, "withoutPath");
     }
 
+    final void toNotEncodedAndCheck(final ContentDispositionFileName filename,
+                                    final Optional<ContentDispositionFileName> expected) {
+        this.checkEquals(
+                expected,
+                filename.toNotDecoded(),
+                filename::toString
+        );
+    }
+
     @Test
     public final void testIsWildcard() {
         this.isWildcardAndCheck(false);
