@@ -88,14 +88,18 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
-    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register("filename",
-            ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE);
+    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register(
+            "filename",
+            HeaderHandler.contentDispositionFilenameNotEncoded()
+    );
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename*</code>
      */
-    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME_STAR = CONSTANTS.register("filename*",
-            HeaderHandler.contentDispositionFilename());
+    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME_STAR = CONSTANTS.register(
+            "filename*",
+            HeaderHandler.contentDispositionFilenameEncoded()
+    );
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>
