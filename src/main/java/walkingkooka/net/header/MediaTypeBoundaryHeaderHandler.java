@@ -45,14 +45,14 @@ final class MediaTypeBoundaryHeaderHandler extends NonStringHeaderHandler<MediaT
     }
 
     private final HeaderHandler<String> STRING_PARSER = HeaderHandler.quotedUnquotedString(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
-            false,
-            MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
+        false,
+        MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof MediaTypeBoundary,
-                MediaTypeBoundary.class
+            (v) -> v instanceof MediaTypeBoundary,
+            MediaTypeBoundary.class
         );
     }
 

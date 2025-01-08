@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTestCase<AcceptLanguageParameterName<?>,
-        AcceptLanguageParameterName<?>> {
+    AcceptLanguageParameterName<?>> {
 
     @Test
     public void testWithIncludesWhitespaceFails() {
@@ -41,7 +41,7 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(AcceptLanguageParameterName.Q,
-                AcceptLanguageParameterName.with(AcceptLanguageParameterName.Q.value()));
+            AcceptLanguageParameterName.with(AcceptLanguageParameterName.Q.value()));
     }
 
     @Test
@@ -56,7 +56,7 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
     @Test
     public void testParameterValueAbsent() {
         this.parameterValueAndCheckAbsent(AcceptLanguageParameterName.Q,
-                this.languageTag());
+            this.languageTag());
     }
 
     @Test
@@ -65,8 +65,8 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.languageTag().setParameters(Maps.of(parameter, value)),
-                value);
+            this.languageTag().setParameters(Maps.of(parameter, value)),
+            value);
     }
 
     private AcceptLanguageValue languageTag() {

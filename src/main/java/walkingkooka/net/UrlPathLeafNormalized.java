@@ -62,16 +62,16 @@ final class UrlPathLeafNormalized extends UrlPathLeaf {
         final Optional<UrlPath> parent2 = Optional.of(parent);
 
         return name.isNormalized() ?
-                new UrlPathLeafNormalized(newPath, name, parent2) :
-                unnormalized(newPath, name, parent2);
+            new UrlPathLeafNormalized(newPath, name, parent2) :
+            unnormalized(newPath, name, parent2);
     }
 
     @Override
     UrlPath parseTrailingSlash() {
         return new UrlPathLeafNormalized(
-                this.path + this.separator().character(), // new path
-                UrlPathName.ROOT, // name
-                Optional.of(this)
+            this.path + this.separator().character(), // new path
+            UrlPathName.ROOT, // name
+            Optional.of(this)
         );
     }
 

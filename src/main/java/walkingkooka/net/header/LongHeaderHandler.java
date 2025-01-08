@@ -52,8 +52,8 @@ final class LongHeaderHandler extends NonStringHeaderHandler<Long> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof Long,
-                Long.class
+            v -> v instanceof Long,
+            Long.class
         );
     }
 

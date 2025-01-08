@@ -94,9 +94,9 @@ final class ContentLanguageHeaderParser extends HeaderParser {
     @Override
     void token() {
         this.languages.add(
-                LanguageName.with(
-                        this.rfc2045Token()
-                )
+            LanguageName.with(
+                this.rfc2045Token()
+            )
         );
     }
 

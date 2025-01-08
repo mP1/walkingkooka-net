@@ -29,9 +29,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapPathComponentEntryIterator>,
-        IteratorTesting,
-        ToStringTesting<HttpRequestRouterParametersMapPathComponentEntryIterator>,
-        TypeNameTesting<HttpRequestRouterParametersMapPathComponentEntryIterator> {
+    IteratorTesting,
+    ToStringTesting<HttpRequestRouterParametersMapPathComponentEntryIterator>,
+    TypeNameTesting<HttpRequestRouterParametersMapPathComponentEntryIterator> {
 
     private final static UrlPathName NAME1 = UrlPathName.with("a");
     private final static UrlPathName NAME2 = UrlPathName.with("b");

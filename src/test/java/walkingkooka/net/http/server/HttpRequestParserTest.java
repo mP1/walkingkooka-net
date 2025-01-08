@@ -31,8 +31,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 public final class HttpRequestParserTest implements ClassTesting2<HttpRequestParser>,
-        ParseStringTesting<HttpRequest>,
-        ToStringTesting<HttpRequestParser> {
+    ParseStringTesting<HttpRequest>,
+    ToStringTesting<HttpRequestParser> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
 
@@ -69,100 +69,100 @@ public final class HttpRequestParserTest implements ClassTesting2<HttpRequestPar
     @Test
     public void testInvalidHeaderFails3() {
         this.parseStringFails(
-                "GET / HTTP/1.0\r\nContent-Length:A",
-                new HeaderException("Content-Length: Invalid number in \"A\"")
+            "GET / HTTP/1.0\r\nContent-Length:A",
+            new HeaderException("Content-Length: Invalid number in \"A\"")
         );
     }
 
     @Test
     public void testGet() {
         this.parseAndCheck("GET / HTTP/1.0\r\n\r\n",
-                HttpRequests.get(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY));
+            HttpRequests.get(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY));
     }
 
     @Test
     public void testGetWithHeader() {
         this.parseAndCheck("GET / HTTP/1.0\r\nContent-Length:123\r\n\r\n",
-                HttpRequests.get(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)));
+            HttpRequests.get(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)));
     }
 
     @Test
     public void testGetWithHeader2() {
         this.parseAndCheck("GET /file?abc=123 HTTP/1.1\r\nContent-Length:123\r\n\r\n",
-                HttpRequests.get(TRANSPORT,
-                        Url.parseRelative("/file?abc=123"),
-                        HttpProtocolVersion.VERSION_1_1,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)));
+            HttpRequests.get(TRANSPORT,
+                Url.parseRelative("/file?abc=123"),
+                HttpProtocolVersion.VERSION_1_1,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)));
     }
 
     @Test
     public void testGetWithTwoHeaders() {
         this.parseAndCheck(
-                "GET /file?abc=123 HTTP/1.1\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\n",
-                HttpRequests.get(TRANSPORT,
-                        Url.parseRelative("/file?abc=123"),
-                        HttpProtocolVersion.VERSION_1_1,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                                .setContentType(MediaType.TEXT_PLAIN)
-                )
+            "GET /file?abc=123 HTTP/1.1\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\n",
+            HttpRequests.get(TRANSPORT,
+                Url.parseRelative("/file?abc=123"),
+                HttpProtocolVersion.VERSION_1_1,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                    .setContentType(MediaType.TEXT_PLAIN)
+            )
         );
     }
 
     @Test
     public void testPost() {
         this.parseAndCheck("POST / HTTP/1.0\r\nContent-Length:123\r\n\r\nBody123",
-                HttpRequests.post(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                                .setBodyText("Body123")));
+            HttpRequests.post(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                    .setBodyText("Body123")));
     }
 
     @Test
     public void testPostWithMultipleHeaders() {
         this.parseAndCheck(
-                "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\nBody123",
-                HttpRequests.post(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                                .setContentType(MediaType.TEXT_PLAIN)
-                                .setBodyText("Body123")
-                )
+            "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\nBody123",
+            HttpRequests.post(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                    .setContentType(MediaType.TEXT_PLAIN)
+                    .setBodyText("Body123")
+            )
         );
     }
 
     @Test
     public void testBodyIncludesCr() {
         this.parseAndCheck(
-                "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\nBody\r123",
-                HttpRequests.post(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                                .setContentType(MediaType.TEXT_PLAIN)
-                                .setBodyText("Body\r123")
-                )
+            "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\nBody\r123",
+            HttpRequests.post(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                    .setContentType(MediaType.TEXT_PLAIN)
+                    .setBodyText("Body\r123")
+            )
         );
     }
 
     @Test
     public void testBodyCr() {
         this.parseAndCheck(
-                "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\n\r",
-                HttpRequests.post(TRANSPORT,
-                        Url.parseRelative("/"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                                .setContentType(MediaType.TEXT_PLAIN)
-                                .setBodyText("\r")
-                )
+            "POST / HTTP/1.0\r\nContent-Length:123\r\nContent-Type: text/plain\r\n\r\n\r",
+            HttpRequests.post(TRANSPORT,
+                Url.parseRelative("/"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                    .setContentType(MediaType.TEXT_PLAIN)
+                    .setBodyText("\r")
+            )
         );
     }
 

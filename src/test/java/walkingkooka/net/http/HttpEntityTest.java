@@ -37,15 +37,15 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
-        ClassTesting<HttpEntity> {
+    ClassTesting<HttpEntity> {
 
     // HttpEntity.EMPTY.................................................................................................
 
     @Test
     public void testEmptySetBodyTextWithEmptyString() {
         assertSame(
-                HttpEntity.EMPTY.setBodyText(""),
-                HttpEntity.EMPTY
+            HttpEntity.EMPTY.setBodyText(""),
+            HttpEntity.EMPTY
         );
     }
 
@@ -61,88 +61,88 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Test
     public void testParseNLMissingCr() {
         this.parseStringFails(
-                "\n\r\n",
-                new IllegalArgumentException("Got NL expected header name or CR")
+            "\n\r\n",
+            new IllegalArgumentException("Got NL expected header name or CR")
         );
     }
 
     @Test
     public void testParseHeaderMissingCrLf() {
         this.parseStringFails(
-                "Header\n",
-                new IllegalArgumentException("Got NL expected header name or CR")
+            "Header\n",
+            new IllegalArgumentException("Got NL expected header name or CR")
         );
     }
 
     @Test
     public void testParseHeaderAcceptFails() {
         this.parseStringFails(
-                "Accept: ???\r\n",
-                new IllegalArgumentException("Accept: Invalid character '?' at 1 in \" ???\"")
+            "Accept: ???\r\n",
+            new IllegalArgumentException("Accept: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderAcceptCharsetFails() {
         this.parseStringFails(
-                "Accept-Charset: ???\r\n",
-                new IllegalArgumentException("Accept-Charset: Invalid character '?' at 1 in \" ???\"")
+            "Accept-Charset: ???\r\n",
+            new IllegalArgumentException("Accept-Charset: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderAcceptEncodingFails() {
         this.parseStringFails(
-                "Accept-Encoding: ???\r\n",
-                new IllegalArgumentException("Accept-Encoding: Invalid character '?' at 1 in \" ???\"")
+            "Accept-Encoding: ???\r\n",
+            new IllegalArgumentException("Accept-Encoding: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderAcceptLanguageFails() {
         this.parseStringFails(
-                "Accept-Language: ???\r\n",
-                new IllegalArgumentException("Accept-Language: Invalid character '?' at 1 in \" ???\"")
+            "Accept-Language: ???\r\n",
+            new IllegalArgumentException("Accept-Language: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderAgeFails() {
         this.parseStringFails(
-                "Age: ???\r\n",
-                new IllegalArgumentException("Age: Invalid number in \" ???\"")
+            "Age: ???\r\n",
+            new IllegalArgumentException("Age: Invalid number in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderCacheControlFails() {
         this.parseStringFails(
-                "Cache-Control: ???\r\n",
-                new IllegalArgumentException("Cache-Control: Invalid character '?' at 1 in \" ???\"")
+            "Cache-Control: ???\r\n",
+            new IllegalArgumentException("Cache-Control: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderContentDispositionFails() {
         this.parseStringFails(
-                "Content-Disposition: ???\r\n",
-                new IllegalArgumentException("Content-Disposition: Invalid character '?' at 1 in \" ???\"")
+            "Content-Disposition: ???\r\n",
+            new IllegalArgumentException("Content-Disposition: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderContentEncodingFails() {
         this.parseStringFails(
-                "Content-ENcoding: ???\r\n",
-                new IllegalArgumentException("Content-Encoding: Invalid character '?' at 1 in \" ???\"")
+            "Content-ENcoding: ???\r\n",
+            new IllegalArgumentException("Content-Encoding: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderContentLanguageFails() {
         this.parseStringFails(
-                "Content-Language: ???\r\n",
-                new IllegalArgumentException("Content-Language: Invalid character '?' at 1 in \" ???\"")
+            "Content-Language: ???\r\n",
+            new IllegalArgumentException("Content-Language: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
@@ -150,252 +150,252 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Test
     public void testParseHeaderContentLengthFails() {
         this.parseStringFails(
-                "Content-Length: ???\r\n",
-                new IllegalArgumentException("Content-Length: Invalid number in \" ???\"")
+            "Content-Length: ???\r\n",
+            new IllegalArgumentException("Content-Length: Invalid number in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderContentRangeFails() {
         this.parseStringFails(
-                "Content-Range: ???\r\n",
-                new IllegalArgumentException("Content-Range: Unit missing from \" ???\"")
+            "Content-Range: ???\r\n",
+            new IllegalArgumentException("Content-Range: Unit missing from \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderContentTypeFails() {
         this.parseStringFails(
-                "Content-Type: type/?\r\n",
-                new IllegalArgumentException("Content-Type: Invalid character '?' at 6 in \" type/?\"")
+            "Content-Type: type/?\r\n",
+            new IllegalArgumentException("Content-Type: Invalid character '?' at 6 in \" type/?\"")
         );
     }
 
     @Test
     public void testParseHeaderCookieFails() {
         this.parseStringFails(
-                "Cookie: ???\r\n",
-                new IllegalArgumentException("Cookie: Invalid character '?' at 0 in \"???\"")
+            "Cookie: ???\r\n",
+            new IllegalArgumentException("Cookie: Invalid character '?' at 0 in \"???\"")
         );
     }
 
     @Test
     public void testParseHeaderDateFails() {
         this.parseStringFails(
-                "Date: ???\r\n",
-                new IllegalArgumentException("Date: Invalid date in \" ???\"")
+            "Date: ???\r\n",
+            new IllegalArgumentException("Date: Invalid date in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderEtagFails() {
         this.parseStringFails(
-                "Etag: ???\r\n",
-                new IllegalArgumentException("ETag: Invalid character '?' at 1 in \" ???\"")
+            "Etag: ???\r\n",
+            new IllegalArgumentException("ETag: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderFromFails() {
         this.parseStringFails(
-                "From: ???\r\n",
-                new IllegalArgumentException("From: Invalid email \" ???\"")
+            "From: ???\r\n",
+            new IllegalArgumentException("From: Invalid email \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderIfMatchFails() {
         this.parseStringFails(
-                "If-Match: ???\r\n",
-                new IllegalArgumentException("If-Match: Invalid character '?' at 1 in \" ???\"")
+            "If-Match: ???\r\n",
+            new IllegalArgumentException("If-Match: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderIfModifiedSinceFails() {
         this.parseStringFails(
-                "If-Modified-Since: ???\r\n",
-                new IllegalArgumentException("If-Modified-Since: Invalid date in \" ???\"")
+            "If-Modified-Since: ???\r\n",
+            new IllegalArgumentException("If-Modified-Since: Invalid date in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderIfNoneMatchFails() {
         this.parseStringFails(
-                "If-None-Match: ???\r\n",
-                new IllegalArgumentException("If-None-Match: Invalid character '?' at 1 in \" ???\"")
+            "If-None-Match: ???\r\n",
+            new IllegalArgumentException("If-None-Match: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderIfRangeFails() {
         this.parseStringFails(
-                "If-Range: ???\r\n",
-                new IllegalArgumentException("If-Range: Invalid date in \" ???\"")
+            "If-Range: ???\r\n",
+            new IllegalArgumentException("If-Range: Invalid date in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderIfUnmodifiedSinceFails() {
         this.parseStringFails(
-                "If-Unmodified-Since: ???\r\n",
-                new IllegalArgumentException("If-Unmodified-Since: Invalid date in \" ???\"")
+            "If-Unmodified-Since: ???\r\n",
+            new IllegalArgumentException("If-Unmodified-Since: Invalid date in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderLinkFails() {
         this.parseStringFails(
-                "Link: ???\r\n",
-                new IllegalArgumentException("Link: Invalid character '?' at 1 in \" ???\"")
+            "Link: ???\r\n",
+            new IllegalArgumentException("Link: Invalid character '?' at 1 in \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderRangeFails() {
         this.parseStringFails(
-                "Range: ???\r\n",
-                new IllegalArgumentException("Range: Missing unit and '=' from header value \" ???\"")
+            "Range: ???\r\n",
+            new IllegalArgumentException("Range: Missing unit and '=' from header value \" ???\"")
         );
     }
 
     @Test
     public void testParseHeaderRefererFails() {
         this.parseStringFails(
-                "Referer: ???\r\n",
-                new IllegalArgumentException("Referer: no protocol:  ???")
+            "Referer: ???\r\n",
+            new IllegalArgumentException("Referer: no protocol:  ???")
         );
     }
 
     @Test
     public void testParseHeaderSetCookieFails() {
         this.parseStringFails(
-                "Set-Cookie: ???\r\n",
-                new IllegalArgumentException("Set-Cookie: Invalid character '?' at 0 in \"???\"")
+            "Set-Cookie: ???\r\n",
+            new IllegalArgumentException("Set-Cookie: Invalid character '?' at 0 in \"???\"")
         );
     }
 
     @Test
     public void testParseEmptyHeadersEmptyBody() {
         this.parseStringAndCheck(
-                "\r\n",
-                HttpEntity.EMPTY
+            "\r\n",
+            HttpEntity.EMPTY
         );
     }
 
     @Test
     public void testParseEmptyHeaders() {
         this.parseStringAndCheck(
-                "\r\nBody",
-                HttpEntity.EMPTY.setBodyText("Body")
+            "\r\nBody",
+            HttpEntity.EMPTY.setBodyText("Body")
         );
     }
 
     @Test
     public void testParseHeaderAndEmptyBody() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "\r\n",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                )
+            "Content-Type: text/plain\r\n" +
+                "\r\n",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            )
         );
     }
 
     @Test
     public void testParseHeaderWithoutValueAndEmptyBody() {
         this.parseStringAndCheck(
-                "X-CustomHeader\r\n" +
-                        "\r\n",
-                HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.with("X-CustomHeader"),
-                        Cast.to("")
-                )
+            "X-CustomHeader\r\n" +
+                "\r\n",
+            HttpEntity.EMPTY.addHeader(
+                HttpHeaderName.with("X-CustomHeader"),
+                Cast.to("")
+            )
         );
     }
 
     @Test
     public void testParseTwoHeadersAndEmptyBody() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "Accept: */*\r\n" +
-                        "\r\n",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.parse("*/*")
-                )
+            "Content-Type: text/plain\r\n" +
+                "Accept: */*\r\n" +
+                "\r\n",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ).addHeader(
+                HttpHeaderName.ACCEPT,
+                Accept.parse("*/*")
+            )
         );
     }
 
     @Test
     public void testParseSeveralHeadersAndEmptyBody() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "Accept: */*\r\n" +
-                        "Accept-Language: EN-AU\r\n" +
-                        "\r\n",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.parse("*/*")
-                ).addHeader(
-                        HttpHeaderName.ACCEPT_LANGUAGE,
-                        AcceptLanguage.parse("EN-AU")
-                )
+            "Content-Type: text/plain\r\n" +
+                "Accept: */*\r\n" +
+                "Accept-Language: EN-AU\r\n" +
+                "\r\n",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ).addHeader(
+                HttpHeaderName.ACCEPT,
+                Accept.parse("*/*")
+            ).addHeader(
+                HttpHeaderName.ACCEPT_LANGUAGE,
+                AcceptLanguage.parse("EN-AU")
+            )
         );
     }
 
     @Test
     public void testParseHeadersAndBody() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "\r\n" +
-                        "Body123",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ).setBodyText("Body123")
+            "Content-Type: text/plain\r\n" +
+                "\r\n" +
+                "Body123",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ).setBodyText("Body123")
         );
     }
 
     @Test
     public void testParseHeadersAndBody2() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "\r\n" +
-                        "\r\n",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ).setBodyText("\r\n")
+            "Content-Type: text/plain\r\n" +
+                "\r\n" +
+                "\r\n",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ).setBodyText("\r\n")
         );
     }
 
     @Test
     public void testParseHeadersAndBody3() {
         this.parseStringAndCheck(
-                "Content-Type: text/plain\r\n" +
-                        "Accept: */*\r\n" +
-                        "\r\n" +
-                        "Body123",
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.parse("*/*")
-                ).setBodyText("Body123")
+            "Content-Type: text/plain\r\n" +
+                "Accept: */*\r\n" +
+                "\r\n" +
+                "Body123",
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ).addHeader(
+                HttpHeaderName.ACCEPT,
+                Accept.parse("*/*")
+            ).setBodyText("Body123")
         );
     }
 
     @Override
     public HttpEntity parseString(final String string) {
         return HttpEntity.parse(
-                Binary.with(
-                        string.getBytes(
-                                Charset.defaultCharset()
-                        )
+            Binary.with(
+                string.getBytes(
+                    Charset.defaultCharset()
                 )
+            )
         );
     }
 
@@ -414,250 +414,250 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     @Test
     public void testMultipartsWhenNotMultipartFails() {
         this.extractMultipartsFails(
-                "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Body123",
-                "Not multipart, wrong content-type text/plain"
+            "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Body123",
+            "Not multipart, wrong content-type text/plain"
         );
     }
 
     @Test
     public void testMultipartsWhenPartMissingNextBoundaryFails() {
         this.extractMultipartsFails(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1\r\n",
-                "Part 0 missing boundary after 15"
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
+                "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1\r\n",
+            "Part 0 missing boundary after 15"
         );
     }
 
     @Test
     public void testMultipartsWhenPartMissingContentDispositionFails() {
         this.extractMultipartsFails(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "\r\n" +
-                        "Part1\r\n" +
-                        "--boundary123--",
-                "Part 0 missing header \"Content-Disposition\""
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
+                "\r\n" +
+                "Part1\r\n" +
+                "--boundary123--",
+            "Part 0 missing header \"Content-Disposition\""
         );
     }
 
     @Test
     public void testMultipartsWhenPartWithInvalidHeaderFails() {
         this.extractMultipartsFails(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "not-content-disposition: hello\r\n" +
-                        "\r\n" +
-                        "Part1\r\n" +
-                        "--boundary123--",
-                "Part 0 missing header \"Content-Disposition\""
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
+                "not-content-disposition: hello\r\n" +
+                "\r\n" +
+                "Part1\r\n" +
+                "--boundary123--",
+            "Part 0 missing header \"Content-Disposition\""
         );
     }
 
     @Test
     public void testMultipartsWhenPart() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPartIncludesContentType() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPartIncludesContentTransferEncoding() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPartIncludesContentTransferEncodingAndContentType() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-Transfer-Encoding: 8BIT\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "content-Transfer-Encoding: 8BIT\r\n" +
-                        "content-type: text/plain\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "content-Transfer-Encoding: 8BIT\r\n" +
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "content-Transfer-Encoding: 8BIT\r\n" +
+                "content-type: text/plain\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPartWithEmptyBody() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n"
+                "\r\n" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n"
         );
     }
 
     @Test
     public void testMultipartsWhenPreambleAndPart() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n" +
-                        "Preamble123" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n" +
+                "Preamble123" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPartAndEpilogue() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--\r\n" +
-                        "Epilogue123",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--\r\n" +
+                "Epilogue123",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenPreamblePartAndEpilogue() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n" +
-                        "Preamble123" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123--\r\n" +
-                        "Epilogue123",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n" +
+                "Preamble123" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1"
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123--\r\n" +
+                "Epilogue123",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1"
         );
     }
 
     @Test
     public void testMultipartsWhenTwoParts() {
         this.multipartsAndCheck(
-                "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1" +
-                        "\r\n--boundary123\r\n" +
-                        "content-disposition: form-data; name=\"part2-name\"\r\n" +
-                        "\r\n" +
-                        "Part2" +
-                        "\r\n--boundary123--",
+            "content-type: multipart/form-data;boundary=\"boundary123\"\r\n" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part1-name\"\r\n" +
-                        "\r\n" +
-                        "Part1",
+                "\r\n" +
+                "Part1" +
+                "\r\n--boundary123\r\n" +
                 "content-disposition: form-data; name=\"part2-name\"\r\n" +
-                        "\r\n" +
-                        "Part2"
+                "\r\n" +
+                "Part2" +
+                "\r\n--boundary123--",
+            "content-disposition: form-data; name=\"part1-name\"\r\n" +
+                "\r\n" +
+                "Part1",
+            "content-disposition: form-data; name=\"part2-name\"\r\n" +
+                "\r\n" +
+                "Part2"
         );
     }
 
     private void extractMultipartsFails(final String entity,
                                         final String expected) {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> httpEntity(entity).multiparts()
+            IllegalArgumentException.class,
+            () -> httpEntity(entity).multiparts()
         );
 
         this.checkEquals(
-                expected,
-                thrown.getMessage(),
-                "message"
+            expected,
+            thrown.getMessage(),
+            "message"
         );
     }
 
     private void multipartsAndCheck(final String entity,
-                                           final String... parts) {
+                                    final String... parts) {
         this.multipartsAndCheck(
-                httpEntity(entity),
-                Arrays.stream(parts)
-                        .map(this::httpEntity)
-                        .toArray(HttpEntity[]::new)
+            httpEntity(entity),
+            Arrays.stream(parts)
+                .map(this::httpEntity)
+                .toArray(HttpEntity[]::new)
         );
     }
 
     private void multipartsAndCheck(final HttpEntity entity,
-                                           final HttpEntity... parts) {
+                                    final HttpEntity... parts) {
         this.multipartsAndCheck(
-                entity,
-                Lists.of(parts)
+            entity,
+            Lists.of(parts)
         );
     }
 
     private void multipartsAndCheck(final HttpEntity entity,
-                                           final List<HttpEntity> parts) {
+                                    final List<HttpEntity> parts) {
         this.checkEquals(
-                parts,
-                entity.multiparts(),
-                entity::toString
+            parts,
+            entity.multiparts(),
+            entity::toString
         );
     }
 
     private HttpEntity httpEntity(final String httpEntity) {
         return HttpEntity.parse(
-                Binary.with(
-                        httpEntity.getBytes(Charset.defaultCharset())
-                )
+            Binary.with(
+                httpEntity.getBytes(Charset.defaultCharset())
+            )
         );
     }
 

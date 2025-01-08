@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
-        implements ParseStringTesting<RangeHeader> {
+    implements ParseStringTesting<RangeHeader> {
 
     private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
 
@@ -188,47 +188,47 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testParseOpenRange() {
         this.parseStringAndCheck("bytes=123-",
-                UNIT,
-                this.rangeGte123());
+            UNIT,
+            this.rangeGte123());
     }
 
     @Test
     public void testParseClosedRange() {
         this.parseStringAndCheck("bytes=123-456",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()));
     }
 
     @Test
     public void testParseClosedCommaRangeOpen() {
         this.parseStringAndCheck("bytes=123-456,789-",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789());
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789());
     }
 
     @Test
     public void testParseClosedCommaWhitespaceRangeOpen() {
         this.parseStringAndCheck("bytes=123-456, 789-",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789());
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789());
     }
 
     @Test
     public void testParseClosedCommaWhitespaceRangeOpen2() {
         this.parseStringAndCheck("bytes=123-456,  789-",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789());
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789());
     }
 
     @Test
     public void testParseClosedCommaRangeClosed() {
         this.parseStringAndCheck("bytes=123-456,789-1000",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789().and(this.rangeLte1000()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789().and(this.rangeLte1000()));
     }
 
     @SafeVarargs
@@ -250,31 +250,31 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testToHeaderTextOpenRange() {
         toHeaderTextAndCheck("bytes=123-",
-                UNIT,
-                this.rangeGte123());
+            UNIT,
+            this.rangeGte123());
     }
 
     @Test
     public void testToHeaderTextClosedRange() {
         toHeaderTextAndCheck("bytes=123-456",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()));
     }
 
     @Test
     public void testToHeaderTextClosedRangeOpenRange() {
         toHeaderTextAndCheck("bytes=123-456, 789-",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789());
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789());
     }
 
     @Test
     public void testToHeaderTextClosedRangeClosedRange() {
         toHeaderTextAndCheck("bytes=123-456, 789-1000",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789().and(this.rangeLte1000()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789().and(this.rangeLte1000()));
     }
 
     @SafeVarargs
@@ -296,31 +296,31 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testToStringOpenRange() {
         toStringAndCheck("bytes=123-",
-                UNIT,
-                this.rangeGte123());
+            UNIT,
+            this.rangeGte123());
     }
 
     @Test
     public void testToStringClosedRange() {
         toStringAndCheck("bytes=123-456",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()));
     }
 
     @Test
     public void testToStringClosedRangeOpenRange() {
         toStringAndCheck("bytes=123-456, 789-",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789());
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789());
     }
 
     @Test
     public void testToStringClosedRangeClosedRange() {
         toStringAndCheck("bytes=123-456, 789-1000",
-                UNIT,
-                this.rangeGte123().and(this.rangeLte456()),
-                this.rangeGte789().and(this.rangeLte1000()));
+            UNIT,
+            this.rangeGte123().and(this.rangeLte456()),
+            this.rangeGte789().and(this.rangeLte1000()));
     }
 
     @SafeVarargs
@@ -362,23 +362,23 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     private List<Range<Long>> rangesWithOverlap() {
         return Lists.of(
-                between(100, 200),
-                between(200, 300),
-                between(275, 350));
+            between(100, 200),
+            between(200, 300),
+            between(275, 350));
     }
 
     private List<Range<Long>> rangesWithOverlap2() {
         return Lists.of(
-                between(100, 200),
-                between(200, 300),
-                Range.greaterThanEquals(275L));
+            between(100, 200),
+            between(200, 300),
+            Range.greaterThanEquals(275L));
     }
 
     private List<Range<Long>> rangesWithOverlap3() {
         return Lists.of(
-                Range.lessThanEquals(100L),
-                between(200, 300),
-                between(75, 150));
+            Range.lessThanEquals(100L),
+            between(200, 300),
+            between(75, 150));
     }
 
     private Range<Long> between(final long lower, final long upper) {

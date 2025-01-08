@@ -28,28 +28,28 @@ public final class ContentEncodingHeaderHandlerTest extends NonStringHeaderHandl
     @Test
     public void testParse() {
         this.parseStringAndCheck2("gzip",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
     public void testParse2() {
         this.parseStringAndCheck2("GZIP",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
     public void testParseCommaSeparated() {
         this.parseStringAndCheck2("gzip,deflate",
-                Encoding.GZIP,
-                Encoding.DEFLATE);
+            Encoding.GZIP,
+            Encoding.DEFLATE);
     }
 
     @Test
     public void testParseWhitespaceCommaSeparated() {
         this.parseStringAndCheck2("gzip, deflate,  br",
-                Encoding.GZIP,
-                Encoding.DEFLATE,
-                Encoding.BR);
+            Encoding.GZIP,
+            Encoding.DEFLATE,
+            Encoding.BR);
     }
 
     private void parseStringAndCheck2(final String text, final Encoding... encodings) {
@@ -64,13 +64,13 @@ public final class ContentEncodingHeaderHandlerTest extends NonStringHeaderHandl
     @Test
     public void testToText() {
         this.toTextAndCheck(ContentEncoding.with(Lists.of(Encoding.BR)),
-                "br");
+            "br");
     }
 
     @Test
     public void testToText2() {
         this.toTextAndCheck(ContentEncoding.with(Lists.of(Encoding.BR, Encoding.GZIP)),
-                "br, gzip");
+            "br, gzip");
     }
 
     @Override

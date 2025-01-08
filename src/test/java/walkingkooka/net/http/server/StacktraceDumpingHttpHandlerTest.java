@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTesting<StacktraceDumpingHttpHandler>,
-        ToStringTesting<StacktraceDumpingHttpHandler> {
+    ToStringTesting<StacktraceDumpingHttpHandler> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
@@ -43,23 +43,23 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     @Test
     public void testWithNullHandlerFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> StacktraceDumpingHttpHandler.with(
-                        null,
-                        TRANSLATOR
-                )
+            NullPointerException.class,
+            () -> StacktraceDumpingHttpHandler.with(
+                null,
+                TRANSLATOR
+            )
         );
     }
 
     @Test
     public void testWithNullTranslatorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> StacktraceDumpingHttpHandler.with(
-                        (r, s) -> {
-                        },
-                        null
-                )
+            NullPointerException.class,
+            () -> StacktraceDumpingHttpHandler.with(
+                (r, s) -> {
+                },
+                null
+            )
         );
     }
 
@@ -73,17 +73,17 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         final HttpResponse response = HttpResponses.fake();
 
         StacktraceDumpingHttpHandler.with(
-                        (r, rr) -> {
-                            assertSame(r, request);
-                            assertSame(rr, response);
+                (r, rr) -> {
+                    assertSame(r, request);
+                    assertSame(rr, response);
 
-                            this.handled = true;
-                        },
-                        TRANSLATOR)
-                .handle(
-                        request,
-                        response
-                );
+                    this.handled = true;
+                },
+                TRANSLATOR)
+            .handle(
+                request,
+                response
+            );
 
         this.checkEquals(true, this.handled);
     }
@@ -96,30 +96,30 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         final HttpResponse response = HttpResponses.recording();
 
         StacktraceDumpingHttpHandler.with(
-                (r, rr) -> {
-                    assertSame(r, request);
-                    assertSame(rr, response);
+            (r, rr) -> {
+                assertSame(r, request);
+                assertSame(rr, response);
 
-                    throw new UnsupportedOperationException();
-                },
-                TRANSLATOR
+                throw new UnsupportedOperationException();
+            },
+            TRANSLATOR
         ).handle(
-                request,
-                response
+            request,
+            response
         );
 
         this.checkEquals(
-                Optional.of(STATUS),
-                response.status(),
-                "status"
+            Optional.of(STATUS),
+            response.status(),
+            "status"
         );
         final HttpEntity entity = response.entity();
 
         this.checkEquals(
-                Lists.of(MediaType.TEXT_PLAIN),
-                entity.headers()
-                        .get(HttpHeaderName.CONTENT_TYPE),
-                "content-type header"
+            Lists.of(MediaType.TEXT_PLAIN),
+            entity.headers()
+                .get(HttpHeaderName.CONTENT_TYPE),
+            "content-type header"
         );
 
         final String body = entity.bodyText();
@@ -129,8 +129,8 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     @Override
     public StacktraceDumpingHttpHandler createHttpHandler() {
         return StacktraceDumpingHttpHandler.with(
-                wrappedHttpHandler(),
-                TRANSLATOR
+            wrappedHttpHandler(),
+            TRANSLATOR
         );
     }
 
@@ -158,11 +158,11 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     public void testToString() {
         final HttpHandler wrapped = wrappedHttpHandler();
         this.toStringAndCheck(
-                StacktraceDumpingHttpHandler.with(
-                        wrapped,
-                        TRANSLATOR
-                ),
-                wrapped + " " + TRANSLATOR
+            StacktraceDumpingHttpHandler.with(
+                wrapped,
+                TRANSLATOR
+            ),
+            wrapped + " " + TRANSLATOR
         );
     }
 

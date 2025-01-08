@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlTest extends HeaderTestCase<CacheControl>
-        implements ParseStringTesting<CacheControl> {
+    implements ParseStringTesting<CacheControl> {
 
     // with..............................................................................................................
 
@@ -102,10 +102,10 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
     @Test
     public void testParse() {
         this.parseStringAndCheck("no-cache, no-store, max-age=123",
-                CacheControl.with(
-                        Lists.of(CacheControlDirective.NO_CACHE,
-                                CacheControlDirective.NO_STORE,
-                                CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))));
+            CacheControl.with(
+                Lists.of(CacheControlDirective.NO_CACHE,
+                    CacheControlDirective.NO_STORE,
+                    CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))));
     }
 
     // toHeaderText .....................................................................................................

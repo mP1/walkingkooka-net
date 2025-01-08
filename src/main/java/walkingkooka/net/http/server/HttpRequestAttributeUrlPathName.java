@@ -36,8 +36,8 @@ final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlP
             throw new IndexOutOfBoundsException("Index " + index + " < 0");
         }
         return index < CONSTANT_COUNT ?
-                CACHE[index] :
-                new HttpRequestAttributeUrlPathName(index);
+            CACHE[index] :
+            new HttpRequestAttributeUrlPathName(index);
     }
 
     /**
@@ -49,8 +49,8 @@ final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlP
      * Fills the cache with instances.
      */
     private final static HttpRequestAttributeUrlPathName[] CACHE = IntStream.range(0, CONSTANT_COUNT)
-            .mapToObj(HttpRequestAttributeUrlPathName::new)
-            .toArray(HttpRequestAttributeUrlPathName[]::new);
+        .mapToObj(HttpRequestAttributeUrlPathName::new)
+        .toArray(HttpRequestAttributeUrlPathName[]::new);
 
     /**
      * Private ctor use factory.
@@ -91,8 +91,8 @@ final class HttpRequestAttributeUrlPathName implements HttpRequestAttribute<UrlP
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpRequestAttributeUrlPathName &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpRequestAttributeUrlPathName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpRequestAttributeUrlPathName other) {

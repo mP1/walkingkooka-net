@@ -48,49 +48,49 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
     @Test
     public void testTestStrongStrongSameValue() {
         this.testTrue(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.STRONG.setValue(VALUE));
+            ETagValidator.STRONG.setValue(VALUE));
     }
 
     @Test
     public void testTestStrongStrongDifferentValue() {
         this.testFalse(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
+            ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
     }
 
     @Test
     public void testTestStrongWeakSameValue() {
         this.testTrue(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.WEAK.setValue(VALUE));
+            ETagValidator.WEAK.setValue(VALUE));
     }
 
     @Test
     public void testTestStrongWeakDifferentValue() {
         this.testFalse(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
+            ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
     }
 
     @Test
     public void testTestWeakStrongSameValue() {
         this.testTrue(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.STRONG.setValue(VALUE));
+            ETagValidator.STRONG.setValue(VALUE));
     }
 
     @Test
     public void testTestWeakStrongDifferentValue() {
         this.testFalse(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
+            ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
     }
 
     @Test
     public void testTestWeakWeakSameValue() {
         this.testTrue(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.WEAK.setValue(VALUE));
+            ETagValidator.WEAK.setValue(VALUE));
     }
 
     @Test
     public void testTestWeakWeakDifferentValue() {
         this.testFalse(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
+            ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
     }
 
     @Test

@@ -71,7 +71,7 @@ public final class CacheControlDirective<T> implements Header {
      * Holds all constants directives without a value.
      */
     private final static Map<CacheControlDirectiveName<?>, CacheControlDirective<?>> CONSTANTS =
-            Maps.sorted();
+        Maps.sorted();
 
     /**
      * max-stale
@@ -127,16 +127,16 @@ public final class CacheControlDirective<T> implements Header {
         name.checkValue(parameter);
 
         return parameter.isPresent() ?
-                new CacheControlDirective<>(name, parameter) :
-                withoutParameter(name, parameter);
+            new CacheControlDirective<>(name, parameter) :
+            withoutParameter(name, parameter);
     }
 
     private static <T> CacheControlDirective<T> withoutParameter(final CacheControlDirectiveName<T> name,
                                                                  final Optional<T> parameter) {
         final CacheControlDirective<?> constant = CONSTANTS.get(name);
         return null != constant ?
-                Cast.to(constant) :
-                new CacheControlDirective<>(name, parameter);
+            Cast.to(constant) :
+            new CacheControlDirective<>(name, parameter);
     }
 
     /**
@@ -169,8 +169,8 @@ public final class CacheControlDirective<T> implements Header {
         this.name.checkValue(parameter);
 
         return this.parameter().equals(parameter) ?
-                this :
-                this.replace(parameter);
+            this :
+            this.replace(parameter);
     }
 
     private final Optional<T> parameter;
@@ -206,7 +206,7 @@ public final class CacheControlDirective<T> implements Header {
         final String name = this.name.toString();
         final Optional<T> parameter = this.parameter;
         return parameter.map(p -> name + "=" + CharSequences.quoteIfChars(p))
-                .orElse(name);
+            .orElse(name);
     }
 
     @Override
@@ -224,13 +224,13 @@ public final class CacheControlDirective<T> implements Header {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof CacheControlDirective &&
-                        this.equals0(Cast.to(other));
+            other instanceof CacheControlDirective &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final CacheControlDirective<?> other) {
         return this.name.equals(other.name) &&
-                this.parameter().equals(other.parameter());
+            this.parameter().equals(other.parameter());
     }
 
     @Override

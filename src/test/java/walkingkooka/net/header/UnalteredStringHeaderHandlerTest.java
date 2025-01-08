@@ -35,14 +35,14 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
     @Test
     public void testParseAsciiControlCharacters() {
         IntStream.range(0, 31)
-                .filter(i -> i != '\t')
-                .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
+            .filter(i -> i != '\t')
+            .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
     }
 
     @Test
     public void testParseNonControlCharacters() {
         IntStream.range(32, 256)
-                .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
+            .forEach(i -> this.parseStringAndCheck2("" + Arrays.toString(Character.toChars(i))));
     }
 
     @Test

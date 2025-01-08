@@ -46,11 +46,11 @@ final class LinkRelationConstantGenerator {
 
     public static void main(final String[] args) throws Exception {
         final XmlDocument document = XmlDocument.fromXml(DocumentBuilderFactory.newInstance().newDocumentBuilder(),
-                file());
+            file());
         XmlNode.absoluteNodeSelector()
-                .descendant()
-                .named(XmlName.element("record"))
-                .apply(document, context());
+            .descendant()
+            .named(XmlName.element("record"))
+            .apply(document, context());
     }
 
     private LinkRelationConstantGenerator() {
@@ -63,10 +63,10 @@ final class LinkRelationConstantGenerator {
 
     private static NodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String> context() {
         return NodeSelectorContexts.basic(() -> false, // dont stop!
-                Predicates.always(), // filter match all
-                LinkRelationConstantGenerator::record,
-                expressionEvaluationContext(),
-                XmlNode.class);
+            Predicates.always(), // filter match all
+            LinkRelationConstantGenerator::record,
+            expressionEvaluationContext(),
+            XmlNode.class);
     }
 
     /**
@@ -93,9 +93,9 @@ final class LinkRelationConstantGenerator {
 
     private static void record0(final XmlElement element) {
         final List<XmlNode> children = element.children()
-                .stream()
-                .filter(XmlNode::isElement)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(XmlNode::isElement)
+            .collect(Collectors.toList());
 
         final String value = children.get(0).text();
         final String description = children.get(1).text();
@@ -116,8 +116,8 @@ final class LinkRelationConstantGenerator {
 
         for (; ; ) {
             final String after = javadoc.replace("\r\n", "\n")
-                    .replace("\n", " ")
-                    .replace("  ", " ");
+                .replace("\n", " ")
+                .replace("  ", " ");
             if (after.equals(javadoc)) {
                 break;
             }

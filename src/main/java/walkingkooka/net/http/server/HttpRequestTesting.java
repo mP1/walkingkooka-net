@@ -27,7 +27,7 @@ import java.util.Map;
  * Mixin interface for testing {@link HttpRequest}
  */
 public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesting<R>,
-        TypeNameTesting<R> {
+    TypeNameTesting<R> {
 
     @Test
     default void testRoutingParameters() {

@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 final public class CookieNameTest implements ClassTesting2<CookieName>,
-        NameTesting2<CookieName, CookieName> {
+    NameTesting2<CookieName, CookieName> {
 
     private final static String NAME = "cookie123";
     private final static String VALUE = "value123";
@@ -139,13 +139,13 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     public void testParameterValueRequest() {
         final CookieName name = this.cookieName();
         this.checkEquals(Optional.of(Cookie.client(name, VALUE)),
-                name.parameterValue(new FakeHttpRequest() {
+            name.parameterValue(new FakeHttpRequest() {
 
-                    @Override
-                    public Map<HttpHeaderName<?>, List<?>> headers() {
-                        return Maps.of(HttpHeaderName.COOKIE, Lists.of(Cookie.parseClientHeader("a=b;cookie123=value123;x=y")));
-                    }
-                }));
+                @Override
+                public Map<HttpHeaderName<?>, List<?>> headers() {
+                    return Maps.of(HttpHeaderName.COOKIE, Lists.of(Cookie.parseClientHeader("a=b;cookie123=value123;x=y")));
+                }
+            }));
     }
 
     @Test
@@ -153,7 +153,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
         final CookieName name = this.cookieName();
         final ClientCookie cookie = Cookie.client(name, VALUE);
         this.checkEquals(Optional.of(cookie),
-                name.parameterValue(Maps.of(name, cookie)));
+            name.parameterValue(Maps.of(name, cookie)));
     }
 
     @Test

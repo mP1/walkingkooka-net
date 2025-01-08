@@ -31,7 +31,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RecordingHttpResponseTest extends HttpResponseTestCase2<RecordingHttpResponse>
-        implements HashCodeEqualsDefinedTesting2<RecordingHttpResponse> {
+    implements HashCodeEqualsDefinedTesting2<RecordingHttpResponse> {
 
     @Test
     public void testBuild() {
@@ -72,8 +72,8 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         final HttpEntity entity2 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "part 2")
-                .setBody(Binary.with(new byte[123]));
+            .addHeader(HttpHeaderName.SERVER, "part 2")
+            .setBody(Binary.with(new byte[123]));
         response.setVersion(version);
         response.setStatus(status);
         response.setEntity(entity);
@@ -95,9 +95,9 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         response.setEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
-                version,
-                HttpStatusCode.OK.status(),
-                entity));
+            version,
+            HttpStatusCode.OK.status(),
+            entity));
     }
 
     @Test
@@ -107,19 +107,19 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         final HttpProtocolVersion version = this.version();
         final HttpStatus status = this.status();
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "Server 123")
-                .setBody(Binary.with(new byte[123]));
+            .addHeader(HttpHeaderName.SERVER, "Server 123")
+            .setBody(Binary.with(new byte[123]));
 
         response.setVersion(version);
         response.setStatus(status);
         response.setEntity(entity);
 
         assertThrows(AssertionError.class, () -> this.checkResponse(response, HttpRequests.fake(),
-                version,
-                status,
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.SERVER, "Server 456")
-                        .setBody(Binary.with(new byte[456]))));
+            version,
+            status,
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.SERVER, "Server 456")
+                .setBody(Binary.with(new byte[456]))));
     }
 
     // equals...........................................................................................................
@@ -166,10 +166,10 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         response.setEntity(this.entity());
 
         this.toStringAndCheck(response,
-                "503 Problem x y z\r\n" +
-                        "Server: Server 123\r\n" +
-                        "\r\n" +
-                        "00000000 41 42 43                                        ABC             \r\n");
+            "503 Problem x y z\r\n" +
+                "Server: Server 123\r\n" +
+                "\r\n" +
+                "00000000 41 42 43                                        ABC             \r\n");
     }
 
     @Test
@@ -180,10 +180,10 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
         response.setEntity(this.entity());
 
         this.toStringAndCheck(response,
-                "HTTP/1.1 503 Problem x y z\r\n" +
-                        "Server: Server 123\r\n" +
-                        "\r\n" +
-                        "00000000 41 42 43                                        ABC             \r\n");
+            "HTTP/1.1 503 Problem x y z\r\n" +
+                "Server: Server 123\r\n" +
+                "\r\n" +
+                "00000000 41 42 43                                        ABC             \r\n");
     }
 
     @Override
@@ -201,8 +201,8 @@ public final class RecordingHttpResponseTest extends HttpResponseTestCase2<Recor
 
     private HttpEntity entity() {
         return HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "Server 123")
-                .setBody(Binary.with(new byte[]{65, 66, 67}));
+            .addHeader(HttpHeaderName.SERVER, "Server 123")
+            .setBody(Binary.with(new byte[]{65, 66, 67}));
     }
 
     @Override

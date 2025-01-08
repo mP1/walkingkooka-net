@@ -48,7 +48,7 @@ final class CharsetNameSupport extends CharsetNameSupportJ2cl {
         final Set<String> contentTypeAliases = aliasSource.aliases();
 
         return charset.aliases()
-                .stream()
-                .anyMatch(contentTypeAliases::contains);
+            .stream()
+            .anyMatch(contentTypeAliases::contains);
     }
 }

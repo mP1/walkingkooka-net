@@ -44,8 +44,8 @@ public interface Header extends HasHeaderScope {
         Objects.requireNonNull(separator, "separator");
 
         return headers.stream()
-                .map(Header::toHeaderText)
-                .collect(Collectors.joining(separator));
+            .map(Header::toHeaderText)
+            .collect(Collectors.joining(separator));
     }
 
     /**

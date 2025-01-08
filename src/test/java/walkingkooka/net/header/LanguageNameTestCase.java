@@ -34,9 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LanguageNameTestCase<L extends LanguageName> implements ClassTesting2<L>,
-        NameTesting<L, LanguageName>,
-        PredicateTesting2<L, LanguageName>,
-        TypeNameTesting<L> {
+    NameTesting<L, LanguageName>,
+    PredicateTesting2<L, LanguageName>,
+    TypeNameTesting<L> {
 
     LanguageNameTestCase() {
         super();

@@ -24,13 +24,13 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
-        ImmutableListTesting<UrlParameterValueList, String> {
+    ImmutableListTesting<UrlParameterValueList, String> {
 
     @Test
     public void testIsEmpty() {
         this.isEmptyAndCheck(
-                (CanBeEmpty) UrlParameterValueList.empty(),
-                true
+            (CanBeEmpty) UrlParameterValueList.empty(),
+            true
         );
     }
 
@@ -84,10 +84,10 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
         expected.addParameterValue("a1");
 
         this.swapAndCheck(
-                list,
-                0,
-                2,
-                expected
+            list,
+            0,
+            2,
+            expected
         );
     }
 

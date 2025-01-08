@@ -73,8 +73,8 @@ final public class ClientCookie extends Cookie {
         for (final String token : tokens) {
             final int nameEnd = token.indexOf(nameValueSeparator);
             cookies.add(Cookie.client(//
-                    CookieName.with(token.substring(0, -1 == nameEnd ? token.length() : nameEnd).trim()), // name
-                    Cookie.extractValue(token))); // value
+                CookieName.with(token.substring(0, -1 == nameEnd ? token.length() : nameEnd).trim()), // name
+                Cookie.extractValue(token))); // value
         }
         return Lists.readOnly(cookies);
     }

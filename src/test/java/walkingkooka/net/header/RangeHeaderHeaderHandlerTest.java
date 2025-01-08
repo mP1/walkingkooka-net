@@ -22,7 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 
 public final class RangeHeaderHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<RangeHeaderHeaderHandler, RangeHeader> {
+    NonStringHeaderHandlerTestCase<RangeHeaderHeaderHandler, RangeHeader> {
 
     private final static String TEXT = "bytes=123-456, 789-";
 
@@ -43,8 +43,8 @@ public final class RangeHeaderHeaderHandlerTest extends
 
     private RangeHeader range() {
         return RangeHeader.with(RangeHeaderUnit.BYTES,
-                Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
-                        Range.greaterThanEquals(789L)));
+            Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
+                Range.greaterThanEquals(789L)));
     }
 
     @Override

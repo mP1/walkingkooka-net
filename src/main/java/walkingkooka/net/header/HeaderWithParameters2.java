@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
  * Base class for all implementations of {@link HeaderWithParameters} in this package.
  */
 abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
-        P extends HeaderParameterName<?>,
-        V> implements HeaderWithParameters<P>,
-        Value<V> {
+    P extends HeaderParameterName<?>,
+    V> implements HeaderWithParameters<P>,
+    Value<V> {
 
     /**
      * Package private to limit sub classing.
@@ -73,8 +73,8 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     public final H setParameters(final Map<P, Object> parameters) {
         final Map<P, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
-                Cast.to(this) :
-                this.replaceParameters(copy);
+            Cast.to(this) :
+            this.replaceParameters(copy);
     }
 
     final Map<P, Object> parameters;
@@ -89,7 +89,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         for (Entry<P, Object> nameAndValue : parameters.entrySet()) {
             final P name = nameAndValue.getKey();
             copy.put(name,
-                    name.checkValue(nameAndValue.getValue()));
+                name.checkValue(nameAndValue.getValue()));
         }
         return Maps.immutable(copy);
     }
@@ -115,10 +115,10 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final String toHeaderText() {
         return this.toHeaderTextValue() +
-                this.parameters.entrySet()
-                        .stream()
-                        .map(this::toHeaderTextParameter)
-                        .collect(Collectors.joining());
+            this.parameters.entrySet()
+                .stream()
+                .map(this::toHeaderTextParameter)
+                .collect(Collectors.joining());
     }
 
     /**
@@ -132,9 +132,9 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     private String toHeaderTextParameter(final Entry<P, Object> nameAndValue) {
         final P name = nameAndValue.getKey();
         return this.toHeaderTextParameterSeparator() +
-                name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.handler.toText(Cast.to(nameAndValue.getValue()), name);
+            name.value() +
+            PARAMETER_NAME_VALUE_SEPARATOR.character() +
+            name.handler.toText(Cast.to(nameAndValue.getValue()), name);
     }
 
     /**
@@ -159,22 +159,22 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEquals(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEquals(final Object other);
 
     private boolean equals0(final HeaderWithParameters2<H, P, V> other) {
         return this.equals1(this.value, other.value) && //
-                this.parameters.equals(other.parameters);
+            this.parameters.equals(other.parameters);
     }
 
     @Override
     public final boolean equalsIgnoringParameters(final Object other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.equalsIgnoringParameters0(Cast.to(other));
+            this.canBeEquals(other) &&
+                this.equalsIgnoringParameters0(Cast.to(other));
     }
 
     private boolean equalsIgnoringParameters0(final HeaderWithParameters2<H, P, V> other) {
@@ -184,8 +184,8 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final boolean equalsOnlyPresentParameters(final Object other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.equalsOnlyPresentParameters0(Cast.to(other));
+            this.canBeEquals(other) &&
+                this.equalsOnlyPresentParameters0(Cast.to(other));
     }
 
     private boolean equalsOnlyPresentParameters0(final HeaderWithParameters2<H, P, V> other) {

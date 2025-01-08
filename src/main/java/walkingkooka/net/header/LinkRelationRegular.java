@@ -37,27 +37,27 @@ final class LinkRelationRegular extends LinkRelation<String> {
      * </pre>
      */
     private static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
-            .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
-            .range('a', 'z')
-            .build()
-            .setToString("LinkRelation initial");
+        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
+        .range('a', 'z')
+        .build()
+        .setToString("LinkRelation initial");
 
     private static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
-            .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
-            .range('a', 'z')
-            .range('0', '9')
-            .any(".-")
-            .build()
-            .setToString("LinkRelation part");
+        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
+        .range('a', 'z')
+        .range('0', '9')
+        .any(".-")
+        .build()
+        .setToString("LinkRelation part");
 
     /**
      * Unconditionally creates a {@link LinkRelationRegular}
      */
     static LinkRelationRegular regular(final String value) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(value,
-                "value",
-                INITIAL_CHAR_PREDICATE,
-                PART_CHAR_PREDICATE);
+            "value",
+            INITIAL_CHAR_PREDICATE,
+            PART_CHAR_PREDICATE);
         return new LinkRelationRegular(value);
     }
 

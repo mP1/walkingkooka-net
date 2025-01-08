@@ -25,9 +25,9 @@ import walkingkooka.reflect.TypeNameTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderList> extends HttpEntityHeaderListTestCase<L>
-        implements ListTesting2<L, Object>,
-        TypeNameTesting<L>,
-        ToStringTesting<L> {
+    implements ListTesting2<L, Object>,
+    TypeNameTesting<L>,
+    ToStringTesting<L> {
 
     HttpEntityHeaderListTestCase2() {
         super();
@@ -36,8 +36,8 @@ public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderLi
     @Test
     public final void testWithNoValues() {
         assertThrows(
-                IllegalArgumentException.class,
-                this::createHttpEntityHeaderList
+            IllegalArgumentException.class,
+            this::createHttpEntityHeaderList
         );
     }
 

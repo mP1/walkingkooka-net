@@ -23,11 +23,11 @@ package walkingkooka.net.header;
 final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V> implements Comparable<AcceptLanguageParameterName<?>> {
 
     private final static HeaderParameterNameConstants<AcceptLanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            AcceptLanguageParameterName::new,
-            HeaderHandler.quotedUnquotedString(
-                    AcceptLanguageOrAcceptLanguageValueHeaderParser.QUOTED_PARAMETER_VALUE,
-                    true,
-                    AcceptLanguageOrAcceptLanguageValueHeaderParser.UNQUOTED_PARAMETER_VALUE)
+        AcceptLanguageParameterName::new,
+        HeaderHandler.quotedUnquotedString(
+            AcceptLanguageOrAcceptLanguageValueHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            AcceptLanguageOrAcceptLanguageValueHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

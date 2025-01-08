@@ -80,8 +80,8 @@ public enum RangeHeaderUnit implements Header {
      */
     public static RangeHeaderUnit parse(final String text) {
         final Optional<RangeHeaderUnit> found = Arrays.stream(values())
-                .filter(u -> u.headerText.equalsIgnoreCase(text))
-                .findFirst();
+            .filter(u -> u.headerText.equalsIgnoreCase(text))
+            .findFirst();
         if (!found.isPresent()) {
             throw new HeaderException("Unknown range unit " + CharSequences.quote(text));
         }

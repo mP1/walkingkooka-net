@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class RangeHeaderUnitHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<RangeHeaderUnitHeaderHandler, RangeHeaderUnit> {
+    NonStringHeaderHandlerTestCase<RangeHeaderUnitHeaderHandler, RangeHeaderUnit> {
 
     private final static String TEXT = "bytes";
 

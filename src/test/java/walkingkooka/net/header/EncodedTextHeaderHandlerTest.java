@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class EncodedTextHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<EncodedTextHeaderHandler, EncodedText> {
+    NonStringHeaderHandlerTestCase<EncodedTextHeaderHandler, EncodedText> {
 
     @Override
     public String typeNamePrefix() {

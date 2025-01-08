@@ -38,8 +38,8 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
 
         final Map<HttpHeaderName<?>, List<?>> copy = Maps.immutable(headers);
         return copy.isEmpty() ?
-                response :
-                new DefaultHeadersHttpResponse(copy, response);
+            response :
+            new DefaultHeadersHttpResponse(copy, response);
     }
 
     private DefaultHeadersHttpResponse(final Map<HttpHeaderName<?>, List<?>> headers,

@@ -37,7 +37,7 @@ public interface HasQualityFactorSortedValuesTesting extends Testing {
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
                                                                           final List<V> sorted) {
         this.checkEquals(sorted,
-                has.qualityFactorSortedValues(),
-                () -> "" + has);
+            has.qualityFactorSortedValues(),
+            () -> "" + has);
     }
 }

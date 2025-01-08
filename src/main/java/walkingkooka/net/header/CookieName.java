@@ -31,17 +31,17 @@ import java.util.Optional;
  * Though more characters are valid, in the interests of capability and simplicity this limited sub set is enforced.
  */
 final public class CookieName extends HeaderNameValue
-        implements HttpRequestAttribute<ClientCookie>, Comparable<CookieName> {
+    implements HttpRequestAttribute<ClientCookie>, Comparable<CookieName> {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
      * It also must not contain a separator character like the following: ( ) < > @ , ; : \ " /  [ ] ? = { }.
      */
     private final static CharPredicate PREDICATE = CharPredicates.builder()//
-            .or(CharPredicates.asciiPrintable())//
-            .andNot(CharPredicates.rfc2045TokenSpecial())
-            .toString("cookie name")//
-            .build();
+        .or(CharPredicates.asciiPrintable())//
+        .andNot(CharPredicates.rfc2045TokenSpecial())
+        .toString("cookie name")//
+        .build();
 
     /**
      * Factory that creates a {@link CookieName}
@@ -66,10 +66,10 @@ final public class CookieName extends HeaderNameValue
     @Override
     public Optional<ClientCookie> parameterValue(final HttpRequest request) {
         return HttpHeaderName.COOKIE.header(request)
-                .orElse(ClientCookie.NO_COOKIES)
-                .stream()
-                .filter(c -> c.name().equals(this))
-                .findFirst();
+            .orElse(ClientCookie.NO_COOKIES)
+            .stream()
+            .filter(c -> c.name().equals(this))
+            .findFirst();
     }
 
     // Comparable..............................................................................................

@@ -37,7 +37,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
-        NameTesting<UrlParameterName, UrlParameterName> {
+    NameTesting<UrlParameterName, UrlParameterName> {
 
     @Override
     public void testEmptyFails() {
@@ -54,8 +54,8 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testFirstParameterValueNullParametersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().firstParameterValue(null)
+            NullPointerException.class,
+            () -> this.createObject().firstParameterValue(null)
         );
     }
 
@@ -86,9 +86,9 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     private void firstParameterValueAndCheck(final Map<UrlParameterName, List<String>> parameters,
                                              final String expected) {
         this.checkEquals(
-                Optional.ofNullable(expected),
-                this.createObject().firstParameterValue(Cast.to(parameters)),
-                () -> "firstParameterValue of " + parameters
+            Optional.ofNullable(expected),
+            this.createObject().firstParameterValue(Cast.to(parameters)),
+            () -> "firstParameterValue of " + parameters
         );
     }
 
@@ -97,16 +97,16 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testFirstParameterValueOrFailNullParametersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().firstParameterValueOrFail(null)
+            NullPointerException.class,
+            () -> this.createObject().firstParameterValueOrFail(null)
         );
     }
 
     @Test
     public void testFirstParameterValueOrFailMissing() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createObject().firstParameterValueOrFail(Maps.empty())
+            IllegalArgumentException.class,
+            () -> this.createObject().firstParameterValueOrFail(Maps.empty())
         );
         this.checkEquals("Missing query parameter \"param-1\"", thrown.getMessage(), "message");
     }
@@ -114,8 +114,8 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testFirstParameterValueOrFailMissing2() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createObject().firstParameterValueOrFail(Maps.of(UrlParameterName.with("different"), Lists.of("1a", "2b")))
+            IllegalArgumentException.class,
+            () -> this.createObject().firstParameterValueOrFail(Maps.of(UrlParameterName.with("different"), Lists.of("1a", "2b")))
         );
         this.checkEquals("Missing query parameter \"param-1\"", thrown.getMessage(), "message");
     }
@@ -137,9 +137,9 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     private void firstParameterValueOrFailAndCheck(final Map<UrlParameterName, List<String>> parameters,
                                                    final String expected) {
         this.checkEquals(
-                expected,
-                this.createObject().firstParameterValueOrFail(Cast.to(parameters)),
-                () -> "firstParameterValueOrFail of " + parameters
+            expected,
+            this.createObject().firstParameterValueOrFail(Cast.to(parameters)),
+            () -> "firstParameterValueOrFail of " + parameters
         );
     }
 
@@ -148,27 +148,27 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueOrFailNullParametersFail() {
         this.parameterValueOrFail(
-                null,
-                Function.identity(),
-                NullPointerException.class
+            null,
+            Function.identity(),
+            NullPointerException.class
         );
     }
 
     @Test
     public void testParameterValueOrFailNullConverterFail() {
         this.parameterValueOrFail(
-                Maps.empty(),
-                null,
-                NullPointerException.class
+            Maps.empty(),
+            null,
+            NullPointerException.class
         );
     }
 
     @Test
     public void testParameterValueOrFailMissingFails() {
         this.parameterValueOrFail(
-                Maps.empty(),
-                Function.identity(),
-                new IllegalArgumentException("Missing query parameter param-1")
+            Maps.empty(),
+            Function.identity(),
+            new IllegalArgumentException("Missing query parameter param-1")
         );
     }
 
@@ -176,15 +176,15 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     public void testParameterValueOrFailSeveralValuesFails() {
         final UrlParameterName parameter = this.createComparable();
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(
-                parameter,
-                Lists.of("1", "2", "3")
+            parameter,
+            Lists.of("1", "2", "3")
         );
 
         this.parameterValueOrFail(
-                parameter,
-                parameters,
-                Function.identity(),
-                new IllegalArgumentException("Query parameter param-1: Multiple values got 1, 2, 3")
+            parameter,
+            parameters,
+            Function.identity(),
+            new IllegalArgumentException("Query parameter param-1: Multiple values got 1, 2, 3")
         );
     }
 
@@ -194,10 +194,10 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("A!!!"));
 
         this.parameterValueOrFail(
-                parameter,
-                parameters,
-                BigDecimal::new,
-                new IllegalArgumentException("Character A is neither a decimal digit number, decimal point, nor \"e\" notation exponential mark.")
+            parameter,
+            parameters,
+            BigDecimal::new,
+            new IllegalArgumentException("Character A is neither a decimal digit number, decimal point, nor \"e\" notation exponential mark.")
         );
     }
 
@@ -205,10 +205,10 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                                       final Function<String, ?> converter,
                                       final Class<? extends Throwable> thrown) {
         this.parameterValueOrFail(
-                this.createComparable(),
-                parameters,
-                converter,
-                thrown
+            this.createComparable(),
+            parameters,
+            converter,
+            thrown
         );
     }
 
@@ -217,11 +217,11 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                                       final Function<String, ?> converter,
                                       final Class<? extends Throwable> thrown) {
         assertThrows(
-                thrown,
-                () -> parameter.parameterValueOrFail(
-                        parameters,
-                        converter
-                )
+            thrown,
+            () -> parameter.parameterValueOrFail(
+                parameters,
+                converter
+            )
         );
     }
 
@@ -229,10 +229,10 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                                       final Function<String, ?> converter,
                                       final IllegalArgumentException thrown) {
         this.parameterValueOrFail(
-                this.createComparable(),
-                parameters,
-                converter,
-                thrown
+            this.createComparable(),
+            parameters,
+            converter,
+            thrown
         );
     }
 
@@ -241,13 +241,13 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                                       final Function<String, ?> converter,
                                       final IllegalArgumentException thrown) {
         final Throwable throwable = assertThrows(
-                thrown.getClass(),
-                () -> parameter.parameterValueOrFail(parameters, converter)
+            thrown.getClass(),
+            () -> parameter.parameterValueOrFail(parameters, converter)
         );
 
         this.checkEquals(
-                thrown.getMessage(),
-                throwable.getMessage()
+            thrown.getMessage(),
+            throwable.getMessage()
         );
     }
 
@@ -256,8 +256,8 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         final UrlParameterName parameter = this.createComparable();
         final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("123"));
         this.checkEquals(BigDecimal.valueOf(123),
-                parameter.parameterValueOrFail(parameters,
-                        BigDecimal::new));
+            parameter.parameterValueOrFail(parameters,
+                BigDecimal::new));
     }
 
     // HttpRequestAttribute...............................................
@@ -266,20 +266,20 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     public void testParameterValueRequest() {
         final UrlParameterName name = this.createName("param1");
         this.checkEquals(Optional.of(Lists.of("value1")),
-                name.parameterValue(new FakeHttpRequest() {
+            name.parameterValue(new FakeHttpRequest() {
 
-                    @Override
-                    public RelativeUrl url() {
-                        return Url.parseRelative("/file?param2=value2&param1=value1");
-                    }
-                }));
+                @Override
+                public RelativeUrl url() {
+                    return Url.parseRelative("/file?param2=value2&param1=value1");
+                }
+            }));
     }
 
     @Test
     public void testParameterValueMap() {
         final UrlParameterName name = this.createName("param1");
         this.checkEquals(Optional.of(Lists.of("value1")),
-                name.parameterValue(UrlQueryString.parse("param1=value1&param2=value2").parameters()));
+            name.parameterValue(UrlQueryString.parse("param1=value1&param2=value2").parameters()));
     }
 
     // Comparable.......................................................................................................
@@ -292,7 +292,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
         final UrlParameterName d4 = UrlParameterName.with("d4");
 
         this.compareToArraySortAndCheck(d4, a1, c3, b2,
-                a1, b2, c3, d4);
+            a1, b2, c3, d4);
     }
 
     @Override

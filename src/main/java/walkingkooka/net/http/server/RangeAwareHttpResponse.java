@@ -63,9 +63,9 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
         final Optional<RangeHeader> maybeRange = HttpHeaderName.RANGE.header(request);
         if (maybeRange.isPresent()) {
             result = new RangeAwareHttpResponse(response,
-                    maybeRange.get(),
-                    HttpHeaderName.IF_RANGE.header(request).orElse(null),
-                    boundaryCharacters);
+                maybeRange.get(),
+                HttpHeaderName.IF_RANGE.header(request).orElse(null),
+                boundaryCharacters);
         }
 
         return result;
@@ -96,8 +96,8 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
             // if-range/lastmodified == response.lastmodified
             final IfRange<?> ifRange = this.ifRange;
             if (null == ifRange ||
-                    ifRange.isETag() && this.isETagSatisified(ifRange, entity) ||
-                    ifRange.isLastModified() && this.isLastModifiedSatisified(ifRange, entity)) {
+                ifRange.isETag() && this.isETagSatisified(ifRange, entity) ||
+                ifRange.isLastModified() && this.isLastModifiedSatisified(ifRange, entity)) {
 
                 if (this.canSatisfyRange(entity.body().size())) {
                     this.addMultipartEntities(entity);
@@ -119,14 +119,14 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
                                      final HasHeaders response) {
         final Optional<ETag> etag = HttpHeaderName.E_TAG.header(response);
         return etag.isPresent() &&
-                ifRange.etag().value().test(etag.get());
+            ifRange.etag().value().test(etag.get());
     }
 
     private boolean isLastModifiedSatisified(final IfRange<?> ifRange,
                                              final HasHeaders response) {
         final Optional<LocalDateTime> lastModified = HttpHeaderName.LAST_MODIFIED.header(response);
         return lastModified.isPresent() &&
-                ifRange.lastModified().value().equals(lastModified.get());
+            ifRange.lastModified().value().equals(lastModified.get());
     }
 
     /**
@@ -134,13 +134,13 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
      */
     private boolean canSatisfyRange(final int contentLength) {
         return this.range.value()
-                .stream()
-                .allMatch(r -> canSatisfyRange0(contentLength, r));
+            .stream()
+            .allMatch(r -> canSatisfyRange0(contentLength, r));
     }
 
     private static boolean canSatisfyRange0(final int contentLength, final Range<Long> range) {
         return canSatisfyRange1(contentLength, range.lowerBound()) &&
-                canSatisfyRange1(contentLength, range.upperBound());
+            canSatisfyRange1(contentLength, range.upperBound());
     }
 
     private static boolean canSatisfyRange1(final int contentLength, final RangeBound<Long> bound) {
@@ -180,8 +180,8 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
 
         this.response.setStatus(HttpStatusCode.PARTIAL_CONTENT.status());
         this.response.setEntity(
-                entity.setContentType(boundary.multipartByteRanges())
-                        .setBody(HttpEntity.NO_BODY)
+            entity.setContentType(boundary.multipartByteRanges())
+                .setBody(HttpEntity.NO_BODY)
         );
 
         final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerOrFail(entity);
@@ -198,8 +198,8 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
 
     private Range<Long> replaceUpperBoundsIfWildcard(final Range<Long> range, final long contentLength) {
         return range.upperBound().isAll() ?
-                Range.greaterThanEquals(range.lowerBound().value().get()).and(Range.lessThanEquals(contentLength - 1)) :
-                range;
+            Range.greaterThanEquals(range.lowerBound().value().get()).and(Range.lessThanEquals(contentLength - 1)) :
+            range;
     }
 
     /**

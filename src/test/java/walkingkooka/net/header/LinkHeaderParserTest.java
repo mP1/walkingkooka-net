@@ -59,37 +59,37 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
     @Test
     public void testLinkAbsoluteUrl() {
         this.parseStringAndCheck2("<https://example.com>",
-                Link.with(Url.parse("https://example.com")));
+            Link.with(Url.parse("https://example.com")));
     }
 
     @Test
     public void testLinkRelativeUrl() {
         this.parseStringAndCheck2("</path/file>",
-                this.link());
+            this.link());
     }
 
     @Test
     public void testLinkTypeParameter() {
         this.parseStringAndCheck2("</path/file>; type=text/plain",
-                this.link(LinkParameterName.TYPE, MediaType.TEXT_PLAIN));
+            this.link(LinkParameterName.TYPE, MediaType.TEXT_PLAIN));
     }
 
     @Test
     public void testLinkRelParameter() {
         this.parseStringAndCheck2("</path/file>; rel=prev",
-                this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV)));
+            this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV)));
     }
 
     @Test
     public void testLinkRelParameterUrlValue() {
         this.parseStringAndCheck2("</path/file>; rel=https://example.com",
-                this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("https://example.com"))));
+            this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("https://example.com"))));
     }
 
     @Test
     public void testLinkRelParameterMultipleValues() {
         this.parseStringAndCheck2("</path/file>; rel=\"prev next\"",
-                this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV, LinkRelation.NEXT)));
+            this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV, LinkRelation.NEXT)));
     }
 
     private Link link() {

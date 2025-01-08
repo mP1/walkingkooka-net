@@ -141,12 +141,12 @@ abstract class EmailAddressParser {
     }
 
     private final static CharPredicate USERNAME_CHARACTERS = CharPredicateBuilder.empty()//
-            .range('A', 'Z')//
-            .range('a', 'z')//
-            .range('0', '9')//
-            .any("!#$%&'*+-/=?^_`{|}~")//
-            .any('.')//
-            .build();
+        .range('A', 'Z')//
+        .range('a', 'z')//
+        .range('0', '9')//
+        .any("!#$%&'*+-/=?^_`{|}~")//
+        .any('.')//
+        .build();
 
     private final static CharPredicate QUOTABLE_USERNAME_CHARACTERS = CharPredicates.any(" <>[]:;@\\");
 

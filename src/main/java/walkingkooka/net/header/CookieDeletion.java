@@ -49,8 +49,8 @@ abstract public class CookieDeletion {
      */
     public static Optional<CookieDeletion> maxAge(final int seconds) {
         return -1 != seconds ?
-                Optional.of(CookieMaxAge.with(seconds)) :
-                Optional.empty();
+            Optional.of(CookieMaxAge.with(seconds)) :
+            Optional.empty();
     }
 
     /**

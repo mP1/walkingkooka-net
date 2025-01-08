@@ -24,7 +24,7 @@ import walkingkooka.test.ParseStringTesting;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
-        implements ParseStringTesting<RangeHeaderUnit> {
+    implements ParseStringTesting<RangeHeaderUnit> {
 
     // isWildcard ..................................................................................................
 

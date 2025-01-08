@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
 public abstract class EmailAddressParserTestCase<P extends EmailAddressParser> implements ClassTesting2<P>,
-        ToStringTesting<P> {
+    ToStringTesting<P> {
 
     EmailAddressParserTestCase() {
         super();

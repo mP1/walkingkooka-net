@@ -81,9 +81,9 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         final MediaType contentType = MediaType.TEXT_PLAIN;
 
         this.contentTypeAndCheck(
-                HttpEntity.EMPTY.setContentType(contentType)
-                        .setBodyText("BodyText123"),
-                contentType
+            HttpEntity.EMPTY.setContentType(contentType)
+                .setBodyText("BodyText123"),
+            contentType
         );
     }
 
@@ -92,18 +92,18 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testIsMultipartFormDataWhenMultipartFormData() {
         this.isMultipartFormDataAndCheck(
-                HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
-                        .setBodyText("BodyText123"),
-                true
+            HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
+                .setBodyText("BodyText123"),
+            true
         );
     }
 
     @Test
     public void testIsMultipartFormDataWhenTextPlain() {
         this.isMultipartFormDataAndCheck(
-                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("BodyText123"),
-                false
+            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("BodyText123"),
+            false
         );
     }
 
@@ -113,7 +113,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     public void testBodyText() {
         final HttpEntity entity = this.createHttpEntity();
         final HttpEntity different = entity
-                .setBodyText(DIFFERENT_TEXT);
+            .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
         this.check(different, HttpEntity.NO_HEADERS, DIFFERENT_TEXT);
@@ -122,10 +122,10 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testBodyTextWithHeaders() {
         final HttpEntity entity = this.createHttpEntity()
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 777L);
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 777L);
 
         final HttpEntity different = entity
-                .setBodyText(DIFFERENT_TEXT);
+            .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
         this.check(entity, map(HttpHeaderName.CONTENT_LENGTH, 777L), TEXT);
@@ -147,30 +147,30 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                HttpEntityText.with(
-                        Maps.of(
-                                HttpHeaderName.CONTENT_LENGTH,
-                                HttpEntityHeaderList.one(
-                                        HttpHeaderName.CONTENT_LENGTH,
-                                        257L
-                                ),
-                                HttpHeaderName.CONTENT_TYPE,
-                                HttpEntityHeaderList.one(
-                                        HttpHeaderName.CONTENT_TYPE,
-                                        MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
-                                ),
-                                HttpHeaderName.SERVER,
-                                HttpEntityHeaderList.one(
-                                        HttpHeaderName.SERVER,
-                                        "Server 123"
-                                )
-                        ), "AB\nC"),
-                "Content-Length: 257\r\n" +
-                        "Content-Type: text/plain; charset=UTF-8\r\n" +
-                        "Server: Server 123\r\n" +
-                        "\r\n" +
-                        "AB\n" +
-                        "C"
+            HttpEntityText.with(
+                Maps.of(
+                    HttpHeaderName.CONTENT_LENGTH,
+                    HttpEntityHeaderList.one(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        257L
+                    ),
+                    HttpHeaderName.CONTENT_TYPE,
+                    HttpEntityHeaderList.one(
+                        HttpHeaderName.CONTENT_TYPE,
+                        MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+                    ),
+                    HttpHeaderName.SERVER,
+                    HttpEntityHeaderList.one(
+                        HttpHeaderName.SERVER,
+                        "Server 123"
+                    )
+                ), "AB\nC"),
+            "Content-Length: 257\r\n" +
+                "Content-Type: text/plain; charset=UTF-8\r\n" +
+                "Server: Server 123\r\n" +
+                "\r\n" +
+                "AB\n" +
+                "C"
         );
     }
 
@@ -179,99 +179,99 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     @Test
     public void testTreePrintHeader() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n"
         );
     }
 
     @Test
     public void testTreePrintSeveralHeader() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .addHeader(HttpHeaderName.SERVER, "Server123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Length: 123\n" +
-                        "    Content-Type: text/plain\n" +
-                        "    Server: Server123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .addHeader(HttpHeaderName.SERVER, "Server123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Length: 123\n" +
+                "    Content-Type: text/plain\n" +
+                "    Server: Server123\n"
         );
     }
 
     @Test
     public void testTreePrintHeaderAndBodyText() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("Body123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("Body123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 
     @Test
     public void testTreePrintBodyText() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("Body123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("Body123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 
     @Test
     public void testTreePrintBodyTextIncludesLineBreaks() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("Line1\nLine2\rLine3\r\n"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n" +
-                        "  bodyText\n" +
-                        "    Line1\n" +
-                        "    Line2\r" +
-                        "    Line3\r\n" +
-                        "    \n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("Line1\nLine2\rLine3\r\n"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n" +
+                "  bodyText\n" +
+                "    Line1\n" +
+                "    Line2\r" +
+                "    Line3\r\n" +
+                "    \n"
         );
     }
 
     @Test
     public void testTreePrintBodyTextContentTypeApplicationJson() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.APPLICATION_JSON)
-                        .setBodyText("Body123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: application/json\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.APPLICATION_JSON)
+                .setBodyText("Body123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: application/json\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 
     @Test
     public void testTreePrintBodyTextContentJsonSuffix() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.parse("application/magic+json"))
-                        .setBodyText("Body123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: application/magic+json\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.parse("application/magic+json"))
+                .setBodyText("Body123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: application/magic+json\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 

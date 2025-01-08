@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserWithParametersTestCase<P,
-        V> {
+    V> {
 
     MediaTypeHeaderParserTestCase() {
         super();
@@ -63,19 +63,19 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeFails() {
         this.parseStringFails("type",
-                "Missing type at 4 in \"type\"");
+            "Missing type at 4 in \"type\"");
     }
 
     @Test
     public final void testTypeSlashFails() {
         this.parseStringFails("type/",
-                "Missing sub type at 5 in \"type/\"");
+            "Missing sub type at 5 in \"type/\"");
     }
 
     @Test
     public final void testTypeInvalidCharacterFails() {
         this.parseStringInvalidCharacterFails("prima?ry/subtype",
-                '?');
+            '?');
     }
 
     @Test
@@ -131,13 +131,13 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testParameterValueQuotedInvalidFails() {
         this.parseStringInvalidCharacterFails("type/subtype;p=\"v\";[",
-                '[');
+            '[');
     }
 
     @Test
     public final void testParameterValueQuotedInvalidFails2() {
         this.parseStringInvalidCharacterFails("type/subtype;p=\"v\"[",
-                '[');
+            '[');
     }
 
     @Test
@@ -173,57 +173,57 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubType() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE,
-                TYPE,
-                SUBTYPE);
+            TYPE,
+            SUBTYPE);
     }
 
     @Test
     public final void testTypeWildcardSlashSubType() {
         this.parseStringAndCheck("*/*",
-                MediaType.WILDCARD.string(),
-                MediaType.WILDCARD.string());
+            MediaType.WILDCARD.string(),
+            MediaType.WILDCARD.string());
     }
 
     @Test
     public final void testTypeSlashSubType2() {
         this.parseStringAndCheck("a/b",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testSpaceTypeSlashSub() {
         this.parseStringAndCheck(" a/b",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTabTypeSlashSub() {
         this.parseStringAndCheck("\ta/b",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeWildcard() {
         this.parseStringAndCheck("a/*",
-                "a",
-                MediaType.WILDCARD.string());
+            "a",
+            MediaType.WILDCARD.string());
     }
 
     @Test
     public final void testTypeSlashSubTypeSpace() {
         this.parseStringAndCheck("a/b ",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeTab() {
         this.parseStringAndCheck("a/b\t",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
@@ -244,127 +244,127 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubTypeCrNlSpace() {
         this.parseStringAndCheck("a/b\r\n ",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeCrNlTab() {
         this.parseStringAndCheck("a/b\r\n\t",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeSpaceSpace() {
         this.parseStringAndCheck("a/b  ",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeSpaceTab() {
         this.parseStringAndCheck("a/b \t",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeTabTab() {
         this.parseStringAndCheck("a/b\t\t",
-                "a",
-                "b");
+            "a",
+            "b");
     }
 
     @Test
     public final void testTypeSlashSubTypeTabSpace() {
         this.parseStringAndCheck(
-                "abc/def\t ",
-                "abc",
-                "def"
+            "abc/def\t ",
+            "abc",
+            "def"
         );
     }
 
     @Test
     public final void testTypeSlashSubTypePlusSuffix() {
         this.parseStringAndCheck(
-                "abc/def+suffix123",
-                "abc",
-                "def",
-                Optional.of("suffix123"),
-                MediaType.NO_PARAMETERS
+            "abc/def+suffix123",
+            "abc",
+            "def",
+            Optional.of("suffix123"),
+            MediaType.NO_PARAMETERS
         );
     }
 
     @Test
     public final void testTypeSlashSubTypePrefixSuffix() {
         this.parseStringAndCheck(
-                "a/b+suffix123",
-                "a",
-                "b",
-                Optional.of("suffix123"),
-                MediaType.NO_PARAMETERS
+            "a/b+suffix123",
+            "a",
+            "b",
+            Optional.of("suffix123"),
+            MediaType.NO_PARAMETERS
         );
     }
 
     @Test
     public final void testTypeSlashVendorDotSubType() {
         this.parseStringAndCheck(
-                "a/vnd.b",
-                "a",
-                "vnd.b"
+            "a/vnd.b",
+            "a",
+            "vnd.b"
         );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameter() {
         this.parseStringAndCheck(
-                TYPE + "/" + SUBTYPE + ";p=v",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v")
+            TYPE + "/" + SUBTYPE + ";p=v",
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v")
         );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameter2() {
         this.parseStringAndCheck(
-                TYPE + "/" + SUBTYPE + ";parameter=value",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value")
+            TYPE + "/" + SUBTYPE + ";parameter=value",
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value")
         );
     }
 
     @Test
     public final void testTypeSlashSubTypeParameterQuotedValue() {
         this.parseStringAndCheck(
-                TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value")
+            TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value")
         );
     }
 
     @Test
     public final void testTypeSlashSubTypePlusSuffixParameter() {
         this.parseStringAndCheck(
-                TYPE + "/" + SUBTYPE + "+suffix123;parameter=\"quoted-value-123\"",
-                TYPE,
-                SUBTYPE,
-                Optional.of("suffix123"),
-                parameters("parameter", "quoted-value-123")
+            TYPE + "/" + SUBTYPE + "+suffix123;parameter=\"quoted-value-123\"",
+            TYPE,
+            SUBTYPE,
+            Optional.of("suffix123"),
+            parameters("parameter", "quoted-value-123")
         );
     }
 
     @Test
     public final void testTypeSlashSubTypePlusSuffixParameterParameter() {
         this.parseStringAndCheck(
-                TYPE + "/" + SUBTYPE + "+suffix123;parameter1=value1;parameter2=value2",
-                TYPE,
-                SUBTYPE,
-                Optional.of("suffix123"),
-                parameters("parameter1", "value1", "parameter2", "value2")
+            TYPE + "/" + SUBTYPE + "+suffix123;parameter1=value1;parameter2=value2",
+            TYPE,
+            SUBTYPE,
+            Optional.of("suffix123"),
+            parameters("parameter1", "value1", "parameter2", "value2")
         );
     }
 
@@ -377,17 +377,17 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubTypeParameterSpace() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value ",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeParameterTab() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value\t",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
@@ -408,89 +408,89 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubTypeParameterSpaceTabCrNlSpaceTab() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value \t\r\n \t",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValue() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueSpace() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" ",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueTab() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" ",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueSpaceTabSpaceTab() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" \t \t",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "value"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "value"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueOtherwiseInvalidCharacters() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val?ue\"",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "val?ue"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "val?ue"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueBackslashEscaped() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\\ue\"",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "val\\ue"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "val\\ue"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueEscapedDoubleQuote() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\"ue\"",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter", "val\"ue"));
+            TYPE,
+            SUBTYPE,
+            parameters("parameter", "val\"ue"));
     }
 
     @Test
     public final void testTypeSlashSubTypeQuotedParameterValueParameter2() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";p1=\"v1\";p2=v2",
-                TYPE,
-                SUBTYPE,
-                parameters("p1", "v1", "p2", "v2"));
+            TYPE,
+            SUBTYPE,
+            parameters("p1", "v1", "p2", "v2"));
     }
 
     @Test
     public final void testTypeSlashSubTypeSpaceParameter() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + "; p=v",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v"));
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v"));
     }
 
     @Test
     public final void testTypeSlashSubTypeTabParameter() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";\tp=v",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v"));
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v"));
     }
 
     @Test
@@ -506,41 +506,41 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubTypeSpaceTabSpaceTabParameter2() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + "; \t \tp=v",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v"));
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v"));
     }
 
     @Test
     public final void testTypeSlashSubTypeParameterParameter() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";p=v;p2=v2",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v", "p2", "v2"));
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v", "p2", "v2"));
     }
 
     @Test
     public final void testTypeSlashSubTypeSpaceTabCrNlSpaceTabParameter() {
         this.parseStringAndCheck(TYPE + "/" + SUBTYPE + ";p=v; \t\r\n \tp2=v2",
-                TYPE,
-                SUBTYPE,
-                parameters("p", "v", "p2", "v2"));
+            TYPE,
+            SUBTYPE,
+            parameters("p", "v", "p2", "v2"));
     }
 
     @Test
     public void testParameterBoundary() {
         this.parseStringAndCheck("type/subtype;boundary=\"abc-123\"",
-                TYPE,
-                SUBTYPE,
-                parameters("boundary", MediaTypeBoundary.with("abc-123")));
+            TYPE,
+            SUBTYPE,
+            parameters("boundary", MediaTypeBoundary.with("abc-123")));
     }
 
     @Test
     public void testParameterCharset() {
         this.parseStringAndCheck("type/subtype;charset=utf-8",
-                TYPE,
-                SUBTYPE,
-                parameters("charset", CharsetName.UTF_8));
+            TYPE,
+            SUBTYPE,
+            parameters("charset", CharsetName.UTF_8));
     }
 
     final Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
@@ -552,16 +552,16 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                                                             final String name2,
                                                             final Object value2) {
         return Maps.of(MediaTypeParameterName.with(name), value,
-                MediaTypeParameterName.with(name2), value2);
+            MediaTypeParameterName.with(name2), value2);
     }
 
     private void parseStringAndCheck(final String text,
                                      final String type,
                                      final String subtype) {
         this.check(
-                MediaType.parse(text),
-                type,
-                subtype
+            MediaType.parse(text),
+            type,
+            subtype
         );
     }
 
@@ -570,11 +570,11 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                                      final String subtype,
                                      final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.parseStringAndCheck(
-                text,
-                type,
-                subtype,
-                MediaType.NO_SUFFIX,
-                parameters
+            text,
+            type,
+            subtype,
+            MediaType.NO_SUFFIX,
+            parameters
         );
     }
 
@@ -586,11 +586,11 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     final void check(final MediaType mediaType, final String type, final String subtype) {
         check(
-                mediaType,
-                type,
-                subtype,
-                MediaType.NO_SUFFIX,
-                MediaType.NO_PARAMETERS
+            mediaType,
+            type,
+            subtype,
+            MediaType.NO_SUFFIX,
+            MediaType.NO_PARAMETERS
         );
     }
 
@@ -599,11 +599,11 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                      final String subtype,
                      final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(
-                mediaType,
-                type,
-                subtype,
-                MediaType.NO_SUFFIX,
-                parameters
+            mediaType,
+            type,
+            subtype,
+            MediaType.NO_SUFFIX,
+            parameters
         );
     }
 
@@ -618,8 +618,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
         this.checkEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return MediaTypeHeaderParser.MEDIATYPE;
     }
 }

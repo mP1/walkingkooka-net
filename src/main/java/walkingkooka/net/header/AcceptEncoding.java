@@ -37,8 +37,8 @@ import java.util.function.Predicate;
  * </pre>
  */
 public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
-        implements Predicate<ContentEncoding>,
-        HasQualityFactorSortedValues<AcceptEncodingValue> {
+    implements Predicate<ContentEncoding>,
+    HasQualityFactorSortedValues<AcceptEncodingValue> {
 
     /**
      * Parses a header value that contains one or more encodings.
@@ -71,9 +71,9 @@ public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
         Objects.requireNonNull(contentEncoding, "contentEncoding");
 
         return this.value.stream()
-                .filter(e -> e.test(contentEncoding))
-                .limit(1)
-                .count() == 1;
+            .filter(e -> e.test(contentEncoding))
+            .limit(1)
+            .count() == 1;
     }
 
     // Header.....................................................................................................

@@ -45,8 +45,8 @@ final class ContentDispositionFileNameEncodedHeaderHandler extends NonStringHead
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof ContentDispositionFileNameEncoded,
-                ContentDispositionFileNameEncoded.class
+            (v) -> v instanceof ContentDispositionFileNameEncoded,
+            ContentDispositionFileNameEncoded.class
         );
     }
 

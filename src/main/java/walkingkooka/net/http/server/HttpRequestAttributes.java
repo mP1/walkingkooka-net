@@ -39,31 +39,31 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
      * A {@link HttpRequestAttribute} for {@link HttpRequest#method()}
      */
     public final static HttpRequestAttributes<HttpMethod> METHOD = new HttpRequestAttributes<>("METHOD",
-            HttpRequest::method);
+        HttpRequest::method);
 
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#protocolVersion()}
      */
     public final static HttpRequestAttributes<HttpProtocolVersion> HTTP_PROTOCOL_VERSION = new HttpRequestAttributes<>("PROTOCOL_VERSION",
-            HttpRequest::protocolVersion);
+        HttpRequest::protocolVersion);
 
     /**
      * A {@link HttpRequestAttribute} that contains the path component count
      */
     public final static HttpRequestAttributes<Integer> PATH_COMPONENT_COUNT = new HttpRequestAttributes<>("PATH_COMPONENT_COUNT",
-            HttpRequestAttributes::pathComponentCount);
+        HttpRequestAttributes::pathComponentCount);
 
     private static Integer pathComponentCount(final HttpRequest request) {
         return Long.valueOf(StreamSupport.stream(Iterables.iterator(request.url().path().iterator()).spliterator(), false)
-                        .count())
-                .intValue();
+                .count())
+            .intValue();
     }
 
     /**
      * A {@link HttpRequestAttribute} for {@link HttpRequest#transport()}
      */
     public final static HttpRequestAttributes<HttpTransport> TRANSPORT = new HttpRequestAttributes<>("TRANSPORT",
-            HttpRequest::transport);
+        HttpRequest::transport);
 
     /**
      * {@see HttpRequestAttributeUrlPathName}
@@ -112,16 +112,16 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
      */
     static String iteratorEntryToString(final int position, final HttpRequest request) {
         return position < VALUES.length ?
-                VALUES[position] + "=" + VALUES[position].parameterValue(request).get() :
-                "";
+            VALUES[position] + "=" + VALUES[position].parameterValue(request).get() :
+            "";
     }
 
     /**
      * Constants an array to facilitate access via index.
      */
     private final static HttpRequestAttributes<?>[] VALUES = new HttpRequestAttributes<?>[]{TRANSPORT,
-            METHOD,
-            HTTP_PROTOCOL_VERSION};
+        METHOD,
+        HTTP_PROTOCOL_VERSION};
 
     // Object...........................................................................................................
 

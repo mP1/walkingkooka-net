@@ -27,8 +27,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
-        HeaderTestCase<F>
-        implements IsMethodTesting<F> {
+    HeaderTestCase<F>
+    implements IsMethodTesting<F> {
 
     ContentDispositionFileNameTestCase() {
         super();
@@ -43,9 +43,9 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     final void parameterNameAndCheck(final F filename,
                                      final ContentDispositionParameterName<?> expected) {
         this.checkEquals(
-                expected,
-                filename.parameterName(),
-                filename::toString
+            expected,
+            filename.parameterName(),
+            filename::toString
         );
     }
 
@@ -66,26 +66,26 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     final void toNotEncodedAndCheck(final ContentDispositionFileName filename,
                                     final Optional<ContentDispositionFileName> expected) {
         this.checkEquals(
-                expected,
-                filename.toNotEncoded(),
-                filename::toString
+            expected,
+            filename.toNotEncoded(),
+            filename::toString
         );
     }
 
     final void toNotEncodedIfPossibleAndCheck(final ContentDispositionFileName filename) {
         assertSame(
-                filename,
-                filename.toNotEncodedIfPossible(),
-                filename::toString
+            filename,
+            filename.toNotEncodedIfPossible(),
+            filename::toString
         );
     }
 
     final void toNotEncodedIfPossibleAndCheck(final ContentDispositionFileName filename,
                                               final ContentDispositionFileName expected) {
         this.checkEquals(
-                expected,
-                filename.toNotEncodedIfPossible(),
-                filename::toString
+            expected,
+            filename.toNotEncodedIfPossible(),
+            filename::toString
         );
     }
 

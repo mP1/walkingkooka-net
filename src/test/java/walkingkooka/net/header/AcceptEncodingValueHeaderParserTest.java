@@ -55,44 +55,44 @@ public final class AcceptEncodingValueHeaderParserTest extends HeaderParserTestC
     @Test
     public void testToken() {
         this.parseStringAndCheck("gzip",
-                AcceptEncodingValue.GZIP);
+            AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseStringAndCheck("gzip ",
-                AcceptEncodingValue.GZIP);
+            AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseStringAndCheck(" gzip",
-                AcceptEncodingValue.GZIP);
+            AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
         this.parseStringAndCheck("gzip;q=0.5",
-                AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
+            AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseStringAndCheck("gzip;q=0.5;abc=xyz",
-                AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f,
-                        AcceptEncodingValueParameterName.with("abc"), "xyz")));
+            AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f,
+                AcceptEncodingValueParameterName.with("abc"), "xyz")));
     }
 
     @Test
     public void testWildcard() {
         this.parseStringAndCheck("*",
-                AcceptEncodingValue.WILDCARD_ENCODING);
+            AcceptEncodingValue.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardParameter() {
         this.parseStringAndCheck("*;q=0.5",
-                AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
+            AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     @Test

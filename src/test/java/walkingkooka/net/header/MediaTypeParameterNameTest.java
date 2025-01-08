@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCase<MediaTypeParameterName<?>,
-        MediaTypeParameterName<?>> {
+    MediaTypeParameterName<?>> {
 
     @Test
     public void testWithIncludesWhitespaceFails() {
@@ -51,7 +51,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(MediaTypeParameterName.Q,
-                MediaTypeParameterName.with(MediaTypeParameterName.Q.value()));
+            MediaTypeParameterName.with(MediaTypeParameterName.Q.value()));
     }
 
     @Test
@@ -66,7 +66,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     @Test
     public void testParameterValueAbsent() {
         this.parameterValueAndCheckAbsent(MediaTypeParameterName.Q,
-                this.mediaType());
+            this.mediaType());
     }
 
     @Test
@@ -75,8 +75,8 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.mediaType().setParameters(Maps.of(parameter, value)),
-                value);
+            this.mediaType().setParameters(Maps.of(parameter, value)),
+            value);
     }
 
     @Test
@@ -85,8 +85,8 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final CharsetName charsetName = CharsetName.UTF_8;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.mediaType().setParameters(Maps.of(parameter, charsetName)),
-                charsetName);
+            this.mediaType().setParameters(Maps.of(parameter, charsetName)),
+            charsetName);
     }
 
     private MediaType mediaType() {

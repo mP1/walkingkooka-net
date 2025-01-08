@@ -59,8 +59,8 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                                     final HttpEntityHeaderList value) {
         final HttpEntityHeaderList values = this.headers2().get(header);
         return value.equals(values) ?
-                this :
-                this.setHeader1(header, value);
+            this :
+            this.setHeader1(header, value);
     }
 
     /**
@@ -98,8 +98,8 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
             } else {
                 // append value and return new entity
                 updated.put(
-                        header,
-                        (HttpEntityHeaderList) values.concat(value)
+                    header,
+                    (HttpEntityHeaderList) values.concat(value)
                 );
                 added = this.replaceHeaders(Maps.readOnly(updated));
             }
@@ -125,8 +125,8 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         }
 
         return changed ?
-                this.replaceHeaders(removed) :
-                this;
+            this.replaceHeaders(removed) :
+            this;
     }
 
     // contentType......................................................................................................
@@ -143,10 +143,10 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
 
         return bodyText.isEmpty() && headers.isEmpty() ?
-                EMPTY :
-                this.bodyText().equals(bodyText) ?
-                        this :
-                        HttpEntityText.with(headers, bodyText);
+            EMPTY :
+            this.bodyText().equals(bodyText) ?
+                this :
+                HttpEntityText.with(headers, bodyText);
     }
 
     // Object..........................................................................................................
@@ -156,10 +156,10 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
         final StringBuilder b = new StringBuilder();
 
         final IndentingPrinter printer = Printers.stringBuilder(b, LineEnding.CRNL)
-                .indenting(Indentation.EMPTY);
+            .indenting(Indentation.EMPTY);
         this.printHeaders(
-                this.alphaSortedHeaders(),
-                printer
+            this.alphaSortedHeaders(),
+            printer
         );
 
         printer.println();
@@ -188,9 +188,9 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                     final int k = i + j;
                     if (k < length) {
                         b.append(
-                                hex(
-                                        bodyBytes[k]
-                                )
+                            hex(
+                                bodyBytes[k]
+                            )
                         );
                     } else {
                         b.append("  ");
@@ -204,9 +204,9 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                     if (k < length) {
                         final char c = (char) bodyBytes[k];
                         b.append(
-                                Ascii.isPrintable(c) ?
-                                        c :
-                                        UNPRINTABLE_CHAR
+                            Ascii.isPrintable(c) ?
+                                c :
+                                UNPRINTABLE_CHAR
                         );
                     } else {
                         b.append(' ');
@@ -222,7 +222,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     private void toStringText(final StringBuilder b) {
         b.append(
-                this.bodyText()
+            this.bodyText()
         );
     }
 
@@ -250,9 +250,9 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                     final int k = i + j;
                     if (k < length) {
                         printer.print(
-                                hex(
-                                        bodyBytes[k]
-                                )
+                            hex(
+                                bodyBytes[k]
+                            )
                         );
                     } else {
                         printer.print("  ");
@@ -268,9 +268,9 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                     if (k < length) {
                         final char c = (char) bodyBytes[k];
                         printer.print(
-                                String.valueOf(
-                                        Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR
-                                )
+                            String.valueOf(
+                                Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR
+                            )
                         );
                     } else {
                         printer.print(" ");
@@ -303,22 +303,22 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     private static CharSequence hex(final byte value) {
         return CharSequences.padLeft(
-                Integer.toHexString(0xff & value),
-                2,
-                '0'
+            Integer.toHexString(0xff & value),
+            2,
+            '0'
         );
     }
 
     private boolean isText() {
         final MediaType contentType = HttpHeaderName.CONTENT_TYPE.header(this)
-                .orElse(null);
+            .orElse(null);
 
         return null != contentType &&
-                (MediaType.ANY_TEXT.test(contentType) ||
-                        MediaType.APPLICATION_JSON.test(contentType) ||
-                        contentType.suffix()
-                                .equals(JSON_SUFFIX)
-                );
+            (MediaType.ANY_TEXT.test(contentType) ||
+                MediaType.APPLICATION_JSON.test(contentType) ||
+                contentType.suffix()
+                    .equals(JSON_SUFFIX)
+            );
     }
 
     private final static Optional<String> JSON_SUFFIX = Optional.of("json");

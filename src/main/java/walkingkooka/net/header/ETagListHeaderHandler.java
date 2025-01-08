@@ -46,8 +46,8 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<List<ETag>> {
     @Override
     void checkNonNull(final Object value) {
         this.checkListOfType(value,
-                v -> v instanceof ETag,
-                ETag.class
+            v -> v instanceof ETag,
+            ETag.class
         );
     }
 

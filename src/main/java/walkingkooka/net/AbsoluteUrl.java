@@ -54,8 +54,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
         try {
             return parseAbsolute1(
-                    new URL(url),
-                    url
+                new URL(url),
+                url
             );
         } catch (final MalformedURLException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
@@ -65,17 +65,17 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     private static AbsoluteUrl parseAbsolute1(final URL url,
                                               final String urlString) {
         return AbsoluteUrl.with(UrlScheme.with(url.getProtocol()),
-                credentials(url),
-                HostAddress.with(
-                        checkHost(
-                                url,
-                                urlString
-                        )
-                ),
-                ipPort(url),
-                UrlPath.parse(url.getPath()),
-                UrlQueryString.parse(nullToEmpty(url.getQuery())),
-                UrlFragment.parse(nullToEmpty(url.getRef())));
+            credentials(url),
+            HostAddress.with(
+                checkHost(
+                    url,
+                    urlString
+                )
+            ),
+            ipPort(url),
+            UrlPath.parse(url.getPath()),
+            UrlQueryString.parse(nullToEmpty(url.getQuery())),
+            UrlFragment.parse(nullToEmpty(url.getRef())));
     }
 
     private static String checkHost(final URL url,
@@ -83,8 +83,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         final String host = url.getHost();
         if (CharSequences.isNullOrEmpty(host)) {
             throw new IllegalArgumentException(
-                    "Missing host name in " +
-                            CharSequences.quoteAndEscape(urlString)
+                "Missing host name in " +
+                    CharSequences.quoteAndEscape(urlString)
             );
         }
         return host;
@@ -93,8 +93,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     private static Optional<UrlCredentials> credentials(final URL url) {
         final String userInfo = url.getUserInfo();
         return CharSequences.isNullOrEmpty(userInfo) ?
-                NO_CREDENTIALS :
-                credentials0(userInfo);
+            NO_CREDENTIALS :
+            credentials0(userInfo);
     }
 
     private static Optional<UrlCredentials> credentials0(final String userInfo) {
@@ -103,15 +103,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             throw new IllegalArgumentException("Invalid user credentials " + userInfo);
         }
         return Optional.of(UrlCredentials.with(
-                userInfo.substring(0, separator),
-                userInfo.substring(separator + 1)));
+            userInfo.substring(0, separator),
+            userInfo.substring(separator + 1)));
     }
 
     private static Optional<IpPort> ipPort(final URL url) {
         final int value = url.getPort();
         return -1 != value ?
-                Optional.of(IpPort.with(value)) :
-                NO_PORT;
+            Optional.of(IpPort.with(value)) :
+            NO_PORT;
     }
 
     /**
@@ -168,7 +168,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     @Override
     public AbsoluteUrl appendPathName(final UrlPathName name) {
         return this.appendPathName0(name)
-                .cast();
+            .cast();
     }
 
     @Override
@@ -199,8 +199,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         Objects.requireNonNull(scheme, "scheme");
 
         return this.scheme.equals(scheme) ?
-                this :
-                new AbsoluteUrl(scheme, this.credentials, this.host, this.port, this.path, this.query, this.fragment);
+            this :
+            new AbsoluteUrl(scheme, this.credentials, this.host, this.port, this.path, this.query, this.fragment);
     }
 
     private final UrlScheme scheme;
@@ -216,8 +216,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         Objects.requireNonNull(credentials, "credentials");
 
         return this.credentials.equals(credentials) ?
-                this :
-                new AbsoluteUrl(this.scheme, credentials, this.host, this.port, this.path, this.query, this.fragment);
+            this :
+            new AbsoluteUrl(this.scheme, credentials, this.host, this.port, this.path, this.query, this.fragment);
     }
 
     private final Optional<UrlCredentials> credentials;
@@ -233,8 +233,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         Objects.requireNonNull(host, "host");
 
         return this.host.equals(host) ?
-                this :
-                this.replaceHost(host);
+            this :
+            this.replaceHost(host);
     }
 
     /**
@@ -257,8 +257,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         Objects.requireNonNull(port, "port");
 
         return this.port.equals(port) ?
-                this :
-                new AbsoluteUrl(this.scheme, this.credentials, this.host, port, this.path, this.query, this.fragment);
+            this :
+            new AbsoluteUrl(this.scheme, this.credentials, this.host, port, this.path, this.query, this.fragment);
     }
 
     private final Optional<IpPort> port;
@@ -269,9 +269,9 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
                            final HostAddress host,
                            final Optional<IpPort> port) {
         return this.setScheme(scheme)
-                .setCredentials(credentials)
-                .setHost(host)
-                .setPort(port);
+            .setCredentials(credentials)
+            .setHost(host)
+            .setPort(port);
     }
 
     /**
@@ -339,7 +339,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             final String addressStringLowerCase = addressString.toLowerCase();
             if (false == addressString.equals(addressStringLowerCase)) {
                 normalized = normalized.replaceHost(
-                        HostAddress.with(addressStringLowerCase)
+                    HostAddress.with(addressStringLowerCase)
                 );
             }
         }
@@ -373,8 +373,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         // * the remove_dot_segments algorithm[5] to the path described in RFC 3986.[6] Example:
         // * http://example.com/foo/./bar/baz/../qux → http://example.com/foo/bar/qux
         return normalized.setPath(
-                normalized.path()
-                        .normalize()
+            normalized.path()
+                .normalize()
         );
     }
 
@@ -389,29 +389,29 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     @Override
     public int hashCode() {
         return Objects.hash(this.scheme,
-                this.credentials,
-                this.host,
-                this.port,
-                this.path,
-                this.query,
-                this.fragment);
+            this.credentials,
+            this.host,
+            this.port,
+            this.path,
+            this.query,
+            this.fragment);
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof AbsoluteUrl &&
-                        this.equals0((AbsoluteUrl) other);
+            other instanceof AbsoluteUrl &&
+                this.equals0((AbsoluteUrl) other);
     }
 
     private boolean equals0(final AbsoluteUrl other) {
         return this.scheme.equals(other.scheme) && //
-                this.credentials.equals(other.credentials) && //
-                this.host.equals(other.host) && //
-                this.port.equals(other.port) && //
-                this.path.equals(other.path) && //
-                this.query.equals(other.query) && //
-                this.fragment.equals(other.fragment);
+            this.credentials.equals(other.credentials) && //
+            this.host.equals(other.host) && //
+            this.port.equals(other.port) && //
+            this.path.equals(other.path) && //
+            this.query.equals(other.query) && //
+            this.fragment.equals(other.fragment);
     }
 
     @Override
@@ -449,8 +449,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
                     result = Comparators.EQUAL;
                 } else {
                     result = null == credentials ?
-                            Comparators.LESS :
-                            Comparators.MORE;
+                        Comparators.LESS :
+                        Comparators.MORE;
                 }
             } else {
                 result = credentials.compareTo(otherCredentials);

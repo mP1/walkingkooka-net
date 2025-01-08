@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderTestCase<N>
-        implements PredicateTesting2<N, CharsetName> {
+    implements PredicateTesting2<N, CharsetName> {
 
     CharsetNameTestCase() {
         super();
@@ -38,16 +38,16 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
     public final void testIsSupported() {
         final N charsetName = this.createCharsetName();
         this.checkEquals(this.type() == CharsetNameSupportedCharset.class,
-                charsetName.isSupported(),
-                () -> charsetName + " isSupported");
+            charsetName.isSupported(),
+            () -> charsetName + " isSupported");
     }
 
     @Test
     public final void testIsUnsupported() {
         final N charsetName = this.createCharsetName();
         this.checkEquals(this.type() == CharsetNameUnsupportedCharset.class,
-                charsetName.isUnsupported(),
-                () -> charsetName + " isUnsupported");
+            charsetName.isUnsupported(),
+            () -> charsetName + " isUnsupported");
     }
 
     @Test

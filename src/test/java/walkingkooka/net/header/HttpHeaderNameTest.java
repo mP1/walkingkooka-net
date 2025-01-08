@@ -46,16 +46,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<?>, HttpHeaderName<?>>
-        implements ConstantsTesting<HttpHeaderName<?>>,
-        NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
+    implements ConstantsTesting<HttpHeaderName<?>>,
+    NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
 
     @Test
     public void testIsConditional() {
         this.checkEquals(Sets.of(HttpHeaderName.E_TAG, HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
-                HttpHeaderName.CONSTANTS.values()
-                        .stream()
-                        .filter(HttpHeaderName::isConditional)
-                        .collect(Collectors.toCollection(SortedSets::tree)));
+            HttpHeaderName.CONSTANTS.values()
+                .stream()
+                .filter(HttpHeaderName::isConditional)
+                .collect(Collectors.toCollection(SortedSets::tree)));
     }
 
     @Test
@@ -83,30 +83,30 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testScopeRequestResponse() {
         this.checkScope(HttpHeaderName.CONTENT_LENGTH,
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testScopeRequestUnknown() {
         this.checkScope(HttpHeaderName.with("xyz"),
-                HttpHeaderScope.MULTIPART,
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.MULTIPART,
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
         this.checkEquals(scopesSet.contains(HttpHeaderScope.MULTIPART),
-                header.isMultipart(),
-                header + " isMultipart");
+            header.isMultipart(),
+            header + " isMultipart");
         this.checkEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
-                header.isRequest(),
-                header + " isRequest");
+            header.isRequest(),
+            header + " isRequest");
         this.checkEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
-                header.isResponse(),
-                header + " isResponse");
+            header.isResponse(),
+            header + " isResponse");
     }
 
     @Test
@@ -122,12 +122,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testConstantsCached() {
         this.checkEquals(Lists.empty(),
-                Arrays.stream(HttpHeaderName.class.getDeclaredFields())
-                        .filter(FieldAttributes.STATIC::is)
-                        .filter(f -> f.getType() == HeaderParameterName.class)
-                        .filter(HttpHeaderNameTest::constantNotCached)
-                        .collect(Collectors.toList()),
-                "");
+            Arrays.stream(HttpHeaderName.class.getDeclaredFields())
+                .filter(FieldAttributes.STATIC::is)
+                .filter(f -> f.getType() == HeaderParameterName.class)
+                .filter(HttpHeaderNameTest::constantNotCached)
+                .collect(Collectors.toList()),
+            "");
     }
 
     private static boolean constantNotCached(final Field field) {
@@ -142,49 +142,49 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testContentConstants() {
         final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
-                .stream()
-                .filter(h -> h.value().startsWith("content-"))
-                .filter(h -> false == h.isContent())
-                .collect(Collectors.toList());
+            .stream()
+            .filter(h -> h.value().startsWith("content-"))
+            .filter(h -> false == h.isContent())
+            .collect(Collectors.toList());
         this.checkEquals(Lists.empty(),
-                headers,
-                "Several HttpHeaderName.isContent() returns false when it should return true");
+            headers,
+            "Several HttpHeaderName.isContent() returns false when it should return true");
     }
 
     @Test
     public void testAcceptConstantsRequest() {
         this.constantScopeCheck("accept-",
-                "accept-ranges",
-                HttpHeaderName::isRequest,
-                true,
-                "isRequest");
+            "accept-ranges",
+            HttpHeaderName::isRequest,
+            true,
+            "isRequest");
     }
 
     @Test
     public void testAcceptConstantsResponse() {
         this.constantScopeCheck("accept-",
-                "accept-ranges",
-                HttpHeaderName::isResponse,
-                false,
-                "isResponse");
+            "accept-ranges",
+            HttpHeaderName::isResponse,
+            false,
+            "isResponse");
     }
 
     @Test
     public void testContentConstantsRequest() {
         this.constantScopeCheck("content-",
-                "",
-                HttpHeaderName::isRequest,
-                true,
-                "isRequest");
+            "",
+            HttpHeaderName::isRequest,
+            true,
+            "isRequest");
     }
 
     @Test
     public void testContentConstantsResponse() {
         this.constantScopeCheck("content-",
-                "",
-                HttpHeaderName::isResponse,
-                true,
-                "isResponse");
+            "",
+            HttpHeaderName::isResponse,
+            true,
+            "isResponse");
     }
 
     private void constantScopeCheck(final String prefix,
@@ -193,17 +193,17 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                                     final boolean value,
                                     final String method) {
         final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
-                .stream()
-                .filter(h -> CaseSensitivity.INSENSITIVE.startsWith(h.value(), prefix))
-                .filter(h -> !CaseSensitivity.INSENSITIVE.startsWith(h.value(), ignorePrefix))
-                .filter(h -> value != test.test(h))
-                .collect(Collectors.toList());
+            .stream()
+            .filter(h -> CaseSensitivity.INSENSITIVE.startsWith(h.value(), prefix))
+            .filter(h -> !CaseSensitivity.INSENSITIVE.startsWith(h.value(), ignorePrefix))
+            .filter(h -> value != test.test(h))
+            .collect(Collectors.toList());
         this.checkEquals(Lists.empty(),
-                headers,
-                "Several HttpHeaderName." + method +
-                        " starting with " + prefix +
-                        " returns " + !value +
-                        " when it should return " + value);
+            headers,
+            "Several HttpHeaderName." + method +
+                " starting with " + prefix +
+                " returns " + !value +
+                " when it should return " + value);
     }
 
     // stringValues.........................................................................
@@ -235,38 +235,38 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testHeaderCustomHeaderIncludesDoubleQuotesSingleQuotesComments() {
         this.headerAndCheck(HttpHeaderName.with("custom-x").stringValues(),
-                "abc \"def\" 'ghi' (comment-123)");
+            "abc \"def\" 'ghi' (comment-123)");
     }
 
     @Test
     public void testHeaderScopeAccept() {
         this.headerAndCheck(HttpHeaderName.ACCEPT,
-                Accept.parse("text/html, application/xhtml+xml"));
+            Accept.parse("text/html, application/xhtml+xml"));
     }
 
     @Test
     public void testHeaderScopeContentLength() {
         this.headerAndCheck(HttpHeaderName.CONTENT_LENGTH,
-                123L);
+            123L);
     }
 
     @Test
     public void testHeaderScopeResponseContentLengthAbsent() {
         this.headerAndCheck(HttpHeaderName.CONTENT_LENGTH,
-                null);
+            null);
     }
 
     @Test
     public void testHeaderScopeUnknown() {
         this.headerAndCheck(Cast.to(HttpHeaderName.with("xyz")),
-                "xyz");
+            "xyz");
     }
 
     private <T> void headerAndCheck(final HttpHeaderName<T> headerName,
                                     final T header) {
         this.checkEquals(Optional.ofNullable(header),
-                headerName.header(this.headers(headerName, header)),
-                headerName + "=" + header);
+            headerName.header(this.headers(headerName, header)),
+            headerName + "=" + header);
     }
 
     // headerOrFail..............................................................................
@@ -274,26 +274,26 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testHeaderOrFailWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> HttpHeaderName.ALLOW.headerOrFail(null)
+            NullPointerException.class,
+            () -> HttpHeaderName.ALLOW.headerOrFail(null)
         );
     }
 
     @Test
     public void testHeaderOrFailAbsent() {
         final HeaderException thrown = assertThrows(
-                HeaderException.class,
-                () -> HttpHeaderName.ALLOW.headerOrFail(
-                        this.headers(
-                                HttpHeaderName.CONTENT_LENGTH,
-                                123L
-                        )
+            HeaderException.class,
+            () -> HttpHeaderName.ALLOW.headerOrFail(
+                this.headers(
+                    HttpHeaderName.CONTENT_LENGTH,
+                    123L
                 )
+            )
         );
 
         this.checkEquals(
-                "Missing header Allow",
-                thrown.getMessage()
+            "Missing header Allow",
+            thrown.getMessage()
         );
     }
 
@@ -305,8 +305,8 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private <T> void headerOrFailAndCheck(final HttpHeaderName<T> headerName,
                                           final T header) {
         this.checkEquals(header,
-                headerName.headerOrFail(this.headers(headerName, header)),
-                headerName + "=" + header);
+            headerName.headerOrFail(this.headers(headerName, header)),
+            headerName + "=" + header);
     }
 
     private <T> HasHeaders headers(final HttpHeaderName<T> name, final T value) {
@@ -347,62 +347,62 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testParseAcceptString() {
         this.parseStringAndCheck(
-                HttpHeaderName.ACCEPT::parseValue,
-                "text/html, application/xhtml+xml",
-                Accept.with(
-                        list(
-                                MediaType.with("text", "html"),
-                                MediaType.with("application", "xhtml")
-                                        .setSuffix(
-                                                Optional.of("xml")
-                                        )
+            HttpHeaderName.ACCEPT::parseValue,
+            "text/html, application/xhtml+xml",
+            Accept.with(
+                list(
+                    MediaType.with("text", "html"),
+                    MediaType.with("application", "xhtml")
+                        .setSuffix(
+                            Optional.of("xml")
                         )
                 )
+            )
         );
     }
 
     @Test
     public void testParseAccessControlMaxAge() {
         this.parseStringAndCheck(
-                HttpHeaderName.ACCESS_CONTROL_MAX_AGE::parseValue,
-                "591",
-                591L
+            HttpHeaderName.ACCESS_CONTROL_MAX_AGE::parseValue,
+            "591",
+            591L
         );
     }
 
     @Test
     public void testParseContentLengthString() {
         this.parseStringAndCheck(
-                HttpHeaderName.CONTENT_LENGTH::parseValue,
-                "123",
-                123L
+            HttpHeaderName.CONTENT_LENGTH::parseValue,
+            "123",
+            123L
         );
     }
 
     @Test
     public void testParseIfRangeETag() {
         this.parseStringAndCheck(
-                HttpHeaderName.IF_RANGE::parseValue,
-                "W/\"etag-1234567890\"",
-                IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890"))
+            HttpHeaderName.IF_RANGE::parseValue,
+            "W/\"etag-1234567890\"",
+            IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890"))
         );
     }
 
     @Test
     public void testParseIfRangeLastModified() {
         final LocalDateTime lastModified = LocalDateTime.of(
-                2000,
-                12,
-                31,
-                6,
-                28,
-                29
+            2000,
+            12,
+            31,
+            6,
+            28,
+            29
         );
 
         this.parseStringAndCheck(
-                HttpHeaderName.IF_RANGE::parseValue,
-                HeaderHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
-                IfRange.with(lastModified)
+            HttpHeaderName.IF_RANGE::parseValue,
+            HeaderHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
+            IfRange.with(lastModified)
         );
     }
 
@@ -428,8 +428,8 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                                         final T value,
                                         final String formatted) {
         this.checkEquals(formatted,
-                header.headerText(value),
-                () -> header + ".headerText " + CharSequences.quoteIfChars(value));
+            header.headerText(value),
+            () -> header + ".headerText " + CharSequences.quoteIfChars(value));
     }
 
     // HttpRequestAttribute.................................................................................
@@ -461,12 +461,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     private <T> void parameterValueAndCheck(final HttpHeaderName<T> header, final T value) {
         this.checkEquals(Optional.ofNullable(value),
-                header.parameterValue(new FakeHttpRequest() {
-                    @Override
-                    public Map<HttpHeaderName<?>, List<?>> headers() {
-                        return Maps.of(header, list(value));
-                    }
-                }));
+            header.parameterValue(new FakeHttpRequest() {
+                @Override
+                public Map<HttpHeaderName<?>, List<?>> headers() {
+                    return Maps.of(header, list(value));
+                }
+            }));
     }
 
     @Test
@@ -475,7 +475,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         final String value = "Browser123";
 
         this.checkEquals(Optional.ofNullable(value),
-                header.parameterValue(Maps.of(header, value)));
+            header.parameterValue(Maps.of(header, value)));
     }
 
     private static <T> List<T> list(final T... values) {

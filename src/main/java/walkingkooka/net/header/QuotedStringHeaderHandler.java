@@ -48,8 +48,8 @@ final class QuotedStringHeaderHandler extends QuotedOrUnquotedStringHeaderHandle
     @Override
     String parse0(final String text) {
         CharSequences.failIfNullOrEmpty(
-                text,
-                "text"
+            text,
+            "text"
         );
 
         final int length = text.length();

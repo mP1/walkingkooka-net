@@ -54,7 +54,7 @@ public final class EncodingHeaderParserTest extends HeaderParserTestCase<Encodin
     @Test
     public void testToken() {
         this.parseStringAndCheck("gzip",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test

@@ -45,8 +45,8 @@ final class EncodedTextHeaderHandler extends NonStringHeaderHandler<EncodedText>
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof EncodedText,
-                EncodedText.class
+            v -> v instanceof EncodedText,
+            EncodedText.class
         );
     }
 

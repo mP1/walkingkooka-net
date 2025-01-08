@@ -31,8 +31,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
-        implements ComparableTesting,
-        ParseStringTesting<List<LinkRelation<?>>> {
+    implements ComparableTesting,
+    ParseStringTesting<List<LinkRelation<?>>> {
 
     private final static String TEXT = "abc123";
     private final static String URL_TEXT = "https://example.com";
@@ -72,25 +72,25 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Test
     public void testSortSelfBeforeRegular() {
         this.compareToArraySortAndCheck(LinkRelation.SELF,
-                LinkRelation.ABOUT,
-                LinkRelation.BOOKMARK,
-                LinkRelation.CONTENTS,
-                LinkRelation.SELF,
-                LinkRelation.ABOUT,
-                LinkRelation.BOOKMARK,
-                LinkRelation.CONTENTS);
+            LinkRelation.ABOUT,
+            LinkRelation.BOOKMARK,
+            LinkRelation.CONTENTS,
+            LinkRelation.SELF,
+            LinkRelation.ABOUT,
+            LinkRelation.BOOKMARK,
+            LinkRelation.CONTENTS);
     }
 
     @Test
     public void testSortSelfBeforeRegular2() {
         this.compareToArraySortAndCheck(LinkRelation.BOOKMARK,
-                LinkRelation.CONTENTS,
-                LinkRelation.SELF,
-                LinkRelation.ABOUT,
-                LinkRelation.SELF,
-                LinkRelation.ABOUT,
-                LinkRelation.BOOKMARK,
-                LinkRelation.CONTENTS);
+            LinkRelation.CONTENTS,
+            LinkRelation.SELF,
+            LinkRelation.ABOUT,
+            LinkRelation.SELF,
+            LinkRelation.ABOUT,
+            LinkRelation.BOOKMARK,
+            LinkRelation.CONTENTS);
     }
 
     @Test
@@ -100,7 +100,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(bookmark, url, about,
-                about, bookmark, url);
+            about, bookmark, url);
     }
 
     @Test
@@ -110,7 +110,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(url, custom, about,
-                about, custom, url);
+            about, custom, url);
     }
 
     @Test
@@ -119,7 +119,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         final LinkRelation<?> url = LinkRelation.with("https://example.com");
 
         this.compareToArraySortAndCheck(url, self,
-                self, url);
+            self, url);
     }
 
     @Test
@@ -131,7 +131,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         final LinkRelation<?> url2 = LinkRelation.with("https://example2.com");
 
         this.compareToArraySortAndCheck(url2, bookmark, about, self, url,
-                self, about, bookmark, url, url2);
+            self, about, bookmark, url, url2);
     }
 
     @Override
@@ -175,42 +175,42 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Test
     public void testToUrlPathNameSelfFails() {
         assertThrows(
-                IllegalStateException.class,
-                () -> LinkRelation.SELF.toUrlPathName()
+            IllegalStateException.class,
+            () -> LinkRelation.SELF.toUrlPathName()
         );
     }
 
     @Test
     public void testToUrlPathNameUrlFails() {
         assertThrows(
-                IllegalStateException.class,
-                () -> LinkRelation.parse("https://example.com/123")
-                        .get(0)
-                        .toUrlPathName()
+            IllegalStateException.class,
+            () -> LinkRelation.parse("https://example.com/123")
+                .get(0)
+                .toUrlPathName()
         );
     }
 
     @Test
     public void testToUrlPathNameAbout() {
         this.toUrlPathNameAndCheck(
-                LinkRelation.ABOUT,
-                UrlPathName.with("about")
+            LinkRelation.ABOUT,
+            UrlPathName.with("about")
         );
     }
 
     @Test
     public void testToUrlPathNameNext() {
         this.toUrlPathNameAndCheck(
-                LinkRelation.NEXT,
-                UrlPathName.with("next")
+            LinkRelation.NEXT,
+            UrlPathName.with("next")
         );
     }
 
     private void toUrlPathNameAndCheck(final LinkRelation<?> linkRelation,
-                                   final UrlPathName expected) {
+                                       final UrlPathName expected) {
         this.checkEquals(
-                expected,
-                linkRelation.toUrlPathName()
+            expected,
+            linkRelation.toUrlPathName()
         );
     }
 }

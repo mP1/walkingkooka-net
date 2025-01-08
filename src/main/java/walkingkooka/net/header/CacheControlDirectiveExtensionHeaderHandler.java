@@ -70,10 +70,10 @@ final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderH
     @Override
     String toText0(final Object value, final Name name) {
         return value instanceof Long ?
-                this.toTextLong((long) value, name) :
-                value instanceof String ?
-                        this.toTextString((String) value, name) :
-                        this.failInvalidValue(value, name);
+            this.toTextLong((long) value, name) :
+            value instanceof String ?
+                this.toTextString((String) value, name) :
+                this.failInvalidValue(value, name);
     }
 
     private String toTextLong(final Long value, final Name name) {
@@ -89,9 +89,9 @@ final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderH
     }
 
     private final static HeaderHandler<String> QUOTED_UNQUOTED_STRING = HeaderHandler.quotedUnquotedString(
-            CharPredicates.asciiPrintable(),
-            false,
-            CharPredicates.rfc2045Token());
+        CharPredicates.asciiPrintable(),
+        false,
+        CharPredicates.rfc2045Token());
 
     private final static HeaderHandler<Long> LONG = HeaderHandler.longHandler();
 

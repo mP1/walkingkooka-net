@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 
 public final class LinkRelationHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<LinkRelationHeaderHandler, List<LinkRelation<?>>> {
+    NonStringHeaderHandlerTestCase<LinkRelationHeaderHandler, List<LinkRelation<?>>> {
 
     @Override
     public String typeNamePrefix() {
@@ -36,20 +36,20 @@ public final class LinkRelationHeaderHandlerTest extends
     @Test
     public void testParseLinkRegular() {
         this.parseAndToTextAndCheck2("abc123",
-                LinkRelation.with("abc123"));
+            LinkRelation.with("abc123"));
     }
 
     @Test
     public void testParseLinkUrl() {
         this.parseAndToTextAndCheck2("https://example.com",
-                LinkRelation.with("https://example.com"));
+            LinkRelation.with("https://example.com"));
     }
 
     @Test
     public void testParseLinkMultiple() {
         this.parseAndToTextAndCheck2("abc123 https://example.com",
-                LinkRelation.with("abc123"),
-                LinkRelation.with("https://example.com"));
+            LinkRelation.with("abc123"),
+            LinkRelation.with("https://example.com"));
     }
 
     private void parseAndToTextAndCheck2(final String text,

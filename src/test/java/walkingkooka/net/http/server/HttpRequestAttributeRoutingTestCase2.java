@@ -24,9 +24,9 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.function.Predicate;
 
 public abstract class HttpRequestAttributeRoutingTestCase2<P extends Predicate<T>, T>
-        extends HttpRequestAttributeRoutingTestCase<P>
-        implements HashCodeEqualsDefinedTesting2<P>,
-        PredicateTesting2<P, T> {
+    extends HttpRequestAttributeRoutingTestCase<P>
+    implements HashCodeEqualsDefinedTesting2<P>,
+    PredicateTesting2<P, T> {
 
     HttpRequestAttributeRoutingTestCase2() {
         super();

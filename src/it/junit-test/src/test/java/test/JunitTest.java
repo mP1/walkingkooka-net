@@ -89,13 +89,13 @@ public class JunitTest {
     @Test
     public void testUrlParse() {
         Assert.assertEquals(Url.absolute(UrlScheme.HTTPS,
-                        AbsoluteUrl.NO_CREDENTIALS,
-                        HostAddress.with("example.com"),
-                        Optional.empty(),
-                        UrlPath.parse("/path1/path2"),
-                        UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
-                        UrlFragment.EMPTY),
-                Url.parse("https://example.com/path1/path2?query3=value3"));
+                AbsoluteUrl.NO_CREDENTIALS,
+                HostAddress.with("example.com"),
+                Optional.empty(),
+                UrlPath.parse("/path1/path2"),
+                UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
+                UrlFragment.EMPTY),
+            Url.parse("https://example.com/path1/path2?query3=value3"));
     }
 
     @Test
@@ -132,8 +132,8 @@ public class JunitTest {
         final AcceptEncoding acceptEncoding = AcceptEncoding.parse("a;q=0.5,b");
 
         Assert.assertEquals(Lists.of(AcceptEncodingValue.with("b"),
-                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
-                acceptEncoding.qualityFactorSortedValues());
+                AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))),
+            acceptEncoding.qualityFactorSortedValues());
     }
 
     @Test
@@ -216,7 +216,7 @@ public class JunitTest {
     public void testHttpEntity() {
         final String text = "abc123";
         final HttpEntity entity = HttpEntity.EMPTY
-                .setBodyText(text);
+            .setBodyText(text);
 
         Assert.assertEquals(text, entity.bodyText());
     }
@@ -227,7 +227,7 @@ public class JunitTest {
         final String value = "value-1";
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(header, value);
+            .addHeader(header, value);
 
         Assert.assertEquals(Maps.of(header, list(value)), entity.headers());
     }
@@ -241,8 +241,8 @@ public class JunitTest {
         final String value2 = "value-2";
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(header1, value1)
-                .addHeader(header2, value2);
+            .addHeader(header1, value1)
+            .addHeader(header2, value2);
 
         Assert.assertEquals(Maps.of(header1, list(value1), header2, list(value2)), entity.headers());
     }
@@ -253,7 +253,7 @@ public class JunitTest {
         final String value = "value-1";
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .setHeader(header, list(value));
+            .setHeader(header, list(value));
 
         Assert.assertEquals(Maps.of(header, list(value)), entity.headers());
     }
@@ -265,12 +265,12 @@ public class JunitTest {
     @Test
     public void testHttpRequest() {
         HttpRequests.value(HttpMethod.POST,
-                HttpTransport.SECURED,
-                Url.parseRelative("/path1/path2?query3=value4"),
-                HttpProtocolVersion.VERSION_1_1,
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .setBodyText("different-body-text"));
+            HttpTransport.SECURED,
+            Url.parseRelative("/path1/path2?query3=value4"),
+            HttpProtocolVersion.VERSION_1_1,
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .setBodyText("different-body-text"));
     }
 
     @Test
@@ -318,46 +318,46 @@ public class JunitTest {
         final String body = "Body123";
 
         HttpHandlers.webFile(
-                        UrlPath.parse("/base/file/"),
-                        (urlPath -> Either.left(new WebFile() {
-                            @Override
-                            public LocalDateTime lastModified() throws WebFileException {
-                                return LocalDateTime.now();
-                            }
+                UrlPath.parse("/base/file/"),
+                (urlPath -> Either.left(new WebFile() {
+                    @Override
+                    public LocalDateTime lastModified() throws WebFileException {
+                        return LocalDateTime.now();
+                    }
 
-                            @Override
-                            public MediaType contentType() throws WebFileException {
-                                return MediaType.TEXT_PLAIN;
-                            }
+                    @Override
+                    public MediaType contentType() throws WebFileException {
+                        return MediaType.TEXT_PLAIN;
+                    }
 
-                            @Override
-                            public long contentSize() throws WebFileException {
-                                return body.length();
-                            }
+                    @Override
+                    public long contentSize() throws WebFileException {
+                        return body.length();
+                    }
 
-                            @Override
-                            public InputStream content() throws WebFileException {
-                                return new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
-                            }
+                    @Override
+                    public InputStream content() throws WebFileException {
+                        return new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
+                    }
 
-                            @Override
-                            public Optional<ETag> etag() throws WebFileException {
-                                return Optional.empty();
-                            }
-                        })
-                        ))
-                .handle(request, response);
+                    @Override
+                    public Optional<ETag> etag() throws WebFileException {
+                        return Optional.empty();
+                    }
+                })
+                ))
+            .handle(request, response);
 
         Assert.assertEquals("http response status code\n" + response,
-                HttpStatusCode.OK,
-                response.status()
-                        .orElse(HttpStatusCode.BAD_REQUEST.status())
-                        .value());
+            HttpStatusCode.OK,
+            response.status()
+                .orElse(HttpStatusCode.BAD_REQUEST.status())
+                .value());
         Assert.assertEquals(
-                "response body",
-                body,
-                response.entity()
-                        .bodyText()
+            "response body",
+            body,
+            response.entity()
+                .bodyText()
         );
     }
 
@@ -373,11 +373,11 @@ public class JunitTest {
         final String text = "Text123";
 
         final HttpEntity entity = HttpEntity.EMPTY.setBody(
-                Binary.with(text.getBytes(StandardCharsets.UTF_8))
+            Binary.with(text.getBytes(StandardCharsets.UTF_8))
         );
         Assert.assertEquals(
-                text,
-                entity.bodyText()
+            text,
+            entity.bodyText()
         );
     }
 }

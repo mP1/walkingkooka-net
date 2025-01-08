@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public final class CacheControlDirectiveNameParameterTest implements ClassTesting2<CacheControlDirectiveNameParameter>,
-        TypeNameTesting<CacheControlDirectiveNameParameter> {
+    TypeNameTesting<CacheControlDirectiveNameParameter> {
 
     @Override
     public Class<CacheControlDirectiveNameParameter> type() {

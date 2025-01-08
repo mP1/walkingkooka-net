@@ -32,7 +32,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class HttpRequestParameterNameTest implements ClassTesting2<HttpRequestParameterName>,
-        NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
+    NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
     public void testParameterValueRequest() {
@@ -40,13 +40,13 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final List<String> value = Lists.of("a", "b", "c");
 
         this.checkEquals(Optional.of(value),
-                name.parameterValue(new FakeHttpRequest() {
-                    @Override
-                    public List<String> parameterValues(final HttpRequestParameterName n) {
-                        assertSame(name, n);
-                        return value;
-                    }
-                }));
+            name.parameterValue(new FakeHttpRequest() {
+                @Override
+                public List<String> parameterValues(final HttpRequestParameterName n) {
+                    assertSame(name, n);
+                    return value;
+                }
+            }));
     }
 
     @Test
@@ -55,7 +55,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final List<String> value = Lists.of("a", "b", "c");
 
         this.checkEquals(Optional.of(value),
-                name.parameterValue(Maps.of(name, value)));
+            name.parameterValue(Maps.of(name, value)));
     }
 
     @Test
@@ -66,7 +66,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final HttpRequestParameterName d4 = HttpRequestParameterName.with("d4");
 
         this.compareToArraySortAndCheck(d4, a1, c3, b2,
-                a1, b2, c3, d4);
+            a1, b2, c3, d4);
     }
 
     @Override

@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHeaderNameListHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<HttpHeaderNameListHeaderHandler, List<HttpHeaderName<?>>> {
+    NonStringHeaderHandlerTestCase<HttpHeaderNameListHeaderHandler, List<HttpHeaderName<?>>> {
 
     @Override
     public String typeNamePrefix() {
@@ -68,14 +68,14 @@ public final class HttpHeaderNameListHeaderHandlerTest extends
     @Test
     public void testToText() {
         this.toTextAndCheck2("Accept",
-                HttpHeaderName.ACCEPT);
+            HttpHeaderName.ACCEPT);
     }
 
     @Test
     public void testToText2() {
         this.toTextAndCheck2("Accept, Content-Length",
-                HttpHeaderName.ACCEPT,
-                HttpHeaderName.CONTENT_LENGTH);
+            HttpHeaderName.ACCEPT,
+            HttpHeaderName.CONTENT_LENGTH);
     }
 
     private void toTextAndCheck2(final String value,

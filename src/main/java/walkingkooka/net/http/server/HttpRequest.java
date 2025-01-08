@@ -75,8 +75,8 @@ public interface HttpRequest extends HasHeaders {
     default String bodyText() {
         final byte[] body = this.body();
         return null != body ?
-                new String(body, this.charset(HttpEntity.DEFAULT_BODY_CHARSET)) :
-                "";
+            new String(body, this.charset(HttpEntity.DEFAULT_BODY_CHARSET)) :
+            "";
     }
 
     /**

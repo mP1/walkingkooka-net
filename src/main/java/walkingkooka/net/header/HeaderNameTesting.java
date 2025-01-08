@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing interface to assist testing of {@link HeaderName} implementations.
  */
 public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C>>
-        extends NameTesting2<N, C>,
-        ParseStringTesting<Object> {
+    extends NameTesting2<N, C>,
+    ParseStringTesting<Object> {
 
     // NameTesting......................................................................................................
 
@@ -53,16 +53,16 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     @Test
     default void testCheckValueWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.checkValue(null)
+            NullPointerException.class,
+            () -> this.checkValue(null)
         );
     }
 
     @Test
     default void testCheckValueWithInvalidTypeFails() {
         assertThrows(
-                HeaderException.class,
-                () -> this.checkValue(this)
+            HeaderException.class,
+            () -> this.checkValue(this)
         );
     }
 
@@ -73,7 +73,7 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     default void checkValue(final HeaderName<?> name,
                             final Object header) {
         assertSame(header,
-                name.checkValue(header),
-                name + " didnt return correct header=" + CharSequences.quoteIfChars(header));
+            name.checkValue(header),
+            name + " didnt return correct header=" + CharSequences.quoteIfChars(header));
     }
 }

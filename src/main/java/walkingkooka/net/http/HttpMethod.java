@@ -28,8 +28,8 @@ import walkingkooka.text.Whitespace;
  * A {@link Value} including an enumeration of standards methods that contains the HTTP request methods.
  */
 public final class HttpMethod implements Value<String>,
-        Header,
-        Comparable<HttpMethod> {
+    Header,
+    Comparable<HttpMethod> {
 
     private final static String HEAD_STRING = "HEAD";
 
@@ -145,8 +145,8 @@ public final class HttpMethod implements Value<String>,
                     final char c = method.charAt(i);
                     if (false == Character.isLetter(c)) {
                         throw new IllegalArgumentException(
-                                "Method includes invalid character " + CharSequences.quoteAndEscape(c) + "'="
-                                        + CharSequences.quoteAndEscape(method));
+                            "Method includes invalid character " + CharSequences.quoteAndEscape(c) + "'="
+                                + CharSequences.quoteAndEscape(method));
                     }
                 }
 
@@ -258,8 +258,8 @@ public final class HttpMethod implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpMethod &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpMethod &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpMethod other) {

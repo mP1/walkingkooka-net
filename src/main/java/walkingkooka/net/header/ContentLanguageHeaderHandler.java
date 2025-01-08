@@ -49,8 +49,8 @@ final class ContentLanguageHeaderHandler extends NonStringHeaderHandler<ContentL
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof ContentLanguage,
-                ContentLanguage.class
+            v -> v instanceof ContentLanguage,
+            ContentLanguage.class
         );
     }
 

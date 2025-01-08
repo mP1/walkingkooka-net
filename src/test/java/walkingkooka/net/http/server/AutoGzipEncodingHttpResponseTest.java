@@ -38,70 +38,70 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     public void testAddEntityRequestAcceptEncodingNotGzip() {
         final byte[] body = new byte[]{1, 2, 3};
         this.addEntityRequestWithAcceptEncodingAndCheck("X",
-                body,
-                NO_CONTENT_ENCODING,
-                Maps.empty(),
-                body);
+            body,
+            NO_CONTENT_ENCODING,
+            Maps.empty(),
+            body);
     }
 
     @Test
     public void testAddEntityAcceptEncodingNotGzip() {
         final byte[] body = new byte[]{1, 2, 3};
         this.addEntityRequestWithAcceptEncodingAndCheck("X",
-                body,
-                NO_CONTENT_ENCODING,
-                Maps.empty(),
-                body);
+            body,
+            NO_CONTENT_ENCODING,
+            Maps.empty(),
+            body);
     }
 
     @Test
     public void testAddEntityRequestAcceptEncodingWildcard() {
         final byte[] body = new byte[]{1, 2, 3};
         this.addEntityRequestWithAcceptEncodingAndCheck("*",
-                body,
-                NO_CONTENT_ENCODING,
-                this.headersContentEncoding(GZIP),
-                this.gzip(body));
+            body,
+            NO_CONTENT_ENCODING,
+            this.headersContentEncoding(GZIP),
+            this.gzip(body));
     }
 
     @Test
     public void testAddEntityRequestAcceptEncodingGzip() {
         final byte[] body = new byte[]{1, 2, 3};
         this.addEntityRequestWithAcceptEncodingAndCheck("*",
-                body,
-                NO_CONTENT_ENCODING,
-                this.headersContentEncoding(GZIP),
-                this.gzip(body));
+            body,
+            NO_CONTENT_ENCODING,
+            this.headersContentEncoding(GZIP),
+            this.gzip(body));
     }
 
     @Test
     public void testAddEntityRequestAcceptEncodingWildcardResponseContentEncodingNotGzip() {
         final byte[] body = new byte[]{1, 2, 3};
         this.addEntityRequestWithAcceptEncodingAndCheck("*",
-                body,
-                "NOT-GZIP",
-                this.headersContentEncoding("NOT-GZIP"),
-                body);
+            body,
+            "NOT-GZIP",
+            this.headersContentEncoding("NOT-GZIP"),
+            body);
     }
 
     @Test
     public void testAddEntityRequestAcceptEncodingWildcardResponseContentEncodingGzipPresent() {
         final byte[] body = new byte[]{1, 2, 3, 4};
         this.addEntityRequestWithAcceptEncodingAndCheck("*",
-                body,
-                GZIP,
-                this.headersContentEncoding(GZIP),
-                body);
+            body,
+            GZIP,
+            this.headersContentEncoding(GZIP),
+            body);
     }
 
     @Test
     public void testAddEntityRequestAcceptEncodingGzipResponseContentEncodingGzipPresent() {
         final byte[] body = new byte[]{1, 2, 3, 4};
         this.addEntityRequestWithAcceptEncodingAndCheck("gzip",
-                body,
-                GZIP,
-                this.headersContentEncoding(GZIP),
-                body);
+            body,
+            GZIP,
+            this.headersContentEncoding(GZIP),
+            body);
     }
 
     private Map<HttpHeaderName<?>, List<?>> headersContentEncoding(final String contentEncoding) {
@@ -120,17 +120,17 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
         this.addEntity = 0;
         final Map<HttpHeaderName<?>, List<?>> headers = Maps.ordered();
         final HttpResponse response = this.createResponse(
-                acceptEncoding,
-                new FakeHttpResponse() {
+            acceptEncoding,
+            new FakeHttpResponse() {
 
-                    @Test
-                    public void setEntity(final HttpEntity e) {
-                        checkEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
-                                e,
-                                "entity");
-                        addEntity++;
-                    }
-                });
+                @Test
+                public void setEntity(final HttpEntity e) {
+                    checkEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
+                        e,
+                        "entity");
+                    addEntity++;
+                }
+            });
         if (null != contentEncoding) {
             headers.put(HttpHeaderName.CONTENT_ENCODING, Lists.of(ContentEncoding.parse(contentEncoding)));
         }
@@ -142,8 +142,8 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
     private AutoGzipEncodingHttpResponse createResponse(final String acceptEncoding, final HttpResponse response) {
         return AutoGzipEncodingHttpResponse.with(
-                this.createRequest(acceptEncoding),
-                response);
+            this.createRequest(acceptEncoding),
+            response);
     }
 
     @Override
@@ -158,8 +158,8 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
     private HttpRequest createRequest(final String acceptEncoding) {
         return this.createRequest(null == acceptEncoding ?
-                Maps.empty() :
-                map(HttpHeaderName.ACCEPT_ENCODING, AcceptEncoding.parse(acceptEncoding)));
+            Maps.empty() :
+            map(HttpHeaderName.ACCEPT_ENCODING, AcceptEncoding.parse(acceptEncoding)));
     }
 
     private HttpRequest createRequest(final Map<HttpHeaderName<?>, List<?>> headers) {

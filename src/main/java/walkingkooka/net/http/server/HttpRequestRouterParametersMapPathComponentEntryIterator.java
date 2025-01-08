@@ -58,10 +58,10 @@ final class HttpRequestRouterParametersMapPathComponentEntryIterator implements 
         final UrlPathName[] pathNames = this.pathNames;
 
         return 0 == position ?
-                Maps.entry(HttpRequestAttributes.PATH_COMPONENT_COUNT, pathNames.length) :
-                Maps.entry(
-                        HttpRequestAttributes.pathComponent(position - 1),
-                        pathNames[position - 1]);
+            Maps.entry(HttpRequestAttributes.PATH_COMPONENT_COUNT, pathNames.length) :
+            Maps.entry(
+                HttpRequestAttributes.pathComponent(position - 1),
+                pathNames[position - 1]);
     }
 
     private final UrlPathName[] pathNames;
@@ -77,7 +77,7 @@ final class HttpRequestRouterParametersMapPathComponentEntryIterator implements 
         final UrlPathName[] pathNames = this.pathNames;
 
         return position <= pathNames.length ?
-                this.entry(position).toString() :
-                "";
+            this.entry(position).toString() :
+            "";
     }
 }

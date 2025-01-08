@@ -36,7 +36,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<ContentTypeHttpHandler>,
-        ToStringTesting<ContentTypeHttpHandler> {
+    ToStringTesting<ContentTypeHttpHandler> {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
@@ -57,16 +57,16 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
     @Test
     public void testWithNullContentTypeFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ContentTypeHttpHandler.with(null, HANDLER)
+            NullPointerException.class,
+            () -> ContentTypeHttpHandler.with(null, HANDLER)
         );
     }
 
     @Test
     public void testWithNullHandlerFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ContentTypeHttpHandler.with(CONTENT_TYPE, null)
+            NullPointerException.class,
+            () -> ContentTypeHttpHandler.with(CONTENT_TYPE, null)
         );
     }
 
@@ -79,8 +79,8 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-                this.request(),
-                expected
+            this.request(),
+            expected
         );
     }
 
@@ -91,8 +91,8 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-                this.request(MediaType.BINARY),
-                expected
+            this.request(MediaType.BINARY),
+            expected
         );
     }
 
@@ -103,8 +103,8 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(ENTITY);
 
         this.handleAndCheck(
-                this.request(CONTENT_TYPE),
-                expected
+            this.request(CONTENT_TYPE),
+            expected
         );
     }
 
@@ -134,8 +134,8 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHttpHandler(),
-                CONTENT_TYPE + " " + HANDLER
+            this.createHttpHandler(),
+            CONTENT_TYPE + " " + HANDLER
         );
     }
 

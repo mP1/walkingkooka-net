@@ -34,8 +34,8 @@ public interface HasQualityFactorSortedValues<V extends HasQualityFactor> extend
      */
     static <V extends HasQualityFactor> List<V> qualityFactorSort(final List<V> value) {
         return Lists.immutable(value.stream()
-                .sorted(HasQualityFactor.qualityFactorDescendingComparator())
-                .collect(Collectors.toList()));
+            .sorted(HasQualityFactor.qualityFactorDescendingComparator())
+            .collect(Collectors.toList()));
     }
 
     /**

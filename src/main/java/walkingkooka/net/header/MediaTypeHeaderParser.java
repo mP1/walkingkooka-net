@@ -68,35 +68,33 @@ import java.util.Optional;
  * </pre>
  */
 abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaType,
-        MediaTypeParameterName<?>> {
+    MediaTypeParameterName<?>> {
 
     // @VisibleForTesting
     MediaTypeHeaderParser(final String text) {
         super(text);
     }
 
-    @Override
-    final MediaType wildcardValue() {
+    @Override final MediaType wildcardValue() {
         final String type = "" + WILDCARD;
         this.position++;
 
         this.requireSlash();
 
         return MediaType.withParameters(
-                type,
-                this.subType(),
-                this.suffix(),
-                MediaType.NO_PARAMETERS
+            type,
+            this.subType(),
+            this.suffix(),
+            MediaType.NO_PARAMETERS
         );
     }
 
-    @Override
-    final MediaType value() {
+    @Override final MediaType value() {
         return MediaType.withParameters(
-                this.type(),
-                this.subType(),
-                this.suffix(),
-                MediaType.NO_PARAMETERS
+            this.type(),
+            this.subType(),
+            this.suffix(),
+            MediaType.NO_PARAMETERS
         );
     }
 
@@ -153,7 +151,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
     }
 
     final static CharPredicate SUB_TYPE = RFC2045TOKEN.andNot(
-            CharPredicates.any("+;")
+        CharPredicates.any("+;")
     );
 
     /**
@@ -181,11 +179,10 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
     }
 
     final static CharPredicate SUFFIX = RFC2045TOKEN.andNot(
-            CharPredicates.any(";")
+        CharPredicates.any(";")
     );
 
-    @Override
-    final void missingValue() {
+    @Override final void missingValue() {
         this.failMissingValue(MEDIATYPE);
     }
 
@@ -195,22 +192,19 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
     private final static String TYPE_STRING = "type";
     private final static String SUBTYPE = "sub type";
 
-    @Override
-    final MediaTypeParameterName<?> parameterName() {
+    @Override final MediaTypeParameterName<?> parameterName() {
         return this.parameterName(PARAMETER_NAME, MediaTypeParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
-    @Override
-    final String quotedParameterValue(final MediaTypeParameterName<?> parameterName) {
+    @Override final String quotedParameterValue(final MediaTypeParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
-    @Override
-    final String unquotedParameterValue(final MediaTypeParameterName<?> parameterName) {
+    @Override final String unquotedParameterValue(final MediaTypeParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 

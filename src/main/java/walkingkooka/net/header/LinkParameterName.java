@@ -36,11 +36,11 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * A read only cache of already prepared {@link LinkParameterName names}. These constants are incomplete.
      */
     private final static HeaderParameterNameConstants<LinkParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            LinkParameterName::new,
-            HeaderHandler.quotedUnquotedString(
-                    LinkHeaderParser.QUOTED_PARAMETER_VALUE,
-                    true,
-                    LinkHeaderParser.UNQUOTED_PARAMETER_VALUE)
+        LinkParameterName::new,
+        HeaderHandler.quotedUnquotedString(
+            LinkHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            LinkHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
@@ -106,8 +106,8 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * </pre>
      */
     public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderHandler.quotedUnquotedString(LinkHeaderParser.QUOTED_PARAMETER_VALUE,
-            true, // backslash escaping...
-            LinkHeaderParser.UNQUOTED_PARAMETER_VALUE));
+        true, // backslash escaping...
+        LinkHeaderParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * A non standard parameter to hold the {@link HttpMethod} for this resource
@@ -119,9 +119,9 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * This should be used for ascii only title text.
      */
     public final static LinkParameterName<EncodedText> TITLE = CONSTANTS.register("title", HeaderHandler.quotedUnquotedString(
-            CharPredicates.asciiPrintable(),
-            false,
-            CharPredicates.rfc2045Token()));
+        CharPredicates.asciiPrintable(),
+        false,
+        CharPredicates.rfc2045Token()));
 
     /**
      * The title star parameter.

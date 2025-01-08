@@ -68,7 +68,7 @@ import java.util.Optional;
  * </pre>
  */
 public final class EncodedText implements Value<String>,
-        Header {
+    Header {
 
     /**
      * The value part of an extended parameter (ext-value) is a token that
@@ -122,8 +122,8 @@ public final class EncodedText implements Value<String>,
 
     private String languageHeaderText() {
         return this.language.isPresent() ?
-                this.language.get().toHeaderText() :
-                "";
+            this.language.get().toHeaderText() :
+            "";
     }
 
     private final Optional<LanguageName> language;
@@ -238,8 +238,8 @@ public final class EncodedText implements Value<String>,
                     break;
                 default:
                     encodedText.append(ENCODE)
-                            .append(hex(c >> 4))
-                            .append(hex(c));
+                        .append(hex(c >> 4))
+                        .append(hex(c));
             }
         }
 
@@ -284,22 +284,22 @@ public final class EncodedText implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof EncodedText &&
-                        this.equals0(Cast.to(other));
+            other instanceof EncodedText &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final EncodedText other) {
         return this.charset.equals(other.charset) &&
-                this.language.equals(other.language) &&
-                this.value.equals(other.value);
+            this.language.equals(other.language) &&
+            this.value.equals(other.value);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .value(this.charset)
-                .value(this.language)
-                .value(this.value)
-                .build();
+            .value(this.charset)
+            .value(this.language)
+            .value(this.value)
+            .build();
     }
 }

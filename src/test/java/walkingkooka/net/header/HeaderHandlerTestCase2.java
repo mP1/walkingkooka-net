@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> extends HeaderHandlerTestCase<C>
-        implements ParseStringTesting<T>,
-        ToStringTesting<C> {
+    implements ParseStringTesting<T>,
+    ToStringTesting<C> {
 
     HeaderHandlerTestCase2() {
         super();
@@ -51,21 +51,21 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     @Test
     public void testCheckWrongTypeFails() {
         this.checkTypeFails(
-                this,
-                "Invalid value type got " + this + " required " + this.valueType()
+            this,
+            "Invalid value type got " + this + " required " + this.valueType()
         );
     }
 
     private void checkTypeFails(final Object value,
                                 final String message) {
         final Exception expected = assertThrows(
-                Exception.class,
-                () -> this.check(value)
+            Exception.class,
+            () -> this.check(value)
         );
         this.checkEquals(
-                message,
-                expected.getMessage(),
-                "message"
+            message,
+            expected.getMessage(),
+            "message"
         );
     }
 
@@ -109,9 +109,9 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
     @Override
     public final T parseString(final String text) {
         return this.handler()
-                .parse(
-                        text
-                );
+            .parse(
+                text
+            );
     }
 
     @Override
@@ -147,8 +147,8 @@ public abstract class HeaderHandlerTestCase2<C extends HeaderHandler<T>, T> exte
 
     final void toTextAndCheck(final C handler, final T value, final Name name, final String expected) {
         this.checkEquals(expected,
-                handler.toText(value, name),
-                () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));
+            handler.toText(value, name),
+            () -> handler + " " + name + " of " + CharSequences.quoteIfChars(value));
     }
 
     abstract T value();

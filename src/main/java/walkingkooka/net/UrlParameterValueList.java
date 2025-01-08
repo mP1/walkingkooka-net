@@ -65,8 +65,8 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     @Override
     public ImmutableList<String> setElements(final List<String> list) {
         return list instanceof UrlParameterValueList ?
-                (UrlParameterValueList) list :
-                this.createAndCopy(list);
+            (UrlParameterValueList) list :
+            this.createAndCopy(list);
     }
 
     private ImmutableList<String> createAndCopy(final List<String> list) {
@@ -75,7 +75,7 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
             copy.addParameterValue(value);
         }
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 }

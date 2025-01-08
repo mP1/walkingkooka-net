@@ -29,6 +29,6 @@ public abstract class BufferingHttpResponseTestCase<R extends BufferingHttpRespo
     @Test
     public void testSetStatus() {
         this.createResponse(HttpResponses.fake())
-                .setStatus(HttpStatusCode.OK.status());
+            .setStatus(HttpStatusCode.OK.status());
     }
 }

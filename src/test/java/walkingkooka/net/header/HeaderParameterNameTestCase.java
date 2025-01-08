@@ -24,7 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C>>
-        extends HeaderName2TestCase<N, C> {
+    extends HeaderName2TestCase<N, C> {
 
     HeaderParameterNameTestCase() {
         super();
@@ -34,8 +34,8 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     public final void testIsStarParameter() {
         final N name = this.createName();
         this.checkEquals(name.value().endsWith("*"),
-                name.isStarParameter(),
-                () -> name + " is star parameter");
+            name.isStarParameter(),
+            () -> name + " is star parameter");
     }
 
     @Test
@@ -63,8 +63,8 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
                                               final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                               final Optional<VV> value) {
         this.checkEquals(value,
-                name.parameterValue(hasParameters),
-                "wrong parameter value " + name + " in " + hasParameters);
+            name.parameterValue(hasParameters),
+            "wrong parameter value " + name + " in " + hasParameters);
     }
 
     @Override

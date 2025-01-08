@@ -26,8 +26,8 @@ import walkingkooka.test.ParseStringTesting;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class EncodingTest extends HeaderTestCase<Encoding>
-        implements ComparableTesting2<Encoding>,
-        ParseStringTesting<Encoding> {
+    implements ComparableTesting2<Encoding>,
+    ParseStringTesting<Encoding> {
 
     // constants ......................................................................................................
 
@@ -54,7 +54,7 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
     @Test
     public void testParse() {
         this.parseStringAndCheck("gzip",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
@@ -90,7 +90,7 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
     @Test
     public void testCompareLessCaseInsignificant() {
         this.compareToAndCheckLess(Encoding.with("abc"),
-                Encoding.with("XYZ"));
+            Encoding.with("XYZ"));
     }
 
     // toString ........................................................................................................

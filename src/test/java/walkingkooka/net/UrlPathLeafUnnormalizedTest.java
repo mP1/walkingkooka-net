@@ -28,9 +28,9 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         final UrlPathName name = UrlPathName.ROOT;
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1//", name),
-                "/a1//"
+            name,
+            unnormalized("/a1//", name),
+            "/a1//"
         );
     }
 
@@ -39,9 +39,9 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         final UrlPathName name = UrlPathName.with(".");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/.", name),
-                "/a1/."
+            name,
+            unnormalized("/a1/.", name),
+            "/a1/."
         );
     }
 
@@ -50,9 +50,9 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         final UrlPathName name = UrlPathName.with("..");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/..", name),
-                "/a1/.."
+            name,
+            unnormalized("/a1/..", name),
+            "/a1/.."
         );
     }
 
@@ -61,9 +61,9 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         final UrlPathName name = UrlPathName.with("b2");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/b2", name),
-                "/a1/b2"
+            name,
+            unnormalized("/a1/b2", name),
+            "/a1/b2"
         );
     }
 
@@ -72,17 +72,17 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         final UrlPathName name = UrlPathName.with("2");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/2", name),
-                "/a1/2"
+            name,
+            unnormalized("/a1/2", name),
+            "/a1/2"
         );
     }
 
     @Override
     UrlPathLeafUnnormalized createPath() {
         return UrlPathLeafUnnormalized.withUnnormalized("/a1",
-                UrlPathName.with("a1"),
-                Optional.of(UrlPath.ROOT));
+            UrlPathName.with("a1"),
+            Optional.of(UrlPath.ROOT));
     }
 
     @Override

@@ -44,8 +44,8 @@ final class AcceptHeaderHandler extends NonStringHeaderHandler<Accept> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof Accept,
-                Accept.class
+            (v) -> v instanceof Accept,
+            Accept.class
         );
     }
 

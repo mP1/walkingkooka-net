@@ -35,20 +35,20 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
     @Test
     public void testAddEntityContentLengthAbsent() {
         this.addEntityAndCheck(null,
-                new byte[]{1, 2, 3});
+            new byte[]{1, 2, 3});
     }
 
     @Test
     public void testAddEntityContentLengthSetBefore() {
         final byte[] bytes = new byte[]{1, 2, 3};
         this.addEntityAndCheck((long) bytes.length,
-                bytes);
+            bytes);
     }
 
     @Test
     public void testAddEntityContentLengthIncorrectFail() {
         assertThrows(NotAcceptableHeaderException.class, () -> this.addEntityAndCheck(999L,
-                new byte[]{1, 2, 3}));
+            new byte[]{1, 2, 3}));
     }
 
     private void addEntityAndCheck(final Long contentLength,
@@ -56,21 +56,21 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         final List<HttpEntity> added = Lists.array();
 
         final HttpResponse response = this.createResponse(
-                new FakeHttpResponse() {
+            new FakeHttpResponse() {
 
-                    @Test
-                    public void setEntity(final HttpEntity e) {
-                        added.add(e);
-                    }
-                });
+                @Test
+                public void setEntity(final HttpEntity e) {
+                    added.add(e);
+                }
+            });
 
         final Binary bodyBinary = Binary.with(body);
         response.setEntity((null == contentLength ?
-                HttpEntity.EMPTY :
-                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength)).setBody(bodyBinary));
+            HttpEntity.EMPTY :
+            HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength)).setBody(bodyBinary));
         this.checkEquals(Lists.of(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.length).setBody(bodyBinary)),
-                added,
-                "added entity");
+            added,
+            "added entity");
     }
 
     @Override

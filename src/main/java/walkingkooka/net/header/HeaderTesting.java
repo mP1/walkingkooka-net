@@ -29,7 +29,7 @@ import java.util.Arrays;
  * Mixin interface with helpers to assist testing of {@link Header} implementations.
  */
 public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTesting2<V>,
-        ToStringTesting<V> {
+    ToStringTesting<V> {
 
     @Test
     default void testIsMultipart() {
@@ -83,8 +83,8 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void toHeaderTextListAndCheck(final String toString,
                                           final Header... headers) {
         this.checkEquals(toString,
-                Header.toHeaderTextList(Lists.of(headers), Header.SEPARATOR.string().concat(" ")),
-                () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers));
+            Header.toHeaderTextList(Lists.of(headers), Header.SEPARATOR.string().concat(" ")),
+            () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers));
     }
 
     default void isWildcardAndCheck(final boolean expected) {
@@ -107,27 +107,27 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     @Test
     default void testEqualsIgnoringParametersNullFalse() {
         equalsIgnoringParametersAndCheck(
-                this.createHeader(),
-                null,
-                false
+            this.createHeader(),
+            null,
+            false
         );
     }
 
     @Test
     default void testEqualsIgnoringParametersInvalidTypeFalse() {
         equalsIgnoringParametersAndCheck(
-                this.createHeader(),
-                this,
-                false
+            this.createHeader(),
+            this,
+            false
         );
     }
 
     @Test
     default void testEqualsIgnoringParametersDifferent() {
         equalsIgnoringParametersAndCheck(
-                this.createHeader(),
-                this.createDifferentHeader(),
-                false
+            this.createHeader(),
+            this.createDifferentHeader(),
+            false
         );
     }
 
@@ -135,18 +135,18 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void testEqualsIgnoringParametersSelfTrue() {
         final V header = this.createHeader();
         equalsIgnoringParametersAndCheck(
-                header,
-                header,
-                true
+            header,
+            header,
+            true
         );
     }
 
     @Test
     default void testEqualsIgnoringParametersTrue() {
         equalsIgnoringParametersAndCheck(
-                this.createHeader(),
-                this.createHeader(),
-                true
+            this.createHeader(),
+            this.createHeader(),
+            true
         );
     }
 
@@ -154,14 +154,14 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
                                                   final Object other,
                                                   final boolean expected) {
         this.checkEquals(expected,
-                header.equalsIgnoringParameters(other),
-                () -> header + " equalsIgnoringParameters " + other);
+            header.equalsIgnoringParameters(other),
+            () -> header + " equalsIgnoringParameters " + other);
 
         if (other instanceof Header) {
             final Header otherHeader = Cast.to(other);
             this.checkEquals(expected,
-                    otherHeader.equalsIgnoringParameters(header),
-                    () -> otherHeader + " equalsIgnoringParameters " + header);
+                otherHeader.equalsIgnoringParameters(header),
+                () -> otherHeader + " equalsIgnoringParameters " + header);
         }
     }
 
@@ -170,18 +170,18 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     @Test
     default void testEqualsOnlyPresentParametersNullFalse() {
         equalsOnlyPresentParametersAndCheck(
-                this.createHeader(),
-                null,
-                false
+            this.createHeader(),
+            null,
+            false
         );
     }
 
     @Test
     default void testEqualsOnlyPresentParametersInvalidTypeFalse() {
         equalsOnlyPresentParametersAndCheck(
-                this.createHeader(),
-                this,
-                false
+            this.createHeader(),
+            this,
+            false
         );
     }
 
@@ -189,18 +189,18 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void testEqualsOnlyPresentParametersSelfTrue() {
         final V header = this.createHeader();
         equalsOnlyPresentParametersAndCheck(
-                header,
-                header,
-                true
+            header,
+            header,
+            true
         );
     }
 
     @Test
     default void testEqualsOnlyPresentParametersTrue() {
         equalsOnlyPresentParametersAndCheck(
-                this.createHeader(),
-                this.createHeader(),
-                true
+            this.createHeader(),
+            this.createHeader(),
+            true
         );
     }
 
@@ -208,9 +208,9 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     @Test
     default void testEqualsOnlyPresentParametersDifferentFalse() {
         equalsOnlyPresentParametersAndCheck(
-                this.createHeader(),
-                this.createDifferentHeader(),
-                false
+            this.createHeader(),
+            this.createDifferentHeader(),
+            false
         );
     }
 
@@ -218,8 +218,8 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
                                                      final Object other,
                                                      final boolean expected) {
         this.checkEquals(expected,
-                header.equalsOnlyPresentParameters(other),
-                () -> header + " equalsOnlyPresentParameters " + other);
+            header.equalsOnlyPresentParameters(other),
+            () -> header + " equalsOnlyPresentParameters " + other);
     }
 
     @Override

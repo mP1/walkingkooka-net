@@ -53,8 +53,8 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     @Override
     HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return this.replace(
-                headers,
-                this.body
+            headers,
+            this.body
         );
     }
 
@@ -86,7 +86,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                        final Binary body) {
         return headers.isEmpty() && this.body.isEmpty() ?
-                EMPTY :
-                new HttpEntityBinary(Maps.readOnly(headers), body);
+            EMPTY :
+            new HttpEntityBinary(Maps.readOnly(headers), body);
     }
 }

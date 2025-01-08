@@ -70,34 +70,34 @@ public final class ContentLanguageHeaderParserTest extends HeaderParserTestCase<
     @Test
     public void testToken() {
         this.parseStringAndCheck2("en",
-                this.en());
+            this.en());
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseStringAndCheck2("en ",
-                this.en());
+            this.en());
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseStringAndCheck2(" en",
-                this.en());
+            this.en());
     }
 
     @Test
     public void testTokenCommaToken() {
         this.parseStringAndCheck2("en,fr",
-                this.en(),
-                this.fr());
+            this.en(),
+            this.fr());
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
         this.parseStringAndCheck2("en, fr,  gr",
-                this.en(),
-                this.fr(),
-                this.gr());
+            this.en(),
+            this.fr(),
+            this.gr());
     }
 
     private LanguageName en() {

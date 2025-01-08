@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
-        ThrowableTesting {
+    ThrowableTesting {
 
     @Test
     public void testMissingClosingParensFails() {
@@ -271,12 +271,12 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
         final int end0 = end <= 0 ? text.length() + end : end;
 
         this.checkEquals(')',
-                text.charAt(end0 - 1),
-                () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
+            text.charAt(end0 - 1),
+            () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
 
         this.checkEquals(end0,
-                HeaderComments.consume(text, position),
-                () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
+            HeaderComments.consume(text, position),
+            () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
     }
 
     private void consumeFails(final String text,

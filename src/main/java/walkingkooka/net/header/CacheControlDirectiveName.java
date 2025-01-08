@@ -29,7 +29,7 @@ import java.util.Optional;
  * Holds a cache control directive name.
  */
 public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
-        implements Comparable<CacheControlDirectiveName<?>> {
+    implements Comparable<CacheControlDirectiveName<?>> {
 
     /**
      * Registers one of the parameterless directive names.
@@ -37,9 +37,9 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     private static CacheControlDirectiveName<Void> registerWithoutParameter(final String name,
                                                                             final CacheControlDirectiveNameScope scope) {
         return register(name,
-                CacheControlDirectiveNameParameter.ABSENT,
-                null,
-                scope);
+            CacheControlDirectiveNameParameter.ABSENT,
+            null,
+            scope);
     }
 
     /**
@@ -48,9 +48,9 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     private static CacheControlDirectiveName<Long> registerWithRequiredSecondsParameter(final String name,
                                                                                         final CacheControlDirectiveNameScope scope) {
         return register(name,
-                CacheControlDirectiveNameParameter.REQUIRED,
-                HeaderHandler.longHandler(),
-                scope);
+            CacheControlDirectiveNameParameter.REQUIRED,
+            HeaderHandler.longHandler(),
+            scope);
     }
 
     /**
@@ -74,84 +74,84 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      * max-age
      */
     public final static CacheControlDirectiveName<Long> MAX_AGE = registerWithRequiredSecondsParameter("max-age",
-            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
+        CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * max-stale
      */
     public final static CacheControlDirectiveName<Long> MAX_STALE = register("max-stale",
-            CacheControlDirectiveNameParameter.OPTIONAL,
-            HeaderHandler.longHandler(),
-            CacheControlDirectiveNameScope.REQUEST);
+        CacheControlDirectiveNameParameter.OPTIONAL,
+        HeaderHandler.longHandler(),
+        CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * min-fresh
      */
     public final static CacheControlDirectiveName<Long> MIN_FRESH = registerWithRequiredSecondsParameter("min-fresh",
-            CacheControlDirectiveNameScope.REQUEST);
+        CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * must-revalidate
      */
     public final static CacheControlDirectiveName<Void> MUST_REVALIDATE = registerWithoutParameter("must-revalidate",
-            CacheControlDirectiveNameScope.RESPONSE);
+        CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * no-cache
      */
     public final static CacheControlDirectiveName<Void> NO_CACHE = registerWithoutParameter("no-cache",
-            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
+        CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * no-store
      */
     public final static CacheControlDirectiveName<Void> NO_STORE = registerWithoutParameter("no-store",
-            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
+        CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * no-transform
      */
     public final static CacheControlDirectiveName<Void> NO_TRANSFORM = registerWithoutParameter("no-transform",
-            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
+        CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * only-if-cached
      */
     public final static CacheControlDirectiveName<Void> ONLY_IF_CACHED = registerWithoutParameter("only-if-cached",
-            CacheControlDirectiveNameScope.REQUEST);
+        CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * private
      */
     public final static CacheControlDirectiveName<Void> PRIVATE = registerWithoutParameter("private",
-            CacheControlDirectiveNameScope.RESPONSE);
+        CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * proxy-revalidate
      */
     public final static CacheControlDirectiveName<Void> PROXY_REVALIDATE = registerWithoutParameter("proxy-revalidate",
-            CacheControlDirectiveNameScope.RESPONSE);
+        CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * public
      */
     public final static CacheControlDirectiveName<Void> PUBLIC = registerWithoutParameter("public",
-            CacheControlDirectiveNameScope.RESPONSE);
+        CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * s-maxage
      */
     public final static CacheControlDirectiveName<Long> S_MAXAGE = registerWithRequiredSecondsParameter("s-maxage",
-            CacheControlDirectiveNameScope.RESPONSE);
+        CacheControlDirectiveNameScope.RESPONSE);
 
     // token predicates ................................................................................................
 
     private static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
-            .range('A', 'Z')
-            .range('a', 'z')
-            .range('0', '9')
-            .build()
-            .setToString("Charset initial");
+        .range('A', 'Z')
+        .range('a', 'z')
+        .range('0', '9')
+        .build()
+        .setToString("Charset initial");
     private static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.rfc2045Token();
 
     // factory ..........................................................................................................
@@ -161,17 +161,17 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      */
     public static CacheControlDirectiveName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
-                "value",
-                INITIAL_CHAR_PREDICATE,
-                PART_CHAR_PREDICATE);
+            "value",
+            INITIAL_CHAR_PREDICATE,
+            PART_CHAR_PREDICATE);
 
         final CacheControlDirectiveName<?> directiveName = CONSTANTS.get(name);
         return null != directiveName ?
-                directiveName :
-                new CacheControlDirectiveName<>(name,
-                        CacheControlDirectiveNameParameter.OPTIONAL,
-                        CacheControlDirectiveExtensionHeaderHandler.INSTANCE, // maybe
-                        CacheControlDirectiveNameScope.UNKNOWN);
+            directiveName :
+            new CacheControlDirectiveName<>(name,
+                CacheControlDirectiveNameParameter.OPTIONAL,
+                CacheControlDirectiveExtensionHeaderHandler.INSTANCE, // maybe
+                CacheControlDirectiveNameScope.UNKNOWN);
     }
 
     /**
@@ -218,8 +218,8 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      */
     public CacheControlDirective<V> setParameter(final Optional<V> parameter) {
         return CacheControlDirective.with(
-                this,
-                this.checkValue(parameter)
+            this,
+            this.checkValue(parameter)
         );
     }
 

@@ -52,41 +52,41 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     @Test
     public void testWithRequestNullFails() {
         assertThrows(NullPointerException.class, () -> LastModifiedAwareHttpResponse.with(null,
-                HttpResponses.fake()));
+            HttpResponses.fake()));
     }
 
     @Test
     public void testWithDelete() {
         this.withAndNotWrappedCheck(HttpMethod.DELETE,
-                ifNoneMatch());
+            ifNoneMatch());
     }
 
     @Test
     public void testWithPost() {
         this.withAndNotWrappedCheck(HttpMethod.POST,
-                ifNoneMatch());
+            ifNoneMatch());
     }
 
     @Test
     public void testWithPut() {
         this.withAndNotWrappedCheck(HttpMethod.PUT,
-                ifNoneMatch());
+            ifNoneMatch());
     }
 
     @Test
     public void testWithIfNoneMatchAbsent() {
         this.withAndNotWrappedCheck(HttpMethod.GET,
-                IF_NONE_MATCH_ABSENT);
+            IF_NONE_MATCH_ABSENT);
     }
 
     private void withAndNotWrappedCheck(final HttpMethod method,
                                         final List<ETag> ifNoneMatch) {
         final HttpResponse response = HttpResponses.fake();
         assertSame(response,
-                this.createResponseWithoutCast(method,
-                        ifNoneMatch,
-                        response),
-                "method=" + method + " should have resulted in the response not being wrapped");
+            this.createResponseWithoutCast(method,
+                ifNoneMatch,
+                response),
+            "method=" + method + " should have resulted in the response not being wrapped");
     }
 
     // server response body status code.........................................................................
@@ -113,9 +113,9 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     private void statusBodyAndCheck(final HttpStatusCode status) {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_2,
-                status,
-                this.headersWithContentHeaders(E_TAG_ABSENT),
-                BODY);
+            status,
+            this.headersWithContentHeaders(E_TAG_ABSENT),
+            BODY);
     }
 
     // incorrect etag.............................................................
@@ -123,23 +123,23 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     @Test
     public void testStatusOkIfNoneMatchFail() {
         this.setStatusOkAndAddEntityAndCheck(E_TAG_ABSENT,
-                this.etag(9),
-                new byte[9]);
+            this.etag(9),
+            new byte[9]);
     }
 
     @Test
     public void testStatusOkComputedETagFailMatchesWeak() {
         this.setStatusOkAndAddEntityAndCheck(E_TAG_ABSENT,
-                this.etag(1),
-                new byte[1]);
+            this.etag(1),
+            new byte[1]);
     }
 
     @Test
     public void testStatusOkETagIfNoneMatchFail() {
         final ETag etag = this.etag(9);
         this.setStatusOkAndAddEntityAndCheck(etag,
-                etag,
-                new byte[9]);
+            etag,
+            new byte[9]);
     }
 
     private void setStatusOkAndAddEntityAndCheck(final ETag etag,
@@ -147,13 +147,13 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                                  final byte[] body) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
-                    HttpStatusCode.OK,
-                    this.headersWithContentHeaders(etag),
-                    body,
-                    version,
-                    HttpStatusCode.OK,
-                    this.headersWithContentHeaders(expectedETag),
-                    body);
+                HttpStatusCode.OK,
+                this.headersWithContentHeaders(etag),
+                body,
+                version,
+                HttpStatusCode.OK,
+                this.headersWithContentHeaders(expectedETag),
+                body);
         }
     }
 
@@ -163,22 +163,22 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     public void testStatusOkEtagPrecomputedIfNoneMatchMatched() {
         final ETag etag = this.etag(2);
         this.setBodyAndNotModifiedCheck(etag,
-                etag,
-                new byte[2]);
+            etag,
+            new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched() {
         this.setBodyAndNotModifiedCheck(E_TAG_ABSENT,
-                this.etag(2),
-                new byte[2]);
+            this.etag(2),
+            new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched2() {
         this.setBodyAndNotModifiedCheck(E_TAG_ABSENT,
-                this.etag(3),
-                new byte[3]);
+            this.etag(3),
+            new byte[3]);
     }
 
     private void setBodyAndNotModifiedCheck(final ETag etag,
@@ -186,13 +186,13 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                             final byte[] body) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
-                    HttpStatusCode.OK,
-                    this.headersWithContentHeaders(etag),
-                    body,
-                    version,
-                    HttpStatusCode.NOT_MODIFIED,
-                    this.headers(expectedETag),
-                    body);
+                HttpStatusCode.OK,
+                this.headersWithContentHeaders(etag),
+                body,
+                version,
+                HttpStatusCode.NOT_MODIFIED,
+                this.headers(expectedETag),
+                body);
         }
     }
 
@@ -230,28 +230,28 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                                    final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
                                                    final byte[] expectedBody) {
         this.setVersionStatusAddEntityAndCheck(
-                this.createRequest(),
-                version,
-                status.status(),
-                httpEntity(headers).setBody(Binary.with(body)),
-                expectedVersion,
-                expectedStatus.status(),
-                httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
+            this.createRequest(),
+            version,
+            status.status(),
+            httpEntity(headers).setBody(Binary.with(body)),
+            expectedVersion,
+            expectedStatus.status(),
+            httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
     }
 
     @Override
     IfNoneMatchAwareHttpResponse createResponse(final HttpResponse response) {
         return this.createResponse(HttpMethod.GET,
-                this.ifNoneMatch(),
-                response);
+            this.ifNoneMatch(),
+            response);
     }
 
     private IfNoneMatchAwareHttpResponse createResponse(final HttpMethod method,
                                                         final List<ETag> ifNoneMatch,
                                                         final HttpResponse response) {
         return Cast.to(this.createResponse(
-                createRequest(method, ifNoneMatch),
-                response));
+            createRequest(method, ifNoneMatch),
+            response));
     }
 
     @Override
@@ -264,9 +264,9 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                                    final List<ETag> ifNoneMatch,
                                                    final HttpResponse response) {
         return IfNoneMatchAwareHttpResponse.with(
-                createRequest(method, ifNoneMatch),
-                response,
-                COMPUTER);
+            createRequest(method, ifNoneMatch),
+            response,
+            COMPUTER);
     }
 
     @Override

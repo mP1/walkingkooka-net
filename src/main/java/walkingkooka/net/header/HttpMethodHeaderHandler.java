@@ -45,8 +45,8 @@ final class HttpMethodHeaderHandler extends NonStringHeaderHandler<HttpMethod> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof HttpMethod,
-                HttpMethod.class
+            v -> v instanceof HttpMethod,
+            HttpMethod.class
         );
     }
 

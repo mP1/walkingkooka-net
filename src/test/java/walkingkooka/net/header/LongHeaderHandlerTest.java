@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class LongHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<LongHeaderHandler, Long> {
+    NonStringHeaderHandlerTestCase<LongHeaderHandler, Long> {
 
     private final static String TEXT = "123";
     private final static Long VALUE = 123L;
@@ -28,16 +28,16 @@ public final class LongHeaderHandlerTest extends
     @Test
     public void testParseEmptyStringFails() {
         this.parseStringFails(
-                "",
-                new HeaderException("Empty \"text\"")
+            "",
+            new HeaderException("Empty \"text\"")
         );
     }
 
     @Test
     public void testParseInvalidNumberFails() {
         this.parseStringFails(
-                "ABC",
-                new HeaderException("Invalid number in \"ABC\"")
+            "ABC",
+            new HeaderException("Invalid number in \"ABC\"")
         );
     }
 

@@ -42,7 +42,7 @@ public final class HttpRequestsTest implements PublicStaticHelperTesting<HttpReq
     private final static RelativeUrl URL = Url.parseRelative("/path/query1=value2");
     private final static HttpProtocolVersion VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.TEXT_PLAIN),
-            HttpHeaderName.CACHE_CONTROL, Lists.of(CacheControl.parse("close")));
+        HttpHeaderName.CACHE_CONTROL, Lists.of(CacheControl.parse("close")));
     private static final HttpEntity ENTITY_WITH_BODY = HttpEntity.EMPTY.setHeaders(HEADERS).setBodyText("body123");
 
     @Test

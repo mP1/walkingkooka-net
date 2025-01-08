@@ -26,8 +26,8 @@ final class CommentRemovingHeaderParser extends HeaderParser {
 
     static String removeComments(final String text) {
         return text.isEmpty() ?
-                text :
-                removeCommentsNonEmptyText(text);
+            text :
+            removeCommentsNonEmptyText(text);
     }
 
     private static String removeCommentsNonEmptyText(final String text) {

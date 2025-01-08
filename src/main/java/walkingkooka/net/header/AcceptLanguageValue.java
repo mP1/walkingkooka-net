@@ -29,8 +29,8 @@ import java.util.function.Predicate;
  * Holds a Language with parameters within a accept-language header.
  */
 public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
-        implements Predicate<LanguageName>,
-        HasQualityFactor {
+    implements Predicate<LanguageName>,
+    HasQualityFactor {
 
     /**
      * No parameters constant.
@@ -49,8 +49,8 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         checkValue(value);
 
         return value.isWildcard() ?
-                WILDCARD :
-                new AcceptLanguageValue(value, NO_PARAMETERS);
+            WILDCARD :
+            new AcceptLanguageValue(value, NO_PARAMETERS);
     }
 
     /**
@@ -80,9 +80,9 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     // AcceptLanguage.test
     boolean testContentLanguage(final ContentLanguage contentLanguage) {
         return contentLanguage.value.stream()
-                .filter(this.value)
-                .limit(1)
-                .count() == 1;
+            .filter(this.value)
+            .limit(1)
+            .count() == 1;
     }
 
     // value............................................................................................................
@@ -94,8 +94,8 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         checkValue(value);
 
         return this.value.equals(value) ?
-                this :
-                this.replace(value);
+            this :
+            this.replace(value);
     }
 
     private static void checkValue(final LanguageName value) {
@@ -116,8 +116,8 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     private AcceptLanguageValue replace0(final LanguageName name,
                                          final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
-                WILDCARD :
-                new AcceptLanguageValue(name, parameters);
+            WILDCARD :
+            new AcceptLanguageValue(name, parameters);
     }
 
     // header........................................................................................................

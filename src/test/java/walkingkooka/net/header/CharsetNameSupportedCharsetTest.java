@@ -49,14 +49,14 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
     public void testTestCharsetSupported2() {
         final Charset utf8 = StandardCharsets.UTF_8;
         final Charset unsupported = Charset.availableCharsets()
-                .values()
-                .stream()
-                .filter(c -> !utf8.contains(c))
-                .findFirst()
-                .get();
+            .values()
+            .stream()
+            .filter(c -> !utf8.contains(c))
+            .findFirst()
+            .get();
 
         this.testFalse(CharsetName.with(utf8.name()),
-                CharsetName.with(unsupported.name()));
+            CharsetName.with(unsupported.name()));
     }
 
     @Test

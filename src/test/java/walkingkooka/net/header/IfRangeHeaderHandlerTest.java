@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class IfRangeHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<IfRangeHeaderHandler, IfRange<?>> {
+    NonStringHeaderHandlerTestCase<IfRangeHeaderHandler, IfRange<?>> {
 
     @Override
     public String typeNamePrefix() {

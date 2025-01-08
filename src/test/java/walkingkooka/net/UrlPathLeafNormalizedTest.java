@@ -28,9 +28,9 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         final UrlPathName name = UrlPathName.ROOT;
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/b2//", name),
-                "/a1/b2//"
+            name,
+            unnormalized("/a1/b2//", name),
+            "/a1/b2//"
         );
     }
 
@@ -39,9 +39,9 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         final UrlPathName name = UrlPathName.with(".");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/b2/.", name),
-                "/a1/b2/."
+            name,
+            unnormalized("/a1/b2/.", name),
+            "/a1/b2/."
         );
     }
 
@@ -50,9 +50,9 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         final UrlPathName name = UrlPathName.with("..");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("/a1/b2/..", name),
-                "/a1/b2/.."
+            name,
+            unnormalized("/a1/b2/..", name),
+            "/a1/b2/.."
         );
     }
 
@@ -61,9 +61,9 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         final UrlPathName name = UrlPathName.with("c3");
 
         this.appendNameAndCheck(
-                name,
-                normalized("/a1/b2/c3", name),
-                "/a1/b2/c3"
+            name,
+            normalized("/a1/b2/c3", name),
+            "/a1/b2/c3"
         );
     }
 
@@ -72,17 +72,17 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         final UrlPathName name = UrlPathName.with("3");
 
         this.appendNameAndCheck(
-                name,
-                normalized("/a1/b2/3", name),
-                "/a1/b2/3"
+            name,
+            normalized("/a1/b2/3", name),
+            "/a1/b2/3"
         );
     }
 
     @Override
     UrlPathLeafNormalized createPath() {
         return UrlPathLeafNormalized.withNormalized("/a1/b2",
-                UrlPathName.with("b2"),
-                Optional.of(UrlPath.normalized("/a1", UrlPathName.with("a1"), Optional.of(UrlPath.ROOT))));
+            UrlPathName.with("b2"),
+            Optional.of(UrlPath.normalized("/a1", UrlPathName.with("a1"), Optional.of(UrlPath.ROOT))));
     }
 
     @Override

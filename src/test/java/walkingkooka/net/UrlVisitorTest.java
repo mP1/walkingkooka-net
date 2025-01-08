@@ -61,13 +61,13 @@ public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
     @Test
     public void testAcceptDataUrl() {
         this.createVisitor()
-                .accept(
-                        Url.data(
-                                Optional.of(MediaType.TEXT_PLAIN),
-                                false,
-                                Binary.EMPTY
-                        )
-                );
+            .accept(
+                Url.data(
+                    Optional.of(MediaType.TEXT_PLAIN),
+                    false,
+                    Binary.EMPTY
+                )
+            );
     }
 
     @Test

@@ -24,8 +24,8 @@ public final class HostAddressProblemProbablyIp4Test extends HostAddressProblemT
     @Test
     public void testMessage() {
         this.messageAndCheck(HostAddressProblemProbablyIp4.INSTANCE,
-                "1.2.3.999",
-                "Host probably an ip4 dot notation address=\"1.2.3.999\"");
+            "1.2.3.999",
+            "Host probably an ip4 dot notation address=\"1.2.3.999\"");
     }
 
     @Override

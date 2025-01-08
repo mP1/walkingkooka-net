@@ -53,9 +53,9 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
         final String text = "";
 
         this.check(EncodedText.with(charset, language, text),
-                charset,
-                language,
-                text);
+            charset,
+            language,
+            text);
     }
 
     @Test
@@ -65,9 +65,9 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
         final String text = "/path/filename.txt";
 
         this.check(EncodedText.with(charset, language, text),
-                charset,
-                language,
-                text);
+            charset,
+            language,
+            text);
     }
 
     @Test
@@ -77,9 +77,9 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
         final String text = this.value();
 
         this.check(EncodedText.with(charset, language, text),
-                charset,
-                language,
-                text);
+            charset,
+            language,
+            text);
     }
 
     private void check(final EncodedText encodedText,
@@ -99,9 +99,9 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
     @Test
     public void testHeaderTextWithoutLanguage() {
         this.toHeaderTextAndCheck(EncodedText.with(this.charset(),
-                        EncodedText.NO_LANGUAGE,
-                        "abc123"),
-                "UTF-8''abc123");
+                EncodedText.NO_LANGUAGE,
+                "abc123"),
+            "UTF-8''abc123");
     }
 
     @Test
@@ -123,29 +123,29 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
     @Test
     public void testEqualsDifferentCharset() {
         this.checkNotEquals(EncodedText.with(CharsetName.UTF_16,
-                this.language(),
-                this.value()));
+            this.language(),
+            this.value()));
     }
 
     @Test
     public void testEqualsDifferentLanguage() {
         this.checkNotEquals(EncodedText.with(this.charset(),
-                Optional.of(LanguageName.with("fr")),
-                this.value()));
+            Optional.of(LanguageName.with("fr")),
+            this.value()));
     }
 
     @Test
     public void testEqualsDifferentLanguage2() {
         this.checkNotEquals(EncodedText.with(this.charset(),
-                EncodedText.NO_LANGUAGE,
-                this.value()));
+            EncodedText.NO_LANGUAGE,
+            this.value()));
     }
 
     @Test
     public void testEqualsDifferentValue() {
         this.checkNotEquals(EncodedText.with(this.charset(),
-                this.language(),
-                "different"));
+            this.language(),
+            "different"));
     }
 
     // toString.........................................................................................................

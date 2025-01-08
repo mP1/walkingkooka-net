@@ -84,25 +84,25 @@ public final class DataUrl extends Url {
 
         // mime type
         final String mimeTypeString = url.substring(
-                "data:".length(),
-                -1 == semi || semi > comma ?
-                        comma :
-                        semi
+            "data:".length(),
+            -1 == semi || semi > comma ?
+                comma :
+                semi
         );
         final Optional<MediaType> mediaType =
-                Optional.ofNullable(
-                        mimeTypeString.isEmpty() ?
-                                null :
-                                complainIfWithParameters(
-                                        MediaType.parse(mimeTypeString)
-                                )
-                );
+            Optional.ofNullable(
+                mimeTypeString.isEmpty() ?
+                    null :
+                    complainIfWithParameters(
+                        MediaType.parse(mimeTypeString)
+                    )
+            );
 
         final String encoding;
         if (-1 != semi && semi < comma) {
             encoding = url.substring(
-                    semi + 1,
-                    comma
+                semi + 1,
+                comma
             );
         } else {
             encoding = "";
@@ -116,22 +116,22 @@ public final class DataUrl extends Url {
             case "":
                 base64 = false;
                 binary = URLDecoder.decode(encodedData)
-                        .getBytes(StandardCharsets.UTF_8);
+                    .getBytes(StandardCharsets.UTF_8);
                 break;
             case "base64":
                 base64 = true;
                 binary = Base64.getDecoder()
-                        .decode(encodedData);
+                    .decode(encodedData);
                 break;
             default:
                 throw new IllegalArgumentException("Got unknown encoding " + CharSequences.quoteAndEscape(encoding) + " in " + CharSequences.quoteAndEscape(url));
         }
 
         return new DataUrl(
-                url,
-                mediaType,
-                base64,
-                Binary.with(binary)
+            url,
+            mediaType,
+            base64,
+            Binary.with(binary)
         );
     }
 
@@ -147,10 +147,10 @@ public final class DataUrl extends Url {
         Objects.requireNonNull(binary, "binary");
 
         return new DataUrl(
-                null, // stringValue lazily computed
-                mediaType,
-                base64,
-                binary
+            null, // stringValue lazily computed
+            mediaType,
+            base64,
+            binary
         );
     }
 
@@ -201,30 +201,30 @@ public final class DataUrl extends Url {
 
     private String rebuildDataUrl() {
         final StringBuilder b = new StringBuilder()
-                .append(SCHEME)
-                .append(
-                        this.mediaType.map(MediaType::toString)
-                                .orElse("")
-                );
+            .append(SCHEME)
+            .append(
+                this.mediaType.map(MediaType::toString)
+                    .orElse("")
+            );
 
         final byte[] binary = this.binary()
-                .value();
+            .value();
         if (this.base64) {
             b.append(";base64,")
-                    .append(
-                            Base64.getEncoder()
-                                    .encodeToString(binary)
-                    );
+                .append(
+                    Base64.getEncoder()
+                        .encodeToString(binary)
+                );
         } else {
             b.append(',')
-                    .append(
-                            URLEncoder.encode(
-                                    new String(
-                                            binary,
-                                            StandardCharsets.UTF_8
-                                    )
-                            )
-                    );
+                .append(
+                    URLEncoder.encode(
+                        new String(
+                            binary,
+                            StandardCharsets.UTF_8
+                        )
+                    )
+                );
         }
 
         return b.toString();
@@ -247,14 +247,14 @@ public final class DataUrl extends Url {
         final String url = this.url;
 
         final int start = url.lastIndexOf(
-                ENCODED_DATA_START.character()
+            ENCODED_DATA_START.character()
         );
         if (-1 == start) {
             missingEncodedDataStart(url);
         }
 
         return this.value()
-                .substring(start + 1);
+            .substring(start + 1);
     }
 
     /**
@@ -295,23 +295,23 @@ public final class DataUrl extends Url {
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.mediaType,
-                this.base64,
-                this.binary
+            this.mediaType,
+            this.base64,
+            this.binary
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof DataUrl && this.equals0(Cast.to(other));
+            other instanceof DataUrl && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final DataUrl other) {
         return (null != this.url && Objects.equals(this.url, other.url)) ||
-                this.mediaType.equals(other.mediaType) &&
+            this.mediaType.equals(other.mediaType) &&
                 this.base64 == other.base64 &&
-                        this.binary().equals(other.binary);
+                this.binary().equals(other.binary);
     }
 
     @Override

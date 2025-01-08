@@ -37,10 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
-        ParseStringTesting<UrlQueryString>,
-        ToStringTesting<UrlQueryString>,
-        ComparableTesting2<UrlQueryString>,
-        HasTextTesting {
+    ParseStringTesting<UrlQueryString>,
+    ToStringTesting<UrlQueryString>,
+    ComparableTesting2<UrlQueryString>,
+    HasTextTesting {
 
     @Test
     public void testWithEmpty() {
@@ -73,26 +73,26 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         bcd.addParameterValue("234");
 
         this.parseStringAndCheck(
+            text,
+            new UrlQueryString(
                 text,
-                new UrlQueryString(
-                        text,
-                        Lists.of(
-                                UrlParameterKeyValuePair.nameAndValue(
-                                        UrlParameterName.with("a"),
-                                        "1"
-                                ),
-                                UrlParameterKeyValuePair.nameAndValue(
-                                        UrlParameterName.with("bcd"),
-                                        "234"
-                                )
-                        ),
-                        Maps.of(
-                                UrlParameterName.with("a"),
-                                a,
-                                UrlParameterName.with("bcd"),
-                                bcd
-                        )
+                Lists.of(
+                    UrlParameterKeyValuePair.nameAndValue(
+                        UrlParameterName.with("a"),
+                        "1"
+                    ),
+                    UrlParameterKeyValuePair.nameAndValue(
+                        UrlParameterName.with("bcd"),
+                        "234"
+                    )
+                ),
+                Maps.of(
+                    UrlParameterName.with("a"),
+                    a,
+                    UrlParameterName.with("bcd"),
+                    bcd
                 )
+            )
         );
     }
 
@@ -190,8 +190,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a", "1");
 
         this.toStringAndCheck(
-                updated,
-                "a=1"
+            updated,
+            "a=1"
         );
     }
 
@@ -203,8 +203,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         this.parameterWithValueCheck(updated, "a b", "x y");
 
         this.toStringAndCheck(
-                updated,
-                "a+b=x+y"
+            updated,
+            "a+b=x+y"
         ); // escaped form.
     }
 
@@ -212,14 +212,14 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     public void testAddParameterTwiceToEmpty() {
         final UrlQueryString empty = UrlQueryString.EMPTY;
         final UrlQueryString updated = empty.addParameter(this.name("a"), "1")
-                .addParameter(this.name("b"), "2");
+            .addParameter(this.name("b"), "2");
 
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "b", "2");
 
         this.toStringAndCheck(
-                updated,
-                "a=1&b=2"
+            updated,
+            "a=1&b=2"
         );
     }
 
@@ -227,16 +227,16 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     public void testAddParameterThriceToEmpty() {
         final UrlQueryString empty = UrlQueryString.EMPTY;
         final UrlQueryString updated = empty.addParameter(this.name("a"), "1")
-                .addParameter(this.name("b"), "2")
-                .addParameter(this.name("c"), "3");
+            .addParameter(this.name("b"), "2")
+            .addParameter(this.name("c"), "3");
 
         this.parameterWithValueCheck(updated, "a", "1");
         this.parameterWithValueCheck(updated, "b", "2");
         this.parameterWithValueCheck(updated, "c", "3");
 
         this.toStringAndCheck(
-                updated,
-                "a=1&b=2&c=3"
+            updated,
+            "a=1&b=2&c=3"
         );
     }
 
@@ -244,15 +244,15 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     public void testAddParameterThriceToEmpty2() {
         final UrlQueryString empty = UrlQueryString.EMPTY;
         final UrlQueryString updated = empty.addParameter(this.name("a"), "1")
-                .addParameter(this.name("b"), "2")
-                .addParameter(this.name("a"), "3");
+            .addParameter(this.name("b"), "2")
+            .addParameter(this.name("a"), "3");
 
         this.parameterWithValueCheck(updated, "a", "1", "3");
         this.parameterWithValueCheck(updated, "b", "2");
 
         this.toStringAndCheck(
-                updated,
-                "a=1&b=2&a=3"
+            updated,
+            "a=1&b=2&a=3"
         );
     }
 
@@ -266,8 +266,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         this.parameterWithValueCheck(updated, "c", "3");
 
         this.toStringAndCheck(
-                updated,
-                "a=1&b=2&c=3"
+            updated,
+            "a=1&b=2&c=3"
         );
     }
 
@@ -281,8 +281,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         this.parameterWithValueCheck(updated, "c", "3");
 
         this.toStringAndCheck(
-                updated,
-                "a=1;b=2;c=3"
+            updated,
+            "a=1;b=2;c=3"
         );
     }
 
@@ -291,8 +291,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     @Test
     public void testAddParametersNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlQueryString.EMPTY.addParameters(null)
+            NullPointerException.class,
+            () -> UrlQueryString.EMPTY.addParameters(null)
         );
     }
 
@@ -301,8 +301,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         final UrlQueryString queryString = UrlQueryString.parse("a=b");
 
         assertSame(
-                queryString,
-                queryString.addParameters(UrlQueryString.EMPTY)
+            queryString,
+            queryString.addParameters(UrlQueryString.EMPTY)
         );
     }
 
@@ -312,35 +312,35 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         final UrlQueryString queryString = UrlQueryString.parse("a=b");
 
         assertSame(
-                queryString,
-                UrlQueryString.EMPTY.addParameters(queryString)
+            queryString,
+            UrlQueryString.EMPTY.addParameters(queryString)
         );
     }
 
     @Test
     public void testAddParameters() {
         this.addParametersAndCheck(
-                "a=b",
-                "c=d",
-                "a=b&c=d"
+            "a=b",
+            "c=d",
+            "a=b&c=d"
         );
     }
 
     @Test
     public void testAddParametersNotReplaced() {
         this.addParametersAndCheck(
-                "a=11",
-                "a=22",
-                "a=11&a=22"
+            "a=11",
+            "a=22",
+            "a=11&a=22"
         );
     }
 
     @Test
     public void testAddParametersNotReplaced2() {
         this.addParametersAndCheck(
-                "a=b",
-                "a=z&c=d",
-                "a=b&a=z&c=d"
+            "a=b",
+            "a=z&c=d",
+            "a=b&a=z&c=d"
         );
     }
 
@@ -348,9 +348,9 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
                                        final String add,
                                        final String expected) {
         this.addParametersAndCheck(
-                UrlQueryString.parse(before),
-                UrlQueryString.parse(add),
-                UrlQueryString.parse(expected)
+            UrlQueryString.parse(before),
+            UrlQueryString.parse(add),
+            UrlQueryString.parse(expected)
         );
     }
 
@@ -358,9 +358,9 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
                                        final UrlQueryString add,
                                        final UrlQueryString expected) {
         this.checkEquals(
-                expected,
-                before.addParameters(add),
-                () -> before + " addParameters " + add
+            expected,
+            before.addParameters(add),
+            () -> before + " addParameters " + add
         );
     }
 
@@ -596,13 +596,13 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
 
     private void parameterAndCheck0(final UrlQueryString queryString, final String key, final Optional<String> value) {
         this.checkEquals(value,
-                queryString.parameter(this.name(key)),
-                "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
+            queryString.parameter(this.name(key)),
+            "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
 
         this.checkEquals(
-                queryString.toString().isEmpty(),
-                queryString.isEmpty(),
-                () -> queryString + " isEmpty"
+            queryString.toString().isEmpty(),
+            queryString.isEmpty(),
+            () -> queryString + " isEmpty"
         );
     }
 
@@ -616,24 +616,24 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
                                           final String key,
                                           final List<String> values) {
         final List<String> actualValues = queryString.parameterValues(
-                this.name(key)
+            this.name(key)
         );
 
         this.checkNotEquals(
-                null,
-                actualValues
+            null,
+            actualValues
         );
 
         this.checkEquals(
-                values,
-                actualValues,
-                "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString
+            values,
+            actualValues,
+            "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString
         );
 
         // https://github.com/mP1/walkingkooka/issues/2575
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> actualValues.add(null)
+            UnsupportedOperationException.class,
+            () -> actualValues.add(null)
         );
     }
 
@@ -643,9 +643,9 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
                                        final String key,
                                        final String... values) {
         parametersGetAndCheck0(
-                queryString,
-                key,
-                Lists.of(values)
+            queryString,
+            key,
+            Lists.of(values)
         );
     }
 
@@ -653,19 +653,19 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
                                         final String key,
                                         final List<String> values) {
         final List<String> actualValues = queryString.parameters()
-                .get(this.name(key));
+            .get(this.name(key));
 
         this.checkEquals(
-                values,
-                actualValues,
-                "UrlQueryString.parameter().get(" + CharSequences.quote(key) + ") in: " + queryString
+            values,
+            actualValues,
+            "UrlQueryString.parameter().get(" + CharSequences.quote(key) + ") in: " + queryString
         );
 
         if (null != values) {
             // https://github.com/mP1/walkingkooka/issues/2575
             assertThrows(
-                    UnsupportedOperationException.class,
-                    () -> actualValues.add(null)
+                UnsupportedOperationException.class,
+                () -> actualValues.add(null)
             );
         }
     }
@@ -680,8 +680,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     public void testText() {
         final String text = "abc=123&def=456;def=789";
         this.textAndCheck(
-                UrlQueryString.parse(text),
-                text
+            UrlQueryString.parse(text),
+            text
         );
     }
 
@@ -690,16 +690,16 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     @Test
     public void testEqualsDifferentParameters() {
         this.checkNotEquals(
-                UrlQueryString.parse("a=1"),
-                UrlQueryString.parse("b=2")
+            UrlQueryString.parse("a=1"),
+            UrlQueryString.parse("b=2")
         );
     }
 
     @Test
     public void testEqualsEquivalentButQueryStringDifferent() {
         this.checkEquals(
-                UrlQueryString.parse("a=%20"),
-                UrlQueryString.parse("a= ")
+            UrlQueryString.parse("a=%20"),
+            UrlQueryString.parse("a= ")
         );
     }
 
@@ -708,8 +708,8 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     @Test
     public void testCompareToCaseSensitive() {
         this.compareToAndCheckLess(
-                UrlQueryString.parse("XYZ123"),
-                UrlQueryString.parse("abc123")
+            UrlQueryString.parse("XYZ123"),
+            UrlQueryString.parse("abc123")
         );
     }
 

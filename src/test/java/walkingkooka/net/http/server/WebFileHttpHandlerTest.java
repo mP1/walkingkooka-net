@@ -45,7 +45,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileHttpHandler>,
-        ToStringTesting<WebFileHttpHandler> {
+    ToStringTesting<WebFileHttpHandler> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -147,11 +147,11 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-                this.request(
-                        "file-not-found",
-                        NO_ETAG, NO_LAST_MODIFIED
-                ),
-                expected
+            this.request(
+                "file-not-found",
+                NO_ETAG, NO_LAST_MODIFIED
+            ),
+            expected
         );
     }
 
@@ -163,16 +163,16 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                        .setContentType(CONTENT_TYPE1)
-                        .setBody(CONTENT1)
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+                .setContentType(CONTENT_TYPE1)
+                .setBody(CONTENT1)
         );
 
         this.handleAndCheck(
-                request,
-                expected
+            request,
+            expected
         );
     }
 
@@ -182,15 +182,15 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                        .setContentType(CONTENT_TYPE1)
-                        .setBody(CONTENT1));
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+                .setContentType(CONTENT_TYPE1)
+                .setBody(CONTENT1));
 
         this.handleAndCheck(
-                this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED),
-                expected
+            this.request("/deleted/../" + FILE1, NO_ETAG, NO_LAST_MODIFIED),
+            expected
         );
     }
 
@@ -200,15 +200,15 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
-                .addHeader(HttpHeaderName.E_TAG, ETAG2)
-                .setBody(CONTENT2));
+            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
+            .addHeader(HttpHeaderName.E_TAG, ETAG2)
+            .setBody(CONTENT2));
 
         this.handleAndCheck(
-                this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED),
-                expected
+            this.request(FILE2, NO_ETAG, NO_LAST_MODIFIED),
+            expected
         );
     }
 
@@ -218,13 +218,13 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
+            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
 
         this.handleAndCheck(
-                this.request(FILE1, NO_ETAG, LAST_MODIFIED1),
-                expected
+            this.request(FILE1, NO_ETAG, LAST_MODIFIED1),
+            expected
         );
     }
 
@@ -236,14 +236,14 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
-                .setBody(CONTENT1));
+            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
+            .setBody(CONTENT1));
 
         this.handleAndCheck(
-                request,
-                expected
+            request,
+            expected
         );
     }
 
@@ -253,18 +253,18 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
-                .addHeader(HttpHeaderName.E_TAG, ETAG2));
+            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
+            .addHeader(HttpHeaderName.E_TAG, ETAG2));
 
         this.handleAndCheck(
-                this.request(
-                        FILE2,
-                        ETAG2,
-                        LAST_MODIFIED2
-                ),
-                expected
+            this.request(
+                FILE2,
+                ETAG2,
+                LAST_MODIFIED2
+            ),
+            expected
         );
     }
 
@@ -317,9 +317,9 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHttpHandler(),
-                this.baseUrlPath()
-                        .toString()
+            this.createHttpHandler(),
+            this.baseUrlPath()
+                .toString()
         );
     }
 

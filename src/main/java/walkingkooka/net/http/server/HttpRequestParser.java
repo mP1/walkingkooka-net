@@ -51,12 +51,12 @@ final class HttpRequestParser implements StaticHelper {
         final String body = parser.reader.leftOver();
 
         return HttpRequests.value(method,
-                transport,
-                url,
-                version,
-                CharSequences.isNullOrEmpty(body) ?
-                        entity :
-                        entity.setBodyText(body));
+            transport,
+            url,
+            version,
+            CharSequences.isNullOrEmpty(body) ?
+                entity :
+                entity.setBodyText(body));
     }
 
     private HttpRequestParser(final LineReader reader) {

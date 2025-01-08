@@ -45,7 +45,7 @@ import java.util.stream.StreamSupport;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2<HttpRequestRouterParametersMapEntrySet>,
-        SetTesting2<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
+    SetTesting2<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");
@@ -54,20 +54,20 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie1=cookievalue1;cookie2=cookievalue2");
 
     private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HttpHeaderName.CONTENT_LENGTH, Lists.of("1"),
-            HttpHeaderName.COOKIE, Lists.of(COOKIES));
+        HttpHeaderName.COOKIE, Lists.of(COOKIES));
 
     // tests............................................................................................................
 
     @Test
     public void testAddFails() {
         this.addFails(this.createSet(),
-                Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
+            Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
     }
 
     @Test
     public void testRemoveFails() {
         this.removeFails(this.createSet(),
-                Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
+            Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
     }
 
     @Test
@@ -114,10 +114,10 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                    final RelativeUrl url,
                                    final Map<HttpHeaderName<?>, List<?>> headers) {
         final Set<Entry<HttpRequestAttribute<?>, Object>> set = this.createSet(transport,
-                method,
-                version,
-                url,
-                headers);
+            method,
+            version,
+            url,
+            headers);
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = set.iterator();
         this.checkEntry(iterator, HttpRequestAttributes.TRANSPORT, transport);
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, method);
@@ -125,8 +125,8 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
 
         // path-component-count
         final int pathComponentCount = Long.valueOf(StreamSupport.stream(url.path().spliterator(), false)
-                        .count())
-                .intValue();
+                .count())
+            .intValue();
 
         this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT, pathComponentCount);
 
@@ -148,8 +148,8 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
         for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
             final HttpHeaderName<?> header = nameAndValues.getKey();
             this.checkEntry(iterator,
-                    header,
-                    nameAndValues.getValue());
+                header,
+                nameAndValues.getValue());
             entryCount++;
         }
 
@@ -161,16 +161,16 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
             }
         }).orElse(ClientCookie.NO_COOKIES)) {
             this.checkEntry(iterator,
-                    cookie.name(),
-                    cookie);
+                cookie.name(),
+                cookie);
             entryCount++;
         }
 
         // parameters
         for (Entry<UrlParameterName, List<String>> nameAndValue : url.query().parameters().entrySet()) {
             this.checkEntry(iterator,
-                    HttpRequestParameterName.with(nameAndValue.getKey().value()),
-                    nameAndValue.getValue());
+                HttpRequestParameterName.with(nameAndValue.getKey().value()),
+                nameAndValue.getValue());
             entryCount++;
         }
 
@@ -209,10 +209,10 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                                                              final RelativeUrl url,
                                                              final Map<HttpHeaderName<?>, List<?>> headers) {
         return HttpRequestRouterParametersMapEntrySet.with(HttpRequestRouterParametersMap.with(this.request(transport,
-                method,
-                version,
-                url,
-                headers)));
+            method,
+            version,
+            url,
+            headers)));
     }
 
     private HttpRequest request(final HttpTransport transport,

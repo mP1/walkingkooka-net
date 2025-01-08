@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
-        extends HeaderParserTestCase<P, ETag> {
+    extends HeaderParserTestCase<P, ETag> {
 
     ETagHeaderParserTestCase() {
         super();
@@ -151,8 +151,7 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
         this.parseStringAndCheck(text, ETag.with(value, validator));
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return ETagHeaderParser.VALUE;
     }
 }

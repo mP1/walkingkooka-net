@@ -83,13 +83,13 @@ public final class UrlCredentials implements Comparable<UrlCredentials> {
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-                other instanceof UrlCredentials &&
-                        this.equals0((UrlCredentials) other);
+            other instanceof UrlCredentials &&
+                this.equals0((UrlCredentials) other);
     }
 
     private boolean equals0(final UrlCredentials other) {
         return this.user.equals(other.user) &&
-                this.password.equals(other.password);
+            this.password.equals(other.password);
     }
 
     @Override

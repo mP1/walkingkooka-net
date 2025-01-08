@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements ClassTesting2<P>,
-        TypeNameTesting<P> {
+    TypeNameTesting<P> {
 
     HostAddressProblemTestCase() {
         super();
@@ -32,8 +32,8 @@ abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> i
                                final String address,
                                final String message) {
         this.checkEquals(message,
-                problem.message(address),
-                () -> problem + " " + address);
+            problem.message(address),
+            () -> problem + " " + address);
     }
 
     // class.................. .........................................................................................

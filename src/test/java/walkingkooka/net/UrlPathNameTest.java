@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
-        NameTesting<UrlPathName, UrlPathName> {
+    NameTesting<UrlPathName, UrlPathName> {
 
     @Override
     public void testEmptyFails() {
@@ -61,7 +61,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         final UrlPathName d4 = UrlPathName.with("d4");
 
         this.compareToArraySortAndCheck(d4, a1, c3, b2,
-                a1, b2, c3, d4);
+            a1, b2, c3, d4);
     }
 
     @Test

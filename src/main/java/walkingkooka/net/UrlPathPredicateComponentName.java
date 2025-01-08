@@ -24,8 +24,8 @@ final class UrlPathPredicateComponentName extends UrlPathPredicateComponent {
     static UrlPathPredicateComponentName with(final UrlPathName name,
                                               final UrlPathPredicateComponent next) {
         return new UrlPathPredicateComponentName(
-                name,
-                next
+            name,
+            next
         );
     }
 
@@ -43,7 +43,7 @@ final class UrlPathPredicateComponentName extends UrlPathPredicateComponent {
     @Override
     boolean testNamesNotEmpty(final Iterator<UrlPathName> names) {
         return this.name.equals(names.next())
-                && this.next.test(names);
+            && this.next.test(names);
     }
 
     private final UrlPathName name;

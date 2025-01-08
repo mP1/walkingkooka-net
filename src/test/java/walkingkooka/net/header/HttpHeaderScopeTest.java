@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>,
-        ToStringTesting<HttpHeaderScope> {
+    ToStringTesting<HttpHeaderScope> {
 
     // checkRequest .....................................................
 
@@ -44,7 +44,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     @Test
     public void testRequestContentLength() {
         this.checkScope(HttpHeaderName.CONTENT_LENGTH, HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
@@ -55,80 +55,80 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     @Test
     public void testCustomUnknown() {
         this.checkScope(HttpHeaderName.with("x-custom"),
-                HttpHeaderScope.MULTIPART,
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.MULTIPART,
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testFrom() {
         this.checkScope(HttpHeaderName.FROM,
-                EmailAddress.parse("user@example.com"),
-                HttpHeaderScope.REQUEST);
+            EmailAddress.parse("user@example.com"),
+            HttpHeaderScope.REQUEST);
     }
 
     @Test
     public void testContentLength() {
         this.checkScope(HttpHeaderName.CONTENT_LENGTH,
-                123L,
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            123L,
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testServer() {
         this.checkScope(HttpHeaderName.SERVER,
-                "My server",
-                HttpHeaderScope.RESPONSE);
+            "My server",
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testXCustomUnknownScope() {
         this.checkScope(Cast.to(HttpHeaderName.with("x-custom")),
-                "value456",
-                HttpHeaderScope.MULTIPART,
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            "value456",
+            HttpHeaderScope.MULTIPART,
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testCacheControlMustRevalidate() {
         this.checkScopeCacheControlScope(CacheControlDirective.MUST_REVALIDATE,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testCacheControlOnlyIfCachedValue() {
         this.checkScopeCacheControlScope(CacheControlDirective.ONLY_IF_CACHED,
-                HttpHeaderScope.REQUEST);
+            HttpHeaderScope.REQUEST);
     }
 
     @Test
     public void testContentEncodingGzipValue() {
         this.checkScope(HttpHeaderName.CONTENT_ENCODING,
-                ContentEncoding.GZIP,
-                HttpHeaderScope.RESPONSE);
+            ContentEncoding.GZIP,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testCacheControlMaxAge123Value() {
         this.checkScopeCacheControlScope(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                HttpHeaderScope.REQUEST,
-                HttpHeaderScope.RESPONSE);
+            HttpHeaderScope.REQUEST,
+            HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testContentTypeTextPlainValue() {
         this.checkScope(HttpHeaderName.CONTENT_TYPE,
-                MediaType.TEXT_PLAIN,
-                HttpHeaderScope.MULTIPART, HttpHeaderScope.REQUEST, HttpHeaderScope.RESPONSE);
+            MediaType.TEXT_PLAIN,
+            HttpHeaderScope.MULTIPART, HttpHeaderScope.REQUEST, HttpHeaderScope.RESPONSE);
     }
 
     private void checkScopeCacheControlScope(final CacheControlDirective<?> directive,
                                              final HttpHeaderScope... scopes) {
         this.checkScope(HttpHeaderName.CACHE_CONTROL,
-                CacheControl.with(Lists.of(directive)),
-                scopes);
+            CacheControl.with(Lists.of(directive)),
+            scopes);
     }
 
     private <T> void checkScope(final HttpHeaderName<T> header,

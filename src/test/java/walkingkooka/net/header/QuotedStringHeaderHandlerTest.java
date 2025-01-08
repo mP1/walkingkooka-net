@@ -24,32 +24,32 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     @Test
     public void testParseControlCharacterFails() {
         this.parseStringFails(
-                "a\\0",
-                new HeaderException("Invalid character 'a' at 0 in \"a\\0\"")
+            "a\\0",
+            new HeaderException("Invalid character 'a' at 0 in \"a\\0\"")
         );
     }
 
     @Test
     public void testParseNonAsciiFails() {
         this.parseStringFails(
-                "a\u0080",
-                new HeaderException("Invalid character 'a' at 0 in \"a\u0080\"")
+            "a\u0080",
+            new HeaderException("Invalid character 'a' at 0 in \"a\u0080\"")
         );
     }
 
     @Test
     public void testParseMissingOpeningDoubleQuoteFails() {
         this.parseStringFails(
-                "abc\"",
-                new HeaderException("Invalid character 'a' at 0 in \"abc\"\"")
+            "abc\"",
+            new HeaderException("Invalid character 'a' at 0 in \"abc\"\"")
         );
     }
 
     @Test
     public void testParseUnsupportedBackslashFails() {
         this.parseStringFails(
-                "a\\bc",
-                new HeaderException("Invalid character 'a' at 0 in \"a\\bc\"")
+            "a\\bc",
+            new HeaderException("Invalid character 'a' at 0 in \"a\\bc\"")
         );
     }
 
@@ -61,24 +61,24 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     @Test
     public void testParseWithBackslashSupportedEscapedDoubleQuote() {
         this.parseStringAndCheck(
-                (text) -> this.handlerSupportingBackslashes()
-                        .parse(
-                                text
-                        ),
-                "\"a\\\"bc\"",
-                "a\"bc"
+            (text) -> this.handlerSupportingBackslashes()
+                .parse(
+                    text
+                ),
+            "\"a\\\"bc\"",
+            "a\"bc"
         );
     }
 
     @Test
     public void testParseWithBackslashSupportedEscapedBackslash() {
         this.parseStringAndCheck(
-                (text) -> this.handlerSupportingBackslashes()
-                        .parse(
-                                text
-                        ),
-                "\"a\\\\bc\"",
-                "a\\bc"
+            (text) -> this.handlerSupportingBackslashes()
+                .parse(
+                    text
+                ),
+            "\"a\\\\bc\"",
+            "a\\bc"
         );
     }
 
@@ -90,22 +90,22 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     @Test
     public void testToTextWithBackslashSupported() {
         this.toTextAndCheck(this.handlerSupportingBackslashes(),
-                "abc",
-                "\"abc\"");
+            "abc",
+            "\"abc\"");
     }
 
     @Test
     public void testToTextWithBackslashSupportedDoubleQuote() {
         this.toTextAndCheck(this.handlerSupportingBackslashes(),
-                "a\"bc",
-                "\"a\\\"bc\"");
+            "a\"bc",
+            "\"a\\\"bc\"");
     }
 
     @Test
     public void testToTextWithBackslashSupportedBackslash() {
         this.toTextAndCheck(this.handlerSupportingBackslashes(),
-                "a\\bc",
-                "\"a\\\\bc\"");
+            "a\\bc",
+            "\"a\\\\bc\"");
     }
 
     @Test
@@ -120,11 +120,11 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         final String value = "a\"bc";
 
         this.parseStringAndCheck(
-                (t) -> handler.parse(
-                        t
-                ),
-                text,
-                value
+            (t) -> handler.parse(
+                t
+            ),
+            text,
+            value
         );
         this.toTextAndCheck(handler, value, text);
     }

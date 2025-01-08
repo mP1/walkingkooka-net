@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
-        implements IsMethodTesting<C> {
+    implements IsMethodTesting<C> {
 
     CookieTestCase() {
         super();
@@ -151,8 +151,8 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isRequest") ||
-                m.equals("isResponse") ||
-                m.equals("isSession") ||
-                m.equals("isPermanent");
+            m.equals("isResponse") ||
+            m.equals("isSession") ||
+            m.equals("isPermanent");
     }
 }

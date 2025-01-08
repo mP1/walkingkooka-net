@@ -76,8 +76,8 @@ public final class HttpHandlers implements PublicStaticHelper {
     public static HttpHandler stacktraceDumping(final HttpHandler handler,
                                                 final Function<Throwable, HttpStatus> throwableTranslator) {
         return StacktraceDumpingHttpHandler.with(
-                handler,
-                throwableTranslator
+            handler,
+            throwableTranslator
         );
     }
 

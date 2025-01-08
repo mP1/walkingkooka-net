@@ -50,8 +50,8 @@ final class RangeHeaderUnitHeaderHandler extends NonStringHeaderHandler<RangeHea
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof RangeHeaderUnit,
-                RangeHeaderUnit.class
+            v -> v instanceof RangeHeaderUnit,
+            RangeHeaderUnit.class
         );
     }
 

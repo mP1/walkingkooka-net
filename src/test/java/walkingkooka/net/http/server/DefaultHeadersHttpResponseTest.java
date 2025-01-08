@@ -74,8 +74,8 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         response.setEntity(httpEntity(responseHeaders).setBody(body));
 
         final HttpEntity second = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "Server2")
-                .setBody(Binary.with(new byte[2]));
+            .addHeader(HttpHeaderName.SERVER, "Server2")
+            .setBody(Binary.with(new byte[2]));
         response.setEntity(second);
 
         final Map<HttpHeaderName<?>, List<?>> finalHeaders = Maps.ordered();
@@ -83,11 +83,11 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         finalHeaders.putAll(responseHeaders);
 
         this.checkResponse(recording,
-                request,
-                version,
-                status,
-                httpEntity(finalHeaders).setBody(body),
-                second);
+            request,
+            version,
+            status,
+            httpEntity(finalHeaders).setBody(body),
+            second);
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
     private Map<HttpHeaderName<?>, List<?>> headers() {
         return map(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse("EN"),
-                HttpHeaderName.SERVER, "Server 123");
+            HttpHeaderName.SERVER, "Server 123");
     }
 
     private DefaultHeadersHttpResponse createResponse(final Map<HttpHeaderName<?>, List<?>> headers,

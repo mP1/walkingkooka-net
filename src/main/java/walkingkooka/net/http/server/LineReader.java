@@ -54,14 +54,14 @@ final class LineReader {
             }
             final HttpHeaderName<?> header = HttpHeaderName.with(line.substring(0, separator).trim());
             entity = entity.addHeader(
-                    header,
-                    Cast.to(
-                            header.parseValue(
-                                    line.substring(
-                                            separator + 1
-                                    )
-                            )
+                header,
+                Cast.to(
+                    header.parseValue(
+                        line.substring(
+                            separator + 1
+                        )
                     )
+                )
             );
         }
 
@@ -99,8 +99,8 @@ final class LineReader {
         final int position = this.position;
 
         return position == text.length() ?
-                null :
-                text.substring(position);
+            null :
+            text.substring(position);
     }
 
     private final String text;

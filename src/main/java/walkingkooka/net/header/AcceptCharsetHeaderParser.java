@@ -40,8 +40,8 @@ final class AcceptCharsetHeaderParser extends HeaderParserWithParameters<AcceptC
 
         // value is case insensitive
         return "UTF-8".equalsIgnoreCase(text) ?
-                AcceptCharset.UTF_8 :
-                parseAcceptCharsetNonConstant(text);
+            AcceptCharset.UTF_8 :
+            parseAcceptCharsetNonConstant(text);
     }
 
     private static AcceptCharset parseAcceptCharsetNonConstant(final String text) {

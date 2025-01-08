@@ -74,7 +74,7 @@ public abstract class IfRange<T> implements Header, Value<T> {
      */
     public static IfRange<?> parse(final String text) {
         return IfRangeHeaderHandler.INSTANCE.parse(
-                CharSequences.failIfNullOrEmpty(text, "text")
+            CharSequences.failIfNullOrEmpty(text, "text")
         );
     }
 
@@ -88,8 +88,8 @@ public abstract class IfRange<T> implements Header, Value<T> {
         check(value);
 
         return Cast.to(value instanceof ETag ?
-                IfRangeETag.etag((ETag) value) :
-                IfRangeLastModified.lastModified((LocalDateTime) value));
+            IfRangeETag.etag((ETag) value) :
+            IfRangeLastModified.lastModified((LocalDateTime) value));
     }
 
     /**
@@ -115,8 +115,8 @@ public abstract class IfRange<T> implements Header, Value<T> {
         check(value);
 
         return this.value.equals(value) ?
-                Cast.to(this) :
-                this.replace(value);
+            Cast.to(this) :
+            this.replace(value);
     }
 
     private final T value;
@@ -198,8 +198,8 @@ public abstract class IfRange<T> implements Header, Value<T> {
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEqual(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocolVersion>,
-        ToStringTesting<HttpProtocolVersion> {
+    ToStringTesting<HttpProtocolVersion> {
 
     @Test
     public void testOneZero() {

@@ -74,9 +74,9 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
 
         final byte[] original = this.components;
         final int value = (mask(original[0]) << 24) | //
-                (mask(original[1]) << 16) | //
-                (mask(original[2]) << 8) | //
-                mask(original[3]);
+            (mask(original[1]) << 16) | //
+            (mask(original[2]) << 8) | //
+            mask(original[3]);
         final int masked = (int) (0xFFFFFFFF00000000L >> significantBits) & value;
 
         Ip4Address result = this;
@@ -94,9 +94,9 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
     // @VisibleForTesting
     static byte[] toBytes(final int value) {
         return new byte[]{toByte(value >> 24),
-                toByte(value >> 16),
-                toByte(value >> 8),
-                toByte(value)};
+            toByte(value >> 16),
+            toByte(value >> 8),
+            toByte(value)};
     }
 
     private static byte toByte(final int value) {

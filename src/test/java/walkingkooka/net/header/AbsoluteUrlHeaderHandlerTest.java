@@ -22,7 +22,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 
 public final class AbsoluteUrlHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<AbsoluteUrlHeaderHandler, AbsoluteUrl> {
+    NonStringHeaderHandlerTestCase<AbsoluteUrlHeaderHandler, AbsoluteUrl> {
 
     private final static String URL = "https://example.com";
 

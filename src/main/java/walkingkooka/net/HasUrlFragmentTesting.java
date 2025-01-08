@@ -26,8 +26,8 @@ public interface HasUrlFragmentTesting extends Testing {
     default void urlFragmentAndCheck(final HasUrlFragment has,
                                      final String expected) {
         this.urlFragmentAndCheck(
-                has,
-                UrlFragment.parse(expected)
+            has,
+            UrlFragment.parse(expected)
         );
     }
 
@@ -35,9 +35,9 @@ public interface HasUrlFragmentTesting extends Testing {
                                      final String expected,
                                      final String message) {
         this.urlFragmentAndCheck(
-                has,
-                UrlFragment.parse(expected),
-                message
+            has,
+            UrlFragment.parse(expected),
+            message
         );
     }
 
@@ -45,18 +45,18 @@ public interface HasUrlFragmentTesting extends Testing {
                                      final String expected,
                                      final Supplier<String> message) {
         this.urlFragmentAndCheck(
-                has,
-                UrlFragment.parse(expected),
-                message
+            has,
+            UrlFragment.parse(expected),
+            message
         );
     }
 
     default void urlFragmentAndCheck(final HasUrlFragment has,
                                      final UrlFragment expected) {
         this.urlFragmentAndCheck(
-                has,
-                expected,
-                () -> has.toString()
+            has,
+            expected,
+            () -> has.toString()
         );
     }
 
@@ -64,9 +64,9 @@ public interface HasUrlFragmentTesting extends Testing {
                                      final UrlFragment expected,
                                      final String message) {
         this.urlFragmentAndCheck(
-                has,
-                expected,
-                () -> message
+            has,
+            expected,
+            () -> message
         );
     }
 
@@ -74,9 +74,9 @@ public interface HasUrlFragmentTesting extends Testing {
                                      final UrlFragment expected,
                                      final Supplier<String> message) {
         this.checkEquals(
-                expected,
-                has.urlFragment(),
-                message
+            expected,
+            has.urlFragment(),
+            message
         );
     }
 }

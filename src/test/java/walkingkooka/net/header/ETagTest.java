@@ -52,13 +52,13 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     @Test
     public void testToHeaderTextString() {
         this.toHeaderTextAndCheck(ETag.with("abc123", ETagValidator.STRONG),
-                "\"abc123\"");
+            "\"abc123\"");
     }
 
     @Test
     public void testToHeaderTextWeak() {
         this.toHeaderTextAndCheck(ETag.with("abc123", ETagValidator.WEAK),
-                "W/\"abc123\"");
+            "W/\"abc123\"");
     }
 
     @Test
@@ -88,46 +88,46 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     @Test
     public void testToHeaderTextListOne() {
         this.toHeaderTextListAndCheck("\"abc123\"",
-                ETag.with("abc123", ETagValidator.STRONG));
+            ETag.with("abc123", ETagValidator.STRONG));
     }
 
     @Test
     public void testToHeaderTextListOne2() {
         this.toHeaderTextListAndCheck("W/\"abc123\"",
-                ETag.with("abc123", ETagValidator.WEAK));
+            ETag.with("abc123", ETagValidator.WEAK));
     }
 
     @Test
     public void testToHeaderTextListOneWildcard() {
         this.toHeaderTextListAndCheck("*",
-                ETag.wildcard());
+            ETag.wildcard());
     }
 
     @Test
     public void testToHeaderTextListSeveral() {
         this.toHeaderTextListAndCheck("\"1\", \"2\"",
-                ETag.with("1", ETagValidator.STRONG),
-                ETag.with("2", ETagValidator.STRONG));
+            ETag.with("1", ETagValidator.STRONG),
+            ETag.with("2", ETagValidator.STRONG));
     }
 
     @Test
     public void testToHeaderTextListSeveral2() {
         this.toHeaderTextListAndCheck("\"11\", \"22\"",
-                ETag.with("11", ETagValidator.STRONG),
-                ETag.with("22", ETagValidator.STRONG));
+            ETag.with("11", ETagValidator.STRONG),
+            ETag.with("22", ETagValidator.STRONG));
     }
 
     @Test
     public void testToHeaderTextListSeveral3() {
         this.toHeaderTextListAndCheck("W/\"11\", \"22\"",
-                ETag.with("11", ETagValidator.WEAK),
-                ETag.with("22", ETagValidator.STRONG));
+            ETag.with("11", ETagValidator.WEAK),
+            ETag.with("22", ETagValidator.STRONG));
     }
 
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
         this.checkEquals(toString,
-                Header.toHeaderTextList(Lists.of(tags), Header.SEPARATOR.string().concat(" ")),
-                "ETag.toString(List) failed =" + CharSequences.quote(toString));
+            Header.toHeaderTextList(Lists.of(tags), Header.SEPARATOR.string().concat(" ")),
+            "ETag.toString(List) failed =" + CharSequences.quote(toString));
     }
 
     @Override

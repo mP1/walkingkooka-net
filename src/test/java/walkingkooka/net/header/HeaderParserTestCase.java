@@ -29,9 +29,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements ClassTesting2<P>,
-        ParseStringTesting<V>,
-        ToStringTesting<P>,
-        TypeNameTesting<P> {
+    ParseStringTesting<V>,
+    ToStringTesting<P>,
+    TypeNameTesting<P> {
 
     HeaderParserTestCase() {
         super();
@@ -41,7 +41,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     final void parseStringCommentFails(final String text, final int pos) {
         this.parseStringFails(text,
-                this.parseStringFailedExpected(new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
+            this.parseStringFailedExpected(new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
     }
 
     final void parseMissingClosingQuoteFails(final String text) {
@@ -54,7 +54,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     final void parseStringMissingValueFails(final String text, final int pos) {
         this.parseStringFails(text,
-                HeaderParser.emptyToken(this.valueLabel(), pos, text));
+            HeaderParser.emptyToken(this.valueLabel(), pos, text));
     }
 
     abstract String valueLabel();
@@ -65,7 +65,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     final void parseStringMissingParameterValueFails(final String text, final int pos) {
         this.parseStringFails(text,
-                HeaderParser.missingParameterValue(pos, text));
+            HeaderParser.missingParameterValue(pos, text));
     }
 
     final void parseStringFails(final String text, final String message) {

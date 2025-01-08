@@ -50,9 +50,9 @@ import java.util.stream.Collectors;
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or setter method.
  */
 public abstract class HttpEntity implements HasHeaders,
-        CanBeEmpty,
-        HasText,
-        TreePrintable {
+    CanBeEmpty,
+    HasText,
+    TreePrintable {
 
     /**
      * {@link Binary} with no body or bytes.
@@ -65,7 +65,7 @@ public abstract class HttpEntity implements HasHeaders,
      * The separator that follows a header name and comes before a any values.
      */
     public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(
-            (char) HEADER_SEPARATOR_BYTE
+        (char) HEADER_SEPARATOR_BYTE
     );
 
     //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
@@ -167,38 +167,38 @@ public abstract class HttpEntity implements HasHeaders,
                             // header line is empty must be end of headers.
                             if (headerName.length() + headerValue.length() == 0) {
                                 httpEntity = httpEntity.setBody(
-                                        binary.extract(
-                                                Range.greaterThanEquals(
-                                                        Long.valueOf(1 + i) // CR
-                                                )
+                                    binary.extract(
+                                        Range.greaterThanEquals(
+                                            Long.valueOf(1 + i) // CR
                                         )
+                                    )
                                 );
                                 mode = MODE_BODY;
                                 break HeadersLoop;
                             }
 
                             final HttpHeaderName<?> httpHeaderName = HttpHeaderName.with(
-                                    CharSequences.trimRight(
-                                            headerName
-                                    ).toString()
+                                CharSequences.trimRight(
+                                    headerName
+                                ).toString()
                             );
 
                             final Object httpHeaderValue;
 
                             try {
                                 httpHeaderValue = httpHeaderName.parseValue(
-                                        headerValue.toString()
+                                    headerValue.toString()
                                 );
                             } catch (final RuntimeException cause) {
                                 throw new IllegalArgumentException(
-                                        cause.getMessage(),
-                                        cause
+                                    cause.getMessage(),
+                                    cause
                                 );
                             }
 
                             httpEntity = httpEntity.addHeader(
-                                    httpHeaderName,
-                                    Cast.to(httpHeaderValue)
+                                httpHeaderName,
+                                Cast.to(httpHeaderValue)
                             );
                             headerName.setLength(0);
                             headerValue.setLength(0);
@@ -249,8 +249,8 @@ public abstract class HttpEntity implements HasHeaders,
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = checkHeaders(headers);
 
         return this.headers().equals(copy) ?
-                this :
-                this.replaceHeaders(copy);
+            this :
+            this.replaceHeaders(copy);
     }
 
     abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
@@ -269,11 +269,11 @@ public abstract class HttpEntity implements HasHeaders,
         Objects.requireNonNull(accept, "accept");
 
         return this.setHeader(
-                HttpHeaderName.ACCEPT,
-                Lists.of(accept)
+            HttpHeaderName.ACCEPT,
+            Lists.of(accept)
         );
     }
-    
+
     /**
      * Getter that returns the content length
      */
@@ -298,8 +298,8 @@ public abstract class HttpEntity implements HasHeaders,
         Objects.requireNonNull(contentType, "contentType");
 
         return this.setHeader(
-                HttpHeaderName.CONTENT_TYPE,
-                Lists.of(contentType)
+            HttpHeaderName.CONTENT_TYPE,
+            Lists.of(contentType)
         );
     }
 
@@ -313,8 +313,8 @@ public abstract class HttpEntity implements HasHeaders,
         final HttpEntityHeaderList copy = HttpEntityHeaderList.copy(header, values);
 
         return null != copy ?
-                this.setHeader0(header, copy) :
-                this.remove0(header);
+            this.setHeader0(header, copy) :
+            this.remove0(header);
     }
 
     abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header, final HttpEntityHeaderList value);
@@ -379,10 +379,10 @@ public abstract class HttpEntity implements HasHeaders,
 
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
         return body.isEmpty() && headers.isEmpty() ?
-                EMPTY :
-                body.equals(this.body()) ?
-                        this :
-                        this.replace(headers, body);
+            EMPTY :
+            body.equals(this.body()) ?
+                this :
+                this.replace(headers, body);
     }
 
     // will effectively be removed because setBody is marked as @GwtIncompatible
@@ -456,8 +456,8 @@ public abstract class HttpEntity implements HasHeaders,
      */
     public final boolean isMultipartFormData() {
         return MediaType.MULTIPART_FORM_DATA.test(
-                this.contentType()
-                        .orElse(null)
+            this.contentType()
+                .orElse(null)
         );
     }
 
@@ -511,9 +511,9 @@ public abstract class HttpEntity implements HasHeaders,
 
         // find initial boundary........................................................................................
         int boundaryStart = binary.indexOf(
-                boundary,
-                partStart,
-                binaryEnd
+            boundary,
+            partStart,
+            binaryEnd
         );
 
         if (-1 == boundaryStart) {
@@ -529,9 +529,9 @@ public abstract class HttpEntity implements HasHeaders,
             for (; ; ) {
                 // find boundary
                 boundaryStart = binary.indexOf(
-                        boundary,
-                        partStart,
-                        binaryEnd
+                    boundary,
+                    partStart,
+                    binaryEnd
                 );
 
                 if (-1 == boundaryStart) {
@@ -544,15 +544,15 @@ public abstract class HttpEntity implements HasHeaders,
 
                 try {
                     part = HttpEntity.parse(
-                            binary.extract(
-                                    Range.greaterThanEquals(
-                                            Long.valueOf(partStart)
-                                    ).and(
-                                            Range.lessThan(
-                                                    Long.valueOf(partEnd)
-                                            )
-                                    )
+                        binary.extract(
+                            Range.greaterThanEquals(
+                                Long.valueOf(partStart)
+                            ).and(
+                                Range.lessThan(
+                                    Long.valueOf(partEnd)
+                                )
                             )
+                        )
                     );
                 } catch (final RuntimeException cause) {
                     throw new IllegalArgumentException("Part " + parts.size() + " " + cause.getMessage(), cause);
@@ -583,31 +583,31 @@ public abstract class HttpEntity implements HasHeaders,
     private boolean isDashDash(final Binary binary,
                                final int offset) {
         return -1 != binary.indexOf(
-                DASH_DASH,
-                offset,
-                offset + 2
+            DASH_DASH,
+            offset,
+            offset + 2
         );
     }
 
     private final static byte[] DASH_DASH = new byte[]{
-            '-',
-            '-'
+        '-',
+        '-'
     };
 
     private void requireCrLf(final Binary binary,
                              final int offset) {
         if (-1 == binary.indexOf(
-                CR_LF,
-                offset,
-                offset + 2
+            CR_LF,
+            offset,
+            offset + 2
         )) {
             throw new IllegalArgumentException("Boundary missing CRLF at " + offset);
         }
     }
 
     private final static byte[] CR_LF = new byte[]{
-            '\r',
-            '\n'
+        '\r',
+        '\n'
     };
 
     /**
@@ -618,9 +618,9 @@ public abstract class HttpEntity implements HasHeaders,
      */
     private static byte[] dashDashBoundaryBytes(final MediaTypeBoundary boundary) {
         return boundary(
-                boundary,
-                new byte[DASH_DASH.length + boundary.value().length()],
-                0
+            boundary,
+            new byte[DASH_DASH.length + boundary.value().length()],
+            0
         );
     }
 
@@ -638,9 +638,9 @@ public abstract class HttpEntity implements HasHeaders,
         bytes[1] = LF;
 
         return boundary(
-                boundary,
-                bytes,
-                CR_LF.length
+            boundary,
+            bytes,
+            CR_LF.length
         );
     }
 
@@ -666,33 +666,33 @@ public abstract class HttpEntity implements HasHeaders,
      */
     private void validateMultipartHeaders(final int partNumber) {
         HttpHeaderName.CONTENT_DISPOSITION.header(this)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Part " + partNumber + " missing header " + CharSequences.quoteAndEscape(HttpHeaderName.CONTENT_DISPOSITION.value()))
-                );
+            .orElseThrow(
+                () -> new IllegalArgumentException("Part " + partNumber + " missing header " + CharSequences.quoteAndEscape(HttpHeaderName.CONTENT_DISPOSITION.value()))
+            );
         final Optional<?> contentTransferEncoding = CONTENT_TRANSFER_ENCODING.header(this);
         final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.header(this);
 
         final Set<HttpHeaderName<?>> headers = this.headers()
-                .keySet();
+            .keySet();
 
         // content-disposition & content-type
         if (headers.size() > (1 + (contentTransferEncoding.isPresent() ? 1 : 0) + (contentType.isPresent() ? 1 : 0))) {
             throw new IllegalArgumentException(
-                    "Part " +
-                            partNumber +
-                            " contains invalid headers " +
-                            headers.stream()
-                                    .filter(h -> false == isMultipartHeader(h))
-                                    .map(HttpHeaderName::toString)
-                                    .collect(Collectors.joining(", "))
+                "Part " +
+                    partNumber +
+                    " contains invalid headers " +
+                    headers.stream()
+                        .filter(h -> false == isMultipartHeader(h))
+                        .map(HttpHeaderName::toString)
+                        .collect(Collectors.joining(", "))
             );
         }
     }
 
     private boolean isMultipartHeader(final HttpHeaderName<?> header) {
         return header.equals(HttpHeaderName.CONTENT_DISPOSITION) ||
-                header.equals(CONTENT_TRANSFER_ENCODING) ||
-                header.equals(HttpHeaderName.CONTENT_TYPE);
+            header.equals(CONTENT_TRANSFER_ENCODING) ||
+            header.equals(HttpHeaderName.CONTENT_TYPE);
     }
 
     private final static HttpHeaderName<?> CONTENT_TRANSFER_ENCODING = HttpHeaderName.with("Content-Transfer-Encoding");
@@ -707,13 +707,13 @@ public abstract class HttpEntity implements HasHeaders,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpEntity &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpEntity &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpEntity other) {
         return this.headers().equals(other.headers()) &&
-                HttpEntityInterop.equalsBody(this, other);
+            HttpEntityInterop.equalsBody(this, other);
     }
 
     public abstract String toString();
@@ -734,8 +734,8 @@ public abstract class HttpEntity implements HasHeaders,
                     printer.indent();
                     {
                         this.printHeaders(
-                                headers,
-                                printer
+                            headers,
+                            printer
                         );
                     }
                     printer.outdent();
@@ -749,7 +749,7 @@ public abstract class HttpEntity implements HasHeaders,
     final Map<HttpHeaderName<?>, HttpEntityHeaderList> alphaSortedHeaders() {
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = Maps.sorted();
         headers.putAll(
-                this.headers2()
+            this.headers2()
         );
         return headers;
     }
@@ -761,13 +761,13 @@ public abstract class HttpEntity implements HasHeaders,
 
             for (final Object value : headerAndValues.getValue()) {
                 printer.println(
-                        "" +
-                                name +
-                                HttpEntity.HEADER_NAME_SEPARATOR +
-                                " " +
-                                name.headerText(
-                                        Cast.to(value)
-                                )
+                    "" +
+                        name +
+                        HttpEntity.HEADER_NAME_SEPARATOR +
+                        " " +
+                        name.headerText(
+                            Cast.to(value)
+                        )
                 );
             }
         }

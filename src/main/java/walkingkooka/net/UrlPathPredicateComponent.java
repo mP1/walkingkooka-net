@@ -30,8 +30,8 @@ abstract class UrlPathPredicateComponent {
     static UrlPathPredicateComponentName name(final UrlPathName name,
                                               final UrlPathPredicateComponent next) {
         return UrlPathPredicateComponentName.with(
-                name,
-                next
+            name,
+            next
         );
     }
 
@@ -62,8 +62,8 @@ abstract class UrlPathPredicateComponent {
 
     final boolean test(final Iterator<UrlPathName> names) {
         return names.hasNext() ?
-                this.testNamesNotEmpty(names) :
-                this.testNamesEmpty();
+            this.testNamesNotEmpty(names) :
+            this.testNamesEmpty();
     }
 
     abstract boolean testNamesEmpty();

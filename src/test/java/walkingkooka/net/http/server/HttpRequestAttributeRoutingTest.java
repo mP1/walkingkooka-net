@@ -48,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeRoutingTestCase<HttpRequestAttributeRouting>
-        implements RouterTesting {
+    implements RouterTesting {
 
     private final static String TARGET = "target123";
 
@@ -79,7 +79,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestAttributeRouting routing = this.createRouting();
 
         final HttpRequestAttributeRouting routing2 = routing.transport(HttpTransport.UNSECURED)
-                .transport(HttpTransport.SECURED);
+            .transport(HttpTransport.SECURED);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2, HttpTransport.UNSECURED, HttpTransport.SECURED);
@@ -115,8 +115,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestAttributeRouting routing = this.createRouting();
 
         final HttpRequestAttributeRouting routing2 = routing.method(HttpMethod.GET)
-                .method(HttpMethod.POST)
-                .method(HttpMethod.PUT);
+            .method(HttpMethod.POST)
+            .method(HttpMethod.PUT);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -154,7 +154,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
 
         final HttpRequestAttributeRouting routing2 = routing.protocolVersion(version)
-                .protocolVersion(version);
+            .protocolVersion(version);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
@@ -169,7 +169,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .protocolVersion(version);
+            .protocolVersion(version);
 
         assertThrows(IllegalArgumentException.class, () -> routing.protocolVersion(HttpProtocolVersion.VERSION_1_1));
 
@@ -202,8 +202,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
-                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
-                        HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
+            Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
 
         this.check(routing);
     }
@@ -217,8 +217,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
-                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
-                        HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
+            Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
 
         this.check(routing);
     }
@@ -232,9 +232,9 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
-                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
-                        HttpRequestAttributes.pathComponent(2), HttpRequestAttributeRoutingWildcardPredicate.INSTANCE,
-                        HttpRequestAttributes.pathComponent(3), Predicates.is(UrlPathName.with("3c"))));
+            Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                HttpRequestAttributes.pathComponent(2), HttpRequestAttributeRoutingWildcardPredicate.INSTANCE,
+                HttpRequestAttributes.pathComponent(3), Predicates.is(UrlPathName.with("3c"))));
 
         this.check(routing);
     }
@@ -254,8 +254,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testPathComponentIndexNameRepeatedPathComponentDifferentNameFails() {
         assertThrows(IllegalArgumentException.class, () -> this.createRouting()
-                .pathComponent(0, Predicates.fake())
-                .pathComponent(0, Predicates.fake()));
+            .pathComponent(0, Predicates.fake())
+            .pathComponent(0, Predicates.fake()));
     }
 
     @Test
@@ -269,7 +269,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
-                Maps.of(HttpRequestAttributes.pathComponent(0), predicate));
+            Maps.of(HttpRequestAttributes.pathComponent(0), predicate));
 
         this.check(routing);
     }
@@ -280,13 +280,13 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
         final HttpRequestAttributeRouting routing = this.createRouting();
         final HttpRequestAttributeRouting routing2 = routing.pathComponent(0, predicate)
-                .pathComponent(0, predicate);
+            .pathComponent(0, predicate);
         assertNotSame(routing, routing2);
 
         this.checkTransports(routing2);
         this.checkMethods(routing2);
         this.checkAttributes(routing2,
-                Maps.of(HttpRequestAttributes.pathComponent(0), predicate));
+            Maps.of(HttpRequestAttributes.pathComponent(0), predicate));
 
         this.check(routing);
     }
@@ -411,38 +411,38 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testQueryString() {
         this.queryStringAndCheck("a1=b2",
-                HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2"))));
+            HttpRequestAttributeRouting.PARAMETER_WILDCARD,
+            Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2"))));
     }
 
     @Test
     public void testQueryStringValueUrlDecoded() {
         this.queryStringAndCheck("a1=b+2",
-                HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b 2"))));
+            HttpRequestAttributeRouting.PARAMETER_WILDCARD,
+            Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b 2"))));
     }
 
     @Test
     public void testQueryStringWildcard() {
         this.queryStringAndCheck("a1=*",
-                HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always())));
+            HttpRequestAttributeRouting.PARAMETER_WILDCARD,
+            Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always())));
     }
 
     @Test
     public void testQueryStringMultipleParameters() {
         this.queryStringAndCheck("a1=b2&c3=d4",
-                HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2")),
-                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
+            HttpRequestAttributeRouting.PARAMETER_WILDCARD,
+            Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("b2")),
+                HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
     }
 
     @Test
     public void testQueryStringMultipleParametersIncludingWildcard() {
         this.queryStringAndCheck("a1=*&c3=d4",
-                HttpRequestAttributeRouting.PARAMETER_WILDCARD,
-                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always()),
-                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
+            HttpRequestAttributeRouting.PARAMETER_WILDCARD,
+            Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.always()),
+                HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingPredicateParameterValue.with(Predicates.is("d4"))));
     }
 
     private void queryStringAndCheck(final String queryString,
@@ -525,9 +525,9 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testBuild() {
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .transport(HttpTransport.SECURED)
-                .method(HttpMethod.GET)
-                .protocolVersion(HttpProtocolVersion.VERSION_1_0);
+            .transport(HttpTransport.SECURED)
+            .method(HttpMethod.GET)
+            .protocolVersion(HttpProtocolVersion.VERSION_1_0);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -546,10 +546,10 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testMethodsBuildAndRoute() {
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .transport(HttpTransport.SECURED)
-                .method(HttpMethod.GET)
-                .method(HttpMethod.POST)
-                .protocolVersion(HttpProtocolVersion.VERSION_1_0);
+            .transport(HttpTransport.SECURED)
+            .method(HttpMethod.GET)
+            .method(HttpMethod.POST)
+            .protocolVersion(HttpProtocolVersion.VERSION_1_0);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -571,7 +571,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testPathBuildAndRoute() {
         final Router<HttpRequestAttribute<?>, String> router = this.router(this.createRouting()
-                .path(UrlPath.parse("/path1/path2")));
+            .path(UrlPath.parse("/path1/path2")));
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
@@ -598,8 +598,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final UrlPathName path2 = UrlPathName.with("path2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .pathComponent(1, path1)
-                .pathComponent(2, path2);
+            .pathComponent(1, path1)
+            .pathComponent(2, path2);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -622,7 +622,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testPathComponentCountBuildAndRoute() {
         final Router<HttpRequestAttribute<?>, String> router = this.router(this.createRouting()
-                .pathComponentCount(i -> i == 3));
+            .pathComponentCount(i -> i == 3));
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
@@ -642,8 +642,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpHeaderName<String> headerName2 = HttpHeaderName.with("header222").stringValues();
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .header(headerName1, (c) -> null != c && c.contains("1"))
-                .header(headerName2, (c) -> null != c && c.contains("2"));
+            .header(headerName1, (c) -> null != c && c.contains("1"))
+            .header(headerName2, (c) -> null != c && c.contains("2"));
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -668,8 +668,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final String header2 = "value2";
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .headerAndValue(headerName1, header1)
-                .headerAndValue(headerName2, header2);
+            .headerAndValue(headerName1, header1)
+            .headerAndValue(headerName2, header2);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -691,8 +691,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final CookieName cookieName2 = CookieName.with("cookie222");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .cookie(cookieName1, (c) -> null != c && c.value().contains("1"))
-                .cookie(cookieName2, (c) -> null != c && c.value().contains("2"));
+            .cookie(cookieName1, (c) -> null != c && c.value().contains("1"))
+            .cookie(cookieName2, (c) -> null != c && c.value().contains("2"));
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -714,8 +714,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .parameterAndValue(parameter1, "value1")
-                .parameterAndValue(parameter2, "value2");
+            .parameterAndValue(parameter1, "value1")
+            .parameterAndValue(parameter2, "value2");
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -737,7 +737,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .queryString(UrlQueryString.parse("parameter1=a1&parameter2=b2"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
+            .queryString(UrlQueryString.parse("parameter1=a1&parameter2=b2"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -759,7 +759,7 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .queryString(UrlQueryString.parse("parameter1=a1&parameter2=*"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
+            .queryString(UrlQueryString.parse("parameter1=a1&parameter2=*"), HttpRequestAttributeRouting.PARAMETER_WILDCARD);
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -781,8 +781,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
         final HttpRequestAttributeRouting routing = this.createRouting()
-                .parameter(parameter1, (v) -> null != v && v.contains("1"))
-                .parameter(parameter2, (v) -> null != v && v.contains("2"));
+            .parameter(parameter1, (v) -> null != v && v.contains("1"))
+            .parameter(parameter2, (v) -> null != v && v.contains("2"));
 
         final Router<HttpRequestAttribute<?>, String> router = this.router(routing);
 
@@ -800,8 +800,8 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
 
     private Router<HttpRequestAttribute<?>, String> router(final HttpRequestAttributeRouting routing) {
         return RouteMappings.<HttpRequestAttribute<?>, String>empty()
-                .add(routing.build(), TARGET)
-                .router();
+            .add(routing.build(), TARGET)
+            .router();
     }
 
     private void routeAndCheck2(final Router<HttpRequestAttribute<?>, String> router,
@@ -814,20 +814,20 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createRouting()
-                        .protocolVersion(HttpProtocolVersion.VERSION_1_0)
-                        .method(HttpMethod.GET)
-                        .pathComponent(0, UrlPathName.with("path1")),
-                "GET PROTOCOL_VERSION=HTTP/1.0, path-0=path1");
+                .protocolVersion(HttpProtocolVersion.VERSION_1_0)
+                .method(HttpMethod.GET)
+                .pathComponent(0, UrlPathName.with("path1")),
+            "GET PROTOCOL_VERSION=HTTP/1.0, path-0=path1");
     }
 
     @Test
     public void testToString2() {
         this.toStringAndCheck(this.createRouting()
-                        .protocolVersion(HttpProtocolVersion.VERSION_1_0)
-                        .method(HttpMethod.GET)
-                        .method(HttpMethod.POST)
-                        .path(UrlPath.parse("/a1/b2/c3/*")),
-                "GET POST PROTOCOL_VERSION=HTTP/1.0, path-1=a1, path-2=b2, path-3=c3, path-4=*");
+                .protocolVersion(HttpProtocolVersion.VERSION_1_0)
+                .method(HttpMethod.GET)
+                .method(HttpMethod.POST)
+                .path(UrlPath.parse("/a1/b2/c3/*")),
+            "GET POST PROTOCOL_VERSION=HTTP/1.0, path-1=a1, path-2=b2, path-3=c3, path-4=*");
     }
 
     // helpers..........................................................................................................
@@ -853,22 +853,22 @@ public final class HttpRequestAttributeRoutingTest extends HttpRequestAttributeR
     private void checkTransports(final HttpRequestAttributeRouting routing,
                                  final HttpTransport... transports) {
         this.checkEquals(Sets.of(transports),
-                routing.transports,
-                "transports");
+            routing.transports,
+            "transports");
     }
 
     private void checkMethods(final HttpRequestAttributeRouting routing,
                               final HttpMethod... methods) {
         this.checkEquals(Sets.of(methods),
-                routing.methods,
-                "methods");
+            routing.methods,
+            "methods");
     }
 
     private void checkAttributes(final HttpRequestAttributeRouting routing,
                                  final Map<?, ?> expected) {
         this.checkEquals(expected,
-                routing.attributes,
-                "attributes");
+            routing.attributes,
+            "attributes");
     }
 
     // ClassTesting.....................................................................................................

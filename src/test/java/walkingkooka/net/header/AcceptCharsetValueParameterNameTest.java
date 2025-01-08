@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNameTestCase<AcceptCharsetValueParameterName<?>,
-        AcceptCharsetValueParameterName<?>> {
+    AcceptCharsetValueParameterName<?>> {
 
     @Test
     public void testControlCharacterFails() {
@@ -57,7 +57,7 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(AcceptCharsetValueParameterName.Q,
-                AcceptCharsetValueParameterName.with(AcceptCharsetValueParameterName.Q.value()));
+            AcceptCharsetValueParameterName.with(AcceptCharsetValueParameterName.Q.value()));
     }
 
     // parameter value......................................................................................
@@ -65,7 +65,7 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
     @Test
     public void testParameterValueAbsent() {
         this.parameterValueAndCheckAbsent(AcceptCharsetValueParameterName.with("absent-parameter"),
-                this.acceptCharsetValue());
+            this.acceptCharsetValue());
     }
 
     @Test
@@ -74,13 +74,13 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
         final float value = 0.5f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.acceptCharsetValue(),
-                value);
+            this.acceptCharsetValue(),
+            value);
     }
 
     private AcceptCharsetValue acceptCharsetValue() {
         return AcceptCharsetValue.with(CharsetName.UTF_8)
-                .setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f));
+            .setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f));
     }
 
     @Override
@@ -93,18 +93,18 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
     @Test
     public void testParseQFactor() {
         this.parseStringAndCheck(
-                AcceptCharsetValueParameterName.Q::parseValue,
-                "0.5",
-                0.5f
+            AcceptCharsetValueParameterName.Q::parseValue,
+            "0.5",
+            0.5f
         );
     }
 
     @Test
     public void testParseString() {
         this.parseStringAndCheck(
-                AcceptCharsetValueParameterName.with("xyz")::parseValue,
-                "abc",
-                "abc"
+            AcceptCharsetValueParameterName.with("xyz")::parseValue,
+            "abc",
+            "abc"
         );
     }
 

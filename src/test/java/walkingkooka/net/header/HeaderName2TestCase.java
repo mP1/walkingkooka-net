@@ -22,8 +22,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C>>
-        implements ClassTesting2<N>,
-        HeaderNameTesting<N, C> {
+    implements ClassTesting2<N>,
+    HeaderNameTesting<N, C> {
 
     HeaderName2TestCase() {
         super();

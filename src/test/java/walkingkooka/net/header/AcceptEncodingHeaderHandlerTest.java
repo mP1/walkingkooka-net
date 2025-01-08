@@ -29,14 +29,14 @@ public final class AcceptEncodingHeaderHandlerTest extends NonStringHeaderHandle
     @Test
     public void testParseToken() {
         this.parseStringAndCheck2("gzip",
-                AcceptEncodingValue.GZIP);
+            AcceptEncodingValue.GZIP);
     }
 
     @Test
     public void testParseTokenToken() {
         this.parseStringAndCheck2("gzip; q=0.5, *",
-                AcceptEncodingValue.WILDCARD_ENCODING,
-                AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
+            AcceptEncodingValue.WILDCARD_ENCODING,
+            AcceptEncodingValue.GZIP.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
     }
 
     private void parseStringAndCheck2(final String text, final AcceptEncodingValue... encodings) {
@@ -51,25 +51,25 @@ public final class AcceptEncodingHeaderHandlerTest extends NonStringHeaderHandle
     @Test
     public void testToText() {
         this.toTextAndCheck(acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING),
-                "*");
+            "*");
     }
 
     @Test
     public void testToText2() {
         this.toTextAndCheck(acceptEncoding(AcceptEncodingValue.GZIP),
-                "gzip");
+            "gzip");
     }
 
     @Test
     public void testToText3() {
         this.toTextAndCheck(acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING, AcceptEncodingValue.GZIP),
-                "*, gzip");
+            "*, gzip");
     }
 
     @Test
     public void testToTextWithParameters() {
         this.toTextAndCheck(acceptEncoding(AcceptEncodingValue.with("abc").setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f))),
-                "abc; q=0.5");
+            "abc; q=0.5");
     }
 
     @Override

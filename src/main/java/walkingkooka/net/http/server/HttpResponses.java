@@ -92,8 +92,8 @@ public final class HttpResponses implements PublicStaticHelper {
                                            final Set<HttpHeaderName<?>> headers,
                                            final HttpResponse response) {
         return HeadersCopyHttpResponse.with(request,
-                headers,
-                response);
+            headers,
+            response);
     }
 
     /**
@@ -131,7 +131,7 @@ public final class HttpResponses implements PublicStaticHelper {
                                           final HttpResponse response,
                                           final Supplier<Byte> boundaryCharacters) {
         return RangeAwareHttpResponse.with(request, response,
-                boundaryCharacters);
+            boundaryCharacters);
     }
 
     /**
@@ -177,10 +177,10 @@ public final class HttpResponses implements PublicStaticHelper {
     // TODO Write an annotation-processor that discovers all HttpResponses and adds them to the last parameter.
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(HttpResponse.class),
-                HttpResponses::unmarshall,
-                HttpResponses::marshall,
-                HttpResponse.class, RecordingHttpResponse.class
+            JsonNodeContext.computeTypeName(HttpResponse.class),
+            HttpResponses::unmarshall,
+            HttpResponses::marshall,
+            HttpResponse.class, RecordingHttpResponse.class
         ); // unfortunately J2cl runtime doesnt support Class.isInstance
     }
 

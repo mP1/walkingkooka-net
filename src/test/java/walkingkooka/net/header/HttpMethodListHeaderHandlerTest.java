@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpMethodListHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<HttpMethodListHeaderHandler, List<HttpMethod>> {
+    NonStringHeaderHandlerTestCase<HttpMethodListHeaderHandler, List<HttpMethod>> {
 
     @Override
     public String typeNamePrefix() {

@@ -46,15 +46,15 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     @Test
     public void testBodyTextWhenBodyNullAndCharsetNull() {
         this.bodyTextAndCheck(null,
-                null,
-                "");
+            null,
+            "");
     }
 
     @Test
     public void testBodyTextWhenBodyNull() {
         this.bodyTextAndCheck("text/plain;charset=UTF-8",
-                null,
-                "");
+            null,
+            "");
     }
 
     @Test
@@ -63,15 +63,15 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
         final String text = "ABC123";
 
         this.bodyTextAndCheck(null,
-                text.getBytes(charset),
-                text);
+            text.getBytes(charset),
+            text);
     }
 
     @Test
     public void testBodyTextCharsetHeaderUnsupportedFails() {
         assertThrows(IllegalArgumentException.class,
-                () -> this.request("text/plain;charset=UTF-99", new byte[1])
-                        .bodyText());
+            () -> this.request("text/plain;charset=UTF-99", new byte[1])
+                .bodyText());
     }
 
     @Test
@@ -80,15 +80,15 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
         final String text = "ABC123";
 
         this.bodyTextAndCheck("text/plain;charset=" + charset.name(),
-                text.getBytes(charset),
-                text);
+            text.getBytes(charset),
+            text);
     }
 
     private void bodyTextAndCheck(final String contentType,
                                   final byte[] body,
                                   final String expected) {
         this.checkEquals(expected,
-                this.request(contentType, body).bodyText());
+            this.request(contentType, body).bodyText());
     }
 
     @Test
@@ -102,8 +102,8 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return null == contentType ?
-                        Maps.empty() :
-                        Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse(contentType)));
+                    Maps.empty() :
+                    Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse(contentType)));
             }
 
             @Override
@@ -160,13 +160,13 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     @Override
     public HttpRequest createJsonNodeMarshallingValue() {
         return HttpRequests.value(HttpMethod.POST,
-                HttpTransport.SECURED,
-                Url.parseRelative("/path1/file2?query3"),
-                HttpProtocolVersion.VERSION_1_0,
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("body-text-123"));
+            HttpTransport.SECURED,
+            Url.parseRelative("/path1/file2?query3"),
+            HttpProtocolVersion.VERSION_1_0,
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("body-text-123"));
     }
 
     @Override

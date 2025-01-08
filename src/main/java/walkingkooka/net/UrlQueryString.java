@@ -36,16 +36,16 @@ import java.util.Optional;
  * or to view all parameters as a {@link Map}.
  */
 public final class UrlQueryString implements Value<String>,
-        Comparable<UrlQueryString>,
-        HasText {
+    Comparable<UrlQueryString>,
+    HasText {
 
     /**
      * An empty {@link UrlQueryString} with no length or parameters.
      */
     public final static UrlQueryString EMPTY = new UrlQueryString(
-            "",
-            Lists.empty(),
-            Maps.empty()
+        "",
+        Lists.empty(),
+        Maps.empty()
     );
 
     /**
@@ -55,8 +55,8 @@ public final class UrlQueryString implements Value<String>,
         Objects.requireNonNull(value, "queryString");
 
         return value.isEmpty() ?
-                walkingkooka.net.UrlQueryString.EMPTY :
-                parseNotEmpty(value);
+            walkingkooka.net.UrlQueryString.EMPTY :
+            parseNotEmpty(value);
     }
 
     private static UrlQueryString parseNotEmpty(final String queryString) {
@@ -89,9 +89,9 @@ public final class UrlQueryString implements Value<String>,
         }
 
         return new UrlQueryString(
-                queryString,
-                Lists.immutable(pairs),
-                Maps.readOnly(parameters)
+            queryString,
+            Lists.immutable(pairs),
+            Maps.readOnly(parameters)
         );
     }
 
@@ -169,10 +169,10 @@ public final class UrlQueryString implements Value<String>,
      */
     public List<String> parameterValues(final UrlParameterName name) {
         return this.parameters()
-                .getOrDefault(
-                        name,
-                        PARAMETER_VALUES_MISSING
-                );
+            .getOrDefault(
+                name,
+                PARAMETER_VALUES_MISSING
+            );
     }
 
     private final static List<String> PARAMETER_VALUES_MISSING = Lists.empty();
@@ -185,8 +185,8 @@ public final class UrlQueryString implements Value<String>,
 
         // if queryString i empty this will be returned by #addParameters0
         return this.isEmpty() ?
-                queryString :
-                this.addParametersNonEmpty(queryString);
+            queryString :
+            this.addParametersNonEmpty(queryString);
     }
 
     private UrlQueryString addParametersNonEmpty(final UrlQueryString queryString) {
@@ -194,8 +194,8 @@ public final class UrlQueryString implements Value<String>,
 
         for (final UrlParameterKeyValuePair nameAndValues : queryString.pairs) {
             result = result.addParameter0(
-                    nameAndValues.name,
-                    nameAndValues.value
+                nameAndValues.name,
+                nameAndValues.value
             );
         }
 
@@ -225,16 +225,16 @@ public final class UrlQueryString implements Value<String>,
         Objects.requireNonNull(value, "value");
 
         return addParameter0(
-                name,
-                value
+            name,
+            value
         );
     }
 
     private UrlQueryString addParameter0(final UrlParameterName name,
                                          final String value) {
         return this.isEmpty() ?
-                this.addParameterToEmpty(name, value) :
-                this.addParameterToNotEmpty(name, value);
+            this.addParameterToEmpty(name, value) :
+            this.addParameterToNotEmpty(name, value);
     }
 
     private UrlQueryString addParameterToEmpty(final UrlParameterName name,
@@ -243,8 +243,8 @@ public final class UrlQueryString implements Value<String>,
         values.addParameterValue(value);
 
         return new UrlQueryString(encodeParameter(name, value),
-                Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
-                Maps.of(name, values));
+            Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
+            Maps.of(name, values));
     }
 
     private UrlQueryString addParameterToNotEmpty(final UrlParameterName name,
@@ -288,9 +288,9 @@ public final class UrlQueryString implements Value<String>,
     private static String encodeParameter(final UrlParameterName name,
                                           final String value) {
         return encodeParameterValue(
-                name.value()
+            name.value()
         ) + Url.QUERY_NAME_VALUE_SEPARATOR.character() +
-                encodeParameterValue(value);
+            encodeParameterValue(value);
     }
 
     private static String encodeParameterValue(final String value) {
@@ -346,8 +346,8 @@ public final class UrlQueryString implements Value<String>,
         }
 
         return removed ?
-                removeParameter1(name, value, queryString.toString(), pairs) :
-                this;
+            removeParameter1(name, value, queryString.toString(), pairs) :
+            this;
     }
 
     private UrlQueryString removeParameter1(final UrlParameterName name,
@@ -366,8 +366,8 @@ public final class UrlQueryString implements Value<String>,
         }
 
         return queryString.isEmpty() ?
-                EMPTY :
-                new UrlQueryString(queryString, pairs, parameters);
+            EMPTY :
+            new UrlQueryString(queryString, pairs, parameters);
     }
 
     /**
@@ -397,13 +397,13 @@ public final class UrlQueryString implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-                (other instanceof UrlQueryString &&
-                        this.equals0((UrlQueryString) other));
+            (other instanceof UrlQueryString &&
+                this.equals0((UrlQueryString) other));
     }
 
     private boolean equals0(final UrlQueryString other) {
         return this.parameters().equals(
-                other.parameters()
+            other.parameters()
         );
     }
 

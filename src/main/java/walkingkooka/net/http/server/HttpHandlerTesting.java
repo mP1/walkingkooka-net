@@ -24,38 +24,38 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HttpHandlerTesting<H extends HttpHandler> extends ClassTesting<H>,
-        TreePrintableTesting {
+    TreePrintableTesting {
 
     @Test
     default void testHandleWithNullRequestFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpHandler()
-                        .handle(
-                                null,
-                                HttpResponses.fake()
-                        )
+            NullPointerException.class,
+            () -> this.createHttpHandler()
+                .handle(
+                    null,
+                    HttpResponses.fake()
+                )
         );
     }
 
     @Test
     default void testHandleWithNullResponseFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpHandler()
-                        .handle(
-                                HttpRequests.fake(),
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createHttpHandler()
+                .handle(
+                    HttpRequests.fake(),
+                    null
+                )
         );
     }
 
     default void handleAndCheck(final HttpRequest request,
                                 final HttpResponse expected) {
         this.handleAndCheck(
-                this.createHttpHandler(),
-                request,
-                expected
+            this.createHttpHandler(),
+            request,
+            expected
         );
     }
 
@@ -65,14 +65,14 @@ public interface HttpHandlerTesting<H extends HttpHandler> extends ClassTesting<
         final HttpResponse response = HttpResponses.recording();
 
         handler.handle(
-                request,
-                response
+            request,
+            response
         );
 
         this.checkEquals(
-                expected,
-                response,
-                request::toString
+            expected,
+            response,
+            request::toString
         );
     }
 

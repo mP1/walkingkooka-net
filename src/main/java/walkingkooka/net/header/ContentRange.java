@@ -276,8 +276,8 @@ public final class ContentRange implements Header {
         }
 
         return new ContentRange(unit,
-                Optional.ofNullable(range),
-                size);
+            Optional.ofNullable(range),
+            size);
     }
 
     private final static int MODE_UNIT = 1;
@@ -344,8 +344,8 @@ public final class ContentRange implements Header {
         checkUnit(unit);
 
         return this.unit().equals(unit) ?
-                this :
-                this.replace(unit.rangeCheck(), this.range, this.size);
+            this :
+            this.replace(unit.rangeCheck(), this.range, this.size);
     }
 
     private final RangeHeaderUnit unit;
@@ -371,8 +371,8 @@ public final class ContentRange implements Header {
         checkRange(range);
 
         return this.range().equals(range) ?
-                this :
-                this.replace(this.unit, range, this.size);
+            this :
+            this.replace(this.unit, range, this.size);
     }
 
     private final Optional<Range<Long>> range;
@@ -413,8 +413,8 @@ public final class ContentRange implements Header {
 
     private static Optional<Long> lengthRange(final Range<Long> range) {
         return range.upperBound()
-                .value()
-                .map(u -> 1L + u - range.lowerBound().value().orElse(0L));
+            .value()
+            .map(u -> 1L + u - range.lowerBound().value().orElse(0L));
     }
 
     // size ..................................................................................................
@@ -434,8 +434,8 @@ public final class ContentRange implements Header {
         checkSize(size);
 
         return this.size == size ?
-                this :
-                this.replace(this.unit, this.range, size);
+            this :
+            this.replace(this.unit, this.range, size);
     }
 
     private final Optional<Long> size;
@@ -492,9 +492,9 @@ public final class ContentRange implements Header {
     @Override
     public String toHeaderText() {
         return this.unit.toHeaderText() + " " +
-                toHeaderTextRange(this.range) +
-                RANGE_SIZE_SEPARATOR +
-                toHeaderTextValue(this.size);
+            toHeaderTextRange(this.range) +
+            RANGE_SIZE_SEPARATOR +
+            toHeaderTextValue(this.size);
     }
 
     private static String toHeaderTextRange(final Optional<Range<Long>> range) {
@@ -504,8 +504,8 @@ public final class ContentRange implements Header {
 
     private static String toHeaderTextRange0(final Range<Long> range) {
         return toHeaderTextBound(range.lowerBound()) +
-                BETWEEN +
-                toHeaderTextBound(range.upperBound());
+            BETWEEN +
+            toHeaderTextBound(range.upperBound());
 
     }
 
@@ -515,8 +515,8 @@ public final class ContentRange implements Header {
 
     private static String toHeaderTextValue(final Optional<Long> value) {
         return value.isPresent() ?
-                String.valueOf(value.get()) :
-                WILDCARD.string();
+            String.valueOf(value.get()) :
+            WILDCARD.string();
     }
 
     @Override
@@ -534,14 +534,14 @@ public final class ContentRange implements Header {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ContentRange &&
-                        this.equals0(Cast.to(other));
+            other instanceof ContentRange &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ContentRange other) {
         return this.unit.equals(other.unit) &&
-                this.range.equals(other.range) &&
-                this.size.equals(other.size);
+            this.range.equals(other.range) &&
+            this.size.equals(other.size);
     }
 
     @Override

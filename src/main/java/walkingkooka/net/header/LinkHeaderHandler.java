@@ -46,8 +46,8 @@ final class LinkHeaderHandler extends NonStringHeaderHandler<List<Link>> {
     @Override
     void checkNonNull(final Object value) {
         this.checkListOfType(value,
-                v -> v instanceof Link,
-                Link.class
+            v -> v instanceof Link,
+            Link.class
         );
     }
 

@@ -72,7 +72,7 @@ import walkingkooka.predicate.character.CharPredicate;
  * </pre>
  */
 final class ContentDispositionHeaderParser extends HeaderParserWithParameters<ContentDisposition,
-        ContentDispositionParameterName<?>> {
+    ContentDispositionParameterName<?>> {
 
     static ContentDisposition parseContentDisposition(final String text) {
         final ContentDispositionHeaderParser parser = new ContentDispositionHeaderParser(text);

@@ -72,8 +72,8 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
             final long responseContentLength = maybeResponseContentLength.get();
             if (responseContentLength != contentLength) {
                 throw new NotAcceptableHeaderException("Body length=" + responseContentLength +
-                        " doesnt match " +
-                        HttpHeaderName.CONTENT_LENGTH + "=" + responseContentLength);
+                    " doesnt match " +
+                    HttpHeaderName.CONTENT_LENGTH + "=" + responseContentLength);
             }
         } else {
             add = add.addHeader(HttpHeaderName.CONTENT_LENGTH, contentLength);

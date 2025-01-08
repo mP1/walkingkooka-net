@@ -37,9 +37,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public final class IpPortTest implements ClassTesting2<IpPort>,
-        ConstantsTesting<IpPort>,
-        ComparableTesting2<IpPort>,
-        ToStringTesting<IpPort> {
+    ConstantsTesting<IpPort>,
+    ComparableTesting2<IpPort>,
+    ToStringTesting<IpPort> {
 
     @Test
     public void testIsPort() {
@@ -85,7 +85,7 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
         final IpPort port22 = IpPort.with(22);
 
         this.compareToArraySortAndCheck(port443, port22, port80,
-                port22, port80, port443);
+            port22, port80, port443);
     }
 
     @Test

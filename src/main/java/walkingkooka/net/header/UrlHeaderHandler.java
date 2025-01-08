@@ -46,8 +46,8 @@ final class UrlHeaderHandler extends NonStringHeaderHandler<Url> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof Url,
-                Url.class
+            v -> v instanceof Url,
+            Url.class
         );
     }
 

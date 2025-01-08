@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeOneHeaderParser,
-        MediaType> {
+    MediaType> {
     @Test
     public void testParameterSeparatorFails() {
         this.parseStringMissingValueFails(";", 0);
@@ -46,11 +46,11 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
                              final Optional<String> suffix,
                              final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(
-                MediaTypeOneHeaderParser.parseMediaType(text),
-                type,
-                subtype,
-                suffix,
-                parameters
+            MediaTypeOneHeaderParser.parseMediaType(text),
+            type,
+            subtype,
+            suffix,
+            parameters
         );
     }
 

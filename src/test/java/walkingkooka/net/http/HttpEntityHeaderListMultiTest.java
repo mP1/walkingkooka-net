@@ -57,8 +57,8 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     @Test
     public void testGetInvalidIndexFails() {
         this.getFails(
-                this.createList(),
-                1
+            this.createList(),
+            1
         );
     }
 

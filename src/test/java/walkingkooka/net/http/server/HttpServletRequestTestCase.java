@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Vector;
 
 public abstract class HttpServletRequestTestCase<T> implements ClassTesting2<T>,
-        TypeNameTesting<T> {
+    TypeNameTesting<T> {
 
     HttpServletRequestTestCase() {
         super();

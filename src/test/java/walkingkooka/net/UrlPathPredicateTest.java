@@ -29,23 +29,23 @@ public final class UrlPathPredicateTest implements PredicateTesting2<UrlPathPred
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlPathPredicate.with(null)
+            NullPointerException.class,
+            () -> UrlPathPredicate.with(null)
         );
     }
 
     @Test
     public void testWithIncludesStarStarFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> UrlPathPredicate.with(
-                        UrlPath.parse("/path1/**/path3")
-                )
+            IllegalArgumentException.class,
+            () -> UrlPathPredicate.with(
+                UrlPath.parse("/path1/**/path3")
+            )
         );
 
         this.checkEquals(
-                "Pattern should only contain \"**\" at the end, \"/path1/**/path3\"",
-                thrown.getMessage()
+            "Pattern should only contain \"**\" at the end, \"/path1/**/path3\"",
+            thrown.getMessage()
         );
     }
 
@@ -64,199 +64,199 @@ public final class UrlPathPredicateTest implements PredicateTesting2<UrlPathPred
     @Test
     public void testSlashTestSlashTrue() {
         this.testTrue(
-                "/",
-                "/"
+            "/",
+            "/"
         );
     }
 
     @Test
     public void testSlashTestSlashNameFalse() {
         this.testFalse(
-                "/",
-                "/path"
+            "/",
+            "/path"
         );
     }
 
     @Test
     public void testSlashStarStarTestSlashTrue() {
         this.testTrue(
-                "/**",
-                "/"
+            "/**",
+            "/"
         );
     }
 
     @Test
     public void testSlashNameTestSlashName() {
         this.testTrue(
-                "/path1",
-                "/path1"
+            "/path1",
+            "/path1"
         );
     }
 
     @Test
     public void testSlashNameTestSlashDifferentName() {
         this.testFalse(
-                "/path1",
-                "/different1"
+            "/path1",
+            "/different1"
         );
     }
 
     @Test
     public void testSlashNameTestSlashDifferentNameName() {
         this.testFalse(
-                "/path1",
-                "/different1/path2"
+            "/path1",
+            "/different1/path2"
         );
     }
 
     @Test
     public void testSlashNameTestSlashNameDifferentName() {
         this.testFalse(
-                "/path1",
-                "/path1/different2"
+            "/path1",
+            "/path1/different2"
         );
     }
 
     @Test
     public void testSlashStarStarTestSlashNameNameTrue() {
         this.testTrue(
-                "/**",
-                "/path1"
+            "/**",
+            "/path1"
         );
     }
 
     @Test
     public void testSlashStarStarTestSlashNameNameTrue2() {
         this.testTrue(
-                "/**",
-                "/path1/path2"
+            "/**",
+            "/path1/path2"
         );
     }
 
     @Test
     public void testNameStarTestNameNameTrue() {
         this.testTrue(
-                "/path1/*",
-                "/path1/path2"
+            "/path1/*",
+            "/path1/path2"
         );
     }
 
     @Test
     public void testNameStarTestNameNameNameFalse() {
         this.testFalse(
-                "/path1/*",
-                "/path1/path2/path3"
+            "/path1/*",
+            "/path1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarNameTestNameNameNameTrue() {
         this.testTrue(
-                "/path1/*/path3",
-                "/path1/path2/path3"
+            "/path1/*/path3",
+            "/path1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarNameTestDifferentNameNameFalse() {
         this.testFalse(
-                "/path1/*/path3",
-                "/different1/path2"
+            "/path1/*/path3",
+            "/different1/path2"
         );
     }
 
     @Test
     public void testNameStarNameTestDifferentNameNameNameFalse() {
         this.testFalse(
-                "/path1/*/path3",
-                "/different1/path2/path3"
+            "/path1/*/path3",
+            "/different1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarNameTestNameNameDifferentNameFalse() {
         this.testFalse(
-                "/path1/*/path3",
-                "/path1/path2/different"
+            "/path1/*/path3",
+            "/path1/path2/different"
         );
     }
 
     @Test
     public void testNameStarStarTestNameNameNameTrue() {
         this.testTrue(
-                "/path1/**",
-                "/path1/path2/path3"
+            "/path1/**",
+            "/path1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarStarTestDifferentNameNameNameFalse() {
         this.testFalse(
-                "/path1/**",
-                "/different1/path2/path3"
+            "/path1/**",
+            "/different1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarNameStarStarTestNameNameNameTrue() {
         this.testTrue(
-                "/path1/*/path3/**",
-                "/path1/path2/path3"
+            "/path1/*/path3/**",
+            "/path1/path2/path3"
         );
     }
 
     @Test
     public void testNameStarNameStarStarTestNameNameNameNameTrue() {
         this.testTrue(
-                "/path1/*/path3/**",
-                "/path1/path2/path3/path4"
+            "/path1/*/path3/**",
+            "/path1/path2/path3/path4"
         );
     }
 
     @Test
     public void testNameStarNameStarStarTestNameNameNameNameNameTrue() {
         this.testTrue(
-                "/path1/*/path3/**",
-                "/path1/path2/path3/path4/path5"
+            "/path1/*/path3/**",
+            "/path1/path2/path3/path4/path5"
         );
     }
 
     @Test
     public void testNameStarNameStarStarTestDifferentNameNameNameFalse() {
         this.testFalse(
-                "/path1/*/path3/**",
-                "/different/path2/path3/path4"
+            "/path1/*/path3/**",
+            "/different/path2/path3/path4"
         );
     }
 
     @Test
     public void testNameIncludesStar() {
         this.testFalse(
-                "/path1*/path2",
-                "/path1/path2"
+            "/path1*/path2",
+            "/path1/path2"
         );
     }
 
     @Override
     public UrlPathPredicate createPredicate() {
         return UrlPathPredicate.with(
-                UrlPath.parse("/path1/*")
+            UrlPath.parse("/path1/*")
         );
     }
 
     private void testFalse(final String path,
                            final String test) {
         this.testFalse(
-                UrlPath.parse(path).predicate(),
-                UrlPath.parse(test)
+            UrlPath.parse(path).predicate(),
+            UrlPath.parse(test)
         );
     }
 
     private void testTrue(final String path,
                           final String test) {
         this.testTrue(
-                UrlPath.parse(path).predicate(),
-                UrlPath.parse(test)
+            UrlPath.parse(path).predicate(),
+            UrlPath.parse(test)
         );
     }
 
@@ -267,10 +267,10 @@ public final class UrlPathPredicateTest implements PredicateTesting2<UrlPathPred
         final String pattern = "/path1/path2/*";
 
         this.toStringAndCheck(
-                UrlPathPredicate.with(
-                        UrlPath.parse(pattern)
-                ),
-                pattern
+            UrlPathPredicate.with(
+                UrlPath.parse(pattern)
+            ),
+            pattern
         );
     }
 

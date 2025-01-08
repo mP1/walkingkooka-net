@@ -49,9 +49,9 @@ import java.util.function.Predicate;
  * </pre>
  */
 public abstract class CharsetName extends HeaderNameValue
-        implements Header,
-        Comparable<CharsetName>,
-        Predicate<CharsetName> {
+    implements Header,
+    Comparable<CharsetName>,
+    Predicate<CharsetName> {
 
     /**
      * Constant when there is no charset.
@@ -150,32 +150,32 @@ public abstract class CharsetName extends HeaderNameValue
      * </pre>
      */
     static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
-            .range('A', 'Z')
-            .range('a', 'z')
-            .range('0', '9')
-            .build()
-            .setToString("Charset initial");
+        .range('A', 'Z')
+        .range('a', 'z')
+        .range('0', '9')
+        .build()
+        .setToString("Charset initial");
     static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
-            .range('A', 'Z')
-            .range('a', 'z')
-            .range('0', '9')
-            .any("-+.:_")
-            .build()
-            .setToString("Charset part");
+        .range('A', 'Z')
+        .range('a', 'z')
+        .range('0', '9')
+        .any("-+.:_")
+        .build()
+        .setToString("Charset part");
 
     /**
      * Returns a {@link CharsetName}
      */
     public static CharsetName with(final String value) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(value,
-                "value",
-                INITIAL_CHAR_PREDICATE,
-                PART_CHAR_PREDICATE);
+            "value",
+            INITIAL_CHAR_PREDICATE,
+            PART_CHAR_PREDICATE);
 
         final CharsetName charsetName = CONSTANTS.get(value);
         return null != charsetName ?
-                charsetName :
-                CharsetNameUnsupportedCharset.unsupportedCharset(value);
+            charsetName :
+            CharsetNameUnsupportedCharset.unsupportedCharset(value);
     }
 
     /**

@@ -75,8 +75,8 @@ final class HttpResponseParser implements StaticHelper {
         final boolean notEmptyBody = false == CharSequences.isNullOrEmpty(body);
         if (false == entity.isEmpty() || notEmptyBody) {
             response.setEntity(notEmptyBody ?
-                    entity.setBodyText(body) :
-                    entity);
+                entity.setBodyText(body) :
+                entity);
         }
 
         return response;

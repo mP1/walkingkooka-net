@@ -71,7 +71,7 @@ final class HttpRequestValue implements HttpRequest {
         super();
 
         Arrays.stream(entities)
-                .forEach(e -> Objects.requireNonNull(e, "entities contains null"));
+            .forEach(e -> Objects.requireNonNull(e, "entities contains null"));
 
         this.transport = transport;
         this.method = method;
@@ -158,10 +158,10 @@ final class HttpRequestValue implements HttpRequest {
 
     private boolean equals0(final HttpRequestValue other) {
         return this.transport().equals(other.transport()) &&
-                this.method().equals(other.method()) &&
-                this.url().equals(other.url()) &&
-                this.protocolVersion().equals(other.protocolVersion()) &&
-                Arrays.equals(this.entities, other.entities);
+            this.method().equals(other.method()) &&
+            this.url().equals(other.url()) &&
+            this.protocolVersion().equals(other.protocolVersion()) &&
+            Arrays.equals(this.entities, other.entities);
     }
 
     @Override

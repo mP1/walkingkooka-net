@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHttpRequestHttpResponse>
-        extends WrapperHttpResponseTestCase<R> {
+    extends WrapperHttpResponseTestCase<R> {
 
     WrapperHttpRequestHttpResponseTestCase() {
         super();

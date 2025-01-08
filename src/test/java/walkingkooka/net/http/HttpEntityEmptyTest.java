@@ -55,8 +55,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     public void testSetHeaders() {
         final HttpEntityEmpty entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -73,8 +73,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     public void testSetHeadersList() {
         final HttpEntityEmpty entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -100,8 +100,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertNotSame(entity, added);
 
         this.check(added,
-                Maps.of(header, value),
-                Binary.EMPTY);
+            Maps.of(header, value),
+            Binary.EMPTY);
     }
 
     @Test
@@ -115,8 +115,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertNotSame(entity, added);
 
         this.check(added,
-                map(header, value),
-                Binary.EMPTY);
+            map(header, value),
+            Binary.EMPTY);
     }
 
     @Test
@@ -130,7 +130,7 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testContentType() {
         this.contentTypeAndCheck(
-                HttpEntity.EMPTY
+            HttpEntity.EMPTY
         );
     }
 
@@ -139,9 +139,9 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testSetContentType() {
         this.setContentTypeAndCheck(
-                HttpEntity.EMPTY,
-                MediaType.TEXT_PLAIN,
-                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+            HttpEntity.EMPTY,
+            MediaType.TEXT_PLAIN,
+            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
         );
     }
 
@@ -150,8 +150,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testIsMultipartFormData() {
         this.isMultipartFormDataAndCheck(
-                HttpEntity.EMPTY,
-                false
+            HttpEntity.EMPTY,
+            false
         );
     }
 
@@ -166,8 +166,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertNotSame(entity, set);
 
         this.check(set,
-                HttpEntity.NO_HEADERS,
-                body);
+            HttpEntity.NO_HEADERS,
+            body);
     }
 
     @Test
@@ -179,8 +179,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
         assertNotSame(entity, set);
 
         this.check(set,
-                HttpEntity.NO_HEADERS,
-                text);
+            HttpEntity.NO_HEADERS,
+            text);
     }
 
     @Override
@@ -193,8 +193,8 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmp
     @Test
     public void testTreePrint() {
         this.treePrintAndCheck(
-                HttpEntityEmpty.instance(),
-                "HttpEntity\n"
+            HttpEntityEmpty.instance(),
+            "HttpEntity\n"
         );
     }
 

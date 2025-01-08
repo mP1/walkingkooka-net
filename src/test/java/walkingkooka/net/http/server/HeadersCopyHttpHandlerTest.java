@@ -36,27 +36,27 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<HeadersCopyHttpHandler>,
-        ToStringTesting<HeadersCopyHttpHandler> {
+    ToStringTesting<HeadersCopyHttpHandler> {
 
     @Test
     public void testWithNullHeadersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> HeadersCopyHttpHandler.with(
-                        null,
-                        wrappedHttpHandler()
-                )
+            NullPointerException.class,
+            () -> HeadersCopyHttpHandler.with(
+                null,
+                wrappedHttpHandler()
+            )
         );
     }
 
     @Test
     public void testWithNullHandlersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> HeadersCopyHttpHandler.with(
-                        headers(),
-                        null
-                )
+            NullPointerException.class,
+            () -> HeadersCopyHttpHandler.with(
+                headers(),
+                null
+            )
         );
     }
 
@@ -74,15 +74,15 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
         };
         final HttpResponse response = HttpResponses.recording();
         this.createHttpHandler()
-                .handle(
-                        request,
-                        response
-                );
+            .handle(
+                request,
+                response
+            );
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(status());
         expected.setEntity(entity()
-                .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
+            .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
         );
 
         this.checkEquals(expected, response);
@@ -91,8 +91,8 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
     @Override
     public HeadersCopyHttpHandler createHttpHandler() {
         return HeadersCopyHttpHandler.with(
-                headers(),
-                wrappedHttpHandler()
+            headers(),
+            wrappedHttpHandler()
         );
     }
 
@@ -124,8 +124,8 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
 
     private static HttpEntity entity() {
         return HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 1234L)
-                .setBodyText("Body1234");
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 1234L)
+            .setBodyText("Body1234");
     }
 
     // toString.........................................................................................................

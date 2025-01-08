@@ -53,8 +53,8 @@ final class LanguageNameNonWildcard extends LanguageName {
     static LanguageNameNonWildcard nonWildcard(final String value) {
         final LanguageNameNonWildcard constant = CONSTANTS.get(value);
         return null != constant ?
-                constant :
-                nonWildcard0(value);
+            constant :
+            nonWildcard0(value);
     }
 
     /**
@@ -63,16 +63,16 @@ final class LanguageNameNonWildcard extends LanguageName {
      */
     private static LanguageNameNonWildcard nonWildcard0(final String language) {
         PREDICATE.failIfNullOrEmptyOrFalse(
-                "language",
-                language
+            "language",
+            language
         );
 
         return new LanguageNameNonWildcard(language, Optional.of(Locale.forLanguageTag(language)));
     }
 
     private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
-            .or(CharPredicates.range('a', 'z'))
-            .or(CharPredicates.is('_'));
+        .or(CharPredicates.range('a', 'z'))
+        .or(CharPredicates.is('_'));
 
     /**
      * Private ctor use factory

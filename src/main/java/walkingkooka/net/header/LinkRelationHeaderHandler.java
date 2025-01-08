@@ -46,9 +46,9 @@ final class LinkRelationHeaderHandler extends NonStringHeaderHandler<List<LinkRe
     @Override
     void checkNonNull(final Object value) {
         this.checkListOfType(
-                value,
-                v -> v instanceof LinkRelation,
-                LinkRelation.class
+            value,
+            v -> v instanceof LinkRelation,
+            LinkRelation.class
         );
     }
 

@@ -33,18 +33,15 @@ abstract class ETagHeaderParser extends HeaderParser {
         super(text);
     }
 
-    @Override
-    final void whitespace() {
+    @Override final void whitespace() {
         this.skipWhitespace(); // skip whitespace
     }
 
-    @Override
-    final void keyValueSeparator() {
+    @Override final void keyValueSeparator() {
         this.failInvalidCharacter();
     }
 
-    @Override
-    final void wildcard() {
+    @Override final void wildcard() {
         if (!this.requireValue) {
             this.failInvalidCharacter();
         }
@@ -72,8 +69,7 @@ abstract class ETagHeaderParser extends HeaderParser {
     /**
      * Comments are not allowed within ETAGS.
      */
-    @Override
-    final void comment() {
+    @Override final void comment() {
         this.failCommentPresent();
     }
 
@@ -121,10 +117,10 @@ abstract class ETagHeaderParser extends HeaderParser {
      * </pre>
      */
     final static CharPredicate ETAG_VALUE = CharPredicates.builder()//
-            .or(CharPredicates.is('\u0021'))//
-            .or(CharPredicates.range('\u0023', '\u007e'))
-            .toString("e tag quoted value character")//
-            .build();
+        .or(CharPredicates.is('\u0021'))//
+        .or(CharPredicates.range('\u0023', '\u007e'))
+        .toString("e tag quoted value character")//
+        .build();
 
     @Override
     void missingValue() {

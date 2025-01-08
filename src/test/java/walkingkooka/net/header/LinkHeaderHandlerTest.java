@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class LinkHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<LinkHeaderHandler, List<Link>> {
+    NonStringHeaderHandlerTestCase<LinkHeaderHandler, List<Link>> {
 
     @Override
     public String typeNamePrefix() {
@@ -40,27 +40,27 @@ public final class LinkHeaderHandlerTest extends
     @Test
     public void testParseLink() {
         this.parseAndToTextAndCheck2("</TheBook/chapter2>",
-                Link.with(Url.parse("/TheBook/chapter2")));
+            Link.with(Url.parse("/TheBook/chapter2")));
     }
 
     // </TheBook/chapter2>;rel="previous"; title=Hello,
     @Test
     public void testParseLinkWithParameters() {
         final Map<LinkParameterName<?>, Object> parameters = Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"),
-                LinkParameterName.TITLE, "Hello");
+            LinkParameterName.TITLE, "Hello");
 
         this.parseAndToTextAndCheck2("</TheBook/chapter2>;rel=previous;title=Hello",
-                Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));
+            Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));
     }
 
     // </TheBook/chapter2>;rel="previous"; title*=UTF-8'de'letztes%20Kapitel,
     @Test
     public void testParseLinkWithParameters2() {
         final Map<LinkParameterName<?>, Object> parameters = Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"),
-                LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageName.with("de")), "letztes Kapitel"));
+            LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageName.with("de")), "letztes Kapitel"));
 
         this.parseAndToTextAndCheck2("</TheBook/chapter2>;rel=previous;title*=UTF-8'de'letztes%20Kapitel",
-                Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));
+            Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));
     }
 
     private void parseAndToTextAndCheck2(final String text,
@@ -86,8 +86,8 @@ public final class LinkHeaderHandlerTest extends
     @Override
     List<Link> value() {
         return Lists.of(
-                Link.with(Url.parse("/file")),
-                Link.with(Url.parse("https://example.com")));
+            Link.with(Url.parse("/file")),
+            Link.with(Url.parse("https://example.com")));
     }
 
     @Override

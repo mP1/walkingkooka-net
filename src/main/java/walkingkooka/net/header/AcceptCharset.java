@@ -35,17 +35,17 @@ import java.util.function.Predicate;
  * </pre>
  */
 public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
-        implements Predicate<MediaType>,
-        HasQualityFactorSortedValues<AcceptCharsetValue> {
+    implements Predicate<MediaType>,
+    HasQualityFactorSortedValues<AcceptCharsetValue> {
 
 
     /**
      * Constant holding the frequently used <code>UTF-8</code> accept-charset.
      */
     public final static AcceptCharset UTF_8 = AcceptCharset.with(
-            Lists.of(
-                    AcceptCharsetValue.with(CharsetName.UTF_8)
-            )
+        Lists.of(
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+        )
     );
 
     /**
@@ -75,10 +75,10 @@ public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
      */
     public Optional<Charset> charset() {
         return this.value().stream()
-                .map(chv -> chv.value().charset())
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .findFirst();
+            .map(chv -> chv.value().charset())
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .findFirst();
     }
 
     @Override
@@ -129,12 +129,12 @@ public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
         Objects.requireNonNull(contentType, "contentType");
 
         return MediaTypeParameterName.CHARSET.parameterValue(contentType)
-                .map(this::test0)
-                .orElse(false);
+            .map(this::test0)
+            .orElse(false);
     }
 
     private boolean test0(final CharsetName charsetName) {
         return this.value.stream()
-                .anyMatch(v -> v.test(charsetName));
+            .anyMatch(v -> v.test(charsetName));
     }
 }

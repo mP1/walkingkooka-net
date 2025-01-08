@@ -60,8 +60,8 @@ final class HttpEntityEmpty extends HttpEntity {
     @Override
     HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         return HttpEntityInterop.BINARY ?
-                HttpEntityBinary.with(headers, Binary.EMPTY) :
-                HttpEntityText.with(headers, "");
+            HttpEntityBinary.with(headers, Binary.EMPTY) :
+            HttpEntityText.with(headers, "");
     }
 
     @Override //
@@ -110,8 +110,8 @@ final class HttpEntityEmpty extends HttpEntity {
     @Override
     HttpEntity replaceBodyText(final String bodyText) {
         return bodyText.isEmpty() ?
-                this :
-                HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);
+            this :
+            HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);
     }
 
     @Override

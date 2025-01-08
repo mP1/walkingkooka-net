@@ -29,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements ClassTesting2<A>,
-        ComparableTesting2<A>,
-        ToStringTesting<A>,
-        TypeNameTesting<A> {
+    ComparableTesting2<A>,
+    ToStringTesting<A>,
+    TypeNameTesting<A> {
 
     IpAddressTestCase() {
         super();

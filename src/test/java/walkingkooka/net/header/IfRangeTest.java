@@ -58,14 +58,14 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
     public void testParseETag() {
         final ETag etag = ETagValidator.WEAK.setValue("abc");
         this.parseStringAndCheck(etag.toHeaderText(),
-                IfRange.with(etag));
+            IfRange.with(etag));
     }
 
     @Test
     public void testParseLastModified() {
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
         this.parseStringAndCheck(HttpHeaderName.LAST_MODIFIED.headerText(lastModified),
-                IfRange.with(lastModified));
+            IfRange.with(lastModified));
     }
 
     // ParseStringTesting ........................................................................................

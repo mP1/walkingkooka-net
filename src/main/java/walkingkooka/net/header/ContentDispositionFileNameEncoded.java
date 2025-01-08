@@ -70,8 +70,8 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         final String without = removePathIfNecessaryOrNull(value);
 
         return null == without ?
-                this :
-                new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
+            this :
+            new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
     }
 
     /**
@@ -90,9 +90,9 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         }
 
         return Optional.ofNullable(
-                notEncoded ?
-                        ContentDispositionFileName.notEncoded(value) :
-                        null
+            notEncoded ?
+                ContentDispositionFileName.notEncoded(value) :
+                null
         );
     }
 

@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixin interface with helpers to assist testing of {@link HeaderWithParameters} implementations.
  */
 public interface HeaderWithParametersTesting<V extends HeaderWithParameters<N>,
-        N extends HeaderParameterName<?>> extends HeaderTesting<V> {
+    N extends HeaderParameterName<?>> extends HeaderTesting<V> {
 
     // setParameters ...........................................................................................
 

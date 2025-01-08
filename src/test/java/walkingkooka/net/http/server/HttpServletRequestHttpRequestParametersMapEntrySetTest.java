@@ -28,7 +28,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestParametersMapEntrySet>
-        implements SetTesting2<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
+    implements SetTesting2<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -40,31 +40,31 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
     @Test
     public void testAddFails() {
         this.addFails(this.createSet(),
-                this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
+            this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
     }
 
     @Test
     public void testContains() {
         this.containsAndCheck(this.createSet(),
-                this.entry(HttpRequestParameterName.with(KEY1), VALUE1A, VALUE1B));
+            this.entry(HttpRequestParameterName.with(KEY1), VALUE1A, VALUE1B));
     }
 
     @Test
     public void testContains2() {
         this.containsAndCheck(this.createSet(),
-                this.entry(HttpRequestParameterName.with(KEY2), VALUE2));
+            this.entry(HttpRequestParameterName.with(KEY2), VALUE2));
     }
 
     @Test
     public void testRemoveFails() {
         this.removeFails(this.createSet(),
-                this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
+            this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSet(),
-                "[parameter1=[value1a, value1b], parameter2=[value2]]");
+            "[parameter1=[value1a, value1b], parameter2=[value2]]");
     }
 
     @Override

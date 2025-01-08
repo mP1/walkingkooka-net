@@ -26,9 +26,9 @@ public interface HasMediaTypeTesting extends Testing {
     default void mediaTypeAndCheck(final HasMediaType has,
                                    final MediaType expected) {
         this.mediaTypeAndCheck(
-                has,
-                expected,
-                () -> has.toString()
+            has,
+            expected,
+            () -> has.toString()
         );
     }
 
@@ -36,9 +36,9 @@ public interface HasMediaTypeTesting extends Testing {
                                    final MediaType expected,
                                    final String message) {
         this.mediaTypeAndCheck(
-                has,
-                expected,
-                () -> message
+            has,
+            expected,
+            () -> message
         );
     }
 
@@ -46,9 +46,9 @@ public interface HasMediaTypeTesting extends Testing {
                                    final MediaType expected,
                                    final Supplier<String> message) {
         this.checkEquals(
-                expected,
-                has.mediaType(),
-                message
+            expected,
+            has.mediaType(),
+            message
         );
     }
 }

@@ -69,12 +69,12 @@ public interface HttpResponse extends TreePrintable {
         printer.indent();
         {
             final HttpStatus status = this.status()
-                    .orElse(null);
+                .orElse(null);
             if (null != status) {
                 printer.println(status.toString());
             }
             this.entity()
-                    .printTree(printer);
+                .printTree(printer);
             printer.lineStart();
         }
         printer.outdent();

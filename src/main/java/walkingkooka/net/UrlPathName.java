@@ -93,8 +93,8 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
     boolean isNormalized() {
         final String name = this.name;
         return name.length() != 0 &&
-                false == name.equals(".") &&
-                false == name.equals("..");
+            false == name.equals(".") &&
+            false == name.equals("..");
     }
 
     // Object...........................................................................................................

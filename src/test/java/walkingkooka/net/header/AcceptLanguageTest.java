@@ -29,9 +29,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
-        implements HasQualityFactorSortedValuesTesting,
-        ParseStringTesting<AcceptLanguage>,
-        PredicateTesting2<AcceptLanguage, ContentLanguage> {
+    implements HasQualityFactorSortedValuesTesting,
+    ParseStringTesting<AcceptLanguage>,
+    PredicateTesting2<AcceptLanguage, ContentLanguage> {
 
     @Test
     public void testWithNullFails() {
@@ -49,7 +49,7 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
     @Test
     public void testQualityFactorSort2() {
         this.qualitySortedValuesAndCheck(AcceptLanguage.parse("de;q=0.5,en,fr;q=0.25,gr;q=1.0"),
-                AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25").value());
+            AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25").value());
     }
 
     // predicate.......................................................................................................
@@ -104,8 +104,8 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
     @Test
     public void testParse() {
         this.parseStringAndCheck("en, *;q=0.5",
-                AcceptLanguage.with(Lists.of(AcceptLanguageValue.parse("en"),
-                        AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)))));
+            AcceptLanguage.with(Lists.of(AcceptLanguageValue.parse("en"),
+                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)))));
     }
 
     // helpers..........................................................................................................

@@ -29,9 +29,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
-        implements HasQualityFactorSortedValuesTesting,
-        ParseStringTesting<AcceptEncoding>,
-        PredicateTesting2<AcceptEncoding, ContentEncoding> {
+    implements HasQualityFactorSortedValuesTesting,
+    ParseStringTesting<AcceptEncoding>,
+    PredicateTesting2<AcceptEncoding, ContentEncoding> {
 
     @Test
     public void testWithNullFails() {
@@ -49,7 +49,7 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
     @Test
     public void testQualityFactorSort2() {
         this.qualitySortedValuesAndCheck(AcceptEncoding.parse("a;q=0.5,b,c;q=0.75,d;q=1.0"),
-                AcceptEncoding.parse("b,d;q=1.0,a;q=0.5,c;q=0.75").value());
+            AcceptEncoding.parse("b,d;q=1.0,a;q=0.5,c;q=0.75").value());
     }
 
     // predicate.......................................................................................................
@@ -104,8 +104,8 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
     @Test
     public void testParse() {
         this.parseStringAndCheck("gzip, *;q=0.5",
-                AcceptEncoding.with(Lists.of(AcceptEncodingValue.GZIP,
-                        AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
+            AcceptEncoding.with(Lists.of(AcceptEncodingValue.GZIP,
+                AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
     }
 
     // helpers.......................................................................................................

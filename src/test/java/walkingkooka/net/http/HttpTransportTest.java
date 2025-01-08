@@ -24,7 +24,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
-        ToStringTesting<HttpTransport> {
+    ToStringTesting<HttpTransport> {
 
     @Test
     public void testUnsecured() {
@@ -39,8 +39,8 @@ public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
     private void urlSchemeAndCheck(final HttpTransport transport,
                                    final UrlScheme expected) {
         this.checkEquals(expected,
-                transport.urlScheme(),
-                () -> "" + transport + " .urlScheme()");
+            transport.urlScheme(),
+            () -> "" + transport + " .urlScheme()");
     }
 
     // ClassTesting.....................................................................................................

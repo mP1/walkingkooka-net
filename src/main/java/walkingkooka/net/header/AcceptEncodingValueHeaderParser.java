@@ -94,7 +94,7 @@ final class AcceptEncodingValueHeaderParser extends HeaderParserWithParameters<A
     @Override
     AcceptEncodingValue value() {
         return AcceptEncodingValue.with(
-                this.rfc2045Token()
+            this.rfc2045Token()
         );
     }
 

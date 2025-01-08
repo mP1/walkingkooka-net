@@ -36,8 +36,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     static HttpEntityHeaderList one(final HttpHeaderName<?> header,
                                     final Object value) {
         return header.isMultiple() ?
-                HttpEntityHeaderListMulti.with(header, value) :
-                HttpEntityHeaderListOne.with(header, value);
+            HttpEntityHeaderListMulti.with(header, value) :
+            HttpEntityHeaderListOne.with(header, value);
     }
 
     /**
@@ -46,8 +46,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     static HttpEntityHeaderList copy(final HttpHeaderName<?> header,
                                      final List<?> values) {
         return values instanceof HttpEntityHeaderList ?
-                check(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
-                copy0(header, values.toArray());
+            check(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
+            copy0(header, values.toArray());
     }
 
     /**
@@ -56,8 +56,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     private static HttpEntityHeaderList check(final HttpHeaderName<?> header,
                                               final HttpEntityHeaderList values) {
         return header.isMultiple() == values.isMultipleHeaders() ?
-                check0(header, values) : // already the correct HttpEntityHeaderList sub class, simply check values.
-                copy0(header, values.toArray()); // wrong HttpEntityHeaderList copy and create another
+            check0(header, values) : // already the correct HttpEntityHeaderList sub class, simply check values.
+            copy0(header, values.toArray()); // wrong HttpEntityHeaderList copy and create another
     }
 
     /**
@@ -75,10 +75,10 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     private static HttpEntityHeaderList copy0(final HttpHeaderName<?> header,
                                               final Object[] values) {
         return values.length == 0 ?
-                null :
-                header.isMultiple() ?
-                        HttpEntityHeaderListMulti.with(header, values) :
-                        HttpEntityHeaderListOne.with(header, values);
+            null :
+            header.isMultiple() ?
+                HttpEntityHeaderListMulti.with(header, values) :
+                HttpEntityHeaderListOne.with(header, values);
     }
 
     /**
@@ -104,8 +104,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     public final ImmutableList<Object> setElements(final List<Object> values) {
         final ImmutableList<Object> copy = copy(this.header, values);
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 
     private final HttpHeaderName<?> header;

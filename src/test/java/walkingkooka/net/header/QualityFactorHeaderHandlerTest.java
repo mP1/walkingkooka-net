@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class QualityFactorHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<QualityFactorHeaderHandler, Float> {
+    NonStringHeaderHandlerTestCase<QualityFactorHeaderHandler, Float> {
 
     @Override
     public String typeNamePrefix() {
@@ -30,32 +30,32 @@ public final class QualityFactorHeaderHandlerTest extends
     @Test
     public void testParseEmptyStringFails() {
         this.parseStringFails(
-                "",
-                new HeaderException("Empty \"text\"")
+            "",
+            new HeaderException("Empty \"text\"")
         );
     }
 
     @Test
     public void testParseInvalidNumberFails() {
         this.parseStringFails(
-                "ABC",
-                new HeaderException("Invalid number in \"ABC\"")
+            "ABC",
+            new HeaderException("Invalid number in \"ABC\"")
         );
     }
 
     @Test
     public void testParseNegativeFails() {
         this.parseStringFails(
-                "-0.1",
-                new HeaderException("Q factor -0.1 must be between 0.0 and 1.0")
+            "-0.1",
+            new HeaderException("Q factor -0.1 must be between 0.0 and 1.0")
         );
     }
 
     @Test
     public void testMoreThanOneFails() {
         this.parseStringFails(
-                "1.01",
-                new HeaderException("Q factor 1.01 must be between 0.0 and 1.0")
+            "1.01",
+            new HeaderException("Q factor 1.01 must be between 0.0 and 1.0")
         );
     }
 

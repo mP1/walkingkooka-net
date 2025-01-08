@@ -28,7 +28,7 @@ import java.util.Arrays;
  * Base class for either {@link Ip4Address} or {@link Ip6Address}.
  */
 abstract public class IpAddress implements Value<byte[]>,
-        UsesToStringBuilder {
+    UsesToStringBuilder {
 
     /**
      * {@see IpAddress4}
@@ -83,7 +83,7 @@ abstract public class IpAddress implements Value<byte[]>,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) && this.equals0((IpAddress) other);
+            this.canBeEqual(other) && this.equals0((IpAddress) other);
     }
 
     abstract boolean canBeEqual(Object other);

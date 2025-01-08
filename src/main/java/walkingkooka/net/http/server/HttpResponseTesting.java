@@ -57,11 +57,11 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
         expected.setStatus(status);
 
         Arrays.stream(entities)
-                .forEach(expected::setEntity);
+            .forEach(expected::setEntity);
 
         this.checkEquals(expected,
-                response,
-                request::toString);
+            response,
+            request::toString);
     }
 
     // TypeNameTesting .........................................................................................

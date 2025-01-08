@@ -106,13 +106,13 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath differentPath = UrlPath.parse("/different-path");
 
         this.setPathAndCheck(
-                this.createUrl(),
+            this.createUrl(),
+            differentPath,
+            this.createUrl(
                 differentPath,
-                this.createUrl(
-                        differentPath,
-                        QUERY,
-                        FRAGMENT
-                )
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -122,17 +122,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath emptyPath = UrlPath.EMPTY;
 
         this.setPathAndCheck(
-                this.createUrl(
-                        UrlPath.parse("/path123"),
-                        QUERY,
-                        FRAGMENT
-                ),
+            this.createUrl(
+                UrlPath.parse("/path123"),
+                QUERY,
+                FRAGMENT
+            ),
+            emptyPath,
+            this.createUrl(
                 emptyPath,
-                this.createUrl(
-                        emptyPath,
-                        QUERY,
-                        FRAGMENT
-                )
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -142,17 +142,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath differentPath = UrlPath.parse("/different-path");
 
         this.setPathAndCheck(
-                this.createUrl(
-                        UrlPath.EMPTY,
-                        QUERY,
-                        FRAGMENT
-                ),
+            this.createUrl(
+                UrlPath.EMPTY,
+                QUERY,
+                FRAGMENT
+            ),
+            differentPath,
+            this.createUrl(
                 differentPath,
-                this.createUrl(
-                        differentPath,
-                        QUERY,
-                        FRAGMENT
-                )
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -162,17 +162,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath rootPath = UrlPath.ROOT;
 
         this.setPathAndCheck(
-                this.createUrl(
-                        UrlPath.EMPTY,
-                        QUERY,
-                        FRAGMENT
-                ),
+            this.createUrl(
+                UrlPath.EMPTY,
+                QUERY,
+                FRAGMENT
+            ),
+            rootPath,
+            this.createUrl(
                 rootPath,
-                this.createUrl(
-                        rootPath,
-                        QUERY,
-                        FRAGMENT
-                )
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -182,17 +182,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath differentPath = UrlPath.parse("/different-path");
 
         this.setPathAndCheck(
-                this.createUrl(
-                        UrlPath.ROOT,
-                        QUERY,
-                        FRAGMENT
-                ),
+            this.createUrl(
+                UrlPath.ROOT,
+                QUERY,
+                FRAGMENT
+            ),
+            differentPath,
+            this.createUrl(
                 differentPath,
-                this.createUrl(
-                        differentPath,
-                        QUERY,
-                        FRAGMENT
-                )
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -202,13 +202,13 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlPath differentPath = UrlPath.parse("different-path");
 
         this.setPathAndCheck(
-                this.createUrl(),
-                differentPath,
-                this.createUrl(
-                        UrlPath.parse("/" + differentPath),
-                        QUERY,
-                        FRAGMENT
-                )
+            this.createUrl(),
+            differentPath,
+            this.createUrl(
+                UrlPath.parse("/" + differentPath),
+                QUERY,
+                FRAGMENT
+            )
 
         );
     }
@@ -217,9 +217,9 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
                                final UrlPath path,
                                final U expected) {
         this.checkEquals(
-                expected,
-                url.setPath(path),
-                () -> url + " setPath " + path
+            expected,
+            url.setPath(path),
+            () -> url + " setPath " + path
         );
     }
 
@@ -228,9 +228,9 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     @Test
     public final void testAppendPathNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createUrl()
-                        .appendPath(null)
+            NullPointerException.class,
+            () -> this.createUrl()
+                .appendPath(null)
         );
     }
 
@@ -238,8 +238,8 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     public final void testAppendPathEmpty() {
         final U url = this.createUrl();
         assertSame(
-                url,
-                url.appendPath(UrlPath.EMPTY)
+            url,
+            url.appendPath(UrlPath.EMPTY)
         );
     }
 
@@ -252,13 +252,13 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         assertNotSame(url, appended);
 
         this.checkEquals(
-                this.createUrl(
-                        url.path()
-                                .appendPath(append),
-                        QUERY,
-                        FRAGMENT
-                ),
-                appended
+            this.createUrl(
+                url.path()
+                    .appendPath(append),
+                QUERY,
+                FRAGMENT
+            ),
+            appended
         );
     }
 
@@ -271,18 +271,18 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         assertNotSame(url, appended);
 
         this.checkEquals(
-                this.createUrl(
-                        url.path()
-                                .appendPath(append),
-                        QUERY,
-                        FRAGMENT
-                ),
-                appended
+            this.createUrl(
+                url.path()
+                    .appendPath(append),
+                QUERY,
+                FRAGMENT
+            ),
+            appended
         );
 
         this.checkEquals(
-                url.path() + "/path456", // extra slash inserted before appending /path456
-                appended.path().value()
+            url.path() + "/path456", // extra slash inserted before appending /path456
+            appended.path().value()
         );
     }
 
@@ -295,68 +295,68 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         assertNotSame(url, appended);
 
         this.checkEquals(
-                this.createUrl(
-                        url.path()
-                                .appendPath(append),
-                        QUERY,
-                        FRAGMENT
-                ),
-                appended
+            this.createUrl(
+                url.path()
+                    .appendPath(append),
+                QUERY,
+                FRAGMENT
+            ),
+            appended
         );
 
         this.checkEquals(
-                url.path() + "/path456/path789", // extra slash inserted before appending /path456
-                appended.path().value()
+            url.path() + "/path456/path789", // extra slash inserted before appending /path456
+            appended.path().value()
         );
     }
 
     @Test
     public final void testAppendPathTrailingSeparatorMissingLeadingSeparator() {
         final AbsoluteOrRelativeUrl url = this.createUrl()
-                .setPath(UrlPath.parse("/path123/"));
+            .setPath(UrlPath.parse("/path123/"));
 
         final UrlPath append = UrlPath.parse("path456");
         final AbsoluteOrRelativeUrl appended = url.appendPath(append);
         assertNotSame(url, appended);
 
         this.checkEquals(
-                this.createUrl(
-                        url.path()
-                                .appendPath(append),
-                        QUERY,
-                        FRAGMENT
-                ),
-                appended
+            this.createUrl(
+                url.path()
+                    .appendPath(append),
+                QUERY,
+                FRAGMENT
+            ),
+            appended
         );
 
         this.checkEquals(
-                "/path123/path456",
-                appended.path().value()
+            "/path123/path456",
+            appended.path().value()
         );
     }
 
     @Test
     public final void testAppendPathTrailingSeparatorMissingLeadingSeparator2() {
         final AbsoluteOrRelativeUrl url = this.createUrl()
-                .setPath(UrlPath.parse("/path123/"));
+            .setPath(UrlPath.parse("/path123/"));
 
         final UrlPath append = UrlPath.parse("path456/path789");
         final AbsoluteOrRelativeUrl appended = url.appendPath(append);
         assertNotSame(url, appended);
 
         this.checkEquals(
-                this.createUrl(
-                        url.path()
-                                .appendPath(append),
-                        QUERY,
-                        FRAGMENT
-                ),
-                appended
+            this.createUrl(
+                url.path()
+                    .appendPath(append),
+                QUERY,
+                FRAGMENT
+            ),
+            appended
         );
 
         this.checkEquals(
-                "/path123/path456/path789",
-                appended.path().value()
+            "/path123/path456/path789",
+            appended.path().value()
         );
     }
 
@@ -365,18 +365,18 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     @Test
     public final void testAppendNameNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createUrl()
-                        .appendPathName(null)
+            NullPointerException.class,
+            () -> this.createUrl()
+                .appendPathName(null)
         );
     }
 
     @Test
     public final void testAppendName() {
         this.appendNameAndCheck(
-                this.createUrl(UrlPath.parse("/path1"), UrlQueryString.EMPTY, UrlFragment.EMPTY),
-                UrlPathName.with("path2"),
-                this.createUrl(UrlPath.parse("/path1/path2"), UrlQueryString.EMPTY, UrlFragment.EMPTY)
+            this.createUrl(UrlPath.parse("/path1"), UrlQueryString.EMPTY, UrlFragment.EMPTY),
+            UrlPathName.with("path2"),
+            this.createUrl(UrlPath.parse("/path1/path2"), UrlQueryString.EMPTY, UrlFragment.EMPTY)
         );
     }
 
@@ -384,12 +384,12 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
                                     final UrlPathName name,
                                     final U expected) {
         this.checkEquals(
-                expected,
-                url.appendPathName(name),
-                () -> url + " appendPathName " + name
+            expected,
+            url.appendPathName(name),
+            () -> url + " appendPathName " + name
         );
     }
-    
+
     // setQuery .......................................................................................................
 
     @Test
@@ -440,31 +440,31 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     final void normalizeAndCheck(final String url) {
         normalizeAndCheck(
-                this.parseString(url)
+            this.parseString(url)
         );
     }
 
     final void normalizeAndCheck(final AbsoluteOrRelativeUrl url) {
         assertSame(
-                url,
-                url.normalize()
+            url,
+            url.normalize()
         );
     }
 
     final void normalizeAndCheck(final String url,
                                  final String expected) {
         this.normalizeAndCheck(
-                this.parseString(url),
-                this.parseString(expected)
+            this.parseString(url),
+            this.parseString(expected)
         );
     }
 
     final void normalizeAndCheck(final AbsoluteOrRelativeUrl url,
                                  final AbsoluteOrRelativeUrl expected) {
         this.checkEquals(
-                expected,
-                url.normalize(),
-                () -> url + " normalize"
+            expected,
+            url.normalize(),
+            () -> url + " normalize"
         );
     }
 
@@ -475,8 +475,8 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final U url = this.createUrl();
 
         this.checkEquals(
-                url.fragment(),
-                url.urlFragment()
+            url.fragment(),
+            url.urlFragment()
         );
     }
 
@@ -485,7 +485,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     @Test
     public final void testEqualsDifferentPath() {
         this.checkNotEquals(
-                this.createUrl(UrlPath.parse("/different"), QUERY, FRAGMENT));
+            this.createUrl(UrlPath.parse("/different"), QUERY, FRAGMENT));
     }
 
     @Test
@@ -511,8 +511,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     // factory
 
-    @Override
-    final U createUrl() {
+    @Override final U createUrl() {
         return this.createUrl(PATH, QUERY, FRAGMENT);
     }
 

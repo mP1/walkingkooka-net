@@ -22,7 +22,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
 public final class RelativeUrlHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<RelativeUrlHeaderHandler, RelativeUrl> {
+    NonStringHeaderHandlerTestCase<RelativeUrlHeaderHandler, RelativeUrl> {
 
     @Override
     public String typeNamePrefix() {

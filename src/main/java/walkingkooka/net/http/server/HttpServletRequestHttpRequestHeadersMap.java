@@ -48,7 +48,7 @@ final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHead
     @Override
     public boolean containsKey(final Object key) {
         return key instanceof HttpHeaderName<?> &&
-                this.containsHeader(Cast.to(key));
+            this.containsHeader(Cast.to(key));
     }
 
     private boolean containsHeader(final HttpHeaderName<?> key) {
@@ -76,16 +76,16 @@ final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHead
     public List<?> getOrDefault(final Object key,
                                 final List<?> defaultValue) {
         return key instanceof HttpHeaderName<?> ?
-                this.getHeaderOrDefaultValue(Cast.to(key), defaultValue) :
-                defaultValue;
+            this.getHeaderOrDefaultValue(Cast.to(key), defaultValue) :
+            defaultValue;
     }
 
     private List<?> getHeaderOrDefaultValue(final HttpHeaderName<?> header,
                                             final List<?> defaultValue) {
         final Enumeration<String> values = this.request.getHeaders(header.value());
         return null != values ?
-                HttpServletRequestHttpRequest.toList(header, values) :
-                defaultValue;
+            HttpServletRequestHttpRequest.toList(header, values) :
+            defaultValue;
     }
 
     /**

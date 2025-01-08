@@ -20,13 +20,13 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 
 public final class HostAddressProblemInvalidCharacterTest
-        extends HostAddressProblemTestCase<HostAddressProblemInvalidCharacter> {
+    extends HostAddressProblemTestCase<HostAddressProblemInvalidCharacter> {
 
     @Test
     public void testMessage() {
         this.messageAndCheck(HostAddressProblemInvalidCharacter.with(5),
-                "example.com",
-                "Invalid character 'l' at 5 in \"example.com\"");
+            "example.com",
+            "Invalid character 'l' at 5 in \"example.com\"");
     }
 
     @Override

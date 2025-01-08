@@ -34,7 +34,7 @@ public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
     @Test
     public void testLess() {
         this.compareToAndCheckLess(
-                Ip6Address.with(new byte[]{(byte) 255, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}));
+            Ip6Address.with(new byte[]{(byte) 255, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}));
     }
 
     @Override
@@ -45,31 +45,31 @@ public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
     @Test
     public void testToStringWith0SignificantOctets() {
         this.toStringAndCheck(this.createAddress(new byte[Ip6Address.OCTET_COUNT]),
-                "0::");
+            "0::");
     }
 
     @Test
     public void testToStringWith4Octets() {
         this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
-                "1:2:3:4::");
+            "1:2:3:4::");
     }
 
     @Test
     public void testToStringWith8SignificantOctets() {
         this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}),
-                "1:2:3:4:5:6:7:8::");
+            "1:2:3:4:5:6:7:8::");
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}),
-                "FF:2:3:4:5:6:7:8::");
+            "FF:2:3:4:5:6:7:8::");
     }
 
     @Test
     public void testToStringFilled() {
         this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 9, (byte) 0xFF, 1, 2, 3, 4, 5, 6}),
-                "FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6");
+            "FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6");
     }
 
     @Override

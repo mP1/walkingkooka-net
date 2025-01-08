@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
 public final class ContentDispositionHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<ContentDispositionHeaderHandler, ContentDisposition> {
+    NonStringHeaderHandlerTestCase<ContentDispositionHeaderHandler, ContentDisposition> {
 
     @Override
     public String typeNamePrefix() {
@@ -31,7 +31,7 @@ public final class ContentDispositionHeaderHandlerTest extends
     @Test
     public void testHeader() {
         this.parseAndToTextAndCheck("attachment; filename=readme.txt",
-                this.value());
+            this.value());
     }
 
     @Override

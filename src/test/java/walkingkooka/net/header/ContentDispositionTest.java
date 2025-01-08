@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentDispositionTest extends HeaderWithParametersTestCase<ContentDisposition,
-        ContentDispositionParameterName<?>>
-        implements ParseStringTesting<ContentDisposition> {
+    ContentDispositionParameterName<?>>
+    implements ParseStringTesting<ContentDisposition> {
 
     private final static ContentDispositionType TYPE = ContentDispositionType.ATTACHMENT;
     private final static String PARAMETER_VALUE = "v1";
@@ -40,8 +40,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testWithNullValueFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ContentDisposition.with(null)
+            NullPointerException.class,
+            () -> ContentDisposition.with(null)
         );
     }
 
@@ -86,69 +86,69 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testParseAttachment() {
         this.parseStringAndCheck(
-                "attachment;",
-                ContentDispositionType.ATTACHMENT.setParameters(ContentDisposition.NO_PARAMETERS)
+            "attachment;",
+            ContentDispositionType.ATTACHMENT.setParameters(ContentDisposition.NO_PARAMETERS)
         );
     }
 
     @Test
     public void testParseAttachmentFilename() {
         this.parseStringAndCheck(
-                "attachment; filename=\"abc.jpg\"",
-                ContentDispositionType.ATTACHMENT.setParameters(
-                        Maps.of(
-                                ContentDispositionParameterName.FILENAME,
-                                ContentDispositionFileName.notEncoded("abc.jpg")
-                        )
+            "attachment; filename=\"abc.jpg\"",
+            ContentDispositionType.ATTACHMENT.setParameters(
+                Maps.of(
+                    ContentDispositionParameterName.FILENAME,
+                    ContentDispositionFileName.notEncoded("abc.jpg")
                 )
+            )
         );
     }
 
     @Test
     public void testParseAttachmentFilenameStar() {
         this.parseStringAndCheck(
-                "attachment; filename*=UTF-8''Hello.txt",
-                ContentDispositionType.ATTACHMENT.setParameters(
-                        Maps.of(
-                                ContentDispositionParameterName.FILENAME_STAR,
-                                ContentDispositionFileName.encoded(
-                                        EncodedText.with(
-                                                CharsetName.UTF_8,
-                                                EncodedText.NO_LANGUAGE,
-                                                "Hello.txt"
-                                        )
-                                )
+            "attachment; filename*=UTF-8''Hello.txt",
+            ContentDispositionType.ATTACHMENT.setParameters(
+                Maps.of(
+                    ContentDispositionParameterName.FILENAME_STAR,
+                    ContentDispositionFileName.encoded(
+                        EncodedText.with(
+                            CharsetName.UTF_8,
+                            EncodedText.NO_LANGUAGE,
+                            "Hello.txt"
                         )
+                    )
                 )
+            )
         );
     }
 
     @Test
     public void testParseFormData() {
         this.parseStringAndCheck(
-                "form-data;",
-                ContentDispositionType.FORM_DATA.setParameters(ContentDisposition.NO_PARAMETERS)
+            "form-data;",
+            ContentDispositionType.FORM_DATA.setParameters(ContentDisposition.NO_PARAMETERS)
         );
     }
 
     @Test
     public void testParseFormDataName() {
         this.parseStringAndCheck(
-                "form-data; name=\"field123\"",
-                ContentDispositionType.FORM_DATA.setParameters(
-                        Maps.of(
-                                ContentDispositionParameterName.with("name"),
-                                "field123"
-                        )
+            "form-data; name=\"field123\"",
+            ContentDispositionType.FORM_DATA.setParameters(
+                Maps.of(
+                    ContentDispositionParameterName.with("name"),
+                    "field123"
                 )
+            )
         );
     }
 
     @Test
     public void testParseInline() {
         this.parseStringAndCheck(
-                "inline;",
-                ContentDispositionType.INLINE.setParameters(ContentDisposition.NO_PARAMETERS)
+            "inline;",
+            ContentDispositionType.INLINE.setParameters(ContentDisposition.NO_PARAMETERS)
         );
     }
 
@@ -164,7 +164,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameInline() {
         this.filenameAndCheck(
-                ContentDisposition.parse("inline")
+            ContentDisposition.parse("inline")
         );
     }
 
@@ -174,7 +174,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameAttachmentMissingFilename() {
         this.filenameAndCheck(
-                ContentDisposition.parse("attachment")
+            ContentDisposition.parse("attachment")
         );
     }
 
@@ -183,8 +183,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameAttachmentFilename() {
         this.filenameAndCheck(
-                ContentDisposition.parse("attachment; filename=\"file123.txt\""),
-                ContentDispositionFileName.notEncoded("file123.txt")
+            ContentDisposition.parse("attachment; filename=\"file123.txt\""),
+            ContentDispositionFileName.notEncoded("file123.txt")
         );
     }
 
@@ -192,28 +192,28 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameAttachmentFilenameStar() {
         this.filenameAndCheck(
-                ContentDisposition.parse("attachment; filename*=UTF-8''file123.txt"),
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "file123.txt"
-                        )
+            ContentDisposition.parse("attachment; filename*=UTF-8''file123.txt"),
+            ContentDispositionFileName.encoded(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "file123.txt"
                 )
+            )
         );
     }
 
     @Test
     public void testFilenameAttachmentFilenameStarAndFilename() {
         this.filenameAndCheck(
-                ContentDisposition.parse("attachment; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "filename-star.txt"
-                        )
+            ContentDisposition.parse("attachment; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
+            ContentDispositionFileName.encoded(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "filename-star.txt"
                 )
+            )
         );
     }
 
@@ -222,8 +222,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameFormDataFilename() {
         this.filenameAndCheck(
-                ContentDisposition.parse("form-data; filename=\"file123.txt\""),
-                ContentDispositionFileName.notEncoded("file123.txt")
+            ContentDisposition.parse("form-data; filename=\"file123.txt\""),
+            ContentDispositionFileName.notEncoded("file123.txt")
         );
     }
 
@@ -231,52 +231,52 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testFilenameFormDataFilenameStar() {
         this.filenameAndCheck(
-                ContentDisposition.parse("form-data; filename*=UTF-8''file123.txt"),
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "file123.txt"
-                        )
+            ContentDisposition.parse("form-data; filename*=UTF-8''file123.txt"),
+            ContentDispositionFileName.encoded(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "file123.txt"
                 )
+            )
         );
     }
 
     @Test
     public void testFilenameFormDataFilenameStarAndFilename() {
         this.filenameAndCheck(
-                ContentDisposition.parse("form-data; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "filename-star.txt"
-                        )
+            ContentDisposition.parse("form-data; filename*=UTF-8''filename-star.txt; filename=\"filename-not-star.txt\""),
+            ContentDispositionFileName.encoded(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "filename-star.txt"
                 )
+            )
         );
     }
-    
+
     private void filenameAndCheck(final ContentDisposition disposition) {
         this.filenameAndCheck(
-                disposition,
-                Optional.empty()
+            disposition,
+            Optional.empty()
         );
     }
 
     private void filenameAndCheck(final ContentDisposition disposition,
                                   final ContentDispositionFileName expected) {
         this.filenameAndCheck(
-                disposition,
-                Optional.of(expected)
+            disposition,
+            Optional.of(expected)
         );
     }
 
     private void filenameAndCheck(final ContentDisposition disposition,
                                   final Optional<ContentDispositionFileName> expected) {
         this.checkEquals(
-                expected,
-                disposition.filename(),
-                disposition::toString
+            expected,
+            disposition.filename(),
+            disposition::toString
         );
     }
 
@@ -285,20 +285,20 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testToHeaderTextNoParameters() {
         this.toHeaderTextAndCheck(ContentDisposition.with(TYPE),
-                "attachment");
+            "attachment");
     }
 
     @Test
     public void testToHeaderTextWithParameters() {
         this.toHeaderTextAndCheck(this.createHeaderWithParameters(),
-                "attachment; p1=v1");
+            "attachment; p1=v1");
     }
 
     @Test
     public void testToHeaderTextWithSeveralParameters() {
         this.toHeaderTextAndCheck(ContentDisposition.with(TYPE)
-                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-                "attachment; p1=v1; p2=v2");
+                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+            "attachment; p1=v1; p2=v2");
     }
 
     // isWildcard ......................................................................................................
@@ -327,7 +327,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
 
     private void checkNotEquals2(final String disposition2) {
         this.checkNotEquals(ContentDisposition.parse("attachment; p1=\"v1\";"),
-                ContentDisposition.parse(disposition2));
+            ContentDisposition.parse(disposition2));
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -335,17 +335,17 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testEqualsIgnoringParametersDifferent() {
         this.equalsIgnoringParametersAndCheck(
-                ContentDisposition.parse("attachment"),
-                ContentDisposition.parse("inline"),
-                false);
+            ContentDisposition.parse("attachment"),
+            ContentDisposition.parse("inline"),
+            false);
     }
 
     @Test
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
-                ContentDisposition.parse("attachment;a=1"),
-                ContentDisposition.parse("attachment;b=2"),
-                true);
+            ContentDisposition.parse("attachment;a=1"),
+            ContentDisposition.parse("attachment;b=2"),
+            true);
     }
 
     // equalsOnlyPresentParameters......................................................................................
@@ -353,41 +353,41 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
         this.equalsOnlyPresentParametersAndCheck(
-                ContentDisposition.parse("attachment"),
-                ContentDisposition.parse("inline"),
-                false);
+            ContentDisposition.parse("attachment"),
+            ContentDisposition.parse("inline"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                ContentDisposition.parse("attachment;q=1.0"),
-                ContentDisposition.parse("attachment;q=0.5"),
-                false);
+            ContentDisposition.parse("attachment;q=1.0"),
+            ContentDisposition.parse("attachment;q=0.5"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters2() {
         this.equalsOnlyPresentParametersAndCheck(
-                ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
-                ContentDisposition.parse("attachment;q=1.0"),
-                false);
+            ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
+            ContentDisposition.parse("attachment;q=1.0"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                ContentDisposition.parse("attachment;q=1.0"),
-                ContentDisposition.parse("attachment;q=1.0"),
-                true);
+            ContentDisposition.parse("attachment;q=1.0"),
+            ContentDisposition.parse("attachment;q=1.0"),
+            true);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                ContentDisposition.parse("attachment;q=1.0"),
-                ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
-                true);
+            ContentDisposition.parse("attachment;q=1.0"),
+            ContentDisposition.parse("attachment;q=1.0;parameter-2=value2"),
+            true);
     }
 
     // toString ...........................................................................................
@@ -395,25 +395,25 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Test
     public void testToStringNoParameters() {
         this.toStringAndCheck(
-                ContentDisposition.with(TYPE),
-                "attachment"
+            ContentDisposition.with(TYPE),
+            "attachment"
         );
     }
 
     @Test
     public void testToStringWithParameters() {
         this.toStringAndCheck(
-                this.createHeaderWithParameters(),
-                "attachment; p1=v1"
+            this.createHeaderWithParameters(),
+            "attachment; p1=v1"
         );
     }
 
     @Test
     public void testToStringWithSeveralParameters() {
         this.toStringAndCheck(
-                ContentDisposition.with(TYPE)
-                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-                "attachment; p1=v1; p2=v2"
+            ContentDisposition.with(TYPE)
+                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+            "attachment; p1=v1; p2=v2"
         );
     }
 
@@ -422,7 +422,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Override
     public ContentDisposition createHeaderWithParameters() {
         return ContentDisposition.with(TYPE)
-                .setParameters(this.parameters());
+            .setParameters(this.parameters());
     }
 
     @Override
@@ -448,9 +448,9 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                                                                        final String name2,
                                                                        final Object value2) {
         return this.parameters(ContentDispositionParameterName.with(name1),
-                value1,
-                ContentDispositionParameterName.with(name2),
-                value2);
+            value1,
+            ContentDispositionParameterName.with(name2),
+            value2);
     }
 
     private Map<ContentDispositionParameterName<?>, Object> parameters(final ContentDispositionParameterName<?> name1,

@@ -23,7 +23,7 @@ import walkingkooka.collect.Range;
 import java.util.Optional;
 
 public final class ContentRangeHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<ContentRangeHeaderHandler, ContentRange> {
+    NonStringHeaderHandlerTestCase<ContentRangeHeaderHandler, ContentRange> {
 
     private final static String TEXT = "bytes 123-456/789";
 
@@ -49,8 +49,8 @@ public final class ContentRangeHeaderHandlerTest extends
 
     private ContentRange contentRange() {
         return ContentRange.with(RangeHeaderUnit.BYTES,
-                Optional.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L))),
-                Optional.of(789L));
+            Optional.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L))),
+            Optional.of(789L));
     }
 
     @Override

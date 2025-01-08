@@ -37,10 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
-        ConstantsTesting<HttpStatusCode>,
-        HashCodeEqualsDefinedTesting2<HttpStatusCode>,
-        ToStringTesting<HttpStatusCode>,
-        TypeNameTesting<HttpStatusCode> {
+    ConstantsTesting<HttpStatusCode>,
+    HashCodeEqualsDefinedTesting2<HttpStatusCode>,
+    ToStringTesting<HttpStatusCode>,
+    TypeNameTesting<HttpStatusCode> {
 
     private final static int CODE = 299;
 
@@ -85,10 +85,10 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     public void testCode() throws Exception {
         for (final HttpStatusCode constant : HttpStatusCode.CONSTANTS.values()) {
             final String message = constant.message.toUpperCase()
-                    .replace(' ', '_');
+                .replace(' ', '_');
             this.checkEquals(HttpServletResponse.class.getField("SC_" + message).getInt(null),
-                    constant.code(),
-                    constant::toString);
+                constant.code(),
+                constant::toString);
         }
     }
 
@@ -143,8 +143,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     @Test
     public void testSetMessageDefault() {
         assertSame(HttpStatusCode.OK.status(),
-                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
-                "set message with default should return constant");
+            HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
+            "set message with default should return constant");
     }
 
     @Test
@@ -161,37 +161,37 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     @Test
     public void testSetMessageOrDefaultNullDefaults() {
         this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
-                null,
-                HttpStatusCode.OK.status());
+            null,
+            HttpStatusCode.OK.status());
     }
 
     @Test
     public void testSetMessageOrDefaultEmptyDefaults() {
         this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
-                "",
-                HttpStatusCode.OK.status());
+            "",
+            HttpStatusCode.OK.status());
     }
 
     @Test
     public void testSetMessageOrDefaultWhitespaceDefaults() {
         this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
-                "   ",
-                HttpStatusCode.OK.status());
+            "   ",
+            HttpStatusCode.OK.status());
     }
 
     @Test
     public void testSetMessageOrDefault() {
         final String message = "message 123";
         this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
-                message,
-                HttpStatus.with(HttpStatusCode.OK, message));
+            message,
+            HttpStatus.with(HttpStatusCode.OK, message));
     }
 
     @Test
     public void testSetMessageOrDefaultDefault() {
         assertSame(HttpStatusCode.OK.status(),
-                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
-                "set message with default should return constant");
+            HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
+            "set message with default should return constant");
     }
 
     private void setMessageOrDefaultAndCheck(final HttpStatusCode code,

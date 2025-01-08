@@ -31,16 +31,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
-        ClassTesting<UrlFragment>,
-        ComparableTesting2<UrlFragment>,
-        CanBeEmptyTesting,
-        ToStringTesting<UrlFragment> {
+    ClassTesting<UrlFragment>,
+    ComparableTesting2<UrlFragment>,
+    CanBeEmptyTesting,
+    ToStringTesting<UrlFragment> {
 
     @Test
     public void testSlashConstant() {
         this.checkEquals(
-                "/",
-                UrlFragment.SLASH.value()
+            "/",
+            UrlFragment.SLASH.value()
         );
     }
 
@@ -48,16 +48,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testIsEmptyWhenEmpty() {
         this.isEmptyAndCheck(
-                UrlFragment.EMPTY,
-                true
+            UrlFragment.EMPTY,
+            true
         );
     }
 
     @Test
     public void testIsEmptyWhenNotEmpty() {
         this.isEmptyAndCheck(
-                UrlFragment.parse("not-empty"),
-                false
+            UrlFragment.parse("not-empty"),
+            false
         );
     }
 
@@ -66,8 +66,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testParseNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlFragment.parse(null)
+            NullPointerException.class,
+            () -> UrlFragment.parse(null)
         );
     }
 
@@ -79,8 +79,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testParseEmpty() {
         assertSame(
-                UrlFragment.EMPTY,
-                UrlFragment.parse("")
+            UrlFragment.EMPTY,
+            UrlFragment.parse("")
         );
     }
 
@@ -90,12 +90,12 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
         final UrlFragment urlFragment = UrlFragment.parse(value);
         this.checkEquals(
-                value,
-                urlFragment.value()
+            value,
+            urlFragment.value()
         );
         this.toStringAndCheck(
-                urlFragment,
-                value
+            urlFragment,
+            value
         );
     }
 
@@ -105,12 +105,12 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
         final UrlFragment urlFragment = UrlFragment.parse(value);
         this.checkEquals(
-                "space+",
-                urlFragment.value()
+            "space+",
+            urlFragment.value()
         );
         this.toStringAndCheck(
-                urlFragment,
-                value
+            urlFragment,
+            value
         );
     }
 
@@ -118,12 +118,12 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testParsePercent20() {
         final UrlFragment urlFragment = UrlFragment.parse("space%20");
         this.checkEquals(
-                "space ",
-                urlFragment.value()
+            "space ",
+            urlFragment.value()
         );
         this.toStringAndCheck(
-                urlFragment,
-                "space%20"
+            urlFragment,
+            "space%20"
         );
     }
 
@@ -147,16 +147,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlFragment.with(null)
+            NullPointerException.class,
+            () -> UrlFragment.with(null)
         );
     }
 
     @Test
     public void testWithEmpty() {
         assertSame(
-                UrlFragment.EMPTY,
-                UrlFragment.with("")
+            UrlFragment.EMPTY,
+            UrlFragment.with("")
         );
     }
 
@@ -166,8 +166,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
         final UrlFragment urlFragment = UrlFragment.with(value);
         this.checkEquals(
-                value,
-                urlFragment.value()
+            value,
+            urlFragment.value()
         );
     }
 
@@ -176,8 +176,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testAppendNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlFragment.EMPTY.append(null)
+            NullPointerException.class,
+            () -> UrlFragment.EMPTY.append(null)
         );
     }
 
@@ -185,8 +185,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testAppendEmpty() {
         final UrlFragment fragment = UrlFragment.with("abc");
         assertSame(
-                fragment,
-                fragment.append(UrlFragment.EMPTY)
+            fragment,
+            fragment.append(UrlFragment.EMPTY)
         );
     }
 
@@ -194,17 +194,17 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testAppendEmptyAppend() {
         final UrlFragment fragment = UrlFragment.with("abc");
         assertSame(
-                fragment,
-                UrlFragment.EMPTY.append(fragment)
+            fragment,
+            UrlFragment.EMPTY.append(fragment)
         );
     }
 
     @Test
     public void testAppend() {
         checkEquals(
-                UrlFragment.with("abc123"),
-                UrlFragment.with("abc")
-                        .append(UrlFragment.with("123"))
+            UrlFragment.with("abc123"),
+            UrlFragment.with("abc")
+                .append(UrlFragment.with("123"))
         );
     }
 
@@ -213,8 +213,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testAppendSlashThenNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlFragment.EMPTY.appendSlashThen(null)
+            NullPointerException.class,
+            () -> UrlFragment.EMPTY.appendSlashThen(null)
         );
     }
 
@@ -222,8 +222,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testAppendSlashThenEmpty() {
         final UrlFragment fragment = UrlFragment.with("abc");
         assertSame(
-                fragment,
-                fragment.appendSlashThen(UrlFragment.EMPTY)
+            fragment,
+            fragment.appendSlashThen(UrlFragment.EMPTY)
         );
     }
 
@@ -231,26 +231,26 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     public void testAppendSlashThenEmptyAppendSlashThen() {
         final UrlFragment fragment = UrlFragment.with("abc");
         assertSame(
-                fragment,
-                UrlFragment.EMPTY.appendSlashThen(fragment)
+            fragment,
+            UrlFragment.EMPTY.appendSlashThen(fragment)
         );
     }
 
     @Test
     public void testAppendSlashThen() {
         this.appendSlashThenAndCheck(
-                "abc",
-                "123",
-                "abc/123"
+            "abc",
+            "123",
+            "abc/123"
         );
     }
 
     @Test
     public void testAppendSlashThen2() {
         this.appendSlashThenAndCheck(
-                "abc",
-                "123/456",
-                "abc/123/456"
+            "abc",
+            "123/456",
+            "abc/123/456"
         );
     }
 
@@ -258,9 +258,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                                          final String append,
                                          final String expected) {
         this.appendSlashThenAndCheck(
-                UrlFragment.parse(fragment),
-                UrlFragment.parse(append),
-                UrlFragment.parse(expected)
+            UrlFragment.parse(fragment),
+            UrlFragment.parse(append),
+            UrlFragment.parse(expected)
         );
     }
 
@@ -268,9 +268,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
                                          final UrlFragment append,
                                          final UrlFragment expected) {
         this.checkEquals(
-                expected,
-                fragment.appendSlashThen(append),
-                () -> fragment + " append " + append
+            expected,
+            fragment.appendSlashThen(append),
+            () -> fragment + " append " + append
         );
     }
 
@@ -279,16 +279,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(
-                UrlFragment.with("123"),
-                UrlFragment.with("456")
+            UrlFragment.with("123"),
+            UrlFragment.with("456")
         );
     }
 
     @Test
     public void testEqualsDifferentCase() {
         this.checkNotEquals(
-                UrlFragment.with("abc123"),
-                UrlFragment.with("ABC123")
+            UrlFragment.with("abc123"),
+            UrlFragment.with("ABC123")
         );
     }
 
@@ -302,16 +302,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testCompareToEmptyAndNotEmpty() {
         this.compareToAndCheckLess(
-                UrlFragment.EMPTY,
-                UrlFragment.parse("/abc")
+            UrlFragment.EMPTY,
+            UrlFragment.parse("/abc")
         );
     }
 
     @Test
     public void testCompareToLessCaseSensitive() {
         this.compareToAndCheckLess(
-                UrlFragment.parse("/XYZ"),
-                UrlFragment.parse("/abc")
+            UrlFragment.parse("/XYZ"),
+            UrlFragment.parse("/abc")
         );
     }
 
@@ -354,16 +354,16 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
     private void toStringAndCheck2(final String verbatim) {
         this.toStringAndCheck(
-                UrlFragment.with(verbatim),
-                verbatim
+            UrlFragment.with(verbatim),
+            verbatim
         );
     }
 
     @Test
     public void testToStringSpace() {
         this.toStringAndCheck(
-                UrlFragment.with("space "),
-                "space%20"
+            UrlFragment.with("space "),
+            "space%20"
         );
     }
 
@@ -372,8 +372,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         final String text = "+!$&'()*,;=:@/?[]";
 
         this.toStringAndCheck(
-                UrlFragment.with(text),
-                text
+            UrlFragment.with(text),
+            text
         );
     }
 
@@ -385,10 +385,10 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         }
 
         URI.create(
-                "http://example/path#" +
-                        UrlFragment.with(
-                                new String(c)
-                        ).toString()
+            "http://example/path#" +
+                UrlFragment.with(
+                    new String(c)
+                ).toString()
         );
     }
 
@@ -427,7 +427,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         }
 
         this.parseAndToStringRoundtripAndCheck(
-                new String(c)
+            new String(c)
         );
     }
 
@@ -435,8 +435,8 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         final UrlFragment urlFragment = UrlFragment.with(text);
 
         this.parseStringAndCheck(
-                urlFragment.toString(),
-                urlFragment
+            urlFragment.toString(),
+            urlFragment
         );
     }
 

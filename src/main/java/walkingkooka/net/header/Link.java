@@ -40,8 +40,8 @@ import java.util.Objects;
  * A {@link Value} as described in <a href="https://tools.ietf.org/search/rfc5988"></a>.
  */
 final public class Link extends HeaderWithParameters2<Link,
-        LinkParameterName<?>,
-        Url> {
+    LinkParameterName<?>,
+    Url> {
 
     /**
      * No parameters.
@@ -90,8 +90,8 @@ final public class Link extends HeaderWithParameters2<Link,
         checkValue(value);
 
         return this.value.equals(value) ?
-                this :
-                this.replace(value);
+            this :
+            this.replace(value);
     }
 
     private static void checkValue(final Url value) {
@@ -186,13 +186,13 @@ final public class Link extends HeaderWithParameters2<Link,
      */
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObject json = JsonNode.object()
-                .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
+            .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
 
         for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
 
             json = json.set(JsonPropertyName.with(name.value()),
-                    JsonNode.string(name.handler.toText(Cast.to(parameterNameAndValue.getValue()), name)));
+                JsonNode.string(name.handler.toText(Cast.to(parameterNameAndValue.getValue()), name)));
         }
 
 
@@ -207,10 +207,10 @@ final public class Link extends HeaderWithParameters2<Link,
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(Link.class),
-                Link::unmarshall,
-                Link::marshall,
-                Link.class
+            JsonNodeContext.computeTypeName(Link.class),
+            Link::unmarshall,
+            Link::marshall,
+            Link.class
         );
     }
 

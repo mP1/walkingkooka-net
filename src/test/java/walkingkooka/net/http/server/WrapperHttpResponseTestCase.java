@@ -68,12 +68,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
     private void versionAndCheck(final Optional<HttpProtocolVersion> version) {
         this.checkEquals(version,
-                this.createResponse(new FakeHttpResponse() {
-                    @Test
-                    public Optional<HttpProtocolVersion> version() {
-                        return version;
-                    }
-                }).version()
+            this.createResponse(new FakeHttpResponse() {
+                @Test
+                public Optional<HttpProtocolVersion> version() {
+                    return version;
+                }
+            }).version()
         );
     }
 
@@ -116,12 +116,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         final String toString = "Wrapped Http Response";
         this.toStringAndCheck(this.createResponse(new FakeHttpResponse() {
 
-                    @Override
-                    public String toString() {
-                        return toString;
-                    }
-                }),
-                toString);
+                @Override
+                public String toString() {
+                    return toString;
+                }
+            }),
+            toString);
     }
 
     // helpers..................................................................................................
@@ -157,21 +157,21 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                                  final HttpStatus status,
                                                  final HttpEntity entity) {
         this.setVersionStatusAddEntityAndCheck(version,
-                status,
-                entity,
-                status,
-                entity);
+            status,
+            entity,
+            status,
+            entity);
     }
 
     final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
                                                  final HttpStatus status,
                                                  final HttpEntity... entities) {
         this.setVersionStatusAddEntityAndCheck(version,
-                status,
-                Lists.of(entities),
-                version,
-                status,
-                entities);
+            status,
+            Lists.of(entities),
+            version,
+            status,
+            entities);
     }
 
     final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
@@ -180,11 +180,11 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                                  final HttpStatus expectedStatus,
                                                  final HttpEntity... expectedEntities) {
         this.setVersionStatusAddEntityAndCheck(version,
-                status,
-                Lists.of(entity),
-                version,
-                expectedStatus,
-                expectedEntities);
+            status,
+            Lists.of(entity),
+            version,
+            expectedStatus,
+            expectedEntities);
     }
 
     final void setVersionStatusAddEntityAndCheck(final HttpProtocolVersion version,
@@ -194,12 +194,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                                  final HttpStatus expectedStatus,
                                                  final HttpEntity... expectedEntities) {
         this.setVersionStatusAddEntityAndCheck(this.createRequest(),
-                version,
-                status,
-                entities,
-                expectedVersion,
-                expectedStatus,
-                expectedEntities);
+            version,
+            status,
+            entities,
+            expectedVersion,
+            expectedStatus,
+            expectedEntities);
     }
 
     final void setVersionStatusAddEntityAndCheck(final HttpRequest request,
@@ -210,12 +210,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                                  final HttpStatus expectedStatus,
                                                  final HttpEntity... expectedEntities) {
         this.setVersionStatusAddEntityAndCheck(request,
-                version,
-                status,
-                Lists.of(entity),
-                expectedVersion,
-                expectedStatus,
-                expectedEntities);
+            version,
+            status,
+            Lists.of(entity),
+            expectedVersion,
+            expectedStatus,
+            expectedEntities);
     }
 
     final void setVersionStatusAddEntityAndCheck(final HttpRequest request,

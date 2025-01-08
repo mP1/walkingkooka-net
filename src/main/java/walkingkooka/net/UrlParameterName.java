@@ -34,8 +34,8 @@ import java.util.function.Function;
  * The {@link Name} of a query string parameter.
  */
 public final class UrlParameterName extends NetName
-        implements Comparable<UrlParameterName>,
-        HttpRequestAttribute<List<String>> {
+    implements Comparable<UrlParameterName>,
+    HttpRequestAttribute<List<String>> {
 
     private final static long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public final class UrlParameterName extends NetName
      */
     public static UrlParameterName with(final String name) {
         return new UrlParameterName(
-                CharSequences.failIfNullOrEmpty(name, "name")
+            CharSequences.failIfNullOrEmpty(name, "name")
         );
     }
 
@@ -60,12 +60,12 @@ public final class UrlParameterName extends NetName
      */
     public String firstParameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters) {
         return this.firstParameterValue(parameters)
-                .orElseThrow(
-                        () -> new IllegalArgumentException(
-                                "Missing query parameter " +
-                                        CharSequences.quote(this.value())
-                        )
-                );
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "Missing query parameter " +
+                        CharSequences.quote(this.value())
+                )
+            );
     }
 
     /**
@@ -103,13 +103,13 @@ public final class UrlParameterName extends NetName
         if (values.size() != 1) {
             // Query parameter ABC: Multiple values= 1, 2, 3
             throw new IllegalArgumentException(
-                    "Query parameter " +
-                            this +
-                            ": Multiple values got " +
-                            String.join(
-                                    ", ",
-                                    values
-                            )
+                "Query parameter " +
+                    this +
+                    ": Multiple values got " +
+                    String.join(
+                        ", ",
+                        values
+                    )
             );
         }
         final String value = values.get(0);

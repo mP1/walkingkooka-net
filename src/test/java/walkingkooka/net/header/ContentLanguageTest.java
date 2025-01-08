@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
-        implements ParseStringTesting<ContentLanguage> {
+    implements ParseStringTesting<ContentLanguage> {
 
     @Test
     public void testWithNullValueFails() {
@@ -55,13 +55,13 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
     @Test
     public void testParse() {
         this.parseStringAndCheck("en, fr",
-                this.createHeader(this.en(), this.fr()));
+            this.createHeader(this.en(), this.fr()));
     }
 
     @Test
     public void testParseExtraWhitespace() {
         this.parseStringAndCheck("en,  fr,  gr",
-                this.createHeader(this.en(), this.fr(), this.gr()));
+            this.createHeader(this.en(), this.fr(), this.gr()));
     }
 
     @Test

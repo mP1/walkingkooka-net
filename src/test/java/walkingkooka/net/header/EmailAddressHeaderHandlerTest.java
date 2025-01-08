@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
 public final class EmailAddressHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<EmailAddressHeaderHandler, EmailAddress> {
+    NonStringHeaderHandlerTestCase<EmailAddressHeaderHandler, EmailAddress> {
 
     @Override
     public String typeNamePrefix() {
