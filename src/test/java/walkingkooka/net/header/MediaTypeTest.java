@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
-        implements ParseStringTesting<MediaType>,
-        PredicateTesting2<MediaType, MediaType> {
+    implements ParseStringTesting<MediaType>,
+    PredicateTesting2<MediaType, MediaType> {
 
     // constants
 
@@ -55,64 +55,64 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testWithNullTypeFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MediaType.with(null, SUBTYPE)
+            NullPointerException.class,
+            () -> MediaType.with(null, SUBTYPE)
         );
     }
 
     @Test
     public void testWithEmptyTypeAndSubTypeFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> MediaType.with("", SUBTYPE)
+            IllegalArgumentException.class,
+            () -> MediaType.with("", SUBTYPE)
         );
     }
 
     @Test
     public void testWithTypeContainsSlashFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> MediaType.with("ty/pe", SUBTYPE)
+            InvalidCharacterException.class,
+            () -> MediaType.with("ty/pe", SUBTYPE)
         );
     }
 
     @Test
     public void testWithTypeContainsInvalidCharacterFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> MediaType.with("ty?pe", SUBTYPE)
+            InvalidCharacterException.class,
+            () -> MediaType.with("ty?pe", SUBTYPE)
         );
     }
 
     @Test
     public void testWithNullSubTypeFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MediaType.with(TYPE, null)
+            NullPointerException.class,
+            () -> MediaType.with(TYPE, null)
         );
     }
 
     @Test
     public void testWithTypeAndEmptySubTypeFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> MediaType.with(TYPE, "")
+            IllegalArgumentException.class,
+            () -> MediaType.with(TYPE, "")
         );
     }
 
     @Test
     public void testWithEmptyIncludesSlashFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> MediaType.with(TYPE, "s/ub")
+            InvalidCharacterException.class,
+            () -> MediaType.with(TYPE, "s/ub")
         );
     }
 
     @Test
     public void testWithEmptyIncludesInvalidCharacterFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> MediaType.with(TYPE, "s?ub")
+            InvalidCharacterException.class,
+            () -> MediaType.with(TYPE, "s?ub")
         );
     }
 
@@ -124,16 +124,16 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testWithTypeAndWildcardSubType() {
         check(MediaType.with(TYPE, MediaType.WILDCARD.string()),
-                TYPE,
-                MediaType.WILDCARD.string());
+            TYPE,
+            MediaType.WILDCARD.string());
     }
 
     @Test
     public void testWithWildcardTypeAndWildcardSubType() {
         final String wildcard = MediaType.WILDCARD.string();
         check(MediaType.with(wildcard, wildcard),
-                wildcard,
-                wildcard);
+            wildcard,
+            wildcard);
     }
 
     // constants .........................................................................
@@ -155,7 +155,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testParseStringEmptyFails() {
         Assertions.assertThrows(
-                IllegalArgumentException.class, () -> MediaType.parse("")
+            IllegalArgumentException.class, () -> MediaType.parse("")
         );
     }
 
@@ -250,8 +250,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testSetSuffixNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.mediaType().setSuffix(null)
+            NullPointerException.class,
+            () -> this.mediaType().setSuffix(null)
         );
     }
 
@@ -260,43 +260,43 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         final MediaType mediaType = MediaType.TEXT_PLAIN;
 
         assertSame(
-                mediaType,
-                mediaType.setSuffix(MediaType.NO_SUFFIX)
+            mediaType,
+            mediaType.setSuffix(MediaType.NO_SUFFIX)
         );
     }
 
     @Test
     public void testSetSuffixDifferentAdds() {
         this.setSuffixAndCheck(
-                MediaType.parse("image/svg"),
-                Optional.of("xml")
+            MediaType.parse("image/svg"),
+            Optional.of("xml")
         );
     }
 
     @Test
     public void testSetSuffixDifferentReplaces() {
         this.setSuffixAndCheck(
-                MediaType.parse("image/svg+xml"),
-                Optional.of("different")
+            MediaType.parse("image/svg+xml"),
+            Optional.of("different")
         );
     }
 
     @Test
     public void testSetSuffixDifferentRemoves() {
         this.setSuffixAndCheck(
-                MediaType.parse("image/svg+xml"),
-                Optional.empty()
+            MediaType.parse("image/svg+xml"),
+            Optional.empty()
         );
     }
 
     private void setSuffixAndCheck(final MediaType mediaType,
                                    final Optional<String> suffix) {
         this.check(
-                mediaType.setSuffix(suffix),
-                mediaType.type(),
-                mediaType.subType(),
-                suffix,
-                mediaType.parameters()
+            mediaType.setSuffix(suffix),
+            mediaType.type(),
+            mediaType.subType(),
+            suffix,
+            mediaType.parameters()
         );
     }
 
@@ -305,49 +305,49 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testIsTextWithTextPlaintext() {
         this.isTextAndCheck(
-                MediaType.TEXT_PLAIN,
-                true
+            MediaType.TEXT_PLAIN,
+            true
         );
     }
 
     @Test
     public void testIsTextWithTextXml() {
         this.isTextAndCheck(
-                MediaType.TEXT_XML,
-                true
+            MediaType.TEXT_XML,
+            true
         );
     }
 
     @Test
     public void testIsTextWithApplicationJson() {
         this.isTextAndCheck(
-                MediaType.APPLICATION_JSON,
-                true
+            MediaType.APPLICATION_JSON,
+            true
         );
     }
 
     @Test
     public void testIsTextWithApplicationBinary() {
         this.isTextAndCheck(
-                MediaType.BINARY,
-                false
+            MediaType.BINARY,
+            false
         );
     }
 
     private void isTextAndCheck(final String mediaType,
                                 final boolean expected) {
         this.isTextAndCheck(
-                MediaType.parse(mediaType),
-                expected
+            MediaType.parse(mediaType),
+            expected
         );
     }
 
     private void isTextAndCheck(final MediaType mediaType,
                                 final boolean expected) {
         this.checkEquals(
-                expected,
-                mediaType.isText(),
-                mediaType::toString
+            expected,
+            mediaType.isText(),
+            mediaType::toString
         );
     }
 
@@ -392,11 +392,11 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                        final String subtype,
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(
-                mediaType,
-                type,
-                subtype,
-                MediaType.NO_SUFFIX,
-                parameters
+            mediaType,
+            type,
+            subtype,
+            MediaType.NO_SUFFIX,
+            parameters
         );
     }
 
@@ -406,26 +406,26 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                        final Optional<String> suffix,
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.checkEquals(
-                type,
-                mediaType.type(),
-                () -> "type=" + mediaType
+            type,
+            mediaType.type(),
+            () -> "type=" + mediaType
         );
 
         this.checkEquals(
-                subtype,
-                mediaType.subType(),
-                () -> "subType=" + mediaType
+            subtype,
+            mediaType.subType(),
+            () -> "subType=" + mediaType
         );
 
         this.checkEquals(
-                suffix,
-                mediaType.suffix(),
-                () -> "suffix " + mediaType
+            suffix,
+            mediaType.suffix(),
+            () -> "suffix " + mediaType
         );
 
         this.checkParameters(
-                mediaType,
-                parameters
+            mediaType,
+            parameters
         );
     }
 
@@ -442,8 +442,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testSetBoundaryWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MediaType.TEXT_PLAIN.setBoundary(null)
+            NullPointerException.class,
+            () -> MediaType.TEXT_PLAIN.setBoundary(null)
         );
     }
 
@@ -452,10 +452,10 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         final MediaTypeBoundary boundary = MediaTypeBoundary.with("boundary123");
 
         this.check(
-                MediaType.MULTIPART_FORM_DATA.setBoundary(boundary),
-                "multipart",
-                "form-data",
-                Maps.of(MediaTypeParameterName.BOUNDARY, boundary)
+            MediaType.MULTIPART_FORM_DATA.setBoundary(boundary),
+            "multipart",
+            "form-data",
+            Maps.of(MediaTypeParameterName.BOUNDARY, boundary)
         );
     }
 
@@ -465,33 +465,33 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         final MediaType mediaType = MediaType.MULTIPART_FORM_DATA.setBoundary(boundary);
 
         assertSame(
-                mediaType,
-                mediaType.setBoundary(boundary)
+            mediaType,
+            mediaType.setBoundary(boundary)
         );
     }
 
     @Test
     public void testSetBoundaryDifferent() {
         final MediaType mediaType111 = MediaType.MULTIPART_FORM_DATA.setBoundary(
-                MediaTypeBoundary.with("boundary111")
+            MediaTypeBoundary.with("boundary111")
         );
 
         final MediaTypeBoundary differentBoundary = MediaTypeBoundary.with("boundary-different");
         final MediaType different = mediaType111.setBoundary(differentBoundary);
 
         this.checkEquals(
-                MediaType.MULTIPART_FORM_DATA.setBoundary(differentBoundary),
-                different
+            MediaType.MULTIPART_FORM_DATA.setBoundary(differentBoundary),
+            different
         );
 
         this.check(
-                different,
-                "multipart",
-                "form-data",
-                Maps.of(
-                        MediaTypeParameterName.BOUNDARY,
-                        differentBoundary
-                )
+            different,
+            "multipart",
+            "form-data",
+            Maps.of(
+                MediaTypeParameterName.BOUNDARY,
+                differentBoundary
+            )
         );
     }
 
@@ -506,9 +506,9 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     public void testSetCharset() {
         final CharsetName utf8 = CharsetName.UTF_8;
         this.check(MediaType.TEXT_PLAIN.setCharset(utf8),
-                "text",
-                "plain",
-                Maps.of(MediaTypeParameterName.CHARSET, utf8));
+            "text",
+            "plain",
+            Maps.of(MediaTypeParameterName.CHARSET, utf8));
     }
 
     @Test
@@ -528,19 +528,19 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertNotSame(with8, with16);
 
         this.check(with16,
-                "text",
-                "plain",
-                Maps.of(MediaTypeParameterName.CHARSET, utf16));
+            "text",
+            "plain",
+            Maps.of(MediaTypeParameterName.CHARSET, utf16));
         this.check(with8,
-                "text",
-                "plain",
-                Maps.of(MediaTypeParameterName.CHARSET, utf8));
+            "text",
+            "plain",
+            Maps.of(MediaTypeParameterName.CHARSET, utf8));
     }
 
     @Test
     public void testSetCharsetDifferent2() {
         final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.CHARSET, CharsetName.UTF_8,
-                MediaTypeParameterName.Q, 0.5f);
+            MediaTypeParameterName.Q, 0.5f);
 
         final MediaType with8 = MediaType.TEXT_PLAIN.setParameters(parameters);
 
@@ -550,17 +550,17 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertNotSame(with8, with16);
 
         final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.of(MediaTypeParameterName.CHARSET, utf16,
-                MediaTypeParameterName.Q, 0.5f);
+            MediaTypeParameterName.Q, 0.5f);
 
         this.check(with16,
-                "text",
-                "plain",
-                parameters2);
+            "text",
+            "plain",
+            parameters2);
 
         this.check(with8,
-                "text",
-                "plain",
-                parameters);
+            "text",
+            "plain",
+            parameters);
     }
 
     @Test
@@ -574,15 +574,15 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertNotSame(without, with16);
 
         this.check(with16,
-                "text",
-                "plain",
-                Maps.of(MediaTypeParameterName.CHARSET, charset,
-                        MediaTypeParameterName.Q, 0.5f));
+            "text",
+            "plain",
+            Maps.of(MediaTypeParameterName.CHARSET, charset,
+                MediaTypeParameterName.Q, 0.5f));
 
         this.check(without,
-                "text",
-                "plain",
-                parameters);
+            "text",
+            "plain",
+            parameters);
     }
 
     // acceptCharset ...................................................................................................
@@ -627,8 +627,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                                        final Charset defaultCharset,
                                        final Charset expected) {
         this.checkEquals(expected,
-                MediaType.parse(text).acceptCharset(defaultCharset),
-                () -> "acceptCharset of " + text + " with defaultCharset " + defaultCharset);
+            MediaType.parse(text).acceptCharset(defaultCharset),
+            () -> "acceptCharset of " + text + " with defaultCharset " + defaultCharset);
     }
 
     // contentTypeCharset ...................................................................................................
@@ -674,8 +674,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
                                             final Charset defaultCharset,
                                             final Charset expected) {
         this.checkEquals(expected,
-                MediaType.parse(text).contentTypeCharset(defaultCharset),
-                () -> "contentTypeCharset of " + text + " with defaultCharset " + defaultCharset);
+            MediaType.parse(text).contentTypeCharset(defaultCharset),
+            () -> "contentTypeCharset of " + text + " with defaultCharset " + defaultCharset);
     }
 
     // qWeight .......................................................................
@@ -683,8 +683,8 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testQParameterPresent() {
         this.qualityFactorAndCheck(this.mediaType()
-                        .setParameters(parameters(MediaTypeParameterName.Q.value(), 0.5f)),
-                0.5f);
+                .setParameters(parameters(MediaTypeParameterName.Q.value(), 0.5f)),
+            0.5f);
     }
 
     @Test
@@ -710,67 +710,67 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testParse() {
         this.parseStringAndCheck("type1/subtype1",
-                MediaType.with("type1", "subtype1"));
+            MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testParseSuffix() {
         this.parseStringAndCheck(
-                "type1/subtype1+suffix1",
-                MediaType.with(
-                        "type1",
-                        "subtype1"
-                ).setSuffix(
-                        Optional.of("suffix1")
-                )
+            "type1/subtype1+suffix1",
+            MediaType.with(
+                "type1",
+                "subtype1"
+            ).setSuffix(
+                Optional.of("suffix1")
+            )
         );
     }
 
     @Test
     public void testParseWithUnquotedParameter() {
         this.parseStringAndCheck("type1/subtype1;abc=def",
-                MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "def")));
+            MediaType.with("type1", "subtype1")
+                .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "def")));
     }
 
     @Test
     public void testParseWithQuotedParameter() {
         this.parseStringAndCheck("type1/subtype1;abc=\"d,\\\\ef\"",
-                MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "d,\\ef")));
+            MediaType.with("type1", "subtype1")
+                .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "d,\\ef")));
     }
 
     @Test
     public void testParseWithBoundary() {
         this.parseStringAndCheck(
-                "type1/subtype1;boundary=def",
-                MediaType.with("type1", "subtype1")
-                        .setBoundary(MediaTypeBoundary.with("def"))
+            "type1/subtype1;boundary=def",
+            MediaType.with("type1", "subtype1")
+                .setBoundary(MediaTypeBoundary.with("def"))
         );
     }
 
     @Test
     public void testParseWithTitleStar() {
         this.parseStringAndCheck("type1/subtype1;title*=UTF-8''abc%20123",
-                MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.of(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
+            MediaType.with("type1", "subtype1")
+                .setParameters(Maps.of(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
     }
 
     @Test
     public void testParseSuffixAndParameters() {
         this.parseStringAndCheck(
-                "type1/subtype1+suffix1;abc=123",
-                MediaType.with(
-                        "type1",
-                        "subtype1"
-                ).setSuffix(
-                        Optional.of("suffix1")
-                ).setParameters(
-                        Maps.of(
-                                MediaTypeParameterName.with("abc"),
-                                "123"
-                        )
+            "type1/subtype1+suffix1;abc=123",
+            MediaType.with(
+                "type1",
+                "subtype1"
+            ).setSuffix(
+                Optional.of("suffix1")
+            ).setParameters(
+                Maps.of(
+                    MediaTypeParameterName.with("abc"),
+                    "123"
                 )
+            )
         );
     }
 
@@ -796,9 +796,9 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testParseList() {
         this.checkEquals(Lists.of(
-                        MediaType.with("type1", "subtype1"),
-                        MediaType.with("type2", "subtype2")),
-                MediaType.parseList("type1/subtype1,type2/subtype2"));
+                MediaType.with("type1", "subtype1"),
+                MediaType.with("type2", "subtype2")),
+            MediaType.parseList("type1/subtype1,type2/subtype2"));
     }
 
     // test ............................................................................................................
@@ -815,7 +815,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testTestWithSelfDifferentCase() {
         this.testTrue(MediaType.with("type", "subtype"),
-                MediaType.with("TYPE", "SUBTYPE"));
+            MediaType.with("TYPE", "SUBTYPE"));
     }
 
     @Test
@@ -832,13 +832,13 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     public void testTestSameTypeWildcardSubType() {
         final String type = "custom";
         this.testTrue(MediaType.with(type, MediaType.WILDCARD.string()),
-                MediaType.with(type, SUBTYPE));
+            MediaType.with(type, SUBTYPE));
     }
 
     @Test
     public void testTestDifferentTypeWildcardSubType() {
         this.testFalse(MediaType.with("custom", MediaType.WILDCARD.string()),
-                MediaType.with("different", SUBTYPE));
+            MediaType.with("different", SUBTYPE));
     }
 
     @Test
@@ -877,33 +877,33 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testRequireContentTypeTextPlainWithTextPlainCharset() {
         MediaType.TEXT_PLAIN.requireContentType(
-                MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+            MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
         );
     }
 
     @Test
     public void testRequireContentTypeMissingFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> MediaType.TEXT_PLAIN.requireContentType(null)
+            IllegalArgumentException.class,
+            () -> MediaType.TEXT_PLAIN.requireContentType(null)
         );
 
         this.checkEquals(
-                "Content-Type: Missing required text/plain",
-                thrown.getMessage()
+            "Content-Type: Missing required text/plain",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testRequireContentTypeTextPlainWithTextRichTextFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> MediaType.TEXT_PLAIN.requireContentType(MediaType.TEXT_RICHTEXT)
+            IllegalArgumentException.class,
+            () -> MediaType.TEXT_PLAIN.requireContentType(MediaType.TEXT_RICHTEXT)
         );
 
         this.checkEquals(
-                "Content-Type: Got text/richtext require text/plain",
-                thrown.getMessage()
+            "Content-Type: Got text/richtext require text/plain",
+            thrown.getMessage()
         );
     }
 
@@ -914,25 +914,25 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         final String text = "type/subtype";
 
         this.toHeaderTextAndCheck(MediaType.parse(text),
-                TYPE + "/" + SUBTYPE);
+            TYPE + "/" + SUBTYPE);
     }
 
     @Test
     public void testToHeaderTextParseWithParameters() {
         this.toHeaderTextAndCheck(MediaType.parse("type/subtype;a=b;c=d"),
-                "type/subtype; a=b; c=d");
+            "type/subtype; a=b; c=d");
     }
 
     @Test
     public void testToHeaderTextParseWithParametersWithQuotes() {
         this.toHeaderTextAndCheck(MediaType.parse("type/subtype;a=b;c=\"d e\""),
-                "type/subtype; a=b; c=\"d e\"");
+            "type/subtype; a=b; c=\"d e\"");
     }
 
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE),
-                TYPE + "/" + SUBTYPE);
+            TYPE + "/" + SUBTYPE);
     }
 
     @Test
@@ -943,13 +943,13 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testToHeaderTextWithParametersRequireQuotesWhitespace() {
         this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b c")),
-                "type/subtype; a=\"b c\"");
+            "type/subtype; a=\"b c\"");
     }
 
     @Test
     public void testToHeaderTextWithParametersRequireQuotesBackslash() {
         this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\\c")),
-                "type/subtype; a=\"b\\\\c\"");
+            "type/subtype; a=\"b\\\\c\"");
     }
 
     @Test
@@ -983,41 +983,41 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testIsNonStandardApplicationOctet() {
         this.isNonSpecificAndCheck(
-                "application/octet-stream",
-                false
+            "application/octet-stream",
+            false
         );
     }
 
     @Test
     public void testIsNonStandardMicrosoftExcel() {
         this.isNonSpecificAndCheck(
-                "application/vnd.ms-excel",
-                false
+            "application/vnd.ms-excel",
+            false
         );
     }
 
     @Test
     public void testIsNonStandardapplicationDashLittleXWwwFormUrlencodedl() {
         this.isNonSpecificAndCheck(
-                "application/x-www-form-urlencoded",
-                true
+            "application/x-www-form-urlencoded",
+            true
         );
     }
 
     @Test
     public void testIsNonStandardapplicationDashBigXWwwFormUrlencodedl() {
         this.isNonSpecificAndCheck(
-                "application/X-www-form-urlencoded",
-                true
+            "application/X-www-form-urlencoded",
+            true
         );
     }
 
     private void isNonSpecificAndCheck(final String mimeType,
                                        final boolean expected) {
         this.checkEquals(
-                expected,
-                MediaType.parse(mimeType).isNonStandard(),
-                mimeType
+            expected,
+            MediaType.parse(mimeType).isNonStandard(),
+            mimeType
         );
     }
 
@@ -1026,25 +1026,25 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testIsVendorSpecificApplicationOctet() {
         this.isVendorTypeAndCheck(
-                "application/octet-stream",
-                false
+            "application/octet-stream",
+            false
         );
     }
 
     @Test
     public void testIsVendorSpecificMicrosoftExcel() {
         this.isVendorTypeAndCheck(
-                "application/vnd.ms-excel",
-                true
+            "application/vnd.ms-excel",
+            true
         );
     }
 
     private void isVendorTypeAndCheck(final String mimeType,
                                       final boolean expected) {
         this.checkEquals(
-                expected,
-                MediaType.parse(mimeType).isVendorSpecific(),
-                mimeType
+            expected,
+            MediaType.parse(mimeType).isVendorSpecific(),
+            mimeType
         );
     }
 
@@ -1053,25 +1053,25 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testEqualsTypeDifferentCase() {
         this.checkEqualsAndHashCode(MediaType.with("major", "minor"),
-                MediaType.with("MAJOR", "minor"));
+            MediaType.with("MAJOR", "minor"));
     }
 
     @Test
     public void testEqualsSubTypeDifferentCase() {
         this.checkEqualsAndHashCode(MediaType.with("major", "MINOR"),
-                MediaType.parse("major/MINOR"));
+            MediaType.parse("major/MINOR"));
     }
 
     @Test
     public void testEqualsParameterNameDifferentCase() {
         this.checkEqualsAndHashCode(MediaType.parse("type/subType; parameter123=value456"),
-                MediaType.parse("type/subType; PARAMETER123=value456"));
+            MediaType.parse("type/subType; PARAMETER123=value456"));
     }
 
     @Test
     public void testEqualsParameterValueDifferentCase() {
         this.checkNotEquals(MediaType.parse("type/subType; parameter123=value456"),
-                MediaType.parse("type/subType; parameter123=VALUE456"));
+            MediaType.parse("type/subType; parameter123=VALUE456"));
     }
 
     @Test
@@ -1082,24 +1082,24 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testEqualsDifferentSuffix() {
         this.checkNotEquals(
-                MediaType.parse("major/minor+suffix"),
-                MediaType.parse("major/minor")
+            MediaType.parse("major/minor+suffix"),
+            MediaType.parse("major/minor")
         );
     }
 
     @Test
     public void testEqualsDifferentSuffix2() {
         this.checkNotEquals(
-                MediaType.parse("major/minor+suffix"),
-                MediaType.parse("major/minor+different-suffix")
+            MediaType.parse("major/minor+suffix"),
+            MediaType.parse("major/minor+different-suffix")
         );
     }
 
     @Test
     public void testEqualsDifferentSuffix3() {
         this.checkNotEquals(
-                MediaType.parse("major/minor+suffix"),
-                MediaType.parse("major/minor+different-suffix-1+different-suffix-2")
+            MediaType.parse("major/minor+suffix"),
+            MediaType.parse("major/minor+different-suffix-1+different-suffix-2")
         );
     }
 
@@ -1111,13 +1111,13 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testEqualsDifferentParameter2() {
         checkNotEquals(MediaType.parse("major/minor;parameter=value"),
-                MediaType.parse("major/minor;different=value"));
+            MediaType.parse("major/minor;different=value"));
     }
 
     @Test
     public void testEqualsDifferentParameterOrderStillEqual() {
         checkEqualsAndHashCode(MediaType.parse("a/b;x=1;y=2"),
-                MediaType.parse("a/b;y=2;x=1"));
+            MediaType.parse("a/b;y=2;x=1"));
     }
 
     @Test
@@ -1140,17 +1140,17 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testEqualsIgnoringParametersDifferent() {
         this.equalsIgnoringParametersAndCheck(
-                MediaType.parse("major/minor"),
-                MediaType.parse("different/different2"),
-                false);
+            MediaType.parse("major/minor"),
+            MediaType.parse("different/different2"),
+            false);
     }
 
     @Test
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
-                MediaType.parse("major/minor;q=1"),
-                MediaType.parse("major/minor;q=0.5"),
-                true);
+            MediaType.parse("major/minor;q=1"),
+            MediaType.parse("major/minor;q=0.5"),
+            true);
     }
 
     // equalsOnlyPresentParameters.........................................................................................
@@ -1158,41 +1158,41 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
         this.equalsOnlyPresentParametersAndCheck(
-                MediaType.parse("major/minor"),
-                MediaType.parse("different/different2"),
-                false);
+            MediaType.parse("major/minor"),
+            MediaType.parse("different/different2"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                MediaType.parse("major/minor;q=1.0"),
-                MediaType.parse("major/minor;q=0.5"),
-                false);
+            MediaType.parse("major/minor;q=1.0"),
+            MediaType.parse("major/minor;q=0.5"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters2() {
         this.equalsOnlyPresentParametersAndCheck(
-                MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
-                MediaType.parse("major/minor;q=1.0"),
-                false);
+            MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
+            MediaType.parse("major/minor;q=1.0"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                MediaType.parse("major/minor;q=1.0"),
-                MediaType.parse("major/minor;q=1.0"),
-                true);
+            MediaType.parse("major/minor;q=1.0"),
+            MediaType.parse("major/minor;q=1.0"),
+            true);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                MediaType.parse("major/minor;q=1.0"),
-                MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
-                true);
+            MediaType.parse("major/minor;q=1.0"),
+            MediaType.parse("major/minor;q=1.0;parameter-2=value2"),
+            true);
     }
 
     // toString........................................................................................................
@@ -1206,54 +1206,54 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testToStringParseWithParameters() {
         this.toStringAndCheck(MediaType.parse("type/subtype;a=b;c=d"),
-                "type/subtype; a=b; c=d");
+            "type/subtype; a=b; c=d");
     }
 
     @Test
     public void testToStringParseWithParametersWithQuotes() {
         this.toStringAndCheck(MediaType.parse("type/subtype;a=b;c=\"d e\""),
-                "type/subtype; a=b; c=\"d e\"");
+            "type/subtype; a=b; c=\"d e\"");
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE),
-                TYPE + "/" + SUBTYPE);
+            TYPE + "/" + SUBTYPE);
     }
 
     @Test
     public void testToStringWithSuffix() {
         this.toStringAndCheck(
-                MediaType.withParameters(
-                        TYPE,
-                        SUBTYPE,
-                        Optional.of("suffix1"),
-                        MediaType.NO_PARAMETERS
-                ),
-                TYPE + "/" + SUBTYPE + "+suffix1"
+            MediaType.withParameters(
+                TYPE,
+                SUBTYPE,
+                Optional.of("suffix1"),
+                MediaType.NO_PARAMETERS
+            ),
+            TYPE + "/" + SUBTYPE + "+suffix1"
         );
     }
 
     @Test
     public void testToStringWithSuffix2() {
         this.toStringAndCheck(
-                MediaType.withParameters(
-                        TYPE,
-                        SUBTYPE,
-                        Optional.of("suffix1a.suffix1b"),
-                        MediaType.NO_PARAMETERS
-                ),
-                TYPE + "/" + SUBTYPE + "+suffix1a.suffix1b"
+            MediaType.withParameters(
+                TYPE,
+                SUBTYPE,
+                Optional.of("suffix1a.suffix1b"),
+                MediaType.NO_PARAMETERS
+            ),
+            TYPE + "/" + SUBTYPE + "+suffix1a.suffix1b"
         );
     }
 
     @Test
     public void testToStringWithSuffixParse() {
         this.toStringAndCheck(
-                MediaType.parse(
-                        TYPE + "/" + SUBTYPE + "+suffix123"
-                ),
+            MediaType.parse(
                 TYPE + "/" + SUBTYPE + "+suffix123"
+            ),
+            TYPE + "/" + SUBTYPE + "+suffix123"
         );
     }
 
@@ -1265,19 +1265,19 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testToStringWithParametersRequireQuotesWhitespace() {
         this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b c")),
-                "type/subtype; a=\"b c\"");
+            "type/subtype; a=\"b c\"");
     }
 
     @Test
     public void testToStringWithParametersRequireQuotesBackslash() {
         this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\\c")),
-                "type/subtype; a=\"b\\\\c\"");
+            "type/subtype; a=\"b\\\\c\"");
     }
 
     @Test
     public void testToStringWithParametersRequireQuotesDoubleQuoteChar() {
         this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\"c")),
-                "type/subtype; a=\"b\\\"c\"");
+            "type/subtype; a=\"b\\\"c\"");
     }
 
     // toHeaderTextList...............................................................................................
@@ -1285,14 +1285,14 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testToHeaderTextListOne() {
         this.toHeaderTextListAndCheck("type1/subtype1",
-                MediaType.with("type1", "subtype1"));
+            MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testToHeaderTextListMany() {
         this.toHeaderTextListAndCheck("type1/subtype1, type2/subtype2",
-                MediaType.with("type1", "subtype1"),
-                MediaType.with("type2", "subtype2"));
+            MediaType.with("type1", "subtype1"),
+            MediaType.with("type2", "subtype2"));
     }
 
     // helpers........................................................................................................
@@ -1309,10 +1309,10 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     private MediaType mediaType() {
         return MediaType.withParameters(
-                TYPE,
-                SUBTYPE,
-                SUFFIX,
-                parameters()
+            TYPE,
+            SUBTYPE,
+            SUFFIX,
+            parameters()
         );
     }
 

@@ -44,7 +44,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebFile>,
-        ToStringTesting<FileSystemWebFile> {
+    ToStringTesting<FileSystemWebFile> {
 
     private final static String FILENAME = "file.custom.bin";
     private final static Binary CONTENT = Binary.with("abc123".getBytes(Charset.defaultCharset()));
@@ -57,27 +57,27 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testWithNullPathFails() {
         this.withFails(
-                null,
-                this::mediaTypeDetector,
-                this::etagComputer
+            null,
+            this::mediaTypeDetector,
+            this::etagComputer
         );
     }
 
     @Test
     public void testWithNullMediaTypeDetectorFails() {
         this.withFails(
-                this.path(),
-                null,
-                this::etagComputer
+            this.path(),
+            null,
+            this::etagComputer
         );
     }
 
     @Test
     public void testWithNullETagComputerFails() {
         this.withFails(
-                this.path(),
-                this::mediaTypeDetector,
-                null
+            this.path(),
+            this::mediaTypeDetector,
+            null
         );
     }
 
@@ -85,12 +85,12 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
                            final MediaTypeDetector mediaTypeDetector,
                            final Function<Binary, Optional<ETag>> etagComputer) {
         assertThrows(
-                NullPointerException.class,
-                () -> FileSystemWebFile.with(
-                        path,
-                        mediaTypeDetector,
-                        etagComputer
-                )
+            NullPointerException.class,
+            () -> FileSystemWebFile.with(
+                path,
+                mediaTypeDetector,
+                etagComputer
+            )
         );
     }
 
@@ -100,24 +100,24 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     public void testLastModified() throws Exception {
         final FileSystemWebFile webFile = this.webFile();
         this.checkEquals(LocalDateTime.ofInstant(Files.getLastModifiedTime(webFile.path).toInstant(), ZoneId.systemDefault()),
-                webFile.lastModified(),
-                "lastModified");
+            webFile.lastModified(),
+            "lastModified");
     }
 
     @Test
     public void testContentType() {
         final FileSystemWebFile webFile = this.webFile();
         this.checkEquals(this.contentType(),
-                webFile.contentType(),
-                "contentType");
+            webFile.contentType(),
+            "contentType");
     }
 
     @Test
     public void testContentSize() {
         final FileSystemWebFile webFile = this.webFile();
         this.checkEquals(Long.valueOf(CONTENT.size()),
-                webFile.contentSize(),
-                "contentSize");
+            webFile.contentSize(),
+            "contentSize");
     }
 
     @Test
@@ -130,8 +130,8 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
                 output.flush();
 
                 this.checkEquals(Long.valueOf(CONTENT.size()),
-                        webFile.contentSize(),
-                        "contentSize");
+                    webFile.contentSize(),
+                    "contentSize");
             }
         }
     }
@@ -140,8 +140,8 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     public void testETag() {
         final FileSystemWebFile webFile = this.webFile();
         this.checkEquals(Optional.of(this.etag()),
-                webFile.etag(),
-                "etag");
+            webFile.etag(),
+            "etag");
     }
 
     // ToString.........................................................................................................
@@ -169,7 +169,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     }
 
     private MediaType mediaTypeDetector(final String filename,
-                                         final Binary content) {
+                                        final Binary content) {
         return this.contentType();
     }
 
@@ -179,8 +179,8 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     private Optional<ETag> etagComputer(final Binary binary) {
         return Optional.ofNullable(binary.equals(CONTENT) ?
-                this.etag() :
-                null);
+            this.etag() :
+            null);
     }
 
     private ETag etag() {

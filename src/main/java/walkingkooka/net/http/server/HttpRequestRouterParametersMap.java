@@ -69,8 +69,8 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
             } else {
                 final HttpRequestAttribute<?> attribute = (HttpRequestAttribute<?>) key;
                 value = attribute
-                        .parameterValue(this.request)
-                        .orElse(null);
+                    .parameterValue(this.request)
+                    .orElse(null);
             }
         }
 
@@ -83,8 +83,8 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
     private UrlPathName pathNameOrNull(final int index) {
         final UrlPathName[] pathNames = this.pathNames();
         return index < pathNames.length ?
-                pathNames[index] :
-                null;
+            pathNames[index] :
+            null;
     }
 
     /**
@@ -122,12 +122,12 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
     public int size() {
         if (-1 == this.size) {
             this.size = HttpRequestAttributes.size() +
-                    1 + // = HttpRequestParameters#PATH_COMPONENT_COUNT
-                    this.pathNames().length +
-                    this.urlParameters().size() +
-                    this.cookieCount() +
-                    this.headers().size() +
-                    this.parameters().size();
+                1 + // = HttpRequestParameters#PATH_COMPONENT_COUNT
+                this.pathNames().length +
+                this.urlParameters().size() +
+                this.cookieCount() +
+                this.headers().size() +
+                this.parameters().size();
         }
         return this.size;
     }
@@ -139,7 +139,7 @@ final class HttpRequestRouterParametersMap extends AbstractMap<HttpRequestAttrib
 
     private int cookieCount() {
         return HttpHeaderName.COOKIE.header(this.request)
-                .orElse(ClientCookie.NO_COOKIES).size();
+            .orElse(ClientCookie.NO_COOKIES).size();
     }
 
     private Map<HttpHeaderName<?>, List<?>> headers() {

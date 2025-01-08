@@ -43,8 +43,8 @@ final class RequiredHeadersHttpResponse extends BufferingHttpResponse {
         check(response);
 
         return response instanceof RequiredHeadersHttpResponse || request.protocolVersion() != HttpProtocolVersion.VERSION_1_1 ?
-                response :
-                new RequiredHeadersHttpResponse(response);
+            response :
+            new RequiredHeadersHttpResponse(response);
     }
 
     /**

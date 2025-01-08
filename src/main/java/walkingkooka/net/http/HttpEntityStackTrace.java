@@ -39,9 +39,9 @@ abstract class HttpEntityStackTrace extends HttpEntityStackTraceJ2cl {
                 printWriter.flush();
 
                 result = HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText(stringWriter.toString())
-                        .setContentLength();
+                    .setContentType(MediaType.TEXT_PLAIN)
+                    .setBodyText(stringWriter.toString())
+                    .setContentLength();
             }
         } catch (final IOException never) {
             result = HttpEntity.EMPTY;

@@ -36,7 +36,7 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
     @Test
     public void testWithRequestNullFails() {
         assertThrows(NullPointerException.class, () -> RequiredHeadersHttpResponse.with(null,
-                HttpResponses.fake()));
+            HttpResponses.fake()));
     }
 
     @Test
@@ -59,9 +59,9 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
     @Test
     public void testWithRequest11Response2xxServerMissing() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.OK.status(),
-                this.entityWithoutServerHeader(),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status());
+            HttpStatusCode.OK.status(),
+            this.entityWithoutServerHeader(),
+            HttpStatusCode.INTERNAL_SERVER_ERROR.status());
     }
 
     @Test
@@ -72,57 +72,57 @@ public final class RequiredHeadersHttpResponseTest extends BufferingHttpResponse
     @Test
     public void testWithRequest11Response2xxServerPresentMultipart() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.OK.status(),
-                this.entityWithServerHeader(),
-                this.entityWithoutServerHeader());
+            HttpStatusCode.OK.status(),
+            this.entityWithServerHeader(),
+            this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response3xxServerMissing() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.TEMPORARY_REDIRECT.status(),
-                this.entityWithoutServerHeader(),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status());
+            HttpStatusCode.TEMPORARY_REDIRECT.status(),
+            this.entityWithoutServerHeader(),
+            HttpStatusCode.INTERNAL_SERVER_ERROR.status());
     }
 
     @Test
     public void testWithRequest11Response3xxServerPresent() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.TEMPORARY_REDIRECT.status(),
-                this.entityWithServerHeader());
+            HttpStatusCode.TEMPORARY_REDIRECT.status(),
+            this.entityWithServerHeader());
     }
 
     @Test
     public void testWithRequest11Response3xxServerPresentMultipart() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.TEMPORARY_REDIRECT.status(),
-                this.entityWithServerHeader(),
-                this.entityWithoutServerHeader());
+            HttpStatusCode.TEMPORARY_REDIRECT.status(),
+            this.entityWithServerHeader(),
+            this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response4xxServerMissing() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.NOT_FOUND.status(),
-                this.entityWithoutServerHeader());
+            HttpStatusCode.NOT_FOUND.status(),
+            this.entityWithoutServerHeader());
     }
 
     @Test
     public void testWithRequest11Response5xxServerMissing() {
         this.setVersionStatusAddEntityAndCheck(HttpProtocolVersion.VERSION_1_0,
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
-                this.entityWithoutServerHeader());
+            HttpStatusCode.INTERNAL_SERVER_ERROR.status(),
+            this.entityWithoutServerHeader());
     }
 
     private HttpEntity entityWithoutServerHeader() {
         return HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY)
-                .setBody(Binary.with(new byte[]{'a'}));
+            .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY)
+            .setBody(Binary.with(new byte[]{'a'}));
     }
 
     private HttpEntity entityWithServerHeader() {
         return this.entityWithoutServerHeader()
-                .addHeader(HttpHeaderName.SERVER, "Server 123");
+            .addHeader(HttpHeaderName.SERVER, "Server 123");
     }
 
 

@@ -27,7 +27,7 @@ import walkingkooka.text.CaseSensitivity;
  * Holds the filename for a {@link WebEntity}.
  */
 public final class WebEntityFileName implements Name,
-        Comparable<WebEntityFileName> {
+    Comparable<WebEntityFileName> {
 
     public final static int MIN_LENGTH = 1;
 
@@ -35,14 +35,14 @@ public final class WebEntityFileName implements Name,
 
     public static WebEntityFileName with(final String value) {
         FILENAME.failIfNullOrEmptyOrFalse(
-                "filename",
-                value
+            "filename",
+            value
         );
         Name.checkLength(
-                "filename",
-                value,
-                MIN_LENGTH,
-                MAX_LENGTH
+            "filename",
+            value,
+            MIN_LENGTH,
+            MAX_LENGTH
         );
 
         return new WebEntityFileName(value);
@@ -74,8 +74,8 @@ public final class WebEntityFileName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof WebEntityFileName &&
-                        this.equals0(Cast.to(other));
+            other instanceof WebEntityFileName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final WebEntityFileName other) {
@@ -102,9 +102,9 @@ public final class WebEntityFileName implements Name,
     @Override
     public int compareTo(final WebEntityFileName other) {
         return CASE_SENSITIVITY.comparator()
-                .compare(
-                        this.value,
-                        other.value
-                );
+            .compare(
+                this.value,
+                other.value
+            );
     }
 }

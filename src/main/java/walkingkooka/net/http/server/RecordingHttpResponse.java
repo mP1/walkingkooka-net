@@ -93,14 +93,14 @@ final class RecordingHttpResponse implements HttpResponse {
 
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof RecordingHttpResponse &&
-                        this.equals0(Cast.to(other));
+            other instanceof RecordingHttpResponse &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final RecordingHttpResponse other) {
         return Objects.equals(this.version, other.version) &&
-                Objects.equals(this.status, other.status) &&
-                Objects.equals(this.entity, other.entity);
+            Objects.equals(this.status, other.status) &&
+            Objects.equals(this.entity, other.entity);
     }
 
     @Override
@@ -108,13 +108,13 @@ final class RecordingHttpResponse implements HttpResponse {
         final int length = 64 * 1024;
 
         return ToStringBuilder.empty()
-                .globalLength(length)
-                .valueLength(length)
-                .valueSeparator("\r\n")
-                .separator("\r\n")
-                .disable(ToStringBuilderOption.QUOTE)
-                .value(ToStringBuilder.empty().valueSeparator(" ").value(this.version).value(this.status).build())
-                .value(this.entity)
-                .build();
+            .globalLength(length)
+            .valueLength(length)
+            .valueSeparator("\r\n")
+            .separator("\r\n")
+            .disable(ToStringBuilderOption.QUOTE)
+            .value(ToStringBuilder.empty().valueSeparator(" ").value(this.version).value(this.status).build())
+            .value(this.entity)
+            .build();
     }
 }

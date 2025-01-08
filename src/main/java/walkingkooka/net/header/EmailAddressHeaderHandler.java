@@ -54,8 +54,8 @@ final class EmailAddressHeaderHandler extends NonStringHeaderHandler<EmailAddres
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof EmailAddress,
-                EmailAddress.class
+            v -> v instanceof EmailAddress,
+            EmailAddress.class
         );
     }
 

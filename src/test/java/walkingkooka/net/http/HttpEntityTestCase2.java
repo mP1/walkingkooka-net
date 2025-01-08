@@ -43,9 +43,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEntityTestCase<H>
-        implements HashCodeEqualsDefinedTesting2<H>,
-        CanBeEmptyTesting,
-        ToStringTesting<H> {
+    implements HashCodeEqualsDefinedTesting2<H>,
+    CanBeEmptyTesting,
+    ToStringTesting<H> {
 
     HttpEntityTestCase2() {
         super();
@@ -65,16 +65,16 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetHeaderNullNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setHeader(null, list(1L))
+            NullPointerException.class,
+            () -> this.createHttpEntity().setHeader(null, list(1L))
         );
     }
 
     @Test
     public final void testSetHeaderNullValueFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null)
         );
     }
 
@@ -83,9 +83,9 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
 
         assertThrows(
-                HeaderException.class,
-                () -> this.createHttpEntity()
-                        .setHeader(header, Cast.to(list("INVALID VALUE requires Long")))
+            HeaderException.class,
+            () -> this.createHttpEntity()
+                .setHeader(header, Cast.to(list("INVALID VALUE requires Long")))
         );
     }
 
@@ -104,49 +104,49 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testAddHeaderNullNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().addHeader(null, 1L)
+            NullPointerException.class,
+            () -> this.createHttpEntity().addHeader(null, 1L)
         );
     }
 
     @Test
     public final void testAddHeaderNullValueFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().addHeader(HttpHeaderName.CONTENT_LENGTH, null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().addHeader(HttpHeaderName.CONTENT_LENGTH, null)
         );
     }
 
     @Test
     public final void testAddHeaderInvalidValueFails() {
         assertThrows(
-                HeaderException.class,
-                () -> this.createHttpEntity()
-                        .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"))
+            HeaderException.class,
+            () -> this.createHttpEntity()
+                .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"))
         );
     }
 
     @Test
     public final void testRemoveHeaderNullNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().removeHeader(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().removeHeader(null)
         );
     }
 
     @Test
     public final void testSetHeadersNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setHeaders(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().setHeaders(null)
         );
     }
 
     @Test
     public final void testSetHeadersIncludesInvalidValueFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setHeaders(Maps.of(HttpHeaderName.ACCEPT, null))
+            NullPointerException.class,
+            () -> this.createHttpEntity().setHeaders(Maps.of(HttpHeaderName.ACCEPT, null))
         );
     }
 
@@ -167,9 +167,9 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetAcceptWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity()
-                        .setAccept(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity()
+                .setAccept(null)
         );
     }
 
@@ -177,19 +177,19 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
                                  final Accept accept,
                                  final HttpEntity expected) {
         this.checkEquals(
-                expected,
-                entity.setAccept(accept)
+            expected,
+            entity.setAccept(accept)
         );
     }
-    
+
     // setContentType...................................................................................................
 
     @Test
     public final void testSetContentTypeWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity()
-                        .setContentType(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity()
+                .setContentType(null)
         );
     }
 
@@ -197,8 +197,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
                                       final MediaType contentType,
                                       final HttpEntity expected) {
         this.checkEquals(
-                expected,
-                entity.setContentType(contentType)
+            expected,
+            entity.setContentType(contentType)
         );
     }
 
@@ -207,8 +207,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setBody(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().setBody(null)
         );
     }
 
@@ -234,8 +234,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyTextNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setBodyText(null)
+            NullPointerException.class,
+            () -> this.createHttpEntity().setBodyText(null)
         );
     }
 
@@ -261,8 +261,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testSetBodyTextNullWebFileFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHttpEntity().setBody(null, Charset.defaultCharset())
+            NullPointerException.class,
+            () -> this.createHttpEntity().setBody(null, Charset.defaultCharset())
         );
     }
 
@@ -270,14 +270,14 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     public final void testSetBodyWebFileSame() {
         final H entity = this.createHttpEntity();
         assertSame(entity,
-                entity.setBody(new FakeWebFile() {
+            entity.setBody(new FakeWebFile() {
 
-                                   @Override
-                                   public InputStream content() throws WebFileException {
-                                       return entity.body().inputStream();
-                                   }
-                               },
-                        Charset.defaultCharset()));
+                               @Override
+                               public InputStream content() throws WebFileException {
+                                   return entity.body().inputStream();
+                               }
+                           },
+                Charset.defaultCharset()));
     }
 
     @Test
@@ -286,14 +286,14 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         final Binary differentBinary = Binary.with("different".getBytes(StandardCharsets.UTF_8));
 
         final HttpEntity different =
-                entity.setBody(new FakeWebFile() {
+            entity.setBody(new FakeWebFile() {
 
-                                   @Override
-                                   public InputStream content() throws WebFileException {
-                                       return differentBinary.inputStream();
-                                   }
-                               },
-                        Charset.defaultCharset());
+                               @Override
+                               public InputStream content() throws WebFileException {
+                                   return differentBinary.inputStream();
+                               }
+                           },
+                Charset.defaultCharset());
         this.checkEquals(differentBinary, different.body());
     }
 
@@ -302,8 +302,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Test
     public final void testIsEmpty() {
         this.isEmptyAndCheck(
-                this.createHttpEntity(),
-                this instanceof HttpEntityEmptyTest
+            this.createHttpEntity(),
+            this instanceof HttpEntityEmptyTest
         );
     }
 
@@ -374,8 +374,8 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
         final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
         assertThrows(UnsupportedOperationException.class,
-                () -> headers.put(HttpHeaderName.CONTENT_LENGTH, Lists.of(1L)),
-                () -> "headers should be readonly of " + entity.getClass().getSimpleName() + " " + entity);
+            () -> headers.put(HttpHeaderName.CONTENT_LENGTH, Lists.of(1L)),
+            () -> "headers should be readonly of " + entity.getClass().getSimpleName() + " " + entity);
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................

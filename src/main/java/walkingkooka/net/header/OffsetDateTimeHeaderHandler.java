@@ -63,8 +63,8 @@ final class OffsetDateTimeHeaderHandler extends NonStringHeaderHandler<OffsetDat
     OffsetDateTime parse0(final String text) {
         try {
             return OffsetDateTime.parse(
-                    QUOTED_STRING.parse(text),
-                    FORMATTER);
+                QUOTED_STRING.parse(text),
+                FORMATTER);
         } catch (final IllegalArgumentException cause) {
             throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
         }
@@ -73,16 +73,16 @@ final class OffsetDateTimeHeaderHandler extends NonStringHeaderHandler<OffsetDat
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof OffsetDateTime,
-                OffsetDateTime.class
+            v -> v instanceof OffsetDateTime,
+            OffsetDateTime.class
         );
     }
 
     @Override
     String toText0(final OffsetDateTime value, final Name name) {
         return QUOTED_STRING.toText(
-                FORMATTER.format(value),
-                name);
+            FORMATTER.format(value),
+            name);
     }
 
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.2
@@ -118,33 +118,33 @@ final class OffsetDateTimeHeaderHandler extends NonStringHeaderHandler<OffsetDat
         month.put(12L, "Dec");
 
         return new DateTimeFormatterBuilder()
-                .parseCaseInsensitive()
-                .parseLenient()
-                .optionalStart()
-                .appendText(DAY_OF_WEEK, weekday)
-                .appendLiteral(", ")
-                .optionalEnd()
-                .appendValue(DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE)
-                .appendLiteral(' ')
-                .appendText(MONTH_OF_YEAR, month)
-                .appendLiteral(' ')
-                .appendValue(YEAR, 4)  // 2 digit year not handled
-                .appendLiteral(' ')
-                .appendValue(HOUR_OF_DAY, 2)
-                .appendLiteral(':')
-                .appendValue(MINUTE_OF_HOUR, 2)
-                .optionalStart()
-                .appendLiteral(':')
-                .appendValue(SECOND_OF_MINUTE, 2)
-                .optionalEnd()
-                .appendLiteral(' ')
-                .appendOffset("+HHMM", "")
-                .toFormatter();
+            .parseCaseInsensitive()
+            .parseLenient()
+            .optionalStart()
+            .appendText(DAY_OF_WEEK, weekday)
+            .appendLiteral(", ")
+            .optionalEnd()
+            .appendValue(DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE)
+            .appendLiteral(' ')
+            .appendText(MONTH_OF_YEAR, month)
+            .appendLiteral(' ')
+            .appendValue(YEAR, 4)  // 2 digit year not handled
+            .appendLiteral(' ')
+            .appendValue(HOUR_OF_DAY, 2)
+            .appendLiteral(':')
+            .appendValue(MINUTE_OF_HOUR, 2)
+            .optionalStart()
+            .appendLiteral(':')
+            .appendValue(SECOND_OF_MINUTE, 2)
+            .optionalEnd()
+            .appendLiteral(' ')
+            .appendOffset("+HHMM", "")
+            .toFormatter();
     }
 
     private final static HeaderHandler<String> QUOTED_STRING = HeaderHandler.quoted(
-            CharPredicates.asciiPrintable(),
-            false);
+        CharPredicates.asciiPrintable(),
+        false);
 
     @Override
     public String toString() {

@@ -60,9 +60,9 @@ final class UrlParameterKeyValuePair {
         }
 
         return new UrlParameterKeyValuePair(encodedWithoutSeparator,
-                UrlParameterName.with(name),
-                value,
-                separator, separatorIncluded);
+            UrlParameterName.with(name),
+            value,
+            separator, separatorIncluded);
     }
 
     /**

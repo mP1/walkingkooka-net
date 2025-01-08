@@ -34,8 +34,8 @@ final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
                                                   final boolean supportBackslashEscaping,
                                                   final CharPredicate unquotedPredicate) {
         return new QuotedUnquotedStringHeaderHandler(
-                HeaderHandler.quoted(quotedPredicate, supportBackslashEscaping),
-                HeaderHandler.unquoted(unquotedPredicate));
+            HeaderHandler.quoted(quotedPredicate, supportBackslashEscaping),
+            HeaderHandler.unquoted(unquotedPredicate));
     }
 
     /**
@@ -54,8 +54,8 @@ final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
     @Override
     String parse0(final String text) {
         final HeaderHandler<String> handler = text.isEmpty() || text.charAt(0) != '"' ?
-                this.unquoted :
-                this.quoted;
+            this.unquoted :
+            this.quoted;
         return handler.parse(text);
     }
 

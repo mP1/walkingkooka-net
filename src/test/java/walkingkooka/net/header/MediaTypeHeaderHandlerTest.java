@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 public final class MediaTypeHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<MediaTypeHeaderHandler, MediaType> {
+    NonStringHeaderHandlerTestCase<MediaTypeHeaderHandler, MediaType> {
 
     @Override
     public String typeNamePrefix() {
@@ -31,8 +31,8 @@ public final class MediaTypeHeaderHandlerTest extends
     @Test
     public void testContentType() {
         this.parseAndToTextAndCheck("type1/subType1; p1=v1",
-                MediaType.with("type1", "subType1")
-                        .setParameters(Maps.of(MediaTypeParameterName.with("p1"), "v1")));
+            MediaType.with("type1", "subType1")
+                .setParameters(Maps.of(MediaTypeParameterName.with("p1"), "v1")));
     }
 
     @Override

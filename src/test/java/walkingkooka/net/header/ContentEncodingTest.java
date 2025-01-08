@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
-        implements ParseStringTesting<ContentEncoding> {
+    implements ParseStringTesting<ContentEncoding> {
 
     @Test
     public void testWithNullValueFails() {
@@ -74,17 +74,17 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
     @Test
     public void testParse() {
         this.parseStringAndCheck("gzip, deflate, br",
-                this.createHeader(Encoding.parse("gzip"),
-                        Encoding.parse("deflate"),
-                        Encoding.parse("br")));
+            this.createHeader(Encoding.parse("gzip"),
+                Encoding.parse("deflate"),
+                Encoding.parse("br")));
     }
 
     @Test
     public void testParseExtraWhitespace() {
         this.parseStringAndCheck("gzip,  deflate,  br",
-                this.createHeader(Encoding.parse("gzip"),
-                        Encoding.with("deflate"),
-                        Encoding.with("br")));
+            this.createHeader(Encoding.parse("gzip"),
+                Encoding.with("deflate"),
+                Encoding.with("br")));
     }
 
     @Test

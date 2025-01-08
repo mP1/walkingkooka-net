@@ -31,8 +31,8 @@ final public class CookieMaxAge extends CookieDeletion {
      */
     public static CookieMaxAge with(final int seconds) {
         return CookieDeletion.DELETED.seconds() == seconds ? CookieDeletion.DELETED : //
-                CookieDeletion.SESSION_ONLY.seconds() == seconds ? CookieDeletion.SESSION_ONLY : //
-                        new CookieMaxAge(seconds);
+            CookieDeletion.SESSION_ONLY.seconds() == seconds ? CookieDeletion.SESSION_ONLY : //
+                new CookieMaxAge(seconds);
     }
 
     static CookieMaxAge constant(final int seconds) {
@@ -83,7 +83,7 @@ final public class CookieMaxAge extends CookieDeletion {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof CookieMaxAge && this.equals0(Cast.to(other));
+            other instanceof CookieMaxAge && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final CookieMaxAge other) {

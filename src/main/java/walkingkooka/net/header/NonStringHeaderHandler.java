@@ -31,8 +31,7 @@ abstract class NonStringHeaderHandler<T> extends HeaderHandler<T> {
     /**
      * Reports that the value is not a {@link String}.
      */
-    @Override
-    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+    @Override final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
         throw new HttpHeaderNameTypeParameterHeaderException(headerName.toString());
     }
 }

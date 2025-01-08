@@ -34,7 +34,7 @@ abstract class Header2<V> implements Header, Value<V> {
         Objects.requireNonNull(list, label);
         final List<V> copy = Lists.immutable(list);
         copy
-                .forEach(v -> Objects.requireNonNull(v, label + " includes null"));
+            .forEach(v -> Objects.requireNonNull(v, label + " includes null"));
         if (copy.isEmpty()) {
             throw new IllegalArgumentException("Empty " + label);
         }
@@ -64,8 +64,8 @@ abstract class Header2<V> implements Header, Value<V> {
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEqual(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);

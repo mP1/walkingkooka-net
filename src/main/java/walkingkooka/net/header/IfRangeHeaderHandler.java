@@ -49,13 +49,13 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
 
             try {
                 date = DATE_TIME.parse(
-                        text
+                    text
                 );
             } catch (final HeaderException cause) {
                 throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
             }
             parsed = IfRangeLastModified.with(
-                    date
+                date
             );
         }
         return parsed;
@@ -66,8 +66,8 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof IfRange,
-                IfRange.class
+            v -> v instanceof IfRange,
+            IfRange.class
         );
     }
 

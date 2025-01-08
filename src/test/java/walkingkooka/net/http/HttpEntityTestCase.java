@@ -25,7 +25,7 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import java.util.Optional;
 
 public abstract class HttpEntityTestCase<T> implements ClassTesting<T>,
-        TreePrintableTesting {
+    TreePrintableTesting {
 
     HttpEntityTestCase() {
         super();
@@ -35,25 +35,25 @@ public abstract class HttpEntityTestCase<T> implements ClassTesting<T>,
 
     final void contentTypeAndCheck(final HttpEntity entity) {
         this.contentTypeAndCheck(
-                entity,
-                Optional.empty()
+            entity,
+            Optional.empty()
         );
     }
 
     final void contentTypeAndCheck(final HttpEntity entity,
                                    final MediaType expected) {
         this.contentTypeAndCheck(
-                entity,
-                Optional.of(expected)
+            entity,
+            Optional.of(expected)
         );
     }
 
     final void contentTypeAndCheck(final HttpEntity entity,
                                    final Optional<MediaType> expected) {
         this.checkEquals(
-                expected,
-                entity.contentType(),
-                entity::toString
+            expected,
+            entity.contentType(),
+            entity::toString
         );
     }
 
@@ -62,9 +62,9 @@ public abstract class HttpEntityTestCase<T> implements ClassTesting<T>,
     final void isMultipartFormDataAndCheck(final HttpEntity entity,
                                            final boolean expected) {
         this.checkEquals(
-                expected,
-                entity.isMultipartFormData(),
-                entity::toString
+            expected,
+            entity.isMultipartFormData(),
+            entity::toString
         );
     }
 

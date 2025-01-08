@@ -51,8 +51,8 @@ final class AcceptLanguageHeaderHandler extends NonStringHeaderHandler<AcceptLan
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof AcceptLanguage,
-                AcceptLanguage.class
+            (v) -> v instanceof AcceptLanguage,
+            AcceptLanguage.class
         );
     }
 

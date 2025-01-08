@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<AcceptHeaderHandler, Accept> {
+    NonStringHeaderHandlerTestCase<AcceptHeaderHandler, Accept> {
 
     private final static String TEXT = "type1/subType1; p1=v1, type2/subType2";
 
@@ -36,7 +36,7 @@ public final class AcceptHeaderHandlerTest extends
     @Test
     public void testParseMultipleMediaTypes() {
         this.parseAndToTextAndCheck(TEXT,
-                Accept.with(Lists.of(this.mediaType1(), this.mediaType2())));
+            Accept.with(Lists.of(this.mediaType1(), this.mediaType2())));
     }
 
     @Test

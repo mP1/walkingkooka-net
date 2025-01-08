@@ -28,42 +28,36 @@ abstract class AcceptLanguageOrAcceptLanguageValueHeaderParser extends HeaderPar
         super(text);
     }
 
-    @Override
-    final AcceptLanguageValue wildcardValue() {
+    @Override final AcceptLanguageValue wildcardValue() {
         this.position++;
         return AcceptLanguageValue.WILDCARD;
     }
 
-    @Override
-    final AcceptLanguageValue value() {
+    @Override final AcceptLanguageValue value() {
         return AcceptLanguageValue.with(this.token(LANGUAGE_TAG, LanguageName::with));
     }
 
     private final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;
 
-    @Override
-    final AcceptLanguageParameterName<?> parameterName() {
+    @Override final AcceptLanguageParameterName<?> parameterName() {
         return this.parameterName(PARAMETER_NAME, AcceptLanguageParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
-    @Override
-    final String quotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
+    @Override final String quotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
-    @Override
-    final String unquotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
+    @Override final String unquotedParameterValue(final AcceptLanguageParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
-    @Override
-    final void missingValue() {
+    @Override final void missingValue() {
         this.failEmptyToken(LANGUAGE);
     }
 

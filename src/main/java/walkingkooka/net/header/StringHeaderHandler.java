@@ -33,8 +33,8 @@ abstract class StringHeaderHandler extends HeaderHandler<String> {
 
     @Override final void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof String,
-                String.class
+            (v) -> v instanceof String,
+            String.class
         );
     }
 

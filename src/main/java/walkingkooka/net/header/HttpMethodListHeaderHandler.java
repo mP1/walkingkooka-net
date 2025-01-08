@@ -44,24 +44,24 @@ final class HttpMethodListHeaderHandler extends NonStringHeaderHandler<List<Http
     @Override
     List<HttpMethod> parse0(final String text) {
         return Arrays.stream(text.split(","))
-                .map(m -> HttpMethod.with(m.trim()))
-                .collect(Collectors.toList());
+            .map(m -> HttpMethod.with(m.trim()))
+            .collect(Collectors.toList());
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkListOfType(
-                value,
-                v -> v instanceof HttpMethod,
-                HttpMethod.class
+            value,
+            v -> v instanceof HttpMethod,
+            HttpMethod.class
         );
     }
 
     @Override
     String toText0(final List<HttpMethod> value, final Name name) {
         return value.stream()
-                .map(HttpMethod::value)
-                .collect(Collectors.joining(", "));
+            .map(HttpMethod::value)
+            .collect(Collectors.joining(", "));
     }
 
     @Override

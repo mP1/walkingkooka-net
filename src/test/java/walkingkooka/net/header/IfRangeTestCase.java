@@ -97,7 +97,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Test
     public final void testToHeaderText() {
         this.toHeaderTextAndCheck(this.createHeader(),
-                this.headerText());
+            this.headerText());
     }
 
     @Test
@@ -119,8 +119,8 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     public final void testParse() {
         final String text = this.headerText();
         this.checkEquals(this.createHeader(),
-                IfRange.parse(text),
-                "Parsing " + CharSequences.quote(text));
+            IfRange.parse(text),
+            "Parsing " + CharSequences.quote(text));
     }
 
     @Override

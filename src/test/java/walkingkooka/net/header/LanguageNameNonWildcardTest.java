@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<LanguageNameNonWildcard>
-        implements NameTesting2<LanguageNameNonWildcard, LanguageName> {
+    implements NameTesting2<LanguageNameNonWildcard, LanguageName> {
 
     private final static String VALUE = "en";
     private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
@@ -73,7 +73,7 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
     @Test
     public void testConstant() {
         assertSame(LanguageNameNonWildcard.nonWildcard("en"),
-                LanguageNameNonWildcard.nonWildcard("en"));
+            LanguageNameNonWildcard.nonWildcard("en"));
     }
 
     @Test
@@ -84,7 +84,7 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
     @Test
     public void testTestSameTrueWithDifferentParameters() {
         this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)),
-                LanguageName.with(this.nameText()));
+            LanguageName.with(this.nameText()));
     }
 
     @Test
@@ -111,7 +111,7 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
         final LanguageName wildcard = LanguageName.WILDCARD;
 
         this.compareToArraySortAndCheck(de, ar, cz, wildcard, br,
-                wildcard, ar, br, cz, de);
+            wildcard, ar, br, cz, de);
     }
 
     @Override

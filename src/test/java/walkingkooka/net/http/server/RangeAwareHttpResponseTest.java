@@ -67,24 +67,24 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     @Test
     public void testWithNullRequestFails() {
         assertThrows(NullPointerException.class, () -> RangeAwareHttpResponse.with(null,
-                HttpResponses.fake(),
-                BOUNDARY_CHARACTERS));
+            HttpResponses.fake(),
+            BOUNDARY_CHARACTERS));
     }
 
     @Test
     public void testWithNullBoundaryCharactersFails() {
         assertThrows(NullPointerException.class, () -> RangeAwareHttpResponse.with(HttpRequests.fake(),
-                HttpResponses.fake(),
-                null));
+            HttpResponses.fake(),
+            null));
     }
 
     @Test
     public void testRangeAbsentNotWrapped() {
         final HttpResponse response = HttpResponses.fake();
         assertSame(response,
-                RangeAwareHttpResponse.with(createRequest(null, ifRange()),
-                        response,
-                        BOUNDARY_CHARACTERS));
+            RangeAwareHttpResponse.with(createRequest(null, ifRange()),
+                response,
+                BOUNDARY_CHARACTERS));
     }
 
     // wrapped...
@@ -118,37 +118,37 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     @Test
     public void testIfRangeETagRequiredAndAbsent() {
         this.ifRangeFailSetStatusAddEntityAndCheck(
-                this.ranges(),
-                IfRange.with(this.etag()),
-                ETAG_ABSENT,
-                this.lastModified());
+            this.ranges(),
+            IfRange.with(this.etag()),
+            ETAG_ABSENT,
+            this.lastModified());
     }
 
     @Test
     public void testIfRangeETagRequiredAndIncorrect() {
         this.ifRangeFailSetStatusAddEntityAndCheck(
-                this.ranges(),
-                IfRange.with(this.etag()),
-                this.etagDifferent(),
-                this.lastModified());
+            this.ranges(),
+            IfRange.with(this.etag()),
+            this.etagDifferent(),
+            this.lastModified());
     }
 
     @Test
     public void testIfRangeLastModifiedRequiredAndAbsent() {
         this.ifRangeFailSetStatusAddEntityAndCheck(
-                this.ranges(),
-                IfRange.with(this.lastModified()),
-                this.etag(),
-                null);
+            this.ranges(),
+            IfRange.with(this.lastModified()),
+            this.etag(),
+            null);
     }
 
     @Test
     public void testIfRangeLastModifiedRequiredAndIncorrect() {
         this.ifRangeFailSetStatusAddEntityAndCheck(
-                this.ranges(),
-                IfRange.with(this.lastModified()),
-                this.etag(),
-                this.lastModifiedDifferent());
+            this.ranges(),
+            IfRange.with(this.lastModified()),
+            this.etag(),
+            this.lastModifiedDifferent());
     }
 
     private void ifRangeFailSetStatusAddEntityAndCheck(final RangeHeader requestRanges,
@@ -157,12 +157,12 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                                                        final LocalDateTime responseLastModified) {
 
         this.setStatusAddEntityAndCheck4(requestRanges,
-                requestIfRange,
-                responseETag,
-                responseLastModified,
-                BODY,
-                HttpStatusCode.OK,
-                BODY);
+            requestIfRange,
+            responseETag,
+            responseLastModified,
+            BODY,
+            HttpStatusCode.OK,
+            BODY);
     }
 
     // range unsatisfiable.....................................
@@ -170,34 +170,34 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     @Test
     public void testRangeUnsatisfiable() {
         this.invalidRangeSetStatusAddEntityAndCheck(IF_RANGE_ABSENT,
-                ETAG_ABSENT,
-                this.lastModified());
+            ETAG_ABSENT,
+            this.lastModified());
     }
 
     @Test
     public void testIfRangeETagAndRangeUnsatisfiable() {
         this.invalidRangeSetStatusAddEntityAndCheck(IF_RANGE_ABSENT,
-                this.etag(),
-                LASTMODIFIED_ABSENT);
+            this.etag(),
+            LASTMODIFIED_ABSENT);
     }
 
     @Test
     public void testIfRangeLastModifiedAndRangeUnsatisfiable() {
         this.invalidRangeSetStatusAddEntityAndCheck(IF_RANGE_ABSENT,
-                ETAG_ABSENT,
-                this.lastModified());
+            ETAG_ABSENT,
+            this.lastModified());
     }
 
     private void invalidRangeSetStatusAddEntityAndCheck(final IfRange<?> requestIfRange,
                                                         final ETag responseETag,
                                                         final LocalDateTime responseLastModified) {
         this.setStatusAddEntityAndCheck4(RangeHeader.parse("bytes=1-9999"),
-                requestIfRange,
-                responseETag,
-                responseLastModified,
-                BODY,
-                HttpStatusCode.REQUESTED_RANGE_NOT_SATISFIABLE,
-                NO_BODY);
+            requestIfRange,
+            responseETag,
+            responseLastModified,
+            BODY,
+            HttpStatusCode.REQUESTED_RANGE_NOT_SATISFIABLE,
+            NO_BODY);
     }
 
     private void setStatusAddEntityAndCheck4(final RangeHeader requestRanges,
@@ -219,13 +219,13 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
 
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(
-                    this.createRequest(requestRanges, requestIfRange),
-                    version,
-                    HttpStatusCode.OK.status(),
-                    httpEntity(headers).setBody(Binary.with(body)),
-                    version,
-                    expectedStatus.status(),
-                    httpEntity(headers).setBody(Binary.with(expectedBody)));
+                this.createRequest(requestRanges, requestIfRange),
+                version,
+                HttpStatusCode.OK.status(),
+                httpEntity(headers).setBody(Binary.with(body)),
+                version,
+                expectedStatus.status(),
+                httpEntity(headers).setBody(Binary.with(expectedBody)));
         }
     }
 
@@ -260,22 +260,22 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         headers.put(HttpHeaderName.CONTENT_LENGTH, list(BODY_LENGTH));
 
         final HttpEntity multipart1 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "Server123")
-                .addHeader(HttpHeaderName.E_TAG, this.etag())
-                .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+            .addHeader(HttpHeaderName.SERVER, "Server123")
+            .addHeader(HttpHeaderName.E_TAG, this.etag())
+            .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
         final HttpEntity multipart2 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
-                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(lower, upper))
-                .setBodyText(multipart2Body);
+            .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+            .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(lower, upper))
+            .setBodyText(multipart2Body);
 
         this.setHeaderAddEntityAndCheck(requestRange,
-                IF_RANGE_ABSENT,
-                headers,
-                multipart1,
-                multipart2);
+            IF_RANGE_ABSENT,
+            headers,
+            multipart1,
+            multipart2);
     }
 
     @Test
@@ -288,34 +288,34 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         headers.put(HttpHeaderName.CONTENT_LENGTH, list(BODY_LENGTH));
 
         final HttpEntity multipart1 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.SERVER, "Server123")
-                .addHeader(HttpHeaderName.E_TAG, this.etag())
-                .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
-                .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
+            .addHeader(HttpHeaderName.SERVER, "Server123")
+            .addHeader(HttpHeaderName.E_TAG, this.etag())
+            .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+            .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
         final HttpEntity multipart2 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
-                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2))
-                .setBodyText("bc");
+            .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+            .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2))
+            .setBodyText("bc");
 
         final HttpEntity multipart3 = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
-                .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12))
-                .setBodyText("klm");
+            .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+            .addHeader(HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12))
+            .setBodyText("klm");
 
         this.setHeaderAddEntityAndCheck("bytes=1-2,10-12",
-                IF_RANGE_ABSENT,
-                headers,
-                multipart1,
-                multipart2,
-                multipart3);
+            IF_RANGE_ABSENT,
+            headers,
+            multipart1,
+            multipart2,
+            multipart3);
     }
 
     private ContentRange contentRange(final long lower, final long upper) {
         return ContentRange.with(RangeHeaderUnit.BYTES,
-                Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper))),
-                Optional.of(BODY_LENGTH));
+            Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper))),
+            Optional.of(BODY_LENGTH));
     }
 
     private void setHeaderAddEntityAndCheck(final String requestRanges,
@@ -324,13 +324,13 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                                             final HttpEntity... expectedEntities) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(
-                    this.createRequest(RangeHeader.parse(requestRanges), requestIfRange),
-                    version,
-                    HttpStatusCode.OK.status(),
-                    httpEntity(headers).setBody(Binary.with(BODY)),
-                    version,
-                    HttpStatusCode.PARTIAL_CONTENT.status(),
-                    expectedEntities);
+                this.createRequest(RangeHeader.parse(requestRanges), requestIfRange),
+                version,
+                HttpStatusCode.OK.status(),
+                httpEntity(headers).setBody(Binary.with(BODY)),
+                version,
+                HttpStatusCode.PARTIAL_CONTENT.status(),
+                expectedEntities);
         }
     }
 

@@ -72,13 +72,13 @@ public final class HttpRequestAttributesTest implements ClassTesting2<HttpReques
     @Test
     public void testParameterValuePathComponentCount() {
         this.parameterValueAndCheck(new FakeHttpRequest() {
-                    @Override
-                    public RelativeUrl url() {
-                        return Url.parseRelative("/path1/path2/path3/path4");
-                    }
-                }.routerParameters(),
-                HttpRequestAttributes.PATH_COMPONENT_COUNT,
-                5);
+                @Override
+                public RelativeUrl url() {
+                    return Url.parseRelative("/path1/path2/path3/path4");
+                }
+            }.routerParameters(),
+            HttpRequestAttributes.PATH_COMPONENT_COUNT,
+            5);
     }
 
     @Test
@@ -90,8 +90,8 @@ public final class HttpRequestAttributesTest implements ClassTesting2<HttpReques
     private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter,
                                             final T values) {
         this.parameterValueAndCheck(Maps.of(parameter, values),
-                parameter,
-                values);
+            parameter,
+            values);
     }
 
     private <T> void parameterValueAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,

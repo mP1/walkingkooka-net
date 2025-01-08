@@ -28,7 +28,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting<MethodNotAllowedHttpHandler>,
-        ToStringTesting<MethodNotAllowedHttpHandler> {
+    ToStringTesting<MethodNotAllowedHttpHandler> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
@@ -46,16 +46,16 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     @Test
     public void testWithNullMethodFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MethodNotAllowedHttpHandler.with(null, HANDLER)
+            NullPointerException.class,
+            () -> MethodNotAllowedHttpHandler.with(null, HANDLER)
         );
     }
 
     @Test
     public void testWithNullHandlerFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MethodNotAllowedHttpHandler.with(METHOD, null)
+            NullPointerException.class,
+            () -> MethodNotAllowedHttpHandler.with(METHOD, null)
         );
     }
 
@@ -68,8 +68,8 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-                this.request(HttpMethod.with("invalid")),
-                expected
+            this.request(HttpMethod.with("invalid")),
+            expected
         );
     }
 
@@ -80,8 +80,8 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
         expected.setEntity(ENTITY);
 
         this.handleAndCheck(
-                this.request(HttpMethod.PATCH),
-                expected
+            this.request(HttpMethod.PATCH),
+            expected
         );
     }
 
@@ -110,8 +110,8 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHttpHandler(),
-                METHOD + " " + HANDLER
+            this.createHttpHandler(),
+            METHOD + " " + HANDLER
         );
     }
 

@@ -37,7 +37,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonNodeMarshallingTesting<HttpResponse>,
-        TreePrintableTesting {
+    TreePrintableTesting {
 
     @Test
     public void testVersionMissingJsonMarshallFails() {
@@ -62,40 +62,40 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     @Test
     public void testTreePrint() {
         this.treePrintAndCheck(
-                new FakeHttpResponse() {
-                    @Override
-                    public Optional<HttpProtocolVersion> version() {
-                        return Optional.of(
-                                HttpProtocolVersion.VERSION_1_0
-                        );
-                    }
+            new FakeHttpResponse() {
+                @Override
+                public Optional<HttpProtocolVersion> version() {
+                    return Optional.of(
+                        HttpProtocolVersion.VERSION_1_0
+                    );
+                }
 
-                    @Override
-                    public Optional<HttpStatus> status() {
-                        return Optional.of(
-                                HttpStatusCode.OK.setMessage("OK hello")
-                        );
-                    }
+                @Override
+                public Optional<HttpStatus> status() {
+                    return Optional.of(
+                        HttpStatusCode.OK.setMessage("OK hello")
+                    );
+                }
 
-                    @Override
-                    public HttpEntity entity() {
-                        return HttpEntity.EMPTY.setContentType(
-                                MediaType.TEXT_PLAIN
-                        ).setBodyText(
-                                "Hello111\n" +
-                                        "Hello222\n"
-                        );
-                    }
-                },
-                "HttpResponse\n" +
-                        "  200 OK hello\n" +
-                        "  HttpEntity\n" +
-                        "    header(s)\n" +
-                        "      Content-Type: text/plain\n" +
-                        "    bodyText\n" +
-                        "      Hello111\n" +
-                        "      Hello222\n" +
-                        "      \n"
+                @Override
+                public HttpEntity entity() {
+                    return HttpEntity.EMPTY.setContentType(
+                        MediaType.TEXT_PLAIN
+                    ).setBodyText(
+                        "Hello111\n" +
+                            "Hello222\n"
+                    );
+                }
+            },
+            "HttpResponse\n" +
+                "  200 OK hello\n" +
+                "  HttpEntity\n" +
+                "    header(s)\n" +
+                "      Content-Type: text/plain\n" +
+                "    bodyText\n" +
+                "      Hello111\n" +
+                "      Hello222\n" +
+                "      \n"
         );
     }
 
@@ -119,10 +119,10 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
         response.setEntity(
-                HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBodyText("body-text-123")
+            HttpEntity.EMPTY
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText("body-text-123")
         );
         return response;
     }

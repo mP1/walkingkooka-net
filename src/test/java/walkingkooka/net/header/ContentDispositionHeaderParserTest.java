@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class ContentDispositionHeaderParserTest extends HeaderParserWithParametersTestCase<ContentDispositionHeaderParser,
-        ContentDisposition> {
+    ContentDisposition> {
 
     // parse ...................................................................................................
 
@@ -223,50 +223,50 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testTypeParameterNameEqualsParameterValue() {
         this.parseStringAndCheck("A;b=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameSpaceEqualsParameterValue() {
         this.parseStringAndCheck("A;b =c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameTabEqualsParameterValue() {
         this.parseStringAndCheck("A;b\t=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameSpaceTabSpaceTabEqualsParameterValue() {
         this.parseStringAndCheck("A;b \t \t=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsSpaceParameterValue() {
         this.parseStringAndCheck("A;b= c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsTabParameterValue() {
         this.parseStringAndCheck("A;b=\tc",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterNameEqualsSpaceTabSpaceTabParameterValue() {
         this.parseStringAndCheck("A;b= \t \tc",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
@@ -278,8 +278,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testTypeParameterNameEqualsQuotedParameterValue() {
         this.parseStringAndCheck("A;b=\"c\"",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
@@ -300,71 +300,71 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testTypeParameterSpace() {
         this.parseStringAndCheck("A;bcd=123 ",
-                "A",
-                "bcd", "123");
+            "A",
+            "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSeparator() {
         this.parseStringAndCheck("A;bcd=123;",
-                "A",
-                "bcd", "123");
+            "A",
+            "bcd", "123");
     }
 
     @Test
     public void testTypeParameterTab() {
         this.parseStringAndCheck("A;bcd=123\t",
-                "A",
-                "bcd", "123");
+            "A",
+            "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSpaceTabSpaceTab() {
         this.parseStringAndCheck("A;bcd=123 \t \t",
-                "A",
-                "bcd", "123");
+            "A",
+            "bcd", "123");
     }
 
     @Test
     public void testTypeParameterSeparatorSpaceParameter() {
         this.parseStringAndCheck("A; b=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeParameterSeparatorTabParameter() {
         this.parseStringAndCheck("A;\tb=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeSpaceParameterSeparatorParameter() {
         this.parseStringAndCheck("A ;b=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeSpaceParameterSeparatorSpaceParameter() {
         this.parseStringAndCheck("A ; b=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeTabParameterSeparatorTabParameter() {
         this.parseStringAndCheck("A\t;\tb=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
     public void testTypeSpaceTabSpaceTabParameterSeparatorSpaceTabParameter() {
         this.parseStringAndCheck("A \t \t; \t \tb=c",
-                "A",
-                "b", "c");
+            "A",
+            "b", "c");
     }
 
     @Test
@@ -376,32 +376,32 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testTypeParameter() {
         this.parseStringAndCheck("V1;p1=v1;",
-                "V1",
-                "p1", "v1");
+            "V1",
+            "p1", "v1");
     }
 
     @Test
     public void testTypeParameterSeparatorParameter() {
         this.parseStringAndCheck("V1;p1=v1;p2=v2",
-                "V1",
-                "p1", "v1",
-                "p2", "v2");
+            "V1",
+            "p1", "v1",
+            "p2", "v2");
     }
 
     @Test
     public void testTypeParameterWhitespaceSeparatorParameter() {
         this.parseStringAndCheck("V1;p1=v1 ;p2=v2",
-                "V1",
-                "p1", "v1",
-                "p2", "v2");
+            "V1",
+            "p1", "v1",
+            "p2", "v2");
     }
 
     @Test
     public void testTypeParameterParameterSeparatorWhitespaceParameter() {
         this.parseStringAndCheck("V1;p1=v1; p2=v2",
-                "V1",
-                "p1", "v1",
-                "p2", "v2");
+            "V1",
+            "p1", "v1",
+            "p2", "v2");
     }
 
     @Test
@@ -414,17 +414,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testCreationDateInvalidFails() {
         this.parseStringFails(
-                "V; creation-date=123",
-                "Invalid character '1' at 0 in \"123\""
+            "V; creation-date=123",
+            "Invalid character '1' at 0 in \"123\""
         );
     }
 
     @Test
     public void testCreationDate() {
         this.parseStringAndCheck("attachment; creation-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
-                "attachment",
-                "creation-date",
-                OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
+            "attachment",
+            "creation-date",
+            OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 
     // parse filename............................................................................................
@@ -432,8 +432,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testFilenameMissingFails() {
         this.parseStringFails(
-                "V; filename=\"\"",
-                "Empty \"filename\""
+            "V; filename=\"\"",
+            "Empty \"filename\""
         );
     }
 
@@ -445,17 +445,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testFilename() {
         this.parseStringAndCheck("attachment; filename=readme.txt",
-                "attachment",
-                "filename",
-                ContentDispositionFileName.notEncoded("readme.txt"));
+            "attachment",
+            "filename",
+            ContentDispositionFileName.notEncoded("readme.txt"));
     }
 
     @Test
     public void testFilenameQuoted() {
         this.parseStringAndCheck("attachment; filename=\"readme.txt\"",
-                "attachment",
-                "filename",
-                ContentDispositionFileName.notEncoded("readme.txt"));
+            "attachment",
+            "filename",
+            ContentDispositionFileName.notEncoded("readme.txt"));
     }
 
     // parse filename star............................................................................................
@@ -463,12 +463,12 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testFilenameStar() {
         this.parseStringAndCheck("attachment; filename*=UTF-8'en'abc%20123.txt",
-                "attachment",
-                "filename*",
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(CharsetName.UTF_8,
-                                Optional.of(LanguageName.with("en")),
-                                "abc 123.txt")));
+            "attachment",
+            "filename*",
+            ContentDispositionFileName.encoded(
+                EncodedText.with(CharsetName.UTF_8,
+                    Optional.of(LanguageName.with("en")),
+                    "abc 123.txt")));
     }
 
     // parse modification-date............................................................................................
@@ -476,17 +476,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testModificationDateInvalidFails() {
         this.parseStringFails(
-                "V; modification-date=123",
-                "Invalid character '1' at 0 in \"123\""
+            "V; modification-date=123",
+            "Invalid character '1' at 0 in \"123\""
         );
     }
 
     @Test
     public void testModificationDate() {
         this.parseStringAndCheck("attachment; modification-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
-                "attachment",
-                "modification-date",
-                OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
+            "attachment",
+            "modification-date",
+            OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 
     // parse read-date............................................................................................
@@ -494,17 +494,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testReadDateInvalidFails() {
         this.parseStringFails(
-                "V; read-date=123",
-                "Invalid character '1' at 0 in \"123\""
+            "V; read-date=123",
+            "Invalid character '1' at 0 in \"123\""
         );
     }
 
     @Test
     public void testReadDate() {
         this.parseStringAndCheck("attachment; read-date=\"Wed, 12 Feb 1997 16:29:51 -0500\"",
-                "attachment",
-                "read-date",
-                OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
+            "attachment",
+            "read-date",
+            OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 
     // parse filename............................................................................................
@@ -512,17 +512,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     @Test
     public void testSizeInvalidFails() {
         this.parseStringFails(
-                "V; size=A",
-                "Invalid number in \"A\""
+            "V; size=A",
+            "Invalid number in \"A\""
         );
     }
 
     @Test
     public void testSize() {
         this.parseStringAndCheck("attachment; size=123",
-                "attachment",
-                "size",
-                123L);
+            "attachment",
+            "size",
+            123L);
     }
 
     // helpers...................................................................................................
@@ -547,9 +547,9 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
                                      final String parameterName1, final Object parameterValue1,
                                      final String parameterName2, final Object parameterValue2) {
         this.parseStringAndCheck(header,
-                type,
-                Maps.of(ContentDispositionParameterName.with(parameterName1), parameterValue1,
-                        ContentDispositionParameterName.with(parameterName2), parameterValue2));
+            type,
+            Maps.of(ContentDispositionParameterName.with(parameterName1), parameterValue1,
+                ContentDispositionParameterName.with(parameterName2), parameterValue2));
     }
 
 
@@ -557,7 +557,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
                                      final String type,
                                      final Map<ContentDispositionParameterName<?>, Object> parameters) {
         this.parseStringAndCheck(header,
-                ContentDispositionType.with(type).setParameters(parameters));
+            ContentDispositionType.with(type).setParameters(parameters));
     }
 
     @Override

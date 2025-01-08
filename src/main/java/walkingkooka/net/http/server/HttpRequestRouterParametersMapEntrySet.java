@@ -34,7 +34,7 @@ import java.util.Set;
  * The {@link Map#entrySet()} for {@link HttpRequestRouterParametersMap}.
  */
 final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>>
-        implements ImmutableSetDefaults<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
+    implements ImmutableSetDefaults<HttpRequestRouterParametersMapEntrySet, Entry<HttpRequestAttribute<?>, Object>> {
 
     /**
      * Factory only called by {@link HttpRequestRouterParametersMap}.
@@ -61,48 +61,48 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> attributes = HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator.with(request);
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = HttpRequestRouterParametersMapPathComponentEntryIterator.with(
-                map.pathNames()
+            map.pathNames()
         );
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> urlParameterNames = Cast.to(
-                map.urlParameters()
-                        .entrySet()
-                        .iterator()
+            map.urlParameters()
+                .entrySet()
+                .iterator()
         );
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = Cast.to(
-                request.headers()
-                        .entrySet()
-                        .iterator()
+            request.headers()
+                .entrySet()
+                .iterator()
         );
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = Iterators.mapping(
-                HttpHeaderName.COOKIE.header(request)
-                        .orElse(ClientCookie.NO_COOKIES)
-                        .iterator(),
-                HttpRequestRouterParametersMapEntrySet::cookieEntry
+            HttpHeaderName.COOKIE.header(request)
+                .orElse(ClientCookie.NO_COOKIES)
+                .iterator(),
+            HttpRequestRouterParametersMapEntrySet::cookieEntry
         );
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(
-                request.parameters()
-                        .entrySet()
-                        .iterator()
+            request.parameters()
+                .entrySet()
+                .iterator()
         );
 
         return Iterators.chain(
-                attributes,
-                pathNames,
-                urlParameterNames,
-                headers,
-                cookies,
-                parameters
+            attributes,
+            pathNames,
+            urlParameterNames,
+            headers,
+            cookies,
+            parameters
         );
     }
 
     private static Entry<HttpRequestAttribute<?>, Object> cookieEntry(final ClientCookie cookie) {
         return Maps.entry(
-                cookie.name(),
-                cookie
+            cookie.name(),
+            cookie
         );
     }
 

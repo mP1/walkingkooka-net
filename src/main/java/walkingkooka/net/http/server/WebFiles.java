@@ -44,8 +44,8 @@ public final class WebFiles implements PublicStaticHelper {
                                final MediaTypeDetector contentTypeDetector,
                                final Function<Binary, Optional<ETag>> etagComputer) {
         return FileSystemWebFile.with(path,
-                contentTypeDetector,
-                etagComputer);
+            contentTypeDetector,
+            etagComputer);
     }
 
     /**

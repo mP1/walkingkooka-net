@@ -195,8 +195,8 @@ public final class CacheControl extends Header2<List<CacheControlDirective<?>>> 
     public CacheControl setValue(final List<CacheControlDirective<?>> directives) {
         final List<CacheControlDirective<?>> copy = checkDirectives(directives);
         return this.value.equals(copy) ?
-                this :
-                new CacheControl(copy);
+            this :
+            new CacheControl(copy);
     }
 
     private static List<CacheControlDirective<?>> checkDirectives(final List<CacheControlDirective<?>> directives) {
@@ -227,7 +227,7 @@ public final class CacheControl extends Header2<List<CacheControlDirective<?>>> 
     @Override
     public boolean isMultipart() {
         return this.value().stream()
-                .allMatch(CacheControlDirective::isMultipart);
+            .allMatch(CacheControlDirective::isMultipart);
     }
 
     // https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
@@ -236,13 +236,13 @@ public final class CacheControl extends Header2<List<CacheControlDirective<?>>> 
     @Override
     public boolean isRequest() {
         return this.value().stream()
-                .allMatch(CacheControlDirective::isRequest);
+            .allMatch(CacheControlDirective::isRequest);
     }
 
     @Override
     public boolean isResponse() {
         return this.value().stream()
-                .allMatch(CacheControlDirective::isResponse);
+            .allMatch(CacheControlDirective::isResponse);
     }
 
     @Override

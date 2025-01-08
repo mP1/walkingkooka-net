@@ -59,18 +59,18 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
         }
 
         return new UrlPathLeafUnnormalized(
-                newPath,
-                name,
-                Optional.of(parent)
+            newPath,
+            name,
+            Optional.of(parent)
         );
     }
 
     @Override
     UrlPath parseTrailingSlash() {
         return new UrlPathLeafUnnormalized(
-                this.path + this.separator().character(), // path
-                UrlPathName.ROOT, // name
-                Optional.of(this)
+            this.path + this.separator().character(), // path
+            UrlPathName.ROOT, // name
+            Optional.of(this)
         );
     }
 

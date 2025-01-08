@@ -41,19 +41,19 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparab
         }
 
         return RelativeUrl.with(
-                UrlPath.parse(
-                        uri.getPath()
-                ),
-                UrlQueryString.parse(
-                        nullToEmpty(
-                                uri.getRawQuery() // UrlQueryString.parse assumes an encoded
-                        )
-                ),
-                UrlFragment.parse(
-                        nullToEmpty(
-                                uri.getRawFragment() // will be raw not decoded
-                        )
+            UrlPath.parse(
+                uri.getPath()
+            ),
+            UrlQueryString.parse(
+                nullToEmpty(
+                    uri.getRawQuery() // UrlQueryString.parse assumes an encoded
                 )
+            ),
+            UrlFragment.parse(
+                nullToEmpty(
+                    uri.getRawFragment() // will be raw not decoded
+                )
+            )
         );
     }
 
@@ -90,7 +90,7 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparab
     @Override
     public RelativeUrl appendPathName(final UrlPathName name) {
         return this.appendPathName0(name)
-                .cast();
+            .cast();
     }
 
     @Override
@@ -139,7 +139,7 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparab
     @Override
     public RelativeUrl normalize() {
         return this.setPath(
-                this.path().normalize()
+            this.path().normalize()
         );
     }
 
@@ -148,21 +148,21 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparab
     @Override
     public int hashCode() {
         return Objects.hash(this.path,
-                this.query,
-                this.fragment);
+            this.query,
+            this.fragment);
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof RelativeUrl &&
-                        this.equals0((RelativeUrl) other);
+            other instanceof RelativeUrl &&
+                this.equals0((RelativeUrl) other);
     }
 
     private boolean equals0(final RelativeUrl other) {
         return this.path.equals(other.path) && //
-                this.query.equals(other.query) && //
-                this.fragment.equals(other.fragment);
+            this.query.equals(other.query) && //
+            this.fragment.equals(other.fragment);
     }
 
     @Override

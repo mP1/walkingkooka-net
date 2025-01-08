@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeListHeaderParser,
-        List<MediaType>> {
+    List<MediaType>> {
 
     @Test
     public void testParameterSeparatorFails() {
@@ -51,50 +51,50 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     @Test
     public void testTypeSubTypeWhitespace() {
         this.parseStringAndCheck2("type1/subtype1 ",
-                MediaType.with("type1", "subtype1"));
+            MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testTypeSubTypeCommaWhitespaceTypeSubType() {
         this.parseStringAndCheck2("type1/subtype1, type2/subtype2",
-                MediaType.with("type1", "subtype1"),
-                MediaType.with("type2", "subtype2"));
+            MediaType.with("type1", "subtype1"),
+            MediaType.with("type2", "subtype2"));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaWhitespaceTypeSubType2() {
         this.parseStringAndCheck2("type1/subtype1;p1=v1, type2/subtype2",
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
-                MediaType.with("type2", "subtype2"));
+            MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+            MediaType.with("type2", "subtype2"));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaTypeSubTypeParameter() {
         this.parseStringAndCheck2("type1/subtype1;p1=v1,type2/subtype2;p2=v2",
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
-                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
+            MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+            MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testTypeSubTypeParameterCommaWhitespaceTypeSubTypeParameter() {
         this.parseStringAndCheck2("type1/subtype1;p1=v1, type2/subtype2;p2=v2",
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
-                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
+            MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+            MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testTypeSubTypeWhitespaceParameterCommaWhitespaceTypeSubTypeWhitespaceParameter() {
         this.parseStringAndCheck2("type1/subtype1; p1=v1, type2/subtype2; p2=v2",
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
-                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
+            MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+            MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Test
     public void testSortedByQFactor() {
         this.parseStringAndCheck2("type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
-                MediaType.with("type2", "subtype2").setParameters(this.parameters("q", 1.0f)),
-                MediaType.with("type3", "subtype3").setParameters(this.parameters("q", 0.5f)),
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
+            MediaType.with("type2", "subtype2").setParameters(this.parameters("q", 1.0f)),
+            MediaType.with("type3", "subtype3").setParameters(this.parameters("q", 0.5f)),
+            MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
     @Override
@@ -117,11 +117,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
         this.checkEquals(1, result.size(), "parse " + CharSequences.quote(text) + " got " + result);
 
         this.check(
-                result.get(0),
-                type,
-                subtype,
-                suffix,
-                parameters
+            result.get(0),
+            type,
+            subtype,
+            suffix,
+            parameters
         );
     }
 
@@ -157,8 +157,8 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
 
     private void parseStringAndCheck2(final String text, final MediaType... mediaTypes) {
         this.checkEquals(Lists.of(mediaTypes),
-                MediaTypeListHeaderParser.parseMediaTypeList(text),
-                "Incorrect result parsing " + CharSequences.quote(text));
+            MediaTypeListHeaderParser.parseMediaTypeList(text),
+            "Incorrect result parsing " + CharSequences.quote(text));
     }
 
     @Override

@@ -30,11 +30,11 @@ import java.util.function.Predicate;
  * An individual encoding belonging to a {@link AcceptEncoding}.
  */
 public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEncodingValue,
-        AcceptEncodingValueParameterName<?>,
-        String>
-        implements Comparable<AcceptEncodingValue>,
-        HasQualityFactor,
-        Predicate<ContentEncoding> {
+    AcceptEncodingValueParameterName<?>,
+    String>
+    implements Comparable<AcceptEncodingValue>,
+    HasQualityFactor,
+    Predicate<ContentEncoding> {
 
     /**
      * A map holding no parameters.
@@ -103,17 +103,17 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
      */
     public static AcceptEncodingValue with(final String value) {
         return "*".equals(value) ?
-                wildcard(NO_PARAMETERS) :
-                nonWildcard(
-                        checkValue(value),
-                        NO_PARAMETERS
-                );
+            wildcard(NO_PARAMETERS) :
+            nonWildcard(
+                checkValue(value),
+                NO_PARAMETERS
+            );
     }
 
     private static String checkValue(final String value) {
         return AcceptEncodingValueHeaderParser.RFC2045TOKEN.failIfNullOrEmptyOrFalse(
-                "value",
-                value
+            "value",
+            value
         );
     }
 
@@ -140,13 +140,11 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
         super(value, parameters);
     }
 
-    @Override
-    final String toHeaderTextValue() {
+    @Override final String toHeaderTextValue() {
         return this.value;
     }
 
-    @Override
-    final String toHeaderTextParameterSeparator() {
+    @Override final String toHeaderTextParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 
@@ -194,13 +192,11 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
 
     // Object..........................................................................................................
 
-    @Override
-    final int hashCode0(final String value) {
+    @Override final int hashCode0(final String value) {
         return CASE_SENSITIVITY.hash(value);
     }
 
-    @Override
-    final boolean equals1(final String value, final String otherValue) {
+    @Override final boolean equals1(final String value, final String otherValue) {
         return CASE_SENSITIVITY.equals(value, otherValue);
     }
 

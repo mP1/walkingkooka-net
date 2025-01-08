@@ -36,7 +36,7 @@ import java.util.Set;
  * The {@link Set} view of all entries in a headers from a request.
  */
 final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, List<?>>>
-        implements ImmutableSetDefaults<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
+    implements ImmutableSetDefaults<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
 
     static HttpServletRequestHttpRequestHeadersMapEntrySet with(final HttpServletRequest request) {
         return new HttpServletRequestHttpRequestHeadersMapEntrySet(request);
@@ -61,11 +61,11 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
         final List<?> values = Lists.array();
         for (final Enumeration<String> stringValues = this.request.getHeaders(headerName); stringValues.hasMoreElements(); ) {
             values.add(
-                    Cast.to(
-                            header.parseValue(
-                                    stringValues.nextElement()
-                            )
+                Cast.to(
+                    header.parseValue(
+                        stringValues.nextElement()
                     )
+                )
             );
         }
 

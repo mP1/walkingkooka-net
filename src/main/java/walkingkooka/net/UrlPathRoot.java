@@ -75,8 +75,8 @@ final class UrlPathRoot extends UrlPath {
         final Optional<UrlPath> parent2 = Optional.of(parent);
 
         return name.isNormalized() ?
-                UrlPathLeafNormalized.withNormalized(value, name, parent2) :
-                UrlPathLeafUnnormalized.withUnnormalized(value, name, parent2);
+            UrlPathLeafNormalized.withNormalized(value, name, parent2) :
+            UrlPathLeafUnnormalized.withUnnormalized(value, name, parent2);
     }
 
     @Override

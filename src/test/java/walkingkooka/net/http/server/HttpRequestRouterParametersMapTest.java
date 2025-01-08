@@ -44,7 +44,7 @@ import java.util.stream.StreamSupport;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class HttpRequestRouterParametersMapTest implements ClassTesting2<HttpRequestRouterParametersMap>,
-        MapTesting2<HttpRequestRouterParametersMap, HttpRequestAttribute<?>, Object> {
+    MapTesting2<HttpRequestRouterParametersMap, HttpRequestAttribute<?>, Object> {
 
     @Test
     public void testContainsAndGet() {
@@ -61,11 +61,11 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
 
         // path-component-count
         final int pathComponentCount = Long.valueOf(StreamSupport.stream(this.url().path().spliterator(), false)
-                        .count())
-                .intValue();
+                .count())
+            .intValue();
 
         this.checkEntry(iterator, HttpRequestAttributes.PATH_COMPONENT_COUNT,
-                pathComponentCount);
+            pathComponentCount);
 
         // paths
         int i = 0;
@@ -84,22 +84,22 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
         for (final Entry<HttpHeaderName<?>, List<?>> nameAndValue : this.headers().entrySet()) {
             final HttpHeaderName<?> header = nameAndValue.getKey();
             this.checkEntry(iterator,
-                    header,
-                    nameAndValue.getValue());
+                header,
+                nameAndValue.getValue());
         }
 
         // cookies
         for (ClientCookie cookie : this.cookies()) {
             this.checkEntry(iterator,
-                    cookie.name(),
-                    cookie);
+                cookie.name(),
+                cookie);
         }
 
         // parameters
         for (Entry<HttpRequestParameterName, List<String>> nameAndValue : this.parameters().entrySet()) {
             this.checkEntry(iterator,
-                    nameAndValue.getKey(),
-                    nameAndValue.getValue());
+                nameAndValue.getKey(),
+                nameAndValue.getValue());
         }
     }
 
@@ -135,8 +135,8 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
     private void getPathAndCheck(final int pathComponent,
                                  final String expected) {
         this.getPathAndCheck(this.createMap(),
-                pathComponent,
-                expected);
+            pathComponent,
+            expected);
     }
 
     @Test
@@ -147,11 +147,11 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
     @Test
     public void testUrlNormalized() {
         final HttpRequestRouterParametersMap map = this.createMap(transport(),
-                this.method(),
-                Url.parseRelative("/a1/b2/./deleted-by-double-dot-after/../c3"),
-                this.protocolVersion(),
-                this.headers(),
-                this.parameters());
+            this.method(),
+            Url.parseRelative("/a1/b2/./deleted-by-double-dot-after/../c3"),
+            this.protocolVersion(),
+            this.headers(),
+            this.parameters());
         this.getPathAndCheck(map, 0, "");
         this.getPathAndCheck(map, 1, "a1");
         this.getPathAndCheck(map, 2, "b2");
@@ -167,11 +167,11 @@ public final class HttpRequestRouterParametersMapTest implements ClassTesting2<H
     @Override
     public HttpRequestRouterParametersMap createMap() {
         return this.createMap(transport(),
-                this.method(),
-                this.url(),
-                this.protocolVersion(),
-                this.headers(),
-                this.parameters());
+            this.method(),
+            this.url(),
+            this.protocolVersion(),
+            this.headers(),
+            this.parameters());
     }
 
     private HttpTransport transport() {

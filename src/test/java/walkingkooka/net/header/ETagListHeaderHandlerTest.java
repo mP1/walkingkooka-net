@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagListHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<ETagListHeaderHandler, List<ETag>> {
+    NonStringHeaderHandlerTestCase<ETagListHeaderHandler, List<ETag>> {
 
     @Override
     public String typeNamePrefix() {
@@ -35,13 +35,13 @@ public final class ETagListHeaderHandlerTest extends
     @Test
     public void testParseETagOne() {
         this.parseAndToTextAndCheck("W/\"123\"",
-                Lists.of(ETag.with("123", ETagValidator.WEAK)));
+            Lists.of(ETag.with("123", ETagValidator.WEAK)));
     }
 
     @Test
     public void testParseETagSeveral() {
         this.toTextAndCheck(Lists.of(ETag.with("123", ETagValidator.WEAK),
-                ETag.with("456", ETagValidator.WEAK)), "W/\"123\", W/\"456\"");
+            ETag.with("456", ETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
     @Test

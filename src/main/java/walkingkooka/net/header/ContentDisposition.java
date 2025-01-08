@@ -28,8 +28,8 @@ import java.util.Optional;
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
 public final class ContentDisposition extends HeaderWithParameters2<ContentDisposition,
-        ContentDispositionParameterName<?>,
-        ContentDispositionType> {
+    ContentDispositionParameterName<?>,
+    ContentDispositionType> {
     /**
      * A constants with no parameters.
      */
@@ -82,8 +82,8 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
     public ContentDisposition setType(final ContentDispositionType type) {
         checkType(type);
         return this.value.equals(type) ?
-                this :
-                this.replace(type, this.parameters);
+            this :
+            this.replace(type, this.parameters);
     }
 
     private static void checkType(final ContentDispositionType type) {

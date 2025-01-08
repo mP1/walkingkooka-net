@@ -29,15 +29,15 @@ import java.util.Optional;
  * The {@link Name} of a parameter within a {@link HttpRequest}.
  */
 final public class HttpRequestParameterName implements Name,
-        Comparable<HttpRequestParameterName>,
-        HttpRequestAttribute<List<String>> {
+    Comparable<HttpRequestParameterName>,
+    HttpRequestAttribute<List<String>> {
 
     /**
      * Factory that creates a {@link HttpRequestParameterName}
      */
     public static HttpRequestParameterName with(final String name) {
         return new HttpRequestParameterName(
-                CharSequences.failIfNullOrEmpty(name, "name")
+            CharSequences.failIfNullOrEmpty(name, "name")
         );
     }
 
@@ -84,8 +84,8 @@ final public class HttpRequestParameterName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpRequestParameterName &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpRequestParameterName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpRequestParameterName other) {

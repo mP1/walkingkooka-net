@@ -72,8 +72,8 @@ public final class ContentLanguage extends Header2<List<LanguageName>> {
     @Override
     public String toHeaderText() {
         return this.value.stream()
-                .map(LanguageName::toHeaderText)
-                .collect(Collectors.joining(SEPARATOR));
+            .map(LanguageName::toHeaderText)
+            .collect(Collectors.joining(SEPARATOR));
     }
 
     private final static String SEPARATOR = Header.SEPARATOR.string().concat(" ");

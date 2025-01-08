@@ -52,8 +52,8 @@ final class FileSystemWebFile implements WebFile {
             throw new WebFileException("Path " + path + " is not a file");
         }
         return new FileSystemWebFile(path,
-                contentTypeGuesser,
-                etagComputer);
+            contentTypeGuesser,
+            etagComputer);
     }
 
     /**
@@ -93,9 +93,9 @@ final class FileSystemWebFile implements WebFile {
     public MediaType contentType() throws WebFileException {
         if (null == this.contentType) {
             this.contentType = this.contentTypeGuesser.detect(
-                    this.path.getFileName()
-                            .toString(),
-                    this.binary()
+                this.path.getFileName()
+                    .toString(),
+                this.binary()
             );
         }
         return this.contentType;

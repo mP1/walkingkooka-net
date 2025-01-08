@@ -91,10 +91,10 @@ public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
      * </pre>
      */
     private final static CharPredicate PART = CharPredicateBuilder.empty()
-            .any("0123456789")
-            .any("+-.")
-            .or(INITIAL)
-            .build();
+        .any("0123456789")
+        .any("+-.")
+        .or(INITIAL)
+        .build();
 
     // schemes
 

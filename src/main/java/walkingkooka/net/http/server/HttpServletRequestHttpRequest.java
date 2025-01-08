@@ -59,8 +59,8 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     @Override
     public HttpTransport transport() {
         return this.request.isSecure() ?
-                HttpTransport.SECURED :
-                HttpTransport.UNSECURED;
+            HttpTransport.SECURED :
+            HttpTransport.UNSECURED;
     }
 
     @Override
@@ -80,8 +80,8 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
             final String queryString = request.getQueryString();
 
             this.url = null != queryString ?
-                    relativeUrl.setQuery(UrlQueryString.parse(queryString)) :
-                    relativeUrl;
+                relativeUrl.setQuery(UrlQueryString.parse(queryString)) :
+                relativeUrl;
         }
         return this.url;
     }
@@ -183,9 +183,9 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
         final List<Object> list = Lists.array();
         while (values.hasMoreElements()) {
             list.add(
-                    header.parseValue(
-                            values.nextElement()
-                    )
+                header.parseValue(
+                    values.nextElement()
+                )
             );
         }
 

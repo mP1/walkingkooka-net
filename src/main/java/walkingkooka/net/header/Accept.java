@@ -90,7 +90,7 @@ import java.util.function.Predicate;
  * </pre>
  */
 public final class Accept extends Header2<List<MediaType>> implements Predicate<MediaType>,
-        HasQualityFactorSortedValues<MediaType> {
+    HasQualityFactorSortedValues<MediaType> {
 
     // @VisibleForTesting
     final static List<MediaType> ALL_MEDIA_TYPE = Lists.of(MediaType.ALL);
@@ -115,14 +115,14 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
      */
     public static Accept with(final List<MediaType> mediaTypes) {
         return withCopy(
-                nonEmptyImmutableList(mediaTypes, "media types")
+            nonEmptyImmutableList(mediaTypes, "media types")
         );
     }
 
     private static Accept withCopy(final List<MediaType> mediaTypes) {
         return ALL_MEDIA_TYPE.equals(mediaTypes) ?
-                DEFAULT :
-                new Accept(mediaTypes);
+            DEFAULT :
+            new Accept(mediaTypes);
     }
 
     /**
@@ -176,7 +176,7 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
         Objects.requireNonNull(contentType, "contentType");
 
         return this.value.stream()
-                .anyMatch(m -> m.test(contentType));
+            .anyMatch(m -> m.test(contentType));
     }
 
     /**
@@ -187,7 +187,7 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
 
             // Accept: Got text/plain require text/json
             throw new IllegalArgumentException(
-                    HttpHeaderName.ACCEPT + ": Got " + this + " require " + mediaType
+                HttpHeaderName.ACCEPT + ": Got " + this + " require " + mediaType
             );
         }
     }

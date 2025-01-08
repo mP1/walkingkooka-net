@@ -32,7 +32,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlTest implements ClassTesting2<Url>,
-        ParseStringTesting<Url> {
+    ParseStringTesting<Url> {
 
     // EMPTY RELATIVE URL...............................................................................................
 
@@ -47,65 +47,65 @@ public final class UrlTest implements ClassTesting2<Url>,
     @Test
     public void testIsClassWithNull() {
         this.isClassAndCheck(
-                null,
-                false
+            null,
+            false
         );
     }
 
     @Test
     public void testIsClassWithNonUrlClass() {
         this.isClassAndCheck(
-                String.class,
-                false
+            String.class,
+            false
         );
     }
 
     @Test
     public void testIsClassWithUrl() {
         this.isClassAndCheck(
-                Url.class,
-                true
+            Url.class,
+            true
         );
     }
 
     @Test
     public void testIsClassWithAbsoluteUrl() {
         this.isClassAndCheck(
-                AbsoluteUrl.class,
-                true
+            AbsoluteUrl.class,
+            true
         );
     }
 
     @Test
     public void testIsClassWithDataUrl() {
         this.isClassAndCheck(
-                DataUrl.class,
-                true
+            DataUrl.class,
+            true
         );
     }
 
     @Test
     public void testIsClassWithMailToUrl() {
         this.isClassAndCheck(
-                MailToUrl.class,
-                true
+            MailToUrl.class,
+            true
         );
     }
 
     @Test
     public void testIsClassWithRelativeUrl() {
         this.isClassAndCheck(
-                RelativeUrl.class,
-                true
+            RelativeUrl.class,
+            true
         );
     }
 
     private void isClassAndCheck(final Class<?> type,
                                  final boolean expected) {
         this.checkEquals(
-                expected,
-                Url.isClass(type),
-                () -> null != type ? type.getName() : null
+            expected,
+            Url.isClass(type),
+            () -> null != type ? type.getName() : null
         );
     }
 
@@ -114,33 +114,33 @@ public final class UrlTest implements ClassTesting2<Url>,
     @Test
     public void testParseAsUrlWithNullUrlFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> Url.parseAsUrl(
-                        null,
-                        Url.class
-                )
+            NullPointerException.class,
+            () -> Url.parseAsUrl(
+                null,
+                Url.class
+            )
         );
     }
 
     @Test
     public void testParseAsUrlWithNullTypeFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> Url.parseAsUrl(
-                        "",
-                        null
-                )
+            NullPointerException.class,
+            () -> Url.parseAsUrl(
+                "",
+                null
+            )
         );
     }
 
     @Test
     public void testParseAsUrlWitWrongUrlFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> Url.parseAsUrl(
-                        "https://example.com",
-                        RelativeUrl.class
-                )
+            IllegalArgumentException.class,
+            () -> Url.parseAsUrl(
+                "https://example.com",
+                RelativeUrl.class
+            )
         );
     }
 
@@ -149,9 +149,9 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String url = "https://example.com";
 
         this.parseAsUrlAndCheck2(
-                url,
-                Url.class,
-                Url.parseAbsolute(url)
+            url,
+            Url.class,
+            Url.parseAbsolute(url)
         );
     }
 
@@ -160,45 +160,45 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String url = "/relative-url/path";
 
         this.parseAsUrlAndCheck2(
-                url,
-                Url.class,
-                Url.parseRelative(url)
+            url,
+            Url.class,
+            Url.parseRelative(url)
         );
     }
 
     @Test
     public void testParseAsUrlWithAbsoluteUrl() {
         this.parseAsUrlAndCheck(
-                "https://example.com",
-                AbsoluteUrl.class,
-                Url::parseAbsolute
+            "https://example.com",
+            AbsoluteUrl.class,
+            Url::parseAbsolute
         );
     }
 
     @Test
     public void testParseAsUrlWithDataUrl() {
         this.parseAsUrlAndCheck(
-                "data:,Hello%2C%20World%21",
-                DataUrl.class,
-                Url::parseData
+            "data:,Hello%2C%20World%21",
+            DataUrl.class,
+            Url::parseData
         );
     }
 
     @Test
     public void testParseAsUrlWithMailToUrl() {
         this.parseAsUrlAndCheck(
-                "mailto:me@example.com",
-                MailToUrl.class,
-                Url::parseMailTo
+            "mailto:me@example.com",
+            MailToUrl.class,
+            Url::parseMailTo
         );
     }
 
     @Test
     public void testParseAsUrlWithRelativeUrl() {
         this.parseAsUrlAndCheck(
-                "/path2",
-                RelativeUrl.class,
-                Url::parseRelative
+            "/path2",
+            RelativeUrl.class,
+            Url::parseRelative
         );
     }
 
@@ -206,9 +206,9 @@ public final class UrlTest implements ClassTesting2<Url>,
                                                     final Class<T> type,
                                                     final Function<String, T> expected) {
         this.parseAsUrlAndCheck2(
-                url,
-                type,
-                expected.apply(url)
+            url,
+            type,
+            expected.apply(url)
         );
     }
 
@@ -216,11 +216,11 @@ public final class UrlTest implements ClassTesting2<Url>,
                                                      final Class<T> type,
                                                      final T expected) {
         this.checkEquals(
-                expected,
-                Url.parseAsUrl(
-                        url,
-                        type
-                )
+            expected,
+            Url.parseAsUrl(
+                url,
+                type
+            )
         );
     }
 
@@ -241,16 +241,16 @@ public final class UrlTest implements ClassTesting2<Url>,
     @Test
     public void testParseDataUrl() {
         final DataUrl url = Url.data(
-                Optional.of(MediaType.TEXT_PLAIN),
-                true, // base64
-                Binary.with(
-                        "abc123".getBytes(Charset.defaultCharset())
-                )
+            Optional.of(MediaType.TEXT_PLAIN),
+            true, // base64
+            Binary.with(
+                "abc123".getBytes(Charset.defaultCharset())
+            )
         );
 
         this.parseStringAndCheck(
-                url.value(),
-                Url.parseData(url.value())
+            url.value(),
+            Url.parseData(url.value())
         );
     }
 
@@ -259,8 +259,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final MailToUrl url = Url.parseMailTo("mailto:hello@example.com?subject=Subject123&body=body123");
 
         this.parseStringAndCheck(
-                url.value(),
-                url
+            url.value(),
+            url
         );
     }
 
@@ -283,23 +283,23 @@ public final class UrlTest implements ClassTesting2<Url>,
     @Test
     public void testParseAbsoluteOrRelativeUrlWithDataFails() {
         final DataUrl url = Url.data(
-                Optional.of(
-                        MediaType.TEXT_PLAIN
-                ),
-                true, // base64
-                Binary.with(
-                        "abc123".getBytes(Charset.defaultCharset())
-                )
+            Optional.of(
+                MediaType.TEXT_PLAIN
+            ),
+            true, // base64
+            Binary.with(
+                "abc123".getBytes(Charset.defaultCharset())
+            )
         );
 
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> Url.parseAbsoluteOrRelative(url.value())
+            IllegalArgumentException.class,
+            () -> Url.parseAbsoluteOrRelative(url.value())
         );
 
         this.checkEquals(
-                "Unknown protocol \"data:text/plain;base64,YWJjMTIz\"",
-                thrown.getMessage()
+            "Unknown protocol \"data:text/plain;base64,YWJjMTIz\"",
+            thrown.getMessage()
         );
     }
 
@@ -308,8 +308,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "https://example.com";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseAbsolute(text)
+            text,
+            Url.parseAbsolute(text)
         );
     }
 
@@ -318,8 +318,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "https://example.com#fragment123";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseAbsolute(text)
+            text,
+            Url.parseAbsolute(text)
         );
     }
 
@@ -328,8 +328,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "https://example.com/path1";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseAbsolute(text)
+            text,
+            Url.parseAbsolute(text)
         );
     }
 
@@ -338,8 +338,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "https://example.com?query123";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseAbsolute(text)
+            text,
+            Url.parseAbsolute(text)
         );
     }
 
@@ -348,8 +348,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseRelative(text)
+            text,
+            Url.parseRelative(text)
         );
     }
 
@@ -358,8 +358,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "#fragment123";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseRelative(text)
+            text,
+            Url.parseRelative(text)
         );
     }
 
@@ -368,8 +368,8 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "/path/path2";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseRelative(text)
+            text,
+            Url.parseRelative(text)
         );
     }
 
@@ -378,17 +378,17 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "?param=value";
 
         this.parseAbsoluteOrRelativeUrlAndCheck(
-                text,
-                Url.parseRelative(text)
+            text,
+            Url.parseRelative(text)
         );
     }
 
     private void parseAbsoluteOrRelativeUrlAndCheck(final String url,
                                                     final AbsoluteOrRelativeUrl expected) {
         this.checkEquals(
-                expected,
-                Url.parseAbsoluteOrRelative(url),
-                () -> "parseAbsoluteOrRelative " + CharSequences.quoteAndEscape(url)
+            expected,
+            Url.parseAbsoluteOrRelative(url),
+            () -> "parseAbsoluteOrRelative " + CharSequences.quoteAndEscape(url)
         );
     }
 

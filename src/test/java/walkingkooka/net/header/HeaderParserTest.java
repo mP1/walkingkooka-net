@@ -85,7 +85,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                                                  final int invalidCharacterPosition) {
         final HeaderException expected = assertThrows(HeaderException.class, () -> this.whitespace(text));
         checkMessage(expected,
-                new InvalidCharacterException(text, invalidCharacterPosition).getMessage());
+            new InvalidCharacterException(text, invalidCharacterPosition).getMessage());
     }
 
     private HeaderParser whitespace(final String text) {
@@ -115,8 +115,8 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                                final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
         this.checkEquals(expectedText,
-                parser.token(CharPredicates.digit()),
-                "token in " + CharSequences.quoteAndEscape(text));
+            parser.token(CharPredicates.digit()),
+            "token in " + CharSequences.quoteAndEscape(text));
     }
 
     // quoted.................................................................................................
@@ -171,8 +171,8 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                                 final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
         this.checkEquals(expectedText,
-                parser.quotedText(CharPredicates.ascii(), escapingSupported),
-                "quoted text in " + CharSequences.quoteAndEscape(text));
+            parser.quotedText(CharPredicates.ascii(), escapingSupported),
+            "quoted text in " + CharSequences.quoteAndEscape(text));
     }
 
     // encodedText.................................................................................................
@@ -210,17 +210,17 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     @Test
     public void testEncodedText() {
         this.encodedTextAndCheck("utf-8'en'abc",
-                EncodedText.with(CharsetName.UTF_8,
-                        Optional.of(LanguageName.with("en")),
-                        "abc"));
+            EncodedText.with(CharsetName.UTF_8,
+                Optional.of(LanguageName.with("en")),
+                "abc"));
     }
 
     @Test
     public void testEncodedTextWithoutLanguage() {
         this.encodedTextAndCheck("utf-8''abc",
-                EncodedText.with(CharsetName.UTF_8,
-                        EncodedText.NO_LANGUAGE,
-                        "abc"));
+            EncodedText.with(CharsetName.UTF_8,
+                EncodedText.NO_LANGUAGE,
+                "abc"));
     }
 
     @Test
@@ -245,9 +245,9 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     private void encodedTextAndCheck2(final String text, final String value) {
         this.encodedTextAndCheck("utf-8'en'" + text,
-                EncodedText.with(CharsetName.UTF_8,
-                        Optional.of(LanguageName.with("en")),
-                        value));
+            EncodedText.with(CharsetName.UTF_8,
+                Optional.of(LanguageName.with("en")),
+                value));
     }
 
     // strange encoding/decoding when loop until Character#MAX_VALUE
@@ -255,8 +255,8 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     public void testEncodedTextHeaderTextRoundtrip() {
         for (int i = 0x3f; i < 50000; i++) {
             final EncodedText encodedText = EncodedText.with(CharsetName.UTF_8,
-                    Optional.of(LanguageName.with("en")),
-                    Character.valueOf((char) i).toString());
+                Optional.of(LanguageName.with("en")),
+                Character.valueOf((char) i).toString());
             this.encodedTextAndCheck(encodedText.toHeaderText(), encodedText);
         }
     }
@@ -264,8 +264,8 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     private void encodedTextAndCheck(final String text,
                                      final EncodedText expectedText) {
         this.checkEquals(expectedText,
-                this.encodedText(text),
-                "quoted text in " + CharSequences.quoteAndEscape(text));
+            this.encodedText(text),
+            "quoted text in " + CharSequences.quoteAndEscape(text));
     }
 
     private EncodedText encodedText(final String text) {
@@ -519,8 +519,8 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         }.parse();
 
         this.checkEquals(events,
-                recorded.toString(),
-                "recorded events");
+            recorded.toString(),
+            "recorded events");
     }
 
     // helpers.................................................................................................

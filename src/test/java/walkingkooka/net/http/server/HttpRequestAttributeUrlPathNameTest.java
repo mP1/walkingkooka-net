@@ -34,14 +34,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<HttpRequestAttributeUrlPathName>,
-        HashCodeEqualsDefinedTesting2<HttpRequestAttributeUrlPathName>,
-        ToStringTesting<HttpRequestAttributeUrlPathName> {
+    HashCodeEqualsDefinedTesting2<HttpRequestAttributeUrlPathName>,
+    ToStringTesting<HttpRequestAttributeUrlPathName> {
 
     @Test
     public void testInvalidIndexFails() {
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> HttpRequestAttributeUrlPathName.with(-1)
+            IndexOutOfBoundsException.class,
+            () -> HttpRequestAttributeUrlPathName.with(-1)
         );
     }
 
@@ -61,12 +61,12 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
         final HttpRequestAttributeUrlPathName name = HttpRequestAttributeUrlPathName.with(2);
 
         this.checkEquals(Optional.of(UrlPathName.with("path2")),
-                name.parameterValue(new FakeHttpRequest() {
-                    @Override
-                    public RelativeUrl url() {
-                        return Url.parseRelative("/path1/path2/path3");
-                    }
-                }));
+            name.parameterValue(new FakeHttpRequest() {
+                @Override
+                public RelativeUrl url() {
+                    return Url.parseRelative("/path1/path2/path3");
+                }
+            }));
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
         final UrlPathName value = UrlPathName.with("path2");
 
         this.checkEquals(Optional.of(value),
-                name.parameterValue(Maps.of(name, value)));
+            name.parameterValue(Maps.of(name, value)));
     }
 
     @Test
@@ -87,8 +87,8 @@ public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<
     public void testSameUncached() {
         final int index = HttpRequestAttributeUrlPathName.CONSTANT_COUNT + 1;
         this.checkEqualsAndHashCode(
-                HttpRequestAttributeUrlPathName.with(index),
-                HttpRequestAttributeUrlPathName.with(index));
+            HttpRequestAttributeUrlPathName.with(index),
+            HttpRequestAttributeUrlPathName.with(index));
     }
 
     @Test

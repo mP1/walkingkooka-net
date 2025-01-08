@@ -32,16 +32,16 @@ public final class WebEntityFileNameTest implements NameTesting2<WebEntityFileNa
     @Test
     public void testWithForwardSlashFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> WebEntityFileName.with("path/filename")
+            InvalidCharacterException.class,
+            () -> WebEntityFileName.with("path/filename")
         );
     }
 
     @Test
     public void testWithBackSlashFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> WebEntityFileName.with("path\\filename")
+            InvalidCharacterException.class,
+            () -> WebEntityFileName.with("path\\filename")
         );
     }
 
@@ -59,9 +59,9 @@ public final class WebEntityFileNameTest implements NameTesting2<WebEntityFileNa
     public String possibleValidChars(final int i) {
         if (null == this.valid) {
             this.valid = IntStream.rangeClosed(0, Character.MAX_VALUE)
-                    .filter(c -> WebEntityFileName.FILENAME.test((char) c))
-                    .mapToObj(c -> Character.valueOf((char) c).toString())
-                    .collect(Collectors.joining(""));
+                .filter(c -> WebEntityFileName.FILENAME.test((char) c))
+                .mapToObj(c -> Character.valueOf((char) c).toString())
+                .collect(Collectors.joining(""));
         }
         return this.valid;
     }

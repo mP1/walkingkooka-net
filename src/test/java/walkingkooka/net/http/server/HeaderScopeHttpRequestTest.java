@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderScopeHttpRequest>,
-        HttpRequestTesting<HeaderScopeHttpRequest> {
+    HttpRequestTesting<HeaderScopeHttpRequest> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -87,23 +87,23 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     @Test
     public void testHeadersContainsKey() {
         this.containsKeyAndCheck(this.createRequest(),
-                HEADER,
-                true);
+            HEADER,
+            true);
     }
 
     @Test
     public void testHeadersContainsKeyAbsent() {
         this.containsKeyAndCheck(this.createRequest(),
-                HttpHeaderName.COOKIE,
-                false);
+            HttpHeaderName.COOKIE,
+            false);
     }
 
     private void containsKeyAndCheck(final HeaderScopeHttpRequest request,
                                      final Object key,
                                      final boolean containsKey) {
         this.checkEquals(containsKey,
-                request.headers().containsKey(key),
-                "request containsKey " + key + " returned wrong value");
+            request.headers().containsKey(key),
+            "request containsKey " + key + " returned wrong value");
     }
 
     @Test
@@ -114,23 +114,23 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     @Test
     public void testHeadersGet() {
         this.getAndCheck(this.createRequest(),
-                HEADER,
-                HEADER_VALUE);
+            HEADER,
+            HEADER_VALUE);
     }
 
     @Test
     public void testHeadersGetAbsent() {
         this.getAndCheck(this.createRequest(),
-                HttpHeaderName.COOKIE,
-                null);
+            HttpHeaderName.COOKIE,
+            null);
     }
 
     private void getAndCheck(final HeaderScopeHttpRequest request,
                              final Object key,
                              final Object value) {
         this.checkEquals(value,
-                request.headers().get(key),
-                "request get " + key + " returned wrong value");
+            request.headers().get(key),
+            "request get " + key + " returned wrong value");
     }
 
     @Test

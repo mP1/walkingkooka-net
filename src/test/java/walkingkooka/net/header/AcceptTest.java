@@ -30,17 +30,17 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
-        implements HasQualityFactorSortedValuesTesting,
-        ParseStringTesting<Accept>,
-        PredicateTesting {
+    implements HasQualityFactorSortedValuesTesting,
+    ParseStringTesting<Accept>,
+    PredicateTesting {
 
     @Test
     public void testWithDefault() {
         assertSame(
-                Accept.DEFAULT,
-                Accept.with(
-                        Accept.ALL_MEDIA_TYPE
-                )
+            Accept.DEFAULT,
+            Accept.with(
+                Accept.ALL_MEDIA_TYPE
+            )
         );
     }
 
@@ -59,8 +59,8 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Test
     public void testParseStarStar() {
         assertSame(
-                Accept.DEFAULT,
-                Accept.parse("*/*")
+            Accept.DEFAULT,
+            Accept.parse("*/*")
         );
     }
 
@@ -75,7 +75,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Test
     public void testQualityFactorSort2() {
         this.qualitySortedValuesAndCheck(Accept.parse("a/a;q=0.5,b/b,c/c;q=0.25,d/d;q=1.0"),
-                Accept.parse("b/b,d/d;q=1.0,a/a;q=0.5,c/c;q=0.25").value());
+            Accept.parse("b/b,d/d;q=1.0,a/a;q=0.5,c/c;q=0.25").value());
     }
 
     // Predicate........................................................................................................
@@ -83,74 +83,74 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Test
     public void testTestWildcardWildcard() {
         this.testTrue(
-                Accept.parse("*/*"),
-                MediaType.TEXT_PLAIN
+            Accept.parse("*/*"),
+            MediaType.TEXT_PLAIN
         );
     }
 
     @Test
     public void testTestIncludesWildcardWildcard() {
         this.testTrue(
-                Accept.parse("text/custom,*/*"),
-                MediaType.IMAGE_BMP
+            Accept.parse("text/custom,*/*"),
+            MediaType.IMAGE_BMP
         );
     }
 
     @Test
     public void testTestSubTypeWildcardTypeMatched() {
         this.testTrue(
-                Accept.parse("text/*"),
-                MediaType.TEXT_PLAIN
+            Accept.parse("text/*"),
+            MediaType.TEXT_PLAIN
         );
     }
 
     @Test
     public void testTestSubTypeWildcardTypeUnmatched() {
         this.testFalse(
-                Accept.parse("text/*"),
-                MediaType.IMAGE_BMP
+            Accept.parse("text/*"),
+            MediaType.IMAGE_BMP
         );
     }
 
     @Test
     public void testTestUnmatched() {
         this.testFalse(
-                Accept.parse("text/plain,text/html"),
-                MediaType.TEXT_RICHTEXT
+            Accept.parse("text/plain,text/html"),
+            MediaType.TEXT_RICHTEXT
         );
     }
 
     @Test
     public void testTestUnmatched2() {
         this.testFalse(
-                Accept.parse("text/plain,image/bmp"),
-                MediaType.with("text", "bmp")
+            Accept.parse("text/plain,image/bmp"),
+            MediaType.with("text", "bmp")
         );
     }
 
     @Test
     public void testTestParametersIgnored() {
         this.testTrue(
-                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
-                MediaType.TEXT_PLAIN
+            Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+            MediaType.TEXT_PLAIN
         );
     }
 
     @Test
     public void testTestParametersIgnored2() {
         this.testTrue(
-                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
-                MediaType.TEXT_HTML
+            Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+            MediaType.TEXT_HTML
         );
     }
 
     @Test
     public void testTestParametersIgnored3() {
         this.testTrue(
-                Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
-                MediaType.TEXT_HTML.setParameters(
-                        Maps.of(MediaTypeParameterName.Q, 0.5f)
-                )
+            Accept.parse("text/plain;a=1;b=2,text/html;c=3"),
+            MediaType.TEXT_HTML.setParameters(
+                Maps.of(MediaTypeParameterName.Q, 0.5f)
+            )
         );
     }
 
@@ -159,20 +159,20 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Test
     public void testTestOrFailWithTextPlainPass() {
         Accept.parse("text/plain,text/html")
-                .testOrFail(MediaType.TEXT_PLAIN);
+            .testOrFail(MediaType.TEXT_PLAIN);
     }
 
     @Test
     public void testTestOrFailWithTextPlainFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> Accept.parse("text/html,text/json")
-                        .testOrFail(MediaType.TEXT_PLAIN)
+            IllegalArgumentException.class,
+            () -> Accept.parse("text/html,text/json")
+                .testOrFail(MediaType.TEXT_PLAIN)
         );
 
         this.checkEquals(
-                "Accept: Got text/html, text/json require text/plain",
-                thrown.getMessage()
+            "Accept: Got text/html, text/json require text/plain",
+            thrown.getMessage()
         );
     }
 

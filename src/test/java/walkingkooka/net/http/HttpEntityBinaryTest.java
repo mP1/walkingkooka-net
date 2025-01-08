@@ -76,11 +76,11 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final MediaType contentType = MediaType.TEXT_PLAIN;
 
         this.contentTypeAndCheck(
-                HttpEntity.EMPTY.setContentType(contentType)
-                        .setBody(
-                                Binary.with("Hello".getBytes(Charset.defaultCharset()))
-                        ),
-                contentType
+            HttpEntity.EMPTY.setContentType(contentType)
+                .setBody(
+                    Binary.with("Hello".getBytes(Charset.defaultCharset()))
+                ),
+            contentType
         );
     }
 
@@ -89,18 +89,18 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testIsMultipartFormDataWhenMultipartFormData() {
         this.isMultipartFormDataAndCheck(
-                HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
-                        .setBody(BINARY),
-                true
+            HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
+                .setBody(BINARY),
+            true
         );
     }
 
     @Test
     public void testIsMultipartFormDataWhenTextPlain() {
         this.isMultipartFormDataAndCheck(
-                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
-                        .setBody(BINARY),
-                false
+            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                .setBody(BINARY),
+            false
         );
     }
 
@@ -114,7 +114,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testBodyTextWithHeaders() {
         final HttpEntity entity = this.createHttpEntity()
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 777L); // ignored
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 777L); // ignored
         this.check(entity, TEXT);
     }
 
@@ -122,7 +122,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testBodyTextUsesCharset() {
         final HttpEntity entity = this.createHttpEntity();
         final HttpEntity different = entity.setContentType(
-                MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_16)
+            MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_16)
         );
         assertNotSame(entity, different);
 
@@ -143,13 +143,13 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         }
 
         final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
-                Binary.with(bytes)
+            Binary.with(bytes)
         );
         this.checkEquals(
-                binaryHttpEntity,
-                binaryHttpEntity.setBodyText(
-                        binaryHttpEntity.text()
-                )
+            binaryHttpEntity,
+            binaryHttpEntity.setBodyText(
+                binaryHttpEntity.text()
+            )
         );
     }
 
@@ -161,13 +161,13 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         }
 
         final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
-                Binary.with(bytes)
+            Binary.with(bytes)
         );
         this.checkEquals(
-                binaryHttpEntity,
-                HttpEntityText.EMPTY.setBodyText(
-                        binaryHttpEntity.text()
-                )
+            binaryHttpEntity,
+            HttpEntityText.EMPTY.setBodyText(
+                binaryHttpEntity.text()
+            )
         );
     }
 
@@ -183,7 +183,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
             final JarEntry entry = new JarEntry(filename);
             jos.putNextEntry(entry);
             jos.write(
-                    text.getBytes(Charset.defaultCharset())
+                text.getBytes(Charset.defaultCharset())
             );
             jos.closeEntry();
 
@@ -192,14 +192,14 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
             jos.close();
         }
         final HttpEntity binaryHttpEntity = HttpEntityBinary.EMPTY.setBody(
-                Binary.with(baos.toByteArray())
+            Binary.with(baos.toByteArray())
         );
         final HttpEntity textHttpEntity = HttpEntity.EMPTY.setBodyText(
-                binaryHttpEntity.text()
+            binaryHttpEntity.text()
         );
 
         final JarInputStream jis = new JarInputStream(
-                textHttpEntity.body().inputStream()
+            textHttpEntity.body().inputStream()
         );
 
         String text2 = null;
@@ -211,15 +211,15 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
             }
             if (entry.getName().equals(filename)) {
                 text2 = new String(
-                        jis.readAllBytes(),
-                        Charset.defaultCharset()
+                    jis.readAllBytes(),
+                    Charset.defaultCharset()
                 );
             }
         }
 
         this.checkEquals(
-                text,
-                text2
+            text,
+            text2
         );
     }
 
@@ -228,11 +228,11 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testToStringText() {
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH, 257L,
-                        HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
-                        HttpHeaderName.SERVER, "Server 123", "AB\nC"),
-                "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC"
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH, 257L,
+                HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+                HttpHeaderName.SERVER, "Server 123", "AB\nC"),
+            "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC"
         );
     }
 
@@ -241,13 +241,13 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final HttpEntityBinary httpEntityBinary = this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 257L, "");
 
         this.isEmptyAndCheck(
-                httpEntityBinary.body(),
-                true
+            httpEntityBinary.body(),
+            true
         );
 
         this.toStringAndCheck(
-                httpEntityBinary,
-                "Content-Length: 257\r\n\r\n"
+            httpEntityBinary,
+            "Content-Length: 257\r\n\r\n"
         );
     }
 
@@ -255,12 +255,12 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testToStringBinary() {
         final String letters = "a";
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH,
-                        257L, letters
-                ),
-                "Content-Length: 257\r\n\r\n" +
-                        "00000000 61                                              a               " + LineEnding.CRNL
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH,
+                257L, letters
+            ),
+            "Content-Length: 257\r\n\r\n" +
+                "00000000 61                                              a               " + LineEnding.CRNL
         );
     }
 
@@ -268,13 +268,13 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testToStringBinaryUnprintable() {
         final String letters = "\0";
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH,
-                        257L,
-                        letters
-                ),
-                "Content-Length: 257\r\n\r\n" +
-                        "00000000 00                                              .               " + LineEnding.CRNL
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH,
+                257L,
+                letters
+            ),
+            "Content-Length: 257\r\n\r\n" +
+                "00000000 00                                              .               " + LineEnding.CRNL
         );
     }
 
@@ -282,14 +282,14 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testToStringBinaryMultiLine() {
         final String letters = "abcdefghijklmnopq";
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH,
-                        257L,
-                        letters
-                ),
-                "Content-Length: 257\r\n\r\n" +
-                        "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.CRNL +
-                        "00000010 71                                              q               " + LineEnding.CRNL
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH,
+                257L,
+                letters
+            ),
+            "Content-Length: 257\r\n\r\n" +
+                "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.CRNL +
+                "00000010 71                                              q               " + LineEnding.CRNL
         );
     }
 
@@ -297,14 +297,14 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testToStringBinaryMultiLine2() {
         final String letters = "\n\0cdefghijklmnopq";
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH,
-                        257L,
-                        letters
-                ),
-                "Content-Length: 257\r\n\r\n" +
-                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
-                        "00000010 71                                              q               " + LineEnding.CRNL
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH,
+                257L,
+                letters
+            ),
+            "Content-Length: 257\r\n\r\n" +
+                "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
+                "00000010 71                                              q               " + LineEnding.CRNL
         );
     }
 
@@ -312,17 +312,17 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     public void testToStringMultipleHeadersBinary() {
         final String letters = "\n\0cdefghijklmnopq";
         this.toStringAndCheck(
-                this.createHttpEntity(
-                        HttpHeaderName.CONTENT_LENGTH, 257L,
-                        HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
-                        HttpHeaderName.SERVER, "Server 123",
-                        letters
-                ),
-                "Content-Length: 257\r\n" +
-                        "Content-Type: application/octet-stream\r\n" +
-                        "Server: Server 123\r\n\r\n" +
-                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
-                        "00000010 71                                              q               " + LineEnding.CRNL
+            this.createHttpEntity(
+                HttpHeaderName.CONTENT_LENGTH, 257L,
+                HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
+                HttpHeaderName.SERVER, "Server 123",
+                letters
+            ),
+            "Content-Length: 257\r\n" +
+                "Content-Type: application/octet-stream\r\n" +
+                "Server: Server 123\r\n\r\n" +
+                "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.CRNL +
+                "00000010 71                                              q               " + LineEnding.CRNL
         );
     }
 
@@ -342,8 +342,8 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                                                            final T3 value3,
                                                            final String text) {
         return this.createHttpEntity(Maps.of(header1, HttpEntityHeaderList.one(header1, value1),
-                header2, HttpEntityHeaderList.one(header2, value2),
-                header3, HttpEntityHeaderList.one(header3, value3)), text);
+            header2, HttpEntityHeaderList.one(header2, value2),
+            header3, HttpEntityHeaderList.one(header3, value3)), text);
     }
 
     private HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
@@ -361,164 +361,164 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     @Test
     public void testTreePrintHeader() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n"
         );
     }
 
     @Test
     public void testTreePrintSeveralHeader() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .addHeader(HttpHeaderName.SERVER, "Server123"),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Length: 123\n" +
-                        "    Content-Type: text/plain\n" +
-                        "    Server: Server123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .addHeader(HttpHeaderName.SERVER, "Server123"),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Length: 123\n" +
+                "    Content-Type: text/plain\n" +
+                "    Server: Server123\n"
         );
     }
 
     @Test
     public void testTreePrintHeaderContentTypeTextAndBody() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBody(
-                                binary("Body123")
-                        ),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBody(
+                    binary("Body123")
+                ),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 
     @Test
     public void testTreePrintHeaderContentTypeTextAndBodyMultiLine() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .setBody(
-                                binary("Line1\rLine2\nLine3\r\n")
-                        ),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: text/plain\n" +
-                        "  bodyText\n" +
-                        "    Line1\r" +
-                        "    Line2\n" +
-                        "    Line3\r\n" +
-                        "    \n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBody(
+                    binary("Line1\rLine2\nLine3\r\n")
+                ),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: text/plain\n" +
+                "  bodyText\n" +
+                "    Line1\r" +
+                "    Line2\n" +
+                "    Line3\r\n" +
+                "    \n"
         );
     }
 
     @Test
     public void testTreePrintBodyBinary() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setBody(
-                                Binary.with(
-                                        new byte[]{
-                                                0,
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7,
-                                                8,
-                                                9,
-                                                10
-                                        }
-                                )
-                        ),
-                "HttpEntity\n" +
-                        "  body\n" +
-                        "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
+            HttpEntity.EMPTY
+                .setBody(
+                    Binary.with(
+                        new byte[]{
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10
+                        }
+                    )
+                ),
+            "HttpEntity\n" +
+                "  body\n" +
+                "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
         );
     }
 
     @Test
     public void testTreePrintBodyContenTypeNonTextBinary() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.BINARY)
-                        .setBody(
-                                Binary.with(
-                                        new byte[]{
-                                                0,
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7,
-                                                8,
-                                                9,
-                                                10
-                                        }
-                                )
-                        ),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: application/octet-stream\n" +
-                        "  body\n" +
-                        "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.BINARY)
+                .setBody(
+                    Binary.with(
+                        new byte[]{
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10
+                        }
+                    )
+                ),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: application/octet-stream\n" +
+                "  body\n" +
+                "    00 01 02 03 04 05 06 07 08 09 0a                             ...........         \n"
         );
     }
 
     @Test
     public void testTreePrintBody() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setBody(
-                                binary("Body123")
-                        ),
-                "HttpEntity\n" +
-                        "  body\n" +
-                        "    42 6f 64 79 31 32 33                                         Body123             \n"
+            HttpEntity.EMPTY
+                .setBody(
+                    binary("Body123")
+                ),
+            "HttpEntity\n" +
+                "  body\n" +
+                "    42 6f 64 79 31 32 33                                         Body123             \n"
         );
     }
 
     @Test
     public void testTreePrintBodyIncludesLineBreaks() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setBody(
-                                binary("Line1\nLine2\rLine3\r\n")
-                        ),
-                "HttpEntity\n" +
-                        "  body\n" +
-                        "    4c 69 6e 65 31 0a 4c 69 6e 65 32 0d 4c 69 6e 65 33 0d 0a     Line1.Line2.Line3.. \n"
+            HttpEntity.EMPTY
+                .setBody(
+                    binary("Line1\nLine2\rLine3\r\n")
+                ),
+            "HttpEntity\n" +
+                "  body\n" +
+                "    4c 69 6e 65 31 0a 4c 69 6e 65 32 0d 4c 69 6e 65 33 0d 0a     Line1.Line2.Line3.. \n"
         );
     }
 
     @Test
     public void testTreePrintBodyTextContentTypeApplicationJson() {
         this.treePrintAndCheck(
-                HttpEntity.EMPTY
-                        .setContentType(MediaType.APPLICATION_JSON)
-                        .setBody(binary("Body123")),
-                "HttpEntity\n" +
-                        "  header(s)\n" +
-                        "    Content-Type: application/json\n" +
-                        "  bodyText\n" +
-                        "    Body123\n"
+            HttpEntity.EMPTY
+                .setContentType(MediaType.APPLICATION_JSON)
+                .setBody(binary("Body123")),
+            "HttpEntity\n" +
+                "  header(s)\n" +
+                "    Content-Type: application/json\n" +
+                "  bodyText\n" +
+                "    Body123\n"
         );
     }
 
     private static Binary binary(final String text) {
         return Binary.with(
-                text.getBytes(Charset.defaultCharset())
+            text.getBytes(Charset.defaultCharset())
         );
     }
 

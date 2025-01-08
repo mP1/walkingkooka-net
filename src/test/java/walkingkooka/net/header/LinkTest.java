@@ -39,9 +39,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderWithParametersTestCase<Link,
-        LinkParameterName<?>>
-        implements JsonNodeMarshallingTesting<Link>,
-        ParseStringTesting<List<Link>> {
+    LinkParameterName<?>>
+    implements JsonNodeMarshallingTesting<Link>,
+    ParseStringTesting<List<Link>> {
 
     @Test
     public void testWithNullFails() {
@@ -99,9 +99,9 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     public void testSetParametersDifferentAndBack() {
         final Link link = this.createLink();
         this.checkEquals(link,
-                link
-                        .setParameters(this.parameters())
-                        .setParameters(Link.NO_PARAMETERS));
+            link
+                .setParameters(this.parameters())
+                .setParameters(Link.NO_PARAMETERS));
     }
 
     private Map<LinkParameterName<?>, Object> parameters() {
@@ -121,23 +121,23 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testToHeaderTextListListOfOne() {
         this.toHeaderTextListAndCheck("<https://example.com>",
-                this.createLink());
+            this.createLink());
     }
 
     @Test
     public void testToHeaderTextListListOfOneWithParameters() {
         this.toHeaderTextListAndCheck("<https://example.com>;rel=previous",
-                this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))));
+            this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))));
     }
 
     @Test
     public void testToHeaderTextListListOfMany() {
         this.toHeaderTextListAndCheck(
-                "<https://example.com>, <https://example2.com>",
-                this.createLink(),
-                Link.with(
-                        Url.parse("https://example2.com")
-                )
+            "<https://example.com>, <https://example2.com>",
+            this.createLink(),
+            Link.with(
+                Url.parse("https://example2.com")
+            )
         );
     }
 
@@ -182,19 +182,19 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     public void testUnmarshallLink() {
         final String href = "https://example.com";
         this.unmarshallAndCheck(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.string(href)),
-                Link.with(Url.parse(href)));
+            Link.with(Url.parse(href)));
     }
 
     @Test
     public void testMarshall() {
         this.marshallAndCheck2("<https://example.com>",
-                "{\"href\": \"https://example.com\"}");
+            "{\"href\": \"https://example.com\"}");
     }
 
     @Test
     public void testMarshallRel() {
         this.marshallAndCheck2("<https://example.com>;type=text/plain;rel=previous",
-                "{\"href\": \"https://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
+            "{\"href\": \"https://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
     }
 
     private void marshallAndCheck2(final String link, final String json) {
@@ -216,7 +216,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testEqualsDifferentParameters2() {
         this.checkNotEquals(this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)),
-                this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.BINARY)));
+            this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.BINARY)));
     }
 
     // parse.......................................................................................
@@ -224,34 +224,34 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testParseLinkWithMedia() {
         this.parseStringAndCheck("<https://example.com>;media=\"abc 123\"",
-                this.createLink().setParameters(Maps.of(LinkParameterName.MEDIA, "abc 123")));
+            this.createLink().setParameters(Maps.of(LinkParameterName.MEDIA, "abc 123")));
     }
 
     @Test
     public void testParseLinkWithMethod() {
         this.parseStringAndCheck("<https://example.com>;method=GET",
-                this.createLink().setParameters(Maps.of(LinkParameterName.METHOD, HttpMethod.GET)));
+            this.createLink().setParameters(Maps.of(LinkParameterName.METHOD, HttpMethod.GET)));
     }
 
     @Test
     public void testParseLinkWithType() {
         this.parseStringAndCheck("<https://example.com>;type=text/plain",
-                this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+            this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
     }
 
     @Test
     public void testParseSeveralLinks() {
         this.parseStringAndCheck(
-                "<https://example.com>;rel=previous, <https://example2.com>",
-                this.createLink()
-                        .setParameters(
-                                Maps.of(
-                                        LinkParameterName.REL, LinkRelation.parse("previous")
-                                )
-                        ),
-                Link.with(
-                        Url.parse("https://example2.com")
-                )
+            "<https://example.com>;rel=previous, <https://example2.com>",
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.REL, LinkRelation.parse("previous")
+                    )
+                ),
+            Link.with(
+                Url.parse("https://example2.com")
+            )
         );
     }
 
@@ -264,17 +264,17 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testEqualsIgnoringParametersDifferent() {
         this.equalsIgnoringParametersAndCheck(
-                Link.parse("<https://example.com>").get(0),
-                Link.parse("<https://different.example.com>").get(0),
-                false);
+            Link.parse("<https://example.com>").get(0),
+            Link.parse("<https://different.example.com>").get(0),
+            false);
     }
 
     @Test
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
-                Link.parse("<https://example.com>;a=1").get(0),
-                Link.parse("<https://example.com>;b=2").get(0),
-                true);
+            Link.parse("<https://example.com>;a=1").get(0),
+            Link.parse("<https://example.com>;b=2").get(0),
+            true);
     }
 
     // equalsOnlyPresentParameters.........................................................................................
@@ -282,41 +282,41 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
         this.equalsOnlyPresentParametersAndCheck(
-                Link.parse("<https://example.com>").get(0),
-                Link.parse("<https://different.example.com>").get(0),
-                false);
+            Link.parse("<https://example.com>").get(0),
+            Link.parse("<https://different.example.com>").get(0),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                Link.parse("<https://example.com>; a=1").get(0),
-                Link.parse("<https://example.com>; b=2").get(0),
-                false);
+            Link.parse("<https://example.com>; a=1").get(0),
+            Link.parse("<https://example.com>; b=2").get(0),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters2() {
         this.equalsOnlyPresentParametersAndCheck(
-                Link.parse("<https://example.com>; a=1&b=2").get(0),
-                Link.parse("<https://example.com>; b=2").get(0),
-                false);
+            Link.parse("<https://example.com>; a=1&b=2").get(0),
+            Link.parse("<https://example.com>; b=2").get(0),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                Link.parse("<https://example.com>; a=1").get(0),
-                Link.parse("<https://example.com>; a=1").get(0),
-                true);
+            Link.parse("<https://example.com>; a=1").get(0),
+            Link.parse("<https://example.com>; a=1").get(0),
+            true);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                Link.parse("<https://example.com>; a=1").get(0),
-                Link.parse("<https://example.com>; a=1; b=2").get(0),
-                true);
+            Link.parse("<https://example.com>; a=1").get(0),
+            Link.parse("<https://example.com>; a=1; b=2").get(0),
+            true);
     }
 
     // helpers.......................................................................................

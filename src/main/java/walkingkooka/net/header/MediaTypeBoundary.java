@@ -53,8 +53,8 @@ import java.util.function.Supplier;
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html"></a>
  */
 public final class MediaTypeBoundary implements Value<String>,
-        Header,
-        Comparable<MediaTypeBoundary> {
+    Header,
+    Comparable<MediaTypeBoundary> {
 
     /**
      * The length of generated boundary's.
@@ -77,8 +77,8 @@ public final class MediaTypeBoundary implements Value<String>,
         Objects.requireNonNull(boundaryCharacters, "boundaryCharacters");
 
         return generate0(body,
-                boundaryCharacters,
-                BOUNDARY_LENGTH);
+            boundaryCharacters,
+            BOUNDARY_LENGTH);
     }
 
     // @VisibleForTesting
@@ -159,8 +159,8 @@ public final class MediaTypeBoundary implements Value<String>,
         quoted.append(DOUBLE_QUOTE);
 
         return new MediaTypeBoundary(trimmed, requiresDoubleQuotes ?
-                quoted.toString() :
-                trimmed);
+            quoted.toString() :
+            trimmed);
     }
 
     private final static char DOUBLE_QUOTE = '"';
@@ -265,13 +265,13 @@ public final class MediaTypeBoundary implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof MediaTypeBoundary &&
-                        this.equals0(Cast.to(other));
+            other instanceof MediaTypeBoundary &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final MediaTypeBoundary other) {
         return this.value.equals(other.value) &&
-                this.headerText.equals(other.headerText);
+            this.headerText.equals(other.headerText);
     }
 
     /**

@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet>
-        implements SetTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
+    implements SetTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, List<?>>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Object VALUE1 = 111L;
@@ -40,7 +40,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
     @Test
     public void testAddFails() {
         this.addFails(this.createSet(),
-                Maps.entry(HEADER1, list(VALUE1)));
+            Maps.entry(HEADER1, list(VALUE1)));
     }
 
     @Test
@@ -58,7 +58,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends H
     @Test
     public void testRemoveFails() {
         this.removeFails(this.createSet(),
-                Maps.entry(HEADER1, list(VALUE1)));
+            Maps.entry(HEADER1, list(VALUE1)));
     }
 
     @Test

@@ -56,7 +56,7 @@ import java.util.stream.Collectors;
  * </pre>
  */
 public final class RangeHeader implements Header,
-        Value<List<Range<Long>>> {
+    Value<List<Range<Long>>> {
 
     public final static CharacterConstant BETWEEN = CharacterConstant.with('-');
 
@@ -75,8 +75,8 @@ public final class RangeHeader implements Header,
         }
 
         final List<Range<Long>> ranges = Arrays.stream(header.substring(equalsAfterUnit + 1).split(SEPARATOR.string()))
-                .map(RangeHeader::range)
-                .collect(Collectors.toList());
+            .map(RangeHeader::range)
+            .collect(Collectors.toList());
 
         try {
             final RangeHeaderUnit unit = RangeHeaderUnit.parse(header.substring(0, equalsAfterUnit));
@@ -93,9 +93,9 @@ public final class RangeHeader implements Header,
         final int dash = value.indexOf(BETWEEN.character());
         if (-1 == dash) {
             throw new HeaderException("Missing " +
-                    CharSequences.quoteIfChars(BETWEEN.character()) +
-                    " from header value " +
-                    CharSequences.quote(value));
+                CharSequences.quoteIfChars(BETWEEN.character()) +
+                " from header value " +
+                CharSequences.quote(value));
         }
 
         if (0 == dash) {
@@ -105,8 +105,8 @@ public final class RangeHeader implements Header,
         final Range<Long> from = Range.greaterThanEquals(Long.parseLong(value.substring(0, dash).trim()));
         final String to = value.substring(dash + 1);
         return to.isEmpty() ?
-                from :
-                from.and(Range.lessThanEquals(Long.parseLong(to)));
+            from :
+            from.and(Range.lessThanEquals(Long.parseLong(to)));
     }
 
     /**
@@ -136,8 +136,8 @@ public final class RangeHeader implements Header,
     public RangeHeader setUnit(final RangeHeaderUnit unit) {
         checkUnit(unit);
         return this.unit.equals(unit) ?
-                this :
-                this.replace(unit, this.ranges);
+            this :
+            this.replace(unit, this.ranges);
     }
 
     private final RangeHeaderUnit unit;
@@ -158,8 +158,8 @@ public final class RangeHeader implements Header,
     public RangeHeader setValue(final List<Range<Long>> value) {
         final List<Range<Long>> copy = copyAndCheckValue(value);
         return this.ranges.equals(copy) ?
-                this :
-                this.replace(this.unit, copy);
+            this :
+            this.replace(this.unit, copy);
     }
 
     private final List<Range<Long>> ranges;
@@ -261,20 +261,20 @@ public final class RangeHeader implements Header,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof RangeHeader &&
-                        this.equals0(Cast.to(other));
+            other instanceof RangeHeader &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final RangeHeader other) {
         return this.unit.equals(other.unit) &
-                this.ranges.equals(other.ranges);
+            this.ranges.equals(other.ranges);
     }
 
     @Override
     public String toString() {
         return this.unit.toHeaderText() + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
-                .map(this::toStringRange)
-                .collect(Collectors.joining(SEPARATOR + " "));
+            .map(this::toStringRange)
+            .collect(Collectors.joining(SEPARATOR + " "));
     }
 
     /**

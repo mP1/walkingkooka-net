@@ -23,7 +23,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 public final class HeaderParserWithParametersTest extends HeaderParserWithParametersTestCase<HeaderParserWithParameters<?, ?>,
-        Void> {
+    Void> {
 
     @Test
     public void testParseQuotedFails() {
@@ -195,37 +195,37 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorParameterValueParameterSeparatorParameterNameKeyValueSeparatorParameterValue() {
         this.parseStringAndCheck("v;p=\"q\";r=\"s\"",
-                "[value-v][parameter-name-p][parameter-value-quoted-q][parameter-name-r][parameter-value-quoted-s]v; p=q; r=s");
+            "[value-v][parameter-name-p][parameter-value-quoted-q][parameter-name-r][parameter-value-quoted-s]v; p=q; r=s");
     }
 
     @Test
     public void testParseValueValueSeparatorValue() {
         this.parseStringAndCheck("v,w",
-                "[value-v]v[value-w]w");
+            "[value-v]v[value-w]w");
     }
 
     @Test
     public void testParseValueValueSeparatorValueValueSeparatorValue() {
         this.parseStringAndCheck("v,w,x",
-                "[value-v]v[value-w]w[value-x]x");
+            "[value-v]v[value-w]w[value-x]x");
     }
 
     @Test
     public void testParseValueParametersValueSeparatorValueValueSeparatorValue() {
         this.parseStringAndCheck("v;p=q,w,x",
-                "[value-v][parameter-name-p][parameter-value-unquoted-q]v; p=q[value-w]w[value-x]x");
+            "[value-v][parameter-name-p][parameter-value-unquoted-q]v; p=q[value-w]w[value-x]x");
     }
 
     @Test
     public void testParseWildcardValueSeparatorValue() {
         this.parseStringAndCheck("*,v",
-                "[wildcard]*[value-v]v");
+            "[wildcard]*[value-v]v");
     }
 
     @Test
     public void testParseWildcardValueSeparatorParameterNameKeyValueSeparatorParameterValue() {
         this.parseStringAndCheck("*;p=q",
-                "[wildcard][parameter-name-p][parameter-value-unquoted-q]*; p=q");
+            "[wildcard][parameter-name-p][parameter-value-unquoted-q]*; p=q");
     }
 
     private void parseStringAndCheck(final String text,
@@ -286,8 +286,8 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
         }.parse();
 
         this.checkEquals(events,
-                recorded.toString(),
-                "recorded events for " + CharSequences.quoteAndEscape(text));
+            recorded.toString(),
+            "recorded events for " + CharSequences.quoteAndEscape(text));
     }
 
     @Override

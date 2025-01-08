@@ -27,9 +27,9 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         final UrlPathName name = UrlPathName.ROOT;
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("", name),
-                ""
+            name,
+            unnormalized("", name),
+            ""
         );
     }
 
@@ -38,9 +38,9 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         final UrlPathName name = UrlPathName.with(".");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized(".", name),
-                "."
+            name,
+            unnormalized(".", name),
+            "."
         );
     }
 
@@ -49,9 +49,9 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         final UrlPathName name = UrlPathName.with("..");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("..", name),
-                ".."
+            name,
+            unnormalized("..", name),
+            ".."
         );
     }
 
@@ -60,9 +60,9 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         final UrlPathName name = UrlPathName.with("abc");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("abc", name),
-                "abc"
+            name,
+            unnormalized("abc", name),
+            "abc"
         );
     }
 
@@ -71,9 +71,9 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         final UrlPathName name = UrlPathName.with("2");
 
         this.appendNameAndCheck(
-                name,
-                unnormalized("2", name),
-                "2"
+            name,
+            unnormalized("2", name),
+            "2"
         );
     }
 

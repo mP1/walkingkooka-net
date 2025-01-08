@@ -34,12 +34,12 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
 
     static UrlPathPredicate with(final UrlPath path) {
         return new UrlPathPredicate(
-                path,
-                component(
-                        path.namesList()
-                                .iterator(),
-                        path
-                )
+            path,
+            component(
+                path.namesList()
+                    .iterator(),
+                path
+            )
         );
     }
 
@@ -53,30 +53,30 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
             switch (nameText) {
                 case "*":
                     component = UrlPathPredicateComponent.star(
-                            component(
-                                    names,
-                                    path
-                            )
+                        component(
+                            names,
+                            path
+                        )
                     );
                     break;
                 case "**":
                     if (names.hasNext()) {
                         throw new IllegalArgumentException(
-                                "Pattern should only contain \"**\" at the end, " +
-                                        CharSequences.quoteAndEscape(
-                                                path.value()
-                                        )
+                            "Pattern should only contain \"**\" at the end, " +
+                                CharSequences.quoteAndEscape(
+                                    path.value()
+                                )
                         );
                     }
                     component = UrlPathPredicateComponent.starStar();
                     break;
                 default:
                     component = UrlPathPredicateComponent.name(
-                            name,
-                            component(
-                                    names,
-                                    path
-                            )
+                        name,
+                        component(
+                            names,
+                            path
+                        )
                     );
                     break;
             }
@@ -98,8 +98,8 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
     @Override
     public boolean test(final UrlPath path) {
         return null != path && this.first.test(
-                path.namesList()
-                        .iterator()
+            path.namesList()
+                .iterator()
         );
     }
 
@@ -113,7 +113,7 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof UrlPathPredicate && this.equals0((UrlPathPredicate) other);
+            other instanceof UrlPathPredicate && this.equals0((UrlPathPredicate) other);
     }
 
     private boolean equals0(final UrlPathPredicate other) {

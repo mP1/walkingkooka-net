@@ -32,8 +32,8 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
      */
     static ContentDispositionFileNameNotEncoded with(final String name) {
         FILENAME.failIfNullOrEmptyOrFalse(
-                "filename",
-                name
+            "filename",
+            name
         );
 
         return new ContentDispositionFileNameNotEncoded(name);
@@ -43,9 +43,9 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
      * A {@link CharPredicate} that only returns true if the given character does not require an encoded filename.
      */
     final static CharPredicate FILENAME = CharPredicates.rfc2045Token()
-            .or(
-                    CharPredicates.is('/')
-            );
+        .or(
+            CharPredicates.is('/')
+        );
 
     /**
      * Private constructor use factory.
@@ -83,8 +83,8 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         final String without = removePathIfNecessaryOrNull(this.name);
 
         return null == without ?
-                this :
-                new ContentDispositionFileNameNotEncoded(without);
+            this :
+            new ContentDispositionFileNameNotEncoded(without);
     }
 
     @Override

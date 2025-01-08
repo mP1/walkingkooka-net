@@ -55,8 +55,8 @@ final class ContentEncodingHeaderHandler extends NonStringHeaderHandler<ContentE
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof ContentEncoding,
-                ContentEncoding.class
+            v -> v instanceof ContentEncoding,
+            ContentEncoding.class
         );
     }
 

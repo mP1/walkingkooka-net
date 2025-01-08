@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AcceptEncodingValueParameterNameTest extends HeaderParameterNameTestCase<AcceptEncodingValueParameterName<?>,
-        AcceptEncodingValueParameterName<?>> {
+    AcceptEncodingValueParameterName<?>> {
 
     @Test
     public void testControlCharacterFails() {
@@ -93,18 +93,18 @@ final public class AcceptEncodingValueParameterNameTest extends HeaderParameterN
     @Test
     public void testParseQFactor() {
         this.parseStringAndCheck(
-                AcceptEncodingValueParameterName.Q::parseValue,
-                "0.75",
-                0.75f
+            AcceptEncodingValueParameterName.Q::parseValue,
+            "0.75",
+            0.75f
         );
     }
 
     @Test
     public void testParseString() {
         this.parseStringAndCheck(
-                AcceptEncodingValueParameterName.with("xyz")::parseValue,
-                "abc",
-                "abc"
+            AcceptEncodingValueParameterName.with("xyz")::parseValue,
+            "abc",
+            "abc"
         );
     }
 

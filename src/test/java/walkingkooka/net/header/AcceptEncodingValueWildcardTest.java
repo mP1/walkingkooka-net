@@ -66,13 +66,13 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     @Test
     public void testParseWildcard() {
         this.parseStringAndCheck("*",
-                AcceptEncodingValue.WILDCARD_ENCODING);
+            AcceptEncodingValue.WILDCARD_ENCODING);
     }
 
     @Test
     public void testParseWhitespaceTokenWhitespace() {
         this.parseStringAndCheck(" * ",
-                AcceptEncodingValue.WILDCARD_ENCODING);
+            AcceptEncodingValue.WILDCARD_ENCODING);
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -80,17 +80,17 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     @Test
     public void testEqualsIgnoringParametersDifferent() {
         this.equalsIgnoringParametersAndCheck(
-                AcceptEncodingValue.WILDCARD_ENCODING,
-                AcceptEncodingValue.GZIP,
-                false);
+            AcceptEncodingValue.WILDCARD_ENCODING,
+            AcceptEncodingValue.GZIP,
+            false);
     }
 
     @Test
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
-                AcceptEncodingValue.parse("*;q=1.0"),
-                AcceptEncodingValue.parse("*;q=0.5"),
-                true);
+            AcceptEncodingValue.parse("*;q=1.0"),
+            AcceptEncodingValue.parse("*;q=0.5"),
+            true);
     }
 
     // equalsOnlyPresentParameters.........................................................................................
@@ -98,41 +98,41 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
         this.equalsOnlyPresentParametersAndCheck(
-                AcceptEncodingValue.BR,
-                AcceptEncodingValue.GZIP,
-                false);
+            AcceptEncodingValue.BR,
+            AcceptEncodingValue.GZIP,
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                AcceptEncodingValue.parse("*;q=1.0"),
-                AcceptEncodingValue.parse("*;q=0.5"),
-                false);
+            AcceptEncodingValue.parse("*;q=1.0"),
+            AcceptEncodingValue.parse("*;q=0.5"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters2() {
         this.equalsOnlyPresentParametersAndCheck(
-                AcceptEncodingValue.parse("*;q=1.0;parameter-2=value2"),
-                AcceptEncodingValue.parse("*;q=1.0"),
-                false);
+            AcceptEncodingValue.parse("*;q=1.0;parameter-2=value2"),
+            AcceptEncodingValue.parse("*;q=1.0"),
+            false);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                AcceptEncodingValue.parse("*;q=1.0"),
-                AcceptEncodingValue.parse("*;q=1.0"),
-                true);
+            AcceptEncodingValue.parse("*;q=1.0"),
+            AcceptEncodingValue.parse("*;q=1.0"),
+            true);
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedAndIgnoredParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-                AcceptEncodingValue.parse("*;q=1.0"),
-                AcceptEncodingValue.parse("*;q=1.0;parameter-2=value2"),
-                true);
+            AcceptEncodingValue.parse("*;q=1.0"),
+            AcceptEncodingValue.parse("*;q=1.0;parameter-2=value2"),
+            true);
     }
 
     // helpers..........................................................................................................

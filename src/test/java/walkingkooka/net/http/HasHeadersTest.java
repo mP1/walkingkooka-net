@@ -62,8 +62,8 @@ public final class HasHeadersTest implements ClassTesting2<HasHeaders> {
                                  final Charset defaultCharset,
                                  final Charset expected) {
         this.checkEquals(expected,
-                this.request(contentType, new byte[0]).charset(defaultCharset),
-                () -> "contentType: " + contentType + " default: " + defaultCharset);
+            this.request(contentType, new byte[0]).charset(defaultCharset),
+            () -> "contentType: " + contentType + " default: " + defaultCharset);
     }
 
     // helper...........................................................................................................
@@ -74,8 +74,8 @@ public final class HasHeadersTest implements ClassTesting2<HasHeaders> {
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return null == contentType ?
-                        Maps.empty() :
-                        Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse(contentType)));
+                    Maps.empty() :
+                    Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse(contentType)));
             }
 
             @Override

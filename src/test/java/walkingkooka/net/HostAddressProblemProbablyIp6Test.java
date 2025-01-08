@@ -24,8 +24,8 @@ public final class HostAddressProblemProbablyIp6Test extends HostAddressProblemT
     @Test
     public void testMessage() {
         this.messageAndCheck(HostAddressProblemProbablyIp6.INSTANCE,
-                "!invalid",
-                "Host probably an ip6 dot notation address=\"!invalid\"");
+            "!invalid",
+            "Host probably an ip6 dot notation address=\"!invalid\"");
     }
 
     @Override

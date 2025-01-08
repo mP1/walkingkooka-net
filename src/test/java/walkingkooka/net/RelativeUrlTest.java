@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<RelativeUrl>
-        implements ComparableTesting2<RelativeUrl> {
+    implements ComparableTesting2<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
@@ -50,8 +50,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.EMPTY);
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -65,8 +65,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.EMPTY);
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -80,8 +80,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.EMPTY);
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -95,8 +95,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.EMPTY);
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -110,8 +110,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.EMPTY);
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -125,8 +125,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.with("fragment789"));
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -140,8 +140,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkFragment(url, UrlFragment.with("fragment+789"));
 
         this.toStringAndCheck(
-                url,
-                string
+            url,
+            string
         );
     }
 
@@ -201,38 +201,38 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Test
     public void testNormalizeRequired() {
         this.normalizeAndCheck(
-                "/path1/path2/../path3?query1=2",
-                "/path1/path3?query1=2"
+            "/path1/path2/../path3?query1=2",
+            "/path1/path3?query1=2"
         );
     }
 
     @Test
     public void testNormalizeRequired2() {
         this.normalizeAndCheck(
-                "/path1/path2/./path3?query1=2",
-                "/path1/path2/path3?query1=2"
+            "/path1/path2/./path3?query1=2",
+            "/path1/path2/path3?query1=2"
         );
     }
 
     @Test
     public void testNormalizeUnnecessary() {
         this.normalizeAndCheck(
-                "/path1/path2/path3?query1=2"
+            "/path1/path2/path3?query1=2"
         );
     }
 
     @Test
     public void testNormalizeWithoutPathUnnecessary() {
         this.normalizeAndCheck(
-                "",
-                "/"
+            "",
+            "/"
         );
     }
 
     @Test
     public void testNormalizeEmptyPathUnnecessary() {
         this.normalizeAndCheck(
-                "/"
+            "/"
         );
     }
 
@@ -277,16 +277,16 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Test
     public void testCompareLess() {
         this.compareToAndCheckLess(
-                Url.parseRelative("/path1?query2#fragment3"),
-                Url.parseRelative("/path1/path2?query2#fragment3")
+            Url.parseRelative("/path1?query2#fragment3"),
+            Url.parseRelative("/path1/path2?query2#fragment3")
         );
     }
 
     @Test
     public void testCompareCaseSensitivity() {
         this.compareToAndCheckLess(
-                Url.parseRelative("/ABC?query2#fragment3"),
-                Url.parseRelative("/xyz?query2#fragment3")
+            Url.parseRelative("/ABC?query2#fragment3"),
+            Url.parseRelative("/xyz?query2#fragment3")
         );
     }
 

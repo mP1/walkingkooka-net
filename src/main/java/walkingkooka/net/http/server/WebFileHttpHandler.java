@@ -64,8 +64,8 @@ final class WebFileHttpHandler implements HttpHandler {
 
         // extract path and verify is valid.
         final UrlPath fullPath = request.url()
-                .path()
-                .normalize();
+            .path()
+            .normalize();
         final UrlPath basePath = this.basePath;
 
         final String fullPathString = fullPath.value();
@@ -76,8 +76,8 @@ final class WebFileHttpHandler implements HttpHandler {
         }
 
         this.files.apply(UrlPath.parse(fullPathString.substring(basePathString.length())))
-                .accept((webFile) -> this.found(webFile, request, response),
-                        (status) -> this.notFound(status, response));
+            .accept((webFile) -> this.found(webFile, request, response),
+                (status) -> this.notFound(status, response));
     }
 
     /**
@@ -134,7 +134,7 @@ final class WebFileHttpHandler implements HttpHandler {
         if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
             status = HttpStatusCode.OK.status();
             entity = headers(file)
-                    .setBody(file, HttpEntity.DEFAULT_BODY_CHARSET);
+                .setBody(file, HttpEntity.DEFAULT_BODY_CHARSET);
         } else {
             status = HttpStatusCode.NOT_ACCEPTABLE.status();
             entity = HttpEntity.EMPTY;
@@ -145,12 +145,12 @@ final class WebFileHttpHandler implements HttpHandler {
 
     private static HttpEntity headers(final WebFile file) {
         final HttpEntity entity = HttpEntity.EMPTY
-                .setContentType(file.contentType())
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
-                .addHeader(HttpHeaderName.LAST_MODIFIED, file.lastModified());
+            .setContentType(file.contentType())
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
+            .addHeader(HttpHeaderName.LAST_MODIFIED, file.lastModified());
         return file.etag()
-                .map(e -> entity.addHeader(HttpHeaderName.E_TAG, e))
-                .orElse(entity);
+            .map(e -> entity.addHeader(HttpHeaderName.E_TAG, e))
+            .orElse(entity);
     }
 
     /**

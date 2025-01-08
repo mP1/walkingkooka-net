@@ -63,8 +63,8 @@ final class HttpRequestAttributeRoutingPathComponentCountPredicate implements Pr
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpRequestAttributeRoutingPathComponentCountPredicate &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpRequestAttributeRoutingPathComponentCountPredicate &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpRequestAttributeRoutingPathComponentCountPredicate other) {

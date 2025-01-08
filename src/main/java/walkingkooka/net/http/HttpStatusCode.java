@@ -37,8 +37,8 @@ public final class HttpStatusCode {
     public static HttpStatusCode withCode(final int code) {
         final HttpStatusCode status = CONSTANTS.get(code);
         return null != status ?
-                status :
-                new HttpStatusCode(code, "Status=" + code);
+            status :
+            new HttpStatusCode(code, "Status=" + code);
     }
 
     /**
@@ -60,8 +60,8 @@ public final class HttpStatusCode {
     private static HttpStatusCode register(final int code,
                                            final String message) {
         final HttpStatusCode constant = new HttpStatusCode(
-                code,
-                message
+            code,
+            message
         );
         CONSTANTS.putIfAbsent(code, constant);
         return constant;
@@ -298,8 +298,8 @@ public final class HttpStatusCode {
      */
     public HttpStatus setMessage(final String message) {
         return this.message.equals(message) ?
-                this.status() :
-                HttpStatus.with(this, message);
+            this.status() :
+            HttpStatus.with(this, message);
     }
 
     /**
@@ -308,8 +308,8 @@ public final class HttpStatusCode {
      */
     public HttpStatus setMessageOrDefault(final String message) {
         return CharSequences.isNullOrEmpty(message) || message.trim().isEmpty() || this.message.equals(message) ?
-                this.status() :
-                HttpStatus.with(this, message);
+            this.status() :
+            HttpStatus.with(this, message);
     }
 
     /**

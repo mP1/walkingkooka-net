@@ -97,13 +97,13 @@ final class ETagNonWildcard extends ETag {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ETagNonWildcard &&
-                        this.equals0(Cast.to(other));
+            other instanceof ETagNonWildcard &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ETagNonWildcard other) {
         return this.value.equals(other.value) &&
-                this.validator.equals(other.validator);
+            this.validator.equals(other.validator);
     }
 
     // toString........................................................................................................

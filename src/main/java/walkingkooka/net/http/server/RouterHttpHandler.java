@@ -48,8 +48,8 @@ final class RouterHttpHandler implements HttpHandler {
         Objects.requireNonNull(response, "response");
 
         this.router.route(request.routerParameters())
-                .orElse(this.notFound)
-                .handle(request, response);
+            .orElse(this.notFound)
+            .handle(request, response);
     }
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;

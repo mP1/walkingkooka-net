@@ -61,9 +61,9 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     private void createAndCheck(final String value) {
         final ContentDispositionFileNameNotEncoded contentDisposition = ContentDispositionFileNameNotEncoded.with(value);
         this.check(contentDisposition,
-                value,
-                ContentDispositionFileNameNotEncoded.NO_CHARSET,
-                ContentDispositionFileNameNotEncoded.NO_LANGUAGE);
+            value,
+            ContentDispositionFileNameNotEncoded.NO_CHARSET,
+            ContentDispositionFileNameNotEncoded.NO_LANGUAGE);
         this.checkWithoutPath(contentDisposition, null);
     }
 
@@ -96,8 +96,8 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     @Test
     public void testParameterName() {
         this.parameterNameAndCheck(
-                this.createHeader(),
-                ContentDispositionParameterName.FILENAME
+            this.createHeader(),
+            ContentDispositionParameterName.FILENAME
         );
     }
 
@@ -108,8 +108,8 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         final ContentDispositionFileNameNotEncoded notEncoded = ContentDispositionFileNameNotEncoded.with("filename123");
 
         this.toNotEncodedAndCheck(
-                notEncoded,
-                notEncoded.toNotEncoded()
+            notEncoded,
+            notEncoded.toNotEncoded()
         );
     }
 
@@ -118,7 +118,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     @Test
     public void testToNotEncodedIfPossible() {
         this.toNotEncodedIfPossibleAndCheck(
-                ContentDispositionFileNameNotEncoded.with("filename123")
+            ContentDispositionFileNameNotEncoded.with("filename123")
         );
     }
 

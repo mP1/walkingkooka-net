@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class CharsetNameTest implements ClassTesting2<CharsetName>,
-        NameTesting2<CharsetName, CharsetName> {
+    NameTesting2<CharsetName, CharsetName> {
 
     @Test
     public void testWithUtfDash8() {
@@ -57,9 +57,9 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     @Test
     public void testWildcard() {
         this.check(CharsetName.WILDCARD_CHARSET,
-                "*",
-                CharsetName.NO_CHARSET,
-                true);
+            "*",
+            CharsetName.NO_CHARSET,
+            true);
     }
 
     private void check(final CharsetName charsetName,
@@ -87,7 +87,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
 
     private void checkValue(final CharsetName charsetName, final String value) {
         assertTrue(value.equalsIgnoreCase(charsetName.value()),
-                "value charsetName=" + charsetName + " value=" + value);
+            "value charsetName=" + charsetName + " value=" + value);
     }
 
     @Test
@@ -109,7 +109,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     public void testConstantUtfDash8Aliases() {
         final Charset charset = StandardCharsets.UTF_8;
         charset.aliases().
-                forEach(this::constantAndCheck);
+            forEach(this::constantAndCheck);
     }
 
     private void constantAndCheck(final String name) {
@@ -123,7 +123,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     @Test
     public void testSetParameters() {
         final AcceptCharsetValue header = CharsetName.UTF_8
-                .setParameters(AcceptCharsetValue.NO_PARAMETERS);
+            .setParameters(AcceptCharsetValue.NO_PARAMETERS);
         this.checkEquals(CharsetName.UTF_8, header.value(), "charset");
         this.checkEquals(AcceptCharsetValue.NO_PARAMETERS, header.parameters(), "parameters");
     }
@@ -135,7 +135,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
         final CharsetName unsupported = CharsetName.with("unsupported");
 
         this.compareToArraySortAndCheck(utf8, unsupported, wildcard,
-                wildcard, unsupported, utf8);
+            wildcard, unsupported, utf8);
     }
 
     @Override
@@ -176,8 +176,8 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS_DIGITS :
-                ASCII_LETTERS_DIGITS + "-+.:_";
+            ASCII_LETTERS_DIGITS :
+            ASCII_LETTERS_DIGITS + "-+.:_";
     }
 
     @Override

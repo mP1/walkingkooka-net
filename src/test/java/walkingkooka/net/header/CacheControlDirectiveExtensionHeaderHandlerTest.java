@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<CacheControlDirectiveExtensionHeaderHandler, Object> {
+    NonStringHeaderHandlerTestCase<CacheControlDirectiveExtensionHeaderHandler, Object> {
 
     @Test
     public void testCheckLong() {
@@ -58,8 +58,8 @@ public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
     @Test
     public void testToTextInvalidValueFail() {
         assertThrows(HeaderException.class, () -> CacheControlDirectiveExtensionHeaderHandler.INSTANCE
-                .toText(this,
-                        CacheControlDirectiveName.MAX_STALE));
+            .toText(this,
+                CacheControlDirectiveName.MAX_STALE));
     }
 
     @Override

@@ -89,8 +89,8 @@ public final class HttpStatus implements Value<HttpStatusCode> {
         Objects.requireNonNull(code, "code");
 
         return this.value.equals(code) ?
-                this :
-                this.replace(code, this.message);
+            this :
+            this.replace(code, this.message);
     }
 
     private final HttpStatusCode value;
@@ -110,8 +110,8 @@ public final class HttpStatus implements Value<HttpStatusCode> {
         checkMessage(message);
 
         return this.message.equals(message) ?
-                this :
-                this.replace(this.value, message);
+            this :
+            this.replace(this.value, message);
     }
 
     private final String message;
@@ -147,8 +147,8 @@ public final class HttpStatus implements Value<HttpStatusCode> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpStatus &&
-                        this.equals0(Cast.to(other));
+            other instanceof HttpStatus &&
+                this.equals0(Cast.to(other));
     }
 
     /**
@@ -156,7 +156,7 @@ public final class HttpStatus implements Value<HttpStatusCode> {
      */
     private boolean equals0(final HttpStatus other) {
         return this.value.code() == other.value.code() &&
-                this.message.equals(other.message);
+            this.message.equals(other.message);
     }
 
     /**

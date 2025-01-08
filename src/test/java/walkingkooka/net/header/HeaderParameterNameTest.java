@@ -29,58 +29,58 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName<?>>,
-        TypeNameTesting<HeaderParameterName<?>> {
+    TypeNameTesting<HeaderParameterName<?>> {
 
     // parameterValueOrFail.............................................................................................
 
     @Test
     public void testParameterValueOrFailWithUnknownParameterFails() {
         final HeaderException thrown = assertThrows(
-                HeaderException.class,
-                () -> AcceptCharsetValueParameterName.with("Hello")
-                        .parameterValueOrFail(
-                                new HeaderWithParameters<HeaderParameterName<?>>() {
-                                    @Override
-                                    public Map<HeaderParameterName<?>, Object> parameters() {
-                                        return Map.of();
-                                    }
+            HeaderException.class,
+            () -> AcceptCharsetValueParameterName.with("Hello")
+                .parameterValueOrFail(
+                    new HeaderWithParameters<HeaderParameterName<?>>() {
+                        @Override
+                        public Map<HeaderParameterName<?>, Object> parameters() {
+                            return Map.of();
+                        }
 
-                                    @Override
-                                    public HeaderWithParameters<HeaderParameterName<?>> setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
-                                        throw new UnsupportedOperationException();
-                                    }
+                        @Override
+                        public HeaderWithParameters<HeaderParameterName<?>> setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
+                            throw new UnsupportedOperationException();
+                        }
 
-                                    @Override
-                                    public String toHeaderText() {
-                                        throw new UnsupportedOperationException();
-                                    }
+                        @Override
+                        public String toHeaderText() {
+                            throw new UnsupportedOperationException();
+                        }
 
-                                    @Override
-                                    public boolean isWildcard() {
-                                        throw new UnsupportedOperationException();
-                                    }
+                        @Override
+                        public boolean isWildcard() {
+                            throw new UnsupportedOperationException();
+                        }
 
-                                    @Override
-                                    public boolean isMultipart() {
-                                        throw new UnsupportedOperationException();
-                                    }
+                        @Override
+                        public boolean isMultipart() {
+                            throw new UnsupportedOperationException();
+                        }
 
-                                    @Override
-                                    public boolean isRequest() {
-                                        throw new UnsupportedOperationException();
-                                    }
+                        @Override
+                        public boolean isRequest() {
+                            throw new UnsupportedOperationException();
+                        }
 
-                                    @Override
-                                    public boolean isResponse() {
-                                        throw new UnsupportedOperationException();
-                                    }
-                                }
-                        )
+                        @Override
+                        public boolean isResponse() {
+                            throw new UnsupportedOperationException();
+                        }
+                    }
+                )
         );
 
         this.checkEquals(
-                "Missing header parameter Hello",
-                thrown.getMessage()
+            "Missing header parameter Hello",
+            thrown.getMessage()
         );
     }
 

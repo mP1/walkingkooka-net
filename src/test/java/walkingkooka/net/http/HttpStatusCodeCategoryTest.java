@@ -23,7 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatusCodeCategory>,
-        TypeNameTesting<HttpStatusCodeCategory> {
+    TypeNameTesting<HttpStatusCodeCategory> {
 
     @Test
     public void testContinue() {
@@ -83,8 +83,8 @@ public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatu
     private void categoryAndCheck(final int code,
                                   final HttpStatusCodeCategory expected) {
         this.checkEquals(expected,
-                HttpStatusCodeCategory.category(code),
-                () -> "code " + code);
+            HttpStatusCodeCategory.category(code),
+            () -> "code " + code);
     }
 
     @Override

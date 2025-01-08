@@ -26,15 +26,15 @@ final class AcceptEncodingValueNonWildcard extends AcceptEncodingValue {
 
     static AcceptEncodingValueNonWildcard with(final String value, final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         return parameters.isEmpty() ?
-                maybeConstant(value) :
-                new AcceptEncodingValueNonWildcard(value, parameters);
+            maybeConstant(value) :
+            new AcceptEncodingValueNonWildcard(value, parameters);
     }
 
     private static AcceptEncodingValueNonWildcard maybeConstant(final String value) {
         final AcceptEncodingValueNonWildcard acceptEncodings = CONSTANTS.get(value);
         return null != acceptEncodings ?
-                acceptEncodings :
-                new AcceptEncodingValueNonWildcard(value, NO_PARAMETERS);
+            acceptEncodings :
+            new AcceptEncodingValueNonWildcard(value, NO_PARAMETERS);
     }
 
     private AcceptEncodingValueNonWildcard(final String value, final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
@@ -56,8 +56,8 @@ final class AcceptEncodingValueNonWildcard extends AcceptEncodingValue {
     @Override
     boolean test0(final ContentEncoding encoding) {
         return encoding.value.stream()
-                .filter(this::filter)
-                .count() == 1;
+            .filter(this::filter)
+            .count() == 1;
     }
 
     private boolean filter(final Encoding encoding) {

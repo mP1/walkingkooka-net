@@ -52,11 +52,11 @@ final class HeadersCopyHttpHandler implements HttpHandler {
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
         this.handler.handle(request,
-                HttpResponses.headersCopy(
-                        request,
-                        this.headers,
-                        response
-                )
+            HttpResponses.headersCopy(
+                request,
+                this.headers,
+                response
+            )
         );
     }
 

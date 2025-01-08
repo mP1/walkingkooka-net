@@ -43,8 +43,8 @@ final class HttpEntityText extends HttpEntityNotEmpty {
     HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
         final String text = this.bodyText();
         return headers.isEmpty() && text.isEmpty() ?
-                EMPTY :
-                new HttpEntityText(Maps.readOnly(headers), text);
+            EMPTY :
+            new HttpEntityText(Maps.readOnly(headers), text);
     }
 
     // contentLength....................................................................................................
@@ -73,7 +73,7 @@ final class HttpEntityText extends HttpEntityNotEmpty {
     HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                        final Binary body) {
         return headers.isEmpty() && this.bodyText().isEmpty() ?
-                EMPTY :
-                HttpEntityBinary.with(headers, body);
+            EMPTY :
+            HttpEntityBinary.with(headers, body);
     }
 }

@@ -28,9 +28,9 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
-        HashCodeEqualsDefinedTesting2<UrlCredentials>,
-        ComparableTesting2<UrlCredentials>,
-        ToStringTesting<UrlCredentials> {
+    HashCodeEqualsDefinedTesting2<UrlCredentials>,
+    ComparableTesting2<UrlCredentials>,
+    ToStringTesting<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
@@ -40,16 +40,16 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Test
     public void testWithNullUserFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlCredentials.with(null, PASSWORD)
+            NullPointerException.class,
+            () -> UrlCredentials.with(null, PASSWORD)
         );
     }
 
     @Test
     public void testWithNullPasswordFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> UrlCredentials.with(USER, null)
+            NullPointerException.class,
+            () -> UrlCredentials.with(USER, null)
         );
     }
 
@@ -82,16 +82,16 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Test
     public void testCompareToDifferentCase() {
         this.compareToAndCheckNotEquals(
-                UrlCredentials.with(USER.toLowerCase(), PASSWORD.toLowerCase()),
-                UrlCredentials.with(USER.toUpperCase(), PASSWORD.toUpperCase())
+            UrlCredentials.with(USER.toLowerCase(), PASSWORD.toLowerCase()),
+            UrlCredentials.with(USER.toUpperCase(), PASSWORD.toUpperCase())
         );
     }
 
     @Test
     public void testCompareToLess() {
         this.compareToAndCheckLess(
-                UrlCredentials.with("A", PASSWORD.toLowerCase()),
-                UrlCredentials.with("B", PASSWORD.toUpperCase())
+            UrlCredentials.with("A", PASSWORD.toLowerCase()),
+            UrlCredentials.with("B", PASSWORD.toUpperCase())
         );
     }
 

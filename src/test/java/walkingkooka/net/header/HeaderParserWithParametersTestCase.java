@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public abstract class HeaderParserWithParametersTestCase<P extends HeaderParser, V>
-        extends HeaderParserTestCase<P, V> {
+    extends HeaderParserTestCase<P, V> {
 
     HeaderParserWithParametersTestCase() {
         super();

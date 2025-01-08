@@ -30,7 +30,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequestHeadersMap>
-        implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
+    implements MapTesting2<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Object VALUE1 = 111L;
@@ -72,8 +72,8 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
     public void testGetOrDefault() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
         this.checkEquals(list(VALUE1),
-                map.getOrDefault(HEADER1, list("wrong")),
-                "getOrDefault returned wrong value " + map);
+            map.getOrDefault(HEADER1, list("wrong")),
+            "getOrDefault returned wrong value " + map);
     }
 
     @Test
@@ -82,8 +82,8 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends HttpServl
         final List<ETag> etag = list(ETagValidator.STRONG.setValue("default-value-etag"));
 
         this.checkEquals(etag,
-                map.getOrDefault(HttpHeaderName.E_TAG, etag),
-                "getOrDefault returned wrong value " + map);
+            map.getOrDefault(HttpHeaderName.E_TAG, etag),
+            "getOrDefault returned wrong value " + map);
     }
 
     @Test

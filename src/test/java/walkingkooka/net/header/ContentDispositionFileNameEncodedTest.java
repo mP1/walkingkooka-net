@@ -32,9 +32,9 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     public void testWith() {
         final ContentDispositionFileNameEncoded contentDisposition = this.createHeader();
         this.check(contentDisposition,
-                FILENAME,
-                Optional.of(this.encodedText().charset()),
-                this.encodedText().language());
+            FILENAME,
+            Optional.of(this.encodedText().charset()),
+            this.encodedText().language());
         this.checkWithoutPath(contentDisposition, null);
     }
 
@@ -61,8 +61,8 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     @Test
     public void testParameterName() {
         this.parameterNameAndCheck(
-                this.createHeader(),
-                ContentDispositionParameterName.FILENAME_STAR
+            this.createHeader(),
+            ContentDispositionParameterName.FILENAME_STAR
         );
     }
 
@@ -71,14 +71,14 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     @Test
     public void testToNotEncodedWhenRequiresEncoding() {
         this.toNotEncodedAndCheck(
-                ContentDispositionFileNameEncoded.with(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "filename\u00ff"
-                        )
-                ),
-                Optional.empty()
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "filename\u00ff"
+                )
+            ),
+            Optional.empty()
         );
     }
 
@@ -87,16 +87,16 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         final String filename = "Filename123";
 
         this.toNotEncodedAndCheck(
-                ContentDispositionFileNameEncoded.with(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                filename
-                        )
-                ),
-                Optional.of(
-                        ContentDispositionFileName.notEncoded(filename)
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    filename
                 )
+            ),
+            Optional.of(
+                ContentDispositionFileName.notEncoded(filename)
+            )
         );
     }
 
@@ -107,27 +107,27 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         final String filename = "Filename123";
 
         this.toNotEncodedIfPossibleAndCheck(
-                ContentDispositionFileNameEncoded.with(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                filename
-                        )
-                ),
-                ContentDispositionFileNameNotEncoded.with(filename)
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    filename
+                )
+            ),
+            ContentDispositionFileNameNotEncoded.with(filename)
         );
     }
 
     @Test
     public void testToNotEncodedIfPossibleWhenEncodingNotPossible() {
         this.toNotEncodedIfPossibleAndCheck(
-                ContentDispositionFileNameEncoded.with(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "Filename123\u0fff"
-                        )
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "Filename123\u0fff"
                 )
+            )
         );
     }
 
@@ -141,17 +141,17 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     @Test
     public void testEqualsDifferentCharsetName() {
         this.checkNotEquals(ContentDispositionFileNameEncoded.with(
-                EncodedText.with(CharsetName.UTF_16,
-                        this.language(),
-                        FILENAME)));
+            EncodedText.with(CharsetName.UTF_16,
+                this.language(),
+                FILENAME)));
     }
 
     @Test
     public void testEqualsDifferentLanguage() {
         this.checkNotEquals(ContentDispositionFileNameEncoded.with(
-                EncodedText.with(this.charsetName(),
-                        this.language("fr"),
-                        FILENAME)));
+            EncodedText.with(this.charsetName(),
+                this.language("fr"),
+                FILENAME)));
     }
 
     @Test

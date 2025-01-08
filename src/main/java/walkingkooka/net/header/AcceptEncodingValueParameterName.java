@@ -23,11 +23,11 @@ package walkingkooka.net.header;
 final public class AcceptEncodingValueParameterName<V> extends HeaderParameterName<V> implements Comparable<AcceptEncodingValueParameterName<?>> {
 
     private final static HeaderParameterNameConstants<AcceptEncodingValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            AcceptEncodingValueParameterName::new,
-            HeaderHandler.quotedUnquotedString(
-                    AcceptEncodingHeaderParser.QUOTED_PARAMETER_VALUE,
-                    true,
-                    AcceptEncodingHeaderParser.UNQUOTED_PARAMETER_VALUE)
+        AcceptEncodingValueParameterName::new,
+        HeaderHandler.quotedUnquotedString(
+            AcceptEncodingHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            AcceptEncodingHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

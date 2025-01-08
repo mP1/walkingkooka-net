@@ -55,8 +55,8 @@ final class AcceptEncodingHeaderHandler extends NonStringHeaderHandler<AcceptEnc
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof AcceptEncoding,
-                AcceptEncoding.class
+            v -> v instanceof AcceptEncoding,
+            AcceptEncoding.class
         );
     }
 

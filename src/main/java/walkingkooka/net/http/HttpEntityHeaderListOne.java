@@ -41,8 +41,8 @@ final class HttpEntityHeaderListOne extends HttpEntityHeaderList {
                 throw new IllegalArgumentException("Expected only one value");
         }
         return new HttpEntityHeaderListOne(
-                header,
-                header.checkValue(values[0])
+            header,
+            header.checkValue(values[0])
         );
     }
 

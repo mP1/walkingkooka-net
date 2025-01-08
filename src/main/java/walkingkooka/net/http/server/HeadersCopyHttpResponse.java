@@ -52,8 +52,8 @@ final class HeadersCopyHttpResponse extends WrapperHttpRequestHttpResponse {
         Objects.requireNonNull(response, "response");
 
         return new HeadersCopyHttpResponse(request,
-                headers,
-                response);
+            headers,
+            response);
     }
 
     private HeadersCopyHttpResponse(final HttpRequest request,

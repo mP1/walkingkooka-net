@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpMethod;
 
 public final class HttpMethodHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<HttpMethodHeaderHandler, HttpMethod> {
+    NonStringHeaderHandlerTestCase<HttpMethodHeaderHandler, HttpMethod> {
 
     @Override
     public String typeNamePrefix() {

@@ -32,27 +32,27 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHttpHandler>,
-        ToStringTesting<RouterHttpHandler> {
+    ToStringTesting<RouterHttpHandler> {
 
     @Test
     public void testWithNullRouterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> RouterHttpHandler.with(
-                        null,
-                        this.notFound()
-                )
+            NullPointerException.class,
+            () -> RouterHttpHandler.with(
+                null,
+                this.notFound()
+            )
         );
     }
 
     @Test
     public void testWithNotFoundFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> RouterHttpHandler.with(
-                        this.router(),
-                        null
-                )
+            NullPointerException.class,
+            () -> RouterHttpHandler.with(
+                this.router(),
+                null
+            )
         );
     }
 
@@ -61,16 +61,16 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     @Test
     public void testHandleRouted() {
         this.handleAndCheck(
-                HttpMethod.POST,
-                HttpStatusCode.OK.status()
+            HttpMethod.POST,
+            HttpStatusCode.OK.status()
         );
     }
 
     @Test
     public void testHandleNotFound() {
         this.handleAndCheck(
-                HttpMethod.GET,
-                HttpStatusCode.NOT_FOUND.status()
+            HttpMethod.GET,
+            HttpStatusCode.NOT_FOUND.status()
         );
     }
 
@@ -80,16 +80,16 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
         expected.setStatus(status);
 
         this.handleAndCheck(
-                this.request(method),
-                expected
+            this.request(method),
+            expected
         );
     }
 
     @Override
     public RouterHttpHandler createHttpHandler() {
         return RouterHttpHandler.with(
-                this.router(),
-                this.notFound()
+            this.router(),
+            this.notFound()
         );
     }
 
@@ -99,9 +99,9 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
 
     private Optional<HttpHandler> router0(Map<HttpRequestAttribute<?>, Object> parameters) {
         return Optional.ofNullable(
-                HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ?
-                        this.ok() :
-                        null
+            HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ?
+                this.ok() :
+                null
         );
     }
 

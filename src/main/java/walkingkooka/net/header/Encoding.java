@@ -27,7 +27,7 @@ import java.util.Objects;
  * An individual encoding belonging to a {@link ContentEncoding}.
  */
 public final class Encoding extends Header2<String>
-        implements Comparable<Encoding> {
+    implements Comparable<Encoding> {
 
     /**
      * {@see CaseSensitivity}
@@ -88,14 +88,14 @@ public final class Encoding extends Header2<String>
 
         final Encoding encoding = CONSTANTS.get(value);
         return null != encoding ?
-                encoding :
-                new Encoding(checkValue(value));
+            encoding :
+            new Encoding(checkValue(value));
     }
 
     private static String checkValue(final String value) {
         return EncodingHeaderParser.RFC2045TOKEN.failIfNullOrEmptyOrFalse(
-                "value",
-                value
+            "value",
+            value
         );
     }
 

@@ -39,16 +39,16 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
     @Test
     public void testCrMissingNl() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> LineReader.with("cr missing nl\r").readLine()
+            IllegalArgumentException.class,
+            () -> LineReader.with("cr missing nl\r").readLine()
         );
     }
 
     @Test
     public void testCrMissingNl2() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> LineReader.with("cr missing nl\r1\n").readLine()
+            IllegalArgumentException.class,
+            () -> LineReader.with("cr missing nl\r1\n").readLine()
         );
     }
 
@@ -97,28 +97,28 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
     @Test
     public void testInvalidHeaderLineEndingFails() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> LineReader.with("Content-Length:1\r" +
-                "Invalid-Header2").readHeaders());
+            "Invalid-Header2").readHeaders());
         this.checkEquals("Invalid line ending", thrown.getMessage());
     }
 
     @Test
     public void testInvalidHeaderFails2() {
         final HeaderException thrown = assertThrows(
-                HeaderException.class,
-                () -> LineReader.with("Content-Length:A").readHeaders()
+            HeaderException.class,
+            () -> LineReader.with("Content-Length:A").readHeaders()
         );
         this.checkEquals(
-                "Content-Length: Invalid number in \"A\"",
-                thrown.getMessage()
+            "Content-Length: Invalid number in \"A\"",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testReadHeaders() {
         this.checkEquals(
-                HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
-                        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
-                LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders()
+            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L),
+            LineReader.with("Content-Type: text/plain\r\nContent-Length: 123\r\n").readHeaders()
         );
     }
 

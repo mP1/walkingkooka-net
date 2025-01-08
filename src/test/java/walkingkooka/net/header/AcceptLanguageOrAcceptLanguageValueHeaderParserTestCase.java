@@ -57,24 +57,24 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
     @Test
     public final void testWildcardQWeightInvalidValueFails() {
         this.parseStringFails(
-                "*; q=ABC",
-                "Invalid number in \"ABC\""
+            "*; q=ABC",
+            "Invalid number in \"ABC\""
         );
     }
 
     @Test
     public final void testWildcardWithQWeight() {
         this.parseStringAndCheck2("*; q=0.75",
-                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
+            AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
     }
 
     @Test
     public final void testWildcardWithParameters() {
         final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(AcceptLanguageParameterName.with("a"), "b",
-                AcceptLanguageParameterName.with("c"), "d");
+            AcceptLanguageParameterName.with("c"), "d");
 
         this.parseStringAndCheck2("*; a=b; c=d",
-                AcceptLanguageValue.WILDCARD.setParameters(parameters));
+            AcceptLanguageValue.WILDCARD.setParameters(parameters));
     }
 
     @Test
@@ -94,8 +94,7 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
         this.parseStringFails("\"quoted\"", InvalidCharacterException.class);
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return AcceptLanguageOrAcceptLanguageValueHeaderParser.LANGUAGE;
     }
 }

@@ -30,8 +30,8 @@ import java.util.function.Predicate;
  * A {@link HeaderWithParameters} that represents a single charset name with optional parameters.
  */
 final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
-        implements HasQualityFactor,
-        Predicate<CharsetName> {
+    implements HasQualityFactor,
+    Predicate<CharsetName> {
 
     /**
      * No parameters.
@@ -68,8 +68,8 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
 
         final AcceptCharsetValue acceptCharsetValue = CONSTANTS.get(charsetName);
         return null != acceptCharsetValue ?
-                acceptCharsetValue :
-                new AcceptCharsetValue(charsetName, NO_PARAMETERS);
+            acceptCharsetValue :
+            new AcceptCharsetValue(charsetName, NO_PARAMETERS);
     }
 
     /**
@@ -79,11 +79,11 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     private static AcceptCharsetValue withParameters(final CharsetName charset,
                                                      final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
         final AcceptCharsetValue result = parameters.isEmpty() ?
-                CONSTANTS.get(charset) :
-                null;
+            CONSTANTS.get(charset) :
+            null;
         return null != result ?
-                result :
-                new AcceptCharsetValue(charset, parameters);
+            result :
+            new AcceptCharsetValue(charset, parameters);
     }
 
     // ctor ...................................................................................................
@@ -105,8 +105,8 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
         checkValue(charsetName);
 
         return this.value.equals(charsetName) ?
-                this :
-                this.replace(charsetName, this.parameters);
+            this :
+            this.replace(charsetName, this.parameters);
     }
 
     private static void checkValue(final CharsetName charsetName) {

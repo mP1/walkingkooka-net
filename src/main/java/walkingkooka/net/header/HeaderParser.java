@@ -140,8 +140,8 @@ abstract class HeaderParser {
         final String tokenText = this.token(predicate);
 
         return tokenText.isEmpty() ?
-                Optional.empty() :
-                Optional.of(this.token0(tokenText, factory, start));
+            Optional.empty() :
+            Optional.of(this.token0(tokenText, factory, start));
     }
 
     /**
@@ -261,7 +261,7 @@ abstract class HeaderParser {
         this.languageQuoteCharacter();
 
         final Optional<LanguageName> languageName = this.tokenOptional(MIME_CHARSETC,
-                LanguageName::with);
+            LanguageName::with);
 
         this.languageQuoteCharacter();
 
@@ -367,8 +367,8 @@ abstract class HeaderParser {
         }
 
         return EncodedText.with(charset,
-                languageName,
-                new String(bytes.toByteArray(), charset.charset().get()));
+            languageName,
+            new String(bytes.toByteArray(), charset.charset().get()));
     }
 
     private void languageQuoteCharacter() {
@@ -396,12 +396,12 @@ abstract class HeaderParser {
      * </pre>
      */
     private final static CharPredicate MIME_CHARSETC = CharPredicates.builder()
-            .range('A', 'Z')
-            .range('a', 'z')
-            .range('0', '9')
-            .any("!#$%&+-^_`{}~")
-            .build()
-            .setToString("MIME CHARSETC");
+        .range('A', 'Z')
+        .range('a', 'z')
+        .range('0', '9')
+        .any("!#$%&+-^_`{}~")
+        .build()
+        .setToString("MIME CHARSETC");
 
     private static int digit(final char c) {
         return Character.digit(c, 16);
@@ -491,7 +491,7 @@ abstract class HeaderParser {
      * Used to match valid ascii characters.
      */
     final static CharPredicate ASCII = CharPredicates.asciiPrintable()
-            .or(CharPredicates.any("\t\r\n "));
+        .or(CharPredicates.any("\t\r\n "));
 
     /**
      * Consumes the token text with characters matched by the given {@link CharPredicate}.

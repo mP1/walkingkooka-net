@@ -31,7 +31,7 @@ import java.util.function.Predicate;
  * A {@link Path} which may be part of a {@link Url} after the host and port but before any present query string or anchor.
  */
 public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
-        Comparable<UrlPath> {
+    Comparable<UrlPath> {
 
     /**
      * {@link PathSeparator} instance
@@ -89,10 +89,10 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
         Objects.requireNonNull(path, "path");
 
         return path.isEmpty() ?
-                EMPTY :
-                path.equals(SEPARATOR.string()) ?
-                        ROOT :
-                        parseNonRoot(path);
+            EMPTY :
+            path.equals(SEPARATOR.string()) ?
+                ROOT :
+                parseNonRoot(path);
     }
 
     /**
@@ -101,9 +101,9 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     private static UrlPath parseNonRoot(final String value) {
         final boolean slash = value.charAt(0) == SEPARATOR.character();
         return parseNonRoot0(
-                value,
-                slash ? 1 : 0,
-                slash ? ROOT : EMPTY
+            value,
+            slash ? 1 : 0,
+            slash ? ROOT : EMPTY
         );
     }
 
@@ -131,9 +131,9 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
             }
 
             path = path.append(
-                    UrlPathName.with(
-                            value.substring(begin, end)
-                    )
+                UrlPathName.with(
+                    value.substring(begin, end)
+                )
             );
             begin = end + 1;
         }
@@ -251,8 +251,8 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                other instanceof UrlPath &&
-                        this.equals0((UrlPath) other);
+            other instanceof UrlPath &&
+                this.equals0((UrlPath) other);
     }
 
     private boolean equals0(final UrlPath other) {

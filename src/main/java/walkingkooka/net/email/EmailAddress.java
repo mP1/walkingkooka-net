@@ -36,7 +36,7 @@ import java.util.Optional;
  * with [] is for emails only.
  */
 final public class EmailAddress implements Value<String>,
-        Comparable<EmailAddress> {
+    Comparable<EmailAddress> {
 
     /**
      * Tries to parse the email or returns an {@link Optional#empty()}.
@@ -142,10 +142,10 @@ final public class EmailAddress implements Value<String>,
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(EmailAddress.class),
-                EmailAddress::unmarshall,
-                EmailAddress::marshall,
-                EmailAddress.class
+            JsonNodeContext.computeTypeName(EmailAddress.class),
+            EmailAddress::unmarshall,
+            EmailAddress::marshall,
+            EmailAddress.class
         );
     }
 
@@ -159,7 +159,7 @@ final public class EmailAddress implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-                other instanceof EmailAddress && this.equals0(Cast.to(other));
+            other instanceof EmailAddress && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final EmailAddress other) {

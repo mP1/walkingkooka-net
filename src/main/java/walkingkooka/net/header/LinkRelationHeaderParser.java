@@ -173,7 +173,7 @@ final class LinkRelationHeaderParser extends HeaderParser {
      * Used to match valid ascii characters but not whitespace.
      */
     private final static CharPredicate ASCII_NOT_WHITESPACE = CharPredicates.asciiPrintable()
-            .andNot(SPACE_HTAB);
+        .andNot(SPACE_HTAB);
 
     @Override
     void missingValue() {

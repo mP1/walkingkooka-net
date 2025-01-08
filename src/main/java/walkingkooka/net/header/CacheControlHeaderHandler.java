@@ -44,8 +44,8 @@ final class CacheControlHeaderHandler extends NonStringHeaderHandler<CacheContro
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof CacheControl,
-                CacheControl.class
+            (v) -> v instanceof CacheControl,
+            CacheControl.class
         );
     }
 

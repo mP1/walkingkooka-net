@@ -45,8 +45,8 @@ final class ContentDispositionHeaderHandler extends NonStringHeaderHandler<Conte
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                (v) -> v instanceof ContentDisposition,
-                ContentDisposition.class
+            (v) -> v instanceof ContentDisposition,
+            ContentDisposition.class
         );
     }
 

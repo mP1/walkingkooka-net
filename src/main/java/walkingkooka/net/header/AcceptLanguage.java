@@ -61,8 +61,8 @@ import java.util.function.Predicate;
  * Note the {@link AcceptLanguageValue} value is not sorted and appear in the original header text order.
  */
 public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
-        implements Predicate<ContentLanguage>,
-        HasQualityFactorSortedValues<AcceptLanguageValue> {
+    implements Predicate<ContentLanguage>,
+    HasQualityFactorSortedValues<AcceptLanguageValue> {
 
     /**
      * Parses a header value that contains one or more languages.
@@ -95,9 +95,9 @@ public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
         Objects.requireNonNull(contentLanguage, "contentLanguage");
 
         return this.value.stream()
-                .filter(e -> e.testContentLanguage(contentLanguage))
-                .limit(1)
-                .count() == 1;
+            .filter(e -> e.testContentLanguage(contentLanguage))
+            .limit(1)
+            .count() == 1;
     }
 
     // Header.....................................................................................................

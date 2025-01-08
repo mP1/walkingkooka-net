@@ -96,10 +96,10 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     public static ContentDispositionType with(final String name) {
         CharPredicates.rfc2045Token()
-                .failIfNullOrEmptyOrFalse(
-                        "name",
-                        name
-                );
+            .failIfNullOrEmptyOrFalse(
+                "name",
+                name
+            );
 
         ContentDispositionType contentDispositionType;
 
@@ -135,10 +135,10 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
         Objects.requireNonNull(filename, "filename");
 
         return this.setParameters(
-                Maps.of(
-                        filename.parameterName(),
-                        filename
-                )
+            Maps.of(
+                filename.parameterName(),
+                filename
+            )
         );
     }
 
@@ -147,7 +147,7 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     public ContentDisposition setParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
         return ContentDisposition.with(this)
-                .setParameters(parameters);
+            .setParameters(parameters);
     }
 
     /**
@@ -155,8 +155,8 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     public boolean isAttachment() {
         return CASE_SENSITIVITY.equals(
-                this.value(),
-                ATTACHMENT_STRING
+            this.value(),
+            ATTACHMENT_STRING
         );
     }
 
@@ -165,8 +165,8 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     public boolean isFormData() {
         return CASE_SENSITIVITY.equals(
-                this.value(),
-                FORM_DATA_STRING
+            this.value(),
+            FORM_DATA_STRING
         );
     }
 
@@ -175,8 +175,8 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
      */
     public boolean isInline() {
         return CASE_SENSITIVITY.equals(
-                this.value(),
-                INLINE_STRING
+            this.value(),
+            INLINE_STRING
         );
     }
 

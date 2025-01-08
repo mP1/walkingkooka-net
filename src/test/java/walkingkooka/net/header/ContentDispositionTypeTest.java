@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContentDispositionTypeTest implements ClassTesting2<ContentDispositionType>,
-        NameTesting2<ContentDispositionType, ContentDispositionType> {
+    NameTesting2<ContentDispositionType, ContentDispositionType> {
 
     @Test
     public void testConstantNameReturnsConstant() {
@@ -49,42 +49,42 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
     @Test
     public void testSetFilenameNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ContentDispositionType.ATTACHMENT.setFilename(null)
+            NullPointerException.class,
+            () -> ContentDispositionType.ATTACHMENT.setFilename(null)
         );
     }
 
     @Test
     public void testSetFilenameWithAttachmentAndEncoded() {
         this.setFilenameAndCheck(
-                ContentDispositionType.ATTACHMENT,
-                ContentDispositionFileName.notEncoded("readme.txt"),
-                "attachment; filename=readme.txt"
+            ContentDispositionType.ATTACHMENT,
+            ContentDispositionFileName.notEncoded("readme.txt"),
+            "attachment; filename=readme.txt"
         );
     }
 
     @Test
     public void testSetFilenameWithInlineAndEncoded() {
         this.setFilenameAndCheck(
-                ContentDispositionType.INLINE,
-                ContentDispositionFileName.notEncoded("readme.txt"),
-                "inline; filename=readme.txt"
+            ContentDispositionType.INLINE,
+            ContentDispositionFileName.notEncoded("readme.txt"),
+            "inline; filename=readme.txt"
         );
     }
 
     @Test
     public void testSetFilenameWithAttachmentAndNotEncoded() {
         this.setFilenameAndCheck(
-                ContentDispositionType.ATTACHMENT,
-                ContentDispositionFileName.encoded(
-                        EncodedText.with(
-                                CharsetName.UTF_8,
-                                EncodedText.NO_LANGUAGE,
-                                "readme.txt"
-                        )
-                ),
-                // Content-Disposition: attachment; filename="filename.jpg"
-                "attachment; filename*=UTF-8''readme.txt"
+            ContentDispositionType.ATTACHMENT,
+            ContentDispositionFileName.encoded(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    EncodedText.NO_LANGUAGE,
+                    "readme.txt"
+                )
+            ),
+            // Content-Disposition: attachment; filename="filename.jpg"
+            "attachment; filename*=UTF-8''readme.txt"
         );
     }
 
@@ -92,9 +92,9 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
                                      final ContentDispositionFileName filename,
                                      final String expected) {
         this.setFilenameAndCheck(
-                type,
-                filename,
-                ContentDisposition.parse(expected)
+            type,
+            filename,
+            ContentDisposition.parse(expected)
         );
     }
 
@@ -102,9 +102,9 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
                                      final ContentDispositionFileName filename,
                                      final ContentDisposition expected) {
         this.checkEquals(
-                expected,
-                type.setFilename(filename),
-                () -> type + " " + filename
+            expected,
+            type.setFilename(filename),
+            () -> type + " " + filename
         );
     }
 
@@ -123,8 +123,8 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         final ContentDisposition disposition = type.setParameters(parameters);
         this.checkEquals(type, disposition.type(), "type");
         this.checkEquals(parameters,
-                disposition.parameters(),
-                "parameters");
+            disposition.parameters(),
+            "parameters");
     }
 
     // isXXX............................................................................................................
@@ -132,48 +132,48 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
     @Test
     public void testIsAttachmentTrue() {
         this.checkEquals(
-                true,
-                ContentDispositionType.ATTACHMENT.isAttachment()
+            true,
+            ContentDispositionType.ATTACHMENT.isAttachment()
         );
     }
 
     @Test
     public void testIsAttachmentFalse() {
         this.checkEquals(
-                false,
-                ContentDispositionType.FORM_DATA.isAttachment()
+            false,
+            ContentDispositionType.FORM_DATA.isAttachment()
         );
     }
 
     @Test
     public void testIsFormDataTrue() {
         this.checkEquals(
-                true,
-                ContentDispositionType.FORM_DATA.isFormData()
+            true,
+            ContentDispositionType.FORM_DATA.isFormData()
         );
     }
 
     @Test
     public void testIsFormDataFalse() {
         this.checkEquals(
-                false,
-                ContentDispositionType.INLINE.isFormData()
+            false,
+            ContentDispositionType.INLINE.isFormData()
         );
     }
 
     @Test
     public void testIsInlineTrue() {
         this.checkEquals(
-                true,
-                ContentDispositionType.INLINE.isInline()
+            true,
+            ContentDispositionType.INLINE.isInline()
         );
     }
 
     @Test
     public void testIsInlineFalse() {
         this.checkEquals(
-                false,
-                ContentDispositionType.ATTACHMENT.isInline()
+            false,
+            ContentDispositionType.ATTACHMENT.isInline()
         );
     }
 

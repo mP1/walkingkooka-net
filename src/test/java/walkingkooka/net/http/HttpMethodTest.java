@@ -36,9 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
-        HeaderTesting<HttpMethod>,
-        ComparableTesting2<HttpMethod>,
-        ConstantsTesting<HttpMethod> {
+    HeaderTesting<HttpMethod>,
+    ComparableTesting2<HttpMethod>,
+    ConstantsTesting<HttpMethod> {
 
     @Test
     public void testWithNullFails() {
@@ -128,8 +128,8 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     private void singleton(final HttpMethod method) {
         assertSame(method,
-                HttpMethod.with(method.value()),
-                "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())");
+            HttpMethod.with(method.value()),
+            "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())");
     }
 
     @Test
@@ -139,8 +139,8 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     private void isGetOrHeadCheck(final HttpMethod constant) {
         this.checkEquals(HttpMethod.GET == constant || HttpMethod.HEAD == constant,
-                constant.isGetOrHead(),
-                constant + ".isGetOrHead test");
+            constant.isGetOrHead(),
+            constant + ".isGetOrHead test");
     }
 
     private Set<HttpMethod> constants() throws Exception {
@@ -180,7 +180,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     @Test
     public void testCompareToArraySort() {
         this.compareToArraySortAndCheck(HttpMethod.HEAD, HttpMethod.PUT, HttpMethod.GET, HttpMethod.POST,
-                HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT);
+            HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT);
     }
 
     @Test

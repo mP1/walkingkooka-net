@@ -29,8 +29,8 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
     public final void testIsUrl() {
         final R relation = this.createLinkRelation();
         this.checkEquals(this.url(),
-                relation.isUrl(),
-                relation + " isUrl");
+            relation.isUrl(),
+            relation + " isUrl");
     }
 
     abstract boolean url();
@@ -46,8 +46,7 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
 
     abstract R createLinkRelation(final T value);
 
-    @Override
-    final R createHeader(final T value) {
+    @Override final R createHeader(final T value) {
         return this.createLinkRelation(value);
     }
 

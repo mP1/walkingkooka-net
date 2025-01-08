@@ -33,13 +33,13 @@ import java.util.function.Predicate;
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
-        HashCodeEqualsDefinedTesting2<U>,
-        JsonNodeMarshallingTesting<U>,
-        IsMethodTesting<U>,
-        ParseStringTesting<U>,
-        HasTextTesting,
-        ToStringTesting<U>,
-        TypeNameTesting<U> {
+    HashCodeEqualsDefinedTesting2<U>,
+    JsonNodeMarshallingTesting<U>,
+    IsMethodTesting<U>,
+    ParseStringTesting<U>,
+    HasTextTesting,
+    ToStringTesting<U>,
+    TypeNameTesting<U> {
 
     UrlTestCase() {
         super();
@@ -51,8 +51,8 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         final U url = this.createUrl();
 
         this.textAndCheck(
-                url,
-                url.toString()
+            url,
+            url.toString()
         );
     }
 

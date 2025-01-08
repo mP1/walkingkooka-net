@@ -27,12 +27,12 @@ public interface MediaTypeDetectorTesting extends TreePrintableTesting {
                                 final Binary content,
                                 final MediaType expected) {
         this.checkEquals(
-                expected,
-                detector.detect(
-                        filename,
-                        content
-                ),
-                () -> filename + " " + content
+            expected,
+            detector.detect(
+                filename,
+                content
+            ),
+            () -> filename + " " + content
         );
     }
 }

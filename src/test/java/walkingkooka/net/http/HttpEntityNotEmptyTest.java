@@ -27,8 +27,8 @@ public final class HttpEntityNotEmptyTest extends HttpEntityTestCase<HttpEntityN
         final String text = "ABC123";
 
         this.textAndCheck(
-                HttpEntity.EMPTY.setBodyText(text),
-                text
+            HttpEntity.EMPTY.setBodyText(text),
+            text
         );
     }
 

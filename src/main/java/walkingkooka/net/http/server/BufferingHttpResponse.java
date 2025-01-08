@@ -85,10 +85,10 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
      */
     final HttpEntity removeContentHeaders(final HttpEntity entity) {
         return entity.setHeaders(
-                entity.headers()
-                        .entrySet()
-                        .stream()
-                        .filter(hav -> !hav.getKey().isContent())
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+            entity.headers()
+                .entrySet()
+                .stream()
+                .filter(hav -> !hav.getKey().isContent())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 }

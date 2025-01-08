@@ -53,8 +53,8 @@ final class QualityFactorHeaderHandler extends NonStringHeaderHandler<Float> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof Float,
-                Float.class
+            v -> v instanceof Float,
+            Float.class
         );
         this.checkValue((Float) value);
     }

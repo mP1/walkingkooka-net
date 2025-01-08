@@ -30,17 +30,17 @@ import java.util.Arrays;
  * Most of the tests and info was gathered from <a href="http://www.dominicsayers.com/source/beta/is_email/test/?all"></a>}
  */
 public final class HostAddress implements Value<String>,
-        Comparable<HostAddress> {
+    Comparable<HostAddress> {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
      */
     public static HostAddress with(final String address) {
         return HostAddress.with(
-                address,
-                0,
-                false,
-                false
+            address,
+            0,
+            false,
+            false
         );
     }
 
@@ -49,10 +49,10 @@ public final class HostAddress implements Value<String>,
      */
     public static HostAddress withEmail(final String address, final int offset) {
         return HostAddress.with(
-                address,
-                offset,
-                true,
-                true
+            address,
+            offset,
+            true,
+            true
         );
     }
 
@@ -84,10 +84,10 @@ public final class HostAddress implements Value<String>,
             if (email) {
                 if ((start + 5) < length) {
                     if ((address.charAt(start) == 'I') && //
-                            (address.charAt(start + 1) == 'P') && //
-                            (address.charAt(start + 2) == 'v') && //
-                            (address.charAt(start + 3) == '6') && //
-                            (address.charAt(start + 4) == ':')) {
+                        (address.charAt(start + 1) == 'P') && //
+                        (address.charAt(start + 2) == 'v') && //
+                        (address.charAt(start + 3) == '6') && //
+                        (address.charAt(start + 4) == ':')) {
                         start = start + 5;
                     }
                 }
@@ -577,8 +577,8 @@ public final class HostAddress implements Value<String>,
      */
     static private HostAddressProblem checkLength(final int start, final int end) {
         return (end - start) >= HostAddress.MAX_LABEL_LENGTH ?
-                HostAddressProblemInvalidLength.with(start) :
-                null;
+            HostAddressProblemInvalidLength.with(start) :
+            null;
     }
 
     /**
@@ -679,8 +679,8 @@ public final class HostAddress implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HostAddress &&
-                        this.equals0((HostAddress) other);
+            other instanceof HostAddress &&
+                this.equals0((HostAddress) other);
     }
 
     private boolean equals0(final HostAddress other) {

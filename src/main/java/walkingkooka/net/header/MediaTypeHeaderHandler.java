@@ -44,8 +44,8 @@ final class MediaTypeHeaderHandler extends NonStringHeaderHandler<MediaType> {
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof MediaType,
-                MediaType.class
+            v -> v instanceof MediaType,
+            MediaType.class
         );
     }
 

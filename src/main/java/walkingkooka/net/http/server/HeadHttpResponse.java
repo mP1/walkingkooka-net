@@ -31,8 +31,8 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
         check(request, response);
 
         return request.method() == HttpMethod.HEAD ?
-                new HeadHttpResponse(request, response) :
-                response;
+            new HeadHttpResponse(request, response) :
+            response;
     }
 
     private HeadHttpResponse(HttpRequest request, HttpResponse response) {

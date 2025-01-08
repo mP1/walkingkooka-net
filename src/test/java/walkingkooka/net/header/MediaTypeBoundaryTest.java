@@ -31,8 +31,8 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundary>
-        implements ComparableTesting2<MediaTypeBoundary>,
-        ParseStringTesting<MediaTypeBoundary> {
+    implements ComparableTesting2<MediaTypeBoundary>,
+    ParseStringTesting<MediaTypeBoundary> {
 
     // with ................................................................................................
 
@@ -113,7 +113,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     @Test
     public void testToHeaderTextQuotesRequired() {
         this.toHeaderTextAndCheck(MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
-                "\"gc0pJq0M:08jU534c0p\"");
+            "\"gc0pJq0M:08jU534c0p\"");
     }
 
     @Test
@@ -155,8 +155,8 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
 
     private void generateAndCheck(final String body, final String randomSource, final String boundary) {
         this.generateAndCheck(body.getBytes(CharsetName.UTF_8.charset().get()),
-                randomSource,
-                boundary);
+            randomSource,
+            boundary);
     }
 
     private void generateAndCheck(final byte[] body, final String randomSource, final String boundary) {
@@ -165,19 +165,19 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
             @Override
             public Byte get() {
                 return (byte) new String(MediaTypeBoundary.BOUNDARY_CHARACTERS)
-                        .indexOf(randomSource.charAt(i++));
+                    .indexOf(randomSource.charAt(i++));
             }
 
             int i = 0;
         };
 
         final MediaTypeBoundary mediaTypeBoundary = MediaTypeBoundary.generate0(body,
-                boundaryCharcters,
-                boundary.length());
+            boundaryCharcters,
+            boundary.length());
 
         this.checkEquals(MediaTypeBoundary.with(boundary),
-                mediaTypeBoundary,
-                "Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build());
+            mediaTypeBoundary,
+            "Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build());
     }
 
     // multipartByteRanges........................................................................................................

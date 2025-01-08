@@ -72,8 +72,8 @@ final class HostAddressProblemInvalidLength extends HostAddressProblem {
     @Override
     public boolean equals(final Object other) {
         return (this == other)
-                || ((other instanceof HostAddressProblemInvalidLength)
-                && this.equals0((HostAddressProblemInvalidLength) other));
+            || ((other instanceof HostAddressProblemInvalidLength)
+            && this.equals0((HostAddressProblemInvalidLength) other));
     }
 
     private boolean equals0(final HostAddressProblemInvalidLength other) {

@@ -24,9 +24,9 @@ public interface HasAbsoluteUrlTesting<T extends HasAbsoluteUrl> extends Testing
     default void urlAndCheck(final T has,
                              final AbsoluteUrl expected) {
         this.checkEquals(
-                expected,
-                has.url(),
-                has::toString
+            expected,
+            has.url(),
+            has::toString
         );
     }
 }

@@ -33,133 +33,133 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     @Test
     public void testIllegalArgumentExceptionNull() {
         this.applyAndCheck(
-                new IllegalArgumentException(),
-                HttpStatusCode.BAD_REQUEST
-                        .status()
+            new IllegalArgumentException(),
+            HttpStatusCode.BAD_REQUEST
+                .status()
         );
     }
 
     @Test
     public void testIllegalArgumentExceptionEmptyMessage() {
         this.applyAndCheck(
-                new IllegalArgumentException(""),
-                HttpStatusCode.BAD_REQUEST
-                        .status()
+            new IllegalArgumentException(""),
+            HttpStatusCode.BAD_REQUEST
+                .status()
         );
     }
 
     @Test
     public void testIllegalArgumentException() {
         this.applyAndCheck(
-                new IllegalArgumentException(MESSAGE_MULTI_LINE),
-                HttpStatusCode.BAD_REQUEST
-                        .setMessage(MESSAGE)
+            new IllegalArgumentException(MESSAGE_MULTI_LINE),
+            HttpStatusCode.BAD_REQUEST
+                .setMessage(MESSAGE)
         );
     }
 
     @Test
     public void testIllegalStateExceptionNull() {
         this.applyAndCheck(
-                new IllegalStateException(),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status()
+            new IllegalStateException(),
+            HttpStatusCode.INTERNAL_SERVER_ERROR.status()
         );
     }
 
     @Test
     public void testIllegalStateExceptionEmptyMessage() {
         this.applyAndCheck(
-                new IllegalStateException(""),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.status()
+            new IllegalStateException(""),
+            HttpStatusCode.INTERNAL_SERVER_ERROR.status()
         );
     }
 
     @Test
     public void testIllegalStateException() {
         this.applyAndCheck(
-                new IllegalStateException(MESSAGE_MULTI_LINE),
-                HttpStatusCode.INTERNAL_SERVER_ERROR
-                        .setMessage(MESSAGE)
+            new IllegalStateException(MESSAGE_MULTI_LINE),
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+                .setMessage(MESSAGE)
         );
     }
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999)
-            .setMessage("Hello!");
+        .setMessage("Hello!");
 
     @Test
     public void testHttpResponseHttpServerException() {
         this.applyAndCheck(
-                new HttpResponseHttpServerException(
-                        STATUS,
-                        HttpResponseHttpServerException.NO_ENTITY
-                ),
-                STATUS
+            new HttpResponseHttpServerException(
+                STATUS,
+                HttpResponseHttpServerException.NO_ENTITY
+            ),
+            STATUS
         );
     }
 
     @Test
     public void testHttpResponseHttpServerExceptionEntityIgnored() {
         this.applyAndCheck(
-                new HttpResponseHttpServerException(
-                        STATUS,
-                        Optional.of(
-                                HttpEntity.EMPTY.setBodyText("Ignored123")
-                        )
-                ),
-                STATUS
+            new HttpResponseHttpServerException(
+                STATUS,
+                Optional.of(
+                    HttpEntity.EMPTY.setBodyText("Ignored123")
+                )
+            ),
+            STATUS
         );
     }
 
     @Test
     public void testUnsupportedOperationExceptionNull() {
         this.applyAndCheck(
-                new UnsupportedOperationException(),
-                HttpStatusCode.NOT_IMPLEMENTED
-                        .status()
+            new UnsupportedOperationException(),
+            HttpStatusCode.NOT_IMPLEMENTED
+                .status()
         );
     }
 
     @Test
     public void testUnsupportedOperationExceptionEmptyMessage() {
         this.applyAndCheck(
-                new UnsupportedOperationException(""),
-                HttpStatusCode.NOT_IMPLEMENTED
-                        .status()
+            new UnsupportedOperationException(""),
+            HttpStatusCode.NOT_IMPLEMENTED
+                .status()
         );
     }
 
     @Test
     public void testUnsupportedOperationException() {
         this.applyAndCheck(
-                new UnsupportedOperationException(MESSAGE_MULTI_LINE),
-                HttpStatusCode.NOT_IMPLEMENTED
-                        .setMessage(MESSAGE)
+            new UnsupportedOperationException(MESSAGE_MULTI_LINE),
+            HttpStatusCode.NOT_IMPLEMENTED
+                .setMessage(MESSAGE)
         );
     }
 
     @Test
     public void testExceptionNull() {
         this.applyAndCheck(
-                new Exception(),
-                HttpStatusCode.INTERNAL_SERVER_ERROR
-                        .status()
+            new Exception(),
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+                .status()
         );
     }
 
     @Test
     public void testExceptionEmptyMessage() {
         this.applyAndCheck(
-                new Exception(""),
-                HttpStatusCode.INTERNAL_SERVER_ERROR
-                        .status()
+            new Exception(""),
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+                .status()
         );
     }
 
     @Test
     public void testException() {
         this.applyAndCheck(
-                new Exception(MESSAGE_MULTI_LINE),
-                HttpStatusCode.INTERNAL_SERVER_ERROR
-                        .setMessage(MESSAGE)
+            new Exception(MESSAGE_MULTI_LINE),
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+                .setMessage(MESSAGE)
         );
     }
 

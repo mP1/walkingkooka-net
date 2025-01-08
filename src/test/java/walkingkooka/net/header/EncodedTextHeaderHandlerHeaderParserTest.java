@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParserTestCase<EncodedTextHeaderHandlerHeaderParser,
-        EncodedText> {
+    EncodedText> {
 
     private final static String LABEL = "label123";
 

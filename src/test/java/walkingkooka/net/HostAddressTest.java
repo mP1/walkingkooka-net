@@ -36,9 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
-        ComparableTesting2<HostAddress>,
-        ThrowableTesting,
-        ToStringTesting<HostAddress> {
+    ComparableTesting2<HostAddress>,
+    ThrowableTesting,
+    ToStringTesting<HostAddress> {
 
     private final static String HOST = "example.com";
 
@@ -970,8 +970,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof HostAddressProblem) {
             this.checkEquals(value,
-                    ((HostAddressProblem) result).message(address),
-                    "failed " + CharSequences.quote(address));
+                ((HostAddressProblem) result).message(address),
+                "failed " + CharSequences.quote(address));
         }
         checkEquals("bytes[]", value, (byte[]) result);
     }
@@ -988,8 +988,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
             this.checkEquals(problem.message(address),
-                    actual.message(address),
-                    "wrong problem returned");
+                actual.message(address),
+                "wrong problem returned");
         }
     }
 
@@ -998,8 +998,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
      */
     private byte[] toByteArray(final String hexDigits) {
         this.checkEquals(HostAddress.IP6_OCTET_COUNT * 2,
-                hexDigits.length(),
-                "hexValues string has wrong number of characters=" + hexDigits);
+            hexDigits.length(),
+            "hexValues string has wrong number of characters=" + hexDigits);
         return CharSequences.bigEndianHexDigits(hexDigits);
     }
 

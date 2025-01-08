@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
-        HashCodeEqualsDefinedTesting2<HttpStatus>,
-        ToStringTesting<HttpStatus> {
+    HashCodeEqualsDefinedTesting2<HttpStatus>,
+    ToStringTesting<HttpStatus> {
 
     // firstLineOfText..................................................................................................
 
@@ -71,9 +71,9 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
 
     private void firstLineOfTextAndCheck(final String text, final String first) {
         this.checkEquals(
-                first,
-                HttpStatus.firstLineOfText(text),
-                () -> CharSequences.escape(text).toString()
+            first,
+            HttpStatus.firstLineOfText(text),
+            () -> CharSequences.escape(text).toString()
         );
     }
 

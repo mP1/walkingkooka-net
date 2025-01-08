@@ -59,14 +59,14 @@ public class Sample {
 
     public void testAbsoluteUrl() {
         assertEquals(
-                Url.absolute(UrlScheme.HTTPS,
-                        AbsoluteUrl.NO_CREDENTIALS,
-                        HostAddress.with("example.com"),
-                        Optional.empty(),
-                        UrlPath.parse("/path1/path2"),
-                        UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
-                        UrlFragment.with("fragment ")),
-                Url.parse("https://example.com/path1/path2?query3=value3#fragment%20")
+            Url.absolute(UrlScheme.HTTPS,
+                AbsoluteUrl.NO_CREDENTIALS,
+                HostAddress.with("example.com"),
+                Optional.empty(),
+                UrlPath.parse("/path1/path2"),
+                UrlQueryString.EMPTY.addParameter(UrlParameterName.with("query3"), "value3"),
+                UrlFragment.with("fragment ")),
+            Url.parse("https://example.com/path1/path2?query3=value3#fragment%20")
         );
     }
 
@@ -88,22 +88,22 @@ public class Sample {
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding
         final AcceptEncoding acceptEncoding = AcceptEncoding.parse("a;q=0.5,b");
         assertEquals(
-                Lists.of(
-                        AcceptEncodingValue.with("b"),
-                        AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))
-                ),
-                acceptEncoding.qualityFactorSortedValues());
+            Lists.of(
+                AcceptEncodingValue.with("b"),
+                AcceptEncodingValue.with("a").setParameters(Maps.of(AcceptEncodingValueParameterName.with("q"), 0.5f))
+            ),
+            acceptEncoding.qualityFactorSortedValues());
     }
 
     public void testHttpEntitySetBodyBinary() {
         final String text = "Text123";
 
         final HttpEntity entity = HttpEntity.EMPTY.setBody(
-                Binary.with(text.getBytes(StandardCharsets.UTF_8))
+            Binary.with(text.getBytes(StandardCharsets.UTF_8))
         );
         assertEquals(
-                text,
-                entity.bodyText()
+            text,
+            entity.bodyText()
         );
     }
 }

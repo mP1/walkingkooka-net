@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import java.util.function.Predicate;
 
 public abstract class HttpRequestAttributeRoutingPredicateTestCase<P extends Predicate<T>, T>
-        extends HttpRequestAttributeRoutingTestCase2<P, T> {
+    extends HttpRequestAttributeRoutingTestCase2<P, T> {
 
     HttpRequestAttributeRoutingPredicateTestCase() {
         super();

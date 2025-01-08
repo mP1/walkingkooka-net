@@ -123,8 +123,8 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
      */
     static String nullToEmpty(final String value) {
         return null == value ?
-                "" :
-                value;
+            "" :
+            value;
     }
 
     // ctor...........................................................................................................
@@ -190,7 +190,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
                 final String separator = UrlPath.SEPARATOR.string();
                 if (false == pathValue.startsWith(separator)) {
                     replacePath = UrlPath.parse(
-                            separator + pathValue
+                        separator + pathValue
                     );
                 } else {
                     replacePath = path;
@@ -198,9 +198,9 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
             }
 
             after = this.replace(
-                    replacePath,
-                    this.query,
-                    this.fragment
+                replacePath,
+                this.query,
+                this.fragment
             );
         }
 
@@ -216,7 +216,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
 
     final AbsoluteOrRelativeUrl appendPath0(final UrlPath path) {
         return this.setPath0(
-                this.path.appendPath(path)
+            this.path.appendPath(path)
         );
     }
 
@@ -227,7 +227,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
 
     final AbsoluteOrRelativeUrl appendPathName0(final UrlPathName name) {
         return this.setPath(
-                this.path.append(name)
+            this.path.append(name)
         );
     }
 
@@ -246,8 +246,8 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     final AbsoluteOrRelativeUrl setQuery0(final UrlQueryString query) {
         Objects.requireNonNull(query, "query");
         return this.query.equals(query) ?
-                this :
-                this.replace(this.path, query, this.fragment);
+            this :
+            this.replace(this.path, query, this.fragment);
     }
 
     final UrlQueryString query;
@@ -269,8 +269,8 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     final AbsoluteOrRelativeUrl setFragment0(final UrlFragment fragment) {
         Objects.requireNonNull(fragment, "fragment");
         return this.fragment.equals(fragment) ?
-                this :
-                this.replace(this.path, this.query, fragment);
+            this :
+            this.replace(this.path, this.query, fragment);
     }
 
     final UrlFragment fragment;

@@ -70,12 +70,12 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             for (final HttpStatusCode status : HttpStatusCode.values()) {
                 this.setVersionStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
-                        version,
-                        status.status(),
-                        httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
-                        version,
-                        status.status(),
-                        httpEntity(headers));
+                    version,
+                    status.status(),
+                    httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
+                    version,
+                    status.status(),
+                    httpEntity(headers));
             }
         }
     }
@@ -100,16 +100,16 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         response.setEntity(httpEntity(headers).setBody(Binary.with(bytes2)));
 
         this.checkResponse(recording,
-                request,
-                version,
-                status,
-                httpEntity(headers));
+            request,
+            version,
+            status,
+            httpEntity(headers));
     }
 
     private Map<HttpHeaderName<?>, List<?>> headers() {
         return Maps.of(HttpHeaderName.CONTENT_TYPE, list(MediaType.BINARY),
-                HttpHeaderName.CONTENT_LENGTH, list(Long.valueOf(CONTENT_LENGTH)),
-                HttpHeaderName.SERVER, list("Server 123"));
+            HttpHeaderName.CONTENT_LENGTH, list(Long.valueOf(CONTENT_LENGTH)),
+            HttpHeaderName.SERVER, list("Server 123"));
     }
 
     @Override

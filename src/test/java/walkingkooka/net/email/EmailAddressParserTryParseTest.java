@@ -37,8 +37,8 @@ public final class EmailAddressParserTryParseTest extends EmailAddressParserTest
     @Override
     void parseStringFails(final String text) {
         this.checkEquals(Optional.empty(),
-                EmailAddressParserTryParse.tryParse(text),
-                () -> "parse " + CharSequences.quoteAndEscape(text));
+            EmailAddressParserTryParse.tryParse(text),
+            () -> "parse " + CharSequences.quoteAndEscape(text));
     }
 
     @Override

@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ETagTestCase<E extends ETag> extends HeaderTestCase<E>
-        implements PredicateTesting2<E, ETag> {
+    implements PredicateTesting2<E, ETag> {
 
     ETagTestCase() {
         super();

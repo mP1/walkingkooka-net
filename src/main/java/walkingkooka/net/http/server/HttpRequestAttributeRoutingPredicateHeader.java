@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that tests a {@link Header#equalsOnlyPresentParameters(Object)}.
  */
 final class HttpRequestAttributeRoutingPredicateHeader extends HttpRequestAttributeRoutingPredicate<Header>
-        implements Predicate<Header> {
+    implements Predicate<Header> {
 
     /**
      * Creates a new {@link HttpRequestAttributeRoutingPredicateHeader}.

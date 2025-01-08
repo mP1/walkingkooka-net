@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ContentDispositionFileNameEncodedHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<ContentDispositionFileNameEncodedHeaderHandler, ContentDispositionFileName> {
+    NonStringHeaderHandlerTestCase<ContentDispositionFileNameEncodedHeaderHandler, ContentDispositionFileName> {
 
     @Override
     public String typeNamePrefix() {

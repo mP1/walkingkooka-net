@@ -29,8 +29,8 @@ import java.util.function.Predicate;
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
 public abstract class ETag implements Header,
-        Predicate<ETag>,
-        Value<String> {
+    Predicate<ETag>,
+    Value<String> {
 
     /**
      * Returns a wildcard {@link ETag}
@@ -96,14 +96,14 @@ public abstract class ETag implements Header,
         checkValue(value);
 
         return this.value().equals(value) ?
-                this :
-                this.replace(value, this.validator());
+            this :
+            this.replace(value, this.validator());
     }
 
     static String checkValue(final String value) {
         return ETagHeaderParser.ETAG_VALUE.failIfNullOrFalse(
-                "value",
-                value
+            "value",
+            value
         );
     }
 
@@ -121,8 +121,8 @@ public abstract class ETag implements Header,
         checkValidator0(validator);
 
         return this.validator().equals(validator) ?
-                this :
-                this.replace(this.value(), validator);
+            this :
+            this.replace(this.value(), validator);
     }
 
     /**

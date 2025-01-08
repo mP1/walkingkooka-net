@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpResponseHttpServerExceptionTest implements ClassTesting<HttpResponseHttpServerException>,
-        ThrowableTesting {
+    ThrowableTesting {
 
     @Test
     public void testWithNullStatusFails() {
@@ -46,24 +46,24 @@ final public class HttpResponseHttpServerExceptionTest implements ClassTesting<H
     @Test
     public void testNewHttpStatus() {
         this.newAndCheck(
-                HttpResponseHttpServerException.NO_ENTITY
+            HttpResponseHttpServerException.NO_ENTITY
         );
     }
 
     @Test
     public void testNewHttpStatusAndEmptyEntity() {
         this.newAndCheck(
-                Optional.of(HttpEntity.EMPTY)
+            Optional.of(HttpEntity.EMPTY)
         );
     }
 
     @Test
     public void testNewHttpStatusAndEntity() {
         this.newAndCheck(
-                Optional.of(
-                        HttpEntity.EMPTY
-                                .setBodyText("Hello")
-                )
+            Optional.of(
+                HttpEntity.EMPTY
+                    .setBodyText("Hello")
+            )
         );
     }
 

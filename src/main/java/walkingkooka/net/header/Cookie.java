@@ -278,8 +278,8 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     final Cookie setName0(final CookieName name) {
         checkName(name);
         return this.name.equals(name) ?
-                this :
-                this.replace(name, this.value);
+            this :
+            this.replace(name, this.value);
     }
 
     // value............................................................................................
@@ -287,8 +287,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * Getter that returns the value for this cookie.
      */
-    @Override
-    final public String value() {
+    @Override final public String value() {
         return this.value;
     }
 
@@ -300,8 +299,8 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     final Cookie setValue0(final String value) {
         checkValue(value);
         return this.value.equals(value) ?
-                this :
-                this.replace(this.name, value);
+            this :
+            this.replace(this.name, value);
     }
 
     final String value;
@@ -350,8 +349,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * Creates a new {@link javax.servlet.http.Cookie}
      */
-    @GwtIncompatible
-    final javax.servlet.http.Cookie createJavaxServletCookieWithNameAndValue() {
+    @GwtIncompatible final javax.servlet.http.Cookie createJavaxServletCookieWithNameAndValue() {
         return new javax.servlet.http.Cookie(this.name.value(), this.value);
     }
 
@@ -370,16 +368,16 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEqual(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final Cookie other) {
         return this.name.equals(other.name()) &&
-                this.value.equals(other.value()) &&
-                this.equals1(other);
+            this.value.equals(other.value()) &&
+            this.equals1(other);
     }
 
     abstract boolean equals1(final Cookie other);
@@ -387,8 +385,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * Dumps all attributes.
      */
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return ToStringBuilder.buildFrom(this);
     }
 

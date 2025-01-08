@@ -71,8 +71,8 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
 
         final N instance = this.nameToConstant.get(name);
         return null != instance ?
-                instance :
-                this.checkAndCreate(name);
+            instance :
+            this.checkAndCreate(name);
     }
 
     /**
@@ -80,8 +80,8 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
      */
     private N checkAndCreate(final String name) {
         RFC2045.failIfNullOrEmptyOrFalse(
-                "name",
-                name
+            "name",
+            name
         );
         return this.factory.apply(name, this.defaultHandler);
     }

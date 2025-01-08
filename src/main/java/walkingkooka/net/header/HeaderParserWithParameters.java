@@ -26,8 +26,8 @@ import java.util.Map;
  * A {@link HeaderParser} variant that supports a single value followed by optional parameters.
  */
 abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
-        N extends HeaderParameterName<?>>
-        extends HeaderParser {
+    N extends HeaderParameterName<?>>
+    extends HeaderParser {
     /**
      * Package private to limit sub classing.
      */
@@ -35,13 +35,11 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
         super(text);
     }
 
-    @Override
-    final void whitespace() {
+    @Override final void whitespace() {
         this.skipWhitespace();
     }
 
-    @Override
-    final void tokenSeparator() {
+    @Override final void tokenSeparator() {
         if (!this.requireParameterOrMultiValueSeparator) {
             if (this.requireValue) {
                 this.missingValue();
@@ -53,8 +51,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
         this.requireParameterName = true;
     }
 
-    @Override
-    final void keyValueSeparator() {
+    @Override final void keyValueSeparator() {
         if (!this.requireKeyValueSeparator) {
             this.failInvalidCharacter();
         }
@@ -62,8 +59,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
         this.requireParameterValue = true;
     }
 
-    @Override
-    final void multiValueSeparator() {
+    @Override final void multiValueSeparator() {
         if (!this.allowMultipleValues() || !this.requireParameterOrMultiValueSeparator) {
             this.failInvalidCharacter();
         }
@@ -95,21 +91,18 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
     /**
      * Slashes are a failure.
      */
-    @Override
-    final void slash() {
+    @Override final void slash() {
         this.failInvalidCharacter();
     }
 
-    @Override
-    final void comment() {
+    @Override final void comment() {
         this.failCommentPresent();
     }
 
     /**
      * Handles parsing a token.
      */
-    @Override
-    final void token() {
+    @Override final void token() {
         if (this.requireValue) {
             this.saveValue(this.value());
         } else {
@@ -139,8 +132,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
 
     abstract N parameterName();
 
-    @Override
-    final void quotedText() {
+    @Override final void quotedText() {
         if (this.requireParameterValue) {
             this.addParameterText(this.quotedParameterValue(this.parameterName));
         } else {
@@ -155,8 +147,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
     /**
      * Called when the end of text is reached, allow opportunities to complete key/value pairs or fail etc.
      */
-    @Override
-    final void endOfText() {
+    @Override final void endOfText() {
         if (this.requireValue) {
             this.missingValue();
         }
@@ -221,7 +212,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
      */
     private void addParameterText(final String text) {
         this.addParameterValue(
-                this.parameterName.parseValue(text)
+            this.parameterName.parseValue(text)
         );
     }
 

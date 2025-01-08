@@ -23,7 +23,7 @@ import walkingkooka.net.email.EmailAddress;
 import java.nio.charset.StandardCharsets;
 
 public final class CharsetNameHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<CharsetNameHeaderHandler, CharsetName> {
+    NonStringHeaderHandlerTestCase<CharsetNameHeaderHandler, CharsetName> {
 
     @Override
     public String typeNamePrefix() {
@@ -34,7 +34,7 @@ public final class CharsetNameHeaderHandlerTest extends
     public void testContent() {
         final String charset = StandardCharsets.UTF_8.name();
         this.parseAndToTextAndCheck(charset,
-                CharsetName.with(charset));
+            CharsetName.with(charset));
     }
 
     @Test
@@ -42,10 +42,10 @@ public final class CharsetNameHeaderHandlerTest extends
         final String charset = "utf-1";
         final CharsetName charsetName = CharsetName.with(charset);
         this.checkEquals(CharsetName.NO_CHARSET,
-                charsetName.charset(),
-                "charsetName must have no charset");
+            charsetName.charset(),
+            "charsetName must have no charset");
         this.parseAndToTextAndCheck(charset,
-                charsetName);
+            charsetName);
     }
 
     @Override

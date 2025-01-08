@@ -23,7 +23,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlParameterKeyValuePair>,
-        ToStringTesting<UrlParameterKeyValuePair> {
+    ToStringTesting<UrlParameterKeyValuePair> {
 
     @Test
     public void testToString() {

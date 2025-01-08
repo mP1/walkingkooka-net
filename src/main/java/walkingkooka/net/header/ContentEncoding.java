@@ -101,8 +101,8 @@ public final class ContentEncoding extends Header2<List<Encoding>> {
         Objects.requireNonNull(encodings, "encodings");
 
         final List<Encoding> copy = encodings.stream()
-                .map(v -> Objects.requireNonNull(v, "encodings includes null"))
-                .collect(Collectors.toList());
+            .map(v -> Objects.requireNonNull(v, "encodings includes null"))
+            .collect(Collectors.toList());
 
         ContentEncoding contentEncoding;
 

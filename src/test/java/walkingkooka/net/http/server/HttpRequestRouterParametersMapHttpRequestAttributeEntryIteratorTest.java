@@ -31,9 +31,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 public final class HttpRequestRouterParametersMapHttpRequestAttributeEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
-        IteratorTesting,
-        ToStringTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
-        TypeNameTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator> {
+    IteratorTesting,
+    ToStringTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator>,
+    TypeNameTesting<HttpRequestRouterParametersMapHttpRequestAttributeEntryIterator> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
     private final static HttpMethod METHOD = HttpMethod.HEAD;

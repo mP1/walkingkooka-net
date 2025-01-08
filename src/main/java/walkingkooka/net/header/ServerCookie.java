@@ -55,7 +55,7 @@ final public class ServerCookie extends Cookie {
         final int length = tokens.length;
         if (length < 1) {
             throw new IllegalArgumentException(
-                    "Server header missing cookie name/value=" + CharSequences.quoteAndEscape(header));
+                "Server header missing cookie name/value=" + CharSequences.quoteAndEscape(header));
         }
 
         // first two tokens must be name and value.
@@ -118,14 +118,14 @@ final public class ServerCookie extends Cookie {
         Objects.requireNonNull(cookie, "cookie");
 
         return new ServerCookie(CookieName.with(cookie.getName()), //
-                emptyToNull(cookie.getValue()), //
-                toOptional(cookie.getDomain()), //
-                toOptional(cookie.getPath()), //
-                toOptional(cookie.getComment()), //
-                CookieDeletion.maxAge(cookie.getMaxAge()), // auto expires
-                CookieSecure.fromJavaxSecureCookie(cookie.getSecure()), //
-                CookieHttpOnly.fromJavaxSecureCookie(cookie.isHttpOnly()), //
-                CookieVersion.from(cookie.getVersion()));
+            emptyToNull(cookie.getValue()), //
+            toOptional(cookie.getDomain()), //
+            toOptional(cookie.getPath()), //
+            toOptional(cookie.getComment()), //
+            CookieDeletion.maxAge(cookie.getMaxAge()), // auto expires
+            CookieSecure.fromJavaxSecureCookie(cookie.getSecure()), //
+            CookieHttpOnly.fromJavaxSecureCookie(cookie.isHttpOnly()), //
+            CookieVersion.from(cookie.getVersion()));
     }
 
     /**
@@ -164,14 +164,14 @@ final public class ServerCookie extends Cookie {
         checkVersion(version);
 
         return new ServerCookie(name, //
-                value, //
-                domain, //
-                path, //
-                comment, //
-                deletion, //
-                secure, //
-                httpOnly, //
-                version);
+            value, //
+            domain, //
+            path, //
+            comment, //
+            deletion, //
+            secure, //
+            httpOnly, //
+            version);
     }
 
     /**
@@ -227,8 +227,8 @@ final public class ServerCookie extends Cookie {
         checkDomain(domain);
 
         return this.domain.equals(domain) ?
-                this :
-                new ServerCookie(this.name, this.value, domain, this.path, this.comment, this.deletion, this.secure, this.httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, domain, this.path, this.comment, this.deletion, this.secure, this.httpOnly, this.version);
     }
 
     private final Optional<String> domain;
@@ -253,8 +253,8 @@ final public class ServerCookie extends Cookie {
         checkPath(path);
 
         return this.path.equals(path) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, path, this.comment, this.deletion, this.secure, this.httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, path, this.comment, this.deletion, this.secure, this.httpOnly, this.version);
     }
 
     private final Optional<String> path;
@@ -279,8 +279,8 @@ final public class ServerCookie extends Cookie {
         checkComment(comment);
 
         return this.comment.equals(comment) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, this.path, comment, this.deletion, this.secure, this.httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, this.path, comment, this.deletion, this.secure, this.httpOnly, this.version);
     }
 
     private final Optional<String> comment;
@@ -305,8 +305,8 @@ final public class ServerCookie extends Cookie {
         checkDeletion(deletion);
 
         return this.deletion.equals(deletion) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, deletion, this.secure, this.httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, deletion, this.secure, this.httpOnly, this.version);
     }
 
     private final Optional<CookieDeletion> deletion;
@@ -331,8 +331,8 @@ final public class ServerCookie extends Cookie {
         checkSecure(secure);
 
         return this.secure.equals(secure) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, this.deletion, secure, this.httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, this.deletion, secure, this.httpOnly, this.version);
     }
 
     private final CookieSecure secure;
@@ -357,8 +357,8 @@ final public class ServerCookie extends Cookie {
         checkHttpOnly(httpOnly);
 
         return this.httpOnly.equals(httpOnly) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, this.deletion, this.secure, httpOnly, this.version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, this.deletion, this.secure, httpOnly, this.version);
     }
 
     private final CookieHttpOnly httpOnly;
@@ -382,8 +382,8 @@ final public class ServerCookie extends Cookie {
     public ServerCookie setVersion(final CookieVersion version) {
         checkVersion(version);
         return this.version.equals(version) ?
-                this :
-                new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, deletion, this.secure, this.httpOnly, version);
+            this :
+            new ServerCookie(this.name, this.value, this.domain, this.path, this.comment, deletion, this.secure, this.httpOnly, version);
     }
 
     private final CookieVersion version;
@@ -483,20 +483,20 @@ final public class ServerCookie extends Cookie {
     @Override
     public int hashCode() {
         return Objects.hash(this.name, //
-                this.value,
-                this.hashDomain(), //
-                hashPath(), //
-                this.comment, //
-                this.deletion, //
-                this.secure, //
-                this.httpOnly, //
-                this.version);
+            this.value,
+            this.hashDomain(), //
+            hashPath(), //
+            this.comment, //
+            this.deletion, //
+            this.secure, //
+            this.httpOnly, //
+            this.version);
     }
 
     private int hashDomain() {
         return this.domain
-                .map(DOMAIN_CASE_SENSITIVITY::hash)
-                .orElse(0);
+            .map(DOMAIN_CASE_SENSITIVITY::hash)
+            .orElse(0);
     }
 
     private int hashPath() {
@@ -520,12 +520,12 @@ final public class ServerCookie extends Cookie {
      */
     private boolean equals2(final ServerCookie other) {
         return domainEquals(this.domain, other.domain) && //
-                this.path.equals(other.path) && //
-                this.comment.equals(other.comment) && //
-                this.deletion.equals(other.deletion) && //
-                this.secure == other.secure && //
-                this.httpOnly == other.httpOnly && //
-                this.version == other.version;
+            this.path.equals(other.path) && //
+            this.comment.equals(other.comment) && //
+            this.deletion.equals(other.deletion) && //
+            this.secure == other.secure && //
+            this.httpOnly == other.httpOnly && //
+            this.version == other.version;
     }
 
     /**
@@ -534,7 +534,7 @@ final public class ServerCookie extends Cookie {
     private static boolean domainEquals(final Optional<String> domain, final Optional<String> otherDomain) {
         final boolean domainPresent = domain.isPresent();
         return domainPresent == otherDomain.isPresent() &&
-                (!domainPresent || DOMAIN_CASE_SENSITIVITY.equals(domain.get(), otherDomain.get()));
+            (!domainPresent || DOMAIN_CASE_SENSITIVITY.equals(domain.get(), otherDomain.get()));
     }
 
     private final static CaseSensitivity DOMAIN_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;

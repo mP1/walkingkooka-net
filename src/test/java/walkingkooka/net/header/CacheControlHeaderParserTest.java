@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.Optional;
 
 public final class CacheControlHeaderParserTest extends HeaderParserTestCase<CacheControlHeaderParser,
-        CacheControl> {
+    CacheControl> {
 
     @Test
     public void testWildcardFails() {
@@ -457,8 +457,8 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     @Test
     public void testCustomQuotedValues() {
         this.parseStringAndCheck2("custom=\"abc\"",
-                "custom",
-                "abc");
+            "custom",
+            "abc");
     }
 
     @Test
@@ -486,76 +486,76 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     @Test
     public void testMaxAgeSeparatorNoCache() {
         this.parseStringAndCheck3("max-age=123,no-cache",
-                CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                CacheControlDirective.NO_CACHE);
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+            CacheControlDirective.NO_CACHE);
     }
 
     @Test
     public void testMaxAgeSpaceNoCache() {
         this.parseStringAndCheck3("max-age=123, no-cache",
-                CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                CacheControlDirective.NO_CACHE);
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+            CacheControlDirective.NO_CACHE);
     }
 
     @Test
     public void testMaxAgeTabNoCache() {
         this.parseStringAndCheck3("max-age=123,\tno-cache",
-                CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                CacheControlDirective.NO_CACHE);
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+            CacheControlDirective.NO_CACHE);
     }
 
     @Test
     public void testMaxAgeSeparatorMaxStale() {
         this.parseStringAndCheck3("max-age=123,max-stale=456",
-                CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(456L)));
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+            CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(456L)));
     }
 
     @Test
     public void testNoCacheSeparatorNoStoreSeparatorNoTransform() {
         this.parseStringAndCheck3("no-cache,no-store,no-transform",
-                CacheControlDirective.NO_CACHE,
-                CacheControlDirective.NO_STORE,
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_CACHE,
+            CacheControlDirective.NO_STORE,
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     @Test
     public void testNoCacheSeparatorSpaceNoStoreSeparatorSpaceNoTransform() {
         this.parseStringAndCheck3("no-cache, no-store, no-transform",
-                CacheControlDirective.NO_CACHE,
-                CacheControlDirective.NO_STORE,
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_CACHE,
+            CacheControlDirective.NO_STORE,
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     @Test
     public void testNoCacheSeparatorTabNoStoreSeparatorTabNoTransform() {
         this.parseStringAndCheck3("no-cache, no-store, no-transform",
-                CacheControlDirective.NO_CACHE,
-                CacheControlDirective.NO_STORE,
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_CACHE,
+            CacheControlDirective.NO_STORE,
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     @Test
     public void testNoCacheSeparatorSpaceTabSpaceTabNoStoreSeparatorNoTransform() {
         this.parseStringAndCheck3("no-cache, \t \tno-store,no-transform",
-                CacheControlDirective.NO_CACHE,
-                CacheControlDirective.NO_STORE,
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_CACHE,
+            CacheControlDirective.NO_STORE,
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     @Test
     public void testNoCacheSeparatorSpaceCrNlNoStoreSeparatorNoTransform() {
         this.parseStringAndCheck3("no-cache,\r\n no-store,no-transform",
-                CacheControlDirective.NO_CACHE,
-                CacheControlDirective.NO_STORE,
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_CACHE,
+            CacheControlDirective.NO_STORE,
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     @Test
     public void testExtensionQuotedParameterSeparatorNoTransform() {
         this.parseStringAndCheck3("extension=\"abc\",no-transform",
-                CacheControlDirectiveName.with("extension").setParameter(Cast.to(Optional.of("abc"))),
-                CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirectiveName.with("extension").setParameter(Cast.to(Optional.of("abc"))),
+            CacheControlDirective.NO_TRANSFORM);
     }
 
     // helpers .........................................................................................................
@@ -563,14 +563,14 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     private void parseStringAndCheck2(final String text,
                                       final String directive) {
         this.parseStringAndCheck3(text,
-                CacheControlDirective.with(CacheControlDirectiveName.with(directive), Optional.empty()));
+            CacheControlDirective.with(CacheControlDirectiveName.with(directive), Optional.empty()));
     }
 
     private void parseStringAndCheck2(final String text,
                                       final String directive,
                                       final Object value) {
         this.parseStringAndCheck3(text,
-                CacheControlDirective.with(Cast.to(CacheControlDirectiveName.with(directive)), Optional.of(value)));
+            CacheControlDirective.with(Cast.to(CacheControlDirectiveName.with(directive)), Optional.of(value)));
     }
 
     private void parseStringAndCheck3(final String text,

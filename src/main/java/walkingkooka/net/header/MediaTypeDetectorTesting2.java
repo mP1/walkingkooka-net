@@ -27,36 +27,36 @@ public interface MediaTypeDetectorTesting2<T extends MediaTypeDetector> extends 
     @Test
     default void testDetectWithNullFilenameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createMediaTypeDetector()
-                        .detect(
-                                null,
-                                Binary.EMPTY
-                        )
+            NullPointerException.class,
+            () -> this.createMediaTypeDetector()
+                .detect(
+                    null,
+                    Binary.EMPTY
+                )
         );
     }
 
     @Test
     default void testDetectWithEmptyFilenameFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createMediaTypeDetector()
-                        .detect(
-                                "",
-                                Binary.EMPTY
-                        )
+            IllegalArgumentException.class,
+            () -> this.createMediaTypeDetector()
+                .detect(
+                    "",
+                    Binary.EMPTY
+                )
         );
     }
 
     @Test
     default void testDetectWithNullBinaryFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createMediaTypeDetector()
-                        .detect(
-                                "filename",
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createMediaTypeDetector()
+                .detect(
+                    "filename",
+                    null
+                )
         );
     }
 
@@ -64,10 +64,10 @@ public interface MediaTypeDetectorTesting2<T extends MediaTypeDetector> extends 
                                 final Binary content,
                                 final MediaType expected) {
         this.detectAndCheck(
-                this.createMediaTypeDetector(),
-                filename,
-                content,
-                expected
+            this.createMediaTypeDetector(),
+            filename,
+            content,
+            expected
         );
     }
 

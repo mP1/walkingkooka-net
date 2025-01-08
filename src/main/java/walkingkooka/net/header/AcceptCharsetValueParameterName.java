@@ -25,16 +25,16 @@ import walkingkooka.naming.Name;
  * or commas.
  */
 final public class AcceptCharsetValueParameterName<V> extends HeaderParameterName<V>
-        implements Comparable<AcceptCharsetValueParameterName<?>> {
+    implements Comparable<AcceptCharsetValueParameterName<?>> {
 
     // constants
 
     private final static HeaderParameterNameConstants<AcceptCharsetValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            AcceptCharsetValueParameterName::new,
-            HeaderHandler.quotedUnquotedString(
-                    AcceptCharsetHeaderParser.QUOTED_PARAMETER_VALUE,
-                    false,
-                    AcceptCharsetHeaderParser.UNQUOTED_PARAMETER_VALUE));
+        AcceptCharsetValueParameterName::new,
+        HeaderHandler.quotedUnquotedString(
+            AcceptCharsetHeaderParser.QUOTED_PARAMETER_VALUE,
+            false,
+            AcceptCharsetHeaderParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * The q (quality factor) parameter.

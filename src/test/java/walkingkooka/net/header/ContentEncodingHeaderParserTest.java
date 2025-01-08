@@ -70,34 +70,34 @@ public final class ContentEncodingHeaderParserTest extends HeaderParserTestCase<
     @Test
     public void testToken() {
         this.parseStringAndCheck2("gzip",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseStringAndCheck2("gzip ",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseStringAndCheck2(" gzip",
-                Encoding.GZIP);
+            Encoding.GZIP);
     }
 
     @Test
     public void testTokenCommaToken() {
         this.parseStringAndCheck2("gzip,deflate",
-                Encoding.GZIP,
-                Encoding.DEFLATE);
+            Encoding.GZIP,
+            Encoding.DEFLATE);
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
         this.parseStringAndCheck2("gzip, deflate,  br",
-                Encoding.GZIP,
-                Encoding.DEFLATE,
-                Encoding.BR);
+            Encoding.GZIP,
+            Encoding.DEFLATE,
+            Encoding.BR);
     }
 
     private void parseStringAndCheck2(final String text, final Encoding... encodings) {

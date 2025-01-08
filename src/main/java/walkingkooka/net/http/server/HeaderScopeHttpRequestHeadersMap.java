@@ -52,7 +52,7 @@ final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<
     @Override
     public boolean containsKey(final Object key) {
         return key instanceof HttpHeaderName &&
-                this.map.containsKey(this.checkHeader(key));
+            this.map.containsKey(this.checkHeader(key));
     }
 
     @Override
@@ -63,8 +63,8 @@ final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<
     @Override
     public List<Object> get(final Object key) {
         return key instanceof HttpHeaderName ?
-                Cast.to(this.map.get(this.checkHeader(key))) :
-                null;
+            Cast.to(this.map.get(this.checkHeader(key))) :
+            null;
     }
 
     @Override

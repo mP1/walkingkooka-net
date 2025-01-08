@@ -30,8 +30,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 public final class HttpResponseParserTest implements ClassTesting2<HttpResponseParser>,
-        ParseStringTesting<HttpResponse>,
-        ToStringTesting<HttpResponseParser> {
+    ParseStringTesting<HttpResponse>,
+    ToStringTesting<HttpResponseParser> {
 
     @Test
     public void testEmptyFails() {
@@ -56,8 +56,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Test
     public void testInvalidHeaderFails() {
         this.parseStringFails(
-                "HTTP/1.0 200 OK\r\nContent-Length:A",
-                new HeaderException("Content-Length: Invalid number in \"A\"")
+            "HTTP/1.0 200 OK\r\nContent-Length:A",
+            new HeaderException("Content-Length: Invalid number in \"A\"")
         );
     }
 
@@ -107,8 +107,8 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.setEntity(
-                HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                        .setContentType(MediaType.TEXT_PLAIN)
+            HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+                .setContentType(MediaType.TEXT_PLAIN)
         );
 
         this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\nContent-Type: text/plain\r\n\r\n", response);

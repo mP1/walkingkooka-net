@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LinkParameterNameTest extends HeaderParameterNameTestCase<LinkParameterName<?>,
-        LinkParameterName<?>> {
+    LinkParameterName<?>> {
 
     @Test
     public void testWithIncludesWhitespaceFails() {
@@ -44,7 +44,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(LinkParameterName.REL,
-                LinkParameterName.with(LinkParameterName.REL.value()));
+            LinkParameterName.with(LinkParameterName.REL.value()));
     }
 
     @Test
@@ -59,7 +59,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     @Test
     public void testParameterValueAbsent() {
         this.parameterValueAndCheckAbsent(LinkParameterName.REL,
-                this.link());
+            this.link());
     }
 
     @Test
@@ -68,8 +68,8 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
         final List<LinkRelation<?>> value = LinkRelation.parse("prev");
 
         this.parameterValueAndCheckPresent(parameter,
-                this.link().setParameters(Maps.of(parameter, value)),
-                value);
+            this.link().setParameters(Maps.of(parameter, value)),
+            value);
     }
 
     private Link link() {

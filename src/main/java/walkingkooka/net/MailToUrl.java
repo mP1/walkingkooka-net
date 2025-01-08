@@ -102,28 +102,28 @@ public final class MailToUrl extends Url {
         int emailAddressesStart = SCHEME.length();
 
         final int questionMark = url.indexOf(
-                Url.QUERY_START.character(),
-                emailAddressesStart
+            Url.QUERY_START.character(),
+            emailAddressesStart
         );
 
         final List<EmailAddress> emailAddresses = parseEmailAddresses(
-                url,
-                emailAddressesStart,
-                -1 == questionMark ?
-                        url.length() :
-                        questionMark
+            url,
+            emailAddressesStart,
+            -1 == questionMark ?
+                url.length() :
+                questionMark
         );
 
         final UrlQueryString headers = -1 == questionMark ?
-                UrlQueryString.EMPTY :
-                UrlQueryString.parse(
-                        url.substring(questionMark + 1)
-                );
+            UrlQueryString.EMPTY :
+            UrlQueryString.parse(
+                url.substring(questionMark + 1)
+            );
 
         return with(
-                url,
-                emailAddresses,
-                headers
+            url,
+            emailAddresses,
+            headers
         );
     }
 
@@ -135,25 +135,25 @@ public final class MailToUrl extends Url {
         int i = start;
         while (i < end) {
             final int separator = url.indexOf(
-                    EMAIL_SEPARATOR.character(),
-                    i
+                EMAIL_SEPARATOR.character(),
+                i
             );
             if (-1 == separator) {
                 emailAddresses.add(
-                        decodeEmailAddress(
-                                url,
-                                i,
-                                end
-                        )
+                    decodeEmailAddress(
+                        url,
+                        i,
+                        end
+                    )
                 );
                 break;
             }
             emailAddresses.add(
-                    decodeEmailAddress(
-                            url,
-                            i,
-                            separator
-                    )
+                decodeEmailAddress(
+                    url,
+                    i,
+                    separator
+                )
             );
 
             i = separator + 1;
@@ -166,12 +166,12 @@ public final class MailToUrl extends Url {
                                                    final int start,
                                                    final int end) {
         return EmailAddress.parse(
-                URLDecoder.decode(
-                        url.substring(
-                                start,
-                                end
-                        )
+            URLDecoder.decode(
+                url.substring(
+                    start,
+                    end
                 )
+            )
         );
     }
 
@@ -179,9 +179,9 @@ public final class MailToUrl extends Url {
                           final List<EmailAddress> emailAddresses,
                           final UrlQueryString headers) {
         return new MailToUrl(
-                url,
-                checkEmailAddresses(emailAddresses),
-                checkHeaders(headers)
+            url,
+            checkEmailAddresses(emailAddresses),
+            checkHeaders(headers)
         );
     }
 
@@ -202,11 +202,11 @@ public final class MailToUrl extends Url {
 
         final List<EmailAddress> copy = Lists.immutable(emailAddresses);
         return this.emailAddresses.equals(emailAddresses) ?
-                this :
-                this.replace(
-                        copy,
-                        headers
-                );
+            this :
+            this.replace(
+                copy,
+                headers
+            );
     }
 
     private static List<EmailAddress> checkEmailAddresses(final List<EmailAddress> emailAddresses) {
@@ -223,11 +223,11 @@ public final class MailToUrl extends Url {
         checkHeaders(headers);
 
         return this.headers.equals(headers) ?
-                this :
-                this.replace(
-                        this.emailAddresses,
-                        headers
-                );
+            this :
+            this.replace(
+                this.emailAddresses,
+                headers
+            );
     }
 
     private static UrlQueryString checkHeaders(final UrlQueryString headers) {
@@ -239,9 +239,9 @@ public final class MailToUrl extends Url {
     private MailToUrl replace(final List<EmailAddress> emailAddresses,
                               final UrlQueryString headers) {
         return new MailToUrl(
-                null, // url
-                emailAddresses,
-                headers
+            null, // url
+            emailAddresses,
+            headers
         );
     }
 
@@ -277,7 +277,7 @@ public final class MailToUrl extends Url {
             for (final EmailAddress emailAddress : this.emailAddresses) {
                 b.append(separator);
                 b.append(
-                        MailToUrl.encode(emailAddress)
+                    MailToUrl.encode(emailAddress)
                 );
 
                 separator = EMAIL_SEPARATOR.string();
@@ -304,7 +304,7 @@ public final class MailToUrl extends Url {
     //   certain cases.
     private static String encode(final EmailAddress emailAddress) {
         return URLEncoder.encode(
-                emailAddress.value()
+            emailAddress.value()
         ).replace("%40", "@");
     }
 
@@ -313,22 +313,22 @@ public final class MailToUrl extends Url {
     public int hashCode() {
         // do not include url
         return Objects.hash(
-                this.emailAddresses,
-                this.headers
+            this.emailAddresses,
+            this.headers
         );
     }
 
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof MailToUrl && this.equals0(Cast.to(other));
+            other instanceof MailToUrl && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final MailToUrl other) {
         return null != this.url && Objects.equals(this.url, other.url) ||
-                (
-                        this.emailAddresses.equals(other.emailAddresses) &&
-                                this.headers.equals(other.headers)
-                );
+            (
+                this.emailAddresses.equals(other.emailAddresses) &&
+                    this.headers.equals(other.headers)
+            );
     }
 
     @Override

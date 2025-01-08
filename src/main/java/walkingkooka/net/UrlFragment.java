@@ -33,8 +33,8 @@ import java.util.Objects;
  * </pre>
  */
 public final class UrlFragment implements Value<String>,
-        CanBeEmpty,
-        Comparable<UrlFragment> {
+    CanBeEmpty,
+    Comparable<UrlFragment> {
 
     /**
      * An empty or absent fragment.
@@ -52,10 +52,10 @@ public final class UrlFragment implements Value<String>,
     public static UrlFragment parse(final String value) throws NullPointerException, IllegalArgumentException {
         try {
             return with(
-                    URLDecoder.decode(
-                            value.replace("+", ENCODED_PLUS_SIGN),
-                            UTF8
-                    )
+                URLDecoder.decode(
+                    value.replace("+", ENCODED_PLUS_SIGN),
+                    UTF8
+                )
             );
         } catch (final UnsupportedEncodingException cause) {
             throw new Error(cause);
@@ -69,8 +69,8 @@ public final class UrlFragment implements Value<String>,
         Objects.requireNonNull(value, "value");
 
         return value.isEmpty() ?
-                EMPTY :
-                new UrlFragment(value);
+            EMPTY :
+            new UrlFragment(value);
     }
 
     /**
@@ -88,14 +88,14 @@ public final class UrlFragment implements Value<String>,
         Objects.requireNonNull(fragment, "fragment");
 
         return this.isEmpty() ?
-                fragment :
-                fragment.isEmpty() ?
-                        this :
-                        new UrlFragment(
-                                this.value +
-                                        "/" +
-                                        fragment.value
-                        );
+            fragment :
+            fragment.isEmpty() ?
+                this :
+                new UrlFragment(
+                    this.value +
+                        "/" +
+                        fragment.value
+                );
     }
 
     /**
@@ -105,13 +105,13 @@ public final class UrlFragment implements Value<String>,
         Objects.requireNonNull(fragment, "fragment");
 
         return this.isEmpty() ?
-                fragment :
-                fragment.isEmpty() ?
-                        this :
-                        new UrlFragment(
-                                this.value +
-                                        fragment.value
-                        );
+            fragment :
+            fragment.isEmpty() ?
+                this :
+                new UrlFragment(
+                    this.value +
+                        fragment.value
+                );
     }
 
     /**
@@ -142,7 +142,7 @@ public final class UrlFragment implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-                other instanceof UrlFragment && this.equals0((UrlFragment) other);
+            other instanceof UrlFragment && this.equals0((UrlFragment) other);
     }
 
     private boolean equals0(final UrlFragment other) {
@@ -166,30 +166,30 @@ public final class UrlFragment implements Value<String>,
     @Override
     public String toString() {
         return encode(this.value)
-                .replace(ENCODED_SPACE, "%20")
-                //
-                .replace(ENCODED_PLUS_SIGN, "+")
-                //
-                .replace(ENCODED_EXCLAIMATION, "!")
-                .replace(ENCODED_DOLLAR_SIGN, "$")
-                .replace(ENCODED_AMPERSAND, "&")
-                .replace(ENCODED_SINGLE_QUOTE, "'")
-                .replace(ENCODED_OPEN_PARENS, "(")
-                .replace(ENCODED_CLOSE_PARENS, ")")
-                .replace(ENCODED_STAR, "*")
-                .replace(ENCODED_COMMA, ",")
-                .replace(ENCODED_SEMI_COLON, ";")
-                .replace(ENCODED_EQUALS_SIGN, "=")
-                //
-                .replace(ENCODED_COLON, ":")
-                //
-                .replace(ENCODED_AT_SIGN, "@")
-                .replace(ENCODED_SLASH, "/")
-                //
-                .replace(ENCODED_QUESTION_MARK, "?")
-                //
-                .replace(ENCODED_BRACKET_OPEN, "[")
-                .replace(ENCODED_BRACKET_CLOSE, "]");
+            .replace(ENCODED_SPACE, "%20")
+            //
+            .replace(ENCODED_PLUS_SIGN, "+")
+            //
+            .replace(ENCODED_EXCLAIMATION, "!")
+            .replace(ENCODED_DOLLAR_SIGN, "$")
+            .replace(ENCODED_AMPERSAND, "&")
+            .replace(ENCODED_SINGLE_QUOTE, "'")
+            .replace(ENCODED_OPEN_PARENS, "(")
+            .replace(ENCODED_CLOSE_PARENS, ")")
+            .replace(ENCODED_STAR, "*")
+            .replace(ENCODED_COMMA, ",")
+            .replace(ENCODED_SEMI_COLON, ";")
+            .replace(ENCODED_EQUALS_SIGN, "=")
+            //
+            .replace(ENCODED_COLON, ":")
+            //
+            .replace(ENCODED_AT_SIGN, "@")
+            .replace(ENCODED_SLASH, "/")
+            //
+            .replace(ENCODED_QUESTION_MARK, "?")
+            //
+            .replace(ENCODED_BRACKET_OPEN, "[")
+            .replace(ENCODED_BRACKET_CLOSE, "]");
     }
 
     // The scheme- or implementation-specific reserved character + may be used in the scheme, userinfo, host, path, query, and fragment,

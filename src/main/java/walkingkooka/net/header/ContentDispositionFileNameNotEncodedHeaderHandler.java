@@ -46,8 +46,8 @@ final class ContentDispositionFileNameNotEncodedHeaderHandler extends NonStringH
     @Override
     void checkNonNull(Object value) {
         this.checkType(value,
-                v -> v instanceof ContentDispositionFileNameNotEncoded,
-                ContentDispositionFileNameNotEncoded.class
+            v -> v instanceof ContentDispositionFileNameNotEncoded,
+            ContentDispositionFileNameNotEncoded.class
         );
     }
 
@@ -62,7 +62,7 @@ final class ContentDispositionFileNameNotEncodedHeaderHandler extends NonStringH
     }
 
     private final static HeaderHandler<String> QUOTED_UNQUOTED_STRING = HeaderHandler.quotedUnquotedString(
-            CharPredicates.asciiPrintable(),
-            false,
-            CharPredicates.rfc2045Token());
+        CharPredicates.asciiPrintable(),
+        false,
+        CharPredicates.rfc2045Token());
 }

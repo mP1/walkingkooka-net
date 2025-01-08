@@ -44,8 +44,8 @@ final class ServerCookieHeaderHandler extends NonStringHeaderHandler<ServerCooki
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof ServerCookie,
-                ServerCookie.class
+            v -> v instanceof ServerCookie,
+            ServerCookie.class
         );
     }
 

@@ -54,8 +54,8 @@ final class MethodNotAllowedHttpHandler implements HttpHandler {
         final HttpMethod method = request.method();
         if (this.method.equals(method)) {
             this.handler.handle(
-                    request,
-                    response
+                request,
+                response
             );
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));

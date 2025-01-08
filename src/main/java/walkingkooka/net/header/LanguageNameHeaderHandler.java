@@ -44,8 +44,8 @@ final class LanguageNameHeaderHandler extends NonStringHeaderHandler<LanguageNam
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof LanguageName,
-                LanguageName.class
+            v -> v instanceof LanguageName,
+            LanguageName.class
         );
     }
 

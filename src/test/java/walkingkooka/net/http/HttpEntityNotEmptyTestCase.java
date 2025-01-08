@@ -48,8 +48,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaders() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -66,8 +66,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeadersList() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -84,8 +84,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeadersList2() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -104,8 +104,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderNew() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -121,8 +121,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderNewList() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -139,8 +139,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderNewList2() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -157,8 +157,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderTwice() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -178,8 +178,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderDifferent() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
@@ -203,8 +203,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderDifferent2() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
@@ -234,8 +234,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderEmptyReplace() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
@@ -255,8 +255,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testSetHeaderEmptyReplace2() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
@@ -266,7 +266,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final MediaType value2 = MediaType.parse("custom/media-type2");
 
         final HttpEntity set1 = entity.setHeader(header1, list(value1))
-                .setHeader(header2, list(value2));
+            .setHeader(header2, list(value2));
         assertNotSame(entity, set1);
 
         this.check(set1, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
@@ -283,8 +283,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderNew() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -300,8 +300,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderListNew() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
@@ -317,8 +317,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderSameValueTwice() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -337,8 +337,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderSameValueTwiceMulti() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<AcceptLanguage> header = HttpHeaderName.ACCEPT_LANGUAGE;
@@ -356,8 +356,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderDifferentValueMulti() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<AcceptLanguage> header = HttpHeaderName.ACCEPT_LANGUAGE;
@@ -379,8 +379,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderSetBody() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -402,8 +402,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testAddHeaderSetBodyText() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -427,8 +427,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testRemoveHeaderBecomesEmpty() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -445,8 +445,8 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testRemoveHeaderUnknown() {
         final H entity = this.createHttpEntity();
         this.checkEquals(
-                HttpEntity.NO_HEADERS,
-                entity.headers()
+            HttpEntity.NO_HEADERS,
+            entity.headers()
         );
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
@@ -468,22 +468,22 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         assertNotSame(entity, set);
 
         this.check(set,
-                map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
-                BINARY,
-                TEXT);
+            map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
+            BINARY,
+            TEXT);
     }
 
     @Test
     public final void testSetContentLengthReplaces() {
         final HttpEntity entity = this.createHttpEntity()
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 9999L);
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 9999L);
         final HttpEntity set = entity.setContentLength();
         assertNotSame(entity, set);
 
         this.check(set,
-                map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
-                BINARY,
-                TEXT);
+            map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
+            BINARY,
+            TEXT);
     }
 
     @Test
@@ -501,12 +501,12 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity httpEntity = this.createHttpEntity();
 
         this.setAcceptAndCheck(
-                httpEntity,
-                MediaType.TEXT_PLAIN.accept(),
-                httpEntity.setAccept(MediaType.TEXT_PLAIN.accept())
+            httpEntity,
+            MediaType.TEXT_PLAIN.accept(),
+            httpEntity.setAccept(MediaType.TEXT_PLAIN.accept())
         );
     }
-    
+
     // setContentType...................................................................................................
 
     @Test
@@ -514,9 +514,9 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity httpEntity = this.createHttpEntity();
 
         this.setContentTypeAndCheck(
-                httpEntity,
-                MediaType.TEXT_PLAIN,
-                httpEntity.setContentType(MediaType.TEXT_PLAIN)
+            httpEntity,
+            MediaType.TEXT_PLAIN,
+            httpEntity.setContentType(MediaType.TEXT_PLAIN)
         );
     }
 
@@ -531,43 +531,43 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     @Test
     public final void testExtractRange() {
         this.extractRangeAndCheck(0,
-                0,
-                new byte[]{'a'});
+            0,
+            new byte[]{'a'});
     }
 
     @Test
     public final void testExtractRange2() {
         this.extractRangeAndCheck(1,
-                2,
-                new byte[]{'b', 'c'});
+            2,
+            new byte[]{'b', 'c'});
     }
 
     @Test
     public final void testExtractRange3() {
         this.extractRangeAndCheck(22,
-                25,
-                new byte[]{'w', 'x', 'y', 'z'});
+            25,
+            new byte[]{'w', 'x', 'y', 'z'});
     }
 
     @Test
     public final void testExtractRange4() {
         this.extractRangeAndCheck(Range.greaterThanEquals(22L),
-                Binary.with(new byte[]{'w', 'x', 'y', 'z'}));
+            Binary.with(new byte[]{'w', 'x', 'y', 'z'}));
     }
 
     private void extractRangeAndCheck(final long lower,
                                       final long upper,
                                       final byte[] expected) {
         this.extractRangeAndCheck(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)),
-                Binary.with(expected));
+            Binary.with(expected));
     }
 
     private void extractRangeAndCheck(final Range<Long> range,
                                       final Binary expected) {
         final HttpEntity entity = this.createHttpEntity();
         this.checkEquals(entity.setBody(expected),
-                entity.extractRange(range),
-                () -> entity + " extractRange " + range + " failed");
+            entity.extractRange(range),
+            () -> entity + " extractRange " + range + " failed");
     }
 
     // equals...........................................................................................................
@@ -580,33 +580,33 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     @Test
     public final void testEqualsDifferentHeaders2() {
         this.checkNotEquals(this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 777L),
-                this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 999L));
+            this.createHttpEntity(HttpHeaderName.CONTENT_LENGTH, 999L));
     }
 
     @Test
     public final void testEqualsDifferentBody() {
         this.checkNotEquals(
-                HttpEntityBinary.with(
-                        HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
-                        Binary.with(new byte[1])
-                )
+            HttpEntityBinary.with(
+                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
+                Binary.with(new byte[1])
+            )
         );
     }
 
     @Test
     public final void testEqualsDifferentText() {
         this.checkNotEquals(
-                HttpEntityText.with(
-                        HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
-                        "different"
-                )
+            HttpEntityText.with(
+                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
+                "different"
+            )
         );
     }
 
     @Override //
     final H createHttpEntity() {
         return this.createHttpEntity(
-                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST
+            HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST
         );
     }
 

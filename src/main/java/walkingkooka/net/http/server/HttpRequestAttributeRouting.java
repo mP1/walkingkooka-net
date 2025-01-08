@@ -61,8 +61,8 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      * An empty {@link HttpRequestAttributeRouting} singleton.
      */
     private final static HttpRequestAttributeRouting EMPTY = new HttpRequestAttributeRouting(Sets.empty(),
-            Sets.empty(),
-            map());
+        Sets.empty(),
+        map());
 
     /**
      * Private ctor use factory.
@@ -87,8 +87,8 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         final Set<HttpTransport> copy = Sets.ordered();
         copy.addAll(this.transports);
         return copy.add(transport) ?
-                new HttpRequestAttributeRouting(copy, this.methods, this.attributes) :
-                this;
+            new HttpRequestAttributeRouting(copy, this.methods, this.attributes) :
+            this;
     }
 
     // VisibleForTesting
@@ -114,8 +114,8 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         final Set<HttpMethod> copy = Sets.ordered();
         copy.addAll(this.methods);
         return copy.add(method) ?
-                new HttpRequestAttributeRouting(this.transports, copy, this.attributes) :
-                this;
+            new HttpRequestAttributeRouting(this.transports, copy, this.attributes) :
+            this;
     }
 
     // VisibleForTesting
@@ -187,9 +187,9 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
     public <H> HttpRequestAttributeRouting headerAndValue(final HttpHeaderName<H> name,
                                                           final H header) {
         return this.header(name,
-                header instanceof Header ?
-                        Cast.to(HttpRequestAttributeRoutingPredicateHeader.with((Header) header)) :
-                        Predicates.is(header));
+            header instanceof Header ?
+                Cast.to(HttpRequestAttributeRoutingPredicateHeader.with((Header) header)) :
+                Predicates.is(header));
     }
 
     /**
@@ -251,9 +251,9 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
             }
 
             that = that.parameter(HttpRequestParameterName.with(parameter.value()),
-                    ignoreValue.test(value) ?
-                            PARAMETER_ANY_VALUE :
-                            Predicates.is(value));
+                ignoreValue.test(value) ?
+                    PARAMETER_ANY_VALUE :
+                    Predicates.is(value));
         }
 
         return that;
@@ -308,8 +308,8 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
             throw new IllegalArgumentException("Attribute " + attribute + " replacement fails=" + value);
         }
         return value.equals(replace) ?
-                this :
-                new HttpRequestAttributeRouting(this.transports, this.methods, copy);
+            this :
+            new HttpRequestAttributeRouting(this.transports, this.methods, copy);
     }
 
     /**
@@ -359,10 +359,10 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .value(this.transports)
-                .valueSeparator(" ")
-                .value(this.methods)
-                .valueSeparator(", ")
-                .value(this.attributes).build();
+            .value(this.transports)
+            .valueSeparator(" ")
+            .value(this.methods)
+            .valueSeparator(", ")
+            .value(this.attributes).build();
     }
 }

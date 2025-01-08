@@ -47,8 +47,8 @@ final class AbsoluteUrlHeaderHandler extends NonStringHeaderHandler<AbsoluteUrl>
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof AbsoluteUrl,
-                AbsoluteUrl.class
+            v -> v instanceof AbsoluteUrl,
+            AbsoluteUrl.class
         );
     }
 

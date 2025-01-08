@@ -33,7 +33,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2<HeaderScopeHttpRequestHeadersMap>,
-        MapTesting2<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
+    MapTesting2<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, List<?>> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
@@ -47,20 +47,20 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
     @Test
     public void testContainsKey() {
         this.containsKeyAndCheck(HEADER,
-                true);
+            true);
     }
 
     @Test
     public void testContainsKeyAbsent() {
         this.containsKeyAndCheck(HttpHeaderName.COOKIE,
-                false);
+            false);
     }
 
     private void containsKeyAndCheck(final Object key,
                                      final boolean containsKey) {
         this.checkEquals(containsKey,
-                this.createMap().containsKey(key),
-                "request containsKey " + key + " returned wrong value");
+            this.createMap().containsKey(key),
+            "request containsKey " + key + " returned wrong value");
     }
 
     @Test

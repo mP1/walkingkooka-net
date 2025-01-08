@@ -137,13 +137,13 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4}),
-                "1.2.3.4");
+            "1.2.3.4");
     }
 
     @Test
     public void testToString2() {
         this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, (byte) 0xFE, (byte) 0xFD, (byte) 0xFC}),
-                "255.254.253.252");
+            "255.254.253.252");
     }
 
     @Override

@@ -47,8 +47,8 @@ final class RelativeUrlHeaderHandler extends NonStringHeaderHandler<RelativeUrl>
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof RelativeUrl,
-                RelativeUrl.class
+            v -> v instanceof RelativeUrl,
+            RelativeUrl.class
         );
     }
 

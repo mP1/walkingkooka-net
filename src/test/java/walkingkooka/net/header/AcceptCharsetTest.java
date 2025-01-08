@@ -31,9 +31,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
-        implements HasQualityFactorSortedValuesTesting,
-        ParseStringTesting<AcceptCharset>,
-        PredicateTesting {
+    implements HasQualityFactorSortedValuesTesting,
+    ParseStringTesting<AcceptCharset>,
+    PredicateTesting {
 
     // charset...................................................................................................
 
@@ -45,14 +45,14 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Test
     public void testCharset2() {
         this.charsetAndCheck(
-                this.createHeader(AcceptCharsetValue.with(CharsetName.UTF_8)),
-                CharsetName.UTF_8.charset());
+            this.createHeader(AcceptCharsetValue.with(CharsetName.UTF_8)),
+            CharsetName.UTF_8.charset());
     }
 
     @Test
     public void testCharsetWithout() {
         this.charsetAndCheck(
-                this.createHeader(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
+            this.createHeader(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset) {
@@ -61,8 +61,8 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
 
     private void charsetAndCheck(final AcceptCharset acceptCharset, final Optional<Charset> expected) {
         this.checkEquals(expected,
-                acceptCharset.charset(),
-                acceptCharset + " .charset()");
+            acceptCharset.charset(),
+            acceptCharset + " .charset()");
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
@@ -76,7 +76,7 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Test
     public void testQualityFactorSort2() {
         this.qualitySortedValuesAndCheck(AcceptCharset.parse("UTF8;q=0.5,UTF16"),
-                AcceptCharset.parse("UTF16,UTF8;q=0.5").value());
+            AcceptCharset.parse("UTF16,UTF8;q=0.5").value());
     }
 
     // parse.......................................................................................................
@@ -84,14 +84,14 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Test
     public void testParse() {
         this.parseStringAndCheck("UTF-8;bcd=123 ",
-                AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
+            AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
     }
 
     @Test
     public void testParseUtf8Constant() {
         assertSame(
-                AcceptCharset.UTF_8,
-                AcceptCharset.parse("utf-8")
+            AcceptCharset.UTF_8,
+            AcceptCharset.parse("utf-8")
         );
     }
 
@@ -151,8 +151,8 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Override
     List<AcceptCharsetValue> value() {
         return Lists.of(AcceptCharsetValue.with(CharsetName.with("X-custom")),
-                AcceptCharsetValue.with(CharsetName.UTF_8),
-                AcceptCharsetValue.with(CharsetName.UTF_16));
+            AcceptCharsetValue.with(CharsetName.UTF_8),
+            AcceptCharsetValue.with(CharsetName.UTF_16));
     }
 
     @Override

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public final class LinkRelationHeaderParserTest extends HeaderParserTestCase<LinkRelationHeaderParser,
-        List<LinkRelation<?>>> {
+    List<LinkRelation<?>>> {
 
     @Test
     public void testTokenSeparatorFails() {

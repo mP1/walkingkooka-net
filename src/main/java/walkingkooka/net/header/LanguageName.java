@@ -31,7 +31,7 @@ import java.util.function.Predicate;
  * Holds a LanguageName only when combined with parameters creates a {@link AcceptLanguageValue} header value.
  */
 public abstract class LanguageName extends HeaderNameValue implements Comparable<LanguageName>,
-        Predicate<LanguageName> {
+    Predicate<LanguageName> {
 
     /**
      * No {@link Locale}.
@@ -49,13 +49,13 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      */
     public static LanguageName with(final String value) {
         PREDICATE.failIfNullOrEmptyOrFalse(
-                "value",
-                value
+            "value",
+            value
         );
 
         return Header.WILDCARD.string().equals(value) ?
-                WILDCARD :
-                LanguageNameNonWildcard.nonWildcard(value);
+            WILDCARD :
+            LanguageNameNonWildcard.nonWildcard(value);
     }
 
     private final static CharPredicate PREDICATE = CharPredicates.asciiPrintable();
@@ -72,7 +72,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      */
     public final AcceptLanguageValue setParameters(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return AcceptLanguageValue.with(this)
-                .setParameters(parameters);
+            .setParameters(parameters);
     }
 
     // Locale ........................................................................................................

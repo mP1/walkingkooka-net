@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
-        NameTesting2<UrlScheme, UrlScheme> {
+    NameTesting2<UrlScheme, UrlScheme> {
 
     @Override
     public void testTypeNaming() {
@@ -58,16 +58,16 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
     @Test
     public void testNameWithSlashes() {
         this.createNameAndCheckWithSlashes(
-                "https",
-                "https://"
+            "https",
+            "https://"
         );
     }
 
     @Test
     public void testNameWithSlashes2() {
         this.createNameAndCheckWithSlashes(
-                "HTTPS",
-                "https://"
+            "HTTPS",
+            "https://"
         );
     }
 
@@ -136,8 +136,8 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "+-.";
+            ASCII_LETTERS :
+            ASCII_LETTERS_DIGITS + "+-.";
     }
 
     @Override

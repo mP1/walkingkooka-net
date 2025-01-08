@@ -43,8 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValue>,
-        HashCodeEqualsDefinedTesting2<HttpRequestValue>,
-        ToStringTesting<HttpRequestValue> {
+    HashCodeEqualsDefinedTesting2<HttpRequestValue>,
+    ToStringTesting<HttpRequestValue> {
 
     private final static HttpMethod METHOD = HttpMethod.CONNECT;
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
@@ -53,15 +53,15 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
 
     private final static Charset CHARSET = StandardCharsets.UTF_8;
     private final static Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse("text/html;charset=" + CHARSET)),
-            HttpHeaderName.COOKIE, Lists.of(Cookie.parseClientHeader("cookie1=value1")));
+        HttpHeaderName.COOKIE, Lists.of(Cookie.parseClientHeader("cookie1=value1")));
     private final static String BODY_TEXT = "body-text-123";
 
     private final static HttpEntity ENTITY = HttpEntity.EMPTY
-            .setHeaders(HEADERS)
-            .setBodyText(BODY_TEXT);
+        .setHeaders(HEADERS)
+        .setBodyText(BODY_TEXT);
 
     private final static HttpEntity[] ENTITIES = new HttpEntity[]{
-            ENTITY
+        ENTITY
     };
 
     // with..............................................................................................................
@@ -102,7 +102,7 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     @Test
     public void testMoreThanOneEntityFails() {
         assertThrows(IllegalArgumentException.class, () -> HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, HttpEntity.EMPTY,
-                HttpEntity.EMPTY));
+            HttpEntity.EMPTY));
     }
 
     @Test
@@ -125,8 +125,8 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
         final RelativeUrl url = Url.parseRelative("/different");
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                .setBodyText("different-body-text");
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
+            .setBodyText("different-body-text");
 
         final HttpRequestValue request = HttpRequestValue.with(method, transport, url, version, entity);
 
@@ -191,11 +191,11 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createObject(),
-                "CONNECT /path1/path2?query3=value4 HTTP/1.1\r\n" +
-                        "Content-Type: text/html; charset=UTF-8\r\n" +
-                        "Cookie: cookie1=value1;\r\n" +
-                        "\r\n" +
-                        "body-text-123");
+            "CONNECT /path1/path2?query3=value4 HTTP/1.1\r\n" +
+                "Content-Type: text/html; charset=UTF-8\r\n" +
+                "Cookie: cookie1=value1;\r\n" +
+                "\r\n" +
+                "body-text-123");
     }
 
     // HashCodeEqualsDefinedTesting2....................................................................................

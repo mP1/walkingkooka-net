@@ -44,8 +44,8 @@ final class ContentRangeHeaderHandler extends NonStringHeaderHandler<ContentRang
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof ContentRange,
-                ContentRange.class
+            v -> v instanceof ContentRange,
+            ContentRange.class
         );
     }
 

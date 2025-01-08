@@ -62,8 +62,8 @@ final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateT
     LocalDateTime parse0(final String text) {
         try {
             return LocalDateTime.parse(
-                    text,
-                    FORMATTER
+                text,
+                FORMATTER
             );
         } catch (final DateTimeParseException cause) {
             throw new HeaderException("Invalid date in " + CharSequences.quoteAndEscape(text));
@@ -73,8 +73,8 @@ final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateT
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof LocalDateTime,
-                LocalDateTime.class
+            v -> v instanceof LocalDateTime,
+            LocalDateTime.class
         );
     }
 
@@ -116,27 +116,27 @@ final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateT
         month.put(12L, "Dec");
 
         return new DateTimeFormatterBuilder()
-                .parseCaseInsensitive()
-                .parseLenient()
-                .optionalStart()
-                .appendText(DAY_OF_WEEK, weekday)
-                .appendLiteral(", ")
-                .optionalEnd()
-                .appendValue(DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE)
-                .appendLiteral(' ')
-                .appendText(MONTH_OF_YEAR, month)
-                .appendLiteral(' ')
-                .appendValue(YEAR, 4)  // 2 digit year not handled
-                .appendLiteral(' ')
-                .appendValue(HOUR_OF_DAY, 2)
-                .appendLiteral(':')
-                .appendValue(MINUTE_OF_HOUR, 2)
-                .optionalStart()
-                .appendLiteral(':')
-                .appendValue(SECOND_OF_MINUTE, 2)
-                .optionalEnd()
-                .appendLiteral(" GMT")
-                .toFormatter();
+            .parseCaseInsensitive()
+            .parseLenient()
+            .optionalStart()
+            .appendText(DAY_OF_WEEK, weekday)
+            .appendLiteral(", ")
+            .optionalEnd()
+            .appendValue(DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE)
+            .appendLiteral(' ')
+            .appendText(MONTH_OF_YEAR, month)
+            .appendLiteral(' ')
+            .appendValue(YEAR, 4)  // 2 digit year not handled
+            .appendLiteral(' ')
+            .appendValue(HOUR_OF_DAY, 2)
+            .appendLiteral(':')
+            .appendValue(MINUTE_OF_HOUR, 2)
+            .optionalStart()
+            .appendLiteral(':')
+            .appendValue(SECOND_OF_MINUTE, 2)
+            .optionalEnd()
+            .appendLiteral(" GMT")
+            .toFormatter();
     }
 
     @Override

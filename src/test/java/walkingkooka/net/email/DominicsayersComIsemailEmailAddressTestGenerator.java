@@ -43,8 +43,8 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
             final File file = new File(args[0]);
             try (final FileInputStream input = new FileInputStream(file)) {
                 final String info = "of tests generator: "
-                        + DominicsayersComIsemailEmailAddressTestGenerator.class.getSimpleName() + " file: "
-                        + file.getName() + " ---";
+                    + DominicsayersComIsemailEmailAddressTestGenerator.class.getSimpleName() + " file: "
+                    + file.getName() + " ---";
 
                 print("//--- start " + info);
 
@@ -59,8 +59,8 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
      * Creates the generated *.java and prints the tests one by one. Tests that include email comments are skipped.
      */
     private static void generate(
-            final InputStream input/* , final String testClassName , final IndentingPrinter printer */)
-            throws Exception {
+        final InputStream input/* , final String testClassName , final IndentingPrinter printer */)
+        throws Exception {
 
         // read xml and sort tests w/ parameters
         final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
@@ -77,14 +77,14 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
                 final String valid = elementWithName(test, "valid");
                 final String id = elementWithName(test, "id");
                 final String comment = optionalElementWithName(test,
-                        "comment");
+                    "comment");
 
                 // skip tests where the email includes comments...
                 if ((address.indexOf('(') != -1) || (address.indexOf(')') != -1)) {
                     continue;
                 }
                 tests.put(createId(id),
-                        TestDetails.with(address, "true".equals(valid), comment));
+                    TestDetails.with(address, "true".equals(valid), comment));
             }
         }
 
@@ -97,13 +97,13 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
 
             print("@Test");
             print("public void test" + idAndTest.getKey()
-                    + makeIntoTestMethodName(email)
-                    + makeIntoTestMethodName(comment)
-                    + "(){");
+                + makeIntoTestMethodName(email)
+                + makeIntoTestMethodName(comment)
+                + "(){");
             DominicsayersComIsemailEmailAddressTestGenerator
-                    .print(valid + "(" + CharSequences.quote(encode(email))
-                            + (null != comment ? "," + CharSequences.quoteAndEscape(comment) : "")
-                            + ");");
+                .print(valid + "(" + CharSequences.quote(encode(email))
+                    + (null != comment ? "," + CharSequences.quoteAndEscape(comment) : "")
+                    + ");");
             print("}");
             print();
         }

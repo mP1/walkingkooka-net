@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequest>
-        implements HttpRequestTesting<HttpServletRequestHttpRequest> {
+    implements HttpRequestTesting<HttpServletRequestHttpRequest> {
 
     private final static HttpProtocolVersion PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -74,45 +74,45 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     @Test
     public void testTransport() {
         assertSame(HttpTransport.SECURED,
-                this.createRequest().transport());
+            this.createRequest().transport());
     }
 
     @Test
     public void testProtocolVersion() {
         assertSame(PROTOCOL_VERSION,
-                this.createRequest().protocolVersion());
+            this.createRequest().protocolVersion());
     }
 
     @Test
     public void testMethod() {
         assertSame(METHOD,
-                this.createRequest().method());
+            this.createRequest().method());
     }
 
     @Test
     public void testUrlMissingQueryString() {
         final String url = "/path1";
         this.checkEquals(Url.parseRelative(url),
-                this.createRequest(url).url());
+            this.createRequest(url).url());
     }
 
     @Test
     public void testUrlWithQueryString() {
         this.checkEquals(Url.parseRelative(URL),
-                this.createRequest().url());
+            this.createRequest().url());
     }
 
     @Test
     public void testUrlWithEmptyQueryString() {
         final String url = "/path1?";
         this.checkEquals(Url.parseRelative(url),
-                this.createRequest(url).url());
+            this.createRequest(url).url());
     }
 
     @Test
     public void testHeaders() {
         this.checkEquals(Maps.of(HEADER1, list(Header1), HEADER2, list(Header2)),
-                this.createRequest().headers());
+            this.createRequest().headers());
     }
 
     @Test
@@ -132,54 +132,54 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
         final String text = "ABC123";
 
         this.checkEquals(
-                text,
-                HttpServletRequestHttpRequest.with(
-                        new FakeHttpServletRequest() {
+            text,
+            HttpServletRequestHttpRequest.with(
+                new FakeHttpServletRequest() {
 
+                    @Override
+                    public String getHeader(final String header) {
+                        checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                        return "text/plain;charset=utf-16";
+                    }
+
+                    @Override
+                    public Enumeration<String> getHeaders(final String header) {
+                        checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
+                        return enumeration("text/plain;charset=utf-16");
+                    }
+
+                    @Override
+                    public Map<String, String[]> getParameterMap() {
+                        return Maps.empty();
+                    }
+
+                    @Override
+                    public ServletInputStream getInputStream() {
+                        final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
+
+                        return new ServletInputStream() {
                             @Override
-                            public String getHeader(final String header) {
-                                checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
-                                return "text/plain;charset=utf-16";
+                            public boolean isFinished() {
+                                throw new UnsupportedOperationException();
                             }
 
                             @Override
-                            public Enumeration<String> getHeaders(final String header) {
-                                checkEquals(HttpHeaderName.CONTENT_TYPE.value(), header);
-                                return enumeration("text/plain;charset=utf-16");
+                            public boolean isReady() {
+                                throw new UnsupportedOperationException();
                             }
 
                             @Override
-                            public Map<String, String[]> getParameterMap() {
-                                return Maps.empty();
+                            public void setReadListener(final ReadListener readListener) {
+                                throw new UnsupportedOperationException();
                             }
 
                             @Override
-                            public ServletInputStream getInputStream() {
-                                final ByteArrayInputStream bytes = new ByteArrayInputStream(text.getBytes(charset));
-
-                                return new ServletInputStream() {
-                                    @Override
-                                    public boolean isFinished() {
-                                        throw new UnsupportedOperationException();
-                                    }
-
-                                    @Override
-                                    public boolean isReady() {
-                                        throw new UnsupportedOperationException();
-                                    }
-
-                                    @Override
-                                    public void setReadListener(final ReadListener readListener) {
-                                        throw new UnsupportedOperationException();
-                                    }
-
-                                    @Override
-                                    public int read() {
-                                        return bytes.read();
-                                    }
-                                };
+                            public int read() {
+                                return bytes.read();
                             }
-                        }).bodyText()
+                        };
+                    }
+                }).bodyText()
         );
     }
 
@@ -187,22 +187,22 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
     public void testParameters() {
         final Map<HttpRequestParameterName, List<String>> parameters = this.createRequest().parameters();
         this.checkEquals(Lists.of(VALUE1A, VALUE1B),
-                parameters.get(HttpRequestParameterName.with(PARAMETER1)));
+            parameters.get(HttpRequestParameterName.with(PARAMETER1)));
     }
 
     @Test
     public void testParameterValues() {
         this.checkEquals(Lists.of(VALUE1A, VALUE1B),
-                this.createRequest().parameterValues(HttpRequestParameterName.with(PARAMETER1)));
+            this.createRequest().parameterValues(HttpRequestParameterName.with(PARAMETER1)));
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createRequest(),
-                "SECURED\r\n" +
-                        "POST /path/file?abc=123 HTTP/1.1\r\n" +
-                        "Content-Length: 111\r\n" +
-                        "Server: Server2\r\n");
+            "SECURED\r\n" +
+                "POST /path/file?abc=123 HTTP/1.1\r\n" +
+                "Content-Length: 111\r\n" +
+                "Server: Server2\r\n");
     }
 
     @Override
@@ -233,15 +233,15 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
             @Override
             public String getRequestURI() {
                 return -1 == queryStringStart ?
-                        url :
-                        url.substring(0, queryStringStart);
+                    url :
+                    url.substring(0, queryStringStart);
             }
 
             @Override
             public String getQueryString() {
                 return -1 == queryStringStart ?
-                        null :
-                        url.substring(queryStringStart + 1);
+                    null :
+                    url.substring(queryStringStart + 1);
             }
 
             @Override

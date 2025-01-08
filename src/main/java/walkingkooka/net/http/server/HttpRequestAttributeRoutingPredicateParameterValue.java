@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that tries all parameter values against the wrapped {@link Predicate}.
  */
 final class HttpRequestAttributeRoutingPredicateParameterValue extends HttpRequestAttributeRoutingPredicate<Predicate<String>>
-        implements Predicate<List<String>> {
+    implements Predicate<List<String>> {
 
     /**
      * Creates a new {@link HttpRequestAttributeRoutingPredicateParameterValue}.
@@ -45,8 +45,8 @@ final class HttpRequestAttributeRoutingPredicateParameterValue extends HttpReque
     @Override
     public boolean test(final List<String> values) {
         return null != values &&
-                values.stream()
-                        .anyMatch(this.predicate);
+            values.stream()
+                .anyMatch(this.predicate);
     }
 
     boolean canBeEquals(final Object other) {

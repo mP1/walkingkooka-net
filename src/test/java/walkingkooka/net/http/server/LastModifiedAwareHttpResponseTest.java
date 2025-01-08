@@ -54,49 +54,49 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
     @Test
     public void testWithRequestNullFails() {
         assertThrows(NullPointerException.class, () -> LastModifiedAwareHttpResponse.with(null,
-                HttpResponses.fake()));
+            HttpResponses.fake()));
     }
 
     @Test
     public void testWithDelete() {
         this.withAndNotWrappedCheck(HttpMethod.DELETE,
-                null,
-                null);
+            null,
+            null);
     }
 
     @Test
     public void testWithPost() {
         this.withAndNotWrappedCheck(HttpMethod.POST,
-                null,
-                null);
+            null,
+            null);
     }
 
     @Test
     public void testWithPut() {
         this.withAndNotWrappedCheck(HttpMethod.PUT,
-                null,
-                null);
+            null,
+            null);
     }
 
     @Test
     public void testWithIfNoneMatch() {
         this.withAndNotWrappedCheck(HttpMethod.GET,
-                this.etag(),
-                null);
+            this.etag(),
+            null);
     }
 
     @Test
     public void testWithIfNoneMatchRequestLastModified() {
         this.withAndNotWrappedCheck(HttpMethod.GET,
-                this.etag(),
-                LAST_MODIFIED);
+            this.etag(),
+            LAST_MODIFIED);
     }
 
     @Test
     public void testWithIfLastModifiedAbsent() {
         this.withAndNotWrappedCheck(HttpMethod.GET,
-                IF_NONE_MATCH_ABSENT,
-                LAST_MODIFIED_ABSENT);
+            IF_NONE_MATCH_ABSENT,
+            LAST_MODIFIED_ABSENT);
     }
 
     private List<ETag> etag() {
@@ -108,11 +108,11 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                                         final LocalDateTime lastModified) {
         final HttpResponse response = HttpResponses.fake();
         assertSame(response,
-                this.createResponseWithoutCast(method,
-                        ifNoneMatch,
-                        lastModified,
-                        response),
-                "method=" + method + " should have resulted in the response not being wrapped");
+            this.createResponseWithoutCast(method,
+                ifNoneMatch,
+                lastModified,
+                response),
+            "method=" + method + " should have resulted in the response not being wrapped");
     }
 
     // server response body status code.........................................................................
@@ -140,9 +140,9 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
     private void setStatusLastModifiedAbsentBodyAndCheck(final HttpStatusCode status) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
-                    status,
-                    this.headersWithContentHeaders(LAST_MODIFIED_ABSENT),
-                    BODY);
+                status,
+                this.headersWithContentHeaders(LAST_MODIFIED_ABSENT),
+                BODY);
         }
     }
 
@@ -168,9 +168,9 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                                                  final byte[] body) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
-                    HttpStatusCode.OK,
-                    this.headersWithContentHeaders(lastModified),
-                    body);
+                HttpStatusCode.OK,
+                this.headersWithContentHeaders(lastModified),
+                body);
         }
     }
 
@@ -188,7 +188,7 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     private void responseOkLastModifiedAndNotModifiedCheckBody(final LocalDateTime lastModified) {
         this.responseOkLastModifiedAndNotModifiedCheck(lastModified,
-                BODY);
+            BODY);
     }
 
     @Test
@@ -203,20 +203,20 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
     private void responseOkLastModifiedAndNotModifiedCheckBodyText(final LocalDateTime lastModified) {
         this.responseOkLastModifiedAndNotModifiedCheck(lastModified,
-                NO_BODY);
+            NO_BODY);
     }
 
     private void responseOkLastModifiedAndNotModifiedCheck(final LocalDateTime lastModified,
                                                            final byte[] body) {
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             this.setVersionStatusAddEntityAndCheck(version,
-                    HttpStatusCode.OK,
-                    this.headersWithContentHeaders(lastModified),
-                    body,
-                    version,
-                    HttpStatusCode.NOT_MODIFIED,
-                    this.headers(lastModified),
-                    body);
+                HttpStatusCode.OK,
+                this.headersWithContentHeaders(lastModified),
+                body,
+                version,
+                HttpStatusCode.NOT_MODIFIED,
+                this.headers(lastModified),
+                body);
         }
     }
 
@@ -254,13 +254,13 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                                                    final Map<HttpHeaderName<?>, List<?>> expectedHeaders,
                                                    final byte[] expectedBody) {
         this.setVersionStatusAddEntityAndCheck(
-                createRequest(),
-                version,
-                status.status(),
-                httpEntity(headers).setBody(Binary.with(body)),
-                expectedVersion,
-                expectedStatus.status(),
-                httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
+            createRequest(),
+            version,
+            status.status(),
+            httpEntity(headers).setBody(Binary.with(body)),
+            expectedVersion,
+            expectedStatus.status(),
+            httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)));
     }
 
     @Override
@@ -280,15 +280,15 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                                                    final LocalDateTime lastModified,
                                                    final HttpResponse response) {
         return LastModifiedAwareHttpResponse.with(
-                createRequest(method, ifNoneMatch, lastModified),
-                response);
+            createRequest(method, ifNoneMatch, lastModified),
+            response);
     }
 
     @Override
     HttpRequest createRequest() {
         return this.createRequest(HttpMethod.GET,
-                IF_NONE_MATCH_ABSENT,
-                LAST_MODIFIED);
+            IF_NONE_MATCH_ABSENT,
+            LAST_MODIFIED);
     }
 
     private HttpRequest createRequest(final HttpMethod method,

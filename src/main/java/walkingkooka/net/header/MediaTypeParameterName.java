@@ -30,11 +30,11 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
      * A read only cache of already prepared {@link MediaTypeParameterName names}. These constants are incomplete.
      */
     private final static HeaderParameterNameConstants<MediaTypeParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            MediaTypeParameterName::new,
-            HeaderHandler.quotedUnquotedString(
-                    MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
-                    true,
-                    MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE)
+        MediaTypeParameterName::new,
+        HeaderHandler.quotedUnquotedString(
+            MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

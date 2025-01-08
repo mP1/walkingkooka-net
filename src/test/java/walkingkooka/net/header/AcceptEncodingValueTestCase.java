@@ -30,9 +30,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue> extends HeaderWithParametersTestCase<AcceptEncodingValue, AcceptEncodingValueParameterName<?>>
-        implements ComparableTesting2<AcceptEncodingValue>,
-        ParseStringTesting<AcceptEncodingValue>,
-        PredicateTesting2<AcceptEncodingValue, ContentEncoding> {
+    implements ComparableTesting2<AcceptEncodingValue>,
+    ParseStringTesting<AcceptEncodingValue>,
+    PredicateTesting2<AcceptEncodingValue, ContentEncoding> {
 
     AcceptEncodingValueTestCase() {
         super();
@@ -47,8 +47,8 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     public void testWith2() {
         final String text = "unknown";
         this.checkValue(AcceptEncodingValue.with(text),
-                text,
-                AcceptEncodingValue.NO_PARAMETERS);
+            text,
+            AcceptEncodingValue.NO_PARAMETERS);
     }
 
     @Test
@@ -84,7 +84,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     public final void testHeaderTextWithParameters() {
         final String text = this.value();
         this.toHeaderTextAndCheck(AcceptEncodingValue.with(text).setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)),
-                text + "; q=0.5");
+            text + "; q=0.5");
     }
 
     // HashCodeEqualsDefined ...........................................................................................
@@ -116,15 +116,14 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     public final void testToStringWithParameters() {
         final String value = this.value();
         this.toStringAndCheck(AcceptEncodingValue.with(value).setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)),
-                value + "; q=0.5");
+            value + "; q=0.5");
     }
 
     public abstract A createHeaderWithParameters();
 
     abstract String value();
 
-    @Override
-    final AcceptEncodingValueParameterName<?> parameterName() {
+    @Override final AcceptEncodingValueParameterName<?> parameterName() {
         return AcceptEncodingValueParameterName.with("xyz");
     }
 

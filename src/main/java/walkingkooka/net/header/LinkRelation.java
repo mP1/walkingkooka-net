@@ -537,8 +537,8 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
         LinkRelation<?> relation = CONSTANTS.get(value);
         if (null == relation) {
             if (
-                    UrlScheme.CASE_SENSITIVITY.startsWith(value, "http://") ||
-                            UrlScheme.CASE_SENSITIVITY.startsWith(value, "https://")) {
+                UrlScheme.CASE_SENSITIVITY.startsWith(value, "http://") ||
+                    UrlScheme.CASE_SENSITIVITY.startsWith(value, "https://")) {
                 try {
                     relation = LinkRelationUrl.url(value);
                 } catch (final RuntimeException cause) {
@@ -623,7 +623,7 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
 
         if (null == this.urlPathName) {
             this.urlPathName = UrlPathName.with(
-                    this.value.toString()
+                this.value.toString()
             );
         }
 
@@ -643,8 +643,8 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
 
         // if priorities are same compare headerText form otherwise priority sort is enough
         return Comparators.EQUAL == compare ?
-                this.toHeaderText().compareTo(other.toHeaderText()) :
-                compare;
+            this.toHeaderText().compareTo(other.toHeaderText()) :
+            compare;
     }
 
     final static int COMPARE_PRIORITY_SELF = 0;

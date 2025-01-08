@@ -43,8 +43,8 @@ final class HttpEntityHeaderListMulti extends HttpEntityHeaderList {
         }
 
         return new HttpEntityHeaderListMulti(
-                header,
-                Arrays.copyOf(values, values.length)
+            header,
+            Arrays.copyOf(values, values.length)
         );
     }
 

@@ -46,9 +46,9 @@ final class ClientCookieListHeaderHandler extends NonStringHeaderHandler<List<Cl
     @Override
     void checkNonNull(final Object value) {
         this.checkListOfType(
-                value,
-                (v) -> v instanceof ClientCookie,
-                ClientCookie.class
+            value,
+            (v) -> v instanceof ClientCookie,
+            ClientCookie.class
         );
     }
 

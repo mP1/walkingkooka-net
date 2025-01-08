@@ -50,10 +50,10 @@ import java.util.function.Predicate;
  * </pre>
  */
 final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
-        implements
-        HasCaseSensitivity,
-        HasQualityFactor,
-        Predicate<MediaType> {
+    implements
+    HasCaseSensitivity,
+    HasQualityFactor,
+    Predicate<MediaType> {
 
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
@@ -235,7 +235,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public static MediaType parse(final String text) {
         return MediaTypeOneHeaderParser.parseMediaType(
-                checkText(text)
+            checkText(text)
         );
     }
 
@@ -246,7 +246,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public static List<MediaType> parseList(final String text) {
         return MediaTypeListHeaderParser.parseMediaTypeList(
-                checkText(text)
+            checkText(text)
         );
     }
 
@@ -262,10 +262,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         checkSubType(subType);
 
         return withParameters(
-                type,
-                subType,
-                NO_SUFFIX,
-                NO_PARAMETERS
+            type,
+            subType,
+            NO_SUFFIX,
+            NO_PARAMETERS
         );
     }
 
@@ -278,16 +278,16 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                                     final Optional<String> suffix,
                                     final Map<MediaTypeParameterName<?>, Object> parameters) {
         final MediaType result = parameters.isEmpty() && false == suffix.isPresent() ?
-                CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
-                null;
+            CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
+            null;
         return null != result ?
-                result :
-                new MediaType(
-                        type,
-                        subType,
-                        suffix,
-                        parameters
-                );
+            result :
+            new MediaType(
+                type,
+                subType,
+                suffix,
+                parameters
+            );
     }
 
     // ctor ...................................................................................................
@@ -300,12 +300,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                       final Optional<String> suffix,
                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         super(
-                // note non empty parameters will be appended in super-class
-                type +
-                        TYPE_SUBTYPE_SEPARATOR.character() +
-                        subType +
-                        suffix.map(s -> SUFFIX_SEPARATOR + s).orElse(""),
-                parameters
+            // note non empty parameters will be appended in super-class
+            type +
+                TYPE_SUBTYPE_SEPARATOR.character() +
+                subType +
+                suffix.map(s -> SUFFIX_SEPARATOR + s).orElse(""),
+            parameters
         );
 
         this.type = type;
@@ -328,22 +328,22 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public MediaType setType(final String type) {
         checkType(type);
         return this.caseSensitivity()
-                .equals(this.type, type) ?
-                this :
-                this.replace(
-                        type,
-                        this.subType,
-                        this.suffix,
-                        this.parameters
-                );
+            .equals(this.type, type) ?
+            this :
+            this.replace(
+                type,
+                this.subType,
+                this.suffix,
+                this.parameters
+            );
     }
 
     private final String type;
 
     private static String checkType(final String type) {
         return MediaTypeHeaderParser.TYPE.failIfNullOrEmptyOrFalse(
-                "type",
-                type
+            "type",
+            type
         );
     }
 
@@ -362,22 +362,22 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public MediaType setSubType(final String subType) {
         checkSubType(subType);
         return this.caseSensitivity()
-                .equals(this.subType, subType) ?
-                this :
-                this.replace(
-                        this.type,
-                        subType,
-                        this.suffix,
-                        this.parameters
-                );
+            .equals(this.subType, subType) ?
+            this :
+            this.replace(
+                this.type,
+                subType,
+                this.suffix,
+                this.parameters
+            );
     }
 
     private final String subType;
 
     private static String checkSubType(final String subType) {
         return MediaTypeHeaderParser.SUB_TYPE.failIfNullOrEmptyOrFalse(
-                "subType",
-                subType
+            "subType",
+            subType
         );
     }
 
@@ -401,10 +401,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
             mediaType = this;
         } else {
             mediaType = this.replace(
-                    this.type,
-                    this.subType,
-                    suffix,
-                    this.parameters
+                this.type,
+                this.subType,
+                suffix,
+                this.parameters
             );
         }
 
@@ -431,8 +431,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
         if (suffix.isPresent()) {
             MediaTypeHeaderParser.SUFFIX.failIfNullOrEmptyOrFalse(
-                    "suffix",
-                    suffix.get()
+                "suffix",
+                suffix.get()
             );
         }
 
@@ -446,7 +446,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public boolean isText() {
         return this.type.equalsIgnoreCase("text") ||
-                this.subType.equalsIgnoreCase("json");
+            this.subType.equalsIgnoreCase("json");
     }
 
     // HasCaseSensitivity ...............................................................................................
@@ -467,8 +467,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         Objects.requireNonNull(boundary, "boundary");
 
         return this.setParameter(
-                MediaTypeParameterName.BOUNDARY,
-                boundary
+            MediaTypeParameterName.BOUNDARY,
+            boundary
         );
     }
 
@@ -481,8 +481,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         Objects.requireNonNull(charset, "charset");
 
         return this.setParameter(
-                MediaTypeParameterName.CHARSET,
-                charset
+            MediaTypeParameterName.CHARSET,
+            charset
         );
     }
 
@@ -494,8 +494,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         Objects.requireNonNull(defaultCharset, "defaultCharset");
 
         return MediaTypeParameterName.CHARSET.parameterValue(this)
-                .flatMap(CharsetName::charset)
-                .orElse(defaultCharset);
+            .flatMap(CharsetName::charset)
+            .orElse(defaultCharset);
     }
 
     /**
@@ -506,8 +506,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         Objects.requireNonNull(defaultCharset, "defaultCharset");
 
         return MediaTypeParameterName.CHARSET.parameterValue(this)
-                .map(CharsetName::charsetFailNotSupported)
-                .orElse(defaultCharset);
+            .map(CharsetName::charsetFailNotSupported)
+            .orElse(defaultCharset);
     }
 
     /**
@@ -530,10 +530,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
             newParameters.put(name, value);
 
             after = this.replace(
-                    this.type,
-                    this.subType,
-                    this.suffix,
-                    Maps.readOnly(newParameters)
+                this.type,
+                this.subType,
+                this.suffix,
+                Maps.readOnly(newParameters)
             );
         }
 
@@ -545,10 +545,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     @Override
     MediaType replaceParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
         return this.replace(
-                this.type,
-                this.subType,
-                this.suffix,
-                parameters
+            this.type,
+            this.subType,
+            this.suffix,
+            parameters
         );
     }
 
@@ -559,10 +559,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                               final Optional<String> suffix,
                               final Map<MediaTypeParameterName<?>, Object> parameters) {
         return withParameters(
-                type,
-                subType,
-                suffix,
-                parameters
+            type,
+            subType,
+            suffix,
+            parameters
         );
     }
 
@@ -575,14 +575,14 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     @Override
     public boolean test(final MediaType mediaType) {
         return null != mediaType &&
-                testComponent(this.type, mediaType.type) &&
-                testComponent(this.subType, mediaType.subType);
+            testComponent(this.type, mediaType.type) &&
+            testComponent(this.subType, mediaType.subType);
     }
 
     private static boolean testComponent(final String component,
                                          final String otherComponent) {
         return WILDCARD.string().equals(component) ||
-                CASE_SENSITIVITY.equals(component, otherComponent);
+            CASE_SENSITIVITY.equals(component, otherComponent);
     }
 
     /**
@@ -661,8 +661,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public boolean isNonStandard() {
         return this.caseSensitivity().startsWith(
-                this.subType(),
-                "x-"
+            this.subType(),
+            "x-"
         );
     }
 
@@ -675,8 +675,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public boolean isVendorSpecific() {
         return this.caseSensitivity().startsWith(
-                this.subType(),
-                "vnd."
+            this.subType(),
+            "vnd."
         );
     }
 

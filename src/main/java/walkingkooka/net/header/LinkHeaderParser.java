@@ -29,7 +29,7 @@ import java.util.List;
  * A parser that handles link header values.
  */
 final class LinkHeaderParser extends HeaderParserWithParameters<Link,
-        LinkParameterName<?>> {
+    LinkParameterName<?>> {
 
     static List<Link> parseLink(final String text) {
         final LinkHeaderParser parser = new LinkHeaderParser(text);
@@ -156,12 +156,12 @@ final class LinkHeaderParser extends HeaderParserWithParameters<Link,
      * </pre>
      */
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = CharPredicates.builder()
-            .any("!#$%&'()*+-./:<=>?@[]^_`{|}~")
-            .range('0', '9')
-            .range('A', 'Z')
-            .range('a', 'z')
-            .build()
-            .setToString("rfc5988");
+        .any("!#$%&'()*+-./:<=>?@[]^_`{|}~")
+        .range('0', '9')
+        .range('A', 'Z')
+        .range('a', 'z')
+        .build()
+        .setToString("rfc5988");
 
     @Override
     void valueComplete(final Link link) {

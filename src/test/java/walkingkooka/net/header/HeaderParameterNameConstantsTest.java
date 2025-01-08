@@ -23,7 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public final class HeaderParameterNameConstantsTest implements ClassTesting2<HeaderParameterNameConstants<?>>,
-        TypeNameTesting<HeaderParameterNameConstants<?>> {
+    TypeNameTesting<HeaderParameterNameConstants<?>> {
 
     @Override
     public Class<HeaderParameterNameConstants<?>> type() {

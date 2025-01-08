@@ -39,15 +39,15 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
     @Test
     public void testWithNullHeadersFails() {
         assertThrows(NullPointerException.class, () -> HeadersCopyHttpResponse.with(HttpRequests.fake(),
-                null,
-                HttpResponses.fake()));
+            null,
+            HttpResponses.fake()));
     }
 
     @Test
     public void testWithEmptyHeadersFails() {
         assertThrows(IllegalArgumentException.class, () -> HeadersCopyHttpResponse.with(HttpRequests.fake(),
-                Sets.empty(),
-                HttpResponses.fake()));
+            Sets.empty(),
+            HttpResponses.fake()));
     }
 
     @Test
@@ -55,24 +55,24 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
         final List<MediaType> contentType = Lists.of(MediaType.TEXT_PLAIN);
 
         final HeadersCopyHttpResponse response = this.with(
-                Maps.of(
-                        HttpHeaderName.CONTENT_TYPE, contentType,
-                        HttpHeaderName.CONTENT_LENGTH, Lists.of(123L),
-                        HttpHeaderName.ACCEPT_LANGUAGE, Lists.of(AcceptLanguage.parse("EN"))
-                ),
-                Sets.of(HttpHeaderName.CONTENT_TYPE)
+            Maps.of(
+                HttpHeaderName.CONTENT_TYPE, contentType,
+                HttpHeaderName.CONTENT_LENGTH, Lists.of(123L),
+                HttpHeaderName.ACCEPT_LANGUAGE, Lists.of(AcceptLanguage.parse("EN"))
+            ),
+            Sets.of(HttpHeaderName.CONTENT_TYPE)
         );
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 456L)
-                .addHeader(HttpHeaderName.E_TAG, ETag.wildcard());
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 456L)
+            .addHeader(HttpHeaderName.E_TAG, ETag.wildcard());
 
         response.setEntity(entity);
 
         this.checkEquals(
-                entity.setContentType(MediaType.TEXT_PLAIN),
-                response.entity(),
-                "entity"
+            entity.setContentType(MediaType.TEXT_PLAIN),
+            response.entity(),
+            "entity"
         );
     }
 
@@ -81,64 +81,64 @@ public final class HeadersCopyHttpResponseTest extends WrapperHttpRequestHttpRes
         final List<MediaType> contentType = Lists.of(MediaType.TEXT_PLAIN);
 
         final HeadersCopyHttpResponse response = this.with(
-                Maps.of(
-                        HttpHeaderName.CONTENT_TYPE, contentType,
-                        HttpHeaderName.CONTENT_LENGTH, Lists.of(123L),
-                        HttpHeaderName.ACCEPT_LANGUAGE, Lists.of(AcceptLanguage.parse("EN"))
-                ),
-                Sets.of(HttpHeaderName.CONTENT_TYPE)
+            Maps.of(
+                HttpHeaderName.CONTENT_TYPE, contentType,
+                HttpHeaderName.CONTENT_LENGTH, Lists.of(123L),
+                HttpHeaderName.ACCEPT_LANGUAGE, Lists.of(AcceptLanguage.parse("EN"))
+            ),
+            Sets.of(HttpHeaderName.CONTENT_TYPE)
         );
 
         final HttpEntity entity = HttpEntity.EMPTY
-                .setContentType(MediaType.IMAGE_BMP) // wins will not be overwritten
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 456L)
-                .addHeader(HttpHeaderName.E_TAG, ETag.wildcard());
+            .setContentType(MediaType.IMAGE_BMP) // wins will not be overwritten
+            .addHeader(HttpHeaderName.CONTENT_LENGTH, 456L)
+            .addHeader(HttpHeaderName.E_TAG, ETag.wildcard());
 
         response.setEntity(entity);
 
         this.checkEquals(
-                entity,
-                response.entity(),
-                "entity"
+            entity,
+            response.entity(),
+            "entity"
         );
     }
 
     private HeadersCopyHttpResponse with(final Map<HttpHeaderName<?>, List<?>> requestHeaders,
                                          final Set<HttpHeaderName<?>> headers) {
         return HeadersCopyHttpResponse.with(
-                new FakeHttpRequest() {
-                    @Override
-                    public Map<HttpHeaderName<?>, List<?>> headers() {
-                        return requestHeaders;
-                    }
-                },
-                headers,
-                new FakeHttpResponse() {
-                    @Override
-                    public void setEntity(final HttpEntity entity) {
-                        this.httpEntity = entity;
-                    }
-
-                    @Override
-                    public HttpEntity entity() {
-                        return httpEntity;
-                    }
-
-                    private HttpEntity httpEntity = HttpEntity.EMPTY;
-
-                    @Override
-                    public String toString() {
-                        return this.httpEntity.toString();
-                    }
+            new FakeHttpRequest() {
+                @Override
+                public Map<HttpHeaderName<?>, List<?>> headers() {
+                    return requestHeaders;
                 }
+            },
+            headers,
+            new FakeHttpResponse() {
+                @Override
+                public void setEntity(final HttpEntity entity) {
+                    this.httpEntity = entity;
+                }
+
+                @Override
+                public HttpEntity entity() {
+                    return httpEntity;
+                }
+
+                private HttpEntity httpEntity = HttpEntity.EMPTY;
+
+                @Override
+                public String toString() {
+                    return this.httpEntity.toString();
+                }
+            }
         );
     }
 
     @Override
     HeadersCopyHttpResponse createResponse(final HttpRequest request, final HttpResponse response) {
         return Cast.to(HeadersCopyHttpResponse.with(request,
-                Sets.of(HttpHeaderName.CONTENT_TYPE),
-                response));
+            Sets.of(HttpHeaderName.CONTENT_TYPE),
+            response));
     }
 
     @Override

@@ -38,8 +38,8 @@ import java.util.Optional;
  * This will be useful to hold the contents of a browser clipboard or other similar payloads.
  */
 public final class WebEntity implements HasText,
-        CanBeEmpty,
-        TreePrintable {
+    CanBeEmpty,
+    TreePrintable {
 
     /**
      * An empty {@link WebEntity} with no content-type or binary/text.
@@ -53,8 +53,8 @@ public final class WebEntity implements HasText,
     // @VisibleForTesting
     static WebEntity with(final HttpEntity httpEntity) {
         return httpEntity.isEmpty() ?
-                EMPTY :
-                new WebEntity(httpEntity);
+            EMPTY :
+            new WebEntity(httpEntity);
     }
 
     private WebEntity(final HttpEntity httpEntity) {
@@ -70,14 +70,14 @@ public final class WebEntity implements HasText,
 
         final HttpEntity httpEntity = this.httpEntity;
         final HttpEntity after = httpEntity.setHeader(
-                HttpHeaderName.CONTENT_TYPE,
-                contentType.map(Lists::of)
-                        .orElse(Lists.empty())
+            HttpHeaderName.CONTENT_TYPE,
+            contentType.map(Lists::of)
+                .orElse(Lists.empty())
         );
 
         return httpEntity.equals(after) ?
-                this :
-                with(after);
+            this :
+            with(after);
     }
 
     public Binary binary() {
@@ -91,8 +91,8 @@ public final class WebEntity implements HasText,
         final HttpEntity after = httpEntity.setBody(binary);
 
         return httpEntity.equals(after) ?
-                this :
-                with(after);
+            this :
+            with(after);
     }
 
     @Override
@@ -107,8 +107,8 @@ public final class WebEntity implements HasText,
         final HttpEntity after = httpEntity.setBodyText(text);
 
         return httpEntity.equals(after) ?
-                this :
-                with(after);
+            this :
+            with(after);
     }
 
     /**
@@ -125,8 +125,8 @@ public final class WebEntity implements HasText,
                 if (maybeFilename.isPresent()) {
                     if (maybeFilename.isPresent()) {
                         webEntityFileName = WebEntityFileName.with(
-                                maybeFilename.get()
-                                        .value()
+                            maybeFilename.get()
+                                .value()
                         );
                     }
 
@@ -141,18 +141,18 @@ public final class WebEntity implements HasText,
 
         final HttpEntity before = this.httpEntity;
         final HttpEntity after = before.setHeader(
-                HttpHeaderName.CONTENT_DISPOSITION,
-                filename.isPresent() ?
-                        Lists.of(
-                                ContentDispositionType.ATTACHMENT.setFilename(
-                                        ContentDispositionFileName.notEncoded(filename.get().text()))
-                        ) :
-                        Lists.empty()
+            HttpHeaderName.CONTENT_DISPOSITION,
+            filename.isPresent() ?
+                Lists.of(
+                    ContentDispositionType.ATTACHMENT.setFilename(
+                        ContentDispositionFileName.notEncoded(filename.get().text()))
+                ) :
+                Lists.empty()
         );
 
         return before.equals(after) ?
-                this :
-                new WebEntity(after);
+            this :
+            new WebEntity(after);
     }
 
     // @VisibleForTesting

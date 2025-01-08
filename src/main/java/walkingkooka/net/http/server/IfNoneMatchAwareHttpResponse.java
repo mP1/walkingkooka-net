@@ -58,9 +58,9 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
             final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.header(request);
             if (maybeIfNoneMatch.isPresent()) {
                 final List<ETag> ifNoneMatch = maybeIfNoneMatch.get()
-                        .stream()
-                        .filter(e -> e.validator() == ETagValidator.STRONG)
-                        .collect(Collectors.toList());
+                    .stream()
+                    .filter(e -> e.validator() == ETagValidator.STRONG)
+                    .collect(Collectors.toList());
                 if (!ifNoneMatch.isEmpty()) {
                     result = new IfNoneMatchAwareHttpResponse(response, ifNoneMatch, computer);
                 }
@@ -95,7 +95,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
             if (this.isNotModified(etag)) {
                 finalStatus = HttpStatusCode.NOT_MODIFIED.status();
                 addEntity = this.removeContentHeaders(entity)
-                        .addHeader(HttpHeaderName.E_TAG, etag);
+                    .addHeader(HttpHeaderName.E_TAG, etag);
 
             } else {
                 addEntity = entity.addHeader(HttpHeaderName.E_TAG, etag);
@@ -119,8 +119,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
      */
     private boolean isNotModified(final ETag contentETag) {
         return contentETag.validator() == ETagValidator.STRONG &&
-                this.ifNoneMatch.stream()
-                        .anyMatch(e -> e.equals(contentETag));
+            this.ifNoneMatch.stream()
+                .anyMatch(e -> e.equals(contentETag));
     }
 
     /**

@@ -25,7 +25,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQualityFactorComparator<MediaType>>,
-        ComparatorTesting2<HasQualityFactorComparator<MediaType>, MediaType> {
+    ComparatorTesting2<HasQualityFactorComparator<MediaType>, MediaType> {
 
     @Test
     public void testLeftHigherQFactor() {
@@ -49,7 +49,7 @@ public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQu
         final MediaType quarter = MediaType.parse("e/f;q=0.25");
 
         this.comparatorArraySortAndCheck(half, one, quarter,
-                one, half, quarter);
+            one, half, quarter);
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQu
         final MediaType eighth = MediaType.parse("g/h;q=0.125");
 
         this.comparatorArraySortAndCheck(half, eighth, one, quarter,
-                one, half, quarter, eighth);
+            one, half, quarter, eighth);
     }
 
     @Test

@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class MediaTypeBoundaryHeaderHandlerTest extends
-        NonStringHeaderHandlerTestCase<MediaTypeBoundaryHeaderHandler, MediaTypeBoundary> {
+    NonStringHeaderHandlerTestCase<MediaTypeBoundaryHeaderHandler, MediaTypeBoundary> {
 
     private final static String TEXT = "abc123";
 
@@ -37,7 +37,7 @@ public final class MediaTypeBoundaryHeaderHandlerTest extends
     @Test
     public void testParseWithQuotes() {
         this.parseStringAndCheck("\"abcdef\"",
-                MediaTypeBoundary.with("abcdef"));
+            MediaTypeBoundary.with("abcdef"));
     }
 
     @Test
@@ -49,7 +49,7 @@ public final class MediaTypeBoundaryHeaderHandlerTest extends
     public void testRoundtripRequiresQuotes() {
         final String text = "abcdef1234567890'()+_,-./:=?";
         this.parseAndToTextAndCheck('"' + text + '"',
-                MediaTypeBoundary.with(text));
+            MediaTypeBoundary.with(text));
     }
 
     @Override

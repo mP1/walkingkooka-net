@@ -28,18 +28,15 @@ public abstract class StringHeaderHandlerTestCase<C extends StringHeaderHandler>
 
     final static String TEXT = "abc123";
 
-    @Override
-    final HttpHeaderName<String> name() {
+    @Override final HttpHeaderName<String> name() {
         return HttpHeaderName.SERVER;
     }
 
-    @Override
-    final String value() {
+    @Override final String value() {
         return TEXT;
     }
 
-    @Override
-    final String valueType() {
+    @Override final String valueType() {
         return this.valueType(String.class);
     }
 

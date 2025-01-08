@@ -40,8 +40,8 @@ import java.util.function.Function;
  * Note {@link #text()} will return the complete {@link Url#toString()}.
  */
 public abstract class Url implements Value<String>,
-        HasText,
-        Visitable {
+    HasText,
+    Visitable {
 
     // constants.......................................................................................................
 
@@ -84,9 +84,9 @@ public abstract class Url implements Value<String>,
      * A {@link RelativeUrl} with all components set to empty.
      */
     public final static RelativeUrl EMPTY_RELATIVE_URL = RelativeUrl.with(
-            UrlPath.EMPTY,
-            UrlQueryString.EMPTY,
-            UrlFragment.EMPTY
+        UrlPath.EMPTY,
+        UrlQueryString.EMPTY,
+        UrlFragment.EMPTY
     );
 
     // factories..................................................................................................
@@ -97,10 +97,10 @@ public abstract class Url implements Value<String>,
      */
     public static boolean isClass(final Class<?> type) {
         return Url.class == type ||
-                AbsoluteUrl.class == type ||
-                DataUrl.class == type ||
-                MailToUrl.class == type ||
-                RelativeUrl.class == type;
+            AbsoluteUrl.class == type ||
+            DataUrl.class == type ||
+            MailToUrl.class == type ||
+            RelativeUrl.class == type;
     }
 
     /**
@@ -113,16 +113,16 @@ public abstract class Url implements Value<String>,
         Objects.requireNonNull(type, "type");
 
         Url parsed = Url.class == type ?
-                Url.parse(url) :
-                AbsoluteUrl.class == type ?
-                        Url.parseAbsolute(url) :
-                        DataUrl.class == type ?
-                                Url.parseData(url) :
-                                MailToUrl.class == type ?
-                                        Url.parseMailTo(url) :
-                                        RelativeUrl.class == type ?
-                                                Url.parseRelative(url) :
-                                                null;
+            Url.parse(url) :
+            AbsoluteUrl.class == type ?
+                Url.parseAbsolute(url) :
+                DataUrl.class == type ?
+                    Url.parseData(url) :
+                    MailToUrl.class == type ?
+                        Url.parseMailTo(url) :
+                        RelativeUrl.class == type ?
+                            Url.parseRelative(url) :
+                            null;
         if (null == parsed) {
             throw new IllegalArgumentException("Unknown Url type " + type.getName());
         }
@@ -137,19 +137,19 @@ public abstract class Url implements Value<String>,
         checkUrl(url);
 
         return CharSequences.startsWith(
-                url,
-                MailToUrl.SCHEME
+            url,
+            MailToUrl.SCHEME
         ) ? MailToUrl.parseMailTo0(url) :
-                parseNotMailToUrl(url);
+            parseNotMailToUrl(url);
     }
 
     private static Url parseNotMailToUrl(final String url) {
         final int colon = url.indexOf(':');
         return -1 != colon ?
-                CaseSensitivity.INSENSITIVE.startsWith(url, DataUrl.SCHEME) ?
-                        parseData(url) :
-                        parseAbsolute(url) :
-                parseRelative(url);
+            CaseSensitivity.INSENSITIVE.startsWith(url, DataUrl.SCHEME) ?
+                parseData(url) :
+                parseAbsolute(url) :
+            parseRelative(url);
     }
 
     /**
@@ -180,15 +180,15 @@ public abstract class Url implements Value<String>,
             final int protocol = url.indexOf("://");
 
             absolute = -1 != protocol &&
-                    (protocol < fragment ||
-                            protocol < queryString ||
-                            protocol < path
-                    );
+                (protocol < fragment ||
+                    protocol < queryString ||
+                    protocol < path
+                );
         }
 
         return absolute ?
-                parseAbsolute(url) :
-                parseRelative(url);
+            parseAbsolute(url) :
+            parseRelative(url);
     }
 
     private static String checkUrl(final String url) {
@@ -236,9 +236,9 @@ public abstract class Url implements Value<String>,
                                final boolean base64,
                                final Binary binary) {
         return DataUrl.with(
-                mediaType,
-                base64,
-                binary
+            mediaType,
+            base64,
+            binary
         );
     }
 
@@ -333,8 +333,8 @@ public abstract class Url implements Value<String>,
     static MailToUrl unmarshallMailTo(final JsonNode node,
                                       final JsonNodeUnmarshallContext context) {
         return unmarshall0(
-                node,
-                Url::parseMailTo
+            node,
+            Url::parseMailTo
         );
     }
 
@@ -359,14 +359,14 @@ public abstract class Url implements Value<String>,
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(Url.class),
-                Url::unmarshall,
-                Url::marshall,
-                Url.class,
-                AbsoluteUrl.class,
-                DataUrl.class,
-                MailToUrl.class,
-                RelativeUrl.class);
+            JsonNodeContext.computeTypeName(Url.class),
+            Url::unmarshall,
+            Url::marshall,
+            Url.class,
+            AbsoluteUrl.class,
+            DataUrl.class,
+            MailToUrl.class,
+            RelativeUrl.class);
     }
 
     // HasText..........................................................................................................

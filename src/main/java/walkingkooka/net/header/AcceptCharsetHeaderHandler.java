@@ -45,8 +45,8 @@ final class AcceptCharsetHeaderHandler extends NonStringHeaderHandler<AcceptChar
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-                v -> v instanceof AcceptCharset,
-                AcceptCharset.class
+            v -> v instanceof AcceptCharset,
+            AcceptCharset.class
         );
     }
 

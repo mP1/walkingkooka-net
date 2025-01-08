@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentRangeTest extends HeaderTestCase<ContentRange> implements ParseStringTesting<ContentRange>,
-        ThrowableTesting {
+    ThrowableTesting {
 
     private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(789L);
@@ -71,8 +71,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     @Test
     public void testWithRangeUpperExclusiveFails() {
         assertThrows(IllegalArgumentException.class, () -> ContentRange.with(UNIT,
-                Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
-                SIZE));
+            Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
+            SIZE));
     }
 
     @Test
@@ -257,8 +257,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     private void lengthAndCheck(final String contentRange, final Optional<Long> length) {
         this.checkEquals(length,
-                ContentRange.parse(contentRange).length(),
-                () -> "length of " + CharSequences.quoteAndEscape(contentRange));
+            ContentRange.parse(contentRange).length(),
+            () -> "length of " + CharSequences.quoteAndEscape(contentRange));
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -266,29 +266,29 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     @Test
     public void testEqualsDifferentRange() {
         this.checkNotEquals(this.range(UNIT,
-                this.range(456, 789),
-                SIZE));
+            this.range(456, 789),
+            SIZE));
     }
 
     @Test
     public void testEqualsDifferentRange2() {
         this.checkNotEquals(this.range(UNIT,
-                ContentRange.NO_RANGE,
-                SIZE));
+            ContentRange.NO_RANGE,
+            SIZE));
     }
 
     @Test
     public void testEqualsDifferentSize() {
         this.checkNotEquals(this.range(UNIT,
-                this.range(),
-                ContentRange.NO_SIZE));
+            this.range(),
+            ContentRange.NO_SIZE));
     }
 
     @Test
     public void testEqualsDifferentSize2() {
         this.checkNotEquals(this.range(UNIT,
-                range(),
-                Optional.of(456L)));
+            range(),
+            Optional.of(456L)));
     }
 
     // parseString......................................................................................................
@@ -376,54 +376,54 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     @Test
     public void testParseMissingRange() {
         this.parseStringAndCheck("bytes */*",
-                UNIT,
-                ContentRange.NO_RANGE,
-                ContentRange.NO_SIZE);
+            UNIT,
+            ContentRange.NO_RANGE,
+            ContentRange.NO_SIZE);
     }
 
     @Test
     public void testParseMissingRangeWithFileSize() {
         this.parseStringAndCheck("bytes */789",
-                UNIT,
-                ContentRange.NO_RANGE,
-                SIZE);
+            UNIT,
+            ContentRange.NO_RANGE,
+            SIZE);
     }
 
     @Test
     public void testParseSizeMissing() {
         this.parseStringAndCheck("bytes 123-456/*",
-                UNIT,
-                this.range(),
-                ContentRange.NO_SIZE);
+            UNIT,
+            this.range(),
+            ContentRange.NO_SIZE);
     }
 
     @Test
     public void testParseSizePresent() {
         this.parseStringAndCheck("bytes 123-456/789",
-                UNIT,
-                this.range(),
-                SIZE);
+            UNIT,
+            this.range(),
+            SIZE);
     }
 
     @Test
     public void testParseSmallRange() {
         this.parseStringAndCheck("bytes 1-2/3",
-                UNIT,
-                this.range(1, 2),
-                Optional.of(3L));
+            UNIT,
+            this.range(1, 2),
+            Optional.of(3L));
     }
 
     @Test
     public void testParseTab() {
         this.parseStringAndCheck("bytes\t123-456/789",
-                UNIT,
-                this.range(),
-                SIZE);
+            UNIT,
+            this.range(),
+            SIZE);
     }
 
     private void parseStringFails(final String text, final char invalid) {
         this.parseStringFails(text,
-                new InvalidCharacterException(text, text.indexOf(invalid)).getMessage());
+            new InvalidCharacterException(text, text.indexOf(invalid)).getMessage());
     }
 
     private void parseStringFails(final String text, final String message) {
@@ -436,8 +436,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                                      final Optional<Range<Long>> range,
                                      final Optional<Long> size) {
         this.checkEquals(ContentRange.with(unit, range, size),
-                ContentRange.parse(header),
-                "Incorrect result when parsing " + CharSequences.quote(header));
+            ContentRange.parse(header),
+            "Incorrect result when parsing " + CharSequences.quote(header));
     }
 
     // toHeaderText.................................................................................................
@@ -445,34 +445,34 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     @Test
     public void testToHeaderTextNoRange() {
         this.toHeaderTextAndCheck("bytes */*",
-                UNIT,
-                ContentRange.NO_RANGE,
-                ContentRange.NO_SIZE);
+            UNIT,
+            ContentRange.NO_RANGE,
+            ContentRange.NO_SIZE);
     }
 
 
     @Test
     public void testToHeaderTextMissingRange() {
         this.toHeaderTextAndCheck("bytes */789",
-                UNIT,
-                ContentRange.NO_RANGE,
-                SIZE);
+            UNIT,
+            ContentRange.NO_RANGE,
+            SIZE);
     }
 
     @Test
     public void testToHeaderTextMissingFilesize() {
         this.toHeaderTextAndCheck("bytes 123-456/*",
-                UNIT,
-                this.range(),
-                ContentRange.NO_SIZE);
+            UNIT,
+            this.range(),
+            ContentRange.NO_SIZE);
     }
 
     @Test
     public void testToHeaderTextWithFilesize() {
         this.toHeaderTextAndCheck("bytes 123-456/789",
-                UNIT,
-                this.range(),
-                SIZE);
+            UNIT,
+            this.range(),
+            SIZE);
     }
 
     private void toHeaderTextAndCheck(final String headerText,
@@ -480,8 +480,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                                       final Optional<Range<Long>> range,
                                       final Optional<Long> size) {
         this.toHeaderTextAndCheck(
-                ContentRange.with(unit, range, size),
-                headerText);
+            ContentRange.with(unit, range, size),
+            headerText);
     }
 
     // toString.................................................................................................
@@ -509,7 +509,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                                   final Optional<Long> size,
                                   final String toString) {
         this.toStringAndCheck(ContentRange.with(unit, range, size).toString(),
-                toString);
+            toString);
     }
 
     private ContentRange contentRange() {

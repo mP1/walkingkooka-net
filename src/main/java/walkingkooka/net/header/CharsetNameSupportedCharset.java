@@ -64,7 +64,7 @@ final class CharsetNameSupportedCharset extends CharsetName {
     @Override
     boolean test1(final CharsetNameSupportedCharset contentType) {
         return CHARSET_NAME_COMPARATOR.compare(this.charset.name(), contentType.name) == Comparators.EQUAL ||
-                CharsetNameSupport.testCharsetAliases(this.charset, contentType.charset);
+            CharsetNameSupport.testCharsetAliases(this.charset, contentType.charset);
     }
 
     private final static Comparator<String> CHARSET_NAME_COMPARATOR = CaseSensitivity.SENSITIVE.comparator();
