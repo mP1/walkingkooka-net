@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -38,7 +39,7 @@ public final class WebEntityFileName implements Name,
             "filename",
             value
         );
-        Name.checkLength(
+        InvalidTextLengthException.throwIfFail(
             "filename",
             value,
             MIN_LENGTH,
