@@ -131,21 +131,11 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
         return JavaVisibility.PUBLIC;
     }
 
-    // IsMethodTesting.................................................................................................
+    // IsMethodTesting..................................................................................................
 
     @Override
     public final C createIsMethodObject() {
         return this.createCookie();
-    }
-
-    @Override
-    public final String isMethodTypeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return Cookie.class.getSimpleName();
     }
 
     @Override
@@ -154,5 +144,14 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
             m.equals("isResponse") ||
             m.equals("isSession") ||
             m.equals("isPermanent");
+    }
+
+    @Override
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            "", // drop-prefix
+            Cookie.class.getSimpleName() // drop-suffix
+        );
     }
 }

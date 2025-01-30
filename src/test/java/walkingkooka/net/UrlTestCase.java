@@ -81,7 +81,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         return this.createUrl();
     }
 
-    // IsMethodTesting.................................................................................................
+    // IsMethodTesting..................................................................................................
 
     @Override
     public final U createIsMethodObject() {
@@ -89,18 +89,18 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return "Url";
-    }
-
-    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isBase64");
+    }
+
+
+    @Override
+    public final String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            "", // drop-prefix
+            "Url" // drop-suffix
+        );
     }
 
     // ParseStringTesting ..............................................................................................

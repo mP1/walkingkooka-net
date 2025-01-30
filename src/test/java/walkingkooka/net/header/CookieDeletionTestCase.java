@@ -55,17 +55,16 @@ public abstract class CookieDeletionTestCase<D extends CookieDeletion>
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return "Cookie";
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return "";
-    }
-
-    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> false;
+    }
+
+    @Override
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            Cookie.class.getSimpleName(), // drop-prefix
+            "" // drop-suffix
+        );
     }
 }

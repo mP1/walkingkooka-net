@@ -117,6 +117,11 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     // isMethodTesting..................................................................................................
 
     @Override
+    public final F createIsMethodObject() {
+        return this.createHeader();
+    }
+
+    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> {
             final boolean ignore;
@@ -138,18 +143,12 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return ContentDispositionFileName.class.getSimpleName();
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return "";
-    }
-
-    @Override
-    public final F createIsMethodObject() {
-        return this.createHeader();
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            ContentDispositionFileName.class.getSimpleName(), // drop-prefix
+            "" // drop-suffix
+        );
     }
 
     // class............................................................................................................
