@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -29,6 +30,45 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
 
     private final static String MESSAGE = "message123";
     private final static String MESSAGE_MULTI_LINE = MESSAGE + "\n2\r3";
+
+    @Test
+    public void testApplyHasStatusCodeExceptionWithMissingHttpStatus() {
+        this.applyAndCheck(
+            new TestHasStatusException(
+                Optional.empty()
+            ),
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+                .status()
+        );
+    }
+
+    @Test
+    public void testApplyHasStatusCodeExceptionWithHttpStatus() {
+        final HttpStatus status = HttpStatusCode.withCode(999).setMessage(MESSAGE);
+
+        this.applyAndCheck(
+            new TestHasStatusException(
+                Optional.of(status)
+            ),
+            status
+        );
+    }
+
+    static class TestHasStatusException extends RuntimeException implements HasStatus {
+
+        private static final long serialVersionUID = 0L;
+
+        TestHasStatusException(final Optional<HttpStatus> status) {
+            this.status = status;
+        }
+
+        @Override
+        public Optional<HttpStatus> status() {
+            return this.status;
+        }
+
+        private final Optional<HttpStatus> status;
+    }
 
     @Test
     public void testApplyIllegalArgumentExceptionWithNullMessage() {

@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -48,11 +49,24 @@ final class ThrowableHttpStatusTranslatorFunction implements Function<Throwable,
     public HttpStatus apply(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
 
-        final HttpStatus status;
+        HttpStatus status;
 
         do {
             final String message = throwable.getMessage();
-            final String first = null != message ? HttpStatus.firstLineOfText(message) : message;
+            final String first = null != message ?
+                HttpStatus.firstLineOfText(message) :
+                message;
+
+            if (throwable instanceof HasStatus) {
+                final HasStatus hasStatus = (HasStatus) throwable;
+
+                status = hasStatus.status()
+                    .orElse(null);
+                if (null != status) {
+                    break;
+                }
+            }
+
             if (throwable instanceof IllegalArgumentException) {
                 status = HttpStatusCode.BAD_REQUEST.setMessageOrDefault(first);
                 break;
