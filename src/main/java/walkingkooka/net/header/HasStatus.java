@@ -25,7 +25,7 @@ import java.util.Optional;
  * A getter that may return a {@link HttpStatus}.
  * This is particularly useful for exceptions that may wish to be translated into a {@link HttpStatus} in a response.
  */
-public interface HasStatusCode {
+public interface HasStatus {
 
     /**
      * {@link HttpStatus} getter.

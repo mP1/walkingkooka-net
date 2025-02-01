@@ -17,7 +17,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.header.HasStatusCode;
+import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
@@ -30,7 +30,7 @@ import java.util.Optional;
  * Defines a mutable HTTP response that accepts status and entities and provides methods as these may be filtered
  * or processed in some way.
  */
-public interface HttpResponse extends HasStatusCode,
+public interface HttpResponse extends HasStatus,
     TreePrintable {
 
     /**
