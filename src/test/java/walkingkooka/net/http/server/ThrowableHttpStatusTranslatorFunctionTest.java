@@ -31,7 +31,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     private final static String MESSAGE_MULTI_LINE = MESSAGE + "\n2\r3";
 
     @Test
-    public void testIllegalArgumentExceptionNull() {
+    public void testApplyIllegalArgumentExceptionWithNullMessage() {
         this.applyAndCheck(
             new IllegalArgumentException(),
             HttpStatusCode.BAD_REQUEST
@@ -40,7 +40,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testIllegalArgumentExceptionEmptyMessage() {
+    public void testApplyIllegalArgumentExceptionWithEmptyMessage() {
         this.applyAndCheck(
             new IllegalArgumentException(""),
             HttpStatusCode.BAD_REQUEST
@@ -49,7 +49,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testIllegalArgumentException() {
+    public void testApplyIllegalArgumentException() {
         this.applyAndCheck(
             new IllegalArgumentException(MESSAGE_MULTI_LINE),
             HttpStatusCode.BAD_REQUEST
@@ -58,7 +58,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testIllegalStateExceptionNull() {
+    public void testApplyIllegalStateExceptionWithNullMessage() {
         this.applyAndCheck(
             new IllegalStateException(),
             HttpStatusCode.INTERNAL_SERVER_ERROR.status()
@@ -66,7 +66,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testIllegalStateExceptionEmptyMessage() {
+    public void testApplyIllegalStateExceptionWithEmptyMessage() {
         this.applyAndCheck(
             new IllegalStateException(""),
             HttpStatusCode.INTERNAL_SERVER_ERROR.status()
@@ -74,7 +74,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testIllegalStateException() {
+    public void testApplyIllegalStateExceptionWithMessage() {
         this.applyAndCheck(
             new IllegalStateException(MESSAGE_MULTI_LINE),
             HttpStatusCode.INTERNAL_SERVER_ERROR
@@ -86,7 +86,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
         .setMessage("Hello!");
 
     @Test
-    public void testHttpResponseHttpServerException() {
+    public void testApplyHttpResponseHttpServerException() {
         this.applyAndCheck(
             new HttpResponseHttpServerException(
                 STATUS,
@@ -97,7 +97,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testHttpResponseHttpServerExceptionEntityIgnored() {
+    public void testApplyHttpResponseHttpServerExceptionEntityIgnored() {
         this.applyAndCheck(
             new HttpResponseHttpServerException(
                 STATUS,
@@ -110,7 +110,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testUnsupportedOperationExceptionNull() {
+    public void testApplyUnsupportedOperationExceptionWithNullMessage() {
         this.applyAndCheck(
             new UnsupportedOperationException(),
             HttpStatusCode.NOT_IMPLEMENTED
@@ -119,7 +119,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testUnsupportedOperationExceptionEmptyMessage() {
+    public void testApplyUnsupportedOperationExceptionWithEmptyMessage() {
         this.applyAndCheck(
             new UnsupportedOperationException(""),
             HttpStatusCode.NOT_IMPLEMENTED
@@ -128,7 +128,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testUnsupportedOperationException() {
+    public void testApplyUnsupportedOperationException() {
         this.applyAndCheck(
             new UnsupportedOperationException(MESSAGE_MULTI_LINE),
             HttpStatusCode.NOT_IMPLEMENTED
@@ -137,7 +137,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testExceptionNull() {
+    public void testApplyExceptionWithNullMessage() {
         this.applyAndCheck(
             new Exception(),
             HttpStatusCode.INTERNAL_SERVER_ERROR
@@ -146,7 +146,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testExceptionEmptyMessage() {
+    public void testApplyExceptionWithEmptyMessage() {
         this.applyAndCheck(
             new Exception(""),
             HttpStatusCode.INTERNAL_SERVER_ERROR
@@ -155,7 +155,7 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     }
 
     @Test
-    public void testException() {
+    public void testApplyException() {
         this.applyAndCheck(
             new Exception(MESSAGE_MULTI_LINE),
             HttpStatusCode.INTERNAL_SERVER_ERROR
@@ -167,6 +167,8 @@ public final class ThrowableHttpStatusTranslatorFunctionTest implements Function
     public ThrowableHttpStatusTranslatorFunction createFunction() {
         return ThrowableHttpStatusTranslatorFunction.INSTANCE;
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<ThrowableHttpStatusTranslatorFunction> type() {
