@@ -102,7 +102,7 @@ final class LanguageNameNonWildcard extends LanguageName {
      * True if the languages are equal.
      */
     @Override
-    boolean test0(final LanguageName language) {
+    boolean testNonNullNonWildcard(final LanguageName language) {
         return CASE_SENSITIVITY.equals(this.name, language.name);
     }
 

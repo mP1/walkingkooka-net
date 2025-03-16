@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -68,12 +67,11 @@ public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
      */
     @Override
     public boolean test(final ContentEncoding contentEncoding) {
-        Objects.requireNonNull(contentEncoding, "contentEncoding");
-
-        return this.value.stream()
-            .filter(e -> e.test(contentEncoding))
-            .limit(1)
-            .count() == 1;
+        return null != contentEncoding &&
+            this.value.stream()
+                .filter(e -> e.test(contentEncoding))
+                .limit(1)
+                .count() == 1;
     }
 
     // Header.....................................................................................................

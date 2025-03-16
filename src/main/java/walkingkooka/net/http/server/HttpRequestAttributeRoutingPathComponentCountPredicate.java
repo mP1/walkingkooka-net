@@ -48,7 +48,8 @@ final class HttpRequestAttributeRoutingPathComponentCountPredicate implements Pr
 
     @Override
     public boolean test(final Integer value) {
-        return this.predicate.test(value);
+        return null != value &&
+            this.predicate.test(value);
     }
 
     private final IntPredicate predicate;

@@ -76,11 +76,12 @@ public abstract class ETag implements Header,
      */
     @Override
     public final boolean test(final ETag etag) {
-        Objects.requireNonNull(etag, "etag");
-        return !etag.isWildcard() && this.test0(etag);
+        return null != etag &&
+            false == etag.isWildcard() &&
+            this.testNonNullNonWildcard(etag);
     }
 
-    abstract boolean test0(final ETag etag);
+    abstract boolean testNonNullNonWildcard(final ETag etag);
 
     // value.....................................................................................................
 

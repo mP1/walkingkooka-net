@@ -53,7 +53,7 @@ final class AcceptEncodingValueWildcard extends AcceptEncodingValue {
      * Matches any {@link ContentEncoding}.
      */
     @Override
-    boolean test0(final ContentEncoding encoding) {
+    boolean testNonNull(final ContentEncoding encoding) {
         return true;
     }
 

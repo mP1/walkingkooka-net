@@ -55,7 +55,7 @@ final class LanguageNameWildcard extends LanguageName {
      * Always matches all {@link ContentLanguage}.
      */
     @Override
-    boolean test0(final LanguageName language) {
+    boolean testNonNullNonWildcard(final LanguageName language) {
         language.testFailIfWildcard();
         return true;
     }

@@ -23,9 +23,9 @@ import java.util.function.IntPredicate;
 
 public final class HttpRequestAttributeRoutingPathComponentCountPredicateTest extends HttpRequestAttributeRoutingTestCase2<HttpRequestAttributeRoutingPathComponentCountPredicate, Integer> {
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testTestNullFalse() {
+        this.testFalse(null);
     }
 
     @Test
