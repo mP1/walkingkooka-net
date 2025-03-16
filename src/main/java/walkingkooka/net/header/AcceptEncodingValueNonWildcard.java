@@ -54,7 +54,7 @@ final class AcceptEncodingValueNonWildcard extends AcceptEncodingValue {
     // Predicate........................................................................................................
 
     @Override
-    boolean test0(final ContentEncoding encoding) {
+    boolean testNonNull(final ContentEncoding encoding) {
         return encoding.value.stream()
             .filter(this::filter)
             .count() == 1;

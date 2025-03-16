@@ -28,9 +28,9 @@ public final class HttpRequestAttributeRoutingPredicateParameterValueTest extend
 
     private final static String VALUE = "value123";
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testTestNullFalse() {
+        this.testFalse(null);
     }
 
     @Test

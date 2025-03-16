@@ -22,8 +22,9 @@ import walkingkooka.net.UrlPathName;
 
 public final class HttpRequestAttributeRoutingWildcardPredicateTest extends HttpRequestAttributeRoutingTestCase2<HttpRequestAttributeRoutingWildcardPredicate, UrlPathName> {
 
-    @Override
-    public void testTestNullFails() {
+    @Test
+    public void testTestNull() {
+        this.testFalse(null);
     }
 
     @Test

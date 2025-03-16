@@ -50,7 +50,7 @@ final class ETagNonWildcard extends ETag {
      * Ignores the validator and only compares the value for equality.
      */
     @Override
-    boolean test0(final ETag etag) {
+    boolean testNonNullNonWildcard(final ETag etag) {
         return this.value.equals(etag.value());
     }
 

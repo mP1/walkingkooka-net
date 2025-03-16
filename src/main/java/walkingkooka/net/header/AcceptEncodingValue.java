@@ -22,7 +22,6 @@ import walkingkooka.net.HasQualityFactor;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -183,12 +182,11 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
 
     @Override
     public boolean test(final ContentEncoding encoding) {
-        Objects.requireNonNull(encoding, "encoding");
-
-        return this.test0(encoding);
+        return null != encoding &&
+            this.testNonNull(encoding);
     }
 
-    abstract boolean test0(final ContentEncoding encoding);
+    abstract boolean testNonNull(final ContentEncoding encoding);
 
     // Object..........................................................................................................
 

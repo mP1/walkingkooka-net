@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -92,12 +91,11 @@ public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
      */
     @Override
     public boolean test(final ContentLanguage contentLanguage) {
-        Objects.requireNonNull(contentLanguage, "contentLanguage");
-
-        return this.value.stream()
-            .filter(e -> e.testContentLanguage(contentLanguage))
-            .limit(1)
-            .count() == 1;
+        return null != contentLanguage &&
+            this.value.stream()
+                .filter(e -> e.testContentLanguage(contentLanguage))
+                .limit(1)
+                .count() == 1;
     }
 
     // Header.....................................................................................................

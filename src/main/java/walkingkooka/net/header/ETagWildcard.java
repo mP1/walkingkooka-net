@@ -45,7 +45,7 @@ final class ETagWildcard extends ETag {
      * Matches any other etag except for another wildcard.
      */
     @Override
-    boolean test0(final ETag etag) {
+    boolean testNonNullNonWildcard(final ETag etag) {
         return true;
     }
 

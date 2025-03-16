@@ -803,10 +803,6 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     // test ............................................................................................................
 
-    @Override
-    public void testTestNullFails() {
-    }
-
     @Test
     public void testTestNull() {
         this.testFalse(null);

@@ -51,11 +51,6 @@ public final class UrlPathPredicateTest implements PredicateTesting2<UrlPathPred
 
     // test.............................................................................................................
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
-    }
-
     @Test
     public void testTestNullFalse() {
         this.testFalse(null);

@@ -27,7 +27,6 @@ import walkingkooka.text.CharSequences;
 
 import java.nio.charset.Charset;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -284,10 +283,10 @@ public abstract class CharsetName extends HeaderNameValue
      * Typically all values of {@link HttpHeaderName#ACCEPT_CHARSET} are called until a match
      * against a content-type {@link CharsetName}.
      */
+    @Override
     public final boolean test(final CharsetName contentType) {
-        Objects.requireNonNull(contentType, "contentType");
-
-        return contentType.test0(this);
+        return null != contentType &&
+            contentType.test0(this);
     }
 
     /**

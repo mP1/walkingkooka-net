@@ -23,7 +23,6 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -105,15 +104,18 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      */
     @Override
     public boolean test(final LanguageName language) {
-        Objects.requireNonNull(language, "language");
+        return null != language &&
+            this.testNonNull(language);
+    }
 
+    private boolean testNonNull(final LanguageName language) {
         language.testFailIfWildcard();
-        return this.test0(language);
+        return this.testNonNullNonWildcard(language);
     }
 
     abstract void testFailIfWildcard();
 
-    abstract boolean test0(final LanguageName language);
+    abstract boolean testNonNullNonWildcard(final LanguageName language);
 
     // HeaderNameValue..............................................................................................
 
