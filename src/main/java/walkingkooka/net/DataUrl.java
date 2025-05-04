@@ -77,7 +77,7 @@ public final class DataUrl extends Url {
 
         final int comma = url.indexOf(ENCODED_DATA_START.character());
         if (-1 == comma) {
-            missingEncodedDataStart(url);
+            missingInitialEncodedDataStart();
         }
 
         final int semi = url.indexOf(';');
@@ -250,7 +250,7 @@ public final class DataUrl extends Url {
             ENCODED_DATA_START.character()
         );
         if (-1 == start) {
-            missingEncodedDataStart(url);
+            missingInitialEncodedDataStart();
         }
 
         return this.value()
@@ -260,9 +260,9 @@ public final class DataUrl extends Url {
     /**
      * Throws a {@link IllegalArgumentException} to report that the given DATA URL is missing the data start character.
      */
-    private static void missingEncodedDataStart(final String url) {
-        // Url missing ',' data start in "data://etc
-        throw new IllegalArgumentException("Url missing '" + ENCODED_DATA_START + "' data start in " + CharSequences.quoteAndEscape(url));
+    private static void missingInitialEncodedDataStart() {
+        // Url missing initial ','
+        throw new IllegalArgumentException("Url missing initial '" + ENCODED_DATA_START + "'");
     }
 
     /**
