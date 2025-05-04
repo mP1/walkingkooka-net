@@ -95,7 +95,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     private static Optional<UrlCredentials> credentials0(final String userInfo) {
         final int separator = userInfo.indexOf(":");
         if (-1 == separator) {
-            throw new IllegalArgumentException("Invalid user credentials " + userInfo);
+            throw new IllegalArgumentException("Invalid user credentials");
         }
         return Optional.of(UrlCredentials.with(
             userInfo.substring(0, separator),
