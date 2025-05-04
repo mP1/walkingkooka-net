@@ -387,6 +387,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             final String addressString = address.value();
             final String addressStringLowerCase = addressString.toLowerCase();
             if (false == addressString.equals(addressStringLowerCase)) {
+                // cant use setHost because the equals test would fail and return the original and never the new lowercased
                 normalized = normalized.replaceHost(
                     HostAddress.with(addressStringLowerCase)
                 );
