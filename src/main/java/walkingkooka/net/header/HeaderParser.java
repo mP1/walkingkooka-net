@@ -602,14 +602,6 @@ abstract class HeaderParser {
         throw new CommentHeaderException("Comment present at " + this.position + " in " + CharSequences.quoteAndEscape(this.text));
     }
 
-    final void failMissingParameterName() {
-        fail(missingParameterName(this.position, this.text));
-    }
-
-    static String missingParameterName(final int start, final String text) {
-        return emptyToken("parameter name", start, text);
-    }
-
     final void failMissingParameterValue() {
         fail(missingParameterValue(this.position, this.text));
     }
