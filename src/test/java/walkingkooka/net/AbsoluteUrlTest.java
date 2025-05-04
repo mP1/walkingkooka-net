@@ -578,7 +578,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     public void testParseOnlySchemeFails() {
         this.parseStringFails(
             "http://",
-            new IllegalArgumentException("Missing host name in \"http://\"")
+            new IllegalArgumentException("Missing host name")
         );
     }
 

@@ -68,10 +68,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             UrlScheme.with(url.getProtocol()),
             credentials(url),
             HostAddress.with(
-                checkHost(
-                    url,
-                    urlString
-                )
+                checkHost(url)
             ),
             ipPort(url),
             UrlPath.parse(url.getPath()),
@@ -80,14 +77,10 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
         );
     }
 
-    private static String checkHost(final URL url,
-                                    final String urlString) {
+    private static String checkHost(final URL url) {
         final String host = url.getHost();
         if (CharSequences.isNullOrEmpty(host)) {
-            throw new IllegalArgumentException(
-                "Missing host name in " +
-                    CharSequences.quoteAndEscape(urlString)
-            );
+            throw new IllegalArgumentException("Missing host name");
         }
         return host;
     }
