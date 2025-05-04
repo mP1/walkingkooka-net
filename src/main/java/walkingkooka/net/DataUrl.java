@@ -124,7 +124,7 @@ public final class DataUrl extends Url {
                     .decode(encodedData);
                 break;
             default:
-                throw new IllegalArgumentException("Got unknown encoding " + CharSequences.quoteAndEscape(encoding) + " in " + CharSequences.quoteAndEscape(url));
+                throw new IllegalArgumentException("Unknown encoding " + CharSequences.quoteAndEscape(encoding));
         }
 
         return new DataUrl(
