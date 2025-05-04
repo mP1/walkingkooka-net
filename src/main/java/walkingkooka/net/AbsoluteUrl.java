@@ -64,7 +64,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
     private static AbsoluteUrl parseAbsolute1(final URL url,
                                               final String urlString) {
-        return AbsoluteUrl.with(UrlScheme.with(url.getProtocol()),
+        return AbsoluteUrl.with(
+            UrlScheme.with(url.getProtocol()),
             credentials(url),
             HostAddress.with(
                 checkHost(
@@ -75,7 +76,8 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
             ipPort(url),
             UrlPath.parse(url.getPath()),
             UrlQueryString.parse(nullToEmpty(url.getQuery())),
-            UrlFragment.parse(nullToEmpty(url.getRef())));
+            UrlFragment.parse(nullToEmpty(url.getRef()))
+        );
     }
 
     private static String checkHost(final URL url,
@@ -184,8 +186,19 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     /**
      * Unconditionally creates a new {@link AbsoluteUrl}
      */
-    @Override AbsoluteUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
-        return new AbsoluteUrl(this.scheme, this.credentials, this.host, this.port, path, query, fragment);
+    @Override
+    AbsoluteUrl replace(final UrlPath path,
+                        final UrlQueryString query,
+                        final UrlFragment fragment) {
+        return new AbsoluteUrl(
+            this.scheme,
+            this.credentials,
+            this.host,
+            this.port,
+            path,
+            query,
+            fragment
+        );
     }
 
     /**
@@ -200,7 +213,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
         return this.scheme.equals(scheme) ?
             this :
-            new AbsoluteUrl(scheme, this.credentials, this.host, this.port, this.path, this.query, this.fragment);
+            new AbsoluteUrl(
+                scheme,
+                this.credentials,
+                this.host,
+                this.port,
+                this.path,
+                this.query,
+                this.fragment
+            );
     }
 
     private final UrlScheme scheme;
@@ -217,7 +238,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
         return this.credentials.equals(credentials) ?
             this :
-            new AbsoluteUrl(this.scheme, credentials, this.host, this.port, this.path, this.query, this.fragment);
+            new AbsoluteUrl(
+                this.scheme,
+                credentials,
+                this.host,
+                this.port,
+                this.path,
+                this.query,
+                this.fragment
+            );
     }
 
     private final Optional<UrlCredentials> credentials;
@@ -241,7 +270,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
      * Unconditionally replaces the host.
      */
     private AbsoluteUrl replaceHost(final HostAddress host) {
-        return new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
+        return new AbsoluteUrl(
+            this.scheme,
+            this.credentials,
+            host,
+            this.port,
+            this.path,
+            this.query,
+            this.fragment
+        );
     }
 
     private final HostAddress host;
@@ -258,7 +295,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
 
         return this.port.equals(port) ?
             this :
-            new AbsoluteUrl(this.scheme, this.credentials, this.host, port, this.path, this.query, this.fragment);
+            new AbsoluteUrl(
+                this.scheme,
+                this.credentials,
+                this.host,
+                port,
+                this.path,
+                this.query,
+                this.fragment
+            );
     }
 
     private final Optional<IpPort> port;
@@ -278,7 +323,11 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
      * Returns a {@link RelativeUrl} built from the path, query and fragment components. The path and protocol will be lost.
      */
     public RelativeUrl relativeUrl() {
-        return RelativeUrl.with(this.path, this.query, this.fragment);
+        return RelativeUrl.with(
+            this.path,
+            this.query,
+            this.fragment
+        );
     }
 
     // UrlVisitor........................................................................................................
