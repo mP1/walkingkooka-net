@@ -59,7 +59,10 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final char[] array = new char[HostAddress.MAX_LENGTH];
         Arrays.fill(array, 'a');
         final String address = new String(array);
-        this.withFails(address, HostAddress.tooLong(array.length, address));
+        this.withFails(
+            address,
+            HostAddress.invalidHostLength(array.length)
+        );
     }
 
     @Test

@@ -19,7 +19,6 @@ package walkingkooka.net;
 
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.util.Arrays;
@@ -68,7 +67,9 @@ public final class HostAddress implements Value<String>,
         final int length = address.length();
         final int trueLength = length - offset;
         if (trueLength >= HostAddress.MAX_LENGTH) {
-            throw new IllegalArgumentException(HostAddress.tooLong(trueLength, address));
+            throw new IllegalArgumentException(
+                HostAddress.invalidHostLength(trueLength)
+            );
         }
 
         int start = offset;
@@ -160,8 +161,8 @@ public final class HostAddress implements Value<String>,
     /**
      * The entire address is too long.
      */
-    static String tooLong(final int length, final String host) {
-        return "Host length > " + HostAddress.MAX_LENGTH + "=" + length + " in " + CharSequences.quote(host);
+    static String invalidHostLength(final int length) {
+        return "Invalid host length " + length + " > " + HostAddress.MAX_LENGTH;
     }
 
     /**
