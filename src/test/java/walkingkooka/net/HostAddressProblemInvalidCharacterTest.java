@@ -24,9 +24,11 @@ public final class HostAddressProblemInvalidCharacterTest
 
     @Test
     public void testMessage() {
-        this.messageAndCheck(HostAddressProblemInvalidCharacter.with(5),
+        this.messageAndCheck(
+            HostAddressProblemInvalidCharacter.with(5),
             "example.com",
-            "Invalid character 'l' at 5 in \"example.com\"");
+            "Invalid character 'l' at 5"
+        );
     }
 
     @Override

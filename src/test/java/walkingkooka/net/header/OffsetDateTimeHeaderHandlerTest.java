@@ -39,7 +39,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseMissingOpeningDoubleQuoteFails() {
         this.parseStringFails(
             "abc\"",
-            new HeaderException("Invalid character 'a' at 0 in \"abc\"\"")
+            new HeaderException("Invalid character 'a' at 0")
         );
     }
 
@@ -47,7 +47,7 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     public void testyParseMissingClosingDoubleQuoteFails() {
         this.parseStringFails(
             "\"abc",
-            new HeaderException("Invalid character 'c' at 3 in \"\"abc\"")
+            new HeaderException("Invalid character 'c' at 3")
         );
     }
 
