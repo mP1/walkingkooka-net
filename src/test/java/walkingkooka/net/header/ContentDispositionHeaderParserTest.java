@@ -415,7 +415,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testCreationDateInvalidFails() {
         this.parseStringFails(
             "V; creation-date=123",
-            "Invalid character '1' at 0 in \"123\""
+            "Invalid character '1' at 0"
         );
     }
 
@@ -477,7 +477,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testModificationDateInvalidFails() {
         this.parseStringFails(
             "V; modification-date=123",
-            "Invalid character '1' at 0 in \"123\""
+            "Invalid character '1' at 0"
         );
     }
 
@@ -495,7 +495,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testReadDateInvalidFails() {
         this.parseStringFails(
             "V; read-date=123",
-            "Invalid character '1' at 0 in \"123\""
+            "Invalid character '1' at 0"
         );
     }
 

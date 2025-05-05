@@ -78,7 +78,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderAcceptFails() {
         this.parseStringFails(
             "Accept: ???\r\n",
-            new IllegalArgumentException("Accept: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Accept: Invalid character '?' at 1")
         );
     }
 
@@ -86,7 +86,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderAcceptCharsetFails() {
         this.parseStringFails(
             "Accept-Charset: ???\r\n",
-            new IllegalArgumentException("Accept-Charset: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Accept-Charset: Invalid character '?' at 1")
         );
     }
 
@@ -94,7 +94,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderAcceptEncodingFails() {
         this.parseStringFails(
             "Accept-Encoding: ???\r\n",
-            new IllegalArgumentException("Accept-Encoding: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Accept-Encoding: Invalid character '?' at 1")
         );
     }
 
@@ -102,7 +102,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderAcceptLanguageFails() {
         this.parseStringFails(
             "Accept-Language: ???\r\n",
-            new IllegalArgumentException("Accept-Language: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Accept-Language: Invalid character '?' at 1")
         );
     }
 
@@ -118,7 +118,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderCacheControlFails() {
         this.parseStringFails(
             "Cache-Control: ???\r\n",
-            new IllegalArgumentException("Cache-Control: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Cache-Control: Invalid character '?' at 1")
         );
     }
 
@@ -126,7 +126,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderContentDispositionFails() {
         this.parseStringFails(
             "Content-Disposition: ???\r\n",
-            new IllegalArgumentException("Content-Disposition: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Content-Disposition: Invalid character '?' at 1")
         );
     }
 
@@ -134,7 +134,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderContentEncodingFails() {
         this.parseStringFails(
             "Content-ENcoding: ???\r\n",
-            new IllegalArgumentException("Content-Encoding: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Content-Encoding: Invalid character '?' at 1")
         );
     }
 
@@ -142,7 +142,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderContentLanguageFails() {
         this.parseStringFails(
             "Content-Language: ???\r\n",
-            new IllegalArgumentException("Content-Language: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Content-Language: Invalid character '?' at 1")
         );
     }
 
@@ -167,7 +167,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderContentTypeFails() {
         this.parseStringFails(
             "Content-Type: type/?\r\n",
-            new IllegalArgumentException("Content-Type: Invalid character '?' at 6 in \" type/?\"")
+            new IllegalArgumentException("Content-Type: Invalid character '?' at 6")
         );
     }
 
@@ -175,7 +175,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderCookieFails() {
         this.parseStringFails(
             "Cookie: ???\r\n",
-            new IllegalArgumentException("Cookie: Invalid character '?' at 0 in \"???\"")
+            new IllegalArgumentException("Cookie: Invalid character '?' at 0")
         );
     }
 
@@ -191,7 +191,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderEtagFails() {
         this.parseStringFails(
             "Etag: ???\r\n",
-            new IllegalArgumentException("ETag: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("ETag: Invalid character '?' at 1")
         );
     }
 
@@ -207,7 +207,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderIfMatchFails() {
         this.parseStringFails(
             "If-Match: ???\r\n",
-            new IllegalArgumentException("If-Match: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("If-Match: Invalid character '?' at 1")
         );
     }
 
@@ -223,7 +223,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderIfNoneMatchFails() {
         this.parseStringFails(
             "If-None-Match: ???\r\n",
-            new IllegalArgumentException("If-None-Match: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("If-None-Match: Invalid character '?' at 1")
         );
     }
 
@@ -247,7 +247,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderLinkFails() {
         this.parseStringFails(
             "Link: ???\r\n",
-            new IllegalArgumentException("Link: Invalid character '?' at 1 in \" ???\"")
+            new IllegalArgumentException("Link: Invalid character '?' at 1")
         );
     }
 
@@ -271,7 +271,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderSetCookieFails() {
         this.parseStringFails(
             "Set-Cookie: ???\r\n",
-            new IllegalArgumentException("Set-Cookie: Invalid character '?' at 0 in \"???\"")
+            new IllegalArgumentException("Set-Cookie: Invalid character '?' at 0")
         );
     }
 

@@ -55,7 +55,11 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
 
     @Test
     public void testInvalidCharacterFails() {
-        this.consumeFails("(abc\0)", 0, "Invalid character '\\0' at 4 in \"(abc\0)\"");
+        this.consumeFails(
+            "(abc\0)",
+            0,
+            "Invalid character '\\0' at 4"
+        );
     }
 
     @Test
@@ -102,7 +106,11 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
 
     @Test
     public void testContentBackslashFails() {
-        this.consumeFails("(abc\\)", 0, "Invalid character '\\\\' at 4 in \"(abc\\)\"");
+        this.consumeFails(
+            "(abc\\)",
+            0,
+            "Invalid character '\\\\' at 4"
+        );
     }
 
     // single quotes.....................................................................................................
