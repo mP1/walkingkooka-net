@@ -107,8 +107,14 @@ public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
     public static UrlScheme with(final String name) {
         UrlScheme scheme = UrlScheme.CONSTANTS.get(name);
         if (null == scheme) {
-            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "UrlScheme", INITIAL, PART);
-            scheme = new UrlScheme(name);
+            scheme = new UrlScheme(
+                CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                    name,
+                    "UrlScheme",
+                    INITIAL,
+                    PART
+                )
+            );
         }
 
         return scheme;

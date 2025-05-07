@@ -166,10 +166,12 @@ public abstract class CharsetName extends HeaderNameValue
      * Returns a {@link CharsetName}
      */
     public static CharsetName with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(value,
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            value,
             "value",
             INITIAL_CHAR_PREDICATE,
-            PART_CHAR_PREDICATE);
+            PART_CHAR_PREDICATE
+        );
 
         final CharsetName charsetName = CONSTANTS.get(value);
         return null != charsetName ?
