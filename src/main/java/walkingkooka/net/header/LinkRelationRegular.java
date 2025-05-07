@@ -54,11 +54,14 @@ final class LinkRelationRegular extends LinkRelation<String> {
      * Unconditionally creates a {@link LinkRelationRegular}
      */
     static LinkRelationRegular regular(final String value) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(value,
-            "value",
-            INITIAL_CHAR_PREDICATE,
-            PART_CHAR_PREDICATE);
-        return new LinkRelationRegular(value);
+        return new LinkRelationRegular(
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                value,
+                "value",
+                INITIAL_CHAR_PREDICATE,
+                PART_CHAR_PREDICATE
+            )
+        );
     }
 
     /**

@@ -160,10 +160,12 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      * Returns a {@link CacheControlDirectiveName}
      */
     public static CacheControlDirectiveName<?> with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            name,
             "value",
             INITIAL_CHAR_PREDICATE,
-            PART_CHAR_PREDICATE);
+            PART_CHAR_PREDICATE
+        );
 
         final CacheControlDirectiveName<?> directiveName = CONSTANTS.get(name);
         return null != directiveName ?
