@@ -47,25 +47,25 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     static HttpEntityHeaderList copy(final HttpHeaderName<?> header,
                                      final List<?> values) {
         return values instanceof HttpEntityHeaderList ?
-            check(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
-            copy0(header, values.toArray());
+            checkHttpEntityHeaderList(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
+            copyAndCreate(header, values.toArray());
     }
 
     /**
      * While taking a copy of the array checks each value using the {@link HttpHeaderName}
      */
-    private static HttpEntityHeaderList check(final HttpHeaderName<?> header,
-                                              final HttpEntityHeaderList values) {
+    private static HttpEntityHeaderList checkHttpEntityHeaderList(final HttpHeaderName<?> header,
+                                                                  final HttpEntityHeaderList values) {
         return header.isMultiple() == values.isMultipleHeaders() ?
-            check0(header, values) : // already the correct HttpEntityHeaderList sub class, simply check values.
-            copy0(header, values.toArray()); // wrong HttpEntityHeaderList copy and create another
+            checkHttpEntityHeaderList0(header, values) : // already the correct HttpEntityHeaderList sub class, simply check values.
+            copyAndCreate(header, values.toArray()); // wrong HttpEntityHeaderList copy and create another
     }
 
     /**
      * Checks that the values are correct values for the given header.
      */
-    private static HttpEntityHeaderList check0(final HttpHeaderName<?> header,
-                                               final HttpEntityHeaderList values) {
+    private static HttpEntityHeaderList checkHttpEntityHeaderList0(final HttpHeaderName<?> header,
+                                                                   final HttpEntityHeaderList values) {
         values.forEach(header::checkValue);
         return values;
     }
@@ -73,8 +73,8 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     /**
      * While taking a copy of the array checks each value using the {@link HttpHeaderName}
      */
-    private static HttpEntityHeaderList copy0(final HttpHeaderName<?> header,
-                                              final Object[] values) {
+    private static HttpEntityHeaderList copyAndCreate(final HttpHeaderName<?> header,
+                                                      final Object[] values) {
         return values.length == 0 ?
             null :
             header.isMultiple() ?
