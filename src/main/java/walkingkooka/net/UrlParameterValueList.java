@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.AbstractList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A custom immutable {@link List} that appears read only outside this package, but is mutable during the parsing process.
@@ -60,6 +61,11 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     @Override
     public String toString() {
         return this.values.toString();
+    }
+
+    @Override
+    public void elementCheck(final String value) {
+        Objects.requireNonNull(value, "value");
     }
 
     @Override
