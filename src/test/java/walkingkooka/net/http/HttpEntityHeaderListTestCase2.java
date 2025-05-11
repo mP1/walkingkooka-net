@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.ListTesting2;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,6 +39,19 @@ public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderLi
         assertThrows(
             IllegalArgumentException.class,
             this::createHttpEntityHeaderList
+        );
+    }
+
+    @Test
+    public final void testSetElementsListWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createList()
+                .setElements(
+                    Lists.<Object>of(
+                        null
+                    )
+                )
         );
     }
 
