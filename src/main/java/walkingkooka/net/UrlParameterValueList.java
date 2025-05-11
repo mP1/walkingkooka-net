@@ -73,7 +73,9 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     private ImmutableList<String> createAndCopy(final List<String> list) {
         final UrlParameterValueList copy = UrlParameterValueList.empty();
         for (final String value : list) {
-            copy.addParameterValue(value);
+            copy.addParameterValue(
+                Objects.requireNonNull(value, "value")
+            );
         }
         return this.equals(copy) ?
             this :
