@@ -20,8 +20,11 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.list.ImmutableListTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
     ImmutableListTesting<UrlParameterValueList, String> {
@@ -88,6 +91,20 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
             0,
             2,
             expected
+        );
+    }
+
+    @Test
+    public void testSetElementsWithListWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> UrlParameterValueList.empty()
+                .setElements(
+                    Lists.of(
+                        "A1",
+                        null
+                    )
+                )
         );
     }
 
