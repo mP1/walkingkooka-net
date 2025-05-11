@@ -23,6 +23,7 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A read only {@link java.util.List} with operations to append and remove a value returning a new copy.
@@ -98,7 +99,12 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
         return this instanceof HttpEntityHeaderListMulti;
     }
 
-    // ImmutableList....................................................................................................
+    // ImmutableListDefaults............................................................................................
+
+    @Override
+    public final void elementCheck(final Object value) {
+        Objects.requireNonNull(value, "value");
+    }
 
     @Override
     public final ImmutableList<Object> setElements(final List<Object> values) {
