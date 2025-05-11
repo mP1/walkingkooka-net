@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -64,7 +65,12 @@ final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractS
 
     private final Set<Entry<String, String[]>> parameters;
 
-    // ImmutableSet.....................................................................................................
+    // ImmutableSetDefaults.............................................................................................
+
+    @Override
+    public void elementCheck(final Entry<HttpRequestParameterName, List<String>> entry) {
+        Objects.requireNonNull(entry, "entry");
+    }
 
     @Override
     public HttpServletRequestHttpRequestParametersMapEntrySet setElements(final Set<Entry<HttpRequestParameterName, List<String>>> elements) {

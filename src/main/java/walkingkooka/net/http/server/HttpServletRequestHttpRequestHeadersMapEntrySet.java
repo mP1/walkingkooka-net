@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -91,7 +92,12 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
 
     private final HttpServletRequest request;
 
-    // ImmutableSet.....................................................................................................
+    // ImmutableSetDefaults.............................................................................................
+
+    @Override
+    public void elementCheck(final Entry<HttpHeaderName<?>, List<?>> entry) {
+        Objects.requireNonNull(entry, "entry");
+    }
 
     @Override
     public HttpServletRequestHttpRequestHeadersMapEntrySet setElements(final Set<Entry<HttpHeaderName<?>, List<?>>> elements) {

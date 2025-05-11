@@ -28,6 +28,7 @@ import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -118,7 +119,12 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
         return this.map.toString();
     }
 
-    // ImmutableSet.....................................................................................................
+    // ImmutableSetDefaults.............................................................................................
+
+    @Override
+    public void elementCheck(final Entry<HttpRequestAttribute<?>, Object> entry) {
+        Objects.requireNonNull(entry, "entry");
+    }
 
     @Override
     public HttpRequestRouterParametersMapEntrySet setElements(final Set<Entry<HttpRequestAttribute<?>, Object>> elements) {
