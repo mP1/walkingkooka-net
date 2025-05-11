@@ -59,11 +59,6 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     private final List<String> values = Lists.array();
 
     @Override
-    public String toString() {
-        return this.values.toString();
-    }
-
-    @Override
     public void elementCheck(final String value) {
         Objects.requireNonNull(value, "value");
     }
