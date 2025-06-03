@@ -59,8 +59,16 @@ final class ContentTypeHttpHandler implements HttpHandler {
         } else {
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST
-                    .setMessage("Expected " + expected +
-                        (mediaType.isPresent() ? " got " + mediaType.get() : " missing " + HttpHeaderName.CONTENT_TYPE))
+                    .setMessage(
+                        "Expected " +
+                            expected.clearParameters() +
+                            (mediaType.isPresent() ?
+                                " got " +
+                                    mediaType.get()
+                                        .clearParameters()
+                                : " missing " + HttpHeaderName.CONTENT_TYPE
+                            )
+                    )
             );
             response.setEntity(HttpEntity.EMPTY);
         }

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -92,6 +93,18 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
 
         this.handleAndCheck(
             this.request(MediaType.BINARY),
+            expected
+        );
+    }
+
+    @Test
+    public void testHandleInvalidContentTypeMessageWithoutParameters() {
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain got application/octet-stream"));
+        expected.setEntity(HttpEntity.EMPTY);
+
+        this.handleAndCheck(
+            this.request(MediaType.BINARY.setCharset(CharsetName.UTF_8)),
             expected
         );
     }
