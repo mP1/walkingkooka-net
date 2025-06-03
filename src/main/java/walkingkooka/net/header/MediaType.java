@@ -451,6 +451,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // HasCaseSensitivity ...............................................................................................
 
+    @Override
     public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
