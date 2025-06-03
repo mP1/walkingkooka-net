@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"></a>
@@ -187,8 +188,21 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
 
             // Accept: Got text/plain require text/json
             throw new IllegalArgumentException(
-                HttpHeaderName.ACCEPT + ": Got " + this + " require " + mediaType
+                HttpHeaderName.ACCEPT + ": Got " + this.mediaTypesWithoutParameters() + " require " + mediaType.clearParameters()
             );
         }
     }
+
+    private String mediaTypesWithoutParameters() {
+        if (null == this.mediaTypesWithoutParameters) {
+            this.mediaTypesWithoutParameters = this.value()
+                .stream()
+                .map(m -> m.clearParameters().toString())
+                .collect(Collectors.joining(SEPARATOR));
+        }
+
+        return this.mediaTypesWithoutParameters;
+    }
+
+    private String mediaTypesWithoutParameters;
 }
