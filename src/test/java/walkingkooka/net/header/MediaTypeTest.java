@@ -1178,6 +1178,20 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
     }
 
+    @Test
+    public void testRequireContentTypeRemovesParametersMissingFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+                .requireContentType(null)
+        );
+
+        this.checkEquals(
+            "Content-Type: Missing required text/plain",
+            thrown.getMessage()
+        );
+    }
+
     // toHeaderText.....................................................................................................
 
     @Test
