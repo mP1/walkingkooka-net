@@ -70,6 +70,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     /**
      * Would be setter that returns an instance with the given parameters creating a new instance if necessary.
      */
+    @Override
     public final H setParameters(final Map<P, Object> parameters) {
         final Map<P, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
