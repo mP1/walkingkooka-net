@@ -290,7 +290,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
             );
     }
 
-    // ctor ...................................................................................................
+    // ctor ............................................................................................................
 
     /**
      * Private constructor
@@ -313,7 +313,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         this.suffix = suffix;
     }
 
-    // type .......................................................................................................
+    // type ............................................................................................................
 
     /**
      * Getter that returns the primary component.
@@ -346,7 +346,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         );
     }
 
-    // sub type ...................................................................................................
+    // sub type ........................................................................................................
 
     /**
      * Getter that returns the sub component.
@@ -380,7 +380,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         );
     }
 
-    // suffix........................................................................................................
+    // suffix...........................................................................................................
 
     /**
      * Suffix are encoded within the sub-mime-type
