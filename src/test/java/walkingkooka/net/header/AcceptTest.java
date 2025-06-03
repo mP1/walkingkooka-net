@@ -176,6 +176,38 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
     }
 
+    @Test
+    public void testTestOrFailMessageOmitsParametersFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> Accept.parse("text/html;charset=UTF8, text/json;charset=UTF8;")
+                .testOrFail(
+                    MediaType.TEXT_PLAIN
+                )
+        );
+
+        this.checkEquals(
+            "Accept: Got text/html, text/json require text/plain",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testTestOrFailMessageOmitsParametersFails2() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> Accept.parse("text/html, text/json;")
+                .testOrFail(
+                    MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+                )
+        );
+
+        this.checkEquals(
+            "Accept: Got text/html, text/json require text/plain",
+            thrown.getMessage()
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
