@@ -327,7 +327,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public MediaType setType(final String type) {
         checkType(type);
-        return this.caseSensitivity().equals(this.type, type) ?
+        return CASE_SENSITIVITY.equals(this.type, type) ?
             this :
             this.replace(
                 type,
@@ -360,8 +360,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public MediaType setSubType(final String subType) {
         checkSubType(subType);
-        return this.caseSensitivity()
-            .equals(this.subType, subType) ?
+        return CASE_SENSITIVITY.equals(
+            this.subType,
+            subType
+        ) ?
             this :
             this.replace(
                 this.type,
@@ -661,7 +663,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Returns true of the sub-type begins with x-.
      */
     public boolean isNonStandard() {
-        return this.caseSensitivity().startsWith(
+        return CASE_SENSITIVITY.startsWith(
             this.subType(),
             "x-"
         );
@@ -675,7 +677,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Returns true of the sub-type begins with vnd.
      */
     public boolean isVendorSpecific() {
-        return this.caseSensitivity().startsWith(
+        return CASE_SENSITIVITY.startsWith(
             this.subType(),
             "vnd."
         );
