@@ -444,15 +444,15 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Currently this returns true if {@link #type} is <code>text</code> or the {@link #subType} is <code>json</code>.
      */
     public boolean isText() {
-        return this.type.equalsIgnoreCase("text") ||
-            this.subType.equalsIgnoreCase("json");
+        return CASE_SENSITIVITY.equals(this.type, "text") ||
+            CASE_SENSITIVITY.equals(this.subType, "json");
     }
 
     // HasCaseSensitivity ..............................................................................................
 
     @Override
     public CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.INSENSITIVE;
+        return CASE_SENSITIVITY;
     }
 
     // parameters ......................................................................................................
