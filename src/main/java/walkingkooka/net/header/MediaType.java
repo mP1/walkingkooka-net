@@ -609,7 +609,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
             throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Missing required " + this.clearParameters());
         }
         if (false == this.test(mediaType)) {
-            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType + " require " + this.clearParameters());
+            // Content-Type: Got xxx/yyy require aaa/bbb
+            throw new IllegalArgumentException(
+                HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType.clearParameters() + " require " + this.clearParameters()
+            );
         }
     }
 
