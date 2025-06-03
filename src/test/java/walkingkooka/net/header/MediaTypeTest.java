@@ -437,6 +437,40 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         assertSame(constant, withParameters.setParameters(MediaType.NO_PARAMETERS));
     }
 
+    // clearParameters .................................................................................................
+
+    @Test
+    public void testClearParametersWhenNoParameters() {
+        final MediaType mediaType = MediaType.TEXT_PLAIN;
+
+        assertSame(
+            mediaType,
+            mediaType.clearParameters()
+        );
+    }
+
+    @Test
+    public void testClearParametersWithParameters() {
+        final MediaType mediaType = MediaType.TEXT_PLAIN;
+
+        assertSame(
+            mediaType,
+            mediaType.setCharset(CharsetName.UTF_8)
+                .clearParameters()
+        );
+    }
+
+    @Test
+    public void testClearParametersWithParameters2() {
+        final MediaType mediaType = MediaType.parse("text/something");
+
+        this.checkEquals(
+            mediaType,
+            mediaType.setCharset(CharsetName.UTF_8)
+                .clearParameters()
+        );
+    }
+
     // setBoundary .....................................................................................................
 
     @Test
