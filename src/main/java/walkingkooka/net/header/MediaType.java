@@ -520,6 +520,18 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         return this.qualityFactor(MediaTypeParameterName.Q);
     }
 
+    /**
+     * Returns a {@link MediaType} with no parameters. This is useful when building a message about an invalid media type.
+     */
+    public MediaType clearParameters() {
+        return this.parameters.isEmpty() ?
+            this :
+            with(
+                this.type,
+                this.subType
+            );
+    }
+
     <T> MediaType setParameter(final MediaTypeParameterName<T> name,
                                final T value) {
         final MediaType after;
