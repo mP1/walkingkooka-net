@@ -45,7 +45,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         this.parameters = parameters;
     }
 
-    // Value................................................................................................
+    // Value............................................................................................................
 
     /**
      * Getter that returns the value.
@@ -57,7 +57,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
 
     final V value;
 
-    // parameters ...............................................................................................
+    // parameters ......................................................................................................
 
     /**
      * Retrieves the parameters.
@@ -99,16 +99,19 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
 
     abstract H replaceParameters(final Map<P, Object> parameters);
 
-    // qWeight .................................................................................................
+    // qualityFactor ...................................................................................................
 
     /**
      * Package private helper because not all sub classes need this.
      */
     final Optional<Float> qualityFactor(final P parameter) {
-        return Optional.ofNullable((Float) this.parameters().get(parameter));
+        return Optional.ofNullable(
+            (Float) this.parameters()
+                .get(parameter)
+        );
     }
 
-    // header..................................................................................................
+    // header...........................................................................................................
 
     /**
      * Reproduces this header as text.
@@ -148,11 +151,14 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
      */
     final static String TO_HEADERTEXT_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.character() + " ";
 
-    // Object................................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public final int hashCode() {
-        return Objects.hash(this.hashCode0(this.value), this.parameters);
+        return Objects.hash(
+            this.hashCode0(this.value),
+            this.parameters
+        );
     }
 
     abstract int hashCode0(final V value);
