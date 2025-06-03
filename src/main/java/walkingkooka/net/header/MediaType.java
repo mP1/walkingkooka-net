@@ -327,8 +327,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public MediaType setType(final String type) {
         checkType(type);
-        return this.caseSensitivity()
-            .equals(this.type, type) ?
+        return this.caseSensitivity().equals(this.type, type) ?
             this :
             this.replace(
                 type,
@@ -449,7 +448,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
             this.subType.equalsIgnoreCase("json");
     }
 
-    // HasCaseSensitivity ...............................................................................................
+    // HasCaseSensitivity ..............................................................................................
 
     @Override
     public CaseSensitivity caseSensitivity() {
@@ -567,7 +566,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         );
     }
 
-    // Predicate................................ .......................................................................
+    // Predicate........................................................................................................
 
     /**
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
@@ -694,7 +693,11 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     }
 
     @Override
-    boolean equals1(final String value, final String otherValue) {
-        return CASE_SENSITIVITY.equals(this.value, otherValue);
+    boolean equals1(final String value,
+                    final String otherValue) {
+        return CASE_SENSITIVITY.equals(
+            this.value,
+            otherValue
+        );
     }
 }
