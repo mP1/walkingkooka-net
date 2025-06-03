@@ -513,6 +513,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     /**
      * Retrieves the quality factor for this value.
      */
+    @Override
     public Optional<Float> qualityFactor() {
         return this.qualityFactor(MediaTypeParameterName.Q);
     }
