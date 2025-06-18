@@ -327,7 +327,7 @@ public final class ContentRange implements Header {
         this.size = size;
     }
 
-    // unit ..................................................................................................
+    // unit ............................................................................................................
 
     /**
      * Returns the unit.
@@ -341,20 +341,23 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setUnit(final RangeHeaderUnit unit) {
-        checkUnit(unit);
-
         return this.unit().equals(unit) ?
             this :
-            this.replace(unit.rangeCheck(), this.range, this.size);
+            this.replace(
+                checkUnit(unit)
+                    .rangeCheck(),
+                this.range,
+                this.size
+            );
     }
 
     private final RangeHeaderUnit unit;
 
-    private static void checkUnit(final RangeHeaderUnit unit) {
-        Objects.requireNonNull(unit, "unit");
+    private static RangeHeaderUnit checkUnit(final RangeHeaderUnit unit) {
+        return Objects.requireNonNull(unit, "unit");
     }
 
-    // range ..................................................................................................
+    // range ...........................................................................................................
 
     /**
      * Returns the range.
@@ -368,24 +371,34 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setRange(final Optional<Range<Long>> range) {
-        checkRange(range);
-
         return this.range().equals(range) ?
             this :
-            this.replace(this.unit, range, this.size);
+            this.replace(
+                this.unit,
+                checkRange(range),
+                this.size
+            );
     }
 
     private final Optional<Range<Long>> range;
 
-    private static void checkRange(final Optional<Range<Long>> range) {
+    private static Optional<Range<Long>> checkRange(final Optional<Range<Long>> range) {
         Objects.requireNonNull(range, "range");
 
         range.ifPresent(ContentRange::checkRange0);
+
+        return range;
     }
 
     private static void checkRange0(final Range<Long> range) {
-        checkRangeBound(range.lowerBound(), range);
-        checkRangeBound(range.upperBound(), range);
+        checkRangeBound(
+            range.lowerBound(),
+            range
+        );
+        checkRangeBound(
+            range.upperBound(),
+            range
+        );
     }
 
     private static void checkRangeBound(final RangeBound<Long> bound,
@@ -402,7 +415,7 @@ public final class ContentRange implements Header {
         }
     }
 
-    // length ..................................................................................................
+    // length ..........................................................................................................
 
     /**
      * The length or {@link Optional#empty()} when none are present. This assumes unit=bytes.
@@ -417,7 +430,7 @@ public final class ContentRange implements Header {
             .map(u -> 1L + u - range.lowerBound().value().orElse(0L));
     }
 
-    // size ..................................................................................................
+    // size ............................................................................................................
 
     /**
      * Returns the size.
@@ -431,16 +444,18 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setSize(final Optional<Long> size) {
-        checkSize(size);
-
         return this.size == size ?
             this :
-            this.replace(this.unit, this.range, size);
+            this.replace(
+                this.unit,
+                this.range,
+                checkSize(size)
+            );
     }
 
     private final Optional<Long> size;
 
-    private static void checkSize(final Optional<Long> size) {
+    private static Optional<Long> checkSize(final Optional<Long> size) {
         Objects.requireNonNull(size, "size");
 
         if (size.isPresent()) {
@@ -449,9 +464,11 @@ public final class ContentRange implements Header {
                 throw new IllegalArgumentException("Range size " + sizeValue + " when present must be > 0");
             }
         }
+
+        return size;
     }
 
-    // replaceParameters ..................................................................................................
+    // replaceParameters ...............................................................................................
 
     /**
      * Factory that creates a new {@link ContentRange}
@@ -462,7 +479,7 @@ public final class ContentRange implements Header {
         return new ContentRange(unit, range, size);
     }
 
-    // HasHeaderScope....................................................................
+    // HasHeaderScope...................................................................................................
 
     @Override
     public boolean isMultipart() {
@@ -482,7 +499,7 @@ public final class ContentRange implements Header {
         return true;
     }
 
-    // Header........................................................................................
+    // Header...........................................................................................................
 
     /**
      * <pre>
@@ -498,7 +515,8 @@ public final class ContentRange implements Header {
     }
 
     private static String toHeaderTextRange(final Optional<Range<Long>> range) {
-        return range.map(ContentRange::toHeaderTextRange0).orElse(WILDCARD.string());
+        return range.map(ContentRange::toHeaderTextRange0)
+            .orElse(WILDCARD.string());
 
     }
 
@@ -524,11 +542,15 @@ public final class ContentRange implements Header {
         return false;
     }
 
-    // Object.........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.unit, this.range, this.size);
+        return Objects.hash(
+            this.unit,
+            this.range,
+            this.size
+        );
     }
 
     @Override
