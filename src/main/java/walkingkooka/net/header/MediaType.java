@@ -724,7 +724,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     // Object...........................................................................................................
 
     @Override
-    int hashCode0(final String value) {
+    int hashCodeValue(final String value) {
         return CASE_SENSITIVITY.hash(value);
     }
 
@@ -734,8 +734,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     }
 
     @Override
-    boolean equals1(final String value,
-                    final String otherValue) {
+    boolean equalsValue(final String value,
+                        final String otherValue) {
         return CASE_SENSITIVITY.equals(
             this.value,
             otherValue

@@ -168,12 +168,13 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
     // Object ..........................................................................................................
 
     @Override
-    int hashCode0(final ContentDispositionType value) {
+    int hashCodeValue(final ContentDispositionType value) {
         return value.hashCode();
     }
 
     @Override
-    boolean equals1(final ContentDispositionType value, final ContentDispositionType otherValue) {
+    boolean equalsValue(final ContentDispositionType value,
+                        final ContentDispositionType otherValue) {
         return value.equals(otherValue);
     }
 

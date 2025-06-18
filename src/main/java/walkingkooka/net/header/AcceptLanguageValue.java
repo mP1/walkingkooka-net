@@ -168,7 +168,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     // Object..........................................................................................................
 
     @Override
-    int hashCode0(final LanguageName value) {
+    int hashCodeValue(final LanguageName value) {
         return value.hashCode();
     }
 
@@ -178,7 +178,8 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     }
 
     @Override
-    boolean equals1(final LanguageName value, final LanguageName otherValue) {
+    boolean equalsValue(final LanguageName value,
+                        final LanguageName otherValue) {
         return value.equals(otherValue);
     }
 }
