@@ -275,9 +275,11 @@ public final class ContentRange implements Header {
                 break;
         }
 
-        return new ContentRange(unit,
+        return new ContentRange(
+            unit,
             Optional.ofNullable(range),
-            size);
+            size
+        );
     }
 
     private final static int MODE_UNIT = 1;
@@ -341,14 +343,16 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setUnit(final RangeHeaderUnit unit) {
-        return this.unit().equals(unit) ?
-            this :
-            this.replace(
+        if (this.unit().equals(unit)) {
+            return this;
+        } else {
+            return new ContentRange(
                 checkUnit(unit)
                     .rangeCheck(),
                 this.range,
                 this.size
             );
+        }
     }
 
     private final RangeHeaderUnit unit;
@@ -371,13 +375,15 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setRange(final Optional<Range<Long>> range) {
-        return this.range().equals(range) ?
-            this :
-            this.replace(
+        if (this.range().equals(range)) {
+            return this;
+        } else {
+            return new ContentRange(
                 this.unit,
                 checkRange(range),
                 this.size
             );
+        }
     }
 
     private final Optional<Range<Long>> range;
@@ -444,13 +450,7 @@ public final class ContentRange implements Header {
      * creating a new instance if necessary.
      */
     public ContentRange setSize(final Optional<Long> size) {
-        return this.size == size ?
-            this :
-            this.replace(
-                this.unit,
-                this.range,
-                checkSize(size)
-            );
+        return this.size == size ? this : new ContentRange(this.unit, this.range, checkSize(size));
     }
 
     private final Optional<Long> size;
@@ -466,17 +466,6 @@ public final class ContentRange implements Header {
         }
 
         return size;
-    }
-
-    // replaceParameters ...............................................................................................
-
-    /**
-     * Factory that creates a new {@link ContentRange}
-     */
-    private ContentRange replace(final RangeHeaderUnit unit,
-                                 final Optional<Range<Long>> range,
-                                 final Optional<Long> size) {
-        return new ContentRange(unit, range, size);
     }
 
     // HasHeaderScope...................................................................................................
