@@ -1232,6 +1232,44 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
     }
 
+    // requireContentTypeIncompatibleMessage............................................................................
+
+    @Test
+    public void testRequireContentTypeIncompatibleMessageWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> MediaType.TEXT_PLAIN.requireContentTypeIncompatibleMessage(null)
+        );
+    }
+
+    @Test
+    public void testRequireContentTypeIncompatibleMessage() {
+        this.requireContentTypeIncompatibleMessageAndCheck(
+            MediaType.BINARY,
+            MediaType.TEXT_PLAIN,
+            "Content-Type: Got text/plain require application/octet-stream"
+        );
+    }
+
+    @Test
+    public void testRequireContentTypeIncompatibleMessageWithParameters() {
+        this.requireContentTypeIncompatibleMessageAndCheck(
+            MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+            MediaType.TEXT_HTML.setCharset(CharsetName.UTF_8),
+            "Content-Type: Got text/html require text/plain"
+        );
+    }
+
+    private void requireContentTypeIncompatibleMessageAndCheck(final MediaType mediaType,
+                                                               final MediaType other,
+                                                               final String expected) {
+        this.checkEquals(
+            expected,
+            mediaType.requireContentTypeIncompatibleMessage(other),
+            () -> mediaType + " requireContentTypeIncompatibleMessage " + other
+        );
+    }
+    
     // toHeaderText.....................................................................................................
 
     @Test
