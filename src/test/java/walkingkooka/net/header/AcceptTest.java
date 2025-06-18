@@ -208,6 +208,65 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
     }
 
+    // requireIncompatibleMessage.......................................................................................
+
+    @Test
+    public void testRequireIncompatibleMessageWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> Accept.DEFAULT.requireIncompatibleMessage(null)
+        );
+    }
+
+    @Test
+    public void testRequireIncompatibleMessage() {
+        this.requireIncompatibleMessageAndCheck(
+            Accept.parse
+                (MediaType.BINARY.toString()
+                ),
+            MediaType.TEXT_PLAIN,
+            "Accept: Got text/plain require application/octet-stream"
+        );
+    }
+
+    @Test
+    public void testRequireIncompatibleMessageWithParameters() {
+        this.requireIncompatibleMessageAndCheck(
+            "" + MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+            MediaType.TEXT_HTML.setCharset(CharsetName.UTF_8),
+            "Accept: Got text/html require text/plain"
+        );
+    }
+
+    @Test
+    public void testRequireIncompatibleMessageWithParameters2() {
+        this.requireIncompatibleMessageAndCheck(
+            "text/plain;charset=UTF-8, text/html",
+            MediaType.TEXT_HTML.setCharset(CharsetName.UTF_8),
+            "Accept: Got text/html require text/plain, text/html"
+        );
+    }
+
+    private void requireIncompatibleMessageAndCheck(final String accept,
+                                                    final MediaType other,
+                                                    final String expected) {
+        this.requireIncompatibleMessageAndCheck(
+            Accept.parse(accept),
+            other,
+            expected
+        );
+    }
+
+    private void requireIncompatibleMessageAndCheck(final Accept accept,
+                                                    final MediaType other,
+                                                    final String expected) {
+        this.checkEquals(
+            expected,
+            accept.requireIncompatibleMessage(other),
+            () -> accept + " requireIncompatibleMessage " + other
+        );
+    }
+    
     // toString.........................................................................................................
 
     @Test
