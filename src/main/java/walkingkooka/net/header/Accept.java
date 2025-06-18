@@ -188,13 +188,20 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
 
             // Accept: Got text/plain require text/json
             throw new IllegalArgumentException(
-                HttpHeaderName.ACCEPT +
-                    ": Got " +
-                    mediaType.clearParameters() +
-                    " require " +
-                    this.mediaTypesWithoutParameters()
+                this.requireIncompatibleMessage(mediaType)
             );
         }
+    }
+
+    /**
+     * The message that is used to report that this ACCEPT {@link MediaType} was not satisfied by a given {@link MediaType}.
+     */
+    public String requireIncompatibleMessage(final MediaType mediaType) {
+        return HttpHeaderName.ACCEPT +
+            ": Got " +
+            mediaType.clearParameters() +
+            " require " +
+            this.mediaTypesWithoutParameters();
     }
 
     private String mediaTypesWithoutParameters() {
