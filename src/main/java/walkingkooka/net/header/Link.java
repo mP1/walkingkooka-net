@@ -217,12 +217,13 @@ final public class Link extends HeaderWithParameters2<Link,
     // Object................................................................................................................
 
     @Override
-    int hashCode0(final Url value) {
+    int hashCodeValue(final Url value) {
         return value.hashCode();
     }
 
     @Override
-    boolean equals1(final Url value, final Url otherValue) {
+    boolean equalsValue(final Url value,
+                        final Url otherValue) {
         return value.equals(otherValue);
     }
 

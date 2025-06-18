@@ -169,12 +169,13 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     }
 
     @Override
-    int hashCode0(final CharsetName value) {
+    int hashCodeValue(final CharsetName value) {
         return value.hashCode();
     }
 
     @Override
-    boolean equals1(final CharsetName value, final CharsetName otherValue) {
+    boolean equalsValue(final CharsetName value,
+                        final CharsetName otherValue) {
         return value.equals(otherValue);
     }
 

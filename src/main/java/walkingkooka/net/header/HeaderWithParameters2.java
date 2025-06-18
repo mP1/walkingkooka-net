@@ -156,12 +156,12 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final int hashCode() {
         return Objects.hash(
-            this.hashCode0(this.value),
+            this.hashCodeValue(this.value),
             this.parameters
         );
     }
 
-    abstract int hashCode0(final V value);
+    abstract int hashCodeValue(final V value);
 
     @Override
     public final boolean equals(final Object other) {
@@ -173,7 +173,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     abstract boolean canBeEquals(final Object other);
 
     private boolean equals0(final HeaderWithParameters2<H, P, V> other) {
-        return this.equals1(this.value, other.value) && //
+        return this.equalsValue(this.value, other.value) && //
             this.parameters.equals(other.parameters);
     }
 
@@ -185,7 +185,10 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     }
 
     private boolean equalsIgnoringParameters0(final HeaderWithParameters2<H, P, V> other) {
-        return this.equals1(this.value, other.value);
+        return this.equalsValue(
+            this.value,
+            other.value
+        );
     }
 
     @Override
@@ -196,7 +199,10 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     }
 
     private boolean equalsOnlyPresentParameters0(final HeaderWithParameters2<H, P, V> other) {
-        boolean equals = this.equals1(this.value, other.value);
+        boolean equals = this.equalsValue(
+            this.value,
+            other.value
+        );
 
         if (equals) {
             final Map<P, Object> parameters = this.parameters;
@@ -218,7 +224,8 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         return equals;
     }
 
-    abstract boolean equals1(final V value, final V otherValue);
+    abstract boolean equalsValue(final V value,
+                                 final V otherValue);
 
     @Override
     public final String toString() {
