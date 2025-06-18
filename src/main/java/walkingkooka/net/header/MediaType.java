@@ -613,7 +613,7 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
         if (false == this.test(mediaType)) {
             // Content-Type: Got xxx/yyy require aaa/bbb
             throw new IllegalArgumentException(
-                HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType.clearParameters() + " require " + this.clearParameters()
+                this.requireContentTypeIncompatibleMessage(mediaType)
             );
         }
     }
@@ -623,6 +623,20 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public String requireContentTypeMissingMessage() {
         return HttpHeaderName.CONTENT_TYPE + ": Missing required " + this.clearParameters();
+    }
+
+    /**
+     * The message thrown by {@link #requireContentType(MediaType)} when the given {@link MediaType} is incompatible,
+     * eg giving a text/plain when requiring an image/*.
+     */
+    public String requireContentTypeIncompatibleMessage(final MediaType mediaType) {
+        Objects.requireNonNull(mediaType, "mediaType");
+
+        return HttpHeaderName.CONTENT_TYPE +
+            ": Got " +
+            mediaType.clearParameters() +
+            " require " +
+            this.clearParameters();
     }
 
     // Header...........................................................................................................
