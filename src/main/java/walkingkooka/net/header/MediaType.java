@@ -606,7 +606,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public void requireContentType(final MediaType mediaType) {
         if (null == mediaType) {
-            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Missing required " + this.clearParameters());
+            throw new IllegalArgumentException(
+                this.requireContentTypeMissingMessage()
+            );
         }
         if (false == this.test(mediaType)) {
             // Content-Type: Got xxx/yyy require aaa/bbb
@@ -614,6 +616,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
                 HttpHeaderName.CONTENT_TYPE + ": Got " + mediaType.clearParameters() + " require " + this.clearParameters()
             );
         }
+    }
+
+    /**
+     * The message that will be thrown by {@link #requireContentType(MediaType)} when the {@link MediaType} is null.
+     */
+    public String requireContentTypeMissingMessage() {
+        return HttpHeaderName.CONTENT_TYPE + ": Missing required " + this.clearParameters();
     }
 
     // Header...........................................................................................................

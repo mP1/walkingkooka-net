@@ -1206,6 +1206,32 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
     }
 
+    // requireContentTypeMissingMessage.................................................................................
+
+    @Test
+    public void testRequireContentTypeMissingMessage() {
+        this.requireContentTypeMissingMessageAndCheck(
+            MediaType.BINARY,
+            "Content-Type: Missing required application/octet-stream"
+        );
+    }
+
+    @Test
+    public void testRequireContentTypeMissingMessageWithParameters() {
+        this.requireContentTypeMissingMessageAndCheck(
+            MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+            "Content-Type: Missing required text/plain"
+        );
+    }
+
+    private void requireContentTypeMissingMessageAndCheck(final MediaType mediaType,
+                                                          final String expected) {
+        this.checkEquals(
+            expected,
+            mediaType.requireContentTypeMissingMessage()
+        );
+    }
+
     // toHeaderText.....................................................................................................
 
     @Test
