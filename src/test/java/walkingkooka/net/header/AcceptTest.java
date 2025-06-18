@@ -171,7 +171,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
 
         this.checkEquals(
-            "Accept: Got text/html, text/json require text/plain",
+            "Accept: Got text/plain require text/html, text/json",
             thrown.getMessage()
         );
     }
@@ -187,7 +187,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
 
         this.checkEquals(
-            "Accept: Got text/html, text/json require text/plain",
+            "Accept: Got text/plain require text/html, text/json",
             thrown.getMessage()
         );
     }
@@ -203,7 +203,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         );
 
         this.checkEquals(
-            "Accept: Got text/html, text/json require text/plain",
+            "Accept: Got text/plain require text/html, text/json",
             thrown.getMessage()
         );
     }
