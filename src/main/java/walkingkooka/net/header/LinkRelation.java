@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Holds a link relation.<br>
@@ -614,23 +615,25 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
     // UrlName..........................................................................................................
 
     /**
-     * Tries to create a {@link UrlPathName} from this {@link LinkRelation}. Depending on the value this may fail.
+     * Returns the {@link UrlPathName} equivalent for this {@link LinkRelation} if it contains a {@link String value}.
      */
-    public UrlPathName toUrlPathName() {
-        if (this.isSelf() || this.isUrl()) {
-            throw new IllegalStateException("Cannot convert " + this + " to UrlPathName");
-        }
-
+    public Optional<UrlPathName> toUrlPathName() {
         if (null == this.urlPathName) {
-            this.urlPathName = UrlPathName.with(
-                this.value.toString()
+            this.urlPathName = Optional.ofNullable(
+                this.isUrl() ?
+                    null :
+                    UrlPathName.with(
+                        SELF.equals(this) ?
+                            "" :
+                            this.value.toString()
+                    )
             );
         }
 
         return this.urlPathName;
     }
 
-    private UrlPathName urlPathName;
+    private Optional<UrlPathName> urlPathName;
 
     // Comparable.......................................................................................................
 

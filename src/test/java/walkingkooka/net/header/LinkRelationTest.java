@@ -27,8 +27,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Optional;
 
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
     implements ComparableTesting,
@@ -173,20 +172,18 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     // ToUrlPathName....................................................................................................
 
     @Test
-    public void testToUrlPathNameSelfFails() {
-        assertThrows(
-            IllegalStateException.class,
-            () -> LinkRelation.SELF.toUrlPathName()
+    public void testToUrlPathNameSelf() {
+        this.toUrlPathNameAndCheck(
+            LinkRelation.SELF,
+            UrlPathName.with("")
         );
     }
 
     @Test
-    public void testToUrlPathNameUrlFails() {
-        assertThrows(
-            IllegalStateException.class,
-            () -> LinkRelation.parse("https://example.com/123")
+    public void testToUrlPathNameUrl() {
+        this.toUrlPathNameAndCheck(
+            LinkRelation.parse("https://example.com/123")
                 .get(0)
-                .toUrlPathName()
         );
     }
 
@@ -206,8 +203,23 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         );
     }
 
+    private void toUrlPathNameAndCheck(final LinkRelation<?> linkRelation) {
+        this.toUrlPathNameAndCheck(
+            linkRelation,
+            Optional.empty()
+        );
+    }
+
     private void toUrlPathNameAndCheck(final LinkRelation<?> linkRelation,
                                        final UrlPathName expected) {
+        this.toUrlPathNameAndCheck(
+            linkRelation,
+            Optional.of(expected)
+        );
+    }
+
+    private void toUrlPathNameAndCheck(final LinkRelation<?> linkRelation,
+                                       final Optional<UrlPathName> expected) {
         this.checkEquals(
             expected,
             linkRelation.toUrlPathName()
