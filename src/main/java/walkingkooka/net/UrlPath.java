@@ -250,6 +250,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     public final boolean equals(final Object other) {
         return this == other ||
             other instanceof UrlPath &&
+                this.getClass() == other.getClass() &&
                 this.equals0((UrlPath) other);
     }
 
