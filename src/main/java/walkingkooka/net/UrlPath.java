@@ -187,8 +187,6 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Adds a query string to this path returning a {@link RelativeUrl}
      */
     public final RelativeUrl addQueryString(final UrlQueryString queryString) {
-        Objects.requireNonNull(queryString, "queryString");
-
         return Url.relative(this, queryString, UrlFragment.EMPTY);
     }
 
