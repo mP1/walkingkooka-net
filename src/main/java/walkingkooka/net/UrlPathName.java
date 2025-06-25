@@ -42,6 +42,11 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
      */
     final static UrlPathName ROOT = new UrlPathName(ROOT_STRING);
 
+    /**
+     * An empty {@link UrlPathName}. Useful when composing paths in a fluent functional manner.
+     */
+    public final static UrlPathName EMPTY = ROOT;
+
     public final static String WILDCARD_STRING = "*";
 
     /**
