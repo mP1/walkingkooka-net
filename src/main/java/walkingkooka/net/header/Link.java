@@ -24,11 +24,9 @@ import walkingkooka.net.Url;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 
 import java.util.List;
 import java.util.Map;
@@ -159,16 +157,16 @@ final public class Link extends HeaderWithParameters2<Link,
                            final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        String href = null;
+        Url href = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
                 case "href":
-                    if (!child.isString()) {
-                        throw new JsonNodeUnmarshallException("Property " + name + " is not a String=" + node, node);
-                    }
-                    href = child.cast(JsonString.class).value();
+                    href = context.unmarshall(
+                        child,
+                        Url.class
+                    );
                     break;
                 default:
                     JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
@@ -178,7 +176,7 @@ final public class Link extends HeaderWithParameters2<Link,
         if (null == href) {
             JsonNodeUnmarshallContext.missingProperty(HREF_JSON_PROPERTY, node);
         }
-        return Link.with(Url.parse(href));
+        return Link.with(href);
     }
 
     /**
@@ -186,7 +184,10 @@ final public class Link extends HeaderWithParameters2<Link,
      */
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObject json = JsonNode.object()
-            .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
+            .set(
+                HREF_JSON_PROPERTY,
+                context.marshall(this.value)
+            );
 
         for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
