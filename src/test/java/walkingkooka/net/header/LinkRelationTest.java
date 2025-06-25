@@ -175,7 +175,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     public void testToUrlPathNameSelf() {
         this.toUrlPathNameAndCheck(
             LinkRelation.SELF,
-            UrlPathName.with("")
+            UrlPathName.EMPTY
         );
     }
 
