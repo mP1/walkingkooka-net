@@ -238,12 +238,12 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     public final List<UrlPathName> namesList() {
         final List<UrlPathName> list = Lists.array();
 
-        this.appendNameAndParent(list);
+        this.gatherPathNames(list);
 
         return Lists.readOnly(list);
     }
 
-    abstract void appendNameAndParent(final List<UrlPathName> names);
+    abstract void gatherPathNames(final List<UrlPathName> names);
 
     // Comparable........................................................................................................
 

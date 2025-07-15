@@ -91,7 +91,7 @@ final class UrlPathEmpty extends UrlPath {
     // pathNameList.....................................................................................................
 
     @Override
-    void appendNameAndParent(final List<UrlPathName> names) {
+    void gatherPathNames(final List<UrlPathName> names) {
         names.add(NAME);
     }
 

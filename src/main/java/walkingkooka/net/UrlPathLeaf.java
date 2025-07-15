@@ -83,9 +83,9 @@ abstract class UrlPathLeaf extends UrlPath {
     // pathNameList.....................................................................................................
 
     @Override
-    void appendNameAndParent(final List<UrlPathName> names) {
+    void gatherPathNames(final List<UrlPathName> names) {
         this.parent.get()
-            .appendNameAndParent(names);
+            .gatherPathNames(names);
 
         names.add(this.name);
     }
