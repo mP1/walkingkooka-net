@@ -88,6 +88,11 @@ final class UrlPathEmpty extends UrlPath {
         return this;
     }
 
+    @Override
+    UrlPath pathAfterNotFirst(final int start) {
+        throw new IllegalArgumentException("Invalid start " + start + " > 0");
+    }
+
     // pathNameList.....................................................................................................
 
     @Override

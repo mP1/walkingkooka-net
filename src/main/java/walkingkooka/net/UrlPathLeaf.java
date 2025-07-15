@@ -85,6 +85,40 @@ abstract class UrlPathLeaf extends UrlPath {
         return this.parent.get();
     }
 
+    @Override //
+    final UrlPath pathAfterNotFirst(final int start) {
+        final String value = this.path;
+
+        final int length = value.length();
+        int component = 0;
+        String path = value;
+
+        int i = 0;
+        while (i < length) {
+            if (SEPARATOR_CHAR == value.charAt(i)) {
+
+                if (start == component) {
+                    path = value.substring(
+                        i,
+                        length
+                    );
+                    break;
+                }
+
+                component++;
+            }
+            i++;
+        }
+
+        if (start > component) {
+            throw new IllegalArgumentException("Invalid start " + start + " > " + component);
+        }
+
+        return length == i ?
+            EMPTY :
+            parse(path);
+    }
+
     // pathNameList.....................................................................................................
 
     @Override

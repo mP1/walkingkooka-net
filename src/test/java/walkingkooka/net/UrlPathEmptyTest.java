@@ -77,6 +77,26 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         );
     }
 
+    // pathAfter........................................................................................................
+
+    @Test
+    public void testPathAfterZero() {
+        this.pathAfterAndCheck(
+            UrlPath.EMPTY,
+            0,
+            UrlPath.EMPTY
+        );
+    }
+
+    @Test
+    public void testPathAfterNonZeroFails() {
+        this.pathAfterFailsAndCheck(
+            UrlPath.EMPTY,
+            1,
+            "Invalid start 1 > 0"
+        );
+    }
+
     @Override
     UrlPathEmpty createPath() {
         return Cast.to(UrlPath.EMPTY);

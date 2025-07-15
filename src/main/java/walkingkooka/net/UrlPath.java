@@ -230,6 +230,25 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      */
     abstract UrlPath parentOrSelf();
 
+    /**
+     * Returns the {@link UrlPath} after the given path separator.
+     * <br>
+     * A start of 0 will return this.
+     * "/path1/path2/path3" start=2 = "/path2/path3"
+     * "/path1/path2/path3" start=3 = "/path3"
+     * "/path1/path2/path3" start=4 = ""
+     */
+    public final UrlPath pathAfter(final int start) {
+        if (start < 0) {
+            throw new IllegalArgumentException("Invalid start " + start + " < 0");
+        }
+        return 0 == start ?
+            this :
+            this.pathAfterNotFirst(start);
+    }
+
+    abstract UrlPath pathAfterNotFirst(final int start);
+
     // pathNameList.....................................................................................................
 
     /**

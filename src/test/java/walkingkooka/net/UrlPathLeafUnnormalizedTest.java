@@ -78,6 +78,44 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
         );
     }
 
+    // pathAfter........................................................................................................
+
+    @Test
+    public void testPathAfter1() {
+        this.pathAfterAndCheck(
+            "/dir1/../file3",
+            1,
+            "/../file3"
+        );
+    }
+
+    @Test
+    public void testPathAfter2() {
+        this.pathAfterAndCheck(
+            "/dir1/../file3",
+            2,
+            "/file3"
+        );
+    }
+
+    @Test
+    public void testPathAfter3() {
+        this.pathAfterAndCheck(
+            "/dir1/../file3",
+            3,
+            ""
+        );
+    }
+
+    @Test
+    public void testPathAfterFails() {
+        this.pathAfterFailsAndCheck(
+            "/dir1/../file3",
+            4,
+            "Invalid start 4 > 3"
+        );
+    }
+
     @Override
     UrlPathLeafUnnormalized createPath() {
         return UrlPathLeafUnnormalized.withUnnormalized("/a1",
