@@ -315,6 +315,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements Comparab
     /**
      * Returns a {@link RelativeUrl} built from the path, query and fragment components. The path and protocol will be lost.
      */
+    @Override
     public RelativeUrl relativeUrl() {
         return RelativeUrl.with(
             this.path,
