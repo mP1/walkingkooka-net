@@ -33,10 +33,14 @@ import java.util.function.Predicate;
 public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     Comparable<UrlPath> {
 
+    final static char SEPARATOR_CHAR = '/';
+
+    final static String SEPARATOR_STRING = "" + SEPARATOR_CHAR;
+
     /**
      * {@link PathSeparator} instance
      */
-    public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
+    public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart(SEPARATOR_CHAR);
 
     /**
      * Constant used to indicate no parent.
@@ -90,7 +94,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
         return path.isEmpty() ?
             EMPTY :
-            path.equals(SEPARATOR.string()) ?
+            path.equals(SEPARATOR_STRING) ?
                 ROOT :
                 parseNonRoot(path);
     }
@@ -99,7 +103,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Parses and creates the path chain.
      */
     private static UrlPath parseNonRoot(final String value) {
-        final boolean slash = value.charAt(0) == SEPARATOR.character();
+        final boolean slash = value.charAt(0) == SEPARATOR_CHAR;
         return parseNonRoot0(
             value,
             slash ? 1 : 0,
@@ -112,12 +116,14 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
                                          final UrlPath parent) {
         UrlPath path = parent;
 
-        final char separator = SEPARATOR.character();
         final int length = value.length();
         int begin = start;
 
         for (; ; ) {
-            final int end = value.indexOf(separator, begin);
+            final int end = value.indexOf(
+                SEPARATOR_CHAR,
+                begin
+            );
 
             // special case for trailing separator, dont want to append an empty UrlPathName
             if (begin == length) {
