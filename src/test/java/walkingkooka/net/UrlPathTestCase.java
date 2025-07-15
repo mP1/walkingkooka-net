@@ -25,6 +25,9 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>, ToStringTesting<UrlPath> {
 
     UrlPathTestCase() {
@@ -92,6 +95,76 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
             Optional.of(
                 this.createPath()
             )
+        );
+    }
+
+    // pathAfter........................................................................................................
+
+    @Test
+    public final void testPathAfterWithNegativeStart() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createPath()
+                .pathAfter(-1)
+        );
+
+        this.checkEquals(
+            "Invalid start -1 < 0",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public final void testPathAfterWithZero() {
+        final UrlPath path = this.createPath();
+
+        assertSame(
+            path,
+            path.pathAfter(0)
+        );
+    }
+
+    final void pathAfterAndCheck(final String path,
+                                 final int start,
+                                 final String expected) {
+        this.pathAfterAndCheck(
+            UrlPath.parse(path),
+            start,
+            UrlPath.parse(expected)
+        );
+    }
+
+    final void pathAfterAndCheck(final UrlPath path,
+                                 final int start,
+                                 final UrlPath expected) {
+        this.checkEquals(
+            expected,
+            path.pathAfter(start),
+            () -> path + " pathAfter " + start
+        );
+    }
+
+    final void pathAfterFailsAndCheck(final String path,
+                                      final int start,
+                                      final String expected) {
+        this.pathAfterFailsAndCheck(
+            UrlPath.parse(path),
+            start,
+            expected
+        );
+    }
+
+    final void pathAfterFailsAndCheck(final UrlPath path,
+                                      final int start,
+                                      final String expected) {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> path.pathAfter(start)
+        );
+        this.checkEquals(
+            expected,
+            thrown.getMessage(),
+            () -> path + " pathAfter " + start
         );
     }
 

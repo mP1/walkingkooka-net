@@ -78,6 +78,62 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         );
     }
 
+    // pathAfter........................................................................................................
+
+    @Test
+    public void testPathAfter1() {
+        this.pathAfterAndCheck(
+            "/dir1/dir2/file3",
+            1,
+            "/dir2/file3"
+        );
+    }
+
+    @Test
+    public void testPathAfter2() {
+        this.pathAfterAndCheck(
+            "/dir1/dir2/file3",
+            2,
+            "/file3"
+        );
+    }
+
+    @Test
+    public void testPathAfter3() {
+        this.pathAfterAndCheck(
+            "/dir1/dir2/file3",
+            3,
+            ""
+        );
+    }
+
+    @Test
+    public void testPathAfter3b() {
+        this.pathAfterAndCheck(
+            "/dir1/dir2/file3/",
+            3,
+            "/"
+        );
+    }
+
+    @Test
+    public void testPathAfterFails() {
+        this.pathAfterFailsAndCheck(
+            "/dir1/dir2/file3",
+            4,
+            "Invalid start 4 > 3"
+        );
+    }
+
+    @Test
+    public void testPathAfterFails2() {
+        this.pathAfterFailsAndCheck(
+            "/dir1/dir2/file3",
+            5,
+            "Invalid start 5 > 3"
+        );
+    }
+
     @Override
     UrlPathLeafNormalized createPath() {
         return UrlPathLeafNormalized.withNormalized("/a1/b2",
