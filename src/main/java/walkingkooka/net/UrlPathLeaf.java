@@ -31,7 +31,8 @@ abstract class UrlPathLeaf extends UrlPath {
     /**
      * Private package constructor
      */
-    UrlPathLeaf(final String path, final UrlPathName name, final Optional<UrlPath> parent) {
+    UrlPathLeaf(final String path, final UrlPathName name,
+                final Optional<UrlPath> parent) {
         super();
 
         this.path = path;
@@ -68,7 +69,10 @@ abstract class UrlPathLeaf extends UrlPath {
     @Override
     UrlPath appendTo(final UrlPathLeaf leaf) {
         final UrlPathName name = this.name;
-        return this.parent.get().appendTo(leaf).append(name);
+
+        return this.parent.get()
+            .appendTo(leaf)
+            .append(name);
     }
 
     @Override
@@ -76,7 +80,8 @@ abstract class UrlPathLeaf extends UrlPath {
         return false;
     }
 
-    @Override final UrlPath parentOrSelf() {
+    @Override //
+    final UrlPath parentOrSelf() {
         return this.parent.get();
     }
 
