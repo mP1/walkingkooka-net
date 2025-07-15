@@ -17,8 +17,6 @@
 
 package walkingkooka.net;
 
-import walkingkooka.naming.PathSeparator;
-
 import java.util.Optional;
 
 /**
@@ -42,20 +40,18 @@ final class UrlPathLeafNormalized extends UrlPathLeaf {
     UrlPath appendName(final UrlPathName name,
                        final UrlPath parent) {
         final String path = this.path;
-        final PathSeparator separator = this.separator();
-        final char separatorChar = separator.character();
         final String nameString = name.value();
 
         final String newPath;
 
         if (nameString.isEmpty()) {
-            newPath = path + separatorChar + separatorChar;
+            newPath = path + SEPARATOR_CHAR + SEPARATOR_CHAR;
 
         } else {
-            if (path.endsWith(separator.string())) {
+            if (path.endsWith(SEPARATOR_STRING)) {
                 newPath = path + nameString;
             } else {
-                newPath = path + separatorChar + nameString;
+                newPath = path + SEPARATOR_CHAR + nameString;
             }
         }
 
