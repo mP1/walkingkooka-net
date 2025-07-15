@@ -33,26 +33,26 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
 
     @Test
     public final void testIsNormalized() {
-        this.checkEquals(this.isNormalized(), this.createPath().isNormalized());
+        this.checkEquals(
+            this.isNormalized(),
+            this.createPath()
+                .isNormalized()
+        );
     }
-
-    @Test
-    public final void testIsRoot() {
-        this.checkEquals(this.isRoot(), this.createPath().isRoot());
-    }
-
-    @Test
-    public final void testToString() {
-        this.toStringAndCheck(this.createPath(), this.expectedToString());
-    }
-
-    abstract P createPath();
 
     abstract boolean isNormalized();
 
+    @Test
+    public final void testIsRoot() {
+        this.checkEquals(
+            this.isRoot(),
+            this.createPath().isRoot()
+        );
+    }
+
     abstract boolean isRoot();
 
-    abstract String expectedToString();
+    abstract P createPath();
 
     final void appendNameAndCheck(final UrlPathName name,
                                   final UrlPath expected,
@@ -75,15 +75,39 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
 
     final UrlPathLeafNormalized normalized(final String path,
                                            final UrlPathName name) {
-        return UrlPathLeafNormalized.withNormalized(path, name, Optional.of(this.createPath()));
+        return UrlPathLeafNormalized.withNormalized(
+            path,
+            name,
+            Optional.of(
+                this.createPath()
+            )
+        );
     }
 
     final UrlPathLeafUnnormalized unnormalized(final String path,
                                                final UrlPathName name) {
-        return UrlPathLeafUnnormalized.withUnnormalized(path, name, Optional.of(this.createPath()));
+        return UrlPathLeafUnnormalized.withUnnormalized(
+            path,
+            name,
+            Optional.of(
+                this.createPath()
+            )
+        );
     }
 
-    // ClassTesting.....................................................................................................
+    // ToString.........................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(
+            this.createPath(),
+            this.expectedToString()
+        );
+    }
+
+    abstract String expectedToString();
+
+    // Class............................................................................................................
 
     @Override
     public final Class<UrlPath> type() {
