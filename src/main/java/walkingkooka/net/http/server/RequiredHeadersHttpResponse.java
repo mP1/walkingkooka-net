@@ -25,6 +25,8 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
 
+import java.util.Objects;
+
 /**
  * A {@link HttpResponse} wrapper that fails with a bad request if required headers are absent.
  * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields"></a>
@@ -39,8 +41,8 @@ final class RequiredHeadersHttpResponse extends BufferingHttpResponse {
      */
     static HttpResponse with(final HttpRequest request,
                              final HttpResponse response) {
-        check(request);
-        check(response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
 
         return response instanceof RequiredHeadersHttpResponse || request.protocolVersion() != HttpProtocolVersion.VERSION_1_1 ?
             response :

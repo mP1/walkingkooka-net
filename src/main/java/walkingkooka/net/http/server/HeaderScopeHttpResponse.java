@@ -33,7 +33,7 @@ import java.util.Objects;
 final class HeaderScopeHttpResponse extends WrapperHttpResponse {
 
     static HeaderScopeHttpResponse with(final HttpResponse response) {
-        check(response);
+        Objects.requireNonNull(response, "response");
         return new HeaderScopeHttpResponse(response);
     }
 
