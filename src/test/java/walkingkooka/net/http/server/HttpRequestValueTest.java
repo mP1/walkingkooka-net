@@ -64,52 +64,80 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
         ENTITY
     };
 
-    // with..............................................................................................................
+    // with.............................................................................................................
 
     @Test
     public void testWithNullMethodFails() {
-        withFails(TRANSPORT, null, URL, PROTOCOL_VERSION, ENTITIES);
-    }
-
-    @Test
-    public void testWithNullTransportFails() {
-        withFails(null, METHOD, URL, PROTOCOL_VERSION, ENTITIES);
-    }
-
-    @Test
-    public void testWithNullUrlFails() {
-        withFails(TRANSPORT, METHOD, null, PROTOCOL_VERSION, ENTITIES);
-    }
-
-    @Test
-    public void testWithNullProtocolVersionFails() {
-        withFails(TRANSPORT, METHOD, URL, null, ENTITIES);
-    }
-
-    @Test
-    public void testWithNullEntitiesFails() {
-        withFails(TRANSPORT, METHOD, URL, PROTOCOL_VERSION, null);
-    }
-
-    private void withFails(final HttpTransport transport,
-                           final HttpMethod method,
-                           final RelativeUrl url,
-                           final HttpProtocolVersion protocolVersion,
-                           final HttpEntity[] entities) {
         assertThrows(
             NullPointerException.class,
             () -> HttpRequestValue.with(
-                transport,
-                method,
-                url,
-                protocolVersion,
-                entities
+                TRANSPORT,
+                null,
+                URL,
+                PROTOCOL_VERSION,
+                ENTITIES
             )
         );
     }
 
     @Test
-    public void testMoreThanOneEntityFails() {
+    public void testWithNullTransportFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpRequestValue.with(
+                null,
+                METHOD,
+                URL,
+                PROTOCOL_VERSION,
+                ENTITIES
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullUrlFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                null,
+                PROTOCOL_VERSION,
+                ENTITIES
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullProtocolVersionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                URL,
+                null,
+                ENTITIES
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEntitiesFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                URL,
+                PROTOCOL_VERSION,
+                (HttpEntity[]) null
+            )
+        );
+    }
+
+    @Test
+    public void testWithMoreThanOneEntityFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> HttpRequestValue.with(
