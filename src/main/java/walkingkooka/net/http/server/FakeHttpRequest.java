@@ -29,6 +29,10 @@ import java.util.Map;
 
 public class FakeHttpRequest implements HttpRequest, Fake {
 
+    public FakeHttpRequest() {
+        super();
+    }
+
     @Override
     public HttpTransport transport() {
         throw new UnsupportedOperationException();
@@ -40,12 +44,12 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     }
 
     @Override
-    public HttpProtocolVersion protocolVersion() {
+    public RelativeUrl url() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public RelativeUrl url() {
+    public HttpProtocolVersion protocolVersion() {
         throw new UnsupportedOperationException();
     }
 

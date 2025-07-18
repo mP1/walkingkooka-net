@@ -64,9 +64,14 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     }
 
     @Override
-    public HttpProtocolVersion protocolVersion() {
-        return HttpProtocolVersion.with(this.request.getProtocol());
+    public HttpMethod method() {
+        if (null == this.method) {
+            this.method = HttpMethod.with(this.request.getMethod());
+        }
+        return this.method;
     }
+
+    private HttpMethod method;
 
     /**
      * Lazily parses the request URL into a {@link RelativeUrl}.
@@ -89,14 +94,9 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     private RelativeUrl url;
 
     @Override
-    public HttpMethod method() {
-        if (null == this.method) {
-            this.method = HttpMethod.with(this.request.getMethod());
-        }
-        return this.method;
+    public HttpProtocolVersion protocolVersion() {
+        return HttpProtocolVersion.with(this.request.getProtocol());
     }
-
-    private HttpMethod method;
 
     /**
      * The header map view

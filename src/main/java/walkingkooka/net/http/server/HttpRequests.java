@@ -39,7 +39,10 @@ public final class HttpRequests implements PublicStaticHelper {
      */
     public static HttpRequest parse(final HttpTransport transport,
                                     final String request) {
-        return HttpRequestParser.parse(transport, request);
+        return HttpRequestParser.parse(
+            transport,
+            request
+        );
     }
 
     /**
@@ -49,7 +52,13 @@ public final class HttpRequests implements PublicStaticHelper {
                                      final RelativeUrl url,
                                      final HttpProtocolVersion protocolVersion,
                                      final HttpEntity... entities) {
-        return value(HttpMethod.DELETE, transport, url, protocolVersion, entities);
+        return value(
+            transport,
+            HttpMethod.DELETE,
+            url,
+            protocolVersion,
+            entities
+        );
     }
 
     /**
@@ -66,7 +75,13 @@ public final class HttpRequests implements PublicStaticHelper {
                                   final RelativeUrl url,
                                   final HttpProtocolVersion protocolVersion,
                                   final HttpEntity entity) {
-        return value(HttpMethod.GET, transport, url, protocolVersion, entity);
+        return value(
+            transport,
+            HttpMethod.GET,
+            url,
+            protocolVersion,
+            entity
+        );
     }
 
     /**
@@ -92,7 +107,13 @@ public final class HttpRequests implements PublicStaticHelper {
                                     final RelativeUrl url,
                                     final HttpProtocolVersion protocolVersion,
                                     final HttpEntity... entities) {
-        return value(HttpMethod.PATCH, transport, url, protocolVersion, entities);
+        return value(
+            transport,
+            HttpMethod.PATCH,
+            url,
+            protocolVersion,
+            entities
+        );
     }
 
     /**
@@ -102,7 +123,13 @@ public final class HttpRequests implements PublicStaticHelper {
                                    final RelativeUrl url,
                                    final HttpProtocolVersion protocolVersion,
                                    final HttpEntity... entities) {
-        return value(HttpMethod.POST, transport, url, protocolVersion, entities);
+        return value(
+            transport,
+            HttpMethod.POST,
+            url,
+            protocolVersion,
+            entities
+        );
     }
 
     /**
@@ -112,18 +139,30 @@ public final class HttpRequests implements PublicStaticHelper {
                                   final RelativeUrl url,
                                   final HttpProtocolVersion protocolVersion,
                                   final HttpEntity... entities) {
-        return value(HttpMethod.PUT, transport, url, protocolVersion, entities);
+        return value(
+            transport,
+            HttpMethod.PUT,
+            url,
+            protocolVersion,
+            entities
+        );
     }
 
     /**
      * {@see HttpRequestValue}
      */
-    public static HttpRequest value(final HttpMethod method,
-                                    final HttpTransport transport,
+    public static HttpRequest value(final HttpTransport transport,
+                                    final HttpMethod method,
                                     final RelativeUrl url,
                                     final HttpProtocolVersion protocolVersion,
                                     final HttpEntity... entities) {
-        return HttpRequestValue.with(method, transport, url, protocolVersion, entities);
+        return HttpRequestValue.with(
+            transport,
+            method,
+            url,
+            protocolVersion,
+            entities
+        );
     }
 
     // JsonNodeContext..................................................................................................

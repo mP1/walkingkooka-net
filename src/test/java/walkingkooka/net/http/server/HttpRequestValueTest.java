@@ -68,49 +68,73 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
 
     @Test
     public void testWithNullMethodFails() {
-        withFails(null, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES);
+        withFails(TRANSPORT, null, URL, PROTOCOL_VERSION, ENTITIES);
     }
 
     @Test
     public void testWithNullTransportFails() {
-        withFails(METHOD, null, URL, PROTOCOL_VERSION, ENTITIES);
+        withFails(null, METHOD, URL, PROTOCOL_VERSION, ENTITIES);
     }
 
     @Test
     public void testWithNullUrlFails() {
-        withFails(METHOD, TRANSPORT, null, PROTOCOL_VERSION, ENTITIES);
+        withFails(TRANSPORT, METHOD, null, PROTOCOL_VERSION, ENTITIES);
     }
 
     @Test
     public void testWithNullProtocolVersionFails() {
-        withFails(METHOD, TRANSPORT, URL, null, ENTITIES);
+        withFails(TRANSPORT, METHOD, URL, null, ENTITIES);
     }
 
     @Test
     public void testWithNullEntitiesFails() {
-        withFails(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, null);
+        withFails(TRANSPORT, METHOD, URL, PROTOCOL_VERSION, null);
     }
 
-    private void withFails(final HttpMethod method,
-                           final HttpTransport transport,
+    private void withFails(final HttpTransport transport,
+                           final HttpMethod method,
                            final RelativeUrl url,
                            final HttpProtocolVersion protocolVersion,
                            final HttpEntity[] entities) {
-        assertThrows(NullPointerException.class, () -> HttpRequestValue.with(method, transport, url, protocolVersion, entities));
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpRequestValue.with(
+                transport,
+                method,
+                url,
+                protocolVersion,
+                entities
+            )
+        );
     }
 
     @Test
     public void testMoreThanOneEntityFails() {
-        assertThrows(IllegalArgumentException.class, () -> HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, HttpEntity.EMPTY,
-            HttpEntity.EMPTY));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                URL,
+                PROTOCOL_VERSION,
+                HttpEntity.EMPTY,
+                HttpEntity.EMPTY
+            )
+        );
     }
 
     @Test
     public void testWith() {
-        final HttpRequestValue request = HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES);
+        final HttpRequestValue request = HttpRequestValue.with(
+            TRANSPORT,
+            METHOD,
+            URL,
+            PROTOCOL_VERSION,
+            ENTITIES
+        );
 
-        this.checkEquals(METHOD, request.method(), "method");
         this.checkEquals(TRANSPORT, request.transport(), "transport");
+        this.checkEquals(METHOD, request.method(), "method");
         this.checkEquals(URL, request.url(), "url");
         this.checkEquals(PROTOCOL_VERSION, request.protocolVersion(), "protocolVersion");
         this.checkEquals(HEADERS, request.headers(), "headers");
@@ -120,18 +144,24 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
 
     @Test
     public void testWith2() {
-        final HttpMethod method = HttpMethod.DELETE;
         final HttpTransport transport = HttpTransport.UNSECURED;
+        final HttpMethod method = HttpMethod.DELETE;
         final RelativeUrl url = Url.parseRelative("/different");
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
         final HttpEntity entity = HttpEntity.EMPTY
             .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
             .setBodyText("different-body-text");
 
-        final HttpRequestValue request = HttpRequestValue.with(method, transport, url, version, entity);
+        final HttpRequestValue request = HttpRequestValue.with(
+            transport,
+            method,
+            url,
+            version,
+            entity
+        );
 
-        this.checkEquals(method, request.method(), "method");
         this.checkEquals(transport, request.transport(), "transport");
+        this.checkEquals(method, request.method(), "method");
         this.checkEquals(url, request.url(), "url");
         this.checkEquals(version, request.protocolVersion(), "protocolVersion");
         this.checkEquals(entity.headers(), request.headers(), "headers");
@@ -154,36 +184,76 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
     // equals..........................................................................................................
 
     @Test
-    public void testEqualsDifferentMethod() {
-        final HttpMethod method = HttpMethod.POST;
-        this.checkNotEquals(METHOD, method);
-        this.checkNotEquals(HttpRequestValue.with(method, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES));
-    }
-
-    @Test
     public void testEqualsDifferentTransport() {
         final HttpTransport transport = HttpTransport.UNSECURED;
         this.checkNotEquals(TRANSPORT, transport);
-        this.checkNotEquals(HttpRequestValue.with(METHOD, transport, URL, PROTOCOL_VERSION, ENTITIES));
+        this.checkNotEquals(
+            HttpRequestValue.with(
+                transport,
+                METHOD,
+                URL,
+                PROTOCOL_VERSION,
+                ENTITIES
+            )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentMethod() {
+        final HttpMethod method = HttpMethod.POST;
+        this.checkNotEquals(METHOD, method);
+        this.checkNotEquals(
+            HttpRequestValue.with(
+                TRANSPORT,
+                method,
+                URL,
+                PROTOCOL_VERSION,
+                ENTITIES
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentUrl() {
         final RelativeUrl url = Url.parseRelative("/different");
         this.checkNotEquals(url, URL);
-        this.checkNotEquals(HttpRequestValue.with(METHOD, TRANSPORT, url, PROTOCOL_VERSION, ENTITIES));
+        this.checkNotEquals(
+            HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                url,
+                PROTOCOL_VERSION,
+                ENTITIES
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentProtocolVersion() {
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_2;
         this.checkNotEquals(PROTOCOL_VERSION, version);
-        this.checkNotEquals(HttpRequestValue.with(METHOD, TRANSPORT, URL, version, ENTITIES));
+        this.checkNotEquals(
+            HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                URL,
+                version,
+                ENTITIES
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentEntities() {
-        this.checkNotEquals(HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, HttpEntity.EMPTY.setBodyText("different-body-text")));
+        this.checkNotEquals(
+            HttpRequestValue.with(
+                TRANSPORT,
+                METHOD,
+                URL,
+                PROTOCOL_VERSION,
+                HttpEntity.EMPTY.setBodyText("different-body-text")
+            )
+        );
     }
 
     // ToString.........................................................................................................
@@ -202,7 +272,7 @@ public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValu
 
     @Override
     public HttpRequestValue createObject() {
-        return HttpRequestValue.with(METHOD, TRANSPORT, URL, PROTOCOL_VERSION, ENTITIES);
+        return HttpRequestValue.with(TRANSPORT, METHOD, URL, PROTOCOL_VERSION, ENTITIES);
     }
 
     // ClassTesting.....................................................................................................
