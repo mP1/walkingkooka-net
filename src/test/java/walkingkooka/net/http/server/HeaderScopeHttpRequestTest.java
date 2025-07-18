@@ -56,101 +56,155 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
 
     @Test
     public void testTransport() {
-        assertSame(TRANSPORT, this.createRequest().transport());
+        assertSame(
+            TRANSPORT,
+            this.createRequest()
+                .transport()
+        );
     }
 
     @Test
     public void testMethod() {
-        assertSame(METHOD, this.createRequest().method());
-    }
-
-    @Test
-    public void testProtocolVersion() {
-        assertSame(VERSION, this.createRequest().protocolVersion());
+        assertSame(
+            METHOD,
+            this.createRequest()
+                .method()
+        );
     }
 
     @Test
     public void testUrl() {
-        assertSame(URL, this.createRequest().url());
+        assertSame(
+            URL,
+            this.createRequest()
+                .url()
+        );
+    }
+
+    @Test
+    public void testProtocolVersion() {
+        assertSame(
+            VERSION,
+            this.createRequest()
+                .protocolVersion()
+        );
     }
 
     @Test
     public void testHeaders() {
-        assertNotSame(HEADERS, this.createRequest().url());
+        assertNotSame(
+            HEADERS,
+            this.createRequest()
+                .url()
+        );
     }
 
     @Test
     public void testHeadersContainsKeyResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> this.createRequest().headers().containsKey(HttpHeaderName.SET_COOKIE));
+        assertThrows(
+            NotAcceptableHeaderException.class,
+            () -> this.createRequest()
+                .headers()
+                .containsKey(HttpHeaderName.SET_COOKIE)
+        );
     }
 
     @Test
     public void testHeadersContainsKey() {
-        this.containsKeyAndCheck(this.createRequest(),
+        this.containsKeyAndCheck(
+            this.createRequest(),
             HEADER,
-            true);
+            true
+        );
     }
 
     @Test
     public void testHeadersContainsKeyAbsent() {
-        this.containsKeyAndCheck(this.createRequest(),
+        this.containsKeyAndCheck(
+            this.createRequest(),
             HttpHeaderName.COOKIE,
-            false);
+            false
+        );
     }
 
     private void containsKeyAndCheck(final HeaderScopeHttpRequest request,
                                      final Object key,
                                      final boolean containsKey) {
-        this.checkEquals(containsKey,
-            request.headers().containsKey(key),
-            "request containsKey " + key + " returned wrong value");
+        this.checkEquals(
+            containsKey,
+            request.headers()
+                .containsKey(key),
+            "request containsKey " + key + " returned wrong value"
+        );
     }
 
     @Test
     public void testHeadersGetResponseScopeHeader() {
-        assertThrows(NotAcceptableHeaderException.class, () -> this.createRequest().headers().get(HttpHeaderName.SET_COOKIE));
+        assertThrows(
+            NotAcceptableHeaderException.class,
+            () -> this.createRequest()
+                .headers()
+                .get(HttpHeaderName.SET_COOKIE)
+        );
     }
 
     @Test
     public void testHeadersGet() {
-        this.getAndCheck(this.createRequest(),
+        this.getAndCheck(
+            this.createRequest(),
             HEADER,
-            HEADER_VALUE);
+            HEADER_VALUE
+        );
     }
 
     @Test
     public void testHeadersGetAbsent() {
-        this.getAndCheck(this.createRequest(),
+        this.getAndCheck(
+            this.createRequest(),
             HttpHeaderName.COOKIE,
-            null);
+            null
+        );
     }
 
     private void getAndCheck(final HeaderScopeHttpRequest request,
                              final Object key,
                              final Object value) {
-        this.checkEquals(value,
+        this.checkEquals(
+            value,
             request.headers().get(key),
-            "request get " + key + " returned wrong value");
+            "request get " + key + " returned wrong value"
+        );
     }
 
     @Test
     public void testBody() {
-        assertArrayEquals(BYTES, this.createRequest().body());
+        assertArrayEquals(
+            BYTES,
+            this.createRequest()
+                .body()
+        );
     }
 
     @Test
     public void testBodyText() {
-        this.checkEquals(new String(BYTES, CharsetName.ISO_8859_1.charset().get()), this.createRequest().bodyText());
+        this.checkEquals(
+            new String(
+                BYTES,
+                CharsetName.ISO_8859_1.charset()
+                    .get()
+            ),
+            this.createRequest()
+                .bodyText()
+        );
     }
 
     @Test
     public void testParameters() {
-        assertSame(PARAMETERS, this.createRequest().parameters());
-    }
-
-    @Test
-    public void testToString() {
-        assertSame(TOSTRING, this.createRequest().toString());
+        assertSame(
+            PARAMETERS,
+            this.createRequest()
+                .parameters()
+        );
     }
 
     @Override
@@ -207,6 +261,19 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
             }
         });
     }
+
+    // ToString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        assertSame(
+            TOSTRING,
+            this.createRequest()
+                .toString()
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<HeaderScopeHttpRequest> type() {
