@@ -35,24 +35,14 @@ import java.util.Map;
 public interface HttpRequest extends HasHeaders {
 
     /**
-     * An empty {@link Map} with no headers.
-     */
-    Map<HttpHeaderName<?>, List<?>> NO_HEADERS = Maps.empty();
-
-    /**
-     * An empty {@link Map} with no parameters.
-     */
-    Map<HttpRequestParameterName, List<String>> NO_PARAMETERS = Maps.empty();
-
-    /**
      * The transport used to make the request.
      */
     HttpTransport transport();
 
     /**
-     * Returns the HTTP protocol which appears on the request line.
+     * Returns the {@link HttpMethod method} used to make the request.
      */
-    HttpProtocolVersion protocolVersion();
+    HttpMethod method();
 
     /**
      * Returns the url that appears on the request line.
@@ -60,9 +50,14 @@ public interface HttpRequest extends HasHeaders {
     RelativeUrl url();
 
     /**
-     * Returns the {@link HttpMethod method} used to make the request.
+     * Returns the HTTP protocol which appears on the request line.
      */
-    HttpMethod method();
+    HttpProtocolVersion protocolVersion();
+
+    /**
+     * An empty {@link Map} with no headers.
+     */
+    Map<HttpHeaderName<?>, List<?>> NO_HEADERS = Maps.empty();
 
     /**
      * Returns the body accompanying the request.
@@ -85,6 +80,11 @@ public interface HttpRequest extends HasHeaders {
     default long bodyLength() {
         return this.body().length;
     }
+
+    /**
+     * An empty {@link Map} with no parameters.
+     */
+    Map<HttpRequestParameterName, List<String>> NO_PARAMETERS = Maps.empty();
 
     /**
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.

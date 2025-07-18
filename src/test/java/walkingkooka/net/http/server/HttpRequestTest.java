@@ -112,12 +112,12 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
             }
 
             @Override
-            public HttpTransport transport() {
+            public HttpMethod method() {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public HttpProtocolVersion protocolVersion() {
+            public HttpTransport transport() {
                 throw new UnsupportedOperationException();
             }
 
@@ -127,7 +127,7 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
             }
 
             @Override
-            public HttpMethod method() {
+            public HttpProtocolVersion protocolVersion() {
                 throw new UnsupportedOperationException();
             }
 
@@ -159,8 +159,9 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
 
     @Override
     public HttpRequest createJsonNodeMarshallingValue() {
-        return HttpRequests.value(HttpMethod.POST,
+        return HttpRequests.value(
             HttpTransport.SECURED,
+            HttpMethod.POST,
             Url.parseRelative("/path1/file2?query3"),
             HttpProtocolVersion.VERSION_1_0,
             HttpEntity.EMPTY

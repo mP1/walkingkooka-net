@@ -42,13 +42,13 @@ final class HttpRequestValue implements HttpRequest {
     /**
      * Factory that creates a {@link HttpRequestValue} with the given values.
      */
-    static HttpRequestValue with(final HttpMethod method,
-                                 final HttpTransport transport,
+    static HttpRequestValue with(final HttpTransport transport,
+                                 final HttpMethod method,
                                  final RelativeUrl url,
                                  final HttpProtocolVersion protocolVersion,
                                  final HttpEntity... entities) {
-        Objects.requireNonNull(method, "method");
         Objects.requireNonNull(transport, "transport");
+        Objects.requireNonNull(method, "method");
         Objects.requireNonNull(url, "url");
         Objects.requireNonNull(protocolVersion, "protocolVersion");
         Objects.requireNonNull(entities, "entities");
@@ -60,11 +60,20 @@ final class HttpRequestValue implements HttpRequest {
             default:
                 throw new IllegalArgumentException("Multipart is not supported: " + entities.length);
         }
-        return new HttpRequestValue(method, transport, url, protocolVersion, Arrays.copyOf(entities, entities.length));
+        return new HttpRequestValue(
+            transport,
+            method,
+            url,
+            protocolVersion,
+            Arrays.copyOf(
+                entities,
+                entities.length
+            )
+        );
     }
 
-    private HttpRequestValue(final HttpMethod method,
-                             final HttpTransport transport,
+    private HttpRequestValue(final HttpTransport transport,
+                             final HttpMethod method,
                              final RelativeUrl url,
                              final HttpProtocolVersion protocolVersion,
                              final HttpEntity[] entities) {
@@ -81,18 +90,18 @@ final class HttpRequestValue implements HttpRequest {
     }
 
     @Override
-    public HttpMethod method() {
-        return this.method;
-    }
-
-    private final HttpMethod method;
-
-    @Override
     public HttpTransport transport() {
         return this.transport;
     }
 
     private final HttpTransport transport;
+
+    @Override
+    public HttpMethod method() {
+        return this.method;
+    }
+
+    private final HttpMethod method;
 
     @Override
     public RelativeUrl url() {
