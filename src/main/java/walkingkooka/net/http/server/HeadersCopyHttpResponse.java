@@ -42,7 +42,6 @@ final class HeadersCopyHttpResponse extends WrapperHttpRequestHttpResponse {
                                         final Set<HttpHeaderName<?>> headers,
                                         final HttpResponse response) {
         Objects.requireNonNull(request, "request");
-
         Objects.requireNonNull(headers, "headers");
         final Set<HttpHeaderName<?>> copy = Sets.immutable(headers);
         if (copy.isEmpty()) {

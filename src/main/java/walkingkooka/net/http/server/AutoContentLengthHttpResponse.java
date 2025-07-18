@@ -37,7 +37,8 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
      */
     static AutoContentLengthHttpResponse with(final HttpRequest request,
                                               final HttpResponse response) {
-        check(request, response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
 
         return new AutoContentLengthHttpResponse(request, response);
     }
