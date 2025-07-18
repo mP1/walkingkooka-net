@@ -32,17 +32,29 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
 
     @Test
     default void testSetVersionNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createResponse().setVersion(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createResponse()
+                .setVersion(null)
+        );
     }
 
     @Test
     default void testSetStatusNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createResponse().setStatus(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createResponse()
+                .setStatus(null)
+        );
     }
 
     @Test
     default void testAddEntityNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createResponse().setEntity(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createResponse()
+                .setEntity(null)
+        );
     }
 
     R createResponse();
