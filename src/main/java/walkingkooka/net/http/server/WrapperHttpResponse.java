@@ -21,21 +21,12 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Base class for any response, that wraps another {@link HttpResponse}.
  */
 abstract class WrapperHttpResponse implements HttpResponse {
-
-    static void check(final HttpRequest request) {
-        Objects.requireNonNull(request, "request");
-    }
-
-    static void check(final HttpResponse response) {
-        Objects.requireNonNull(response, "response");
-    }
 
     WrapperHttpResponse(final HttpResponse response) {
         super();

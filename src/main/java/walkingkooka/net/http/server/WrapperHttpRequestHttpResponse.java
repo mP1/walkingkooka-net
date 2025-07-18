@@ -17,6 +17,8 @@
 
 package walkingkooka.net.http.server;
 
+import java.util.Objects;
+
 /**
  * Base class for any response, that requires a request and wraps a response.
  */
@@ -24,8 +26,8 @@ abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse {
 
     static void check(final HttpRequest request,
                       final HttpResponse response) {
-        check(request);
-        check(response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
     }
 
     WrapperHttpRequestHttpResponse(final HttpRequest request,

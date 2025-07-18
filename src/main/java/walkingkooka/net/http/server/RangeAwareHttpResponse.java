@@ -53,8 +53,8 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
     static HttpResponse with(final HttpRequest request,
                              final HttpResponse response,
                              final Supplier<Byte> boundaryCharacters) {
-        check(request);
-        check(response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
         Objects.requireNonNull(boundaryCharacters, "boundaryCharacters");
 
         HttpResponse result = response;

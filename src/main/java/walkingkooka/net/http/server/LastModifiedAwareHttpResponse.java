@@ -24,6 +24,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -38,8 +39,8 @@ final class LastModifiedAwareHttpResponse extends BufferingHttpResponse {
      */
     static HttpResponse with(final HttpRequest request,
                              final HttpResponse response) {
-        check(request);
-        check(response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
 
         HttpResponse result = response;
 

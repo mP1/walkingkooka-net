@@ -46,8 +46,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     static HttpResponse with(final HttpRequest request,
                              final HttpResponse response,
                              final Function<byte[], ETag> computer) {
-        check(request);
-        check(response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
         Objects.requireNonNull(computer, "computer");
 
         HttpResponse result = response;

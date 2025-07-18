@@ -26,6 +26,7 @@ import walkingkooka.net.http.HttpStatus;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 /**
  * Unconditionally adds headers to the first entity added.
@@ -34,7 +35,7 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
 
     static HttpResponse with(final Map<HttpHeaderName<?>, List<?>> headers,
                              final HttpResponse response) {
-        check(response);
+        Objects.requireNonNull(response, "response");
 
         final Map<HttpHeaderName<?>, List<?>> copy = Maps.immutable(headers);
         return copy.isEmpty() ?
