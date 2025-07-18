@@ -40,7 +40,8 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
      */
     static AutoGzipEncodingHttpResponse with(final HttpRequest request,
                                              final HttpResponse response) {
-        check(request, response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
 
         return new AutoGzipEncodingHttpResponse(request, response);
     }

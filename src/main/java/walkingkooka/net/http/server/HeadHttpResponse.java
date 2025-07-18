@@ -21,6 +21,8 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 
+import java.util.Objects;
+
 /**
  * If the request was a HEAD, wraps the response which will only accept the first entity and its headers. All further
  * entities will be ignored.
@@ -28,7 +30,8 @@ import walkingkooka.net.http.HttpStatus;
 final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
 
     static HttpResponse with(final HttpRequest request, final HttpResponse response) {
-        check(request, response);
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
 
         return request.method() == HttpMethod.HEAD ?
             new HeadHttpResponse(request, response) :
