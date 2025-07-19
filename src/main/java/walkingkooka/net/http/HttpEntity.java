@@ -62,6 +62,11 @@ public abstract class HttpEntity implements HasHeaders,
     private final static byte HEADER_SEPARATOR_BYTE = ':';
 
     /**
+     * A colon separates a header name and header value.
+     */
+    public final static char HEADER_SEPARATOR_CHAR = ':';
+
+    /**
      * The separator that follows a header name and comes before a any values.
      */
     public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(

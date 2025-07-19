@@ -48,7 +48,7 @@ final class LineReader {
                 break;
             }
 
-            final int separator = line.indexOf(':');
+            final int separator = line.indexOf(HttpEntity.HEADER_SEPARATOR_CHAR);
             if (-1 == separator) {
                 throw new IllegalArgumentException("Header missing separator/value=" + CharSequences.quoteAndEscape(line));
             }
