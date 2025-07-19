@@ -58,12 +58,29 @@ final class LineReader {
                     separator
                 ).trim()
             );
+
+            final int length = line.length();
+            int valueStart = separator + 1;
+            if (valueStart < length) {
+                if (line.charAt(valueStart) == ' ') {
+                    valueStart++;
+                }
+            }
+
+            int valueEnd = length - 1;
+            if (valueEnd < length) {
+                if (line.charAt(valueEnd) == ' ') {
+                    valueEnd--;
+                }
+            }
+
             entity = entity.addHeader(
                 header,
                 Cast.to(
                     header.parseValue(
                         line.substring(
-                            separator + 1
+                            valueStart,
+                            valueEnd + 1
                         )
                     )
                 )
