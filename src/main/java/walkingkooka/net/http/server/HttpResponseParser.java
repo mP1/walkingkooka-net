@@ -54,15 +54,31 @@ final class HttpResponseParser implements StaticHelper {
             throw new IllegalArgumentException("Invalid status " + CharSequences.quoteAndEscape(line));
         }
 
-        final HttpProtocolVersion version = HttpProtocolVersion.with(line.substring(0, firstSpace));
+        final HttpProtocolVersion version = HttpProtocolVersion.with(
+            line.substring(
+                0,
+                firstSpace
+            )
+        );
 
         final HttpStatusCode statusCode;
         try {
-            statusCode = HttpStatusCode.withCode(Integer.parseInt(line.substring(firstSpace + 1, secondSpace)));
+            statusCode = HttpStatusCode.withCode(
+                Integer.parseInt(
+                    line.substring(
+                        firstSpace + 1,
+                        secondSpace
+                    )
+                )
+            );
         } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException("Invalid status code " + CharSequences.quoteAndEscape(line));
+            throw new IllegalArgumentException(
+                "Invalid status code " + CharSequences.quoteAndEscape(line)
+            );
         }
-        final HttpStatus status = statusCode.setMessage(line.substring(secondSpace + 1));
+        final HttpStatus status = statusCode.setMessage(
+            line.substring(secondSpace + 1)
+        );
 
         // headers
         final HttpEntity entity = parser.reader.readHeaders();
@@ -74,9 +90,11 @@ final class HttpResponseParser implements StaticHelper {
 
         final boolean notEmptyBody = false == CharSequences.isNullOrEmpty(body);
         if (false == entity.isEmpty() || notEmptyBody) {
-            response.setEntity(notEmptyBody ?
+            response.setEntity(
+                notEmptyBody ?
                 entity.setBodyText(body) :
-                entity);
+                    entity
+            );
         }
 
         return response;
