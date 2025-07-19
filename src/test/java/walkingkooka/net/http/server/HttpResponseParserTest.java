@@ -108,6 +108,51 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     }
 
     @Test
+    public void testParseWithOptionalSpaceBeforeHeaderValue() {
+        final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
+        response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
+
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\n" +
+                "Content-Length: 123\r\n\r\n",
+            response
+        );
+    }
+
+    @Test
+    public void testParseWithOptionalSpaceAfterHeaderValue() {
+        final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
+        response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
+
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\n" +
+                "Content-Length:123 \r\n\r\n",
+            response
+        );
+    }
+
+    @Test
+    public void testParseWithOptionalSpaceBeforeAndAfterHeaderValue() {
+        final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
+        response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
+        response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
+
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\n" +
+                "Content-Length: 123 \r\n\r\n",
+            response
+        );
+    }
+
+    @Test
     public void testParseWithHeader() {
         final HttpResponse response = HttpResponses.recording();
 
@@ -116,7 +161,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
         response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
 
         this.parseAndCheck(
-            "HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\n",
+            "HTTP/1.0 299 Custom Message\r\nContent-Length:123\r\n\r\n",
             response
         );
     }
