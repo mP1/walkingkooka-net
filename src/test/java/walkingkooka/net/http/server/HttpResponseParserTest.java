@@ -34,27 +34,39 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     ToStringTesting<HttpResponseParser> {
 
     @Test
-    public void testEmptyFails() {
-        this.parseStringFails("", new IllegalArgumentException("Missing version and status"));
+    public void testParseEmptyFails() {
+        this.parseStringFails(
+            "",
+            new IllegalArgumentException("Missing version and status")
+        );
     }
 
     @Test
-    public void testInvalidProtocolFails() {
-        this.parseStringFails("invalid 2 3 4", new IllegalArgumentException("Unknown protocol=\"invalid\""));
+    public void testParseInvalidProtocolFails() {
+        this.parseStringFails(
+            "invalid 2 3 4",
+            new IllegalArgumentException("Unknown protocol=\"invalid\"")
+        );
     }
 
     @Test
-    public void testInvalidStatusCodeFails() {
-        this.parseStringFails("HTTP/1.0 INVALID OK", new IllegalArgumentException("Invalid status code \"HTTP/1.0 INVALID OK\""));
+    public void testParseInvalidStatusCodeFails() {
+        this.parseStringFails(
+            "HTTP/1.0 INVALID OK",
+            new IllegalArgumentException("Invalid status code \"HTTP/1.0 INVALID OK\"")
+        );
     }
 
     @Test
-    public void testMissingStatusMessageFails() {
-        this.parseStringFails("HTTP/1.0 200", new IllegalArgumentException("Invalid status \"HTTP/1.0 200\""));
+    public void testParseMissingStatusMessageFails() {
+        this.parseStringFails(
+            "HTTP/1.0 200",
+            new IllegalArgumentException("Invalid status \"HTTP/1.0 200\"")
+        );
     }
 
     @Test
-    public void testInvalidHeaderFails() {
+    public void testParseInvalidHeaderFails() {
         this.parseStringFails(
             "HTTP/1.0 200 OK\r\nContent-Length:A",
             new HeaderException("Content-Length: Invalid number in \"A\"")
@@ -62,7 +74,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     }
 
     @Test
-    public void testWithoutHeadersVersion10() {
+    public void testParseWithoutHeadersVersion10() {
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.OK.status());
@@ -71,37 +83,46 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     }
 
     @Test
-    public void testWithoutHeadersVersion11() {
+    public void testParseWithoutHeadersVersion11() {
         final HttpResponse response = HttpResponses.recording();
         response.setVersion(HttpProtocolVersion.VERSION_1_1);
         response.setStatus(HttpStatusCode.OK.status());
 
-        this.parseAndCheck("HTTP/1.1 200 OK\r\n\r\n", response);
+        this.parseAndCheck(
+            "HTTP/1.1 200 OK\r\n\r\n",
+            response
+        );
     }
 
     @Test
-    public void testWithoutHeaders() {
+    public void testParseWithoutHeaders() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.CREATED.setMessage("Something Created"));
 
-        this.parseAndCheck("HTTP/1.0 201 Something Created\r\n\r\n", response);
+        this.parseAndCheck(
+            "HTTP/1.0 201 Something Created\r\n\r\n",
+            response
+        );
     }
 
     @Test
-    public void testWithHeader() {
+    public void testParseWithHeader() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L));
 
-        this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\n", response);
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\n",
+            response
+        );
     }
 
     @Test
-    public void testWithTwoHeaders() {
+    public void testParseWithTwoHeaders() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
@@ -111,60 +132,62 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
                 .setContentType(MediaType.TEXT_PLAIN)
         );
 
-        this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\nContent-Type: text/plain\r\n\r\n", response);
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\nContent-Type: text/plain\r\n\r\n",
+            response
+        );
     }
 
     @Test
-    public void testOnlyBody() {
+    public void testParseOnlyBody() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.setEntity(HttpEntity.EMPTY.setBodyText("Body123"));
 
-        this.parseAndCheck("HTTP/1.0 299 Custom Message\r\n\r\nBody123", response);
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\n\r\nBody123",
+            response
+        );
     }
 
     @Test
-    public void testHeadersAndBody() {
+    public void testParseHeadersAndBody() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body123"));
 
-        this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody123", response);
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody123",
+            response
+        );
     }
 
     @Test
-    public void testBodyIncludesCr() {
+    public void testParseBodyIncludesCr() {
         final HttpResponse response = HttpResponses.recording();
 
         response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.withCode(299).setMessage("Custom Message"));
         response.setEntity(HttpEntity.EMPTY.addHeader(HttpHeaderName.CONTENT_LENGTH, 123L).setBodyText("Body\r123"));
 
-        this.parseAndCheck("HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody\r123", response);
+        this.parseAndCheck(
+            "HTTP/1.0 299 Custom Message\r\nContent-Length: 123\r\n\r\nBody\r123",
+            response
+        );
     }
 
     private void parseAndCheck(final String text,
                                final HttpResponse expected) {
-        this.checkEquals(expected, this.parseString(text));
+        this.checkEquals(
+            expected,
+            this.parseString(text)
+        );
     }
 
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public Class<HttpResponseParser> type() {
-        return HttpResponseParser.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    // ParseStringTesting...............................................................................................
 
     @Override
     public HttpResponse parseString(final String text) {
@@ -179,5 +202,17 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     @Override
     public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<HttpResponseParser> type() {
+        return HttpResponseParser.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
