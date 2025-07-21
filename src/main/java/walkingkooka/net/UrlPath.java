@@ -132,7 +132,14 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
             }
 
             if (-1 == end) {
-                path = path.append(UrlPathName.with(value.substring(begin, length)));
+                path = path.append(
+                    UrlPathName.with(
+                        value.substring(
+                            begin,
+                            length
+                        )
+                    )
+                );
                 break;
             }
 
@@ -166,10 +173,14 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     public final UrlPath append(final UrlPathName name) {
         Objects.requireNonNull(name, "name");
 
-        return this.appendName(name, this);
+        return this.appendName(
+            name,
+            this
+        );
     }
 
-    abstract UrlPath appendName(final UrlPathName name, final UrlPath parent);
+    abstract UrlPath appendName(final UrlPathName name,
+                                final UrlPath parent);
 
     @Override
     public final UrlPath append(final UrlPath path) {
@@ -188,13 +199,6 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * an empty path component when a new name is appended.
      */
     abstract UrlPath parseTrailingSlash();
-
-    /**
-     * Adds a query string to this path returning a {@link RelativeUrl}
-     */
-    public final RelativeUrl addQueryString(final UrlQueryString queryString) {
-        return Url.relative(this, queryString, UrlFragment.EMPTY);
-    }
 
     /**
      * Returns true if this path is normalized.
@@ -264,6 +268,19 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
     abstract void gatherPathNames(final List<UrlPathName> names);
 
+    // addQueryString...................................................................................................
+
+    /**
+     * Adds a query string to this path returning a {@link RelativeUrl}
+     */
+    public final RelativeUrl addQueryString(final UrlQueryString queryString) {
+        return Url.relative(
+            this,
+            queryString,
+            UrlFragment.EMPTY
+        );
+    }
+
     // Comparable........................................................................................................
 
     @Override
@@ -280,7 +297,8 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     }
 
     private boolean equals0(final UrlPath other) {
-        return this.value().equals(other.value());
+        return this.value()
+            .equals(other.value());
     }
 
     // Comparable........................................................................................................
