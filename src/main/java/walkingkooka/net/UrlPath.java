@@ -51,7 +51,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Singleton {@link UrlPath} with a {@link PathSeparator#string()}.
      */
     @SuppressWarnings("StaticInitializerReferencesSubClass")
-    public final static UrlPath ROOT = UrlPathRoot.root();
+    public final static UrlPath ROOT = UrlPathRoot.INSTANCE;
 
     final static Optional<UrlPath> ROOT_PARENT = Optional.of(ROOT);
 
