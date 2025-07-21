@@ -78,6 +78,23 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
         );
     }
 
+    // normalize........................................................................................................
+
+    @Test
+    public void testNormalizeMissingStartingSlash() {
+        this.normalizeAndCheck(
+            "path1/path2",
+            "/path1/path2"
+        );
+    }
+
+    @Test
+    public void testNormalizeStartsWithSlash() {
+        this.normalizeAndCheck(
+            "/path1/path2"
+        );
+    }
+
     // pathAfter........................................................................................................
 
     @Test
