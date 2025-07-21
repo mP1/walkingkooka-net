@@ -81,8 +81,7 @@ final class UrlPathRoot extends UrlPath {
     UrlPath appendPath(final UrlPath path) {
         return path.isRoot() || path.isEmpty() ?
             this :
-            path.value()
-                .startsWith(SEPARATOR_STRING) ?
+            path.isStartsWithSeparator() ?
                 path :
                 parse(
                     SEPARATOR_STRING + path.value()
