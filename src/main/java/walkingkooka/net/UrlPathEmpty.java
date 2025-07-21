@@ -57,7 +57,7 @@ final class UrlPathEmpty extends UrlPath {
         return unnormalized(
             name.value(),
             name,
-            Optional.of(parent)
+            Optional.empty() // UrlPathEMPTY + name + nae
         );
     }
 

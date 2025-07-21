@@ -70,7 +70,7 @@ abstract class UrlPathLeaf extends UrlPath {
     UrlPath appendTo(final UrlPathLeaf leaf) {
         final UrlPathName name = this.name;
 
-        return this.parent.get()
+        return this.parent.orElse(UrlPath.EMPTY)
             .appendTo(leaf)
             .append(name);
     }
@@ -123,8 +123,10 @@ abstract class UrlPathLeaf extends UrlPath {
 
     @Override
     void gatherPathNames(final List<UrlPathName> names) {
-        this.parent.get()
-            .gatherPathNames(names);
+        final UrlPath parent = this.parent.orElse(null);
+        if (null != parent) {
+            parent.gatherPathNames(names);
+        }
 
         names.add(this.name);
     }
