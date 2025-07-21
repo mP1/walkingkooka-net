@@ -28,9 +28,7 @@ final class UrlPathEmpty extends UrlPath {
     /**
      * Used to create the {@link UrlPath#EMPTY} constant
      */
-    static UrlPathEmpty empty() {
-        return new UrlPathEmpty();
-    }
+    final static UrlPathEmpty EMPTY_URL_PATH = new UrlPathEmpty();
 
     private UrlPathEmpty() {
         super();
