@@ -59,7 +59,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Singleton {@link UrlPath} with an empty {@link String path}.
      */
     @SuppressWarnings("StaticInitializerReferencesSubClass")
-    public final static UrlPath EMPTY = UrlPathEmpty.empty();
+    public final static UrlPath EMPTY = UrlPathEmpty.EMPTY_URL_PATH;
 
     final static Optional<UrlPath> EMPTY_PARENT = Optional.of(EMPTY);
 
