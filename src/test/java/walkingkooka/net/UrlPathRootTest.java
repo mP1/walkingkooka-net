@@ -123,6 +123,15 @@ public final class UrlPathRootTest extends UrlPathTestCase<UrlPathRoot> {
         );
     }
 
+    // normalize........................................................................................................
+
+    @Test
+    public void testNormalize() {
+        this.normalizeAndCheck(
+            UrlPathRoot.ROOT
+        );
+    }
+
     // pathAfter........................................................................................................
 
     @Test

@@ -76,6 +76,37 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
         );
     }
 
+    final void normalizeAndCheck(final String path) {
+        this.normalizeAndCheck(
+            UrlPath.parse(path)
+        );
+    }
+
+    final void normalizeAndCheck(final String path,
+                                 final String expected) {
+        this.normalizeAndCheck(
+            UrlPath.parse(path),
+            UrlPath.parse(expected)
+        );
+    }
+
+    final void normalizeAndCheck(final UrlPath path) {
+        assertSame(
+            path,
+            path.normalize(),
+            () -> path + " normalize"
+        );
+    }
+
+    final void normalizeAndCheck(final UrlPath path,
+                                 final UrlPath expected) {
+        this.checkEquals(
+            expected,
+            path.normalize(),
+            () -> path + " normalize"
+        );
+    }
+
     final UrlPathLeafNormalized normalized(final String path,
                                            final UrlPathName name) {
         return UrlPathLeafNormalized.withNormalized(

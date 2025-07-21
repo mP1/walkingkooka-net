@@ -117,6 +117,16 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
         );
     }
 
+    // normalize........................................................................................................
+
+    @Test
+    public void testNormalize() {
+        this.normalizeAndCheck(
+            UrlPathEmpty.EMPTY_URL_PATH,
+            UrlPath.ROOT
+        );
+    }
+
     // pathAfter........................................................................................................
 
     @Test
