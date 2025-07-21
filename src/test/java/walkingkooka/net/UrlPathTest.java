@@ -73,7 +73,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     }
 
     @Test
-    public void testAppendNameToRoot() {
+    public void testAppendNameToRoot2() {
         this.appendNameAndCheck(
             UrlPath.ROOT,
             a1(),
