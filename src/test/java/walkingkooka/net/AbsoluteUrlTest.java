@@ -103,6 +103,20 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
+    public void testWithPathMissingStartingSlash() {
+        final UrlPath path = UrlPath.parse("path1/path2");
+        final AbsoluteUrl url = AbsoluteUrl.with(SCHEME, CREDENTIALS, HOST, PORT, path, QUERY, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, UrlPath.parse("/path1/path2"));
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    @Test
     public void testHttps() {
         final AbsoluteUrl url = AbsoluteUrl.with(UrlScheme.HTTPS, CREDENTIALS, HOST, PORT, PATH, QUERY, FRAGMENT);
 

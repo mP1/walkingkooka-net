@@ -134,7 +134,11 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
      */
     AbsoluteOrRelativeUrl(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         super();
-        this.path = path;
+
+        // non empty path must begin with slash
+        this.path = path.isEmpty() ?
+            path :
+            UrlPath.ROOT.append(path);
         this.query = query;
         this.fragment = fragment;
     }
