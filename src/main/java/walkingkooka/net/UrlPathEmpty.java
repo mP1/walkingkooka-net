@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A {@link UrlPath} holding an empty path.
+ * A {@link UrlPath} holding an empty path. This is the path returned by parsing an empty string.
  */
 final class UrlPathEmpty extends UrlPath {
 
