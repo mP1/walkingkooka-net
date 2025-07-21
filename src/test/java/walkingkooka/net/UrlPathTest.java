@@ -47,16 +47,20 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendNameEmptyToEmpty() {
-        this.appendNameAndCheck(UrlPath.EMPTY,
+        this.appendNameAndCheck(
+            UrlPath.EMPTY,
             UrlPathName.ROOT,
-            "");
+            ""
+        );
     }
 
     @Test
     public void testAppendNameToEmpty() {
-        this.appendNameAndCheck(UrlPath.EMPTY,
+        this.appendNameAndCheck(
+            UrlPath.EMPTY,
             a1(),
-            "a1");
+            "a1"
+        );
     }
 
     @Test
@@ -64,7 +68,8 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.appendNameAndCheck(
             UrlPath.ROOT,
             UrlPathName.ROOT,
-            "//");
+            "//"
+        );
     }
 
     @Test
@@ -72,7 +77,8 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.appendNameAndCheck(
             UrlPath.ROOT,
             a1(),
-            "/a1");
+            "/a1"
+        );
     }
 
     @Test
