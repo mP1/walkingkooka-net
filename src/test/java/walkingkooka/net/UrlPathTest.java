@@ -69,7 +69,8 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendNameToRoot() {
-        this.appendNameAndCheck(UrlPath.ROOT,
+        this.appendNameAndCheck(
+            UrlPath.ROOT,
             a1(),
             "/a1");
     }
@@ -85,7 +86,12 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendNameToLeaf() {
-        this.appendNameAndCheck(UrlPath.unnormalized("/a1", a1(), UrlPath.ROOT_PARENT),
+        this.appendNameAndCheck(
+            UrlPath.unnormalized(
+                "/a1",
+                a1(),
+                UrlPath.ROOT_PARENT
+            ),
             b2(),
             "/a1/b2");
     }
@@ -103,171 +109,360 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testAppendPathEmptyToEmpty() {
-        this.appendPathAndCheck(UrlPath.EMPTY,
-            UrlPath.EMPTY);
+        this.appendPathAndCheck(
+            UrlPath.EMPTY,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
     public void testAppendPathRootToEmpty() {
-        this.appendPathAndCheck(UrlPath.EMPTY,
-            UrlPath.ROOT);
+        this.appendPathAndCheck(
+            UrlPath.EMPTY,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testAppendPathNormalizedToEmpty() {
-        this.appendPathAndCheck(UrlPath.EMPTY,
-            UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT));
+        this.appendPathAndCheck(
+            UrlPath.EMPTY,
+            UrlPath.normalized(
+                "/a1",
+                a1(),
+                UrlPath.EMPTY_PARENT
+            )
+        );
     }
 
     @Test
     public void testAppendPathUnnormalizedToEmpty() {
-        this.appendPathAndCheck(UrlPath.EMPTY,
-            UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT));
+        this.appendPathAndCheck(
+            UrlPath.EMPTY,
+            UrlPath.unnormalized(
+                "/a1",
+                a1(),
+                UrlPath.EMPTY_PARENT
+            )
+        );
     }
 
     @Test
     public void testAppendPathEmptyToRoot() {
-        this.appendPathAndCheck(UrlPath.ROOT,
-            UrlPath.EMPTY);
+        this.appendPathAndCheck(
+            UrlPath.ROOT,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
     public void testAppendPathRootToRoot() {
-        this.appendPathAndCheck(UrlPath.ROOT,
-            UrlPath.ROOT);
+        this.appendPathAndCheck(
+            UrlPath.ROOT,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testAppendPathNormalizedToRoot() {
-        this.appendPathAndCheck(UrlPath.ROOT,
-            UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT));
+        this.appendPathAndCheck(
+            UrlPath.ROOT,
+            UrlPath.normalized(
+                "/a1",
+                a1(),
+                UrlPath.EMPTY_PARENT
+            )
+        );
     }
 
     @Test
     public void testAppendPathUnnormalizedToRoot() {
-        this.appendPathAndCheck(UrlPath.ROOT,
-            UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT));
+        this.appendPathAndCheck(
+            UrlPath.ROOT,
+            UrlPath.unnormalized(
+                "/a1",
+                a1(),
+                UrlPath.EMPTY_PARENT
+            )
+        );
     }
 
     @Test
     public void testAppendPathRootToUnnormalized() {
-        final UrlPath path = UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck2(path,
-            UrlPath.ROOT);
+        final UrlPath path = UrlPath.unnormalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck2(
+            path,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testAppendPathEmptyToUnnormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck2(start,
-            UrlPath.EMPTY);
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck2(
+            start,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
     public void testAppendPathNormalizedToUnnormalized() {
-        final UrlPath start = UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.normalized("/b2", b2(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.unnormalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.normalized(
+            "/b2",
+            b2(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.unnormalized("/a1/b2", b2(), Optional.of(start)));
+            UrlPath.unnormalized(
+                "/a1/b2",
+                b2(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathUnnormalizedToUnnormalized() {
-        final UrlPath start = UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.unnormalized("/b2", b2(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.unnormalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.unnormalized(
+            "/b2",
+            b2(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.unnormalized("/a1/b2", b2(), Optional.of(start)));
+            UrlPath.unnormalized(
+                "/a1/b2",
+                b2(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathDotToUnnormalized() {
-        final UrlPath start = UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.unnormalized("/.", dot(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.unnormalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.unnormalized(
+            "/.",
+            dot(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.unnormalized("/a1/.", dot(), Optional.of(start)));
+            UrlPath.unnormalized(
+                "/a1/.",
+                dot(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathDoubleDotToUnnormalized() {
-        final UrlPath start = UrlPath.unnormalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.unnormalized("/..", doubleDot(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.unnormalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.unnormalized(
+            "/..",
+            doubleDot(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.unnormalized("/a1/..", doubleDot(), Optional.of(start)));
+            UrlPath.unnormalized(
+                "/a1/..",
+                doubleDot(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathRootToNormalized() {
-        final UrlPath path = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck2(path,
-            UrlPath.ROOT);
+        final UrlPath path = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck2(
+            path,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testAppendPathEmptyToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck2(start, UrlPath.EMPTY);
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck2(
+            start,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
     public void testAppendPathDotToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
-            UrlPath.unnormalized(".", dot(), UrlPath.EMPTY_PARENT),
-            UrlPath.unnormalized("/a1/.", dot(), Optional.of(start)));
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
+            UrlPath.unnormalized(
+                ".",
+                dot(),
+                UrlPath.EMPTY_PARENT
+            ),
+            UrlPath.unnormalized(
+                "/a1/.",
+                dot(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathDoubleDotToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
-            UrlPath.unnormalized("..", doubleDot(), UrlPath.EMPTY_PARENT),
-            UrlPath.unnormalized("/a1/..", doubleDot(), Optional.of(start)));
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
+            UrlPath.unnormalized(
+                "..",
+                doubleDot(),
+                UrlPath.EMPTY_PARENT
+            ),
+            UrlPath.unnormalized(
+                "/a1/..",
+                doubleDot(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathNormalizedToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.normalized("/b2", b2(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.normalized(
+            "/b2",
+            b2(),
+            UrlPath.EMPTY_PARENT
+        );
+
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.normalized("/a1/b2", b2(), Optional.of(start)));
+            UrlPath.normalized(
+                "/a1/b2",
+                b2(),
+                Optional.of(start)
+            )
+        );
     }
 
     @Test
     public void testAppendPathUnnormalizedToNormalized() {
-        final UrlPath start = UrlPath.normalized("/a1", a1(), UrlPath.EMPTY_PARENT);
-        final UrlPath path = UrlPath.unnormalized("/b2", b2(), UrlPath.EMPTY_PARENT);
-        this.appendPathAndCheck(start,
+        final UrlPath start = UrlPath.normalized(
+            "/a1",
+            a1(),
+            UrlPath.EMPTY_PARENT
+        );
+        final UrlPath path = UrlPath.unnormalized(
+            "/b2",
+            b2(),
+            UrlPath.EMPTY_PARENT
+        );
+        this.appendPathAndCheck(
+            start,
             path,
-            UrlPath.normalized("/a1/b2", b2(), Optional.of(start)));
+            UrlPath.normalized(
+                "/a1/b2",
+                b2(),
+                Optional.of(start)
+            )
+        );
     }
 
     private void appendPathAndCheck(final UrlPath path,
                                     final UrlPath append) {
-        assertSame(append,
+        assertSame(
+            append,
             path.append(append),
-            () -> path + " append path " + append);
+            () -> path + " append path " + append
+        );
     }
 
-    private void appendPathAndCheck2(final UrlPath path, final UrlPath append) {
-        assertSame(path,
+    private void appendPathAndCheck2(final UrlPath path,
+                                     final UrlPath append) {
+        assertSame(
+            path,
             path.append(append),
-            () -> path + " append path " + append);
+            () -> path + " append path " + append
+        );
     }
 
     private void appendPathAndCheck(final UrlPath path,
                                     final UrlPath append,
                                     final UrlPath expected) {
         final UrlPath appended = path.append(append);
-        this.valueCheck(appended, expected.value());
-        this.parentCheck(appended, path);
-        this.checkEquals(expected.isNormalized(), appended.isNormalized(), () -> "normalized " + appended);
+        this.valueCheck(
+            appended,
+            expected.value()
+        );
+        this.parentCheck(
+            appended,
+            path
+        );
+        this.checkEquals(
+            expected.isNormalized(),
+            appended.isNormalized(),
+            () -> "normalized " + appended
+        );
 
-        this.checkEquals(this.names(expected), this.names(appended), "names");
+        this.checkEquals(
+            this.names(expected),
+            this.names(appended),
+            "names"
+        );
     }
 
     @Test
@@ -276,9 +471,20 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath b2 = path(b2());
         final UrlPath a1b2 = a1.append(b2);
 
-        this.valueCheck(a1b2, "/a1/b2");
-        this.parentCheck(a1b2, a1);
-        this.namesCheck(a1b2, UrlPathName.ROOT, a1(), b2());
+        this.valueCheck(
+            a1b2,
+            "/a1/b2"
+        );
+        this.parentCheck(
+            a1b2,
+            a1
+        );
+        this.namesCheck(
+            a1b2,
+            UrlPathName.ROOT,
+            a1(),
+            b2()
+        );
     }
 
     @Test
@@ -293,47 +499,75 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath c3 = path(c3());
         final UrlPath a1b2c3 = a1b2.append(c3);
 
-        this.valueCheck(a1b2c3, "/a1/b2/c3");
-        this.parentCheck(a1b2c3, a1b2);
-        this.namesCheck(a1b2c3, UrlPathName.ROOT, a1(), b2(), c3());
+        this.valueCheck(
+            a1b2c3,
+            "/a1/b2/c3"
+        );
+        this.parentCheck(
+            a1b2c3,
+            a1b2
+        );
+        this.namesCheck(
+            a1b2c3,
+            UrlPathName.ROOT,
+            a1(),
+            b2(),
+            c3()
+        );
     }
 
-    private void namesCheck(final UrlPath path, final UrlPathName... names) {
-        this.checkEquals(Lists.of(names),
+    private void namesCheck(final UrlPath path,
+                            final UrlPathName... names) {
+        this.checkEquals(
+            Lists.of(names),
             names(path),
-            path::toString);
+            path::toString
+        );
     }
 
     private List<UrlPathName> names(final UrlPath path) {
-        return StreamSupport.stream(Iterables.iterator(path.iterator()).spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream(
+            Iterables.iterator(
+                path.iterator()
+            ).spliterator(),
+            false
+        ).collect(Collectors.toList());
     }
 
     private UrlPath path(final UrlPathName name) {
-        return UrlPath.normalized("/" + name,
+        return UrlPath.normalized(
+            "/" + name,
             name,
-            UrlPath.ROOT_PARENT);
+            UrlPath.ROOT_PARENT
+        );
     }
 
     // iterator.........................................................................................................
 
     @Test
     public void testIterator() {
-        this.iterateAndCheck(UrlPath.parse("/a1/b2/c3").iterator(),
+        this.iterateAndCheck(
+            UrlPath.parse("/a1/b2/c3")
+                .iterator(),
             UrlPathName.ROOT,
             a1(),
             b2(),
-            c3());
+            c3()
+        );
     }
 
     @Test
     public void testIteratorWhenUnnormalized() {
-        this.iterateAndCheck(UrlPath.parse("/a1/../b2/./c3").iterator(),
+        this.iterateAndCheck(
+            UrlPath.parse("/a1/../b2/./c3")
+                .iterator(),
             UrlPathName.ROOT,
             a1(),
             doubleDot(),
             b2(),
             dot(),
-            c3());
+            c3()
+        );
     }
 
     private UrlPathName a1() {
@@ -360,7 +594,10 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testParseStringEmpty() {
-        this.parseStringAndCheck("", UrlPath.EMPTY);
+        this.parseStringAndCheck(
+            "",
+            UrlPath.EMPTY
+        );
     }
 
     @Override
@@ -370,21 +607,39 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testParseRoot() {
-        assertSame(UrlPath.ROOT, this.parseStringAndCheck("/", UrlPath.ROOT));
+        assertSame(
+            UrlPath.ROOT,
+            this.parseStringAndCheck(
+                "/",
+                UrlPath.ROOT
+            )
+        );
     }
 
     @Test
     public void testParseWithLeadingSlash() {
         final UrlPath path = UrlPath.parse("/a1");
-        this.valueCheck(path, "/a1");
-        this.parentCheck(path, UrlPath.ROOT);
+        this.valueCheck(
+            path,
+            "/a1"
+        );
+        this.parentCheck(
+            path,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testParseWithoutLeadingSlash() {
         final UrlPath path = UrlPath.parse("without-leading-slash");
-        this.valueCheck(path, "without-leading-slash");
-        this.parentCheck(path, UrlPath.EMPTY);
+        this.valueCheck(
+            path,
+            "without-leading-slash"
+        );
+        this.parentCheck(
+            path,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
@@ -394,36 +649,64 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.parentCheck(path, "without");
 
         final UrlPath parent = path.parent().get();
-        this.valueCheck(parent, "without");
-        this.parentCheck(parent, UrlPath.EMPTY);
+        this.valueCheck(
+            parent,
+            "without"
+        );
+        this.parentCheck(
+            parent,
+            UrlPath.EMPTY
+        );
     }
 
     @Test
     public void testParseDoesntNormalizeEmpty() {
         final UrlPath path = UrlPath.parse("/a1//c3/d4");
-        this.valueCheck(path, "/a1//c3/d4");
-        this.parentCheck(path, "/a1//c3");
+        this.valueCheck(
+            path,
+            "/a1//c3/d4"
+        );
+        this.parentCheck(
+            path,
+            "/a1//c3"
+        );
     }
 
     @Test
     public void testParseDoesntNormalizeDot() {
         final UrlPath path = UrlPath.parse("/a1/./c3/d4");
-        this.valueCheck(path, "/a1/./c3/d4");
-        this.parentCheck(path, "/a1/./c3");
+        this.valueCheck(
+            path,
+            "/a1/./c3/d4"
+        );
+        this.parentCheck(
+            path,
+            "/a1/./c3"
+        );
     }
 
     @Test
     public void testParseDoesntNormalizeDoubleDot() {
         final UrlPath path = UrlPath.parse("/a1/../c3/d4");
-        this.valueCheck(path, "/a1/../c3/d4");
-        this.parentCheck(path, "/a1/../c3");
+        this.valueCheck(
+            path,
+            "/a1/../c3/d4"
+        );
+        this.parentCheck(
+            path,
+            "/a1/../c3"
+        );
     }
 
     // addQueryString..................................................................................................
 
     @Test
     public void testAddQueryStringNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createPath().addQueryString(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createPath()
+                .addQueryString(null)
+        );
     }
 
     @Test
@@ -504,15 +787,25 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     private void normalizeAndCheck(final String path,
                                    final String expected) {
-        this.normalizeAndCheck(UrlPath.parse(path), UrlPath.parse(expected));
+        this.normalizeAndCheck(
+            UrlPath.parse(path),
+            UrlPath.parse(expected)
+        );
     }
 
     private void normalizeAndCheck(final UrlPath path,
                                    final UrlPath expected) {
         final UrlPath normalized = path.normalize();
 
-        this.checkEquals(expected, normalized);
-        this.checkEquals(true, normalized.isNormalized(), () -> "normalized " + path);
+        this.checkEquals(
+            expected,
+            normalized
+        );
+        this.checkEquals(
+            true,
+            normalized.isNormalized(),
+            () -> "normalized " + path
+        );
     }
 
     // namesList........................................................................................................
