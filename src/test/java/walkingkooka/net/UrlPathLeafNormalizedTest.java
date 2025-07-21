@@ -136,9 +136,19 @@ public final class UrlPathLeafNormalizedTest extends UrlPathTestCase<UrlPathLeaf
 
     @Override
     UrlPathLeafNormalized createPath() {
-        return UrlPathLeafNormalized.withNormalized("/a1/b2",
+        return UrlPathLeafNormalized.withNormalized(
+            "/a1/b2",
             UrlPathName.with("b2"),
-            Optional.of(UrlPath.normalized("/a1", UrlPathName.with("a1"), Optional.of(UrlPath.ROOT))));
+            Optional.of(
+                UrlPath.normalized(
+                    "/a1",
+                    UrlPathName.with("a1"),
+                    Optional.of(
+                        UrlPath.ROOT
+                    )
+                )
+            )
+        );
     }
 
     @Override
