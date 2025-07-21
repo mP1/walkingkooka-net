@@ -54,8 +54,13 @@ final class UrlPathEmpty extends UrlPath {
     }
 
     @Override
-    UrlPath appendName(final UrlPathName name, final UrlPath parent) {
-        return unnormalized(name.value(), name, Optional.of(parent));
+    UrlPath appendName(final UrlPathName name,
+                       final UrlPath parent) {
+        return unnormalized(
+            name.value(),
+            name,
+            Optional.of(parent)
+        );
     }
 
     @Override
