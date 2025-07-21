@@ -130,7 +130,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
             UrlPath.normalized(
                 "/a1",
                 a1(),
-                UrlPath.EMPTY_PARENT
+                UrlPath.ROOT_PARENT
             )
         );
     }
@@ -142,7 +142,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
             UrlPath.unnormalized(
                 "/a1",
                 a1(),
-                UrlPath.EMPTY_PARENT
+                UrlPath.ROOT_PARENT
             )
         );
     }
@@ -170,7 +170,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
             UrlPath.normalized(
                 "/a1",
                 a1(),
-                UrlPath.EMPTY_PARENT
+                UrlPath.ROOT_PARENT
             )
         );
     }
@@ -182,7 +182,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
             UrlPath.unnormalized(
                 "/a1",
                 a1(),
-                UrlPath.EMPTY_PARENT
+                UrlPath.ROOT_PARENT
             )
         );
     }
@@ -192,7 +192,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath path = UrlPath.unnormalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck2(
             path,
@@ -205,7 +205,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.normalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck2(
             start,
@@ -218,12 +218,12 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.unnormalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         final UrlPath path = UrlPath.normalized(
             "/b2",
             b2(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck(
             start,
@@ -241,12 +241,12 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.unnormalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         final UrlPath path = UrlPath.unnormalized(
             "/b2",
             b2(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck(
             start,
@@ -264,12 +264,12 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.unnormalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         final UrlPath path = UrlPath.unnormalized(
             "/.",
             dot(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck(
             start,
@@ -287,12 +287,12 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.unnormalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         final UrlPath path = UrlPath.unnormalized(
             "/..",
             doubleDot(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck(
             start,
@@ -310,7 +310,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath path = UrlPath.normalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck2(
             path,
@@ -323,7 +323,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.normalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck2(
             start,
@@ -336,7 +336,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath start = UrlPath.normalized(
             "/a1",
             a1(),
-            UrlPath.EMPTY_PARENT
+            UrlPath.ROOT_PARENT
         );
         this.appendPathAndCheck(
             start,
