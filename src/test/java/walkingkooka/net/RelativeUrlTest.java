@@ -29,6 +29,58 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<RelativeUrl>
     implements ComparableTesting2<RelativeUrl> {
 
+    @Test
+    public void testWithPathMissingStartSlash() {
+        final UrlPath path = UrlPath.parse("p1/p2");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b,c=d");
+        final UrlFragment fragment = UrlFragment.with("xyz");
+
+        final RelativeUrl relativeUrl = RelativeUrl.with(
+            path,
+            queryString,
+            fragment
+        );
+
+        this.checkEquals(
+            relativeUrl.path(),
+            UrlPath.parse("/p1/p2")
+        );
+        this.checkEquals(
+            relativeUrl.query(),
+            queryString
+        );
+        this.checkEquals(
+            relativeUrl.fragment(),
+            fragment
+        );
+    }
+
+    @Test
+    public void testWithPathWithStartSlash() {
+        final UrlPath path = UrlPath.parse("/p1/p2");
+        final UrlQueryString queryString = UrlQueryString.parse("a=b,c=d");
+        final UrlFragment fragment = UrlFragment.with("xyz");
+
+        final RelativeUrl relativeUrl = RelativeUrl.with(
+            path,
+            queryString,
+            fragment
+        );
+
+        this.checkEquals(
+            relativeUrl.path(),
+            path
+        );
+        this.checkEquals(
+            relativeUrl.query(),
+            queryString
+        );
+        this.checkEquals(
+            relativeUrl.fragment(),
+            fragment
+        );
+    }
+
     // parseRelative..........................................................................................
 
     @Override
