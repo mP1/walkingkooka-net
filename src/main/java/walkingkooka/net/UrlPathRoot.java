@@ -28,9 +28,7 @@ final class UrlPathRoot extends UrlPath {
     /**
      * Used to create the {@link UrlPath#ROOT} constant
      */
-    static UrlPathRoot root() {
-        return new UrlPathRoot();
-    }
+    final static UrlPathRoot INSTANCE = new UrlPathRoot();
 
     private UrlPathRoot() {
         super();
