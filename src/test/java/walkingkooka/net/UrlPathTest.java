@@ -734,61 +734,96 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Test
     public void testNormalizeEmpty() {
-        this.normalizeAndCheck(UrlPath.EMPTY, UrlPath.ROOT);
+        this.normalizeAndCheck(
+            UrlPath.EMPTY,
+            UrlPath.ROOT
+        );
     }
 
     @Test
     public void testNormalizePath() {
-        this.normalizeAndCheck(UrlPath.parse("/a1/b2/c3"));
+        this.normalizeAndCheck(
+            UrlPath.parse("/a1/b2/c3")
+        );
     }
 
     @Test
     public void testNormalizePathWithoutLeadingSlash() {
-        this.normalizeAndCheck("a1/b2/c3", "/a1/b2/c3");
+        this.normalizeAndCheck(
+            "a1/b2/c3",
+            "/a1/b2/c3"
+        );
     }
 
     @Test
     public void testNormalizeEmptyRemoved() {
-        this.normalizeAndCheck("/a1//b2/c3", "/a1/b2/c3");
+        this.normalizeAndCheck(
+            "/a1//b2/c3",
+            "/a1/b2/c3"
+        );
     }
 
     @Test
     public void testNormalizeDot() {
-        this.normalizeAndCheck("/a1/b2/./c3", "/a1/b2/c3");
+        this.normalizeAndCheck(
+            "/a1/b2/./c3",
+            "/a1/b2/c3"
+        );
     }
 
     @Test
     public void testNormalizeDot2() {
-        this.normalizeAndCheck("/a1/b2/./c3/./d4", "/a1/b2/c3/d4");
+        this.normalizeAndCheck(
+            "/a1/b2/./c3/./d4",
+            "/a1/b2/c3/d4"
+        );
     }
 
     @Test
     public void testNormalizeDot32() {
-        this.normalizeAndCheck("/./a1", "/a1");
+        this.normalizeAndCheck(
+            "/./a1",
+            "/a1"
+        );
     }
 
     @Test
     public void testNormalizeDoubleDot() {
-        this.normalizeAndCheck("/a1/b2/../c3/d4", "/a1/c3/d4");
+        this.normalizeAndCheck(
+            "/a1/b2/../c3/d4",
+            "/a1/c3/d4"
+        );
     }
 
     @Test
     public void testNormalizeDoubleDot2() {
-        this.normalizeAndCheck("/a1/../b2/c3/../d4", "/b2/d4");
+        this.normalizeAndCheck(
+            "/a1/../b2/c3/../d4",
+            "/b2/d4"
+        );
     }
 
     @Test
     public void testNormalizeDoubleDot3() {
-        this.normalizeAndCheck("/../a1/b2", "/a1/b2");
+        this.normalizeAndCheck(
+            "/../a1/b2",
+            "/a1/b2"
+        );
     }
 
     @Test
     public void testNormalizeDotAndDoubleDot() {
-        this.normalizeAndCheck("/a1/../b2/./c3/d4", "/b2/c3/d4");
+        this.normalizeAndCheck(
+            "/a1/../b2/./c3/d4",
+            "/b2/c3/d4"
+        );
     }
 
     private void normalizeAndCheck(final UrlPath path) {
-        this.normalizeAndCheck(path, path);
+        this.normalizeAndCheck(
+            path,
+            path
+        );
     }
 
     private void normalizeAndCheck(final String path,
