@@ -43,6 +43,40 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     PathTesting<UrlPath, UrlPathName>,
     ParseStringTesting<UrlPath> {
 
+    // isStartsWithSeparator............................................................................................
+
+    @Test
+    public void testIsStartsWithSeparatorWithRoot() {
+        this.isStartsWithSeparatorAndCheck(
+            UrlPath.ROOT,
+            true
+        );
+    }
+
+    @Test
+    public void testIsStartsWithSeparatorWithEmpty() {
+        this.isStartsWithSeparatorAndCheck(
+            UrlPath.EMPTY,
+            false
+        );
+    }
+
+    @Test
+    public void testIsStartsWithSeparatorWithTrue() {
+        this.isStartsWithSeparatorAndCheck(
+            UrlPath.parse("/a/b"),
+            true
+        );
+    }
+
+    @Test
+    public void testIsStartsWithSeparatorWithFalse() {
+        this.isStartsWithSeparatorAndCheck(
+            UrlPath.parse("a/b"),
+            false
+        );
+    }
+
     // appendName.......................................................................................................
 
     @Test
