@@ -79,7 +79,14 @@ final class UrlPathRoot extends UrlPath {
 
     @Override
     UrlPath appendPath(final UrlPath path) {
-        return path;
+        return path.isRoot() || path.isEmpty() ?
+            this :
+            path.value()
+                .startsWith(SEPARATOR_STRING) ?
+                path :
+                parse(
+                    SEPARATOR_STRING + path.value()
+                );
     }
 
     @Override

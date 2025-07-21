@@ -20,6 +20,8 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
 
     @Test
@@ -74,6 +76,44 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
             name,
             unnormalized("2", name),
             "2"
+        );
+    }
+
+    // appendPath.......................................................................................................
+
+    @Test
+    public void testAppendPathWithEmpty() {
+        assertSame(
+            UrlPathEmpty.EMPTY_URL_PATH,
+            UrlPathEmpty.EMPTY_URL_PATH.append(UrlPathEmpty.EMPTY_URL_PATH)
+        );
+    }
+
+    @Test
+    public void testAppendPathWithRoot() {
+        assertSame(
+            UrlPath.ROOT,
+            UrlPathEmpty.EMPTY_URL_PATH.append(UrlPath.ROOT)
+        );
+    }
+
+    @Test
+    public void testAppendPathWithSlashPath() {
+        final UrlPath path = UrlPath.parse("/p1/p2");
+
+        assertSame(
+            path,
+            UrlPathEmpty.EMPTY_URL_PATH.append(path)
+        );
+    }
+
+    @Test
+    public void testAppendPathWithPath() {
+        final UrlPath path = UrlPath.parse("p1/p2");
+
+        assertSame(
+            path,
+            UrlPathEmpty.EMPTY_URL_PATH.append(path)
         );
     }
 

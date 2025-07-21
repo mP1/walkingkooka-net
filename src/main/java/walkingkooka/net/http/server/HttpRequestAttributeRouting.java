@@ -132,7 +132,7 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
         HttpRequestAttributeRouting that = this;
 
         int i = 0;
-        for (UrlPathName name : path) {
+        for (UrlPathName name : UrlPath.ROOT.append(path)) {
             if (0 != i) {
                 if (UrlPathName.WILDCARD.equals(name)) {
                     that = that.pathComponent(i, HttpRequestAttributeRoutingWildcardPredicate.INSTANCE);
