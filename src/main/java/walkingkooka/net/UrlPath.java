@@ -253,18 +253,24 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
     abstract UrlPath pathAfterNotFirst(final int start);
 
-    // pathNameList.....................................................................................................
+    // nameList.........................................................................................................
 
     /**
      * Returns a {@link List} view of all {@link UrlPathName}, effectively the names of all parents.
      */
     public final List<UrlPathName> namesList() {
-        final List<UrlPathName> list = Lists.array();
+        if (null == this.namesList) {
+            final List<UrlPathName> list = Lists.array();
 
-        this.gatherPathNames(list);
+            this.gatherPathNames(list);
 
-        return Lists.readOnly(list);
+            this.namesList = Lists.readOnly(list);
+        }
+
+        return this.namesList;
     }
+
+    private List<UrlPathName> namesList;
 
     abstract void gatherPathNames(final List<UrlPathName> names);
 
