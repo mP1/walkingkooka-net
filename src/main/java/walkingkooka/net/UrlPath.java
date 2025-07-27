@@ -237,10 +237,21 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     /**
      * Returns the {@link UrlPath} after the given path separator.
      * <br>
-     * A start of 0 will return this.
-     * "/path1/path2/path3" start=2 = "/path2/path3"
-     * "/path1/path2/path3" start=3 = "/path3"
-     * "/path1/path2/path3" start=4 = ""
+     * A start of 0 will return this. An index after the last path component will return {@link #EMPTY}.
+     * A start parameter 2 past the last component will throw {@link IllegalArgumentException}.
+     * <pre>
+     * "path1/path2/path3" start=0 "path1/path2/path3"
+     * "path1/path2/path3" start=1 "path2/path3"
+     * "path1/path2/path3" start=2 "/path2"
+     * "path1/path2/path3" start=3 ""
+     * "path1/path2/path3" start=4 = throws {@link IllegalArgumentException}.
+     *
+     * "/path1/path2/path3" start=0 = "/path1/path2/path3"
+     * "/path1/path2/path3" start=1 = "/path2/path3"
+     * "/path1/path2/path3" start=2 = "/path3"
+     * "/path1/path2/path3" start=3 = ""
+     * "/path1/path2/path3" start=4 = throws {@link IllegalArgumentException}.
+     * </pre>
      */
     public final UrlPath pathAfter(final int start) {
         if (start < 0) {

@@ -145,8 +145,8 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
     public void testPathAfterFails() {
         this.pathAfterFailsAndCheck(
             "/dir1/../file3",
-            4,
-            "Invalid start 4 > 3"
+            5,
+            "Invalid start 5 > 3"
         );
     }
 

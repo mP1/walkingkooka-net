@@ -90,14 +90,15 @@ abstract class UrlPathLeaf extends UrlPath {
         final String value = this.path;
 
         final int length = value.length();
-        int component = 0;
+        int componentIndex = value.charAt(0) == SEPARATOR_CHAR ?
+            0 :
+            1;
         String path = value;
 
         int i = 0;
         while (i < length) {
             if (SEPARATOR_CHAR == value.charAt(i)) {
-
-                if (start == component) {
+                if (start == componentIndex) {
                     path = value.substring(
                         i,
                         length
@@ -105,16 +106,16 @@ abstract class UrlPathLeaf extends UrlPath {
                     break;
                 }
 
-                component++;
+                componentIndex++;
             }
             i++;
         }
 
-        if (start > component) {
-            throw new IllegalArgumentException("Invalid start " + start + " > " + component);
+        if (start > componentIndex + 1) {
+            throw new IllegalArgumentException("Invalid start " + start + " > " + componentIndex);
         }
 
-        return length == i ?
+        return start > componentIndex || length == i ?
             EMPTY :
             parse(path);
     }
