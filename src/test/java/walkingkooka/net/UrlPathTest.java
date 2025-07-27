@@ -1033,6 +1033,130 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         );
     }
 
+    // pathAfter........................................................................................................
+
+    @Test
+    public void testPathAfterEmptyWithZero() {
+        this.pathAfterAndCheck(
+            UrlPath.EMPTY,
+            0
+        );
+    }
+
+    @Test
+    public void testPathAfterRootWithZero() {
+        this.pathAfterAndCheck(
+            UrlPath.ROOT,
+            0
+        );
+    }
+
+    @Test
+    public void testPathAfterNoSlashFirst() {
+        this.pathAfterAndCheck(
+            "path1/path2",
+            0
+        );
+    }
+
+    @Test
+    public void testPathAfterNoSlashMiddle() {
+        this.pathAfterAndCheck(
+            "path1/path2/path3",
+            1,
+            "/path2/path3"
+        );
+    }
+
+    @Test
+    public void testPathAfterNoSlashLast() {
+        this.pathAfterAndCheck(
+            "path1/path2/path3",
+            2,
+            "/path3"
+        );
+    }
+
+    @Test
+    public void testPathAfterNoSlashAfterLast() {
+        this.pathAfterAndCheck(
+            "path1/path2/path3",
+            3,
+            ""
+        );
+    }
+
+    @Test
+    public void testPathAfterSlashFirst() {
+        this.pathAfterAndCheck(
+            "/path1/path2",
+            0
+        );
+    }
+
+    @Test
+    public void testPathAfterSlashMiddle() {
+        this.pathAfterAndCheck(
+            "/path1/path2/path3",
+            1,
+            "/path2/path3"
+        );
+    }
+
+    @Test
+    public void testPathAfterSlashLast() {
+        this.pathAfterAndCheck(
+            "/path1/path2/path3",
+            2,
+            "/path3"
+        );
+    }
+
+    @Test
+    public void testPathAfterSlashAfterLast() {
+        this.pathAfterAndCheck(
+            "/path1/path2/path3",
+            3,
+            ""
+        );
+    }
+
+    private void pathAfterAndCheck(final String path,
+                                   final int start) {
+        this.pathAfterAndCheck(
+            UrlPath.parse(path),
+            start
+        );
+    }
+
+    private void pathAfterAndCheck(final String path,
+                                   final int start,
+                                   final String expected) {
+        this.pathAfterAndCheck(
+            UrlPath.parse(path),
+            start,
+            UrlPath.parse(expected)
+        );
+    }
+
+    private void pathAfterAndCheck(final UrlPath path,
+                                   final int start) {
+        this.pathAfterAndCheck(
+            path,
+            start,
+            path
+        );
+    }
+
+    private void pathAfterAndCheck(final UrlPath path,
+                                   final int start,
+                                   final UrlPath expected) {
+        this.checkEquals(
+            expected,
+            path.pathAfter(start)
+        );
+    }
+
     // equals/compare....................................................................................................
 
     @Test
