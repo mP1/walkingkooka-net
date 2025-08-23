@@ -259,7 +259,31 @@ public final class UrlPathPredicateTest implements PredicateTesting2<UrlPathPred
 
     @Test
     public void testToString() {
+        final String pattern = "/path1/path2/";
+
+        this.toStringAndCheck(
+            UrlPathPredicate.with(
+                UrlPath.parse(pattern)
+            ),
+            pattern
+        );
+    }
+
+    @Test
+    public void testToStringStar() {
         final String pattern = "/path1/path2/*";
+
+        this.toStringAndCheck(
+            UrlPathPredicate.with(
+                UrlPath.parse(pattern)
+            ),
+            pattern
+        );
+    }
+
+    @Test
+    public void testToStringStarStar() {
+        final String pattern = "/path1/path2/**";
 
         this.toStringAndCheck(
             UrlPathPredicate.with(

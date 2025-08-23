@@ -187,4 +187,33 @@ public final class UrlPathNotEmptyNormalizedTest extends UrlPathTestCase<UrlPath
     Class<UrlPathNotEmptyNormalized> urlPathType() {
         return UrlPathNotEmptyNormalized.class;
     }
+
+    // ToString.........................................................................................................
+
+    @Test
+    public void testToStringWithoutSpecialCharacters() {
+        this.toStringAndCheck(
+            UrlPath.parse("/path1/path2.~_")
+                .normalize(),
+            "/path1/path2.~_"
+        );
+    }
+
+    @Test
+    public void testToStringWithSpace() {
+        this.toStringAndCheck(
+            UrlPath.parse("/path1/ path2/")
+                .normalize(),
+            "/path1/%20path2/"
+        );
+    }
+
+    @Test
+    public void testToStringWithStar() {
+        this.toStringAndCheck(
+            UrlPath.parse("/path1/path2/*")
+                .normalize(),
+            "/path1/path2/%2A"
+        );
+    }
 }
