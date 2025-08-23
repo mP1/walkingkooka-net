@@ -26,13 +26,13 @@ import java.util.Optional;
 /**
  * A {@link Path} leaf which is a non root and may or may not be normalized.
  */
-abstract class UrlPathLeaf extends UrlPath {
+abstract class UrlPathNotEmpty extends UrlPath {
 
     /**
      * Private package constructor
      */
-    UrlPathLeaf(final String path, final UrlPathName name,
-                final Optional<UrlPath> parent) {
+    UrlPathNotEmpty(final String path, final UrlPathName name,
+                    final Optional<UrlPath> parent) {
         super();
 
         this.path = path;
@@ -67,7 +67,7 @@ abstract class UrlPathLeaf extends UrlPath {
     }
 
     @Override
-    UrlPath appendTo(final UrlPathLeaf leaf) {
+    UrlPath appendTo(final UrlPathNotEmpty leaf) {
         final UrlPathName name = this.name;
 
         return this.parent.orElse(UrlPath.EMPTY)

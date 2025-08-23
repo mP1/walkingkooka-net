@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLeafUnnormalized> {
+public final class UrlPathNotEmptyUnnormalizedTest extends UrlPathTestCase<UrlPathNotEmptyUnnormalized> {
 
     @Test
     public void testAppendNameEmpty() {
@@ -151,8 +151,8 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
     }
 
     @Override
-    UrlPathLeafUnnormalized createPath() {
-        return UrlPathLeafUnnormalized.withUnnormalized("/a1",
+    UrlPathNotEmptyUnnormalized createPath() {
+        return UrlPathNotEmptyUnnormalized.withUnnormalized("/a1",
             UrlPathName.with("a1"),
             Optional.of(UrlPath.ROOT));
     }
@@ -173,7 +173,7 @@ public final class UrlPathLeafUnnormalizedTest extends UrlPathTestCase<UrlPathLe
     }
 
     @Override
-    Class<UrlPathLeafUnnormalized> urlPathType() {
-        return UrlPathLeafUnnormalized.class;
+    Class<UrlPathNotEmptyUnnormalized> urlPathType() {
+        return UrlPathNotEmptyUnnormalized.class;
     }
 }

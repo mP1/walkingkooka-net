@@ -107,9 +107,9 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
         );
     }
 
-    final UrlPathLeafNormalized normalized(final String path,
-                                           final UrlPathName name) {
-        return UrlPathLeafNormalized.withNormalized(
+    final UrlPathNotEmptyNormalized normalized(final String path,
+                                               final UrlPathName name) {
+        return UrlPathNotEmptyNormalized.withNormalized(
             path,
             name,
             Optional.of(
@@ -118,9 +118,9 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
         );
     }
 
-    final UrlPathLeafUnnormalized unnormalized(final String path,
-                                               final UrlPathName name) {
-        return UrlPathLeafUnnormalized.withUnnormalized(
+    final UrlPathNotEmptyUnnormalized unnormalized(final String path,
+                                                   final UrlPathName name) {
+        return UrlPathNotEmptyUnnormalized.withUnnormalized(
             path,
             name,
             Optional.of(

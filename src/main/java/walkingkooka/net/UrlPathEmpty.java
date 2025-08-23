@@ -67,7 +67,7 @@ final class UrlPathEmpty extends UrlPath {
     }
 
     @Override
-    UrlPath appendTo(final UrlPathLeaf leaf) {
+    UrlPath appendTo(final UrlPathNotEmpty leaf) {
         return leaf;
     }
 
