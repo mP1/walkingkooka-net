@@ -17,13 +17,16 @@
 
 package walkingkooka.net;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
+import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -55,6 +58,142 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
      * Only used by {@link UrlPath} to note a wildcard.
      */
     public final static UrlPathName WILDCARD = new UrlPathName(WILDCARD_STRING);
+
+    /**
+     * Parses the given text including support for decoding percent encoded characters. Invalid percent encodings are ignored.
+     */
+    public static UrlPathName parse(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        final StringBuilder out = new StringBuilder();
+
+        final int MODE_CHAR = 1;
+        final int MODE_FIRST_HEX_DIGIT = 2;
+        final int MODE_SECOND_HEX_DIGIT = 3;
+
+        int mode = MODE_CHAR;
+        int decodedCharacter = 0;
+
+        // href="https://www.ietf.org/rfc/rfc3986.txt
+        int i = 0;
+
+        for (final byte b : text.getBytes(StandardCharsets.UTF_8)) {
+            switch (mode) {
+                case MODE_CHAR:
+                    switch (b) {
+                        case UrlPath.SEPARATOR_CHAR: // SLASH
+                            throw new InvalidCharacterException(
+                                text,
+                                i
+                            );
+                        case '-':
+                        case '.':
+                        case '_':
+                        case '~':
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                        case 'A':
+                        case 'B':
+                        case 'C':
+                        case 'D':
+                        case 'E':
+                        case 'F':
+                        case 'G':
+                        case 'H':
+                        case 'I':
+                        case 'J':
+                        case 'K':
+                        case 'L':
+                        case 'M':
+                        case 'N':
+                        case 'O':
+                        case 'P':
+                        case 'Q':
+                        case 'R':
+                        case 'S':
+                        case 'T':
+                        case 'U':
+                        case 'V':
+                        case 'W':
+                        case 'X':
+                        case 'Y':
+                        case 'Z':
+                        case 'a':
+                        case 'b':
+                        case 'c':
+                        case 'd':
+                        case 'e':
+                        case 'f':
+                        case 'g':
+                        case 'h':
+                        case 'i':
+                        case 'j':
+                        case 'k':
+                        case 'l':
+                        case 'm':
+                        case 'n':
+                        case 'o':
+                        case 'p':
+                        case 'q':
+                        case 'r':
+                        case 's':
+                        case 't':
+                        case 'u':
+                        case 'v':
+                        case 'w':
+                        case 'x':
+                        case 'y':
+                        case 'z':
+                            out.append((char) b);
+                            break;
+                        case '%':
+                            mode = MODE_FIRST_HEX_DIGIT;
+                            decodedCharacter = 0;
+                            break;
+                        default:
+                            out.append((char) b);
+                            break;
+                    }
+                    break;
+                case MODE_FIRST_HEX_DIGIT:
+                    decodedCharacter = Character.digit(b, 16);
+                    mode = -1 == decodedCharacter ?
+                        MODE_CHAR :
+                        MODE_SECOND_HEX_DIGIT;
+                    break;
+                case MODE_SECOND_HEX_DIGIT:
+                    final int value = Character.digit(b, 16);
+                    if (-1 != value) {
+                        out.append(
+                            (char)
+                                (
+                                    (decodedCharacter << 4) + value
+                                )
+                        );
+                    }
+
+                    mode = MODE_CHAR;
+                    break;
+                default:
+                    NeverError.unhandledCase(
+                        mode,
+                        MODE_CHAR, MODE_FIRST_HEX_DIGIT, MODE_SECOND_HEX_DIGIT
+                    );
+            }
+
+            i++;
+        }
+
+        return with(out.toString());
+    }
 
     /**
      * Creates a new valid {@link UrlPathName}.

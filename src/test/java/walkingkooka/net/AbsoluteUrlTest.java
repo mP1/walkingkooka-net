@@ -508,7 +508,8 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Test
     public void testNormalizePercentEncodedTripletsOfUnreservedCharacters() {
         this.normalizeAndCheck(
-            "http://example.com/%7Efoo" // ,"http://example.com/~foo"
+            "http://example.com/%7Efoo", // ,"http://example.com/~foo"
+            "http://example.com/~foo"
         );
     }
 
