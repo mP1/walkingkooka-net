@@ -28,47 +28,81 @@ import java.net.URLEncoder;
  */
 final class UrlParameterKeyValuePair {
 
-    static UrlParameterKeyValuePair nameAndValue(final UrlParameterName name, final String value) {
+    static UrlParameterKeyValuePair nameAndValue(final UrlParameterName name,
+                                                 final String value) {
         String encoded;
         try {
-            encoded = name.value() + Url.QUERY_NAME_VALUE_SEPARATOR.character() + URLEncoder.encode(value, "UTF-8");
+            encoded = name.value() +
+                Url.QUERY_NAME_VALUE_SEPARATOR.character() +
+                URLEncoder.encode(value,
+                    "UTF-8"
+                );
         } catch (final UnsupportedEncodingException cause) {
             encoded = NeverError.unsupportedEncodingException(cause);
         }
-        return new UrlParameterKeyValuePair(encoded, name, value, Url.QUERY_PARAMETER_SEPARATOR.character(), false);
+        return new UrlParameterKeyValuePair(
+            encoded,
+            name,
+            value,
+            Url.QUERY_PARAMETER_SEPARATOR.character(),
+            false // false=separatorIncluded
+        );
     }
 
-    static UrlParameterKeyValuePair encodedWithSeparator(final String encodedWithoutSeparator, final char separator) {
-        return encoded(encodedWithoutSeparator, separator, true);
+    static UrlParameterKeyValuePair encodedWithSeparator(final String encodedWithoutSeparator,
+                                                         final char separator) {
+        return encoded(
+            encodedWithoutSeparator,
+            separator,
+            true // true=separatorIncluded
+        );
     }
 
     static UrlParameterKeyValuePair encodedWithoutSeparator(final String encodedWithoutSeparator) {
-        return encoded(encodedWithoutSeparator, Url.QUERY_PARAMETER_SEPARATOR.character(), false);
+        return encoded(
+            encodedWithoutSeparator,
+            Url.QUERY_PARAMETER_SEPARATOR.character(),
+            false // false=separatorIncluded
+        );
     }
 
-    private static UrlParameterKeyValuePair encoded(final String encodedWithoutSeparator, final char separator, final boolean separatorIncluded) {
+    private static UrlParameterKeyValuePair encoded(final String encodedWithoutSeparator,
+                                                    final char separator,
+                                                    final boolean separatorIncluded) {
         final int equalsSign = encodedWithoutSeparator.indexOf(Url.QUERY_NAME_VALUE_SEPARATOR.character());
         String name = encodedWithoutSeparator;
         String value = "";
         if (-1 != equalsSign) {
             name = name.substring(0, equalsSign);
             try {
-                value = URLDecoder.decode(encodedWithoutSeparator.substring(equalsSign + 1), "UTF-8");
+                value = URLDecoder.decode(
+                    encodedWithoutSeparator.substring(
+                        equalsSign + 1
+                    ),
+                    "UTF-8"
+                );
             } catch (final UnsupportedEncodingException cause) {
                 NeverError.unsupportedEncodingException(cause);
             }
         }
 
-        return new UrlParameterKeyValuePair(encodedWithoutSeparator,
+        return new UrlParameterKeyValuePair(
+            encodedWithoutSeparator,
             UrlParameterName.with(name),
             value,
-            separator, separatorIncluded);
+            separator,
+            separatorIncluded
+        );
     }
 
     /**
      * Private ctor use factories.
      */
-    private UrlParameterKeyValuePair(final String encoded, final UrlParameterName name, final String value, final char separator, final boolean separatorIncluded) {
+    private UrlParameterKeyValuePair(final String encoded,
+                                     final UrlParameterName name,
+                                     final String value,
+                                     final char separator,
+                                     final boolean separatorIncluded) {
         this.encoded = encoded;
         this.name = name;
         this.value = value;
@@ -78,6 +112,8 @@ final class UrlParameterKeyValuePair {
 
     final UrlParameterName name;
     final String value;
+
+    // Object...........................................................................................................
 
     @Override
     public String toString() {
@@ -90,5 +126,6 @@ final class UrlParameterKeyValuePair {
     final String encoded;
 
     final boolean separatorIncluded;
+
     final char separator;
 }
