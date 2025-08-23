@@ -78,9 +78,11 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         int i = 0;
 
         for (final byte b : text.getBytes(StandardCharsets.UTF_8)) {
+            final char c = (char) b;
+
             switch (mode) {
                 case MODE_CHAR:
-                    switch (b) {
+                    switch (c) {
                         case UrlPath.SEPARATOR_CHAR: // SLASH
                             throw new InvalidCharacterException(
                                 text,
@@ -159,18 +161,24 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
                             decodedCharacter = 0;
                             break;
                         default:
-                            out.append((char) b);
+                            out.append(c);
                             break;
                     }
                     break;
                 case MODE_FIRST_HEX_DIGIT:
-                    decodedCharacter = Character.digit(b, 16);
+                    decodedCharacter = Character.digit(
+                        c,
+                        16
+                    );
                     mode = -1 == decodedCharacter ?
                         MODE_CHAR :
                         MODE_SECOND_HEX_DIGIT;
                     break;
                 case MODE_SECOND_HEX_DIGIT:
-                    final int value = Character.digit(b, 16);
+                    final int value = Character.digit(
+                        c,
+                        16
+                    );
                     if (-1 != value) {
                         out.append(
                             (char)
