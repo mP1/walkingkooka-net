@@ -20,11 +20,11 @@ package walkingkooka.net;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class UrlPathLeafTest implements ClassTesting2<UrlPathLeaf> {
+public final class UrlPathNotEmptyTest implements ClassTesting2<UrlPathNotEmpty> {
 
     @Override
-    public Class<UrlPathLeaf> type() {
-        return UrlPathLeaf.class;
+    public Class<UrlPathNotEmpty> type() {
+        return UrlPathNotEmpty.class;
     }
 
     @Override

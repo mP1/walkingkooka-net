@@ -63,16 +63,16 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
     final static Optional<UrlPath> EMPTY_PARENT = Optional.of(EMPTY);
 
-    static UrlPathLeafNormalized normalized(final String path,
-                                            final UrlPathName name,
-                                            final Optional<UrlPath> parent) {
-        return UrlPathLeafNormalized.withNormalized(path, name, parent);
-    }
-
-    static UrlPathLeafUnnormalized unnormalized(final String path,
+    static UrlPathNotEmptyNormalized normalized(final String path,
                                                 final UrlPathName name,
                                                 final Optional<UrlPath> parent) {
-        return UrlPathLeafUnnormalized.withUnnormalized(path, name, parent);
+        return UrlPathNotEmptyNormalized.withNormalized(path, name, parent);
+    }
+
+    static UrlPathNotEmptyUnnormalized unnormalized(final String path,
+                                                    final UrlPathName name,
+                                                    final Optional<UrlPath> parent) {
+        return UrlPathNotEmptyUnnormalized.withUnnormalized(path, name, parent);
     }
 
     // predicate........................................................................................................
@@ -191,7 +191,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
     abstract UrlPath appendPath(final UrlPath path);
 
-    abstract UrlPath appendTo(final UrlPathLeaf leaf);
+    abstract UrlPath appendTo(final UrlPathNotEmpty leaf);
 
     /**
      * This is only called by {@link #parseNonRoot0(String, int, UrlPath)}, when the given string ends in a slash.
@@ -204,7 +204,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * Returns true if this path is normalized.
      */
     public final boolean isNormalized() {
-        return this instanceof UrlPathLeafNormalized || this instanceof UrlPathRoot;
+        return this instanceof UrlPathNotEmptyNormalized || this instanceof UrlPathRoot;
     }
 
     /**

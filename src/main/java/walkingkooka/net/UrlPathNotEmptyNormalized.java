@@ -20,19 +20,19 @@ package walkingkooka.net;
 import java.util.Optional;
 
 /**
- * A full url path that may require normalization to remove empty, dot or double dot components.
+ * A full url path that is normalized and does not contain an empty, current directory or double dot components.
  */
-final class UrlPathLeafUnnormalized extends UrlPathLeaf {
+final class UrlPathNotEmptyNormalized extends UrlPathNotEmpty {
 
-    static UrlPathLeafUnnormalized withUnnormalized(final String path,
+    static UrlPathNotEmptyNormalized withNormalized(final String path,
                                                     final UrlPathName name,
                                                     final Optional<UrlPath> parent) {
-        return new UrlPathLeafUnnormalized(path, name, parent);
+        return new UrlPathNotEmptyNormalized(path, name, parent);
     }
 
-    private UrlPathLeafUnnormalized(final String path,
-                                    final UrlPathName name,
-                                    final Optional<UrlPath> parent) {
+    private UrlPathNotEmptyNormalized(final String path,
+                                      final UrlPathName name,
+                                      final Optional<UrlPath> parent) {
         super(path, name, parent);
     }
 
@@ -46,6 +46,7 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
 
         if (nameString.isEmpty()) {
             newPath = path + SEPARATOR_CHAR + SEPARATOR_CHAR;
+
         } else {
             if (path.endsWith(SEPARATOR_STRING)) {
                 newPath = path + nameString;
@@ -54,17 +55,17 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
             }
         }
 
-        return new UrlPathLeafUnnormalized(
-            newPath,
-            name,
-            Optional.of(parent)
-        );
+        final Optional<UrlPath> parent2 = Optional.of(parent);
+
+        return name.isNormalized() ?
+            new UrlPathNotEmptyNormalized(newPath, name, parent2) :
+            unnormalized(newPath, name, parent2);
     }
 
     @Override
     UrlPath parseTrailingSlash() {
-        return new UrlPathLeafUnnormalized(
-            this.path + this.separator().character(), // path
+        return new UrlPathNotEmptyNormalized(
+            this.path + this.separator().character(), // new path
             UrlPathName.ROOT, // name
             Optional.of(this)
         );
@@ -72,24 +73,7 @@ final class UrlPathLeafUnnormalized extends UrlPathLeaf {
 
     @Override
     public UrlPath normalize() {
-        UrlPath normalized = ROOT;
-
-        for (final UrlPathName name : this) {
-            switch (name.value()) {
-                case "":
-                    break;
-                case ".":
-                    break;
-                case "..":
-                    normalized = normalized.parentOrSelf();
-                    break;
-                default:
-                    normalized = normalized.append(name);
-                    break;
-            }
-        }
-
-        return normalized;
+        return this;
     }
 
     // Serialization....................................................................................................
