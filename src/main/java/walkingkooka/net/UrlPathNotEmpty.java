@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import walkingkooka.naming.Path;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -136,8 +137,100 @@ abstract class UrlPathNotEmpty extends UrlPath {
 
     @Override
     public final String toString() {
-        return this.path;
+        final StringBuilder out = new StringBuilder();
+
+        // href="https://www.ietf.org/rfc/rfc3986.txt
+        for (final byte b : this.path.getBytes(StandardCharsets.UTF_8)) {
+            switch (b) {
+                case SEPARATOR_CHAR: // SLASH
+                case '-':
+                case '.':
+                case '_':
+                case '~':
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case 'A':
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'E':
+                case 'F':
+                case 'G':
+                case 'H':
+                case 'I':
+                case 'J':
+                case 'K':
+                case 'L':
+                case 'M':
+                case 'N':
+                case 'O':
+                case 'P':
+                case 'Q':
+                case 'R':
+                case 'S':
+                case 'T':
+                case 'U':
+                case 'V':
+                case 'W':
+                case 'X':
+                case 'Y':
+                case 'Z':
+                case 'a':
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'e':
+                case 'f':
+                case 'g':
+                case 'h':
+                case 'i':
+                case 'j':
+                case 'k':
+                case 'l':
+                case 'm':
+                case 'n':
+                case 'o':
+                case 'p':
+                case 'q':
+                case 'r':
+                case 's':
+                case 't':
+                case 'u':
+                case 'v':
+                case 'w':
+                case 'x':
+                case 'y':
+                case 'z':
+                    out.append((char) b);
+                    break;
+                default:
+                    out.append('%');
+
+                    out.append(
+                        HEX_DIGITS[
+                            (b >> 4) & 0xf
+                            ]
+                    );
+
+                    out.append(
+                        HEX_DIGITS[b & 0xf]
+                    );
+                    break;
+            }
+        }
+
+        return out.toString();
     }
+
+    private final static char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
 
     // Serialization....................................................................................................
 

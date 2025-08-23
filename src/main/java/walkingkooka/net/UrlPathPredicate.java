@@ -122,7 +122,8 @@ final class UrlPathPredicate implements Predicate<UrlPath> {
 
     @Override
     public String toString() {
-        return this.path.toString();
+        // for readability return the un-encoded String
+        return this.path.value();
     }
 
     private final UrlPath path;
