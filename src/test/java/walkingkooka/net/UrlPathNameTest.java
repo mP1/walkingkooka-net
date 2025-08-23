@@ -39,16 +39,24 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     }
 
     @Test
-    public void testEmpty() {
-        assertSame(UrlPathName.ROOT, UrlPathName.with(""));
+    public void testWithEmpty() {
+        assertSame(
+            UrlPathName.ROOT,
+            UrlPathName.with("")
+        );
     }
 
     @Test
-    public void testTooLongFails() {
+    public void testWithTooLongFails() {
         final char[] chars = new char[UrlPathName.MAXIMUM_LENGTH + 1];
         Arrays.fill(chars, 'x');
 
-        assertThrows(InvalidTextLengthException.class, () -> UrlPathName.with(new String(chars)));
+        assertThrows(
+            InvalidTextLengthException.class,
+            () -> UrlPathName.with(
+                new String(chars)
+            )
+        );
     }
 
     @Test
@@ -73,7 +81,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     }
 
     @Test
-    public void testWith() {
+    public void testWith2() {
         this.createNameAndCheck("abc");
     }
 
@@ -84,12 +92,16 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
 
     @Test
     public void testEqualsDifferentName() {
-        this.checkNotEquals(UrlPathName.with("different"));
+        this.checkNotEquals(
+            UrlPathName.with("different")
+        );
     }
 
     @Test
-    public void testCompareLess() {
-        this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
+    public void testCompareLess2() {
+        this.compareToAndCheckLess(
+            UrlPathName.with("zzzzz")
+        );
     }
 
     @Test
@@ -128,6 +140,8 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     public String nameTextLess() {
         return "file";
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<UrlPathName> type() {
