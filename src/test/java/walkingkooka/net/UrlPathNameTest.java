@@ -51,6 +51,14 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         assertThrows(InvalidTextLengthException.class, () -> UrlPathName.with(new String(chars)));
     }
 
+    @Test
+    public void testWithSlashesFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> UrlPathName.with("dd/mm/yyyy")
+        );
+    }
+
     // Comparable.......................................................................................................
 
     @Test

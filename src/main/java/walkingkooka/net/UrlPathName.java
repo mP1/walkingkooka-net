@@ -19,6 +19,8 @@ package walkingkooka.net;
 
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -78,12 +80,25 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
     }
 
     private static UrlPathName nonConstant(final String name) {
-        if (name.length() > MAXIMUM_LENGTH) {
-            throw new InvalidTextLengthException("url path", name, 0, MAXIMUM_LENGTH);
-        }
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            name,
+            "path",
+            CHARS,
+            CHARS
+        );
+
+        InvalidTextLengthException.throwIfFail(
+            "path",
+            name,
+            1,
+            MAXIMUM_LENGTH
+        );
 
         return new UrlPathName(name);
     }
+
+    private final static CharPredicate CHARS = CharPredicates.is(UrlPath.SEPARATOR_CHAR)
+        .negate();
 
     /**
      * Private constructor
