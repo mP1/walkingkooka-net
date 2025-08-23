@@ -22,6 +22,7 @@ import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
-    NameTesting<UrlPathName, UrlPathName> {
+    NameTesting<UrlPathName, UrlPathName>,
+    ParseStringTesting<UrlPathName> {
 
     @Override
     public void testEmptyFails() {
@@ -139,6 +141,36 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     @Override
     public String nameTextLess() {
         return "file";
+    }
+
+    // parse............................................................................................................
+
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testParseIncludesEncodedCharacter() {
+        this.parseStringAndCheck(
+            "%7Efoo",
+            UrlPathName.with("~foo")
+        );
+    }
+
+    @Override
+    public UrlPathName parseString(final String text) {
+        return UrlPathName.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     // class............................................................................................................

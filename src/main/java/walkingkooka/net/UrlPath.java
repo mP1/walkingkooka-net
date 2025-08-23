@@ -133,7 +133,7 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
             if (-1 == end) {
                 path = path.append(
-                    UrlPathName.with(
+                    UrlPathName.parse(
                         value.substring(
                             begin,
                             length
@@ -144,8 +144,11 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
             }
 
             path = path.append(
-                UrlPathName.with(
-                    value.substring(begin, end)
+                UrlPathName.parse(
+                    value.substring(
+                        begin,
+                        end
+                    )
                 )
             );
             begin = end + 1;
