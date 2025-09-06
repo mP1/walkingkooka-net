@@ -21,7 +21,6 @@ package walkingkooka.net;
 import walkingkooka.naming.Path;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -119,18 +118,6 @@ abstract class UrlPathNotEmpty extends UrlPath {
         return start > componentIndex || length == i ?
             EMPTY :
             parse(path);
-    }
-
-    // pathNameList.....................................................................................................
-
-    @Override
-    void gatherPathNames(final List<UrlPathName> names) {
-        final UrlPath parent = this.parent.orElse(null);
-        if (null != parent) {
-            parent.gatherPathNames(names);
-        }
-
-        names.add(this.name);
     }
 
     // Object...........................................................................................................

@@ -1023,16 +1023,6 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         );
     }
 
-    @Test
-    public void testNamesListCached() {
-        final UrlPath path = this.createPath();
-        assertSame(
-            path.namesList(),
-            path.namesList(),
-            () -> "namesList not cached " + path
-        );
-    }
-
     // pathAfter........................................................................................................
 
     @Test
