@@ -18,11 +18,9 @@
 package walkingkooka.net;
 
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -266,27 +264,6 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     }
 
     abstract UrlPath pathAfterNotFirst(final int start);
-
-    // nameList.........................................................................................................
-
-    /**
-     * Returns a {@link List} view of all {@link UrlPathName}, effectively the names of all parents.
-     */
-    public final List<UrlPathName> namesList() {
-        if (null == this.namesList) {
-            final List<UrlPathName> list = Lists.array();
-
-            this.gatherPathNames(list);
-
-            this.namesList = Lists.readOnly(list);
-        }
-
-        return this.namesList;
-    }
-
-    private List<UrlPathName> namesList;
-
-    abstract void gatherPathNames(final List<UrlPathName> names);
 
     // addQueryString...................................................................................................
 

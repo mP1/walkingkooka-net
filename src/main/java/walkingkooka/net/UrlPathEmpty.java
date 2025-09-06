@@ -17,7 +17,6 @@
 
 package walkingkooka.net;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -94,13 +93,6 @@ final class UrlPathEmpty extends UrlPath {
     @Override
     UrlPath pathAfterNotFirst(final int start) {
         throw new IllegalArgumentException("Invalid start " + start + " > 0");
-    }
-
-    // pathNameList.....................................................................................................
-
-    @Override
-    void gatherPathNames(final List<UrlPathName> names) {
-        names.add(NAME);
     }
 
     // Object...........................................................................................................
