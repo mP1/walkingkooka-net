@@ -40,12 +40,12 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.PublicStaticHelper;
 
 /**
- * A collection of {@link Converter} for walkingkooka.net
+ * A collection of {@link Converter}
  */
 public final class NetConverters implements PublicStaticHelper {
 
     /**
-     * {@see HttpEntityWithContentTypeToHttpEntityConverter}
+     * {@see NetConverterHttpEntityWithContentType}
      */
     public static <C extends ConverterContext> Converter<C> httpEntityContentType(final MediaType contentType) {
         return NetConverterHttpEntityWithContentType.with(contentType);
@@ -59,7 +59,7 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see TextToUrlConverter}
+     * {@see NetConverterTextToUrl}
      */
     public static <C extends ConverterContext> Converter<C> textToUrl() {
         return NetConverterTextToUrl.instance();
