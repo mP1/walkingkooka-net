@@ -75,5 +75,10 @@ assertEquals(Lists.of(AcceptEncodingValue.with("b"),
         acceptEncoding.qualityFactorSortedValues());
 ```
 
+### [Converters](https://github.com/mP1/walkingkooka-convert/blob/master/src/main/java/walkingkooka/convert/Converter.java)
 
+A collection of Converters for various types within `walkingkooka.net`
+
+- [http-entity-content-type](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterHttpEntityWithContentType.java)
+- [text-to-url](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToUrl.java)
 
