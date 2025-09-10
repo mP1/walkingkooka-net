@@ -52,6 +52,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterTextToEmailAddress}
+     */
+    public static <C extends ConverterContext> Converter<C> textToEmailAddress() {
+        return NetConverterTextToEmailAddress.instance();
+    }
+
+    /**
      * {@see TextToUrlConverter}
      */
     public static <C extends ConverterContext> Converter<C> textToUrl() {
