@@ -50,27 +50,38 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testTryParseNullFails() {
-        assertThrows(NullPointerException.class, () -> EmailAddress.tryParse(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> EmailAddress.tryParse(null)
+        );
     }
 
     @Test
-    public void testOnlyWhitespaceFails() {
+    public void testParseOnlyWhitespaceFails() {
         final String email = "    ";
-        this.parseStringFails2(email, new InvalidCharacterException(email, 0));
+        this.parseStringFails2(
+            email,
+            new InvalidCharacterException(email, 0)
+        );
     }
 
     @Test
-    public void testTooLongFails() {
+    public void testParseTooLongFails() {
         final char[] array = new char[EmailAddress.MAX_EMAIL_LENGTH - 5];
         Arrays.fill(array, 'x');
-        this.parseStringFails2("user@" + new String(array),
+        this.parseStringFails2(
+            "user@" + new String(array),
             InvalidTextLengthException.class,
-            null);
+            null
+        );
     }
 
     @Test
     public void testTooShortFails() {
-        this.parseStringFails2(".", new InvalidCharacterException(".", 0));
+        this.parseStringFails2(
+            ".",
+            new InvalidCharacterException(".", 0)
+        );
     }
 
     @Test
@@ -104,7 +115,8 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.invalidUserNameCharacter("user" + c + "@server", c);
     }
 
-    private void invalidUserNameCharacter(final String email, final char c) {
+    private void invalidUserNameCharacter(final String email,
+                                          final char c) {
         final int at = email.indexOf(c);
         this.checkNotEquals(-1, at, "invalid character '" + c + "' does not appear in email=" + email);
         this.parseStringFails2(email, new InvalidCharacterException(email, at));
@@ -1589,12 +1601,15 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.parseSuccessful(address, null);
     }
 
-    private void parseSuccessful(final String address, final String comment) {
+    private void parseSuccessful(final String address,
+                                 final String comment) {
         try {
             EmailAddress.parse(address);
         } catch (final RuntimeException expected) {
-            throw new IllegalArgumentException(address + '=' + expected.getMessage() + " " + this.makeEmptyIfNull(comment),
-                expected);
+            throw new IllegalArgumentException(
+                address + '=' + expected.getMessage() + " " + this.makeEmptyIfNull(comment),
+                expected
+            );
         }
     }
 
@@ -1602,18 +1617,39 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.parseStringFailsWithComment(address, null);
     }
 
-    private void parseStringFailsWithComment(final String address, final String comment) {
-        assertThrows(RuntimeException.class, () -> this.parseString(address), "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
-            + this.makeEmptyIfNull(comment));
+    private void parseStringFailsWithComment(final String address,
+                                             final String comment) {
+        assertThrows(
+            RuntimeException.class,
+            () -> this.parseString(address),
+            "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed=" + this.makeEmptyIfNull(comment)
+        );
 
         // tryParse should return empty
-        this.checkEquals(Optional.empty(),
+        this.checkEquals(
+            Optional.empty(),
             EmailAddress.tryParse(address),
-            () -> "Parse " + CharSequences.quoteAndEscape(address) + " comment: " + CharSequences.quoteAndEscape(comment));
+            () -> "Parse " + CharSequences.quoteAndEscape(address) + " comment: " + CharSequences.quoteAndEscape(comment)
+        );
     }
 
     private String makeEmptyIfNull(final String string) {
         return null != string ? string : "";
+    }
+
+    @Override
+    public EmailAddress parseString(final String text) {
+        return EmailAddress.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
     }
 
     // HasText... ......................................................................................................
@@ -1641,11 +1677,27 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.unmarshallAndCheck(JsonNode.string(address), EmailAddress.parse(address));
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    @Override
+    public EmailAddress createJsonNodeMarshallingValue() {
+        return this.createObject();
+    }
+
+    @Override
+    public EmailAddress unmarshall(final JsonNode from,
+                                   final JsonNodeUnmarshallContext context) {
+        return EmailAddress.unmarshall(from, context);
+    }
+
+    // hashCode/equals..................................................................................................
 
     @Test
     public void testEqualsDifferentEmail() {
         this.checkNotEquals(EmailAddress.parse("different@different.example"));
+    }
+
+    @Override
+    public EmailAddress createObject() {
+        return EmailAddress.parse("user@example.com");
     }
 
     // Comparable.......................................................................................................
@@ -1682,8 +1734,15 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         final EmailAddress email3 = EmailAddress.parse("user3@Example.com");
         final EmailAddress email4 = EmailAddress.parse("user4@Example.com");
 
-        this.compareToArraySortAndCheck(email4, email2, email3, email1,
-            email1, email2, email3, email4);
+        this.compareToArraySortAndCheck(
+            email4, email2, email3, email1,
+            email1, email2, email3, email4
+        );
+    }
+
+    @Override
+    public EmailAddress createComparable() {
+        return this.createObject();
     }
 
     // toString.........................................................................................................
@@ -1691,8 +1750,13 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     public void testToString() {
         final String email = "hello@example.com";
-        this.toStringAndCheck(EmailAddress.parse(email), email);
+        this.toStringAndCheck(
+            EmailAddress.parse(email),
+            email
+        );
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<EmailAddress> type() {
@@ -1702,47 +1766,5 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public EmailAddress createObject() {
-        return EmailAddress.parse("user@example.com");
-    }
-
-    // ComparableTesting ..................................................................................................
-
-    @Override
-    public EmailAddress createComparable() {
-        return this.createObject();
-    }
-
-    // JsonNodeContextTesting...........................................................................................
-
-    @Override
-    public EmailAddress createJsonNodeMarshallingValue() {
-        return this.createObject();
-    }
-
-    @Override
-    public EmailAddress unmarshall(final JsonNode from,
-                                   final JsonNodeUnmarshallContext context) {
-        return EmailAddress.unmarshall(from, context);
-    }
-
-    // ParseStringTesting ..................................................................................................
-
-    @Override
-    public EmailAddress parseString(final String text) {
-        return EmailAddress.parse(text);
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
     }
 }
