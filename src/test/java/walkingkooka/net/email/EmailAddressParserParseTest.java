@@ -21,25 +21,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EmailAddressParserWithTest extends EmailAddressParserTestCase<EmailAddressParserWith> {
+public final class EmailAddressParserParseTest extends EmailAddressParserTestCase<EmailAddressParserParse> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(EmailAddressParserWith.with(), "EmailAddress.with");
+        this.toStringAndCheck(EmailAddressParserParse.with(), "EmailAddress.with");
     }
 
     @Override
     void parseString(final String text) {
-        EmailAddressParserWith.parseOrFail(text);
+        EmailAddressParserParse.parseOrFail(text);
     }
 
     @Override
     void parseStringFails(final String text) {
-        assertThrows(RuntimeException.class, () -> EmailAddressParserWith.parseOrFail(text));
+        assertThrows(RuntimeException.class, () -> EmailAddressParserParse.parseOrFail(text));
     }
 
     @Override
-    public Class<EmailAddressParserWith> type() {
-        return EmailAddressParserWith.class;
+    public Class<EmailAddressParserParse> type() {
+        return EmailAddressParserParse.class;
     }
 }

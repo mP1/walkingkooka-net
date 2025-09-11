@@ -24,17 +24,17 @@ import walkingkooka.InvalidTextLengthException;
 /**
  * The {@link EmailAddressParser} which throws an {@link IllegalArgumentException} on any failed tests.
  */
-final class EmailAddressParserWith extends EmailAddressParser {
+final class EmailAddressParserParse extends EmailAddressParser {
 
     static EmailAddress parseOrFail(final String email) {
-        return new EmailAddressParserWith().parse(email);
+        return new EmailAddressParserParse().parse(email);
     }
 
-    static EmailAddressParserWith with() {
-        return new EmailAddressParserWith();
+    static EmailAddressParserParse with() {
+        return new EmailAddressParserParse();
     }
 
-    private EmailAddressParserWith() {
+    private EmailAddressParserParse() {
         super();
     }
 
