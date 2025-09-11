@@ -50,7 +50,7 @@ final public class EmailAddress implements HasText,
      * Creates and validates the given email.
      */
     public static EmailAddress parse(final String email) {
-        return EmailAddressParserWith.parseOrFail(email);
+        return EmailAddressParserParse.parseOrFail(email);
     }
 
     /**
