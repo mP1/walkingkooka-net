@@ -37,6 +37,11 @@ final class EmailAddressParserTryParse extends EmailAddressParser {
     }
 
     @Override
+    void emptyText() {
+        // nop
+    }
+
+    @Override
     void emailTooLong(final String email) {
         // nop
     }

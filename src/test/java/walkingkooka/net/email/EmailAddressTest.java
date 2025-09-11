@@ -19,6 +19,7 @@ package walkingkooka.net.email;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringTesting;
@@ -53,6 +54,14 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         assertThrows(
             NullPointerException.class,
             () -> EmailAddress.tryParse(null)
+        );
+    }
+
+    @Test
+    public void testParseEmptyStringFails() {
+        this.parseStringFails2(
+            "",
+            new EmptyTextException("EmailAddress")
         );
     }
 

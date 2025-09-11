@@ -17,6 +17,7 @@
 
 package walkingkooka.net.email;
 
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 
@@ -35,6 +36,11 @@ final class EmailAddressParserWith extends EmailAddressParser {
 
     private EmailAddressParserWith() {
         super();
+    }
+
+    @Override
+    void emptyText() {
+        throw new EmptyTextException(EmailAddress.class.getSimpleName());
     }
 
     @Override
