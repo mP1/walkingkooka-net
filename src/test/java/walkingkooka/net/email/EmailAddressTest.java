@@ -29,6 +29,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -40,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+    HasTextTesting,
     ComparableTesting2<EmailAddress>,
     JsonNodeMarshallingTesting<EmailAddress>,
     ParseStringTesting<EmailAddress>,
@@ -1612,6 +1614,18 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     private String makeEmptyIfNull(final String string) {
         return null != string ? string : "";
+    }
+
+    // HasText... ......................................................................................................
+
+    @Test
+    public void testText() {
+        final String text = "user@example.com";
+
+        this.textAndCheck(
+            EmailAddress.parse(text),
+            text
+        );
     }
 
     // marshall ......................................................................................................
