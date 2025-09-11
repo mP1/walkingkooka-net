@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasText;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -35,7 +36,8 @@ import java.util.Optional;
  * NOTE Note that 8 tests from DominicsayersComIsemailEmailAddressTest still fail. Doing some research to find out if surrounding addresses
  * with [] is for emails only.
  */
-final public class EmailAddress implements Value<String>,
+final public class EmailAddress implements HasText,
+    Value<String>,
     Comparable<EmailAddress> {
 
     /**
@@ -92,7 +94,7 @@ final public class EmailAddress implements Value<String>,
         this.host = host;
     }
 
-    // Value
+    // Value............................................................................................................
 
     /**
      * Getter that returns the entire email address as a {@link String}.
@@ -123,6 +125,13 @@ final public class EmailAddress implements Value<String>,
     }
 
     private final HostAddress host;
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.value();
+    }
 
     // JsonNodeContext..................................................................................................
 
