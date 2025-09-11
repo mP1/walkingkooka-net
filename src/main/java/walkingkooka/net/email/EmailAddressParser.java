@@ -116,16 +116,19 @@ abstract class EmailAddressParser {
                     }
                     userNameCharacterCount += charactersSinceDot;
                     if (0 == userNameCharacterCount) {
-                        this.missingUser(email);
+                        this.missingUser();
                         break Exit;
                     }
                     // if @ is the last character complain because host is missing.
                     if ((length - 1) == i) {
-                        this.missingHost(email);
+                        this.missingHost();
                         break Exit;
                     }
                     if (userNameCharacterCount >= EmailAddress.MAX_LOCAL_LENGTH) {
-                        this.userNameTooLong(userNameCharacterCount, email);
+                        this.userNameTooLong(
+                            userNameCharacterCount,
+                            email
+                        );
                         break Exit;
                     }
                     user = email.substring(0, i);
@@ -142,7 +145,7 @@ abstract class EmailAddressParser {
                 break Exit;
             }
             if (null == hostAddress) {
-                this.missingHost(email);
+                this.missingHost();
                 break;
             }
             emailAddress = EmailAddress.with0(email, user, hostAddress);
@@ -174,17 +177,18 @@ abstract class EmailAddressParser {
     /**
      * Message when an email is missing a user.
      */
-    abstract void missingUser(final String email);
+    abstract void missingUser();
 
     /**
      * Message when a user name is too long.
      */
-    abstract void userNameTooLong(final int length, final String email);
+    abstract void userNameTooLong(final int length,
+                                  final String email);
 
     /**
      * Message when an email is missing a host.
      */
-    abstract void missingHost(final String email);
+    abstract void missingHost();
 
     /**
      * Message when an email contains an invalid character

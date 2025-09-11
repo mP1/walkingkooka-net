@@ -20,7 +20,6 @@ package walkingkooka.net.email;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -67,15 +66,15 @@ final public class EmailAddress implements HasText,
     /**
      * Message when an email is missing a user.
      */
-    static String missingUser(final String address) {
-        return "Email missing user=" + CharSequences.quote(address);
+    static String missingUser() {
+        return "Email missing user";
     }
 
     /**
      * Message when an email is missing a host.
      */
-    static String missingHost(final String address) {
-        return "Email missing host=" + CharSequences.quote(address);
+    static String missingHost() {
+        return "Email missing host";
     }
 
     /**

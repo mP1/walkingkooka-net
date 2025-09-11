@@ -49,18 +49,28 @@ final class EmailAddressParserWith extends EmailAddressParser {
     }
 
     @Override
-    void missingUser(final String email) {
-        this.fail(EmailAddress.missingUser(email));
+    void missingUser() {
+        this.fail(
+            EmailAddress.missingUser()
+        );
     }
 
     @Override
-    void userNameTooLong(final int length, final String email) {
-        throw new InvalidTextLengthException("Email username", email, 0, EmailAddress.MAX_LOCAL_LENGTH);
+    void userNameTooLong(final int length,
+                         final String email) {
+        throw new InvalidTextLengthException(
+            "Email username",
+            email,
+            0,
+            EmailAddress.MAX_LOCAL_LENGTH
+        );
     }
 
     @Override
-    void missingHost(final String email) {
-        this.fail(EmailAddress.missingHost(email));
+    void missingHost() {
+        this.fail(
+            EmailAddress.missingHost()
+        );
     }
 
     @Override
