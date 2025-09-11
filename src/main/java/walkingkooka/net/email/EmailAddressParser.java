@@ -36,6 +36,17 @@ abstract class EmailAddressParser {
     final EmailAddress parse(final String email) {
         Objects.requireNonNull(email, "email");
 
+        final EmailAddress emailAddress;
+        if (email.isEmpty()) {
+            this.emptyText();
+            emailAddress = null;
+        } else {
+            emailAddress = this.parseNotEmpty(email);
+        }
+        return emailAddress;
+    }
+
+    private EmailAddress parseNotEmpty(final String email) {
         EmailAddress emailAddress = null;
 
         Exit:
@@ -149,6 +160,11 @@ abstract class EmailAddressParser {
         .build();
 
     private final static CharPredicate QUOTABLE_USERNAME_CHARACTERS = CharPredicates.any(" <>[]:;@\\");
+
+    /**
+     * Handles an empty string input.
+     */
+    abstract void emptyText();
 
     /**
      * Email too long.
