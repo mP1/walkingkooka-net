@@ -132,6 +132,32 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     @Test
+    public void testParseMissingUser() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> EmailAddress.parse("@example.com")
+        );
+
+        this.checkEquals(
+            "Email missing user",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testParseMissingHost() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> EmailAddress.parse("user@")
+        );
+
+        this.checkEquals(
+            "Email missing host",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testServerContainsInvalidCharacterFails() {
         final String email = "user@s erver";
         this.parseStringFails2(email, new InvalidCharacterException(email, email.lastIndexOf(' ')));
@@ -145,14 +171,18 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testWithoutUserFails() {
-        final String email = "@server";
-        this.parseStringFails2(email, EmailAddress.missingUser(email));
+        this.parseStringFails2(
+            "@server",
+            EmailAddress.missingUser()
+        );
     }
 
     @Test
     public void testWithoutHostFails() {
-        final String email = "user@";
-        this.parseStringFails2(email, EmailAddress.missingHost(email));
+        this.parseStringFails2(
+            "user@",
+            EmailAddress.missingHost()
+        );
     }
 
     @Test
