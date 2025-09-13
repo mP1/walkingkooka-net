@@ -106,7 +106,7 @@ public final class NetConverterHttpEntityWithContentTypeTest implements Converte
             NetConverterHttpEntityWithContentType.<FakeConverterContext>with(MediaType.ANY_TEXT)
                 .to(
                     String.class,
-                    Converters.hasTextToString()
+                    Converters.hasText()
                 ),
             HttpEntity.EMPTY.addHeader(
                 HttpHeaderName.CONTENT_TYPE,
