@@ -25,6 +25,7 @@ import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -127,7 +128,7 @@ final class HttpRequestRouterParametersMapEntrySet extends AbstractSet<Entry<Htt
     }
 
     @Override
-    public HttpRequestRouterParametersMapEntrySet setElements(final Set<Entry<HttpRequestAttribute<?>, Object>> elements) {
+    public HttpRequestRouterParametersMapEntrySet setElements(final Collection<Entry<HttpRequestAttribute<?>, Object>> elements) {
         throw new UnsupportedOperationException();
     }
 
