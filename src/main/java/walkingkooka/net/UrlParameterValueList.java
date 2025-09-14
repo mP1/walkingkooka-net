@@ -22,6 +22,7 @@ import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,15 +65,15 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     }
 
     @Override
-    public ImmutableList<String> setElements(final List<String> list) {
-        return list instanceof UrlParameterValueList ?
-            (UrlParameterValueList) list :
-            this.createAndCopy(list);
+    public ImmutableList<String> setElements(final Collection<String> values) {
+        return values instanceof UrlParameterValueList ?
+            (UrlParameterValueList) values :
+            this.createAndCopy(values);
     }
 
-    private ImmutableList<String> createAndCopy(final List<String> list) {
+    private ImmutableList<String> createAndCopy(final Collection<String> values) {
         final UrlParameterValueList copy = UrlParameterValueList.empty();
-        for (final String value : list) {
+        for (final String value : values) {
             copy.addParameterValue(
                 Objects.requireNonNull(value, "value")
             );
