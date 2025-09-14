@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.ImmutableSetDefaults;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,7 @@ final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractS
     }
 
     @Override
-    public HttpServletRequestHttpRequestParametersMapEntrySet setElements(final Set<Entry<HttpRequestParameterName, List<String>>> elements) {
+    public HttpServletRequestHttpRequestParametersMapEntrySet setElements(final Collection<Entry<HttpRequestParameterName, List<String>>> elements) {
         throw new UnsupportedOperationException();
     }
 

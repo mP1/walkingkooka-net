@@ -25,6 +25,7 @@ import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -100,7 +101,7 @@ final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<
     }
 
     @Override
-    public HttpServletRequestHttpRequestHeadersMapEntrySet setElements(final Set<Entry<HttpHeaderName<?>, List<?>>> elements) {
+    public HttpServletRequestHttpRequestHeadersMapEntrySet setElements(final Collection<Entry<HttpHeaderName<?>, List<?>>> elements) {
         throw new UnsupportedOperationException();
     }
 
