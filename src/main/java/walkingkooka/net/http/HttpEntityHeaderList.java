@@ -22,6 +22,7 @@ import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
      * If the {@link List} is not a {@link HttpEntityHeaderList} make a copy of using its values.
      */
     static HttpEntityHeaderList copy(final HttpHeaderName<?> header,
-                                     final List<?> values) {
+                                     final Collection<?> values) {
         return values instanceof HttpEntityHeaderList ?
             checkHttpEntityHeaderList(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
             copyAndCreate(header, values.toArray());
@@ -107,7 +108,7 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     }
 
     @Override
-    public final ImmutableList<Object> setElements(final List<Object> values) {
+    public final ImmutableList<Object> setElements(final Collection<Object> values) {
         final ImmutableList<Object> copy = copy(this.header, values);
         return this.equals(copy) ?
             this :
