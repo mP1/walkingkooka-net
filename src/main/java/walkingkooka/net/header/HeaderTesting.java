@@ -33,23 +33,39 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testIsMultipart() {
-        this.checkEquals(this.isMultipart(), this.createHeader().isMultipart());
+        this.checkEquals(
+            this.isMultipart(),
+            this.createHeader()
+                .isMultipart()
+        );
     }
 
     @Test
     default void testIsRequest() {
-        this.checkEquals(this.isRequest(), this.createHeader().isRequest());
+        this.checkEquals(
+            this.isRequest(),
+            this.createHeader()
+                .isRequest()
+        );
     }
 
     @Test
     default void testIsResponse() {
-        this.checkEquals(this.isResponse(), this.createHeader().isResponse());
+        this.checkEquals(
+            this.isResponse(),
+            this.createHeader()
+                .isResponse()
+        );
     }
 
     @Test
     default void testIsWildcardHeaderText() {
         final V header = this.createHeader();
-        this.isWildcardAndCheck(header, String.valueOf(Header.WILDCARD).equals(header.toHeaderText()));
+        this.isWildcardAndCheck(
+            header,
+            String.valueOf(Header.WILDCARD)
+                .equals(header.toHeaderText())
+        );
     }
 
     boolean isMultipart();
@@ -64,7 +80,10 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     //@Override
     default RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(expected.getMessage(), expected);
+        return new HeaderException(
+            expected.getMessage(),
+            expected
+        );
     }
 
     //@Override
@@ -76,37 +95,62 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
         this.toHeaderTextAndCheck(this.createHeader(), expected);
     }
 
-    default void toHeaderTextAndCheck(final Header header, final String expected) {
-        this.checkEquals(expected, header.toHeaderText(), () -> "headerText of " + header);
+    default void toHeaderTextAndCheck(final Header header,
+                                      final String expected) {
+        this.checkEquals(
+            expected,
+            header.toHeaderText(),
+            () -> "headerText of " + header
+        );
     }
 
     default void toHeaderTextListAndCheck(final String toString,
                                           final Header... headers) {
-        this.checkEquals(toString,
-            Header.toHeaderTextList(Lists.of(headers), Header.SEPARATOR.string().concat(" ")),
-            () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers));
+        this.checkEquals(
+            toString,
+            Header.toHeaderTextList(
+                Lists.of(headers),
+                Header.SEPARATOR.string()
+                    .concat(" ")
+            ),
+            () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers)
+        );
     }
 
     default void isWildcardAndCheck(final boolean expected) {
-        this.isWildcardAndCheck(this.createHeader(), expected);
+        this.isWildcardAndCheck(
+            this.createHeader(),
+            expected
+        );
     }
 
-    default void isWildcardAndCheck(final Header header, final boolean expected) {
+    default void isWildcardAndCheck(final Header header,
+                                    final boolean expected) {
         this.isWildcardAndCheck0(header, expected);
 
         final String text = header.toHeaderText();
-        this.isWildcardAndCheck0(header, String.valueOf(Header.WILDCARD).equals(text) || "*/*".equals(text));
+        this.isWildcardAndCheck0(
+            header,
+            String.valueOf(Header.WILDCARD)
+                .equals(text) ||
+                "*/*".equals(text)
+        );
     }
 
-    default void isWildcardAndCheck0(final Header header, final boolean expected) {
-        this.checkEquals(expected, header.isWildcard(), () -> "header " + header);
+    default void isWildcardAndCheck0(final Header header,
+                                     final boolean expected) {
+        this.checkEquals(
+            expected,
+            header.isWildcard(),
+            () -> "header " + header
+        );
     }
 
     // equalsIgnoringParameters.........................................................................................
 
     @Test
     default void testEqualsIgnoringParametersNullFalse() {
-        equalsIgnoringParametersAndCheck(
+        this.equalsIgnoringParametersAndCheck(
             this.createHeader(),
             null,
             false
@@ -115,7 +159,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsIgnoringParametersInvalidTypeFalse() {
-        equalsIgnoringParametersAndCheck(
+        this.equalsIgnoringParametersAndCheck(
             this.createHeader(),
             this,
             false
@@ -124,7 +168,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsIgnoringParametersDifferent() {
-        equalsIgnoringParametersAndCheck(
+        this.equalsIgnoringParametersAndCheck(
             this.createHeader(),
             this.createDifferentHeader(),
             false
@@ -134,7 +178,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     @Test
     default void testEqualsIgnoringParametersSelfTrue() {
         final V header = this.createHeader();
-        equalsIgnoringParametersAndCheck(
+        this.equalsIgnoringParametersAndCheck(
             header,
             header,
             true
@@ -143,7 +187,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsIgnoringParametersTrue() {
-        equalsIgnoringParametersAndCheck(
+        this.equalsIgnoringParametersAndCheck(
             this.createHeader(),
             this.createHeader(),
             true
@@ -165,11 +209,11 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
         }
     }
 
-    // equalsOnlyPresentParameters.........................................................................................
+    // equalsOnlyPresentParameters......................................................................................
 
     @Test
     default void testEqualsOnlyPresentParametersNullFalse() {
-        equalsOnlyPresentParametersAndCheck(
+        this.equalsOnlyPresentParametersAndCheck(
             this.createHeader(),
             null,
             false
@@ -178,7 +222,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsOnlyPresentParametersInvalidTypeFalse() {
-        equalsOnlyPresentParametersAndCheck(
+        this.equalsOnlyPresentParametersAndCheck(
             this.createHeader(),
             this,
             false
@@ -188,7 +232,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     @Test
     default void testEqualsOnlyPresentParametersSelfTrue() {
         final V header = this.createHeader();
-        equalsOnlyPresentParametersAndCheck(
+        this.equalsOnlyPresentParametersAndCheck(
             header,
             header,
             true
@@ -197,7 +241,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsOnlyPresentParametersTrue() {
-        equalsOnlyPresentParametersAndCheck(
+        this.equalsOnlyPresentParametersAndCheck(
             this.createHeader(),
             this.createHeader(),
             true
@@ -207,7 +251,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
 
     @Test
     default void testEqualsOnlyPresentParametersDifferentFalse() {
-        equalsOnlyPresentParametersAndCheck(
+        this.equalsOnlyPresentParametersAndCheck(
             this.createHeader(),
             this.createDifferentHeader(),
             false
@@ -217,7 +261,8 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
     default void equalsOnlyPresentParametersAndCheck(final Header header,
                                                      final Object other,
                                                      final boolean expected) {
-        this.checkEquals(expected,
+        this.checkEquals(
+            expected,
             header.equalsOnlyPresentParameters(other),
             () -> header + " equalsOnlyPresentParameters " + other);
     }
