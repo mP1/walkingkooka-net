@@ -584,8 +584,9 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     // Predicate........................................................................................................
 
     /**
-     * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
-     * {@link MediaType#ALL} will of course be compatible with any other {@link MediaType}.
+     * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components.
+     * The {@link MediaType#ALL} will of course be compatible with any other {@link MediaType}.
+     * Note any parameters and suffix are ignored.
      */
     @Override
     public boolean test(final MediaType mediaType) {
