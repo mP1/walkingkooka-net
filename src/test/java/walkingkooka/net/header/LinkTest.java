@@ -170,12 +170,24 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     @Test
     public void testUnmarshallHrefNonStringFails() {
-        this.unmarshallFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)));
+        this.unmarshallFails(
+            JsonNode.object()
+                .set(
+                    Link.HREF_JSON_PROPERTY,
+                    123
+                )
+        );
     }
 
     @Test
     public void testUnmarshallUnknownPropertyFails() {
-        this.unmarshallFails(JsonNode.object().set(JsonPropertyName.with("unknown-property"), JsonNode.number(123)));
+        this.unmarshallFails(
+            JsonNode.object()
+                .set(
+                    JsonPropertyName.with("unknown-property"),
+                    123
+                )
+        );
     }
 
     @Test
