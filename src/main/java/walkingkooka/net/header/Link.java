@@ -192,8 +192,15 @@ final public class Link extends HeaderWithParameters2<Link,
         for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
 
-            json = json.set(JsonPropertyName.with(name.value()),
-                JsonNode.string(name.handler.toText(Cast.to(parameterNameAndValue.getValue()), name)));
+            json = json.set(
+                JsonPropertyName.with(name.value()),
+                name.handler.toText(
+                    Cast.to(
+                        parameterNameAndValue.getValue()
+                    ),
+                    name
+                )
+            );
         }
 
 
