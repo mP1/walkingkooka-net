@@ -29,7 +29,8 @@ import java.util.Arrays;
  * Most of the tests and info was gathered from <a href="http://www.dominicsayers.com/source/beta/is_email/test/?all"></a>}
  */
 public final class HostAddress implements Value<String>,
-    Comparable<HostAddress> {
+    Comparable<HostAddress>,
+    HasHostName {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
@@ -704,5 +705,22 @@ public final class HostAddress implements Value<String>,
     @Override
     public int compareTo(final HostAddress other) {
         return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
+    }
+
+    // HasHostName......................................................................................................
+
+    @Override
+    public String hostName() {
+        return this.address;
+    }
+
+    @Override
+    public HasHostName setHostName(final String hostName) {
+        return CASE_SENSITIVITY.equals(
+            this.address,
+            hostName
+        ) ?
+            this :
+            with(hostName);
     }
 }
