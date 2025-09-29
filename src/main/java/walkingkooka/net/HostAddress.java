@@ -715,7 +715,7 @@ public final class HostAddress implements Value<String>,
     }
 
     @Override
-    public HasHostName setHostName(final String hostName) {
+    public HostAddress setHostName(final String hostName) {
         return CASE_SENSITIVITY.equals(
             this.address,
             hostName
