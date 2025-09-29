@@ -17,9 +17,13 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HasHostNameTesting extends TreePrintableTesting {
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public interface HasHostNameTesting<T extends HasHostName> extends TreePrintableTesting {
 
     default void hostNameAndCheck(final HasHostName has,
                                   final String expected) {
@@ -29,4 +33,34 @@ public interface HasHostNameTesting extends TreePrintableTesting {
             has::toString
         );
     }
+
+    // setHostName......................................................................................................
+
+    @Test
+    default void testSetHostNameWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHasHostName()
+        );
+    }
+
+    @Test
+    default void testSetHostNameWithSame() {
+        final T has = this.createHasHostName();
+        assertSame(
+            has,
+            has.setHostName(has.hostName())
+        );
+    }
+
+    default void setHostNameAndCheck(final T has,
+                                     final String hostName,
+                                     final T expected) {
+        this.checkEquals(
+            expected,
+            has.setHostName(hostName)
+        );
+    }
+
+    T createHasHostName();
 }
