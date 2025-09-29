@@ -24,6 +24,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.net.HasHostNameTesting;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -38,10 +39,12 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+    HasHostNameTesting<EmailAddress>,
     HasTextTesting,
     ComparableTesting2<EmailAddress>,
     JsonNodeMarshallingTesting<EmailAddress>,
@@ -1701,6 +1704,32 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
             EmailAddress.parse(text),
             text
         );
+    }
+
+    // hasHostName......................................................................................................
+
+    @Test
+    public void testSetHostNameSameButDifferentCase() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        assertSame(
+            emailAddress,
+            emailAddress.setHostName("EXAMPLE.COM")
+        );
+    }
+
+    @Test
+    public void testSetHostNameWithDifferent() {
+        this.setHostNameAndCheck(
+            EmailAddress.parse("user@example.com"),
+            "different.example.com",
+            EmailAddress.parse("user@different.example.com")
+        );
+    }
+
+    @Override
+    public EmailAddress createHasHostName() {
+        return this.createObject();
     }
 
     // marshall ......................................................................................................
