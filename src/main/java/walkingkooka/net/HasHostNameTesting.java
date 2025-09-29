@@ -41,6 +41,7 @@ public interface HasHostNameTesting<T extends HasHostName> extends TreePrintable
         assertThrows(
             NullPointerException.class,
             () -> this.createHasHostName()
+                .setHostName(null)
         );
     }
 
