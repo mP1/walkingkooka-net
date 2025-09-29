@@ -80,14 +80,22 @@ final public class EmailAddress implements HasText,
     /**
      * Unconditionally creates a new {@link EmailAddress}
      */
-    static EmailAddress with0(final String address, final String user, final HostAddress host) {
-        return new EmailAddress(address, user, host);
+    static EmailAddress with0(final String address,
+                              final String user,
+                              final HostAddress host) {
+        return new EmailAddress(
+            address,
+            user,
+            host
+        );
     }
 
     /**
      * Private constructor
      */
-    private EmailAddress(final String address, final String user, final HostAddress host) {
+    private EmailAddress(final String address,
+                         final String user,
+                         final HostAddress host) {
         this.address = address;
         this.user = user;
         this.host = host;
@@ -141,7 +149,9 @@ final public class EmailAddress implements HasText,
                                    final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        return parse(node.stringOrFail());
+        return parse(
+            node.stringOrFail()
+        );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
@@ -171,7 +181,8 @@ final public class EmailAddress implements HasText,
     }
 
     private boolean equals0(final EmailAddress other) {
-        return this.user.equals(other.user) && this.host.equals(other.host);
+        return this.user.equals(other.user) &&
+            this.host.equals(other.host);
     }
 
     /**
