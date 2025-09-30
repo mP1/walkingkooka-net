@@ -434,7 +434,7 @@ public final class UrlQueryString implements Value<String>,
      * Strings comparison is case-sensitive
      */
     @Override
-    public int compareTo(UrlQueryString other) {
+    public int compareTo(final UrlQueryString other) {
         return this.queryString.compareTo(other.queryString);
     }
 
