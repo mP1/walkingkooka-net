@@ -42,6 +42,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterTextToHostAddress}
+     */
+    public static <C extends ConverterContext> Converter<C> textToHostAddress() {
+        return NetConverterTextToHostAddress.instance();
+    }
+
+    /**
      * {@see NetConverterTextToUrl}
      */
     public static <C extends ConverterContext> Converter<C> textToUrl() {

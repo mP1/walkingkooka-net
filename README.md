@@ -81,5 +81,6 @@ A collection of Converters for various types within `walkingkooka.net`
 
 - [http-entity-content-type](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterHttpEntityWithContentType.java)
 - [text-to-email-address](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToEmailAddress.java)
+- [text-to-host-address](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToHostAddress.java)
 - [text-to-url](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToUrl.java)
 
