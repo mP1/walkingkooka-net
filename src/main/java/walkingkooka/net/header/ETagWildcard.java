@@ -61,6 +61,7 @@ final class ETagWildcard extends ETag {
     /**
      * Always returns {@link ETagValidator#STRONG}
      */
+    @Override
     public ETagValidator validator() {
         return ETagValidator.STRONG;
     }

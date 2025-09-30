@@ -152,6 +152,7 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
     /**
      * Returns true if this accept-encoding is a wildcard.
      */
+    @Override
     public abstract boolean isWildcard();
 
     // HasQualityFactor................................................................................................

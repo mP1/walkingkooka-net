@@ -424,6 +424,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     // parseString......................................................................................................
 
     @Test
+    @Override
     public void testParseStringEmptyFails() {
         assertThrows(
             IllegalArgumentException.class,

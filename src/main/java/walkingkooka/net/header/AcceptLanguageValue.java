@@ -135,6 +135,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     /**
      * Returns true if this Language is a wildcard.
      */
+    @Override
     public boolean isWildcard() {
         return this.value.isWildcard();
     }
@@ -144,6 +145,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     /**
      * Retrieves the quality factor for this value.
      */
+    @Override
     public Optional<Float> qualityFactor() {
         return this.qualityFactor(AcceptLanguageParameterName.Q);
     }

@@ -44,6 +44,8 @@ final class ETagListHeaderParser extends ETagHeaderParser {
         this.validator = ETagValidator.STRONG;
     }
 
+
+    @Override
     void etag(final ETag etag) {
         this.etags.add(etag);
     }

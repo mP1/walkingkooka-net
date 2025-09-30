@@ -40,6 +40,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     }
 
     @Test
+    @Override
     public void testWith() {
         this.checkValue(this.createHeader());
     }
@@ -78,7 +79,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             AcceptEncodingValue.WILDCARD_ENCODING,
             AcceptEncodingValue.GZIP,

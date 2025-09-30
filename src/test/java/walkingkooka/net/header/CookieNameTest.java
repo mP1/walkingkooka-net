@@ -167,6 +167,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     }
 
     @Test
+    @Override
     public void testToString() {
         this.toStringAndCheck(this.cookieName(), NAME);
     }

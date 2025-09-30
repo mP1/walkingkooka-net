@@ -44,6 +44,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     }
 
     @Test
+    @Override
     public void testWith2() {
         final String text = "unknown";
         this.checkValue(AcceptEncodingValue.with(text),
@@ -119,6 +120,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
             value + "; q=0.5");
     }
 
+    @Override
     public abstract A createHeaderWithParameters();
 
     abstract String value();

@@ -69,7 +69,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     private void versionAndCheck(final Optional<HttpProtocolVersion> version) {
         this.checkEquals(version,
             this.createResponse(new FakeHttpResponse() {
-                @Test
+                @Override
                 public Optional<HttpProtocolVersion> version() {
                     return version;
                 }
@@ -83,7 +83,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_0;
         this.createResponse(new FakeHttpResponse() {
-            @Test
+            @Override
             public void setVersion(final HttpProtocolVersion v) {
                 assertSame(version, v);
                 setVersion++;
@@ -100,7 +100,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
         final HttpStatus status = HttpStatusCode.OK.status();
         this.createResponse(new FakeHttpResponse() {
-            @Test
+            @Override
             public void setStatus(final HttpStatus s) {
                 assertSame(status, s);
                 setStatus++;
@@ -135,11 +135,10 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         return HttpResponses.fake();
     }
 
+    @Override
     R createResponse(final HttpResponse response) {
         return this.createResponse(this.createRequest(), response);
     }
-
-    abstract HttpRequest createRequest();
 
     abstract R createResponse(final HttpRequest request, final HttpResponse response);
 

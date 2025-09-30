@@ -196,7 +196,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             AcceptLanguageValue.parse("EN"),
             AcceptLanguageValue.parse("FR"),

@@ -42,11 +42,13 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     }
 
     @Test
+    @Override
     public void testWith() {
         this.checkValue(this.createHeader());
     }
 
     @Test
+    @Override
     public void testWith2() {
         final String text = "unknown";
         this.checkValue(AcceptEncodingValue.with(text),
@@ -148,7 +150,7 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             AcceptEncodingValue.BR,
             AcceptEncodingValue.GZIP,

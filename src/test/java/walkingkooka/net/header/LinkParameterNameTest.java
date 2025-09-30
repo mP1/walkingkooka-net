@@ -37,6 +37,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     }
 
     @Test
+    @Override
     public void testWith() {
         this.createNameAndCheck("abc123");
     }

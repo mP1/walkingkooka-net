@@ -321,6 +321,7 @@ abstract public class Cookie implements Header, Value<String>, UsesToStringBuild
     /**
      * Cookies do not support wildcard concept.
      */
+    @Override
     public final boolean isWildcard() {
         return false;
     }

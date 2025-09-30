@@ -126,6 +126,7 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     private HttpRequest request(final HttpMethod method) {
         return new FakeHttpRequest() {
 
+            @Override
             public HttpMethod method() {
                 return method;
             }

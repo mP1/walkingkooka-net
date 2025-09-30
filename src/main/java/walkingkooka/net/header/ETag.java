@@ -146,6 +146,7 @@ public abstract class ETag implements Header,
     /**
      * Returns true if this etag is a wildcard.
      */
+    @Override
     public abstract boolean isWildcard();
 
     // Header........................................................................................................
@@ -153,6 +154,7 @@ public abstract class ETag implements Header,
     /**
      * Returns the text or header value form.
      */
+    @Override
     public final String toHeaderText() {
         return this.toString();
     }

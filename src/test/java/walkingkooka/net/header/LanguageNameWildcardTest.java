@@ -34,6 +34,7 @@ public final class LanguageNameWildcardTest extends LanguageNameTestCase<Languag
     }
 
     @Test
+    @Override
     public void testWith() {
         this.check(LanguageNameWildcard.INSTANCE,
             "*",

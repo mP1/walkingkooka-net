@@ -622,6 +622,7 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
     /**
      * Always returns false.
      */
+    @Override
     public final boolean isWildcard() {
         return false;
     }

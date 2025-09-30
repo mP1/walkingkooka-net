@@ -38,11 +38,13 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
         return this.createName(this.nameText());
     }
 
+    @Override
     String nameText();
 
     // toString.........................................................................................................
 
     @Test
+    @Override
     default void testToString() {
         final String nameText = this.nameText();
         this.toStringAndCheck(this.createName(nameText), nameText);

@@ -44,6 +44,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     }
 
     @Test
+    @Override
     public void testWith() {
         this.createNameAndCheck("abc123");
     }

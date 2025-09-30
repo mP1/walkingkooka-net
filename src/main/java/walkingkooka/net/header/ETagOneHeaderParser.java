@@ -39,6 +39,7 @@ final class ETagOneHeaderParser extends ETagHeaderParser {
         this.failInvalidCharacter();
     }
 
+    @Override
     void etag(final ETag etag) {
         this.etag = etag;
     }

@@ -190,6 +190,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
     }
 
     @Test
+    @Override
     public void testToString() {
         final String value = "abc123";
         this.toStringAndCheck(ContentDispositionType.with(value), value);
