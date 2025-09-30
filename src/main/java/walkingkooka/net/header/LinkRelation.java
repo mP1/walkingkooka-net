@@ -21,6 +21,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparators;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -32,6 +34,35 @@ import java.util.Optional;
  * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
 public abstract class LinkRelation<T> extends Header2<T> implements Comparable<LinkRelation<?>> {
+
+    // Constants below are in LinkRelation and not LinkRelationRegular to avoid race conditions when init LinkRelation.
+    //
+    // without this FIX a NPE will be thrown when #ABOUT attempts to create a LinkRelationRegular because
+    // LinkRelationRegular.INITIAL_CHAR_PREDICATE will be null
+
+    /**
+     * <a href="https://tools.ietf.org/search/rfc5988#page-6"></a>
+     * <pre>
+     *   relation-types = relation-type
+     *                  | <"> relation-type *( 1*SP relation-type ) <">
+     *   relation-type  = reg-rel-type | ext-rel-type
+     *   reg-rel-type   = LOALPHA *( LOALPHA | DIGIT | "." | "-" )
+     *   ext-rel-type   = URI
+     * </pre>
+     */
+    static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
+        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
+        .range('a', 'z')
+        .build()
+        .setToString("LinkRelation initial");
+
+    static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
+        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
+        .range('a', 'z')
+        .range('0', '9')
+        .any(".-")
+        .build()
+        .setToString("LinkRelation part");
 
     /**
      * Holds all constants.
