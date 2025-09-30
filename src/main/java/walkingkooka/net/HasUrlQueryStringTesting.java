@@ -31,9 +31,10 @@ public interface HasUrlQueryStringTesting extends Testing {
 
     default void queryAndCheck(final HasUrlQueryString has,
                                final UrlQueryString expected) {
-        this.queryAndCheck(
-            has,
-            expected
+        this.checkEquals(
+            expected,
+            has.query(),
+            has::toString
         );
     }
 }
