@@ -26,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelativeUrl> extends UrlTestCase<U> {
+abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelativeUrl> extends UrlTestCase<U>
+    implements HasUrlQueryStringTesting {
 
     AbsoluteOrRelativeUrlTestCase() {
         super();
@@ -59,7 +60,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     public void testWith() {
         final U url = this.createUrl(PATH, QUERY, FRAGMENT);
         this.checkPath(url, PATH);
-        this.checkQueryString(url, QUERY);
+        this.queryAndCheck(url, QUERY);
         this.checkFragment(url, FRAGMENT);
     }
 
@@ -82,7 +83,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     public void testWithoutFragment() {
         final U url = this.createUrl(PATH, QUERY, UrlFragment.EMPTY);
         assertSame(PATH, url.path(), "path");
-        this.checkQueryString(url, QUERY);
+        this.queryAndCheck(url, QUERY);
         assertSame(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
@@ -522,11 +523,6 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     final void checkPath(final AbsoluteOrRelativeUrl url,
                          final UrlPath path) {
         this.checkEquals(path, url.path(), "path");
-    }
-
-    final void checkQueryString(final AbsoluteOrRelativeUrl url,
-                                final UrlQueryString queryString) {
-        this.checkEquals(queryString, url.query(), "queryString");
     }
 
     final void checkFragment(final AbsoluteOrRelativeUrl url,

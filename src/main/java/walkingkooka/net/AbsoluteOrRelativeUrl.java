@@ -116,7 +116,9 @@ import java.util.Optional;
  *                  / "*" / "+" / "," / ";" / "="
  * </pre>
  */
-public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>, HasUrlFragment {
+public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>,
+    HasUrlQueryString,
+    HasUrlFragment {
 
     /**
      * Helper used by all parse methods.
@@ -238,6 +240,7 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
     /**
      * Returns the query string which may be empty but never null. Note the query string will have spaces and other similar invalid characters encoded.
      */
+    @Override
     public final UrlQueryString query() {
         return this.query;
     }
