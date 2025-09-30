@@ -22,6 +22,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Whitespace;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A {@link Value} that represent a host address which may be a name or ip address in dot form etc. Note the actual address is only validated for
@@ -719,7 +720,7 @@ public final class HostAddress implements Value<String>,
     public HostAddress setHostAddress(final HostAddress hostAddress) {
         return this.equals(hostAddress) ?
             this :
-            hostAddress;
+            Objects.requireNonNull(hostAddress, "hostAddress");
     }
 
     // HasHostName......................................................................................................

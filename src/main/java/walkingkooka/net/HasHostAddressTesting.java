@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface HasHostAddressTesting<T extends HasHostAddress> extends TreePrintableTesting {
 
     default void hostAddressAndCheck(final HasHostAddress has,
-                                     final String expected) {
+                                     final HostAddress expected) {
         this.checkEquals(
             expected,
             has.hostAddress(),

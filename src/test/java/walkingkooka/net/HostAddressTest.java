@@ -1549,10 +1549,10 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testHostAddress() {
-        final String hostAddress = "localhost";
+        final HostAddress hostAddress = HostAddress.with("localhost");
 
         this.hostAddressAndCheck(
-            HostAddress.with(hostAddress),
+            hostAddress,
             hostAddress
         );
     }
