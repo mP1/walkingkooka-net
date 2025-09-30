@@ -37,6 +37,7 @@ import java.util.Optional;
  */
 public final class UrlQueryString implements Value<String>,
     Comparable<UrlQueryString>,
+    HasUrlQueryString,
     HasText {
 
     /**
@@ -435,6 +436,13 @@ public final class UrlQueryString implements Value<String>,
     @Override
     public int compareTo(UrlQueryString other) {
         return this.queryString.compareTo(other.queryString);
+    }
+
+    // HasUrlQueryString................................................................................................
+
+    @Override
+    public UrlQueryString query() {
+        return this;
     }
 
     // HasText..........................................................................................................
