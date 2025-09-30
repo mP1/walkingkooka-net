@@ -27,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
 abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelativeUrl> extends UrlTestCase<U>
-    implements HasUrlQueryStringTesting {
+    implements HasUrlQueryStringTesting,
+    HasUrlFragmentTesting {
 
     AbsoluteOrRelativeUrlTestCase() {
         super();
@@ -61,7 +62,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final U url = this.createUrl(PATH, QUERY, FRAGMENT);
         this.checkPath(url, PATH);
         this.queryAndCheck(url, QUERY);
-        this.checkFragment(url, FRAGMENT);
+        this.urlFragmentAndCheck(url, FRAGMENT);
     }
 
     @Test
@@ -76,7 +77,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final U url = this.createUrl(PATH, UrlQueryString.EMPTY, FRAGMENT);
         assertSame(PATH, url.path(), "path");
         assertSame(UrlQueryString.EMPTY, url.query(), "query");
-        this.checkFragment(url, FRAGMENT);
+        this.urlFragmentAndCheck(url, FRAGMENT);
     }
 
     @Test
@@ -523,10 +524,5 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     final void checkPath(final AbsoluteOrRelativeUrl url,
                          final UrlPath path) {
         this.checkEquals(path, url.path(), "path");
-    }
-
-    final void checkFragment(final AbsoluteOrRelativeUrl url,
-                             final UrlFragment fragment) {
-        this.checkEquals(fragment, url.fragment(), "fragment");
     }
 }
