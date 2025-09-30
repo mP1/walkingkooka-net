@@ -118,6 +118,7 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     /**
      * Retrieves the quality factor for this value.
      */
+    @Override
     public Optional<Float> qualityFactor() {
         return this.qualityFactor(AcceptCharsetValueParameterName.Q);
     }

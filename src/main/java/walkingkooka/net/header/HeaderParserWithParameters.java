@@ -78,6 +78,7 @@ abstract class HeaderParserWithParameters<V extends HeaderWithParameters<N>,
     /**
      * Assumes wildcard maps to a value. Parameters may follow.
      */
+    @Override
     final void wildcard() {
         if (this.requireValue) {
             this.saveValue(this.wildcardValue());

@@ -170,7 +170,7 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             AcceptCharsetValue.with(CharsetName.UTF_8),
             AcceptCharsetValue.with(CharsetName.UTF_16),

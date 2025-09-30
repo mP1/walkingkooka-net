@@ -333,7 +333,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             ContentDisposition.parse("attachment"),
             ContentDisposition.parse("inline"),

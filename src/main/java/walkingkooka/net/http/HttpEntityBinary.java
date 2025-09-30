@@ -76,6 +76,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
 
     // bodyText ........................................................................................................
 
+    @Override
     public String bodyText() {
         return new String(this.body.value(), this.charset());
     }

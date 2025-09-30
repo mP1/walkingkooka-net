@@ -123,7 +123,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
             acceptEncoding,
             new FakeHttpResponse() {
 
-                @Test
+                @Override
                 public void setEntity(final HttpEntity e) {
                     checkEquals(httpEntity(expectedHeaders).setBody(Binary.with(expectedBody)),
                         e,

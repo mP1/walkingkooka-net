@@ -35,12 +35,11 @@ public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHt
 
     // helpers..................................................................................................
 
+    @Override
     final R createResponse(final HttpResponse response) {
         return this.createResponse(this.createRequest(), response);
     }
 
     abstract R createResponse(final HttpRequest request,
                               final HttpResponse response);
-
-    abstract HttpRequest createRequest();
 }

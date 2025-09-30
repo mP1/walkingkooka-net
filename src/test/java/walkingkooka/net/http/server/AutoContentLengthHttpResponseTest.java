@@ -58,7 +58,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         final HttpResponse response = this.createResponse(
             new FakeHttpResponse() {
 
-                @Test
+                @Override
                 public void setEntity(final HttpEntity e) {
                     added.add(e);
                 }

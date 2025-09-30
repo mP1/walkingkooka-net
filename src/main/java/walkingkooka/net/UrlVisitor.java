@@ -33,6 +33,7 @@ public abstract class UrlVisitor extends Visitor<Url> {
 
     // Url.............................................................................................................
 
+    @Override
     public final void accept(final Url url) {
         Objects.requireNonNull(url, "url");
 

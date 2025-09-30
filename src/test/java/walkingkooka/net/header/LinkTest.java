@@ -282,7 +282,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     // equalsIgnoringParameters.........................................................................................
 
     @Test
-    public void testEqualsIgnoringParametersDifferent() {
+    public void testEqualsIgnoringParametersDifferent2() {
         this.equalsIgnoringParametersAndCheck(
             Link.parse("<https://example.com>").get(0),
             Link.parse("<https://different.example.com>").get(0),

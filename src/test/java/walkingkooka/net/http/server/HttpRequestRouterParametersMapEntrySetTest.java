@@ -247,6 +247,7 @@ public class HttpRequestRouterParametersMapEntrySetTest implements ClassTesting2
                 return headers;
             }
 
+            @Override
             public Map<HttpRequestParameterName, List<String>> parameters() {
                 final Map<HttpRequestParameterName, List<String>> parameters = Maps.ordered();
 

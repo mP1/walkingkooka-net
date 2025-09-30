@@ -201,6 +201,7 @@ public abstract class CharsetName extends HeaderNameValue
     /**
      * Returns true if this charset name is a wildcard.
      */
+    @Override
     public final boolean isWildcard() {
         return this instanceof CharsetNameWildcard;
     }

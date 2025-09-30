@@ -380,6 +380,7 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
 
     // HashCodeEqualsDefinedTesting.....................................................................................
 
+    @Override
     public final H createObject() {
         return this.createHttpEntity();
     }

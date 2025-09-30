@@ -116,7 +116,7 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     }
 
     @Test
-    public void testEquals() {
+    public void testEquals2() {
         this.checkEqualsAndHashCode(IpPort.with(PORT));
     }
 
