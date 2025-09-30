@@ -31,8 +31,7 @@ import java.util.Objects;
  */
 public final class HostAddress implements Value<String>,
     Comparable<HostAddress>,
-    HasHostAddress,
-    HasHostName {
+    HasHostAddress {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
@@ -721,22 +720,5 @@ public final class HostAddress implements Value<String>,
         return this.equals(hostAddress) ?
             this :
             Objects.requireNonNull(hostAddress, "hostAddress");
-    }
-
-    // HasHostName......................................................................................................
-
-    @Override
-    public String hostName() {
-        return this.address;
-    }
-
-    @Override
-    public HostAddress setHostName(final String hostName) {
-        return CASE_SENSITIVITY.equals(
-            this.address,
-            hostName
-        ) ?
-            this :
-            with(hostName);
     }
 }
