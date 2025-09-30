@@ -110,8 +110,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    @Override
-    public void testWith() {
+    public void testWith2() {
         final AbsoluteUrl url = AbsoluteUrl.with(
             SCHEME,
             CREDENTIALS,

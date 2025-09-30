@@ -126,6 +126,8 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
     // helpers..................................................................................................
 
+    abstract HttpRequest createRequest();
+
     @Override
     public final R createResponse() {
         return this.createResponse(this.wrappedHttpResponse());
@@ -135,7 +137,6 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         return HttpResponses.fake();
     }
 
-    @Override
     R createResponse(final HttpResponse response) {
         return this.createResponse(this.createRequest(), response);
     }

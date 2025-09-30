@@ -44,7 +44,6 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     }
 
     @Test
-    @Override
     public void testWith2() {
         final String text = "unknown";
         this.checkValue(AcceptEncodingValue.with(text),
