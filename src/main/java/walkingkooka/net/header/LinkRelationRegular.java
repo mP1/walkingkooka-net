@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
@@ -25,30 +24,6 @@ import walkingkooka.predicate.character.CharPredicates;
  * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
 final class LinkRelationRegular extends LinkRelation<String> {
-
-    /**
-     * <a href="https://tools.ietf.org/search/rfc5988#page-6"></a>
-     * <pre>
-     *   relation-types = relation-type
-     *                  | <"> relation-type *( 1*SP relation-type ) <">
-     *   relation-type  = reg-rel-type | ext-rel-type
-     *   reg-rel-type   = LOALPHA *( LOALPHA | DIGIT | "." | "-" )
-     *   ext-rel-type   = URI
-     * </pre>
-     */
-    private static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
-        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
-        .range('a', 'z')
-        .build()
-        .setToString("LinkRelation initial");
-
-    private static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
-        .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
-        .range('a', 'z')
-        .range('0', '9')
-        .any(".-")
-        .build()
-        .setToString("LinkRelation part");
 
     /**
      * Unconditionally creates a {@link LinkRelationRegular}
