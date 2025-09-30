@@ -38,7 +38,7 @@ final class NetConverterTextToHostAddress<C extends ConverterContext> implements
     /**
      * Singleton
      */
-    private final static NetConverterTextToHostAddress INSTANCE = new NetConverterTextToHostAddress();
+    private final static NetConverterTextToHostAddress<?> INSTANCE = new NetConverterTextToHostAddress<>();
 
     private NetConverterTextToHostAddress() {
         super();

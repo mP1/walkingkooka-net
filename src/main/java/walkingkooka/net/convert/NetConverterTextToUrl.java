@@ -38,7 +38,7 @@ final class NetConverterTextToUrl<C extends ConverterContext> implements TextToT
     /**
      * Singleton
      */
-    private final static NetConverterTextToUrl INSTANCE = new NetConverterTextToUrl();
+    private final static NetConverterTextToUrl<?> INSTANCE = new NetConverterTextToUrl<>();
 
     private NetConverterTextToUrl() {
         super();
