@@ -19,6 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
 
 import java.util.Arrays;
@@ -31,7 +32,8 @@ import java.util.Objects;
  */
 public final class HostAddress implements Value<String>,
     Comparable<HostAddress>,
-    HasHostAddress {
+    HasHostAddress,
+    HasText {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
@@ -706,6 +708,13 @@ public final class HostAddress implements Value<String>,
     @Override
     public int compareTo(final HostAddress other) {
         return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.address;
     }
 
     // HasHostAddress...................................................................................................

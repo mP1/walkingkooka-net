@@ -24,6 +24,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasTextTesting;
 
 import java.util.Arrays;
 
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
     ComparableTesting2<HostAddress>,
     HasHostAddressTesting<HostAddress>,
+    HasTextTesting,
     ThrowableTesting,
     ToStringTesting<HostAddress> {
 
@@ -284,6 +286,11 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
             address,
             hostAddress.value(),
             "address"
+        );
+
+        this.textAndCheck(
+            hostAddress,
+            address
         );
     }
 
