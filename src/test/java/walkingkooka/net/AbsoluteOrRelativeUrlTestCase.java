@@ -44,32 +44,68 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public void testNullPathFails() {
-        assertThrows(NullPointerException.class, () -> this.createUrl(null, QUERY, FRAGMENT));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createUrl(
+                null,
+                QUERY,
+                FRAGMENT
+            )
+        );
     }
 
     @Test
     public void testNullQueryFails() {
-        assertThrows(NullPointerException.class, () -> this.createUrl(PATH, null, FRAGMENT));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createUrl(
+                PATH,
+                null,
+                FRAGMENT
+            )
+        );
     }
 
     @Test
     public void testNullFragmentFails() {
-        assertThrows(NullPointerException.class, () -> this.createUrl(PATH, QUERY, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createUrl(
+                PATH,
+                QUERY,
+                null
+            )
+        );
     }
 
     @Test
-    public void testWith() {
-        final U url = this.createUrl(PATH, QUERY, FRAGMENT);
+    public final void testWith() {
+        final U url = this.createUrl(
+            PATH,
+            QUERY,
+            FRAGMENT
+        );
         this.checkPath(url, PATH);
         this.queryAndCheck(url, QUERY);
-        this.urlFragmentAndCheck(url, FRAGMENT);
+        this.urlFragmentAndCheck(
+            url,
+            FRAGMENT
+        );
     }
 
     @Test
-    public void testOnlySlash() {
+    public final void testWithOnlySlash() {
         final UrlPath path = UrlPath.parse("" + Url.PATH_START);
-        final U url = this.createUrl(path, QUERY, FRAGMENT);
-        assertSame(path, url.path(), "path");
+        final U url = this.createUrl(
+            path,
+            QUERY,
+            FRAGMENT
+        );
+        assertSame(
+            path,
+            url.path(),
+            "path"
+        );
     }
 
     @Test
@@ -82,10 +118,18 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public void testWithoutFragment() {
-        final U url = this.createUrl(PATH, QUERY, UrlFragment.EMPTY);
+        final U url = this.createUrl(
+            PATH,
+            QUERY,
+            UrlFragment.EMPTY
+        );
         assertSame(PATH, url.path(), "path");
         this.queryAndCheck(url, QUERY);
-        assertSame(UrlFragment.EMPTY, url.fragment(), "fragment");
+        assertSame(
+            UrlFragment.EMPTY,
+            url.fragment(),
+            "fragment"
+        );
     }
 
     // would be setters
@@ -94,13 +138,20 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     @Test
     public final void testSetPathNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createUrl().setPath(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createUrl()
+                .setPath(null)
+        );
     }
 
     @Test
     public final void testSetPathSame() {
         final U url = this.createUrl();
-        assertSame(url, url.setPath(PATH));
+        assertSame(
+            url,
+            url.setPath(PATH)
+        );
     }
 
     @Test
@@ -362,7 +413,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         );
     }
 
-    // appendPathName .......................................................................................................
+    // appendPathName ..................................................................................................
 
     @Test
     public final void testAppendNameNullFails() {
@@ -376,9 +427,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     @Test
     public final void testAppendName() {
         this.appendNameAndCheck(
-            this.createUrl(UrlPath.parse("/path1"), UrlQueryString.EMPTY, UrlFragment.EMPTY),
+            this.createUrl(
+                UrlPath.parse("/path1"),
+                UrlQueryString.EMPTY,
+                UrlFragment.EMPTY
+            ),
             UrlPathName.with("path2"),
-            this.createUrl(UrlPath.parse("/path1/path2"), UrlQueryString.EMPTY, UrlFragment.EMPTY)
+            this.createUrl(
+                UrlPath.parse("/path1/path2"),
+                UrlQueryString.EMPTY,
+                UrlFragment.EMPTY
+            )
         );
     }
 
@@ -392,7 +451,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         );
     }
 
-    // setQuery .......................................................................................................
+    // setQuery ................................./......................................................................
 
     @Test
     public final void testSetQueryNullFails() {
@@ -412,20 +471,34 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlQueryString differentQueryString = UrlQueryString.parse("different=value");
         final Url different = url.setQuery(differentQueryString);
         assertNotSame(url, different);
-        this.checkEquals(this.createUrl(PATH, differentQueryString, FRAGMENT), different);
+        this.checkEquals(
+            this.createUrl(
+                PATH,
+                differentQueryString,
+                FRAGMENT
+            ),
+            different
+        );
     }
 
-    // setFragment .......................................................................................................
+    // setFragment .....................................................................................................
 
     @Test
     public final void testSetFragmentNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createUrl().setFragment(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createUrl()
+                .setFragment(null)
+        );
     }
 
     @Test
     public final void testSetFragmentSame() {
         final U url = this.createUrl();
-        assertSame(url, url.setFragment(FRAGMENT));
+        assertSame(
+            url,
+            url.setFragment(FRAGMENT)
+        );
     }
 
     @Test
@@ -435,10 +508,17 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         final UrlFragment differentFragment = UrlFragment.with("different-anchor");
         final Url different = url.setFragment(differentFragment);
         assertNotSame(url, different);
-        this.checkEquals(this.createUrl(PATH, QUERY, differentFragment), different);
+        this.checkEquals(
+            this.createUrl(
+                PATH,
+                QUERY,
+                differentFragment
+            ),
+            different
+        );
     }
 
-    // normalize...................................................................................................
+    // normalize........................................................................................................
 
     final void normalizeAndCheck(final String url) {
         normalizeAndCheck(
@@ -482,25 +562,42 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
         );
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // HashCodeEqualsDefined ...........................................................................................
 
     @Test
     public final void testEqualsDifferentPath() {
         this.checkNotEquals(
-            this.createUrl(UrlPath.parse("/different"), QUERY, FRAGMENT));
+            this.createUrl(
+                UrlPath.parse("/different"),
+                QUERY,
+                FRAGMENT
+            )
+        );
     }
 
     @Test
     public final void testEqualsDifferentQuery() {
-        this.checkNotEquals(this.createUrl(PATH, UrlQueryString.parse("differentQueryString"), FRAGMENT));
+        this.checkNotEquals(
+            this.createUrl(
+                PATH,
+                UrlQueryString.parse("differentQueryString"),
+                FRAGMENT
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentAnchor() {
-        this.checkNotEquals(this.createUrl(PATH, QUERY, UrlFragment.with("different")));
+        this.checkNotEquals(
+            this.createUrl(
+                PATH,
+                QUERY,
+                UrlFragment.with("different")
+            )
+        );
     }
 
-    // toString........................................................................
+    // toString.........................................................................................................
 
     @Test
     abstract public void testToStringWithoutQuery();
@@ -513,7 +610,8 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
 
     // factory
 
-    @Override final U createUrl() {
+    @Override //
+    final U createUrl() {
         return this.createUrl(PATH, QUERY, FRAGMENT);
     }
 
