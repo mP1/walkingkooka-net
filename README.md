@@ -85,3 +85,17 @@ A collection of Converters for various types within `walkingkooka.net`
 - [text-to-host-address](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToHostAddress.java)
 - [text-to-url](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToUrl.java)
 
+### [Functions](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
+
+Functions that will be useful to get or set components to various networking types such as
+
+- [AbsoluteUrl](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/AbsoluteUrl.java)
+- [EmailAddress](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/email/EmailAddress.java)
+- [HostAddress](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/HostAddress.java)
+- [MailToUrl](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/MailToUrl.java)
+- [RelativeUrl](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/RelativeUrl.java)
+- [UrlFragment](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlFragment.java)
+- [UrlPath](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlPath.java)
+- [UrlQueryString](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlQueryString.java)
+
+- [badge](https://github.com/mP1/walkingkooka-tree-text/blob/master/src/main/java/walkingkooka/tree/text/expression/function/TreeTextExpressionFunctionBadge.java)

@@ -17,27 +17,19 @@
 
 package walkingkooka.net.expression.function;
 
-import walkingkooka.net.HostAddress;
-import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-/**
- * A collection of net related functions
- */
-public final class NetExpressionFunctions implements PublicStaticHelper {
+public final class NetExpressionFunctionTest implements ClassTesting<NetExpressionFunction<?, ?>> {
 
-    /**
-     * {@see NetExpressionFunctionGetHost}
-     */
-    public static <C extends ExpressionEvaluationContext> ExpressionFunction<HostAddress, C> getHost() {
-        return NetExpressionFunctionGetHost.instance();
+    @Override
+    public Class<NetExpressionFunction<?, ?>> type() {
+        return Cast.to(NetExpressionFunction.class);
     }
 
-    /**
-     * Stop creation
-     */
-    private NetExpressionFunctions() {
-        throw new UnsupportedOperationException();
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
