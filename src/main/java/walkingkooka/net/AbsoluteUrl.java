@@ -29,7 +29,6 @@ import java.util.Optional;
  * Note that equality is based by comparing all components, with only the scheme being compared while ignoring case.
  */
 public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements HasHostAddress,
-    HasHostName,
     Comparable<AbsoluteUrl> {
 
     public final static Optional<UrlCredentials> NO_CREDENTIALS = Optional.empty();
@@ -526,20 +525,5 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements HasHostA
     @Override
     public AbsoluteUrl setHostAddress(final HostAddress hostAddress) {
         return this.setHost(hostAddress);
-    }
-    
-    // HasHostName......................................................................................................
-
-    @Override
-    public String hostName() {
-        return this.host()
-            .hostName();
-    }
-
-    @Override
-    public AbsoluteUrl setHostName(final String hostName) {
-        return this.setHost(
-            this.host.setHostName(hostName)
-        );
     }
 }
