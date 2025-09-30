@@ -19,6 +19,7 @@ package walkingkooka.net.email;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HasHostName;
 import walkingkooka.net.HostAddress;
 import walkingkooka.text.HasText;
@@ -38,6 +39,7 @@ import java.util.Optional;
  */
 final public class EmailAddress implements HasText,
     Value<String>,
+    HasHostAddress,
     HasHostName,
     Comparable<EmailAddress> {
 
@@ -195,6 +197,27 @@ final public class EmailAddress implements HasText,
         return this.address;
     }
 
+    // HasHostAddress...................................................................................................
+
+    @Override
+    public HostAddress hostAddress() {
+        return this.host;
+    }
+
+    @Override
+    public EmailAddress setHostAddress(final HostAddress hostAddress) {
+        final HostAddress host = this.host;
+        final HostAddress different = host.setHostAddress(hostAddress);
+
+        return host.equals(different) ?
+            this :
+            new EmailAddress(
+                this.user + '@' + hostAddress, // address
+                this.user,
+                different
+            );
+    }
+    
     // HasHostName......................................................................................................
 
     @Override

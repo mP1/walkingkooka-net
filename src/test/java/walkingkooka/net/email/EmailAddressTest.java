@@ -24,7 +24,9 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.net.HasHostAddressTesting;
 import walkingkooka.net.HasHostNameTesting;
+import walkingkooka.net.HostAddress;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -44,6 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+    HasHostAddressTesting<EmailAddress>,
     HasHostNameTesting<EmailAddress>,
     HasTextTesting,
     ComparableTesting2<EmailAddress>,
@@ -1706,6 +1709,34 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         );
     }
 
+    // hasHostAddress...................................................................................................
+
+    @Test
+    public void testSetHostAddressSameButDifferentCase() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        assertSame(
+            emailAddress,
+            emailAddress.setHostAddress(
+                HostAddress.with("EXAMPLE.COM")
+            )
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithDifferent() {
+        this.setHostAddressAndCheck(
+            EmailAddress.parse("user@example.com"),
+            HostAddress.with("different.example.com"),
+            EmailAddress.parse("user@different.example.com")
+        );
+    }
+
+    @Override
+    public EmailAddress createHasHostAddress() {
+        return this.createObject();
+    }
+    
     // hasHostName......................................................................................................
 
     @Test
