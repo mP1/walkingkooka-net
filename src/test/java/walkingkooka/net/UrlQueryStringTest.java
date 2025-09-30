@@ -40,6 +40,7 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     ParseStringTesting<UrlQueryString>,
     ToStringTesting<UrlQueryString>,
     ComparableTesting2<UrlQueryString>,
+    HasUrlQueryStringTesting,
     HasTextTesting {
 
     @Test
@@ -672,6 +673,17 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
 
     private UrlParameterName name(final String name) {
         return UrlParameterName.with(name);
+    }
+
+    // HasUrlQueryString................................................................................................
+
+    @Test
+    public void testHasUrlQueryString() {
+        final UrlQueryString queryString = UrlQueryString.parse("abc=123&def=456;def=789");
+        this.queryAndCheck(
+            queryString,
+            queryString
+        );
     }
 
     // text.............................................................................................................
