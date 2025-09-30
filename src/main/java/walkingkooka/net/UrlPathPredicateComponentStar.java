@@ -40,7 +40,7 @@ final class UrlPathPredicateComponentStar extends UrlPathPredicateComponent {
         return this.next.test(names);
     }
 
-    UrlPathPredicateComponent next;
+    final UrlPathPredicateComponent next;
 
     @Override
     public String toString() {

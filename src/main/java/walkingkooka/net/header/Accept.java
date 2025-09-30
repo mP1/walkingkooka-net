@@ -102,7 +102,7 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
      * Accept: *\/*
      * </pre>
      */
-    public static Accept DEFAULT = new Accept(ALL_MEDIA_TYPE);
+    public static final Accept DEFAULT = new Accept(ALL_MEDIA_TYPE);
 
     /**
      * Parses a header value that contains {@link Accept}
