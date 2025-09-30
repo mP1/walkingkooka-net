@@ -33,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<AbsoluteUrl>
-    implements HasHostNameTesting<AbsoluteUrl>,
+    implements HasHostAddressTesting<AbsoluteUrl>,
+    HasHostNameTesting<AbsoluteUrl>,
     ComparableTesting2<AbsoluteUrl> {
 
     // constants
@@ -1232,6 +1233,43 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         );
     }
 
+    // HasHostAddress...................................................................................................
+
+    @Test
+    public void testSetHostAddressWithSameDifferentCase() {
+        final String url = "https://example.com/path1?query1=value1#fragment2";
+        final AbsoluteUrl absoluteUrl = Url.parseAbsolute(url);
+
+        assertSame(
+            absoluteUrl,
+            absoluteUrl.setHostAddress(
+                HostAddress.with("EXAMPLE.COM")
+            )
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithDifferent() {
+        final String url = "https://example.com/path1?query1=value1#fragment2";
+        final String different = "different.com";
+
+        this.setHostAddressAndCheck(
+            Url.parseAbsolute(url),
+            HostAddress.with(different),
+            Url.parseAbsolute(
+                url.replace(
+                    "example.com",
+                    different
+                )
+            )
+        );
+    }
+
+    @Override
+    public AbsoluteUrl createHasHostAddress() {
+        return this.createUrl();
+    }
+    
     // HasHostName......................................................................................................
 
     @Test
