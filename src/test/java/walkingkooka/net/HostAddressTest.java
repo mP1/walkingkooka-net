@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
     ComparableTesting2<HostAddress>,
+    HasHostAddressTesting<HostAddress>,
     HasHostNameTesting<HostAddress>,
     ThrowableTesting,
     ToStringTesting<HostAddress> {
@@ -1544,6 +1545,34 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         return CharSequences.bigEndianHexDigits(hexDigits);
     }
 
+    // HasHostAddress...................................................................................................
+
+    @Test
+    public void testHostAddress() {
+        final String hostAddress = "localhost";
+
+        this.hostAddressAndCheck(
+            HostAddress.with(hostAddress),
+            hostAddress
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithDifferent() {
+        final HostAddress different = HostAddress.with("different.example.com");
+
+        this.setHostAddressAndCheck(
+            HostAddress.with("example.com"),
+            different,
+            different
+        );
+    }
+
+    @Override
+    public HostAddress createHasHostAddress() {
+        return HostAddress.with("example.com");
+    }
+    
     // HasHostName......................................................................................................
 
     @Test

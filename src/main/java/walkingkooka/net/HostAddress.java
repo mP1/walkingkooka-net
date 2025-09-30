@@ -30,6 +30,7 @@ import java.util.Arrays;
  */
 public final class HostAddress implements Value<String>,
     Comparable<HostAddress>,
+    HasHostAddress,
     HasHostName {
 
     /**
@@ -705,6 +706,20 @@ public final class HostAddress implements Value<String>,
     @Override
     public int compareTo(final HostAddress other) {
         return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
+    }
+
+    // HasHostAddress...................................................................................................
+
+    @Override
+    public HostAddress hostAddress() {
+        return this;
+    }
+
+    @Override
+    public HostAddress setHostAddress(final HostAddress hostAddress) {
+        return this.equals(hostAddress) ?
+            this :
+            hostAddress;
     }
 
     // HasHostName......................................................................................................
