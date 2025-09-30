@@ -42,7 +42,7 @@ final class NetConverterTextToHasHostAddress<C extends ConverterContext> impleme
     /**
      * Singleton
      */
-    private final static NetConverterTextToHasHostAddress INSTANCE = new NetConverterTextToHasHostAddress<>();
+    private final static NetConverterTextToHasHostAddress<?> INSTANCE = new NetConverterTextToHasHostAddress<>();
 
     private NetConverterTextToHasHostAddress() {
         super();

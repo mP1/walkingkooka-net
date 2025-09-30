@@ -38,7 +38,7 @@ final class NetConverterTextToEmailAddress<C extends ConverterContext> implement
     /**
      * Singleton
      */
-    private final static NetConverterTextToEmailAddress INSTANCE = new NetConverterTextToEmailAddress();
+    private final static NetConverterTextToEmailAddress<?> INSTANCE = new NetConverterTextToEmailAddress<>();
 
     private NetConverterTextToEmailAddress() {
         super();
