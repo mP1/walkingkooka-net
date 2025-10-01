@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
+public final class MailToUrlTest extends UrlTestCase<MailToUrl>
+    implements HasHostAddressTesting<MailToUrl> {
 
     @Test
     public void testWithNullEmailAddressesFails() {
@@ -324,6 +325,74 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl> {
             }
         }.accept(url);
         this.checkEquals("152", b.toString());
+    }
+
+    // HasHostAddress...................................................................................................
+
+    @Test
+    public void testHostAddressWhenMultipleEmailsFails() {
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> this.parseString("mailto:user1@example.com,user2@example.com")
+                .hostAddress()
+        );
+
+        this.checkEquals(
+            "More than 1 EmailAddress",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWhenMultipleEmailsFails() {
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> Url.parseMailTo("mailto:user1@example.com,user2@example.com")
+                .setHostAddress(HostAddress.with("different.example.com"))
+        );
+
+        this.checkEquals(
+            "More than 1 EmailAddress",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithSame2() {
+        final MailToUrl mailToUrl = this.createHasHostAddress();
+
+        assertSame(
+            mailToUrl.setHostAddress(
+                HostAddress.with("example.com")
+            ),
+            mailToUrl
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithSameHostDifferentCase() {
+        final MailToUrl mailToUrl = this.createHasHostAddress();
+
+        assertSame(
+            mailToUrl.setHostAddress(
+                HostAddress.with("EXAMPLE.COM")
+            ),
+            mailToUrl
+        );
+    }
+
+    @Test
+    public void testSetHostAddressWithDifferent() {
+        this.setHostAddressAndCheck(
+            Url.parseMailTo("mailto:user@example.com"),
+            HostAddress.with("different.example.com"),
+            MailToUrl.parseMailTo("mailto:user@different.example.com")
+        );
+    }
+
+    @Override
+    public MailToUrl createHasHostAddress() {
+        return Url.parseMailTo("mailto:user@example.com");
     }
 
     // hashCode/equals..................................................................................................
