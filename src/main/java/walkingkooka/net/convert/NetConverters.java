@@ -17,8 +17,10 @@
 
 package walkingkooka.net.convert;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.Converters;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -39,6 +41,24 @@ public final class NetConverters implements PublicStaticHelper {
      */
     public static <C extends ConverterContext> Converter<C> httpEntityContentType(final MediaType contentType) {
         return NetConverterHttpEntityWithContentType.with(contentType);
+    }
+
+    /**
+     * A collection of all net converters.
+     */
+    public static <C extends ConverterContext> Converter<C> net() {
+        return Converters.<C>collection(
+            Lists.of(
+                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                hasHostAddress(),
+                textToEmailAddress(),
+                textToHostAddress(),
+                textToUrl(),
+                textToUrlFragment(),
+                textToUrlQueryString(),
+                textToHasHostAddress()
+            )
+        ).setToString("net");
     }
 
     /**
