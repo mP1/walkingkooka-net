@@ -17,6 +17,7 @@
 
 package walkingkooka.net.expression.function;
 
+import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -32,6 +33,13 @@ public final class NetExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<HostAddress, C> getHost() {
         return NetExpressionFunctionGetHost.instance();
+    }
+
+    /**
+     * {@see NetExpressionFunctionSetHost}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<HasHostAddress, C> setHost() {
+        return NetExpressionFunctionSetHost.instance();
     }
 
     /**
