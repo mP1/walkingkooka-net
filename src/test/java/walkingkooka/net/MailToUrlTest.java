@@ -68,8 +68,8 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
             headers
         );
 
-        this.checkEmailAddresses(mailToUrl);
-        this.checkHeaders(mailToUrl);
+        this.emailAddressesAndCheck(mailToUrl);
+        this.headersAndCheck(mailToUrl);
     }
 
     // setEmailAddresses................................................................................................
@@ -107,11 +107,11 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
             different
         );
 
-        this.checkEmailAddresses(mailToUrl);
-        this.checkHeaders(mailToUrl);
+        this.emailAddressesAndCheck(mailToUrl);
+        this.headersAndCheck(mailToUrl);
 
-        this.checkEmailAddresses(different, differentEmailAddresses);
-        this.checkHeaders(different);
+        this.emailAddressesAndCheck(different, differentEmailAddresses);
+        this.headersAndCheck(different);
     }
 
     // setHeaders................................................................................................
@@ -147,11 +147,11 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
             different
         );
 
-        this.checkEmailAddresses(mailToUrl);
-        this.checkHeaders(mailToUrl);
+        this.emailAddressesAndCheck(mailToUrl);
+        this.headersAndCheck(mailToUrl);
 
-        this.checkEmailAddresses(different);
-        this.checkHeaders(different, differentHeaders);
+        this.emailAddressesAndCheck(different);
+        this.headersAndCheck(different, differentHeaders);
     }
 
     // ParseTesting.....................................................................................................
@@ -267,37 +267,42 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
         );
     }
 
-    private void checkEmailAddresses(final MailToUrl mailToUrl) {
-        this.checkEmailAddresses(
+    @Override
+    public MailToUrl parseString(final String text) {
+        return MailToUrl.parseMailTo0(text);
+    }
+
+    private void emailAddressesAndCheck(final MailToUrl mailToUrl) {
+        this.emailAddressesAndCheck(
             mailToUrl,
             this.emailAddresses()
         );
     }
 
-    private void checkEmailAddresses(final MailToUrl mailToUrl,
-                                     final List<EmailAddress> expected) {
+    private void emailAddressesAndCheck(final MailToUrl mailToUrl,
+                                        final List<EmailAddress> expected) {
         this.checkEquals(
             expected,
             mailToUrl.emailAddresses()
         );
     }
 
-    private void checkHeaders(final MailToUrl mailToUrl) {
-        this.checkHeaders(
+    private void headersAndCheck(final MailToUrl mailToUrl) {
+        this.headersAndCheck(
             mailToUrl,
             this.headers()
         );
     }
 
-    private void checkHeaders(final MailToUrl mailToUrl,
-                              final UrlQueryString expected) {
+    private void headersAndCheck(final MailToUrl mailToUrl,
+                                 final UrlQueryString expected) {
         this.checkEquals(
             expected,
             mailToUrl.headers()
         );
     }
 
-    // UrlVisitor......................................................................................................
+    // UrlVisitor.......................................................................................................
 
     @Test
     public void testAccept() {
@@ -395,6 +400,28 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
         return Url.parseMailTo("mailto:user@example.com");
     }
 
+    // Url..............................................................................................................
+
+    @Override
+    MailToUrl createUrl() {
+        return MailToUrl.with(
+            null, // null url is ok
+            this.emailAddresses(),
+            this.headers()
+        );
+    }
+
+    private List<EmailAddress> emailAddresses() {
+        return Lists.of(
+            EmailAddress.parse("hello1@example.com"),
+            EmailAddress.parse("hello2@example.com")
+        );
+    }
+
+    private UrlQueryString headers() {
+        return UrlQueryString.parse("subject=SubjectHello123&body=Body456");
+    }
+
     // hashCode/equals..................................................................................................
 
     @Test
@@ -484,39 +511,12 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
         );
     }
 
-    @Override
-    MailToUrl createUrl() {
-        return MailToUrl.with(
-            null, // null url is ok
-            this.emailAddresses(),
-            this.headers()
-        );
-    }
-
-    private List<EmailAddress> emailAddresses() {
-        return Lists.of(
-            EmailAddress.parse("hello1@example.com"),
-            EmailAddress.parse("hello2@example.com")
-        );
-    }
-
-    private UrlQueryString headers() {
-        return UrlQueryString.parse("subject=SubjectHello123&body=Body456");
-    }
-
     // JsonNodeMarshallTesting .........................................................................................
 
     @Override
     public MailToUrl unmarshall(final JsonNode node,
                                 final JsonNodeUnmarshallContext context) {
         return Url.unmarshallMailTo(node, context);
-    }
-
-    // ParseStringTesting...............................................................................................
-
-    @Override
-    public MailToUrl parseString(final String text) {
-        return MailToUrl.parseMailTo0(text);
     }
 
     // ClassTesting.....................................................................................................
