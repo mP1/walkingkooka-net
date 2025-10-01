@@ -63,13 +63,6 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see NetConverterTextToUrlQueryString}
-     */
-    public static <C extends ConverterContext> Converter<C> textToUrlQueryString() {
-        return NetConverterTextToUrlQueryString.instance();
-    }
-
-    /**
      * {@see NetConverterTextToUrl}
      */
     public static <C extends ConverterContext> Converter<C> textToUrl() {
@@ -81,6 +74,13 @@ public final class NetConverters implements PublicStaticHelper {
      */
     public static <C extends ConverterContext> Converter<C> textToUrlFragment() {
         return NetConverterTextToUrlFragment.instance();
+    }
+
+    /**
+     * {@see NetConverterTextToUrlQueryString}
+     */
+    public static <C extends ConverterContext> Converter<C> textToUrlQueryString() {
+        return NetConverterTextToUrlQueryString.instance();
     }
 
     /**
