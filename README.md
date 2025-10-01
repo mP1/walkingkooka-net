@@ -97,5 +97,3 @@ Functions that will be useful to get or set components to various networking typ
 - [UrlFragment](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlFragment.java)
 - [UrlPath](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlPath.java)
 - [UrlQueryString](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlQueryString.java)
-
-- [badge](https://github.com/mP1/walkingkooka-tree-text/blob/master/src/main/java/walkingkooka/tree/text/expression/function/TreeTextExpressionFunctionBadge.java)
