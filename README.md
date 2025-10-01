@@ -96,6 +96,7 @@ Functions that will be useful to get or set components to various networking typ
 - [HostAddress](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/HostAddress.java)
 - [MailToUrl](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/MailToUrl.java)
 - [RelativeUrl](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/RelativeUrl.java)
+- [Url](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/Url.java)
 - [UrlFragment](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlFragment.java)
 - [UrlPath](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlPath.java)
 - [UrlQueryString](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/UrlQueryString.java)
