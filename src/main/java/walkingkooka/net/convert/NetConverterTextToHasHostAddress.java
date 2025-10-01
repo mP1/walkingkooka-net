@@ -25,10 +25,11 @@ import walkingkooka.convert.TextToTryingShortCircuitingConverter;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
+import walkingkooka.net.MailToUrl;
 import walkingkooka.net.email.EmailAddress;
 
 /**
- * A {@link Converter} that supports converting a {@link String} to a {@link AbsoluteUrl}, {@link EmailAddress} or {@link HostAddress}
+ * A {@link Converter} that supports converting a {@link String} to a {@link AbsoluteUrl}, {@link EmailAddress} or {@link MailToUrl} or {@link HostAddress}
  */
 final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends NetConverter<C>
     implements TextToTryingShortCircuitingConverter<C> {
@@ -76,10 +77,18 @@ final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends
             if (emailAddress.isLeft()) {
                 result = emailAddress.leftValue();
             } else {
-                result = context.convertOrFail(
+                final Either<MailToUrl, String> mailToUrl = context.convert(
                     text,
-                    HostAddress.class
+                    MailToUrl.class
                 );
+                if (mailToUrl.isLeft()) {
+                    result = mailToUrl.leftValue();
+                } else {
+                    result = context.convertOrFail(
+                        text,
+                        HostAddress.class
+                    );
+                }
             }
         }
 
