@@ -56,6 +56,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterTextToMailToUrl}
+     */
+    public static <C extends ConverterContext> Converter<C> textToMailToUrl() {
+        return NetConverterTextToMailToUrl.instance();
+    }
+
+    /**
      * {@see NetConverterTextToUrlQueryString}
      */
     public static <C extends ConverterContext> Converter<C> textToUrlQueryString() {
