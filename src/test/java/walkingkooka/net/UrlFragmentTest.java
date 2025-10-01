@@ -24,6 +24,7 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.HasTextTesting;
 
 import java.net.URI;
 
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     ClassTesting<UrlFragment>,
+    HasTextTesting,
     ComparableTesting2<UrlFragment>,
     CanBeEmptyTesting,
     ToStringTesting<UrlFragment> {
@@ -436,6 +438,18 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
 
         this.parseStringAndCheck(
             urlFragment.toString(),
+            urlFragment
+        );
+    }
+
+    // HasText..........................................................................................................
+
+    @Test
+    public void testHasText() {
+        final String urlFragment = "/fragment1/fragment2";
+
+        this.textAndCheck(
+            UrlFragment.with(urlFragment),
             urlFragment
         );
     }

@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Value;
+import walkingkooka.text.HasText;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -33,6 +34,7 @@ import java.util.Objects;
  * </pre>
  */
 public final class UrlFragment implements Value<String>,
+    HasText,
     CanBeEmpty,
     Comparable<UrlFragment> {
 
@@ -244,6 +246,13 @@ public final class UrlFragment implements Value<String>,
             b.append(Url.FRAGMENT_START.character());
             b.append(this);
         }
+    }
+
+    // text.............................................................................................................
+
+    @Override
+    public String text() {
+        return this.toString();
     }
 
     // Comparable.......................................................................................................
