@@ -17,12 +17,141 @@
 
 package walkingkooka.net.expression.function;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.convert.NetConverters;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
+import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class NetExpressionFunctionsTest implements PublicStaticHelperTesting<NetExpressionFunctions> {
+
+    @Test
+    public void testGetHostWithAbsoluteUrl() {
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute("http://example.com/path1");
+
+        this.evaluateAndCheck(
+            "getHost",
+            Lists.of(
+                url
+            ),
+            url.hostAddress()
+        );
+    }
+
+    @Test
+    public void testGetHostWithEmailAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.evaluateAndCheck(
+            "getHost",
+            Lists.of(
+                emailAddress
+            ),
+            emailAddress.hostAddress()
+        );
+    }
+
+    @Test
+    public void testGetHostWithStringWithAbsoluteUrl() {
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute("http://example.com/path1");
+
+        this.evaluateAndCheck(
+            "getHost",
+            Lists.of(
+                url.toString()
+            ),
+            url.hostAddress()
+        );
+    }
+
+    @Test
+    public void testGetHostWithStringWithEmailAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.evaluateAndCheck(
+            "getHost",
+            Lists.of(
+                emailAddress.text()
+            ),
+            emailAddress.hostAddress()
+        );
+    }
+
+    private void evaluateAndCheck(final String functionName,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+        this.checkEquals(
+            expected,
+            Expression.call(
+                Expression.namedFunction(
+                    ExpressionFunctionName.with(functionName)
+                ),
+                parameters.stream()
+                    .map(Expression::value)
+                    .collect(Collectors.toList())
+            ).toValue(
+                ExpressionEvaluationContexts.basic(
+                    ExpressionNumberKind.BIG_DECIMAL,
+                    (name) -> {
+                        switch (name.value()) {
+                            case "getHost":
+                                return NetExpressionFunctions.getHost();
+                            default:
+                                throw new UnknownExpressionFunctionException(name);
+                        }
+                    }, // name -> function
+                    (final RuntimeException cause) -> {
+                        throw cause;
+                    },
+                    (ExpressionReference reference) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    (ExpressionReference reference) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    CaseSensitivity.SENSITIVE,
+                    ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
+                        Converters.EXCEL_1900_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        ',', // valueSeparator
+                        Converters.collection(
+                            Lists.of(
+                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                NetConverters.textToEmailAddress(),
+                                NetConverters.textToUrl(),
+                                NetConverters.textToHostAddress(),
+                                NetConverters.textToHasHostAddress()
+                            )
+                        ),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.fake()
+                    ),
+                    LocaleContexts.fake()
+                )
+            )
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
