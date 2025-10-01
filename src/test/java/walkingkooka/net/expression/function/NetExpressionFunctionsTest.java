@@ -48,6 +48,51 @@ import java.util.stream.Collectors;
 
 public final class NetExpressionFunctionsTest implements PublicStaticHelperTesting<NetExpressionFunctions> {
 
+    // emailAddress.....................................................................................................
+
+    @Test
+    public void testEmailAddressWithCharSequenceEmailAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.evaluateAndCheck(
+            "emailAddress",
+            Lists.of(
+                new StringBuilder(
+                    emailAddress.text()
+                )
+            ),
+            emailAddress
+        );
+    }
+
+    @Test
+    public void testEmailAddressWithStringEmailAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.evaluateAndCheck(
+            "emailAddress",
+            Lists.of(
+                emailAddress.text()
+            ),
+            emailAddress
+        );
+    }
+
+    @Test
+    public void testEmailAddressWithEmailAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.evaluateAndCheck(
+            "emailAddress",
+            Lists.of(
+                emailAddress
+            ),
+            emailAddress
+        );
+    }
+
+    // getHost..........................................................................................................
+
     @Test
     public void testGetHostWithAbsoluteUrl() {
         final AbsoluteUrl url = AbsoluteUrl.parseAbsolute("http://example.com/path1");
@@ -330,6 +375,8 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                     ExpressionNumberKind.BIG_DECIMAL,
                     (name) -> {
                         switch (name.value()) {
+                            case "emailAddress":
+                                return NetExpressionFunctions.emailAddress();
                             case "getHost":
                                 return NetExpressionFunctions.getHost();
                             case "setHost":
