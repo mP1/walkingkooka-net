@@ -20,7 +20,6 @@ package walkingkooka.net.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.header.HttpHeaderName;
@@ -29,8 +28,8 @@ import walkingkooka.net.http.HttpEntity;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NetConverterHttpEntityWithContentTypeTest implements ConverterTesting2<NetConverterHttpEntityWithContentType<FakeConverterContext>, FakeConverterContext>,
-    HashCodeEqualsDefinedTesting2<NetConverterHttpEntityWithContentType<FakeConverterContext>> {
+public final class NetConverterHttpEntityWithContentTypeTest extends NetConverterTestCase<NetConverterHttpEntityWithContentType<FakeConverterContext>, FakeConverterContext>
+    implements HashCodeEqualsDefinedTesting2<NetConverterHttpEntityWithContentType<FakeConverterContext>> {
 
     @Test
     public void testWithNullFails() {
@@ -155,15 +154,5 @@ public final class NetConverterHttpEntityWithContentTypeTest implements Converte
     @Override
     public Class<NetConverterHttpEntityWithContentType<FakeConverterContext>> type() {
         return Cast.to(NetConverterHttpEntityWithContentType.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }

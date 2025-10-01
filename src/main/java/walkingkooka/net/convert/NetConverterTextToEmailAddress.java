@@ -26,7 +26,8 @@ import walkingkooka.net.email.EmailAddress;
 /**
  * A {@link Converter} that supports converting a {@link String} to one of the {@link EmailAddress} sub-classes.
  */
-final class NetConverterTextToEmailAddress<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToEmailAddress<C extends ConverterContext> extends NetConverter<C>
+    implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.

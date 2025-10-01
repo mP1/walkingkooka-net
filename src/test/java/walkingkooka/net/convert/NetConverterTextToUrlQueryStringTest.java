@@ -21,13 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlQueryString;
 
-public final class NetConverterTextToUrlQueryStringTest implements ConverterTesting2<NetConverterTextToUrlQueryString<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToUrlQueryStringTest extends NetConverterTestCase<NetConverterTextToUrlQueryString<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringToUrlFails() {
@@ -83,15 +82,5 @@ public final class NetConverterTextToUrlQueryStringTest implements ConverterTest
     @Override
     public Class<NetConverterTextToUrlQueryString<FakeConverterContext>> type() {
         return Cast.to(NetConverterTextToUrlQueryString.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }

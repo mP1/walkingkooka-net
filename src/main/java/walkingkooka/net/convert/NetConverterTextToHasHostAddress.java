@@ -30,7 +30,8 @@ import walkingkooka.net.email.EmailAddress;
 /**
  * A {@link Converter} that supports converting a {@link String} to a {@link AbsoluteUrl}, {@link EmailAddress} or {@link HostAddress}
  */
-final class NetConverterTextToHasHostAddress<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends NetConverter<C>
+    implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
