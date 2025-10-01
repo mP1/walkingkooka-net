@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HasHostAddress;
+import walkingkooka.net.HostAddress;
 import walkingkooka.net.MailToUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -48,6 +49,17 @@ public final class NetConverterHasHostAddressTest extends NetConverterTestCase<N
     }
 
     @Test
+    public void testConvertAbsoluteUrlToHostAddress() {
+        final AbsoluteUrl url = Url.parseAbsolute("http://example.com");
+
+        this.convertAndCheck(
+            url,
+            HostAddress.class,
+            url.hostAddress()
+        );
+    }
+
+    @Test
     public void testConvertEmailAddressToHasHostAddress() {
         final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
 
@@ -59,11 +71,32 @@ public final class NetConverterHasHostAddressTest extends NetConverterTestCase<N
     }
 
     @Test
+    public void testConvertEmailAddressToHostAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+
+        this.convertAndCheck(
+            emailAddress,
+            HostAddress.class,
+            emailAddress.hostAddress()
+        );
+    }
+
+    @Test
     public void testConvertMailToUrlToHasHostAddress() {
         final MailToUrl mailTo = Url.parseMailTo("mailto:user@example.com");
         this.convertAndCheck(
             mailTo,
             HasHostAddress.class,
+            mailTo.hostAddress()
+        );
+    }
+
+    @Test
+    public void testConvertMailToUrlToHostAddress() {
+        final MailToUrl mailTo = Url.parseMailTo("mailto:user@example.com");
+        this.convertAndCheck(
+            mailTo,
+            HostAddress.class,
             mailTo.hostAddress()
         );
     }
