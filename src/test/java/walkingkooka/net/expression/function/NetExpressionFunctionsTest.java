@@ -25,8 +25,10 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.DataUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.MailToUrl;
+import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.convert.NetConverters;
 import walkingkooka.net.email.EmailAddress;
@@ -205,6 +207,112 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
         );
     }
 
+    // url..............................................................................................................
+
+    @Test
+    public void testSetHostWithAbsoluteUrl() {
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com/path1");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringAbsoluteUrl() {
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com/path1");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url.text()
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithDataUrl() {
+        final DataUrl url = Url.parseData("data:,Hello%2C%20World%21");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringDataUrl() {
+        final DataUrl url = Url.parseData("data:,Hello%2C%20World%21");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url.text()
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithMailToUrl() {
+        final MailToUrl url = Url.parseMailTo("mailto:user@example.com");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringMailToUrl() {
+        final MailToUrl url = Url.parseMailTo("mailto:user@example.com");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url.text()
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithRelativeUrl() {
+        final RelativeUrl url = Url.parseRelative("/path1");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url
+            ),
+            url
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringRelativeUrl() {
+        final RelativeUrl url = Url.parseRelative("/path1");
+
+        this.evaluateAndCheck(
+            "url",
+            Lists.of(
+                url.text()
+            ),
+            url
+        );
+    }
+
     private void evaluateAndCheck(final String functionName,
                                   final List<Object> parameters,
                                   final Object expected) {
@@ -226,6 +334,8 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                                 return NetExpressionFunctions.getHost();
                             case "setHost":
                                 return NetExpressionFunctions.setHost();
+                            case "url":
+                                return NetExpressionFunctions.url();
                             default:
                                 throw new UnknownExpressionFunctionException(name);
                         }
