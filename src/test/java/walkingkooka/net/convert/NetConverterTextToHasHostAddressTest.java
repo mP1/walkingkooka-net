@@ -101,6 +101,17 @@ public class NetConverterTextToHasHostAddressTest extends NetConverterTestCase<N
     }
 
     @Test
+    public void testConvertTextWithMailToUrlToHasHostAddress() {
+        final String text = "mailto:user@example.com";
+
+        this.convertAndCheck(
+            text,
+            HasHostAddress.class,
+            Url.parseMailTo(text)
+        );
+    }
+
+    @Test
     public void testConvertTextToHostAddressFails() {
         this.convertFails(
             "example.com",
