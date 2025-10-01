@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.TryingShortCircuitingConverter;
 import walkingkooka.net.HasHostAddress;
+import walkingkooka.net.HostAddress;
 
 /**
  * A {@link walkingkooka.convert.Converter} that
@@ -50,7 +51,10 @@ final class NetConverterHasHostAddress<C extends ConverterContext> extends NetCo
                               final Class<?> type,
                               final C context) {
         return value instanceof HasHostAddress &&
-            HasHostAddress.class == type;
+            (
+                HasHostAddress.class == type ||
+                    HostAddress.class == type
+            );
     }
 
     @Override
