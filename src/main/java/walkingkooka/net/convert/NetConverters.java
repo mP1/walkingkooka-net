@@ -28,6 +28,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class NetConverters implements PublicStaticHelper {
 
     /**
+     * {@see NetConverterHasHostAddress}
+     */
+    public static <C extends ConverterContext> Converter<C> hasHostAddress() {
+        return NetConverterHasHostAddress.instance();
+    }
+
+    /**
      * {@see NetConverterHttpEntityWithContentType}
      */
     public static <C extends ConverterContext> Converter<C> httpEntityContentType(final MediaType contentType) {
