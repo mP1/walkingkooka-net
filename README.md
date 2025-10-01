@@ -106,6 +106,7 @@ Functions that will be useful to get or set components to various networking typ
 
 Available Functions
 
+- [emailAddress](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/expression/function/NetExpressionFunctionEmailAddress.java)
 - [getHost](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/expression/function/NetExpressionFunctionGetHost.java)
 - [setHost](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/expression/function/NetExpressionFunctionSetHost.java)
 - [url](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/expression/function/NetExpressionFunctionUrl.java)

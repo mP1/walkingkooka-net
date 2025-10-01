@@ -20,6 +20,7 @@ package walkingkooka.net.expression.function;
 import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -28,6 +29,13 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
  * A collection of net related functions
  */
 public final class NetExpressionFunctions implements PublicStaticHelper {
+
+    /**
+     * {@see NetExpressionFunctionEmailAddress}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<EmailAddress, C> emailAddress() {
+        return NetExpressionFunctionEmailAddress.instance();
+    }
 
     /**
      * {@see NetExpressionFunctionGetHost}
