@@ -52,63 +52,40 @@ final class NetConverterTextToHasHostAddress<C extends ConverterContext> impleme
     public boolean isTargetType(final Object value,
                                 final Class<?> type,
                                 final C context) {
-        return AbsoluteUrl.class == type ||
-            EmailAddress.class == type ||
-            HasHostAddress.class == type ||
-            HostAddress.class == type;
+        return HasHostAddress.class == type;
     }
 
     @Override
     public Object parseText(final String text,
                             final Class<?> type,
                             final C context) {
+        // try AbsoluteUrl then EmailAddress then HostAddress
         final Object result;
-
-        if (AbsoluteUrl.class == type) {
-            result = context.convertOrFail(
-                text,
-                AbsoluteUrl.class
-            );
+        final Either<AbsoluteUrl, String> absoluteUrl = context.convert(
+            text,
+            AbsoluteUrl.class
+        );
+        if (absoluteUrl.isLeft()) {
+            result = absoluteUrl.leftValue();
         } else {
-            if (EmailAddress.class == type) {
+            final Either<EmailAddress, String> emailAddress = context.convert(
+                text,
+                EmailAddress.class
+            );
+            if (emailAddress.isLeft()) {
+                result = emailAddress.leftValue();
+            } else {
                 result = context.convertOrFail(
                     text,
-                    EmailAddress.class
+                    HostAddress.class
                 );
-            } else {
-                if (HostAddress.class == type) {
-                    result = context.convertOrFail(
-                        text,
-                        HostAddress.class
-                    );
-                } else {
-                    if (HasHostAddress.class == type) {
-                        final Either<AbsoluteUrl, String> absoluteUrl = context.convert(
-                            text,
-                            AbsoluteUrl.class
-                        );
-                        if (absoluteUrl.isLeft()) {
-                            result = absoluteUrl.leftValue();
-                        } else {
-                            final Either<EmailAddress, String> emailAddress = context.convert(
-                                text,
-                                EmailAddress.class
-                            );
-                            if (emailAddress.isLeft()) {
-                                result = emailAddress.leftValue();
-                            } else {
-                                throw new IllegalArgumentException("Invalid text");
-                            }
-                        }
-                    } else {
-                        throw new IllegalArgumentException("Invalid type: " + type);
-                    }
-                }
             }
         }
 
         return result;
     }
+
+    // Object..........................................................................................................
 
     @Override
     public String toString() {

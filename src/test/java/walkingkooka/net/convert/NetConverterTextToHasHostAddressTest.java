@@ -69,33 +69,26 @@ public class NetConverterTextToHasHostAddressTest implements ConverterTesting2<N
     }
 
     @Test
-    public void testConvertTextToAbsoluteUrl() {
-        final String text = "https://example.com/path1";
-
-        this.convertAndCheck(
-            text,
-            Url.parseAbsolute(text)
+    public void testConvertTextToAbsoluteUrlFails() {
+        this.convertFails(
+            "https://example.com/path1",
+            AbsoluteUrl.class
         );
     }
 
     @Test
-    public void testConvertTextToEmailAddress() {
-        final String text = "user@example.com";
-
-        this.convertAndCheck(
-            text,
-            EmailAddress.parse(text)
+    public void testConvertTextToEmailAddressFails() {
+        this.convertFails(
+            "user@example.com",
+            EmailAddress.class
         );
     }
 
     @Test
-    public void testConvertTextWithAbsoluteUrlToHasHostAddress() {
-        final String text = "https://example.com";
-
-        this.convertAndCheck(
-            text,
-            AbsoluteUrl.class,
-            Url.parseAbsolute(text)
+    public void testConvertTextWithAbsoluteUrlToHasHostAddressFails() {
+        this.convertFails(
+            "https://example.com",
+            HostAddress.class
         );
     }
 
@@ -111,12 +104,10 @@ public class NetConverterTextToHasHostAddressTest implements ConverterTesting2<N
     }
 
     @Test
-    public void testConvertTextToHostAddress() {
-        final String text = "example.com";
-
-        this.convertAndCheck(
-            text,
-            HostAddress.with(text)
+    public void testConvertTextToHostAddressFails() {
+        this.convertFails(
+            "example.com",
+            HostAddress.class
         );
     }
 
