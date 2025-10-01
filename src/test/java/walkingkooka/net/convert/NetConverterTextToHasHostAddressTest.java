@@ -20,10 +20,8 @@ package walkingkooka.net.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.AbsoluteUrl;
@@ -33,8 +31,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 
-public class NetConverterTextToHasHostAddressTest implements ConverterTesting2<NetConverterTextToHasHostAddress<FakeConverterContext>, FakeConverterContext>,
-    ToStringTesting<NetConverterTextToHasHostAddress<FakeConverterContext>> {
+public class NetConverterTextToHasHostAddressTest extends NetConverterTestCase<NetConverterTextToHasHostAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertNullToAbsoluteUrlFails() {
@@ -190,15 +187,5 @@ public class NetConverterTextToHasHostAddressTest implements ConverterTesting2<N
     @Override
     public Class<NetConverterTextToHasHostAddress<FakeConverterContext>> type() {
         return Cast.to(NetConverterTextToHasHostAddress.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }

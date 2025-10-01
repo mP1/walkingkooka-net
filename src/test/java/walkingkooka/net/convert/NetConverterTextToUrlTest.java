@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.AbsoluteUrl;
@@ -30,7 +29,7 @@ import walkingkooka.net.Url;
 
 import java.util.function.Function;
 
-public final class NetConverterTextToUrlTest implements ConverterTesting2<NetConverterTextToUrl<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToUrlTest extends NetConverterTestCase<NetConverterTextToUrl<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringToUrl() {
@@ -128,15 +127,5 @@ public final class NetConverterTextToUrlTest implements ConverterTesting2<NetCon
     @Override
     public Class<NetConverterTextToUrl<FakeConverterContext>> type() {
         return Cast.to(NetConverterTextToUrl.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }

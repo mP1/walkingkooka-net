@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.HostAddress;
 
-public final class NetConverterTextToHostAddressTest implements ConverterTesting2<NetConverterTextToHostAddress<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToHostAddressTest extends NetConverterTestCase<NetConverterTextToHostAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertCharSequenceToHostAddress() {
@@ -92,15 +91,5 @@ public final class NetConverterTextToHostAddressTest implements ConverterTesting
     @Override
     public Class<NetConverterTextToHostAddress<FakeConverterContext>> type() {
         return Cast.to(NetConverterTextToHostAddress.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }

@@ -26,7 +26,8 @@ import walkingkooka.net.HostAddress;
 /**
  * A {@link Converter} that supports converting a {@link String} to a {@link HostAddress}.
  */
-final class NetConverterTextToHostAddress<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToHostAddress<C extends ConverterContext> extends NetConverter<C>
+    implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.

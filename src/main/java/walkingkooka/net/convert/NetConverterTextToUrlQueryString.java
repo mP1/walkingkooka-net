@@ -26,7 +26,8 @@ import walkingkooka.net.UrlQueryString;
 /**
  * A {@link Converter} that supports converting a {@link String} to one of the {@link UrlQueryString}
  */
-final class NetConverterTextToUrlQueryString<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToUrlQueryString<C extends ConverterContext> extends NetConverter<C>
+    implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.

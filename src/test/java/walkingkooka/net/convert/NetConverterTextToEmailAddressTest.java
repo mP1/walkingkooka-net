@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.email.EmailAddress;
 
-public final class NetConverterTextToEmailAddressTest implements ConverterTesting2<NetConverterTextToEmailAddress<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToEmailAddressTest extends NetConverterTestCase<NetConverterTextToEmailAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringBuilderToEmailAddress() {
@@ -84,15 +83,5 @@ public final class NetConverterTextToEmailAddressTest implements ConverterTestin
     @Override
     public Class<NetConverterTextToEmailAddress<FakeConverterContext>> type() {
         return Cast.to(NetConverterTextToEmailAddress.class);
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return "NetConverter";
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 }
