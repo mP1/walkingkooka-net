@@ -25,6 +25,9 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.HostAddress;
+import walkingkooka.net.MailToUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.convert.NetConverters;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.JavaVisibility;
@@ -95,6 +98,113 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
         );
     }
 
+    // setHost..........................................................................................................
+
+    @Test
+    public void testSetHostWithAbsoluteUrlAndHostAddress() {
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com/path1");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                url,
+                hostAddress
+            ),
+            url.setHost(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithAbsoluteUrlAndStringHostAddress() {
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com/path1");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                url,
+                hostAddress.text()
+            ),
+            url.setHost(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringAbsoluteUrlAndStringHostAddress() {
+        final AbsoluteUrl url = Url.parseAbsolute("https://example.com/path1");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                url.text(),
+                hostAddress.text()
+            ),
+            url.setHost(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithEmailAddressAndHostAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                emailAddress,
+                hostAddress
+            ),
+            emailAddress.setHostAddress(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringEmailAddressAndStringHostAddress() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                emailAddress.text(),
+                hostAddress.text()
+            ),
+            emailAddress.setHostAddress(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithMailToUrlAndHostAddress() {
+        final MailToUrl mailToUrl = Url.parseMailTo("mailto:user@example.com");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                mailToUrl,
+                hostAddress
+            ),
+            mailToUrl.setHostAddress(hostAddress)
+        );
+    }
+
+    @Test
+    public void testSetHostWithStringMailToUrlAndStringHostAddress() {
+        final MailToUrl mailToUrl = Url.parseMailTo("mailto:user@example.com");
+        final HostAddress hostAddress = HostAddress.with("different.com");
+
+        this.evaluateAndCheck(
+            "setHost",
+            Lists.of(
+                mailToUrl.text(),
+                hostAddress.text()
+            ),
+            mailToUrl.setHostAddress(hostAddress)
+        );
+    }
+
     private void evaluateAndCheck(final String functionName,
                                   final List<Object> parameters,
                                   final Object expected) {
@@ -114,6 +224,8 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                         switch (name.value()) {
                             case "getHost":
                                 return NetExpressionFunctions.getHost();
+                            case "setHost":
+                                return NetExpressionFunctions.setHost();
                             default:
                                 throw new UnknownExpressionFunctionException(name);
                         }
@@ -132,15 +244,7 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1900_DATE_SYSTEM_OFFSET, // dateTimeOffset
                         ',', // valueSeparator
-                        Converters.collection(
-                            Lists.of(
-                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
-                                NetConverters.textToEmailAddress(),
-                                NetConverters.textToUrl(),
-                                NetConverters.textToHostAddress(),
-                                NetConverters.textToHasHostAddress()
-                            )
-                        ),
+                        NetConverters.net(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.fake()
                     ),

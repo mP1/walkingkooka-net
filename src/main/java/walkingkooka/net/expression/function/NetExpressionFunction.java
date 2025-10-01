@@ -37,6 +37,10 @@ abstract class NetExpressionFunction<T, C extends ExpressionEvaluationContext> i
         .required(HasHostAddress.class)
         .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
 
+    final static ExpressionFunctionParameter<HasHostAddress> HAS_HOST_ADDRESS2 = ExpressionFunctionParameterName.with("hostAddress2")
+        .required(HasHostAddress.class)
+        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
+
     NetExpressionFunction(final String name) {
         super();
         this.name = Optional.of(
