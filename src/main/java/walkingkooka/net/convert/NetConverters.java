@@ -70,6 +70,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterTextToUrlFragment}
+     */
+    public static <C extends ConverterContext> Converter<C> textToUrlFragment() {
+        return NetConverterTextToUrlFragment.instance();
+    }
+
+    /**
      * Stop creation
      */
     private NetConverters() {
