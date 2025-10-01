@@ -184,6 +184,7 @@ public final class NetConvertersTest implements ConverterTesting,
         this.checkEquals(
             "net",
             NetConverters.net()
+                .toString()
         );
     }
 

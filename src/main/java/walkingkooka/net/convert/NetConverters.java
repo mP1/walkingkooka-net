@@ -50,13 +50,13 @@ public final class NetConverters implements PublicStaticHelper {
         return Converters.<C>collection(
             Lists.of(
                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                textToHasHostAddress(),
                 hasHostAddress(),
                 textToEmailAddress(),
                 textToHostAddress(),
                 textToUrl(),
                 textToUrlFragment(),
-                textToUrlQueryString(),
-                textToHasHostAddress()
+                textToUrlQueryString()
             )
         ).setToString("net");
     }
