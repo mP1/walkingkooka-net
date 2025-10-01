@@ -18,6 +18,7 @@
 package walkingkooka.net.expression.function;
 
 import walkingkooka.net.HasHostAddress;
+import walkingkooka.net.Url;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
@@ -39,6 +40,10 @@ abstract class NetExpressionFunction<T, C extends ExpressionEvaluationContext> i
 
     final static ExpressionFunctionParameter<HasHostAddress> HAS_HOST_ADDRESS2 = ExpressionFunctionParameterName.with("hostAddress2")
         .required(HasHostAddress.class)
+        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
+
+    final static ExpressionFunctionParameter<Url> URL = ExpressionFunctionParameterName.with("url")
+        .required(Url.class)
         .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE);
 
     NetExpressionFunction(final String name) {
