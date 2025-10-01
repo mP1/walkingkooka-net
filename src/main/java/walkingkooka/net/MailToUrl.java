@@ -28,6 +28,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * https://en.wikipedia.org/wiki/Mailto
@@ -86,7 +87,8 @@ import java.util.Optional;
  *    part of a "body" hname.
  * </pre>
  */
-public final class MailToUrl extends Url {
+public final class MailToUrl extends Url
+    implements HasHostAddress {
 
     final static String SCHEME = "mailto:";
 
@@ -306,6 +308,52 @@ public final class MailToUrl extends Url {
         return URLEncoder.encode(
             emailAddress.value()
         ).replace("%40", "@");
+    }
+
+    // HasHostAddress...................................................................................................
+
+    /**
+     * Returns the {@link HostAddress} expecting a single {@link EmailAddress}.
+     */
+    @Override
+    public HostAddress hostAddress() {
+        return this.handleHostAddress(
+            (EmailAddress emailAddress) -> emailAddress.hostAddress()
+
+        );
+    }
+
+    /**
+     * Will only succeed if there is a single {@link EmailAddress}.
+     */
+    @Override
+    public MailToUrl setHostAddress(final HostAddress hostAddress) {
+        Objects.requireNonNull(hostAddress, "hostAddress");
+
+        return this.handleHostAddress(
+            (EmailAddress emailAddress) -> this.setEmailAddresses(
+                Lists.of(
+                    emailAddress.setHostAddress(hostAddress)
+                )
+            )
+        );
+    }
+
+    private <T> T handleHostAddress(final Function<EmailAddress, T> handler) {
+        final List<EmailAddress> emailAddresses = this.emailAddresses;
+        final int count = emailAddresses.size();
+
+        switch (count) {
+            case 0:
+                throw new IllegalStateException("Missing 1 " + EmailAddress.class.getSimpleName());
+            case 1:
+                return handler.apply(
+                    emailAddresses.iterator()
+                        .next()
+                );
+            default:
+                throw new IllegalStateException("More than 1 " + EmailAddress.class.getSimpleName());
+        }
     }
 
     // Object...........................................................................................................
