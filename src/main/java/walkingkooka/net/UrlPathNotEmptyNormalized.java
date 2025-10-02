@@ -58,16 +58,24 @@ final class UrlPathNotEmptyNormalized extends UrlPathNotEmpty {
         final Optional<UrlPath> parent2 = Optional.of(parent);
 
         return name.isNormalized() ?
-            new UrlPathNotEmptyNormalized(newPath, name, parent2) :
-            unnormalized(newPath, name, parent2);
+            new UrlPathNotEmptyNormalized(
+                newPath,
+                name,
+                parent2
+            ) :
+            unnormalized(
+                newPath,
+                name,
+                parent2
+            );
     }
 
     @Override
     UrlPath parseTrailingSlash() {
         return new UrlPathNotEmptyNormalized(
-            this.path + this.separator().character(), // new path
+            this.path + SEPARATOR_CHAR, // new path
             UrlPathName.ROOT, // name
-            Optional.of(this)
+            Optional.of(this) // path
         );
     }
 
