@@ -52,7 +52,7 @@ final class UrlPathEmpty extends UrlPath {
 
     @Override
     UrlPath appendName(final UrlPathName name,
-                       final UrlPath parent) {
+                       final boolean nameNormalized) {
         return unnormalized(
             name.value(),
             name,

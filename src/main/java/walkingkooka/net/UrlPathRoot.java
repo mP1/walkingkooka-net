@@ -57,7 +57,7 @@ final class UrlPathRoot extends UrlPath {
 
     @Override
     UrlPath appendName(final UrlPathName name,
-                       final UrlPath parent) {
+                       final boolean nameNormalized) {
         final String nameString = name.value();
         final String value;
 
@@ -69,11 +69,17 @@ final class UrlPathRoot extends UrlPath {
             value = separatorString + nameString;
         }
 
-        final Optional<UrlPath> parent2 = Optional.of(parent);
-
-        return name.isNormalized() ?
-            UrlPathNotEmptyNormalized.withNormalized(value, name, parent2) :
-            UrlPathNotEmptyUnnormalized.withUnnormalized(value, name, parent2);
+        return nameNormalized ?
+            UrlPathNotEmptyNormalized.withNormalized(
+                value,
+                name,
+                Optional.of(this)
+            ) :
+            UrlPathNotEmptyUnnormalized.withUnnormalized(
+                value,
+                name,
+                Optional.of(this)
+            );
     }
 
     @Override

@@ -63,7 +63,7 @@ public final class UrlPathRootTest extends UrlPathTestCase<UrlPathRoot> {
 
         this.appendNameAndCheck(
             name,
-            normalized("/abc", name),
+            unnormalized("/abc", name),
             "/abc"
         );
     }
@@ -74,7 +74,7 @@ public final class UrlPathRootTest extends UrlPathTestCase<UrlPathRoot> {
 
         this.appendNameAndCheck(
             name,
-            normalized("/2", name),
+            unnormalized("/2", name),
             "/2"
         );
     }
@@ -106,7 +106,7 @@ public final class UrlPathRootTest extends UrlPathTestCase<UrlPathRoot> {
         appendPathAndCheck(
             UrlPath.ROOT,
             path,
-            UrlPath.normalized(
+            UrlPath.unnormalized(
                 "/a1",
                 UrlPathName.with("a1"),
                 UrlPath.ROOT_PARENT

@@ -78,7 +78,8 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
 
     final void normalizeAndCheck(final String path) {
         this.normalizeAndCheck(
-            UrlPath.parse(path)
+            path,
+            path
         );
     }
 

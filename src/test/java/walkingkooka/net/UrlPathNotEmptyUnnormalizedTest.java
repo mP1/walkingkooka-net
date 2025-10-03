@@ -99,13 +99,21 @@ public final class UrlPathNotEmptyUnnormalizedTest extends UrlPathTestCase<UrlPa
     @Test
     public void testNormalizeStartsWithSlash() {
         this.normalizeAndCheck(
+            "/path1/.",
+            "/path1"
+        );
+    }
+
+    @Test
+    public void testNormalizeStartsWithSlash2() {
+        this.normalizeAndCheck(
             "/path1/./path2",
             "/path1/path2"
         );
     }
 
     @Test
-    public void testNormalizeStartsWithSlash2() {
+    public void testNormalizeStartsWithSlash3() {
         this.normalizeAndCheck(
             "/path1/../path2",
             "/path2"
