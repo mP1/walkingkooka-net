@@ -131,6 +131,8 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                 case "isRequest":
                 case "isResponse":
                 case "isMultipart":
+                case "isEmpty": // CanBeEmpty
+                case "isNotEmpty": // CanBeEmpty
                     ignore = true;
                     break;
                 default:
