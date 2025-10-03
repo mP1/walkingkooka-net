@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -38,7 +39,7 @@ final class UrlPathNotEmptyUnnormalized extends UrlPathNotEmpty {
 
     @Override
     UrlPath appendName(final UrlPathName name,
-                       final UrlPath parent) {
+                       final boolean nameNormalized) {
         final String path = this.path;
         final String nameString = name.value();
 
@@ -57,7 +58,7 @@ final class UrlPathNotEmptyUnnormalized extends UrlPathNotEmpty {
         return new UrlPathNotEmptyUnnormalized(
             newPath,
             name,
-            Optional.of(parent)
+            Optional.of(this)
         );
     }
 
@@ -74,19 +75,20 @@ final class UrlPathNotEmptyUnnormalized extends UrlPathNotEmpty {
     public UrlPath normalize() {
         UrlPath normalized = ROOT;
 
-        for (final UrlPathName name : this) {
-            switch (name.value()) {
-                case "":
-                    break;
-                case ".":
-                    break;
-                case "..":
-                    normalized = normalized.parentOrSelf();
-                    break;
-                default:
-                    normalized = normalized.append(name);
-                    break;
+        final Collection<UrlPathName> names = this.namesList();
+
+        int i = 0;
+        final int last = names.size() - 1;
+
+        for (final UrlPathName name : names) {
+            if (name.isEmpty()) {
+                if (i != last) {
+                    i++;
+                    continue;
+                }
             }
+            i++;
+            normalized = name.normalize(normalized);
         }
 
         return normalized;

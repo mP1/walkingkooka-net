@@ -176,12 +176,12 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
         return this.appendName(
             name,
-            this
+            false // unknown if name is normalized assume unnormalized
         );
     }
 
     abstract UrlPath appendName(final UrlPathName name,
-                                final UrlPath parent);
+                                final boolean normalizedName);
 
     @Override
     public final UrlPath append(final UrlPath path) {
@@ -214,6 +214,8 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      * <li>An empty path is replaced with "/"</li>
      * <li>Dot segments <code>.</code> are removed</li>
      * <li>Double dot segments <code>..</code> cause the parent to be removed</li>
+     * <li>Percent encoded characters are encoded to UPPER-CASE HEX DIGITS</li>
+     * <li>Characters that do not require percent encoding must be decoded</li>
      * </ul>
      * <br>
      * <a href="https://en.wikipedia.org/wiki/URI_normalization">URI normalization</a>
@@ -226,6 +228,14 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
      *
      * Removing duplicate slashes Paths which include two adjacent slashes could be converted to one. Example:
      * http://example.com/foo//bar.html → http://example.com/foo/bar.html
+     *
+     * Decoding percent-encoded triplets of unreserved characters. Percent-encoded triplets of the URI in the ranges of ALPHA (%41–%5A and %61–%7A), DIGIT (%30–%39), hyphen (%2D), period (%2E), underscore (%5F), or tilde (%7E)
+     * do not require percent-encoding and should be decoded to their corresponding unreserved characters.[4] Example:
+     *
+     * Normalizations that preserve semantics
+     * The following normalizations are described in RFC 3986 [1] to result in equivalent URIs:
+     *
+     * Converting percent-encoded triplets to uppercase. The hexadecimal digits within a percent-encoding triplet of the URI (e.g., %3a versus %3A) are case-insensitive and therefore should be normalized to use uppercase letters for the digits A-F.[2
      * </pre>
      */
     public abstract UrlPath normalize();
@@ -289,7 +299,6 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     public final boolean equals(final Object other) {
         return this == other ||
             other instanceof UrlPath &&
-                this.getClass() == other.getClass() &&
                 this.equals0((UrlPath) other);
     }
 

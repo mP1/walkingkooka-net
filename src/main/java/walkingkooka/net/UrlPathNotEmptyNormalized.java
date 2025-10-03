@@ -38,14 +38,14 @@ final class UrlPathNotEmptyNormalized extends UrlPathNotEmpty {
 
     @Override
     UrlPath appendName(final UrlPathName name,
-                       final UrlPath parent) {
+                       final boolean nameNormalized) {
         final String path = this.path;
         final String nameString = name.value();
 
         final String newPath;
 
         if (nameString.isEmpty()) {
-            newPath = path + SEPARATOR_CHAR + SEPARATOR_CHAR;
+            newPath = path + SEPARATOR_CHAR;
 
         } else {
             if (path.endsWith(SEPARATOR_STRING)) {
@@ -55,18 +55,18 @@ final class UrlPathNotEmptyNormalized extends UrlPathNotEmpty {
             }
         }
 
-        final Optional<UrlPath> parent2 = Optional.of(parent);
+        final Optional<UrlPath> optionalThis = Optional.of(this);
 
-        return name.isNormalized() ?
+        return nameNormalized ?
             new UrlPathNotEmptyNormalized(
                 newPath,
                 name,
-                parent2
+                optionalThis
             ) :
             unnormalized(
                 newPath,
                 name,
-                parent2
+                optionalThis
             );
     }
 

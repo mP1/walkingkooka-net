@@ -29,8 +29,8 @@ public final class UrlPathNotEmptyNormalizedTest extends UrlPathTestCase<UrlPath
 
         this.appendNameAndCheck(
             name,
-            unnormalized("/a1/b2//", name),
-            "/a1/b2//"
+            unnormalized("/a1/b2/", name),
+            "/a1/b2/"
         );
     }
 
@@ -92,6 +92,13 @@ public final class UrlPathNotEmptyNormalizedTest extends UrlPathTestCase<UrlPath
     public void testNormalizeStartsWithSlash() {
         this.normalizeAndCheck(
             "/path1/path2"
+        );
+    }
+
+    @Test
+    public void testNormalizeStartsAndTrailingSlash() {
+        this.normalizeAndCheck(
+            "/path1/path2/"
         );
     }
 
@@ -202,9 +209,9 @@ public final class UrlPathNotEmptyNormalizedTest extends UrlPathTestCase<UrlPath
     @Test
     public void testToStringWithSpace() {
         this.toStringAndCheck(
-            UrlPath.parse("/path1/ path2/")
+            UrlPath.parse("/path1/ path2")
                 .normalize(),
-            "/path1/%20path2/"
+            "/path1/%20path2"
         );
     }
 

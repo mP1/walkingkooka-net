@@ -481,6 +481,51 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     }
 
     @Test
+    public void testAppendPathNormalizedToNormalized2() {
+        final UrlPathName c3 = UrlPathName.with("c3");
+        final UrlPathName d4 = UrlPathName.with("d4");
+
+        final UrlPath start = UrlPath.normalized(
+            "/a1/b2",
+            b2(),
+            Optional.of(
+                UrlPath.normalized(
+                    "/a1",
+                    a1(),
+                    UrlPath.EMPTY_PARENT
+                )
+            )
+        );
+        final UrlPath path = UrlPath.normalized(
+            "/c3/d4",
+            d4,
+            Optional.of(
+                UrlPath.normalized(
+                    "/c3",
+                    c3,
+                    UrlPath.EMPTY_PARENT
+                )
+            )
+        );
+
+        this.appendPathAndCheck(
+            start,
+            path,
+            UrlPath.normalized(
+                "/a1/b2/c3/d4",
+                d4,
+                Optional.of(
+                    UrlPath.normalized(
+                        "/a1/b2/c3",
+                        c3,
+                        Optional.of(start)
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
     public void testAppendPathUnnormalizedToNormalized() {
         final UrlPath start = UrlPath.normalized(
             "/a1",
@@ -495,7 +540,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.appendPathAndCheck(
             start,
             path,
-            UrlPath.normalized(
+            UrlPath.unnormalized(
                 "/a1/b2",
                 b2(),
                 Optional.of(start)
@@ -529,14 +574,11 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
             appended,
             expected.value()
         );
-        this.parentCheck(
-            appended,
-            path
-        );
+
         this.checkEquals(
             expected.isNormalized(),
             appended.isNormalized(),
-            () -> "normalized " + appended
+            () -> "normalized " + expected + " AND " + appended
         );
 
         this.checkEquals(
@@ -827,6 +869,22 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testNormalizeEmptyRemoved() {
         this.normalizeAndCheck(
+            "/a1//",
+            "/a1/"
+        );
+    }
+
+    @Test
+    public void testNormalizeEmptyRemoved2() {
+        this.normalizeAndCheck(
+            "/a1//b2",
+            "/a1/b2"
+        );
+    }
+
+    @Test
+    public void testNormalizeEmptyRemoved3() {
+        this.normalizeAndCheck(
             "/a1//b2/c3",
             "/a1/b2/c3"
         );
@@ -835,13 +893,21 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testNormalizeDot() {
         this.normalizeAndCheck(
-            "/a1/b2/./c3",
-            "/a1/b2/c3"
+            "/./a1",
+            "/a1"
         );
     }
 
     @Test
     public void testNormalizeDot2() {
+        this.normalizeAndCheck(
+            "/a1/./b2",
+            "/a1/b2"
+        );
+    }
+
+    @Test
+    public void testNormalizeDot3() {
         this.normalizeAndCheck(
             "/a1/b2/./c3/./d4",
             "/a1/b2/c3/d4"
@@ -885,6 +951,22 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.normalizeAndCheck(
             "/a1/../b2/./c3/d4",
             "/b2/c3/d4"
+        );
+    }
+
+    @Test
+    public void testNormalizeUnnecessaryPercentEncodedCharacter() {
+        this.normalizeAndCheck(
+            "/abc%44%45f",
+            "/abcDEf"
+        );
+    }
+
+    @Test
+    public void testNormalizeLowerCasePercentEncodedCharacter() {
+        this.normalizeAndCheck(
+            "/abc%2adef",
+            "/abc%2Adef"
         );
     }
 

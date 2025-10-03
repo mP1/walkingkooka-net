@@ -72,7 +72,10 @@ abstract class UrlPathNotEmpty extends UrlPath {
 
         return this.parent.orElse(UrlPath.EMPTY)
             .appendTo(leaf)
-            .append(name);
+            .appendName(
+                name,
+                this.isNormalized()
+            );
     }
 
     @Override
