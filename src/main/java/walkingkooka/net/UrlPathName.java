@@ -270,10 +270,10 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
                     true // normalized, needed to support trailing slashes
                 );
                 break;
-            case ".":
+            case UrlPath.CURRENT:
                 normalizedPath = parent;
                 break;
-            case "..":
+            case UrlPath.PARENT:
                 normalizedPath = parent.parentOrSelf();
                 break;
             default:
