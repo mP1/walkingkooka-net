@@ -59,6 +59,6 @@ final class NetExpressionFunctionEmailAddress<C extends ExpressionEvaluationCont
     @Override
     public EmailAddress apply(final List<Object> parameters,
                               final C context) {
-        return EMAIL_ADDRESS.getOrFail(parameters, 0);
+        return EMAIL_ADDRESS.getOrFail(parameters, 0, context);
     }
 }

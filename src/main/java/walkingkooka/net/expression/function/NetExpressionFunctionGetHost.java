@@ -60,7 +60,7 @@ final class NetExpressionFunctionGetHost<C extends ExpressionEvaluationContext> 
     @Override
     public HostAddress apply(final List<Object> parameters,
                              final C context) {
-        final HasHostAddress has = HAS_HOST_ADDRESS.getOrFail(parameters, 0);
+        final HasHostAddress has = HAS_HOST_ADDRESS.getOrFail(parameters, 0, context);
 
         return has.hostAddress();
     }
