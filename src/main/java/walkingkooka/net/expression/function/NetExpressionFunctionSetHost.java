@@ -61,8 +61,8 @@ final class NetExpressionFunctionSetHost<C extends ExpressionEvaluationContext> 
     @Override
     public HasHostAddress apply(final List<Object> parameters,
                                 final C context) {
-        final HasHostAddress has = HAS_HOST_ADDRESS.getOrFail(parameters, 0, context);
-        final HasHostAddress newHost = HAS_HOST_ADDRESS2.getOrFail(parameters, 1, context);
+        final HasHostAddress has = HAS_HOST_ADDRESS.getOrFail(parameters, 0);
+        final HasHostAddress newHost = HAS_HOST_ADDRESS2.getOrFail(parameters, 1);
 
         System.out.println("parameters=" + parameters);
         System.out.println(has + " setHostAddress " + newHost + " " + newHost.hostAddress());
