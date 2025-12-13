@@ -59,6 +59,6 @@ final class NetExpressionFunctionUrl<C extends ExpressionEvaluationContext> exte
     @Override
     public Url apply(final List<Object> parameters,
                      final C context) {
-        return URL.getOrFail(parameters, 0);
+        return URL.getOrFail(parameters, 0, context);
     }
 }

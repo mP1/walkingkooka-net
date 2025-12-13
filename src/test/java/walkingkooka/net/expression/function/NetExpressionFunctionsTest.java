@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.AbsoluteUrl;
@@ -405,6 +406,7 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.fake()
                     ),
+                    EnvironmentContexts.fake(),
                     LocaleContexts.fake()
                 )
             )
