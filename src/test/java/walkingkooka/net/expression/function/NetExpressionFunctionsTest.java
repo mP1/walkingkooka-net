@@ -374,6 +374,9 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
             ).toValue(
                 ExpressionEvaluationContexts.basic(
                     ExpressionNumberKind.BIG_DECIMAL,
+                    (e, c) -> {
+                        throw new UnsupportedOperationException();
+                    },
                     (name) -> {
                         switch (name.value()) {
                             case "emailAddress":
