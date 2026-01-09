@@ -36,6 +36,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -404,6 +405,7 @@ public final class NetExpressionFunctionsTest implements PublicStaticHelperTesti
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         Converters.EXCEL_1900_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        LineEnding.NL,
                         ',', // valueSeparator
                         NetConverters.net(),
                         DateTimeContexts.fake(),
