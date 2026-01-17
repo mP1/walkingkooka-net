@@ -26,10 +26,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.List;
 import java.util.Map;
@@ -40,8 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderWithParametersTestCase<Link,
     LinkParameterName<?>>
-    implements JsonNodeMarshallingTesting<Link>,
-    ParseStringTesting<List<Link>> {
+    implements ParseStringTesting<List<Link>> {
 
     @Test
     public void testWithNullFails() {
@@ -139,86 +134,6 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
                 Url.parse("https://example2.com")
             )
         );
-    }
-
-    // marshall .....................................................................................................
-
-    @Test
-    public void testUnmarshallBooleanFails() {
-        this.unmarshallFails(JsonNode.booleanNode(true));
-    }
-
-    @Test
-    public void testUnmarshallNumberFails() {
-        this.unmarshallFails(JsonNode.number(123));
-    }
-
-    @Test
-    public void testUnmarshallStringFails() {
-        this.unmarshallFails(JsonNode.string("fails!"));
-    }
-
-    @Test
-    public void testUnmarshallArrayFails() {
-        this.unmarshallFails(JsonNode.array());
-    }
-
-    @Test
-    public void testUnmarshallObjectEmptyFails() {
-        this.unmarshallFails(JsonNode.object());
-    }
-
-    @Test
-    public void testUnmarshallHrefNonStringFails() {
-        this.unmarshallFails(
-            JsonNode.object()
-                .set(
-                    Link.HREF_JSON_PROPERTY,
-                    123
-                )
-        );
-    }
-
-    @Test
-    public void testUnmarshallUnknownPropertyFails() {
-        this.unmarshallFails(
-            JsonNode.object()
-                .set(
-                    JsonPropertyName.with("unknown-property"),
-                    123
-                )
-        );
-    }
-
-    @Test
-    public void testUnmarshallLink() {
-        final String href = "https://example.com";
-        this.unmarshallAndCheck(
-            JsonNode.object()
-                .set(
-                    Link.HREF_JSON_PROPERTY,
-                    href
-                ),
-            Link.with(
-                Url.parse(href)
-            )
-        );
-    }
-
-    @Test
-    public void testMarshall() {
-        this.marshallAndCheck2("<https://example.com>",
-            "{\"href\": \"https://example.com\"}");
-    }
-
-    @Test
-    public void testMarshallRel() {
-        this.marshallAndCheck2("<https://example.com>;type=text/plain;rel=previous",
-            "{\"href\": \"https://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
-    }
-
-    private void marshallAndCheck2(final String link, final String json) {
-        this.marshallAndCheck(Link.parse(link).get(0), json);
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -394,18 +309,5 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Override
     public List<Link> parseString(final String text) {
         return Link.parse(text);
-    }
-
-    // JsonNodeContextTesting...........................................................................................
-
-    @Override
-    public Link createJsonNodeMarshallingValue() {
-        return this.createLink();
-    }
-
-    @Override
-    public Link unmarshall(final JsonNode from,
-                           final JsonNodeUnmarshallContext context) {
-        return Link.unmarshall(from, context);
     }
 }
