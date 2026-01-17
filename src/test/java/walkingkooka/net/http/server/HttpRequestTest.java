@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -30,9 +29,6 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -41,7 +37,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNodeMarshallingTesting<HttpRequest> {
+public final class HttpRequestTest implements ClassTesting<HttpRequest> {
 
     @Test
     public void testBodyTextWhenBodyNullAndCharsetNull() {
@@ -153,26 +149,5 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest>, JsonNod
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeMarshallingTesting.......................................................................................
-
-    @Override
-    public HttpRequest createJsonNodeMarshallingValue() {
-        return HttpRequests.value(
-            HttpTransport.SECURED,
-            HttpMethod.POST,
-            Url.parseRelative("/path1/file2?query3"),
-            HttpProtocolVersion.VERSION_1_0,
-            HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                .setContentType(MediaType.TEXT_PLAIN)
-                .setBodyText("body-text-123"));
-    }
-
-    @Override
-    public HttpRequest unmarshall(final JsonNode from,
-                                  final JsonNodeUnmarshallContext context) {
-        return HttpRequests.parse(HttpTransport.SECURED, from.stringOrFail());
     }
 }
