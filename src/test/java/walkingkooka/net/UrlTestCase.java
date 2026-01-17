@@ -25,7 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
 import java.util.function.Predicate;
 
@@ -34,7 +33,6 @@ import java.util.function.Predicate;
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     HashCodeEqualsDefinedTesting2<U>,
-    JsonNodeMarshallingTesting<U>,
     IsMethodTesting<U>,
     ParseStringTesting<U>,
     HasTextTesting,
@@ -71,13 +69,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     @Override
     public final U createObject() {
-        return this.createUrl();
-    }
-
-    // JsonNodeContextTesting...........................................................................................
-
-    @Override
-    public final U createJsonNodeMarshallingValue() {
         return this.createUrl();
     }
 

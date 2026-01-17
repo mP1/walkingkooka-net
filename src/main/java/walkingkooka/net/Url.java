@@ -25,15 +25,10 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visitable;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Base class with getters that return the common components of a {@link Url}.
@@ -299,74 +294,6 @@ public abstract class Url implements Value<String>,
      */
     final <U extends Url> U cast() {
         return Cast.to(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json string holding an {@link Url}.
-     */
-    private static Url unmarshall(final JsonNode node,
-                                  final JsonNodeUnmarshallContext context) {
-        return unmarshall0(node, Url::parse);
-    }
-
-    /**
-     * Accepts a json string holding an {@link AbsoluteUrl}.
-     */
-    static AbsoluteUrl unmarshallAbsolute(final JsonNode node,
-                                          final JsonNodeUnmarshallContext context) {
-        return unmarshall0(node, Url::parseAbsolute);
-    }
-
-    /**
-     * Accepts a json string holding an {@link DataUrl}.
-     */
-    static DataUrl unmarshallData(final JsonNode node,
-                                  final JsonNodeUnmarshallContext context) {
-        return unmarshall0(node, Url::parseData);
-    }
-
-    /**
-     * Accepts a json string holding an {@link MailToUrl}.
-     */
-    static MailToUrl unmarshallMailTo(final JsonNode node,
-                                      final JsonNodeUnmarshallContext context) {
-        return unmarshall0(
-            node,
-            Url::parseMailTo
-        );
-    }
-
-    /**
-     * Accepts a json string holding an {@link RelativeUrl}.
-     */
-    static RelativeUrl unmarshallRelative(final JsonNode node,
-                                          final JsonNodeUnmarshallContext context) {
-        return unmarshall0(node, Url::parseRelative);
-    }
-
-    private static <U extends Url> U unmarshall0(final JsonNode node,
-                                                 final Function<String, U> parse) {
-        Objects.requireNonNull(node, "node");
-
-        return parse.apply(node.stringOrFail());
-    }
-
-    private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.string(this.value());
-    }
-
-    static {
-        JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(Url.class),
-            Url::unmarshall,
-            Url::marshall,
-            Url.class,
-            AbsoluteUrl.class,
-            DataUrl.class,
-            MailToUrl.class,
-            RelativeUrl.class);
     }
 
     // HasText..........................................................................................................
