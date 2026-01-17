@@ -22,10 +22,6 @@ import walkingkooka.Value;
 import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
 import walkingkooka.text.HasText;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -140,33 +136,6 @@ final public class EmailAddress implements HasText,
     @Override
     public String text() {
         return this.value();
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json string holding an email.
-     */
-    static EmailAddress unmarshall(final JsonNode node,
-                                   final JsonNodeUnmarshallContext context) {
-        Objects.requireNonNull(node, "node");
-
-        return parse(
-            node.stringOrFail()
-        );
-    }
-
-    private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.string(this.toString());
-    }
-
-    static {
-        JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(EmailAddress.class),
-            EmailAddress::unmarshall,
-            EmailAddress::marshall,
-            EmailAddress.class
-        );
     }
 
     // Object....................................................................................................

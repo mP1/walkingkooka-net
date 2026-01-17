@@ -33,9 +33,6 @@ import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -48,7 +45,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     HasHostAddressTesting<EmailAddress>,
     HasTextTesting,
     ComparableTesting2<EmailAddress>,
-    JsonNodeMarshallingTesting<EmailAddress>,
     ParseStringTesting<EmailAddress>,
     ThrowableTesting,
     ToStringTesting<EmailAddress> {
@@ -1733,30 +1729,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public EmailAddress createHasHostAddress() {
         return this.createObject();
-    }
-
-    // marshall ......................................................................................................
-
-    @Test
-    public void testUnmarshallInvalidEmailFails() {
-        this.unmarshallFails(JsonNode.string("!"));
-    }
-
-    @Test
-    public void testUnmarshall() {
-        final String address = "user@example.com";
-        this.unmarshallAndCheck(JsonNode.string(address), EmailAddress.parse(address));
-    }
-
-    @Override
-    public EmailAddress createJsonNodeMarshallingValue() {
-        return this.createObject();
-    }
-
-    @Override
-    public EmailAddress unmarshall(final JsonNode from,
-                                   final JsonNodeUnmarshallContext context) {
-        return EmailAddress.unmarshall(from, context);
     }
 
     // hashCode/equals..................................................................................................
