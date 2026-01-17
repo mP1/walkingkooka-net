@@ -2,7 +2,7 @@
 <module>
     <inherits name="walkingkooka.j2cl.java.util.locale.Locale"/>
 
-    <inherits name="java.time.Time"/>
+    <inherits name="walkingkooka.j2cl.java.time.Time"/>
     <inherits name="java.util.Base64"/>
     <inherits name="walkingkooka.j2cl.java.net.Net"/>
     <inherits name="walkingkooka.route.Route"/>
