@@ -20,16 +20,9 @@ package walkingkooka.net.header;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObject;
-import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 
 
@@ -145,77 +138,6 @@ final public class Link extends HeaderWithParameters2<Link,
     @Override
     public boolean isResponse() {
         return true;
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json object with a single required property href.
-     */
-    static Link unmarshall(final JsonNode node,
-                           final JsonNodeUnmarshallContext context) {
-        Objects.requireNonNull(node, "node");
-
-        Url href = null;
-
-        for (JsonNode child : node.objectOrFail().children()) {
-            final JsonPropertyName name = child.name();
-            switch (name.value()) {
-                case "href":
-                    href = context.unmarshall(
-                        child,
-                        Url.class
-                    );
-                    break;
-                default:
-                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
-            }
-        }
-
-        if (null == href) {
-            JsonNodeUnmarshallContext.missingProperty(HREF_JSON_PROPERTY, node);
-        }
-        return Link.with(href);
-    }
-
-    /**
-     * Builds the json representation of this link, with the value assigned to HREF attribute.
-     */
-    private JsonNode marshall(final JsonNodeMarshallContext context) {
-        JsonObject json = JsonNode.object()
-            .set(
-                HREF_JSON_PROPERTY,
-                context.marshall(this.value)
-            );
-
-        for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
-            final LinkParameterName<?> name = parameterNameAndValue.getKey();
-
-            json = json.set(
-                JsonPropertyName.with(name.value()),
-                name.toText(
-                    parameterNameAndValue.getValue()
-                )
-            );
-        }
-
-
-        return json;
-    }
-
-    /**
-     * The attribute on the json object which will hold the {@link #value}.
-     */
-    // @VisibleForTesting
-    final static JsonPropertyName HREF_JSON_PROPERTY = JsonPropertyName.with("href");
-
-    static {
-        JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(Link.class),
-            Link::unmarshall,
-            Link::marshall,
-            Link.class
-        );
     }
 
     // Object................................................................................................................
