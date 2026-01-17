@@ -19,8 +19,6 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -352,13 +350,5 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Override
     public Class<RelativeUrl> type() {
         return RelativeUrl.class;
-    }
-
-    // json.............................................................................................................
-
-    @Override
-    public RelativeUrl unmarshall(final JsonNode node,
-                                  final JsonNodeUnmarshallContext context) {
-        return Url.unmarshallRelative(node, context);
     }
 }

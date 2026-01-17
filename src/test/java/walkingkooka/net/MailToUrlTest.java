@@ -20,8 +20,6 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -509,14 +507,6 @@ public final class MailToUrlTest extends UrlTestCase<MailToUrl>
             ),
             "mailto:gorby%25kremvax@example.com"
         );
-    }
-
-    // JsonNodeMarshallTesting .........................................................................................
-
-    @Override
-    public MailToUrl unmarshall(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
-        return Url.unmarshallMailTo(node, context);
     }
 
     // ClassTesting.....................................................................................................

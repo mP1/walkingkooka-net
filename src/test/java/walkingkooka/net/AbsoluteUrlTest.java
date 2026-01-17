@@ -19,8 +19,6 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import java.net.MalformedURLException;
@@ -1320,14 +1318,6 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Override
     public Class<AbsoluteUrl> type() {
         return AbsoluteUrl.class;
-    }
-
-    // JsonNodeMarshallTesting .........................................................................................
-
-    @Override
-    public AbsoluteUrl unmarshall(final JsonNode node,
-                                  final JsonNodeUnmarshallContext context) {
-        return Url.unmarshallAbsolute(node, context);
     }
 
     // ParseStringTesting ..............................................................................................

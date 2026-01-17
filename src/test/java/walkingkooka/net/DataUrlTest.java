@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.visit.Visiting;
 
 import java.nio.charset.Charset;
@@ -308,13 +306,5 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     @Override
     public Class<DataUrl> type() {
         return DataUrl.class;
-    }
-
-    // JsonNodeMarshallTesting .........................................................................................
-
-    @Override
-    public DataUrl unmarshall(final JsonNode node,
-                              final JsonNodeUnmarshallContext context) {
-        return Url.unmarshallData(node, context);
     }
 }
