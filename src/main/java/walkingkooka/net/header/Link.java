@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
@@ -194,11 +193,8 @@ final public class Link extends HeaderWithParameters2<Link,
 
             json = json.set(
                 JsonPropertyName.with(name.value()),
-                name.handler.toText(
-                    Cast.to(
-                        parameterNameAndValue.getValue()
-                    ),
-                    name
+                name.toText(
+                    parameterNameAndValue.getValue()
                 )
             );
         }

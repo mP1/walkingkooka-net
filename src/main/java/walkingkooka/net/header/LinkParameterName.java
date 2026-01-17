@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
@@ -147,6 +148,18 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
     private LinkParameterName(final String value,
                               final HeaderHandler<V> handler) {
         super(value, handler);
+    }
+
+    /**
+     * Helper that is mostly intended for an external json marshaller.
+     */
+    public String toText(final Object value) {
+        return this.handler.toText(
+            Cast.to(
+                value
+            ),
+            this
+        );
     }
 
     // Comparable......................................................................................................
