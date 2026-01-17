@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -27,35 +26,11 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.printer.TreePrintableTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallException;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonNodeMarshallingTesting<HttpResponse>,
+public final class HttpResponseTest implements ClassTesting<HttpResponse>,
     TreePrintableTesting {
-
-    @Test
-    public void testVersionMissingJsonMarshallFails() {
-        final HttpResponse response = HttpResponses.recording();
-        response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
-        response.setEntity(HttpEntity.EMPTY);
-
-        assertThrows(JsonNodeMarshallException.class, () -> this.marshallContext().marshall(response));
-    }
-
-    @Test
-    public void testStatusMissingJsonMarshallFails() {
-        final HttpResponse response = HttpResponses.recording();
-        response.setVersion(HttpProtocolVersion.VERSION_1_0);
-        response.setEntity(HttpEntity.EMPTY);
-
-        assertThrows(JsonNodeMarshallException.class, () -> this.marshallContext().marshall(response));
-    }
 
     // TreePrintable....................................................................................................
 
@@ -109,27 +84,5 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>, JsonN
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeMarshallingTesting.......................................................................................
-
-    @Override
-    public HttpResponse createJsonNodeMarshallingValue() {
-        final HttpResponse response = HttpResponses.recording();
-        response.setVersion(HttpProtocolVersion.VERSION_1_0);
-        response.setStatus(HttpStatusCode.withCode(987).setMessage("Custom Status Message"));
-        response.setEntity(
-            HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L)
-                .setContentType(MediaType.TEXT_PLAIN)
-                .setBodyText("body-text-123")
-        );
-        return response;
-    }
-
-    @Override
-    public HttpResponse unmarshall(final JsonNode from,
-                                   final JsonNodeUnmarshallContext context) {
-        return HttpResponses.parse(from.stringOrFail());
     }
 }
