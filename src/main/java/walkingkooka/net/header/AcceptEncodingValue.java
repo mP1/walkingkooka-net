@@ -179,7 +179,7 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
         return false;
     }
 
-    // Predicate .....................................................................................................
+    // Predicate .......................................................................................................
 
     @Override
     public boolean test(final ContentEncoding encoding) {
@@ -189,14 +189,16 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
 
     abstract boolean testNonNull(final ContentEncoding encoding);
 
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
-    @Override final int hashCodeValue(final String value) {
+    @Override //
+    final int hashCodeValue(final String value) {
         return CASE_SENSITIVITY.hash(value);
     }
 
-    @Override final boolean equalsValue(final String value,
-                                        final String otherValue) {
+    @Override //
+    final boolean equalsValue(final String value,
+                              final String otherValue) {
         return CASE_SENSITIVITY.equals(value, otherValue);
     }
 
