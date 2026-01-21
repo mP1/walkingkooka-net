@@ -90,7 +90,7 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
         Objects.requireNonNull(type, "type");
     }
 
-    // replaceParameters ..................................................................................................
+    // replaceParameters ...............................................................................................
 
     @Override
     ContentDisposition replaceParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
@@ -131,7 +131,7 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
         return filename;
     }
 
-    // Header.................................................................
+    // Header...........................................................................................................
 
     @Override
     String toHeaderTextValue() {
@@ -148,7 +148,7 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
         return false;
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ..................................................................................................
 
     @Override
     public boolean isMultipart() {
