@@ -152,9 +152,4 @@ final public class Link extends HeaderWithParameters2<Link,
                         final Url otherValue) {
         return value.equals(otherValue);
     }
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof Link;
-    }
 }

@@ -166,11 +166,9 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-            this.canBeEquals(other) &&
+            this.isSameType(other) &&
                 this.equals0(Cast.to(other));
     }
-
-    abstract boolean canBeEquals(final Object other);
 
     private boolean equals0(final HeaderWithParameters2<H, P, V> other) {
         return this.equalsValue(this.value, other.value) && //
@@ -180,7 +178,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final boolean equalsIgnoringParameters(final Object other) {
         return this == other ||
-            this.canBeEquals(other) &&
+            this.isSameType(other) &&
                 this.equalsIgnoringParameters0(Cast.to(other));
     }
 
@@ -194,7 +192,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     @Override
     public final boolean equalsOnlyPresentParameters(final Object other) {
         return this == other ||
-            this.canBeEquals(other) &&
+            this.isSameType(other) &&
                 this.equalsOnlyPresentParameters0(Cast.to(other));
     }
 
@@ -226,6 +224,13 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
 
     abstract boolean equalsValue(final V value,
                                  final V otherValue);
+
+    /**
+     * Returns true only if this and the given object are of the same type.
+     */
+    private boolean isSameType(final Object other) {
+        return null != other && (this.getClass() == other.getClass());
+    }
 
     @Override
     public final String toString() {

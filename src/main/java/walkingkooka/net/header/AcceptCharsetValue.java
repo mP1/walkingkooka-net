@@ -180,11 +180,6 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
         return value.equals(otherValue);
     }
 
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof AcceptCharsetValue;
-    }
-
     // Predicate........................................................................................................
 
     @Override

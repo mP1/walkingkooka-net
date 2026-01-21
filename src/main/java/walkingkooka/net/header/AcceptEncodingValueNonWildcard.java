@@ -63,11 +63,4 @@ final class AcceptEncodingValueNonWildcard extends AcceptEncodingValue {
     private boolean filter(final Encoding encoding) {
         return CASE_SENSITIVITY.equals(this.value(), encoding.value());
     }
-
-    // Object..........................................................................................................
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof AcceptEncodingValueNonWildcard;
-    }
 }
