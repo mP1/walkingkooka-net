@@ -730,11 +730,6 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     }
 
     @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof MediaType;
-    }
-
-    @Override
     boolean equalsValue(final String value,
                         final String otherValue) {
         return CASE_SENSITIVITY.equals(

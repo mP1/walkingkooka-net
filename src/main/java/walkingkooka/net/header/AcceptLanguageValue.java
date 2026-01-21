@@ -175,11 +175,6 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     }
 
     @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof AcceptLanguageValue;
-    }
-
-    @Override
     boolean equalsValue(final LanguageName value,
                         final LanguageName otherValue) {
         return value.equals(otherValue);

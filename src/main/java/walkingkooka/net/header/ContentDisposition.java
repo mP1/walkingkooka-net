@@ -177,9 +177,4 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
                         final ContentDispositionType otherValue) {
         return value.equals(otherValue);
     }
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof ContentDisposition;
-    }
 }

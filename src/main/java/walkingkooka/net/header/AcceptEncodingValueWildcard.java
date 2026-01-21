@@ -56,11 +56,4 @@ final class AcceptEncodingValueWildcard extends AcceptEncodingValue {
     boolean testNonNull(final ContentEncoding encoding) {
         return true;
     }
-
-    // Object..........................................................................................................
-
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof AcceptEncodingValueWildcard;
-    }
 }
