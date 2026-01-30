@@ -259,6 +259,13 @@ public final class MailToUrl extends Url
 
     private final static UrlParameterName BODY = UrlParameterName.with("body");
 
+    // TextUrlVisitor...................................................................................................
+
+    @Override
+    void accept(final TextUrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // UrlVisitor.......................................................................................................
 
     @Override

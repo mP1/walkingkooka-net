@@ -283,6 +283,10 @@ public abstract class Url implements Value<String>,
         return this instanceof RelativeUrl;
     }
 
+    // TextUrlVisitor...................................................................................................
+
+    abstract void accept(final TextUrlVisitor visitor);
+
     // UrlVisitor........................................................................................................
 
     abstract void accept(final UrlVisitor visitor);
