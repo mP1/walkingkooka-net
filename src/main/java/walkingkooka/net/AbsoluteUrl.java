@@ -325,6 +325,13 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements HasHostA
         );
     }
 
+    // UrlVisitor.......................................................................................................
+
+    @Override
+    void accept(final TextUrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // UrlVisitor........................................................................................................
 
     @Override

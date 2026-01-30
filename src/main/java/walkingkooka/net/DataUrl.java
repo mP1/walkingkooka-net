@@ -283,6 +283,13 @@ public final class DataUrl extends Url {
 
     private final Binary binary;
 
+    // TextUrlVisitor...................................................................................................
+
+    @Override
+    void accept(final TextUrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // UrlVisitor........................................................................................................
 
     @Override

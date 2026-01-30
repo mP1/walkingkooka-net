@@ -127,6 +127,13 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl implements Comparab
         return this;
     }
 
+    // TextUrlVisitor...................................................................................................
+
+    @Override
+    void accept(final TextUrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // UrlVisitor........................................................................................................
 
     @Override
