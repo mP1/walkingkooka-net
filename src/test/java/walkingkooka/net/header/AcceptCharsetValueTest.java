@@ -325,7 +325,10 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     private void check(final AcceptCharsetValue acceptCharsetValue,
                        final CharsetName value,
                        final Map<AcceptCharsetValueParameterName<?>, Object> parameters) {
-        this.checkEquals(value, acceptCharsetValue.value(), "value");
+        this.valueAndCheck(
+            acceptCharsetValue,
+            value
+        );
         this.checkParameters(acceptCharsetValue, parameters);
     }
 

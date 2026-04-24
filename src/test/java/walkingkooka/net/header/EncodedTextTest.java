@@ -88,7 +88,10 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
                        final String value) {
         this.checkEquals(charset, encodedText.charset(), "charset");
         this.checkEquals(language, encodedText.language(), "language");
-        this.checkEquals(value, encodedText.value(), "value");
+        this.valueAndCheck(
+            encodedText,
+            value
+        );
     }
 
     @Test

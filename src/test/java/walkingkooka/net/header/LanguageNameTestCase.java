@@ -64,7 +64,10 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
     final void check(final LanguageName name,
                      final String value,
                      final Optional<Locale> locale) {
-        this.checkEquals(value, name.value(), "value");
+        this.valueAndCheck(
+            name,
+            value
+        );
         this.checkEquals(locale, name.locale(), "locale");
     }
 

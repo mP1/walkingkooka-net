@@ -142,7 +142,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
             } else {
                 try {
                     scope.check(header, value);
-                    Assertions.fail("scope=" + scope + ", header: " + header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
+                    Assertions.fail("scope=" + scope + ", header: " + header + " valueAndCheck " + CharSequences.quoteIfChars(value) + " should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
                     // ignore
                 }

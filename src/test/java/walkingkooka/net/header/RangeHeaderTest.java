@@ -134,7 +134,10 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
                        final RangeHeaderUnit unit,
                        final List<Range<Long>> values) {
         this.checkEquals(unit, range.unit(), "unit");
-        this.checkEquals(values, range.value(), "value");
+        this.valueAndCheck(
+            range,
+            values
+        );
     }
 
     // isWildcard ..................................................................................................

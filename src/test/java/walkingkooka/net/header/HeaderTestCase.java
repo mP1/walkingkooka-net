@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.ValueTesting;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.reflect.ClassTesting2;
 
@@ -30,7 +31,8 @@ import java.util.List;
  */
 public abstract class HeaderTestCase<V extends Header> implements ClassTesting2<V>,
     HeaderTesting<V>,
-    ListTesting {
+    ListTesting,
+    ValueTesting {
 
     HeaderTestCase() {
         super();

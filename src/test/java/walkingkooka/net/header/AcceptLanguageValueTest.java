@@ -127,7 +127,10 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     void check(final AcceptLanguageValue language,
                final LanguageName value,
                final Map<AcceptLanguageParameterName<?>, Object> parameters) {
-        this.checkEquals(value, language.value(), "value");
+        this.valueAndCheck(
+            language,
+            value
+        );
         this.checkParameters(language, parameters);
     }
 

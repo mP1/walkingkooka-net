@@ -23,6 +23,7 @@ import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasHostAddressTesting;
 import walkingkooka.net.HostAddress;
@@ -47,7 +48,8 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     ComparableTesting2<EmailAddress>,
     ParseStringTesting<EmailAddress>,
     ThrowableTesting,
-    ToStringTesting<EmailAddress> {
+    ToStringTesting<EmailAddress>,
+    ValueTesting {
 
     @Test
     public void testTryParseNullFails() {
@@ -341,7 +343,10 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     private void parseSuccessful(final String user, final String server, final EmailAddress emailAddress) {
         final String address = user + '@' + server;
-        this.checkEquals(address, emailAddress.value(), "address");
+        this.valueAndCheck(
+            emailAddress,
+            address
+        );
         this.checkEquals(user, emailAddress.user(), "user");
         this.checkEquals(server, emailAddress.host().value(), "host");
     }

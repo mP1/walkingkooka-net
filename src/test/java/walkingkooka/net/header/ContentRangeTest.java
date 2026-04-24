@@ -345,7 +345,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         this.check(contentRange);
     }
 
-    // check ..................................................................................................
+    // valueAndCheck ..................................................................................................
 
     private void check(final ContentRange contentRange) {
         this.check(contentRange, UNIT, this.range(), SIZE);
@@ -360,7 +360,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         this.checkEquals(size, contentRange.size(), "size");
     }
 
-    // check ...........................................................................................................
+    // valueAndCheck ...........................................................................................................
 
     @Test
     public void testIsWildcard() {

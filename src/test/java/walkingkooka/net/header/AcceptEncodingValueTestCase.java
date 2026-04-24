@@ -70,7 +70,10 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     final void checkValue(final AcceptEncodingValue encoding,
                           final String value,
                           final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
-        this.checkEquals(value, encoding.value(), "value");
+        this.valueAndCheck(
+            encoding,
+            value
+        );
         this.checkEquals(parameters, encoding.parameters(), "parameters");
     }
 

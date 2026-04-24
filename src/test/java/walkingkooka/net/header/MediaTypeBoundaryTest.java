@@ -60,18 +60,16 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
 
     @Test
     public void testWithEndsSpaceRemoved() {
-        this.checkValue(MediaTypeBoundary.with("abcdef "), "abcdef");
+        this.valueAndCheck(MediaTypeBoundary.with("abcdef "), "abcdef");
     }
 
     @Test
     public void testWith() {
         final String text = "abc123";
-        checkValue(MediaTypeBoundary.with(text), text);
-    }
-
-    private void checkValue(final MediaTypeBoundary boundary,
-                            final String value) {
-        this.checkEquals(value, boundary.value(), "value");
+        this.valueAndCheck(
+            MediaTypeBoundary.with(text),
+            text
+        );
     }
 
     @Test

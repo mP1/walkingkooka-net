@@ -318,7 +318,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         };
     }
 
-    // checkValue...... ...............................................................................................
+    // valueAndCheck...... ...............................................................................................
 
     @Test
     public void testCheckNullFails() {

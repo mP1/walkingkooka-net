@@ -37,18 +37,19 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeader(), this.value());
+        this.valueAndCheck(
+            this.createHeader(),
+            this.value()
+        );
     }
 
     @Test
     public void testWith2() {
         final List<Encoding> encodings = Lists.of(Encoding.with("unknown"));
-        this.checkValue(ContentEncoding.with(encodings), encodings);
-    }
-
-    private void checkValue(final ContentEncoding contentEncoding,
-                            final List<Encoding> encodings) {
-        this.checkEquals(encodings, contentEncoding.value(), "value");
+        this.valueAndCheck(
+            ContentEncoding.with(encodings),
+            encodings
+        );
     }
 
     // constants .......................................................................................................

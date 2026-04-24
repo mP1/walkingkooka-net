@@ -674,14 +674,13 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
             fragment
         );
         final RelativeUrl relative = url.relativeUrl();
-        this.checkEquals(
+        this.valueAndCheck(
+            relative,
             RelativeUrl.with(
                 path,
                 query,
                 fragment
-            ).value(),
-            relative.value(),
-            "url"
+            ).value()
         );
         assertSame(path, relative.path(), "path");
         assertSame(query, relative.query(), "query");
