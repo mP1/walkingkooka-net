@@ -113,12 +113,8 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
         this.checkEquals(name, cookie.name(), "name");
     }
 
-    final void checkValue(final Cookie cookie) {
-        checkValue(cookie, VALUE);
-    }
-
-    final void checkValue(final Cookie cookie, final String value) {
-        this.checkEquals(value, cookie.value(), "value");
+    final void valueAndCheck(final Cookie cookie) {
+        this.valueAndCheck(cookie, VALUE);
     }
 
     @Override

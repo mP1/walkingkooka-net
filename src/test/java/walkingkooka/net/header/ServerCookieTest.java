@@ -133,7 +133,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie);
         checkPath(cookie);
         checkComment(cookie);
@@ -156,7 +156,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION);
         checkName(cookie);
-        checkValue(cookie, value);
+        this.valueAndCheck(cookie, value);
         checkDomain(cookie);
         checkPath(cookie);
         checkComment(cookie);
@@ -170,7 +170,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     public void testWithoutAttributes() {
         final ServerCookie cookie = this.createCookieWithoutAttributes(NAME, VALUE);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie, ServerCookie.NO_DOMAIN);
         checkPath(cookie, ServerCookie.NO_PATH);
         checkComment(cookie, ServerCookie.NO_COMMENT);
@@ -192,7 +192,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie);
         checkPath(cookie);
         checkComment(cookie);
@@ -209,7 +209,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setName(name);
 
         checkName(different, name);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different, ServerCookie.NO_DOMAIN);
         checkPath(different, ServerCookie.NO_PATH);
         checkComment(different, ServerCookie.NO_COMMENT);
@@ -226,7 +226,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setValue(value);
 
         checkName(different);
-        checkValue(different, value);
+        this.valueAndCheck(different, value);
         checkDomain(different, ServerCookie.NO_DOMAIN);
         checkPath(different, ServerCookie.NO_PATH);
         checkComment(different, ServerCookie.NO_COMMENT);
@@ -251,7 +251,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setDomain(domain);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different, domain);
         checkPath(different);
         checkComment(different);
@@ -276,7 +276,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setPath(path);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different, path);
         checkComment(different);
@@ -301,7 +301,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setComment(comment);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different);
         checkComment(different, comment);
@@ -326,7 +326,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setDeletion(deletion);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different);
         checkComment(different);
@@ -352,7 +352,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setSecure(secure);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different);
         checkComment(different);
@@ -378,7 +378,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setHttpOnly(httpOnly);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different);
         checkComment(different);
@@ -397,7 +397,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final ServerCookie different = cookie.setVersion(version);
 
         checkName(different);
-        checkValue(different);
+        this.valueAndCheck(different);
         checkDomain(different);
         checkPath(different);
         checkComment(different);
@@ -427,7 +427,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
         final ServerCookie cookie = ServerCookie.from(servletCookie);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie);
         checkPath(cookie);
         checkComment(cookie);
@@ -441,7 +441,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     public void testFromCookieWithOnlyNameAndValue() {
         final ServerCookie cookie = ServerCookie.from(new javax.servlet.http.Cookie(NAME.value(), VALUE));
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie, ServerCookie.NO_DOMAIN);
         checkPath(cookie, ServerCookie.NO_PATH);
         checkComment(cookie, ServerCookie.NO_COMMENT);
@@ -464,7 +464,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
         final ServerCookie cookie = Cookie.serverFrom(servletCookie);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
         checkDomain(cookie);
         checkPath(cookie);
         checkComment(cookie);
@@ -613,7 +613,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     // Caused by: walkingkooka.InvalidCharacterException: Invalid character '+' at 85 in "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
     //	at walkingkooka.net.header.Cookie.checkValue0(Cookie.java:207)
-    //	at walkingkooka.net.header.Cookie.checkValue(Cookie.java:184)
+    //	at walkingkooka.net.header.Cookie.valueAndCheck(Cookie.java:184)
     //	at walkingkooka.net.header.ClientCookie.with(ClientCookie.java:96)
     //	at walkingkooka.net.header.Cookie.client(Cookie.java:132)
     //	at walkingkooka.net.header.ClientCookie.parseHeader(ClientCookie.java:75)
@@ -828,7 +828,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     private void parseHeaderAndCheck(final String header, final Cookie cookie) {
         final ServerCookie parsed = ServerCookie.parseHeader(header);
         checkName(parsed, cookie.name());
-        checkValue(parsed, cookie.value());
+        this.valueAndCheck(parsed, cookie.value());
         this.checkEquals(cookie, parsed);
     }
 
@@ -845,7 +845,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             VERSION);
         final ClientCookie client = server.toClient();
         checkName(client);
-        checkValue(client);
+        this.valueAndCheck(client);
     }
 
     // header ....................................................................................

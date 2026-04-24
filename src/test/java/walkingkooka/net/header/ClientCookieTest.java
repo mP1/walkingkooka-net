@@ -31,7 +31,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testWith() {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
     }
 
     @Test
@@ -39,14 +39,17 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final String value = "\"123\"";
         final ClientCookie cookie = ClientCookie.with(NAME, value);
         checkName(cookie);
-        checkValue(cookie, value);
+        this.valueAndCheck(
+            cookie,
+            value
+        );
     }
 
     @Test
     public void testCookieClient() {
         final ClientCookie cookie = Cookie.client(NAME, VALUE);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
     }
 
     @Test
@@ -55,7 +58,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         final ClientCookie different = cookie.setName(name);
         checkName(different, name);
-        checkValue(different);
+        this.valueAndCheck(different);
     }
 
     @Test
@@ -64,7 +67,10 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final String value = "123";
         final ClientCookie different = cookie.setValue(value);
         checkName(different);
-        checkValue(different, value);
+        this.valueAndCheck(
+            different,
+            value
+        );
     }
 
     @Test
@@ -79,7 +85,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
         final ClientCookie cookie = ClientCookie.from(source);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
     }
 
     @Test
@@ -89,7 +95,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
         final ClientCookie cookie = Cookie.clientFrom(source);
         checkName(cookie);
-        checkValue(cookie);
+        this.valueAndCheck(cookie);
     }
 
     @Test
@@ -153,7 +159,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     // Caused by: walkingkooka.InvalidCharacterException: Invalid character '+' at 85 in "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
     //	at walkingkooka.net.header.Cookie.checkValue0(Cookie.java:207)
-    //	at walkingkooka.net.header.Cookie.checkValue(Cookie.java:184)
+    //	at walkingkooka.net.header.Cookie.valueAndCheck(Cookie.java:184)
     //	at walkingkooka.net.header.ClientCookie.with(ClientCookie.java:96)
     //	at walkingkooka.net.header.Cookie.client(Cookie.java:132)
     //	at walkingkooka.net.header.ClientCookie.parseHeader(ClientCookie.java:75)
