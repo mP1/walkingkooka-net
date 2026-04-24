@@ -36,13 +36,19 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Test
     public final void testWith() {
         final V value = this.value();
-        this.check(this.createHeader(value), value);
+        this.valueAndCheck(
+            this.createHeader(value),
+            value
+        );
     }
 
     @Test
     public final void testWith2() {
         final V value = this.differentValue();
-        this.check(this.createHeader(value), value);
+        this.valueAndCheck(
+            this.createHeader(value),
+            value
+        );
     }
 
     // setValue.................................................................................................
@@ -64,7 +70,10 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
         final V value = this.differentValue();
         final IfRange<V> different = range.setValue(value);
         assertNotSame(range, different);
-        this.check(different, value);
+        this.valueAndCheck(
+            different,
+            value
+        );
     }
 
     @Test
@@ -73,15 +82,10 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
         final W value = this.otherValue();
         final IfRange<W> different = range.setValue(value);
         assertNotSame(range, different);
-        this.check(different, value);
-    }
-
-    final void check(final IfRange<V> range) {
-        this.check(range, this.value());
-    }
-
-    final <VV> void check(final IfRange<VV> range, final VV value) {
-        this.checkEquals(value, range.value(), "value");
+        this.valueAndCheck(
+            different,
+            value
+        );
     }
 
     @Test

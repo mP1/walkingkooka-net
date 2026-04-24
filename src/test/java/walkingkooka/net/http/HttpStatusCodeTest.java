@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting2;
@@ -40,7 +41,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     ConstantsTesting<HttpStatusCode>,
     HashCodeEqualsDefinedTesting2<HttpStatusCode>,
     ToStringTesting<HttpStatusCode>,
-    TypeNameTesting<HttpStatusCode> {
+    TypeNameTesting<HttpStatusCode>,
+    ValueTesting {
 
     private final static int CODE = 299;
 
@@ -152,7 +154,10 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         final String message = "Message something something2";
         final HttpStatusCode code = HttpStatusCode.MOVED_TEMPORARILY;
         final HttpStatus status = code.setMessage(message);
-        this.checkEquals(code, status.value(), "code");
+        this.valueAndCheck(
+            status,
+            code
+        );
         this.checkEquals(message, status.message(), "message");
     }
 

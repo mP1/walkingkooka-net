@@ -20,6 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -36,13 +37,14 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     HasTextTesting,
     ComparableTesting2<UrlFragment>,
     CanBeEmptyTesting,
-    ToStringTesting<UrlFragment> {
+    ToStringTesting<UrlFragment>,
+    ValueTesting {
 
     @Test
     public void testSlashConstant() {
-        this.checkEquals(
-            "/",
-            UrlFragment.SLASH.value()
+        this.valueAndCheck(
+            UrlFragment.SLASH,
+            "/"
         );
     }
 
@@ -91,9 +93,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         final String value = "abc123";
 
         final UrlFragment urlFragment = UrlFragment.parse(value);
-        this.checkEquals(
-            value,
-            urlFragment.value()
+        this.valueAndCheck(
+            urlFragment,
+            value
         );
         this.toStringAndCheck(
             urlFragment,
@@ -106,9 +108,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         final String value = "space+";
 
         final UrlFragment urlFragment = UrlFragment.parse(value);
-        this.checkEquals(
-            "space+",
-            urlFragment.value()
+        this.valueAndCheck(
+            urlFragment,
+            "space+"
         );
         this.toStringAndCheck(
             urlFragment,
@@ -119,9 +121,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     @Test
     public void testParsePercent20() {
         final UrlFragment urlFragment = UrlFragment.parse("space%20");
-        this.checkEquals(
-            "space ",
-            urlFragment.value()
+        this.valueAndCheck(
+            urlFragment,
+            "space "
         );
         this.toStringAndCheck(
             urlFragment,
@@ -167,9 +169,9 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         final String value = "abc123";
 
         final UrlFragment urlFragment = UrlFragment.with(value);
-        this.checkEquals(
-            value,
-            urlFragment.value()
+        this.valueAndCheck(
+            urlFragment,
+            value
         );
     }
 

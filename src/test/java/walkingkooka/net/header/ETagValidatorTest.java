@@ -18,10 +18,12 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ETagValidatorTest implements ClassTesting2<ETagValidator> {
+public final class ETagValidatorTest implements ValueTesting,
+    ClassTesting2<ETagValidator> {
 
     @Test
     public void testSetValue() {
@@ -29,7 +31,10 @@ public final class ETagValidatorTest implements ClassTesting2<ETagValidator> {
         final String value = "1234567890ABCDEF";
 
         final ETag tag = validator.setValue(value);
-        this.checkEquals(value, tag.value(), "value");
+        this.valueAndCheck(
+            tag,
+            value
+        );
         this.checkEquals(validator, tag.validator(), "validator");
     }
 

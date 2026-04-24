@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     HashCodeEqualsDefinedTesting2<HttpStatus>,
-    ToStringTesting<HttpStatus> {
+    ToStringTesting<HttpStatus>,
+    ValueTesting {
 
     // firstLineOfText..................................................................................................
 
@@ -179,7 +181,10 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     }
 
     private void check(final HttpStatus status, final HttpStatusCode code, final String message) {
-        this.checkEquals(code, status.value(), "value");
+        this.valueAndCheck(
+            status,
+            code
+        );
         this.checkEquals(message, status.message(), "message");
     }
 

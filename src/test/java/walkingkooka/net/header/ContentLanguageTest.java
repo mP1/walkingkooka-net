@@ -36,18 +36,19 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeader(), this.value());
+        this.valueAndCheck(
+            this.createHeader(),
+            this.value()
+        );
     }
 
     @Test
     public void testWith2() {
         final List<LanguageName> languages = Lists.of(LanguageName.with("unknown"));
-        this.checkValue(ContentLanguage.with(languages), languages);
-    }
-
-    private void checkValue(final ContentLanguage contentLanguage,
-                            final List<LanguageName> languages) {
-        this.checkEquals(languages, contentLanguage.value(), "value");
+        this.valueAndCheck(
+            ContentLanguage.with(languages),
+            languages
+        );
     }
 
     // parse............................................................................................................

@@ -124,7 +124,10 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     public void testSetParameters() {
         final AcceptCharsetValue header = CharsetName.UTF_8
             .setParameters(AcceptCharsetValue.NO_PARAMETERS);
-        this.checkEquals(CharsetName.UTF_8, header.value(), "charset");
+        this.valueAndCheck(
+            header,
+            CharsetName.UTF_8
+        );
         this.checkEquals(AcceptCharsetValue.NO_PARAMETERS, header.parameters(), "parameters");
     }
 

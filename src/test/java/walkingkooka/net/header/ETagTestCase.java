@@ -111,7 +111,10 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderTestCase<E>
     }
 
     final void check(final ETag etag, final String value, final ETagValidator validator) {
-        this.checkEquals(value, etag.value(), "value");
+        this.valueAndCheck(
+            etag,
+            value
+        );
         this.checkEquals(validator, etag.validator(), "validator");
     }
 

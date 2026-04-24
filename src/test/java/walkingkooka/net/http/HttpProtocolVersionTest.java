@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -27,21 +28,31 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocolVersion>,
-    ToStringTesting<HttpProtocolVersion> {
+    ToStringTesting<HttpProtocolVersion>,
+    ValueTesting {
 
     @Test
     public void testOneZero() {
-        this.checkEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.value());
+        this.valueAndCheck(
+            HttpProtocolVersion.VERSION_1_0,
+            "HTTP/1.0"
+        );
     }
 
     @Test
     public void testOneOne() {
-        this.checkEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.value());
+        this.valueAndCheck(
+            HttpProtocolVersion.VERSION_1_1,
+            "HTTP/1.1"
+        );
     }
 
     @Test
     public void testTwo() {
-        this.checkEquals("HTTP/2", HttpProtocolVersion.VERSION_2.value());
+        this.valueAndCheck(
+            HttpProtocolVersion.VERSION_2,
+            "HTTP/2"
+        );
     }
 
     @Test

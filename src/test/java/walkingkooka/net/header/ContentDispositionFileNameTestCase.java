@@ -53,7 +53,10 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                      final String value,
                      final Optional<CharsetName> charsetName,
                      final Optional<LanguageName> language) {
-        this.checkEquals(value, filename.value(), "value");
+        this.valueAndCheck(
+            filename,
+            value
+        );
         this.checkEquals(charsetName, filename.charsetName(), "charsetName");
         this.checkEquals(language, filename.language(), "language");
     }

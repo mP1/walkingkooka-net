@@ -47,7 +47,7 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
     @Test
     public void testWith() {
         final List<CacheControlDirective<?>> directives = Lists.of(CacheControlDirective.NO_CACHE);
-        this.check(CacheControl.with(directives), directives);
+        this.valueAndCheck(CacheControl.with(directives), directives);
     }
 
     // setValues........................................................................................................
@@ -81,13 +81,8 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
 
         assertNotSame(cacheControl, different);
 
-        check(different, values);
-        check(cacheControl, this.directives());
-    }
-
-    private <T> void check(final CacheControl cacheControl,
-                           final List<CacheControlDirective<?>> directives) {
-        this.checkEquals(directives, cacheControl.value(), "directives");
+        this.valueAndCheck(different, values);
+        this.valueAndCheck(cacheControl, this.directives());
     }
 
     // wildcard.........................................................................................................
