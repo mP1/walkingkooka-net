@@ -181,7 +181,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
                                     final String value,
                                     final Optional<UrlPath> parent) {
         final UrlPath appended = path.append(name);
-        this.valueCheck(appended, value);
+        this.valueAndCheck(appended, value);
         this.nameCheck(appended, name);
         this.parentCheck(appended, parent);
     }
@@ -570,7 +570,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
                                     final UrlPath append,
                                     final UrlPath expected) {
         final UrlPath appended = path.append(append);
-        this.valueCheck(
+        this.valueAndCheck(
             appended,
             expected.value()
         );
@@ -594,7 +594,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath b2 = path(b2());
         final UrlPath a1b2 = a1.append(b2);
 
-        this.valueCheck(
+        this.valueAndCheck(
             a1b2,
             "/a1/b2"
         );
@@ -616,13 +616,13 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath b2 = path(b2());
         final UrlPath a1b2 = a1.append(b2);
 
-        this.valueCheck(a1b2, "/a1/b2");
+        this.valueAndCheck(a1b2, "/a1/b2");
         this.parentCheck(a1b2, a1);
 
         final UrlPath c3 = path(c3());
         final UrlPath a1b2c3 = a1b2.append(c3);
 
-        this.valueCheck(
+        this.valueAndCheck(
             a1b2c3,
             "/a1/b2/c3"
         );
@@ -742,7 +742,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseWithLeadingSlash() {
         final UrlPath path = UrlPath.parse("/a1");
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/a1"
         );
@@ -755,7 +755,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseWithoutLeadingSlash() {
         final UrlPath path = UrlPath.parse("without-leading-slash");
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "without-leading-slash"
         );
@@ -765,11 +765,11 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseWithoutLeadingSlash2() {
         final UrlPath path = UrlPath.parse("without/leading-slash");
-        this.valueCheck(path, "without/leading-slash");
+        this.valueAndCheck(path, "without/leading-slash");
         this.parentCheck(path, "without");
 
         final UrlPath parent = path.parent().get();
-        this.valueCheck(
+        this.valueAndCheck(
             parent,
             "without"
         );
@@ -779,7 +779,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseDoesntNormalizeEmpty() {
         final UrlPath path = UrlPath.parse("/a1//c3/d4");
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/a1//c3/d4"
         );
@@ -792,7 +792,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseDoesntNormalizeDot() {
         final UrlPath path = UrlPath.parse("/a1/./c3/d4");
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/a1/./c3/d4"
         );
@@ -805,7 +805,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Test
     public void testParseDoesntNormalizeDoubleDot() {
         final UrlPath path = UrlPath.parse("/a1/../c3/d4");
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/a1/../c3/d4"
         );
