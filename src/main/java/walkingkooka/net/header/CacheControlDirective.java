@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
@@ -51,7 +52,8 @@ import java.util.Optional;
  * Cache-Control: s-maxage=<seconds>
  * </pre>
  */
-public final class CacheControlDirective<T> implements Header {
+public final class CacheControlDirective<T> implements Header,
+    Value<CacheControlDirectiveName<T>> {
 
     // constants................................................................................................
 
@@ -148,6 +150,7 @@ public final class CacheControlDirective<T> implements Header {
         this.parameter = parameter;
     }
 
+    @Override
     public CacheControlDirectiveName<T> value() {
         return this.name;
     }
