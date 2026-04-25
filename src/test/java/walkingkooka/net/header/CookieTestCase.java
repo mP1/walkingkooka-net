@@ -146,12 +146,12 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
     abstract C createCookie(final CookieName name,
                             final String value);
 
-    final void checkName(final Cookie cookie) {
-        checkName(cookie, NAME);
+    final void nameAndCheck(final Cookie cookie) {
+        nameAndCheck(cookie, NAME);
     }
 
-    final void checkName(final Cookie cookie,
-                         final CookieName name) {
+    final void nameAndCheck(final Cookie cookie,
+                            final CookieName name) {
         this.checkEquals(
             name,
             cookie.name(),

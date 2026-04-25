@@ -30,7 +30,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Test
     public void testWith() {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -38,7 +38,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testWithQuotedValue() {
         final String value = "\"123\"";
         final ClientCookie cookie = ClientCookie.with(NAME, value);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(
             cookie,
             value
@@ -48,7 +48,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Test
     public void testCookieClient() {
         final ClientCookie cookie = Cookie.client(NAME, VALUE);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -57,7 +57,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final CookieName name = CookieName.with("different");
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         final ClientCookie different = cookie.setName(name);
-        this.checkName(different, name);
+        this.nameAndCheck(different, name);
         this.valueAndCheck(different);
     }
 
@@ -66,7 +66,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         final String value = "123";
         final ClientCookie different = cookie.setValue(value);
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(
             different,
             value
@@ -89,7 +89,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
             VALUE);
 
         final ClientCookie cookie = ClientCookie.from(source);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -99,7 +99,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
             VALUE);
 
         final ClientCookie cookie = Cookie.clientFrom(source);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
     }
 
