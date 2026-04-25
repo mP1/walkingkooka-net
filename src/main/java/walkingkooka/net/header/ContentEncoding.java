@@ -154,8 +154,4 @@ public final class ContentEncoding extends Header2<List<Encoding>> {
         return true;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ContentEncoding;
-    }
 }

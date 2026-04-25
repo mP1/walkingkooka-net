@@ -60,11 +60,6 @@ final class LinkRelationRegular extends LinkRelation<String> {
 
     // Header2 ............................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LinkRelationRegular;
-    }
-
     // Comparable.......................................................................................................
 
     @Override

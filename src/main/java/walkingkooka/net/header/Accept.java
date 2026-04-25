@@ -162,11 +162,6 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
         return false;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Accept;
-    }
-
     // Predicate........................................................................................................
 
     /**

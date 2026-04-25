@@ -100,8 +100,4 @@ public final class ContentLanguage extends Header2<List<LanguageName>> {
 
     // Equals...........................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ContentLanguage;
-    }
 }

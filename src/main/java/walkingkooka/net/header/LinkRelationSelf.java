@@ -51,11 +51,6 @@ final class LinkRelationSelf extends LinkRelation<String> {
 
     // Header2 ............................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LinkRelationSelf;
-    }
-
     // Comparable.......................................................................................................
 
     @Override
