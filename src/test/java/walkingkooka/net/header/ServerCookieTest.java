@@ -162,7 +162,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION
         );
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie);
         this.pathAndCheck(cookie);
@@ -187,7 +187,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION
         );
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie, value);
         this.domainAndCheck(cookie);
         this.pathAndCheck(cookie);
@@ -201,7 +201,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testWithoutAttributes() {
         final ServerCookie cookie = this.createCookieWithoutAttributes(NAME, VALUE);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie, ServerCookie.NO_DOMAIN);
         this.pathAndCheck(cookie, ServerCookie.NO_PATH);
@@ -225,7 +225,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             HTTPONLY,
             VERSION
         );
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie);
         this.pathAndCheck(cookie);
@@ -242,7 +242,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final CookieName name = CookieName.with("different");
         final ServerCookie different = cookie.setName(name);
 
-        this.checkName(different, name);
+        this.nameAndCheck(different, name);
         this.valueAndCheck(different);
         this.domainAndCheck(different, ServerCookie.NO_DOMAIN);
         this.pathAndCheck(different, ServerCookie.NO_PATH);
@@ -259,7 +259,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final String value = "different";
         final ServerCookie different = cookie.setValue(value);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different, value);
         this.domainAndCheck(different, ServerCookie.NO_DOMAIN);
         this.pathAndCheck(different, ServerCookie.NO_PATH);
@@ -284,7 +284,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final Optional<String> domain = Optional.of("different.example.com");
         final ServerCookie different = cookie.setDomain(domain);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different, domain);
         this.pathAndCheck(different);
@@ -309,7 +309,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final Optional<String> path = Optional.of("/different/path");
         final ServerCookie different = cookie.setPath(path);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different, path);
@@ -334,7 +334,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final Optional<String> comment = Optional.of("different comment");
         final ServerCookie different = cookie.setComment(comment);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different);
@@ -359,7 +359,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         final Optional<CookieDeletion> deletion = CookieDeletion.maxAge(999);
         final ServerCookie different = cookie.setDeletion(deletion);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different);
@@ -385,7 +385,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         assertNotSame(secure, SECURE);
         final ServerCookie different = cookie.setSecure(secure);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different);
@@ -411,7 +411,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         assertNotSame(HTTPONLY, httpOnly);
         final ServerCookie different = cookie.setHttpOnly(httpOnly);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different);
@@ -430,7 +430,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         assertNotSame(version, VERSION);
         final ServerCookie different = cookie.setVersion(version);
 
-        this.checkName(different);
+        this.nameAndCheck(different);
         this.valueAndCheck(different);
         this.domainAndCheck(different);
         this.pathAndCheck(different);
@@ -460,7 +460,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         servletCookie.setVersion(VERSION.value());
 
         final ServerCookie cookie = ServerCookie.from(servletCookie);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie);
         this.pathAndCheck(cookie);
@@ -474,7 +474,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     @Test
     public void testFromCookieWithOnlyNameAndValue() {
         final ServerCookie cookie = ServerCookie.from(new javax.servlet.http.Cookie(NAME.value(), VALUE));
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie, ServerCookie.NO_DOMAIN);
         this.pathAndCheck(cookie, ServerCookie.NO_PATH);
@@ -497,7 +497,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         servletCookie.setVersion(VERSION.value());
 
         final ServerCookie cookie = Cookie.serverFrom(servletCookie);
-        this.checkName(cookie);
+        this.nameAndCheck(cookie);
         this.valueAndCheck(cookie);
         this.domainAndCheck(cookie);
         this.pathAndCheck(cookie);
@@ -955,7 +955,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     private void parseHeaderAndCheck(final String header,
                                      final Cookie cookie) {
         final ServerCookie parsed = ServerCookie.parseHeader(header);
-        this.checkName(parsed, cookie.name());
+        this.nameAndCheck(parsed, cookie.name());
         this.valueAndCheck(parsed, cookie.value());
         this.checkEquals(cookie, parsed);
     }
@@ -974,7 +974,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
             VERSION
         );
         final ClientCookie client = server.toClient();
-        this.checkName(client);
+        this.nameAndCheck(client);
         this.valueAndCheck(client);
     }
 
