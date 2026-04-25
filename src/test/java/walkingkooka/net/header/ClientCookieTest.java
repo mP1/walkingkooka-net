@@ -30,7 +30,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Test
     public void testWith() {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
-        checkName(cookie);
+        this.checkName(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -38,7 +38,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testWithQuotedValue() {
         final String value = "\"123\"";
         final ClientCookie cookie = ClientCookie.with(NAME, value);
-        checkName(cookie);
+        this.checkName(cookie);
         this.valueAndCheck(
             cookie,
             value
@@ -48,7 +48,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Test
     public void testCookieClient() {
         final ClientCookie cookie = Cookie.client(NAME, VALUE);
-        checkName(cookie);
+        this.checkName(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -57,7 +57,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final CookieName name = CookieName.with("different");
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         final ClientCookie different = cookie.setName(name);
-        checkName(different, name);
+        this.checkName(different, name);
         this.valueAndCheck(different);
     }
 
@@ -66,7 +66,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
         final String value = "123";
         final ClientCookie different = cookie.setValue(value);
-        checkName(different);
+        this.checkName(different);
         this.valueAndCheck(
             different,
             value
@@ -75,7 +75,12 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testFromNullCookieFails() {
-        assertThrows(NullPointerException.class, () -> ClientCookie.from((javax.servlet.http.Cookie) null));
+        assertThrows(
+            NullPointerException.class,
+            () -> ClientCookie.from(
+                (javax.servlet.http.Cookie) null
+            )
+        );
     }
 
     @Test
@@ -84,7 +89,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
             VALUE);
 
         final ClientCookie cookie = ClientCookie.from(source);
-        checkName(cookie);
+        this.checkName(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -94,7 +99,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
             VALUE);
 
         final ClientCookie cookie = Cookie.clientFrom(source);
-        checkName(cookie);
+        this.checkName(cookie);
         this.valueAndCheck(cookie);
     }
 
@@ -102,59 +107,94 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testToJavaxServletHttpCookie() {
         final javax.servlet.http.Cookie cookie = ClientCookie.with(NAME, VALUE)
             .toJavaxServletCookie();
-        this.checkEquals(NAME.value(), cookie.getName(), "name");
-        this.checkEquals(VALUE, cookie.getValue(), "value");
+        this.checkEquals(
+            NAME.value(),
+            cookie.getName(),
+            "name"
+        );
+        this.checkEquals(
+            VALUE,
+            cookie.getValue(),
+            "value"
+        );
     }
 
-    // parseClientHeader................................................................
+    // parseClientHeader................................................................................................
 
     @Test
     public void testParseClientHeaderNulFails() {
-        assertThrows(NullPointerException.class, () -> Cookie.parseClientHeader(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Cookie.parseClientHeader(null)
+        );
     }
 
     @Test
     public void testParseClientHeaderWithOneCookie() {
-        this.parseHeaderAndCheck("cookie123=value456;", createCookie(NAME, VALUE));
+        this.parseHeaderAndCheck(
+            "cookie123=value456;",
+            this.createCookie(NAME, VALUE)
+        );
     }
 
     @Test
     public void testParseClientHeaderWithOneCookie2() {
-        this.parseHeaderAndCheck("name2=value2;", createCookie("name2", "value2"));
+        this.parseHeaderAndCheck(
+            "name2=value2;",
+            this.createCookie(
+                "name2",
+                "value2"
+            )
+        );
     }
 
     @Test
     public void testParseClientHeaderWithManyCookiesWithoutTrailingSemiColon() {
-        this.parseHeaderAndCheck("cookie123=value456", createCookie(NAME, VALUE));
+        this.parseHeaderAndCheck(
+            "cookie123=value456",
+            this.createCookie(NAME, VALUE)
+        );
     }
 
     @Test
     public void testParseClientHeaderWithManyCookies() {
-        this.parseHeaderAndCheck("cookie123=value456;", createCookie(NAME, VALUE));
+        this.parseHeaderAndCheck(
+            "cookie123=value456;",
+            this.createCookie(
+                NAME,
+                VALUE
+            )
+        );
     }
 
     @Test
     public void testParseClientHeaderWithManyCookies2() {
-        this.parseHeaderAndCheck("cookie1=value1;cookie2=value2;cookie3=value3;", //
-            createCookie("cookie1", "value1"), //
-            createCookie("cookie2", "value2"), //
-            createCookie("cookie3", "value3"));
+        this.parseHeaderAndCheck(
+            "cookie1=value1;cookie2=value2;cookie3=value3;", //
+            this.createCookie("cookie1", "value1"), //
+            this.createCookie("cookie2", "value2"), //
+            this.createCookie("cookie3", "value3")
+        );
     }
 
     @Test
     public void testParseClientHeaderWithManyCookiesWithWhitespace() {
-        this.parseHeaderAndCheck("cookie1=value1; cookie2=value2; cookie3=value3;", //
-            createCookie("cookie1", "value1"), //
-            createCookie("cookie2", "value2"), //
-            createCookie("cookie3", "value3"));
+        this.parseHeaderAndCheck(
+            "cookie1=value1; cookie2=value2; cookie3=value3;", //
+            this.createCookie("cookie1", "value1"), //
+            this.createCookie("cookie2", "value2"), //
+            this.createCookie("cookie3", "value3")
+        );
     }
 
     @Test
     public void testParseClientHeaderWithManyCookies2WithoutTrailingSemiColon() {
-        this.parseHeaderAndCheck("cookie1=value1;cookie2=value2;cookie3=value3", //
-            createCookie("cookie1", "value1"), //
-            createCookie("cookie2", "value2"), //
-            createCookie("cookie3", "value3"));
+        this.parseHeaderAndCheck(
+            "cookie1=value1;cookie2=value2;cookie3=value3", //
+            this.createCookie("cookie1", "value1"), //
+            this.createCookie("cookie2", "value2"), //
+            this.createCookie("cookie3", "value3")
+        );
     }
 
     // Caused by: walkingkooka.InvalidCharacterException: Invalid character '+' at 85 in "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
@@ -171,7 +211,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testParseClientHeaderIncludesPlusSign() {
         this.parseHeaderAndCheck(
             "cookie1=U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg=", //
-            createCookie(
+            this.createCookie(
                 "cookie1",
                 "U92vJei3ldxFc3amPwplZOQ11IKfQK3rr94G4JK65PE=.1673218217672.zjI1J89fa0b8OODoBRqlMnqfJf+V5mu4OqJCJ7tbKgg="
             )
@@ -182,76 +222,116 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testParseClientDoubleQuotedValue() {
         this.parseHeaderAndCheck(
             "cookie1=\"abc\"", //
-            createCookie(
+            this.createCookie(
                 "cookie1",
                 "\"abc\""
             )
         );
     }
 
-    private void parseHeaderAndCheck(final String header, final ClientCookie... cookies) {
-        this.checkEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
+    private void parseHeaderAndCheck(final String header,
+                                     final ClientCookie... cookies) {
+        this.checkEquals(
+            Lists.of(cookies),
+            ClientCookie.parseHeader(header),
+            header
+        );
     }
 
-    // header ....................................................................................
+    // header ..........................................................................................................
 
     @Test
     public void testHeader() {
-        this.checkEquals(HttpHeaderName.COOKIE, this.createCookie().header());
+        this.checkEquals(
+            HttpHeaderName.COOKIE,
+            this.createCookie()
+                .header()
+        );
     }
 
-    // toHeader ....................................................................................
+    // toHeader ........................................................................................................
 
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck("cookie123=value456;");
     }
 
-    // toHeaderTextList ................................................................
+    // toHeaderTextList ................................................................................................
 
     @Test
     public void testToHeaderTextListNullFails() {
-        assertThrows(NullPointerException.class, () -> ClientCookie.toHeaderTextList(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> ClientCookie.toHeaderTextList(null)
+        );
     }
 
     @Test
     public void testToHeaderTextListOne() {
-        this.toHeaderTextListAndCheck("cookie123=value456;", this.createCookie());
+        this.toHeaderTextListAndCheck(
+            "cookie123=value456;",
+            this.createCookie()
+        );
     }
 
     @Test
     public void testToHeaderTextListTwo() {
-        this.toHeaderTextListAndCheck("cookie123=value456; cookie789=xyz;",
+        this.toHeaderTextListAndCheck(
+            "cookie123=value456; cookie789=xyz;",
             this.createCookie(),
-            ClientCookie.parseHeader("cookie789=xyz;").get(0));
+            ClientCookie.parseHeader("cookie789=xyz;")
+                .get(0)
+        );
     }
 
     private void toHeaderTextListAndCheck(final String toString,
                                           final ClientCookie... cookies) {
-        this.checkEquals(toString,
+        this.checkEquals(
+            toString,
             ClientCookie.toHeaderTextList(Lists.of(cookies)),
-            "format " + Arrays.toString(cookies));
+            "format " + Arrays.toString(cookies)
+        );
     }
 
-    // toString.................................................................
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(ClientCookie.with(NAME, VALUE), "cookie123=value456;");
+        this.toStringAndCheck(
+            ClientCookie.with(
+                NAME,
+                VALUE
+            ),
+            "cookie123=value456;"
+        );
     }
 
     @Test
     public void testToStringWithoutValue() {
-        this.toStringAndCheck(ClientCookie.with(NAME, ""), "cookie123=;");
+        this.toStringAndCheck(
+            ClientCookie.with(
+                NAME,
+                ""
+            ),
+            "cookie123=;"
+        );
     }
 
-    private ClientCookie createCookie(final String name, final String value) {
-        return createCookie(CookieName.with(name), value);
+    private ClientCookie createCookie(final String name,
+                                      final String value) {
+        return createCookie(
+            CookieName.with(name),
+            value
+        );
     }
 
     @Override
-    ClientCookie createCookie(final CookieName name, final String value) {
-        return ClientCookie.with(name, value);
+    ClientCookie createCookie(final CookieName name,
+                              final String value) {
+        return ClientCookie.with(
+            name,
+            value
+        );
     }
 
     @Override
@@ -261,7 +341,10 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Override
     public ClientCookie createDifferentHeader() {
-        return ClientCookie.with(CookieName.with("different-name"), "different-value");
+        return ClientCookie.with(
+            CookieName.with("different-name"),
+            "different-value"
+        );
     }
 
     @Override
