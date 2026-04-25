@@ -43,37 +43,66 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
 
     @Test
     public final void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createCookie(null, CookieTestCase.VALUE));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createCookie(
+                null,
+                VALUE
+            )
+        );
     }
 
     @Test
     public final void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> this.createCookie(CookieTestCase.NAME, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createCookie(
+                NAME,
+                null
+            )
+        );
     }
 
     @Test
     public final void testWithInvalidValueFails() {
-        assertThrows(InvalidCharacterException.class, () -> this.createCookie(CookieTestCase.NAME, "  "));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> this.createCookie(
+                NAME,
+                "  "
+            )
+        );
     }
 
     // setName ......................................................................................
 
     @Test
     public final void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createCookie().setName(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createCookie()
+                .setName(null)
+        );
     }
 
     @Test
     public final void testSetNameSame() {
         final C cookie = this.createCookie();
-        assertSame(cookie, cookie.setName(NAME));
+        assertSame(
+            cookie,
+            cookie.setName(NAME)
+        );
     }
 
-    // setValue ................................................................................................
+    // setValue ........................................................................................................
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createCookie().setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createCookie()
+                .setValue(null)
+        );
     }
 
     @Test
@@ -87,30 +116,47 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
         this.isWildcardAndCheck(false);
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // hashCode/equals..................................................................................................
 
-    @Test final public void testEqualsDifferentName() {
-        this.checkNotEquals(this.createCookie(CookieName.with("different"), VALUE));
+    @Test //
+    final public void testEqualsDifferentName() {
+        this.checkNotEquals(
+            this.createCookie(CookieName.with("different"),
+                VALUE
+            )
+        );
     }
 
-    @Test final public void testEqualsDifferentValue() {
-        this.checkNotEquals(this.createCookie(NAME, "different"));
+    @Test //
+    final public void testEqualsDifferentValue() {
+        this.checkNotEquals(
+            this.createCookie(
+                NAME,
+                "different"
+            )
+        );
     }
 
-    // helpers ................................................................................................
+    // helpers ........................................................................................................
 
     final C createCookie() {
         return this.createCookie(NAME, VALUE);
     }
 
-    abstract C createCookie(final CookieName name, final String value);
+    abstract C createCookie(final CookieName name,
+                            final String value);
 
     final void checkName(final Cookie cookie) {
         checkName(cookie, NAME);
     }
 
-    final void checkName(final Cookie cookie, final CookieName name) {
-        this.checkEquals(name, cookie.name(), "name");
+    final void checkName(final Cookie cookie,
+                         final CookieName name) {
+        this.checkEquals(
+            name,
+            cookie.name(),
+            "name"
+        );
     }
 
     final void valueAndCheck(final Cookie cookie) {
