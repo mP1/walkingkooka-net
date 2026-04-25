@@ -153,9 +153,12 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "a";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(
+            hostAddress,
+            new byte[0]
+        );
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -163,9 +166,12 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(
+            hostAddress,
+            new byte[0]
+        );
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -173,9 +179,9 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "address123";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -183,9 +189,9 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "address-after";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -193,9 +199,9 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "sub.address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -203,9 +209,9 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final String address = "1.2.3.4.5.address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
-        checkEquals("values", new byte[0], hostAddress.values());
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.valuesAndCheck(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -214,8 +220,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, new byte[0]);
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -224,8 +230,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, new byte[0]);
-        this.nameCheck(hostAddress);
-        this.checkNotIpAddress(hostAddress);
+        this.isNameAndCheck(hostAddress);
+        this.isIpAddressNotCheck(hostAddress);
     }
 
     @Test
@@ -234,7 +240,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, new byte[]{1, 2, 3, 4});
-        this.checkIp4Address(hostAddress);
+        this.isIp4AddressAndCheck(hostAddress);
     }
 
     @Test
@@ -243,7 +249,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, new byte[]{123, 45, 67, (byte) 255});
-        this.checkIp4Address(hostAddress);
+        this.isIp4AddressAndCheck(hostAddress);
     }
 
     @Test
@@ -252,7 +258,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, "00010002000300040005000600070008");
-        this.checkIp6Address(hostAddress);
+        this.isIp6AddressAndCheck(hostAddress);
     }
 
     @Test
@@ -261,7 +267,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, "11112222333344445555666677778888");
-        this.checkIp6Address(hostAddress);
+        this.isIp6AddressAndCheck(hostAddress);
     }
 
     @Test
@@ -270,7 +276,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, "11110000000044445555666677778888");
-        this.checkIp6Address(hostAddress);
+        this.isIp6AddressAndCheck(hostAddress);
     }
 
     @Test
@@ -279,7 +285,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final HostAddress hostAddress = HostAddress.with(address);
         this.valueAndCheck(hostAddress, address);
         this.valuesCheck(hostAddress, "000100020003000400050006ff070809");
-        this.checkIp6Address(hostAddress);
+        this.isIp6AddressAndCheck(hostAddress);
     }
 
     private void valueAndCheck(final HostAddress hostAddress,
@@ -305,15 +311,22 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     private void valuesCheck(final HostAddress hostAddress,
                              final byte[] expected) {
-        checkEquals("values", hostAddress.values(), expected);
+        assertArrayEquals(
+            hostAddress.values(),
+            expected,
+            hostAddress::toString
+        );
     }
 
-    private void nameCheck(final HostAddress hostAddress) {
-        assertTrue(hostAddress.isName(), "is name=" + hostAddress);
+    private void isNameAndCheck(final HostAddress hostAddress) {
+        assertTrue(
+            hostAddress.isName(),
+            () -> "is name=" + hostAddress
+        );
     }
 
-    private void checkNotIpAddress(final HostAddress hostAddress) {
-        this.nameCheck(hostAddress);
+    private void isIpAddressNotCheck(final HostAddress hostAddress) {
+        this.isNameAndCheck(hostAddress);
         checkEquals(
             null,
             hostAddress.isIpAddress(),
@@ -321,7 +334,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         );
     }
 
-    private void checkIp4Address(final HostAddress address) {
+    private void isIp4AddressAndCheck(final HostAddress address) {
         assertFalse(address.isName(), address + " should not be a name");
         checkEquals(
             true,
@@ -331,7 +344,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         );
     }
 
-    private void checkIp6Address(final HostAddress address) {
+    private void isIp6AddressAndCheck(final HostAddress address) {
         checkEquals(
             false,
             address.isName(),
@@ -342,18 +355,6 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
             address.isIpAddress().isIp6(),
             () -> address + " should have an Ip6Address"
         );
-    }
-
-    // HashCodeEqualsDefined ...........................................................................................
-
-    @Test
-    public void testHashCodeCaseUnimportant() {
-        this.checkEqualsAndHashCode(HostAddress.with(HOST.toUpperCase()));
-    }
-
-    @Test
-    public void testEqualsDifferentName() {
-        this.checkNotEquals(HostAddress.with("different"));
     }
 
     // parse ...........................................................................................................
@@ -1509,11 +1510,17 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
                                   final byte[] value) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof HostAddressProblem) {
-            this.checkEquals(value,
-                ((HostAddressProblem) result).message(address),
-                "failed " + CharSequences.quote(address));
+            this.checkEquals(
+                value,
+                ((HostAddressProblem) result)
+                    .message(address),
+                () -> "failed " + CharSequences.quote(address)
+            );
         }
-        checkEquals("bytes[]", value, (byte[]) result);
+        assertArrayEquals(
+            value,
+            (byte[]) result
+        );
     }
 
     private void parseIp6Fails(final String address,
@@ -1580,6 +1587,24 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         return HostAddress.with("example.com");
     }
 
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testHashCodeCaseUnimportant() {
+        this.checkEqualsAndHashCode(
+            HostAddress.with(
+                HOST.toUpperCase()
+            )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(
+            HostAddress.with("different")
+        );
+    }
+    
     // Comparable.......................................................................................................
 
     @Test
@@ -1635,11 +1660,22 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     // helpers..........................................................................................................
 
-    public void checkEquals(final String message,
-                            final byte[] expected,
-                            final byte[] actual) {
+    public void valuesAndCheck(final HostAddress hostAddress) {
+        this.valuesAndCheck(
+            hostAddress,
+            new byte[0]
+        );
+    }
+
+    public void valuesAndCheck(final HostAddress hostAddress,
+                               final byte[] expected) {
+        final byte[] actual = hostAddress.values();
+
         if (false == Arrays.equals(expected, actual)) {
-            this.checkEquals(toHexString(expected), toHexString(actual), message);
+            this.checkEquals(
+                toHexString(expected),
+                toHexString(actual)
+            );
         }
     }
 
