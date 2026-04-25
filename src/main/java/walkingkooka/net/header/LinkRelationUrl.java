@@ -53,11 +53,6 @@ final class LinkRelationUrl extends LinkRelation<AbsoluteUrl> {
 
     // Header2 ............................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LinkRelationUrl;
-    }
-
     // Comparable.......................................................................................................
 
     @Override

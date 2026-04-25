@@ -140,11 +140,6 @@ public final class Encoding extends Header2<String>
 
     // Object..........................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Encoding;
-    }
-
     // Comparable......................................................................................................
 
     @Override

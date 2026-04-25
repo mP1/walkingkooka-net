@@ -104,8 +104,4 @@ public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
         return false;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptEncoding;
-    }
 }

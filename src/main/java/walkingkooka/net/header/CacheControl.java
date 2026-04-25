@@ -245,8 +245,4 @@ public final class CacheControl extends Header2<List<CacheControlDirective<?>>> 
             .allMatch(CacheControlDirective::isResponse);
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CacheControl;
-    }
 }

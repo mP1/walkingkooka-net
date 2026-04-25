@@ -109,11 +109,6 @@ public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
         return false;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptCharset;
-    }
-
     // Predicate .......................................................................................................
 
     /**

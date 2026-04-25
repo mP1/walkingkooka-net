@@ -127,8 +127,4 @@ public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
         return false;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptLanguage;
-    }
 }
