@@ -33,39 +33,69 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Test
     public void testWithNameNullFails() {
-        assertThrows(NullPointerException.class, () -> CacheControlDirective.with(null, Optional.empty()));
+        assertThrows(
+            NullPointerException.class,
+            () -> CacheControlDirective.with(
+                null,
+                Optional.empty()
+            )
+        );
     }
 
     @Test
     public void testWithParameterNullFails() {
-        assertThrows(NullPointerException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.PUBLIC, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> CacheControlDirective.with(
+                CacheControlDirectiveName.PUBLIC,
+                null
+            )
+        );
     }
 
     @Test
     public void testWithParameterInvalidFails() {
-        assertThrows(HeaderException.class, () -> CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty()));
+        assertThrows(
+            HeaderException.class,
+            () -> CacheControlDirective.with(
+                CacheControlDirectiveName.MAX_AGE,
+                Optional.empty()
+            )
+        );
     }
 
     @Test
     public void testWith() {
         final CacheControlDirectiveName<Long> name = CacheControlDirectiveName.MAX_AGE;
         final Optional<Long> parameter = Optional.of(123L);
-        this.check(CacheControlDirective.with(name, parameter),
+        this.check(
+            CacheControlDirective.with(
+                name,
+                parameter
+            ),
             name,
-            parameter);
+            parameter
+        );
     }
 
     // setParameter.....................................................................................................
 
     @Test
     public void testSetParameterNullFails() {
-        assertThrows(NullPointerException.class, () -> CacheControlDirective.NO_STORE.setParameter(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> CacheControlDirective.NO_STORE.setParameter(null)
+        );
     }
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(HeaderException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
-            .setParameter(Optional.empty()));
+        assertThrows(
+            HeaderException.class,
+            () -> CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            ).setParameter(Optional.empty())
+        );
     }
 
     @Test
@@ -73,53 +103,78 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
         final CacheControlDirectiveName<Long> name = CacheControlDirectiveName.MAX_AGE;
         final Optional<Long> parameter = Optional.of(123L);
         final CacheControlDirective<Long> directive = name.setParameter(parameter);
-        assertSame(directive, directive.setParameter(parameter));
+        assertSame(
+            directive,
+            directive.setParameter(parameter)
+        );
     }
 
     @Test
     public void testSetParameterSame2() {
         final CacheControlDirective<Void> directive = CacheControlDirective.NO_CACHE;
-        assertSame(directive, directive.setParameter(Optional.empty()));
+        assertSame(
+            directive,
+            directive.setParameter(Optional.empty())
+        );
     }
 
     @Test
     public void testSetParameterDifferent() {
-        this.setParameterAndCheck(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+        this.setParameterAndCheck(
+            CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            ),
             Optional.of(456L),
-            CacheControlDirectiveName.MAX_AGE);
+            CacheControlDirectiveName.MAX_AGE
+        );
     }
 
     @Test
     public void testSetParameterMaxStaleDifferent() {
-        this.setParameterAndCheck(CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(123L)),
+        this.setParameterAndCheck(
+            CacheControlDirectiveName.MAX_STALE.setParameter(
+                Optional.of(123L)
+            ),
             Optional.of(456L),
-            CacheControlDirectiveName.MAX_STALE);
+            CacheControlDirectiveName.MAX_STALE
+        );
     }
 
     @Test
     public void testSetParameterMaxStaleDifferent2() {
-        this.setParameterAndCheck(CacheControlDirective.MAX_STALE,
+        this.setParameterAndCheck(
+            CacheControlDirective.MAX_STALE,
             Optional.of(123L),
-            CacheControlDirectiveName.MAX_STALE);
+            CacheControlDirectiveName.MAX_STALE
+        );
     }
 
     @Test
     public void testSetParameterMaxStaleDifferent3() {
-        this.setParameterAndCheck(CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(123L)),
+        this.setParameterAndCheck(
+            CacheControlDirectiveName.MAX_STALE.setParameter(
+                Optional.of(123L)
+            ),
             Optional.empty(),
-            CacheControlDirectiveName.MAX_STALE);
+            CacheControlDirectiveName.MAX_STALE
+        );
     }
 
     private <T> void setParameterAndCheck(final CacheControlDirective<T> directive,
                                           final Optional<T> parameter,
                                           final CacheControlDirectiveName<T> name) {
-        this.checkNotEquals(parameter,
+        this.checkNotEquals(
+            parameter,
             directive.parameter(),
-            "new parameter must be different from old");
+            "new parameter must be different from old"
+        );
+
         final CacheControlDirective<T> different = directive.setParameter(parameter);
-        assertNotSame(directive,
+        assertNotSame(
+            directive,
             different,
-            "directive set parameter" + parameter + " must not return same");
+            "directive set parameter" + parameter + " must not return same"
+        );
 
         this.check(different, name, parameter);
     }
@@ -131,19 +186,31 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
             directive,
             name
         );
-        this.checkEquals(parameter, directive.parameter(), "parameter");
+        this.checkEquals(
+            parameter,
+            directive.parameter(),
+            "parameter"
+        );
     }
 
     // scope ...........................................................................................................
 
     @Test
     public void testScopeMaxAge() {
-        this.checkScope(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)));
+        this.checkScope(
+            CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            )
+        );
     }
 
     @Test
     public void testScopeMaxStale() {
-        this.checkScope(CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(123L)));
+        this.checkScope(
+            CacheControlDirectiveName.MAX_STALE.setParameter(
+                Optional.of(123L)
+            )
+        );
     }
 
     @Test
@@ -152,15 +219,20 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     }
 
     private void checkScope(final CacheControlDirective<?> directive) {
-        this.checkEquals(false,
+        this.checkEquals(
+            false,
             directive.isMultipart(),
-            directive + " isMultipart");
-        this.checkEquals(directive.value().isRequest(),
+            () -> directive + " isMultipart"
+        );
+        this.checkEquals(
+            directive.value().isRequest(),
             directive.isRequest(),
-            directive + " isRequest");
-        this.checkEquals(directive.value().isResponse(),
+            () -> directive + " isRequest"
+        );
+        this.checkEquals(
+            directive.value().isResponse(),
             directive.isResponse(),
-            directive + " isResponse");
+            () -> directive + " isResponse");
     }
 
     // wildcard.........................................................................................................
@@ -174,35 +246,52 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Test
     public void testToHeaderTextMaxAge() {
-        this.toHeaderTextAndCheck(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-            "max-age=123");
+        this.toHeaderTextAndCheck(
+            CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            ),
+            "max-age=123"
+        );
     }
 
     @Test
     public void testToHeaderTextNoCache() {
-        this.toHeaderTextAndCheck(CacheControlDirective.NO_CACHE, "no-cache");
+        this.toHeaderTextAndCheck(
+            CacheControlDirective.NO_CACHE,
+            "no-cache"
+        );
     }
 
     // toHeaderTextList.................................................................................................
 
     @Test
     public void testToHeaderTextListNoCache() {
-        this.toHeaderTextListAndCheck("no-cache",
-            CacheControlDirective.NO_CACHE);
+        this.toHeaderTextListAndCheck(
+            "no-cache",
+            CacheControlDirective.NO_CACHE
+        );
     }
 
     @Test
     public void testToHeaderTextListMaxAge() {
-        this.toHeaderTextListAndCheck("max-age=123",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)));
+        this.toHeaderTextListAndCheck(
+            "max-age=123",
+            CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            )
+        );
     }
 
     @Test
     public void testToHeaderTextListMaxAgeNoCacheNoStore() {
-        this.toHeaderTextListAndCheck("max-age=123, no-cache, no-store",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+        this.toHeaderTextListAndCheck(
+            "max-age=123, no-cache, no-store",
+            CacheControlDirectiveName.MAX_AGE.setParameter(
+                Optional.of(123L)
+            ),
             CacheControlDirective.NO_CACHE,
-            CacheControlDirective.NO_STORE);
+            CacheControlDirective.NO_STORE
+        );
     }
 
     // equals ..........................................................................................................
@@ -211,12 +300,19 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Test
     public void testEqualsDifferentParameter() {
-        this.checkNotEquals(this.directiveName().setParameter(Optional.of(456L)));
+        this.checkNotEquals(
+            this.directiveName()
+                .setParameter(
+                    Optional.of(456L)
+                )
+        );
     }
 
     @Test
     public void testEqualsDifferentName() {
-        this.checkNotEquals(CacheControlDirectiveName.S_MAXAGE.setParameter(PARAMETER));
+        this.checkNotEquals(
+            CacheControlDirectiveName.S_MAXAGE.setParameter(PARAMETER)
+        );
     }
 
     @Override
@@ -235,7 +331,9 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Override
     public CacheControlDirective<Long> createHeader() {
-        return CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L));
+        return CacheControlDirectiveName.MAX_AGE.setParameter(
+            Optional.of(123L)
+        );
     }
 
     @Override
