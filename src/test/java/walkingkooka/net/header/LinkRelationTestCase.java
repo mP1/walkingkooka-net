@@ -28,16 +28,21 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
     @Test
     public final void testIsUrl() {
         final R relation = this.createLinkRelation();
-        this.checkEquals(this.url(),
+        this.checkEquals(
+            this.url(),
             relation.isUrl(),
-            relation + " isUrl");
+            () -> relation + " isUrl"
+        );
     }
 
     abstract boolean url();
 
     @Test
     public final void testIsWildcard() {
-        this.isWildcardAndCheck(this.createLinkRelation(), false);
+        this.isWildcardAndCheck(
+            this.createLinkRelation(),
+            false
+        );
     }
 
     final R createLinkRelation() {
@@ -46,7 +51,8 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
 
     abstract R createLinkRelation(final T value);
 
-    @Override final R createHeader(final T value) {
+    @Override //
+    final R createHeader(final T value) {
         return this.createLinkRelation(value);
     }
 
