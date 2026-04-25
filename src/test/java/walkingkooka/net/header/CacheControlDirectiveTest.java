@@ -127,7 +127,10 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     private <T> void check(final CacheControlDirective<T> directive,
                            final CacheControlDirectiveName<T> name,
                            final Optional<T> parameter) {
-        this.checkEquals(name, directive.value(), "value");
+        this.valueAndCheck(
+            directive,
+            name
+        );
         this.checkEquals(parameter, directive.parameter(), "parameter");
     }
 
