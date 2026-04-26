@@ -84,8 +84,11 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     private void whitespaceInvalidCharacterFails(final String text,
                                                  final int invalidCharacterPosition) {
         final HeaderException expected = assertThrows(HeaderException.class, () -> this.whitespace(text));
-        checkMessage(expected,
-            new InvalidCharacterException(text, invalidCharacterPosition).getMessage());
+        this.getMessageAndCheck(
+            expected,
+            new InvalidCharacterException(text, invalidCharacterPosition)
+                .getMessage()
+        );
     }
 
     private HeaderParser whitespace(final String text) {
@@ -400,11 +403,16 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void commentFails(final String text) {
-        final HeaderException expected = assertThrows(HeaderException.class, () -> {
-            final HeaderParser parser = new TestHeaderParser(text);
-            parser.comment();
-        });
-        checkMessage(expected, HeaderParser.missingClosingParens(text));
+        final HeaderException expected = assertThrows(
+            HeaderException.class,
+            () -> {
+                final HeaderParser parser = new TestHeaderParser(text);
+                parser.comment();
+            });
+        this.getMessageAndCheck(
+            expected,
+            HeaderParser.missingClosingParens(text)
+        );
     }
 
     @Test

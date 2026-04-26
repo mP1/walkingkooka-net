@@ -144,7 +144,10 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
             () -> HostAddress.with(address)
         );
         if (null != message) {
-            checkMessage(expected, message);
+            getMessageAndCheck(
+                expected,
+                message
+            );
         }
     }
 
