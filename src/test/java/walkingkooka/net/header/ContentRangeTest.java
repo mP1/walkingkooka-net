@@ -626,7 +626,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
             HeaderException.class,
             () -> ContentRange.parse(text)
         );
-        checkMessage(
+        this.getMessageAndCheck(
             expected,
             message
         );

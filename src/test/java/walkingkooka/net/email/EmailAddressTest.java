@@ -257,7 +257,10 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
                                                                 final String message) {
         final T expected = assertThrows(thrown, () -> EmailAddress.parse(email));
         if (null != message) {
-            checkMessage(expected, message);
+            getMessageAndCheck(
+                expected,
+                message
+            );
         }
     }
 

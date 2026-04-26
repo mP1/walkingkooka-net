@@ -72,7 +72,7 @@ final public class HttpResponseHttpServerExceptionTest implements ClassTesting<H
             final HttpStatus status = code.status();
 
             final HttpResponseHttpServerException exception = new HttpResponseHttpServerException(status, entity);
-            this.checkMessage(exception, status.message());
+            this.getMessageAndCheck(exception, status.message());
             this.checkCause(exception, null);
 
             assertSame(status, exception.status(), "status");
