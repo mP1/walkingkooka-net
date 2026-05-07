@@ -17,7 +17,7 @@
 
 package walkingkooka.net;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.compare.Comparators;
 
 import java.util.Objects;
@@ -116,7 +116,7 @@ import java.util.Optional;
  *                  / "*" / "+" / "," / ";" / "="
  * </pre>
  */
-public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>,
+public abstract class AbsoluteOrRelativeUrl extends Url implements HasValue<String>,
     HasUrlQueryString,
     HasUrlFragment {
 

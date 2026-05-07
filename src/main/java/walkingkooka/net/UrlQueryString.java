@@ -18,7 +18,7 @@
 package walkingkooka.net;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.HasText;
@@ -35,7 +35,7 @@ import java.util.Optional;
  * The query string component within a {@link Url}. Methods are available to retrieve the first parameter value, or all parameter values
  * or to view all parameters as a {@link Map}.
  */
-public final class UrlQueryString implements Value<String>,
+public final class UrlQueryString implements HasValue<String>,
     Comparable<UrlQueryString>,
     HasUrlQueryString,
     HasText {

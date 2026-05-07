@@ -19,8 +19,8 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -38,7 +38,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     ComparableTesting2<UrlFragment>,
     CanBeEmptyTesting,
     ToStringTesting<UrlFragment>,
-    ValueTesting {
+    HasValueTesting {
 
     @Test
     public void testSlashConstant() {

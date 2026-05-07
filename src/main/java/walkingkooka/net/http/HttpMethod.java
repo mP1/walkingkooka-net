@@ -18,16 +18,16 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.net.header.Header;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 /**
- * A {@link Value} including an enumeration of standards methods that contains the HTTP request methods.
+ * A {@link HasValue} including an enumeration of standards methods that contains the HTTP request methods.
  */
-public final class HttpMethod implements Value<String>,
+public final class HttpMethod implements HasValue<String>,
     Header,
     Comparable<HttpMethod> {
 

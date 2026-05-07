@@ -18,8 +18,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.ToStringBuilder;
-import walkingkooka.Value;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -67,7 +67,7 @@ import java.util.Optional;
  *                    ; token except ( "*" / "'" / "%" )
  * </pre>
  */
-public final class EncodedText implements Value<String>,
+public final class EncodedText implements HasValue<String>,
     Header {
 
     /**

@@ -17,9 +17,9 @@
 
 package walkingkooka.net;
 
+import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -39,7 +39,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     HasTextTesting,
     ToStringTesting<U>,
     TypeNameTesting<U>,
-    ValueTesting {
+    HasValueTesting {
 
     UrlTestCase() {
         super();

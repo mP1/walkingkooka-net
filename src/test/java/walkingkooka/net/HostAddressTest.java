@@ -18,8 +18,8 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -41,7 +41,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     HasTextTesting,
     ThrowableTesting,
     ToStringTesting<HostAddress>,
-    ValueTesting {
+    HasValueTesting {
 
     private final static String HOST = "example.com";
 
@@ -293,7 +293,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     private void valueAndCheck(final HostAddress hostAddress,
                                final String address) {
-        ValueTesting.super.valueAndCheck(
+        HasValueTesting.super.valueAndCheck(
             hostAddress,
             address
         );

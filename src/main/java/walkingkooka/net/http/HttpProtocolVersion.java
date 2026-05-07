@@ -17,14 +17,14 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 /**
  * An enumeration that represents the Http protocol version
  */
-public enum HttpProtocolVersion implements Value<String> {
+public enum HttpProtocolVersion implements HasValue<String> {
 
     /**
      * Version 1.0

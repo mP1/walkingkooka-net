@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -34,7 +34,7 @@ import java.util.Optional;
  * Base class with getters that return the common components of a {@link Url}.
  * Note {@link #text()} will return the complete {@link Url#toString()}.
  */
-public abstract class Url implements Value<String>,
+public abstract class Url implements HasValue<String>,
     HasText,
     Visitable {
 

@@ -17,7 +17,7 @@
 
 package walkingkooka.net;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
@@ -26,11 +26,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A {@link Value} that represent a host address which may be a name or ip address in dot form etc. Note the actual address is only validated for
+ * A {@link HasValue} that represent a host address which may be a name or ip address in dot form etc. Note the actual address is only validated for
  * syntactical correctness no network query is ever attempted. <br>
  * Most of the tests and info was gathered from <a href="http://www.dominicsayers.com/source/beta/is_email/test/?all"></a>}
  */
-public final class HostAddress implements Value<String>,
+public final class HostAddress implements HasValue<String>,
     Comparable<HostAddress>,
     HasHostAddress,
     HasText {

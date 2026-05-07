@@ -17,9 +17,9 @@
 
 package walkingkooka.net;
 
+import walkingkooka.HasValue;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.UsesToStringBuilder;
-import walkingkooka.Value;
 import walkingkooka.compare.Comparators;
 
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import java.util.Arrays;
 /**
  * Base class for either {@link Ip4Address} or {@link Ip6Address}.
  */
-abstract public class IpAddress implements Value<byte[]>,
+abstract public class IpAddress implements HasValue<byte[]>,
     UsesToStringBuilder {
 
     /**

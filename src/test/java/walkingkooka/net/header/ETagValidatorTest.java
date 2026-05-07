@@ -18,11 +18,11 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ValueTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ETagValidatorTest implements ValueTesting,
+public final class ETagValidatorTest implements HasValueTesting,
     ClassTesting2<ETagValidator> {
 
     @Test

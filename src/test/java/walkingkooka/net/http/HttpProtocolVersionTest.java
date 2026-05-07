@@ -19,8 +19,8 @@ package walkingkooka.net.http;
 
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocolVersion>,
     ToStringTesting<HttpProtocolVersion>,
-    ValueTesting {
+    HasValueTesting {
 
     @Test
     public void testOneZero() {

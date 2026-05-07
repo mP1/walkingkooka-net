@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -62,7 +62,8 @@ import java.util.Objects;
  * Greenwich Mean Time. HTTP dates are always expressed in GMT, never in local time.
  * </pre>
  */
-public abstract class IfRange<T> implements Header, Value<T> {
+public abstract class IfRange<T> implements Header,
+    HasValue<T> {
 
     /**
      * The {@link HttpHeaderName}.

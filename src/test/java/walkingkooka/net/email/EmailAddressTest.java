@@ -20,10 +20,10 @@ package walkingkooka.net.email;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EmptyTextException;
+import walkingkooka.HasValueTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasHostAddressTesting;
 import walkingkooka.net.HostAddress;
@@ -49,7 +49,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     ParseStringTesting<EmailAddress>,
     ThrowableTesting,
     ToStringTesting<EmailAddress>,
-    ValueTesting {
+    HasValueTesting {
 
     @Test
     public void testTryParseNullFails() {

@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.function.Predicate;
  */
 public abstract class ETag implements Header,
     Predicate<ETag>,
-    Value<String> {
+    HasValue<String> {
 
     /**
      * Returns a wildcard {@link ETag}

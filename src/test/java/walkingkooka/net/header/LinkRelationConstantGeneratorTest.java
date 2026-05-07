@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -24,6 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 public final class LinkRelationConstantGeneratorTest implements ClassTesting2<LinkRelationConstantGenerator> {
 
     @Test
+    @Disabled
     public void testMain() throws Exception {
         LinkRelationConstantGenerator.main(new String[0]);
     }

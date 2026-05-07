@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 
 /**
- * A {@link Value} as described in <a href="https://tools.ietf.org/search/rfc5988"></a>.
+ * A {@link HasValue} as described in <a href="https://tools.ietf.org/search/rfc5988"></a>.
  */
 final public class Link extends HeaderWithParameters2<Link,
     LinkParameterName<?>,
