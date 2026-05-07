@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 
 
 /**
- * A {@link Value} that represents a MIME Type with possible optional parameters.
+ * A {@link HasValue} that represents a MIME Type with possible optional parameters.
  * Note parameter order is not important when comparing for equality or calculating the hash code.
  * Note any suffix that may be present in the sub type is not validated in anyway except for valid characters.
  * <a href="https://en.wikipedia.org/wiki/Media_type"></a>.

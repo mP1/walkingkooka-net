@@ -18,7 +18,7 @@
 package walkingkooka.net.email;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
 import walkingkooka.text.HasText;
@@ -27,13 +27,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link Value} that holds a valid email address. Getters are available to get the components. Note that email address characters are validated
+ * A {@link HasValue} that holds a valid email address. Getters are available to get the components. Note that email address characters are validated
  * using the rules from the RFC as detailed on http://en.wikipedia.org/wiki/Email_address. <br>
  * NOTE Note that 8 tests from DominicsayersComIsemailEmailAddressTest still fail. Doing some research to find out if surrounding addresses
  * with [] is for emails only.
  */
 final public class EmailAddress implements HasText,
-    Value<String>,
+    HasValue<String>,
     HasHostAddress,
     Comparable<EmailAddress> {
 
@@ -99,7 +99,7 @@ final public class EmailAddress implements HasText,
         this.host = host;
     }
 
-    // Value............................................................................................................
+    // hasValue.........................................................................................................
 
     /**
      * Getter that returns the entire email address as a {@link String}.

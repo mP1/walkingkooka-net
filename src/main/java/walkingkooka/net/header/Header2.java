@@ -18,16 +18,17 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Abstract templated class for {@link Header} that hold a single typed {@link Value}.
+ * Abstract templated class for {@link Header} that hold a single typed {@link HasValue}.
  */
-abstract class Header2<V> implements Header, Value<V> {
+abstract class Header2<V> implements Header,
+    HasValue<V> {
 
     static <V> List<V> nonEmptyImmutableList(final List<V> list,
                                              final String label) {

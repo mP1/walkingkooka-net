@@ -18,7 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ValueTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestTest extends HttpServletRequestTestCase<HttpServletRequestHttpRequest>
     implements HttpRequestTesting<HttpServletRequestHttpRequest>,
-    ValueTesting {
+    HasValueTesting {
 
     private final static HttpProtocolVersion PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static HttpMethod METHOD = HttpMethod.POST;

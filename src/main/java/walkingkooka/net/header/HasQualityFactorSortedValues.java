@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQualityFactor;
 
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Includes a getter to return the values sorted by their quality factor.
  */
-public interface HasQualityFactorSortedValues<V extends HasQualityFactor> extends Value<List<V>> {
+public interface HasQualityFactorSortedValues<V extends HasQualityFactor> extends HasValue<List<V>> {
 
     /**
      * Helper that returns a new immutable {@link List} holding the values after sorting.

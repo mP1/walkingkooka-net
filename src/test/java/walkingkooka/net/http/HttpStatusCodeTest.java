@@ -18,9 +18,9 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting2;
@@ -42,7 +42,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     HashCodeEqualsDefinedTesting2<HttpStatusCode>,
     ToStringTesting<HttpStatusCode>,
     TypeNameTesting<HttpStatusCode>,
-    ValueTesting {
+    HasValueTesting {
 
     private final static int CODE = 299;
 

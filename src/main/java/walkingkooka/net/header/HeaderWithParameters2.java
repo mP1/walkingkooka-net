@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     P extends HeaderParameterName<?>,
     V> implements HeaderWithParameters<P>,
-    Value<V> {
+    HasValue<V> {
 
     /**
      * Package private to limit sub classing.
@@ -45,7 +45,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
         this.parameters = parameters;
     }
 
-    // Value............................................................................................................
+    // hasValue.........................................................................................................
 
     /**
      * Getter that returns the value.

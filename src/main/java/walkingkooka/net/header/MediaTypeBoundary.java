@@ -18,9 +18,9 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
-import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -52,7 +52,7 @@ import java.util.function.Supplier;
  * </pre>
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html"></a>
  */
-public final class MediaTypeBoundary implements Value<String>,
+public final class MediaTypeBoundary implements HasValue<String>,
     Header,
     Comparable<MediaTypeBoundary> {
 

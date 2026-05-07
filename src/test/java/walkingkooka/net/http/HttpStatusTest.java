@@ -18,10 +18,10 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
     HashCodeEqualsDefinedTesting2<HttpStatus>,
     ToStringTesting<HttpStatus>,
-    ValueTesting {
+    HasValueTesting {
 
     // firstLineOfText..................................................................................................
 

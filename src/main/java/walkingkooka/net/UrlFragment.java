@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 
 import walkingkooka.CanBeEmpty;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.HasText;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +33,7 @@ import java.util.Objects;
  * https://datatracker.ietf.org/doc/html/rfc3986
  * </pre>
  */
-public final class UrlFragment implements Value<String>,
+public final class UrlFragment implements HasValue<String>,
     HasText,
     CanBeEmpty,
     Comparable<UrlFragment> {

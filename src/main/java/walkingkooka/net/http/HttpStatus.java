@@ -18,8 +18,8 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.Value;
 import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Holds a HTTP response status code and message.
  */
-public final class HttpStatus implements Value<HttpStatusCode> {
+public final class HttpStatus implements HasValue<HttpStatusCode> {
 
     /**
      * Extracts the first line of text from the given text. This is useful when making status messages compatible

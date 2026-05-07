@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
@@ -53,7 +53,7 @@ import java.util.Optional;
  * </pre>
  */
 public final class CacheControlDirective<T> implements Header,
-    Value<CacheControlDirectiveName<T>> {
+    HasValue<CacheControlDirectiveName<T>> {
 
     // constants................................................................................................
 

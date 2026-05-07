@@ -19,11 +19,11 @@ package walkingkooka.net.header;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.UsesToStringBuilder;
-import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -34,7 +34,9 @@ import java.util.Optional;
  * Holds a cookie including all its properties. Note that values are verified to contain correct characters but no attempt is made to encode values
  * with incorrect values.
  */
-abstract public class Cookie implements Header, Value<String>, UsesToStringBuilder {
+abstract public class Cookie implements Header,
+    HasValue<String>,
+    UsesToStringBuilder {
 
     /**
      * The <code>domain</code> attribute

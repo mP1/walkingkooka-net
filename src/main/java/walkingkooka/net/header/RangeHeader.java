@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeBound;
 import walkingkooka.collect.list.Lists;
@@ -56,7 +56,7 @@ import java.util.stream.Collectors;
  * </pre>
  */
 public final class RangeHeader implements Header,
-    Value<List<Range<Long>>> {
+    HasValue<List<Range<Long>>> {
 
     public final static CharacterConstant BETWEEN = CharacterConstant.with('-');
 
