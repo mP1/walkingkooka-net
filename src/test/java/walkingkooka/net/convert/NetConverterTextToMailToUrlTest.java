@@ -27,7 +27,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.MailToUrl;
 import walkingkooka.net.email.EmailAddress;
 
-public final class NetConverterTextToMailToUrlTest extends NetConverterTestCase<NetConverterTextToMailToUrl<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToMailToUrlTest extends NetConverterTextToTestCase<NetConverterTextToMailToUrl<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringToAbsoluteUrl() {

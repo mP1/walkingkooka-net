@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.TextToTryingShortCircuitingConverter;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HasHostAddress;
 import walkingkooka.net.HostAddress;
@@ -31,8 +30,7 @@ import walkingkooka.net.email.EmailAddress;
 /**
  * A {@link Converter} that supports converting a {@link String} to a {@link AbsoluteUrl}, {@link EmailAddress} or {@link MailToUrl} or {@link HostAddress}
  */
-final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends NetConverter<C>
-    implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends NetConverterTextTo<C> {
 
     /**
      * Type safe getter.

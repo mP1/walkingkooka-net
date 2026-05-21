@@ -20,14 +20,12 @@ package walkingkooka.net.convert;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.TextToTryingShortCircuitingConverter;
 import walkingkooka.net.MailToUrl;
 
 /**
  * A {@link Converter} that supports converting a {@link String} to one of the {@link MailToUrl}
  */
-final class NetConverterTextToMailToUrl<C extends ConverterContext> extends NetConverter<C>
-    implements TextToTryingShortCircuitingConverter<C> {
+final class NetConverterTextToMailToUrl<C extends ConverterContext> extends NetConverterTextTo<C> {
 
     /**
      * Type safe getter.

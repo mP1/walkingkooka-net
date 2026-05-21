@@ -31,7 +31,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 
-public class NetConverterTextToHasHostAddressTest extends NetConverterTestCase<NetConverterTextToHasHostAddress<FakeConverterContext>, FakeConverterContext> {
+public class NetConverterTextToHasHostAddressTest extends NetConverterTextToTestCase<NetConverterTextToHasHostAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertNullToAbsoluteUrlFails() {

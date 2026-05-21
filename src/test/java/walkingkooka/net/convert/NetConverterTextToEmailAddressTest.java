@@ -25,7 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.email.EmailAddress;
 
-public final class NetConverterTextToEmailAddressTest extends NetConverterTestCase<NetConverterTextToEmailAddress<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToEmailAddressTest extends NetConverterTextToTestCase<NetConverterTextToEmailAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringBuilderToEmailAddress() {
