@@ -33,7 +33,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> extends HttpEntityTestCase2<H> {
+public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> extends HttpEntityTestCase<H> {
 
     final static String TEXT = "abcdefghijklmnopqrstuvwxyz";
     final static Binary BINARY = Binary.with(TEXT.getBytes(HttpEntity.DEFAULT_BODY_CHARSET));

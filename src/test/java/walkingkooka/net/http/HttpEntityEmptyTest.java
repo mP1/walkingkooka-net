@@ -31,7 +31,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class HttpEntityEmptyTest extends HttpEntityTestCase2<HttpEntityEmpty> {
+public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpty> {
 
     @Test
     public void testContentLength() {

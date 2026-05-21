@@ -46,13 +46,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityTestCase2<H extends HttpEntity> implements HashCodeEqualsDefinedTesting2<H>,
+public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
     ToStringTesting<H>,
     ClassTesting<H>,
     TreePrintableTesting {
 
-    HttpEntityTestCase2() {
+    HttpEntityTestCase() {
         super();
     }
 
