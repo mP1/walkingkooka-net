@@ -33,6 +33,7 @@ import walkingkooka.net.http.server.FakeWebFile;
 import walkingkooka.net.http.server.WebFileException;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.io.InputStream;
@@ -46,7 +47,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCodeEqualsDefinedTesting2<H>,
+public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasTextTesting,
+    HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
     ToStringTesting<H>,
     ClassTesting<H>,
@@ -485,7 +487,15 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
 
     final void check(final HttpEntity entity,
                      final String text) {
-        this.checkEquals(text, entity.bodyText(), () -> "" + entity);
+        this.checkEquals(
+            text,
+            entity.bodyText(),
+            () -> "" + entity
+        );
+        this.textAndCheck(
+            entity,
+            text
+        );
         this.check(entity);
     }
 
