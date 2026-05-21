@@ -56,22 +56,39 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
         super();
     }
 
-    final void contentLengthAndCheck(final HttpEntity entity, final long length) {
-        this.checkEquals(length, entity.contentLength(), () -> "entity contentLength " + entity);
+    final void contentLengthAndCheck(final HttpEntity entity,
+                                     final long length) {
+        this.checkEquals(
+            length,
+            entity.contentLength(),
+            () -> "entity contentLength " + entity
+        );
     }
 
     @Test
     public final void testSetHeadersInvalidFails() {
         final HttpEntity entity = this.createHttpEntity();
 
-        assertThrows(HeaderException.class, () -> entity.setHeaders(map(HttpHeaderName.ACCEPT_CHARSET, MediaType.TEXT_PLAIN)));
+        assertThrows(
+            HeaderException.class,
+            () -> entity.setHeaders(
+                map(
+                    HttpHeaderName.ACCEPT_CHARSET,
+                    MediaType.TEXT_PLAIN
+                )
+            )
+        );
     }
 
     @Test
     public final void testSetHeaderNullNameFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().setHeader(null, list(1L))
+            () -> this.createHttpEntity()
+                .setHeader(
+                    null,
+                    list(1L)
+                )
         );
     }
 
@@ -79,7 +96,11 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
     public final void testSetHeaderNullValueFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().setHeader(HttpHeaderName.CONTENT_LENGTH, null)
+            () -> this.createHttpEntity()
+                .setHeader(
+                    HttpHeaderName.CONTENT_LENGTH,
+                    null
+                )
         );
     }
 
@@ -90,27 +111,48 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
         assertThrows(
             HeaderException.class,
             () -> this.createHttpEntity()
-                .setHeader(header, Cast.to(list("INVALID VALUE requires Long")))
+                .setHeader(
+                    header,
+                    Cast.to(
+                        list("INVALID VALUE requires Long")
+                    )
+                )
         );
     }
 
     @Test
     public final void testSetHeaderEmptyListNew() {
         final HttpEntity entity = this.createHttpEntity();
-        assertSame(entity, entity.setHeader(HttpHeaderName.ACCEPT_LANGUAGE, Lists.empty()));
+        assertSame(
+            entity,
+            entity.setHeader(
+                HttpHeaderName.ACCEPT_LANGUAGE,
+                Lists.empty()
+            )
+        );
     }
 
     @Test
     public final void testSetHeaderEmptyListNew2() {
         final HttpEntity entity = this.createHttpEntity();
-        assertSame(entity, entity.setHeader(HttpHeaderName.CONTENT_TYPE, Lists.empty()));
+        assertSame(
+            entity,
+            entity.setHeader(
+                HttpHeaderName.CONTENT_TYPE,
+                Lists.empty()
+            )
+        );
     }
 
     @Test
     public final void testAddHeaderNullNameFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().addHeader(null, 1L)
+            () -> this.createHttpEntity()
+                .addHeader(
+                    null,
+                    1L
+                )
         );
     }
 
@@ -118,7 +160,11 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
     public final void testAddHeaderNullValueFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().addHeader(HttpHeaderName.CONTENT_LENGTH, null)
+            () -> this.createHttpEntity()
+                .addHeader(
+                    HttpHeaderName.CONTENT_LENGTH,
+                    null
+                )
         );
     }
 
@@ -127,7 +173,11 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
         assertThrows(
             HeaderException.class,
             () -> this.createHttpEntity()
-                .addHeader((HttpHeaderName<?>) HttpHeaderName.CONTENT_LENGTH, Cast.to("INVALID VALUE requires Long"))
+                .addHeader(
+                    (HttpHeaderName<?>)
+                        HttpHeaderName.CONTENT_LENGTH,
+                    Cast.to("INVALID VALUE requires Long")
+                )
         );
     }
 
@@ -151,20 +201,38 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
     public final void testSetHeadersIncludesInvalidValueFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().setHeaders(Maps.of(HttpHeaderName.ACCEPT, null))
+            () -> this.createHttpEntity()
+                .setHeaders(
+                    Maps.of(
+                        HttpHeaderName.ACCEPT,
+                        null
+                    )
+                )
         );
     }
 
     @Test
     public final void testSetHeadersSame() {
         final H entity = this.createHttpEntity();
-        assertSame(entity, entity.setHeaders(entity.headers()));
+        assertSame(
+            entity,
+            entity.setHeaders(
+                entity.headers()
+            )
+        );
     }
 
     @Test
     public final void testSetHeadersSame2() {
         final H entity = this.createHttpEntity();
-        assertSame(entity, entity.setHeaders(new HashMap<>(entity.headers())));
+        assertSame(
+            entity,
+            entity.setHeaders(
+                new HashMap<>(
+                    entity.headers()
+                )
+            )
+        );
     }
 
     // setAccept........................................................................................................
@@ -298,28 +366,36 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
         this.check(empty);
     }
 
-    // setBodyWebFile......................................................................................................
+    // setBodyWebFile...................................................................................................
 
     @Test
     public final void testSetBodyTextNullWebFileFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createHttpEntity().setBody(null, Charset.defaultCharset())
+            () -> this.createHttpEntity()
+                .setBody(
+                    null,
+                    Charset.defaultCharset()
+                )
         );
     }
 
     @Test
     public final void testSetBodyWebFileSame() {
         final H entity = this.createHttpEntity();
-        assertSame(entity,
-            entity.setBody(new FakeWebFile() {
+        assertSame(
+            entity,
+            entity.setBody(
+                new FakeWebFile() {
 
-                               @Override
-                               public InputStream content() throws WebFileException {
-                                   return entity.body().inputStream();
-                               }
-                           },
-                Charset.defaultCharset()));
+                    @Override
+                    public InputStream content() throws WebFileException {
+                        return entity.body().inputStream();
+                    }
+                },
+                Charset.defaultCharset()
+            )
+        );
     }
 
     @Test
@@ -328,15 +404,19 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HashCo
         final Binary differentBinary = Binary.with("different".getBytes(StandardCharsets.UTF_8));
 
         final HttpEntity different =
-            entity.setBody(new FakeWebFile() {
+            entity.setBody(
+                new FakeWebFile() {
 
-                               @Override
-                               public InputStream content() throws WebFileException {
-                                   return differentBinary.inputStream();
-                               }
-                           },
+                    @Override
+                    public InputStream content() throws WebFileException {
+                        return differentBinary.inputStream();
+                    }
+                },
                 Charset.defaultCharset());
-        this.checkEquals(differentBinary, different.body());
+        this.checkEquals(
+            differentBinary,
+            different.body()
+        );
     }
 
     // isEmpty..........................................................................................................
