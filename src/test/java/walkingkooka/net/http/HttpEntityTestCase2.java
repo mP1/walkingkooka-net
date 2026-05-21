@@ -31,6 +31,9 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.FakeWebFile;
 import walkingkooka.net.http.server.WebFileException;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -43,10 +46,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEntityTestCase<H>
-    implements HashCodeEqualsDefinedTesting2<H>,
+public abstract class HttpEntityTestCase2<H extends HttpEntity> implements HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
-    ToStringTesting<H> {
+    ToStringTesting<H>,
+    ClassTesting<H>,
+    TreePrintableTesting {
 
     HttpEntityTestCase2() {
         super();
@@ -421,5 +425,12 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
     @Override
     public final H createObject() {
         return this.createHttpEntity();
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
