@@ -254,7 +254,7 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Would be setter that returns a {@link HttpEntity} with the given headers creating a new instance if necessary.
      */
-    public final <T> HttpEntity setHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
+    public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = checkHeaders(headers);
 
         return this.headers().equals(copy) ?
