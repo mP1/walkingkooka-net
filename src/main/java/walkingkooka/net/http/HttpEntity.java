@@ -26,6 +26,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
@@ -51,6 +52,7 @@ import java.util.stream.Collectors;
  */
 public abstract class HttpEntity implements HasHeaders,
     CanBeEmpty,
+    HasContentType,
     HasText,
     TreePrintable {
 
@@ -302,11 +304,6 @@ public abstract class HttpEntity implements HasHeaders,
             )
         );
     }
-
-    /**
-     * Returns the content-type if one is present.
-     */
-    public abstract Optional<MediaType> contentType();
 
     /**
      * Sets the content-type replacing any existing value as necessary.

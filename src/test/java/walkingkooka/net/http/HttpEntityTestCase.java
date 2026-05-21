@@ -26,6 +26,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.Accept;
+import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -42,12 +43,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasTextTesting,
+public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasContentTypeTesting,
+    HasTextTesting,
     HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
     ToStringTesting<H>,
@@ -254,32 +255,6 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasTex
         this.checkEquals(
             expected,
             entity.setAccept(accept)
-        );
-    }
-
-    // contentType......................................................................................................
-
-    final void contentTypeAndCheck(final HttpEntity entity) {
-        this.contentTypeAndCheck(
-            entity,
-            Optional.empty()
-        );
-    }
-
-    final void contentTypeAndCheck(final HttpEntity entity,
-                                   final MediaType expected) {
-        this.contentTypeAndCheck(
-            entity,
-            Optional.of(expected)
-        );
-    }
-
-    final void contentTypeAndCheck(final HttpEntity entity,
-                                   final Optional<MediaType> expected) {
-        this.checkEquals(
-            expected,
-            entity.contentType(),
-            entity::toString
         );
     }
 
