@@ -30,6 +30,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
@@ -94,6 +95,14 @@ public final class NetConvertersTest implements ConverterTesting,
         this.netConvertAndCheck(
             "mailto:user@example.com",
             Url::parseMailTo
+        );
+    }
+
+    @Test
+    public void testNetConvertStringToMediaType() {
+        this.netConvertAndCheck(
+            "text/plain;charset=UTF-8",
+            MediaType::parse
         );
     }
 

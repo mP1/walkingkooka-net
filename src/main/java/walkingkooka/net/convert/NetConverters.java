@@ -54,6 +54,7 @@ public final class NetConverters implements PublicStaticHelper {
                 hasHostAddress(),
                 textToEmailAddress(),
                 textToHostAddress(),
+                textToMediaType(),
                 textToUrl(),
                 textToUrlFragment(),
                 textToUrlQueryString()
