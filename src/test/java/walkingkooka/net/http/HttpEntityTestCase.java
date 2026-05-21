@@ -17,55 +17,15 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.printer.TreePrintableTesting;
-
-import java.util.Optional;
 
 public abstract class HttpEntityTestCase<T> implements ClassTesting<T>,
     TreePrintableTesting {
 
     HttpEntityTestCase() {
         super();
-    }
-
-    // contentType......................................................................................................
-
-    final void contentTypeAndCheck(final HttpEntity entity) {
-        this.contentTypeAndCheck(
-            entity,
-            Optional.empty()
-        );
-    }
-
-    final void contentTypeAndCheck(final HttpEntity entity,
-                                   final MediaType expected) {
-        this.contentTypeAndCheck(
-            entity,
-            Optional.of(expected)
-        );
-    }
-
-    final void contentTypeAndCheck(final HttpEntity entity,
-                                   final Optional<MediaType> expected) {
-        this.checkEquals(
-            expected,
-            entity.contentType(),
-            entity::toString
-        );
-    }
-
-    // isMultipartFormData..............................................................................................
-
-    final void isMultipartFormDataAndCheck(final HttpEntity entity,
-                                           final boolean expected) {
-        this.checkEquals(
-            expected,
-            entity.isMultipartFormData(),
-            entity::toString
-        );
     }
 
     // Class............................................................................................................
