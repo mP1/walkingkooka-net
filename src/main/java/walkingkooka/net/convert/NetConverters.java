@@ -90,6 +90,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterTextToMediaType}
+     */
+    public static <C extends ConverterContext> Converter<C> textToMediaType() {
+        return NetConverterTextToMediaType.instance();
+    }
+
+    /**
      * {@see NetConverterTextToUrl}
      */
     public static <C extends ConverterContext> Converter<C> textToUrl() {
