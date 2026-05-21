@@ -50,8 +50,7 @@ import java.util.function.Predicate;
  * </pre>
  */
 final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
-    implements
-    HasCaseSensitivity,
+    implements HasCaseSensitivity,
     HasQualityFactor,
     Predicate<MediaType> {
 
@@ -257,7 +256,8 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     /**
      * Creates a {@link MediaType} using the already broken type and sub types. It is not possible to pass parameters with or without values.
      */
-    public static MediaType with(final String type, final String subType) {
+    public static MediaType with(final String type,
+                                 final String subType) {
         checkType(type);
         checkSubType(subType);
 
@@ -446,8 +446,14 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Currently this returns true if {@link #type} is <code>text</code> or the {@link #subType} is <code>json</code>.
      */
     public boolean isText() {
-        return CASE_SENSITIVITY.equals(this.type, "text") ||
-            CASE_SENSITIVITY.equals(this.subType, "json");
+        return CASE_SENSITIVITY.equals(
+            this.type,
+            "text"
+        ) ||
+            CASE_SENSITIVITY.equals(
+                this.subType,
+                "json"
+            );
     }
 
     // HasCaseSensitivity ..............................................................................................
