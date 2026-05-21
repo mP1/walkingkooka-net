@@ -501,13 +501,22 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasTex
 
     final void check(final HttpEntity entity) {
         if ((entity.body().isEmpty() || entity.bodyText().isEmpty()) && entity.headers().isEmpty()) {
-            this.checkEquals(HttpEntityEmpty.class, entity.getClass(), () -> "Entity without headers, body/bodyText");
+            this.checkEquals(
+                HttpEntityEmpty.class,
+                entity.getClass(),
+                () -> "Entity without headers, body/bodyText"
+            );
         }
 
         final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
-        assertThrows(UnsupportedOperationException.class,
-            () -> headers.put(HttpHeaderName.CONTENT_LENGTH, Lists.of(1L)),
-            () -> "headers should be readonly of " + entity.getClass().getSimpleName() + " " + entity);
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> headers.put(
+                HttpHeaderName.CONTENT_LENGTH,
+                Lists.of(1L)
+            ),
+            () -> "headers should be readonly of " + entity.getClass().getSimpleName() + " " + entity
+        );
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................
