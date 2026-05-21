@@ -209,7 +209,11 @@ public abstract class HttpEntity implements HasHeaders,
                             headerValue.setLength(0);
                             break;
                         default:
-                            throw new IllegalArgumentException("Got " + CharSequences.quoteAndEscape((char) b) + " expected NL");
+                            throw new IllegalArgumentException(
+                                "Got " +
+                                    CharSequences.quoteAndEscape((char) b) +
+                                    " expected NL"
+                            );
                     }
                     break;
                 default:
@@ -238,7 +242,7 @@ public abstract class HttpEntity implements HasHeaders,
     HttpEntity() {
         super();
     }
-    // headers ...................................................................................
+    // headers .........................................................................................................
 
     @Override
     public final Map<HttpHeaderName<?>, List<?>> headers() {
@@ -288,7 +292,15 @@ public abstract class HttpEntity implements HasHeaders,
      * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
      */
     public final HttpEntity setContentLength() {
-        return this.setHeader0(HttpHeaderName.CONTENT_LENGTH, HttpEntityHeaderList.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.contentLength())));
+        return this.setHeader0(
+            HttpHeaderName.CONTENT_LENGTH,
+            HttpEntityHeaderList.one(
+                HttpHeaderName.CONTENT_LENGTH,
+                Long.valueOf(
+                    this.contentLength()
+                )
+            )
+        );
     }
 
     /**
@@ -311,7 +323,8 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Sets one or multiple values, replacing any previous or if the list is empty removes the header.
      */
-    public final <T> HttpEntity setHeader(final HttpHeaderName<T> header, final List<T> values) {
+    public final <T> HttpEntity setHeader(final HttpHeaderName<T> header,
+                                          final List<T> values) {
         checkHeader(header);
 
         // will return null to indicate values is empty and should be removed
@@ -322,18 +335,24 @@ public abstract class HttpEntity implements HasHeaders,
             this.remove0(header);
     }
 
-    abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header, final HttpEntityHeaderList value);
+    abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
+                                       final HttpEntityHeaderList value);
 
     /**
      * Adds the given header from this entity returning a new instance if the header and value are new.
      */
-    public final <T> HttpEntity addHeader(final HttpHeaderName<T> header, final T value) {
+    public final <T> HttpEntity addHeader(final HttpHeaderName<T> header,
+                                          final T value) {
         checkHeader(header);
 
-        return this.addHeader0(header, value);
+        return this.addHeader0(
+            header,
+            value
+        );
     }
 
-    abstract <T> HttpEntity addHeader0(final HttpHeaderName<T> header, final T value);
+    abstract <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
+                                       final T value);
 
     /**
      * Removes the given header from this entity returning a new instance if it existed.
@@ -369,7 +388,7 @@ public abstract class HttpEntity implements HasHeaders,
         return this.charset(HttpEntity.DEFAULT_BODY_CHARSET);
     }
 
-    // body ...................................................................................
+    // body ............................................................................................................
 
     /**
      * Returns the body of the {@link HttpEntity} in binary form.
@@ -432,7 +451,7 @@ public abstract class HttpEntity implements HasHeaders,
         return this instanceof HttpEntityEmpty;
     }
 
-    // extractRange ...................................................................................
+    // extractRange ....................................................................................................
 
     /**
      * Extracts the desired range returning an entity with the selected bytes creating a new instance if necessary.
