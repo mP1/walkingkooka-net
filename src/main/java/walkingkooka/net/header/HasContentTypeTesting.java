@@ -19,36 +19,31 @@ package walkingkooka.net.header;
 
 import walkingkooka.text.printer.TreePrintableTesting;
 
-import java.util.function.Supplier;
+import java.util.Optional;
 
 public interface HasContentTypeTesting extends TreePrintableTesting {
+
+    default void contentTypeAndCheck(final HasContentType has) {
+        this.contentTypeAndCheck(
+            has,
+            Optional.empty()
+        );
+    }
 
     default void contentTypeAndCheck(final HasContentType has,
                                      final MediaType expected) {
         this.contentTypeAndCheck(
             has,
-            expected,
-            has::toString
+            Optional.of(expected)
         );
     }
 
     default void contentTypeAndCheck(final HasContentType has,
-                                     final MediaType expected,
-                                     final String message) {
-        this.contentTypeAndCheck(
-            has,
-            expected,
-            () -> message
-        );
-    }
-
-    default void contentTypeAndCheck(final HasContentType has,
-                                     final MediaType expected,
-                                     final Supplier<String> message) {
+                                     final Optional<MediaType> expected) {
         this.checkEquals(
             expected,
             has.contentType(),
-            message
+            has::toString
         );
     }
 }
