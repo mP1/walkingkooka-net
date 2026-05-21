@@ -17,10 +17,20 @@
 
 package walkingkooka.net.http;
 
-public final class HttpEntityInteropTest extends HttpEntityTestCase<HttpEntityInterop> {
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
+
+public final class HttpEntityInteropTest implements ClassTesting<HttpEntityInterop> {
+
+    // Class............................................................................................................
 
     @Override
     public Class<HttpEntityInterop> type() {
         return HttpEntityInterop.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
