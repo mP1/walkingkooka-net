@@ -18,12 +18,17 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
 
-public final class HttpEntityNotEmptyTest extends HttpEntityTestCase<HttpEntityNotEmpty> implements HasTextTesting {
+public final class HttpEntityNotEmptyTest implements HasTextTesting,
+    ClassTesting<HttpEntityNotEmpty> {
+
+    // HasText..........................................................................................................
 
     @Test
-    public void testText() {
+    public final void testText() {
         final String text = "ABC123";
 
         this.textAndCheck(
@@ -32,8 +37,15 @@ public final class HttpEntityNotEmptyTest extends HttpEntityTestCase<HttpEntityN
         );
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<HttpEntityNotEmpty> type() {
         return HttpEntityNotEmpty.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
