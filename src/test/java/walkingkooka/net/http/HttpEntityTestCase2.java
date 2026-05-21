@@ -38,6 +38,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -179,6 +180,43 @@ public abstract class HttpEntityTestCase2<H extends HttpEntity> extends HttpEnti
         this.checkEquals(
             expected,
             entity.setAccept(accept)
+        );
+    }
+
+    // contentType......................................................................................................
+
+    final void contentTypeAndCheck(final HttpEntity entity) {
+        this.contentTypeAndCheck(
+            entity,
+            Optional.empty()
+        );
+    }
+
+    final void contentTypeAndCheck(final HttpEntity entity,
+                                   final MediaType expected) {
+        this.contentTypeAndCheck(
+            entity,
+            Optional.of(expected)
+        );
+    }
+
+    final void contentTypeAndCheck(final HttpEntity entity,
+                                   final Optional<MediaType> expected) {
+        this.checkEquals(
+            expected,
+            entity.contentType(),
+            entity::toString
+        );
+    }
+
+    // isMultipartFormData..............................................................................................
+
+    final void isMultipartFormDataAndCheck(final HttpEntity entity,
+                                           final boolean expected) {
+        this.checkEquals(
+            expected,
+            entity.isMultipartFormData(),
+            entity::toString
         );
     }
 
