@@ -30,7 +30,7 @@ public final class HttpEntityInteropJ2clTest implements ClassTesting<HttpEntityI
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
