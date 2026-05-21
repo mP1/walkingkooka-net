@@ -25,7 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.HostAddress;
 
-public final class NetConverterTextToHostAddressTest extends NetConverterTestCase<NetConverterTextToHostAddress<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToHostAddressTest extends NetConverterTextToTestCase<NetConverterTextToHostAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertCharSequenceToHostAddress() {

@@ -26,7 +26,7 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlQueryString;
 
-public final class NetConverterTextToUrlQueryStringTest extends NetConverterTestCase<NetConverterTextToUrlQueryString<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterTextToUrlQueryStringTest extends NetConverterTextToTestCase<NetConverterTextToUrlQueryString<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringToUrlFails() {
