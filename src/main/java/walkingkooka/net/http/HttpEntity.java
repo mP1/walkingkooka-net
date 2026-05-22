@@ -396,7 +396,7 @@ public abstract class HttpEntity implements HasHeaders,
      * Would be setter that returns a {@link HttpEntity} with the given body creating a new instance if necessary.
      */
     public final HttpEntity setBody(final Binary body) {
-        checkBody(body);
+        Objects.requireNonNull(body, "body");
 
         final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
         return body.isEmpty() && headers.isEmpty() ?
@@ -404,11 +404,6 @@ public abstract class HttpEntity implements HasHeaders,
             body.equals(this.body()) ?
                 this :
                 this.replace(headers, body);
-    }
-
-    // will effectively be removed because setBody is marked as @GwtIncompatible
-    static Binary checkBody(final Binary body) {
-        return Objects.requireNonNull(body, "body");
     }
 
     // bodyText ........................................................................................................

@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A http entity containing headers and body. Note that the content-length is not automatically updated in any factory or
@@ -36,7 +37,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     // @VisibleForTesting
     static HttpEntityBinary with(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                  final Binary body) {
-        return new HttpEntityBinary(headers, checkBody(body));
+        return new HttpEntityBinary(headers, Objects.requireNonNull(body, "body"));
     }
 
     /**
