@@ -17,6 +17,11 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberSymbols;
+
+import java.util.Currency;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,6 +29,51 @@ import java.util.Optional;
  * Provides a single method to provide the {@link MediaType} for this value.
  */
 public interface HasContentType {
+
+    /**
+     * Tries to get the {@link MediaType content type} for the given object. Note some special cases are tested within
+     * such as
+     * <ul>
+     * <li>{@link Currency}</li>
+     * <li>{@link DateTimeSymbols}</li>
+     * <li>{@link DecimalNumberSymbols}</li>
+     * <li>{@link Locale}</li>
+     * </ul>
+     */
+    static Optional<MediaType> tryContentType(final Object object) {
+        Objects.requireNonNull(object, "object");
+
+        Optional<MediaType> contentType;
+
+        if (object instanceof HasContentType) {
+            contentType = ((HasContentType) object)
+                .contentType();
+        } else {
+            final MediaType contentTypeOrNull;
+
+            if (object instanceof Currency) {
+                contentTypeOrNull = json(Currency.class);
+            } else {
+                if (object instanceof DateTimeSymbols) {
+                    contentTypeOrNull = json(DateTimeSymbols.class);
+                } else {
+                    if (object instanceof DecimalNumberSymbols) {
+                        contentTypeOrNull = json(DecimalNumberSymbols.class);
+                    } else {
+                        if (object instanceof Locale) {
+                            contentTypeOrNull = json(Locale.class);
+                        } else {
+                            contentTypeOrNull = null;
+                        }
+                    }
+                }
+            }
+
+            contentType = Optional.ofNullable(contentTypeOrNull);
+        }
+
+        return contentType;
+    }
 
     /**
      * Returns the {@link MediaType} for the given value type.
