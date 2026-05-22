@@ -17,12 +17,24 @@
 
 package walkingkooka.net.header;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Provides a single method to provide the {@link MediaType} for this value.
  */
 public interface HasContentType {
+
+    /**
+     * Returns the {@link MediaType} for the given value type.
+     */
+    static MediaType json(final Class<?> type) {
+        Objects.requireNonNull(type, "type");
+
+        return MediaType.APPLICATION_JSON.setSuffix(
+            Optional.of(type.getName())
+        );
+    }
 
     /**
      * Returns the content type

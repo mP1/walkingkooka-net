@@ -17,10 +17,40 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class HasContentTypeTest implements ClassTesting2<HasContentType> {
+
+    // json.............................................................................................................
+
+    @Test
+    public void testJsonWithNullTypeFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HasContentType.json(null)
+        );
+    }
+
+    @Test
+    public void testJson() {
+        this.jsonAndCheck(
+            EmailAddress.class,
+            MediaType.parse("application/json+walkingkooka.net.email.EmailAddress")
+        );
+    }
+
+    private void jsonAndCheck(final Class<?> type,
+                              final MediaType expected) {
+        this.checkEquals(
+            expected,
+            HasContentType.json(type)
+        );
+    }
 
     // class............................................................................................................
 
