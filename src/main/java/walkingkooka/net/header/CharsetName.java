@@ -263,11 +263,6 @@ public abstract class CharsetName extends HeaderNameValue
     // HeaderNameValue..............................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CharsetName;
-    }
-
-    @Override
     public String toString() {
         return this.value();
     }

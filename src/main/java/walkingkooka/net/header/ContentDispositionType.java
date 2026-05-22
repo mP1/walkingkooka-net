@@ -189,11 +189,6 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
 
     // HeaderNameValue..............................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ContentDispositionType;
-    }
-
     // Object..................................................................................................
 
     @Override

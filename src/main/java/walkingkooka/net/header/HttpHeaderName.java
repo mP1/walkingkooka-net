@@ -875,11 +875,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof HttpHeaderName;
-    }
-
     // Comparable.......................................................................................................
 
     @Override

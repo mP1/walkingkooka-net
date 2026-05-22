@@ -119,11 +119,6 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
 
     // HeaderNameValue..............................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LanguageName;
-    }
-
     // Comparable..........................................................................................................
 
     @Override

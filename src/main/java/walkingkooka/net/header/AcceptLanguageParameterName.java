@@ -59,8 +59,4 @@ final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V>
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptLanguageParameterName;
-    }
 }

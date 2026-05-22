@@ -81,8 +81,4 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof MediaTypeParameterName;
-    }
 }

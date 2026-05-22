@@ -112,8 +112,4 @@ final class LanguageNameNonWildcard extends LanguageName {
 
     // Object............................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LanguageNameNonWildcard;
-    }
 }

@@ -49,11 +49,9 @@ abstract class HeaderNameValue implements Name {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            this.canBeEqual(other) &&
+            null != other && this.getClass() == other.getClass() &&
                 this.equals0((HeaderNameValue) other);
     }
-
-    abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final HeaderNameValue other) {
         return this.caseSensitivity().equals(this.name, other.name);
