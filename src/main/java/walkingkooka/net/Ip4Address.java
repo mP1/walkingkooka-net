@@ -114,11 +114,6 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Ip4Address;
-    }
-
-    @Override
     public void buildToString(final ToStringBuilder builder) {
         builder.separator(Ip4Address.SEPARATOR.string());
         builder.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
