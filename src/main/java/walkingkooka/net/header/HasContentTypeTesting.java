@@ -31,6 +31,14 @@ public interface HasContentTypeTesting extends TreePrintableTesting {
     }
 
     default void contentTypeAndCheck(final HasContentType has,
+                                     final String expected) {
+        this.contentTypeAndCheck(
+            has,
+            MediaType.parse(expected)
+        );
+    }
+
+    default void contentTypeAndCheck(final HasContentType has,
                                      final MediaType expected) {
         this.contentTypeAndCheck(
             has,
