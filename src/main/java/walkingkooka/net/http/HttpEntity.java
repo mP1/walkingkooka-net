@@ -322,7 +322,7 @@ public abstract class HttpEntity implements HasHeaders,
      */
     public final <T> HttpEntity setHeader(final HttpHeaderName<T> header,
                                           final List<T> values) {
-        checkHeader(header);
+        Objects.requireNonNull(header, "header");
 
         // will return null to indicate values is empty and should be removed
         final HttpEntityHeaderList copy = HttpEntityHeaderList.copy(header, values);
@@ -340,7 +340,7 @@ public abstract class HttpEntity implements HasHeaders,
      */
     public final <T> HttpEntity addHeader(final HttpHeaderName<T> header,
                                           final T value) {
-        checkHeader(header);
+        Objects.requireNonNull(header, "header");
 
         return this.addHeader0(
             header,
@@ -355,15 +355,11 @@ public abstract class HttpEntity implements HasHeaders,
      * Removes the given header from this entity returning a new instance if it existed.
      */
     public final HttpEntity removeHeader(final HttpHeaderName<?> header) {
-        checkHeader(header);
+        Objects.requireNonNull(header, "header");
         return this.remove0(header);
     }
 
     abstract HttpEntity remove0(final HttpHeaderName<?> header);
-
-    private static <T> void checkHeader(final HttpHeaderName<T> header) {
-        Objects.requireNonNull(header, "header");
-    }
 
     /**
      * While checking also make a defensive copy of the given {@link Map}.
