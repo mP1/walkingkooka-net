@@ -199,11 +199,9 @@ public abstract class IfRange<T> implements Header,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-            this.canBeEqual(other) &&
+            null != other && this.getClass() == other.getClass() &&
                 this.equals0(Cast.to(other));
     }
-
-    abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final IfRange<?> other) {
         return this.value.equals(other.value);
