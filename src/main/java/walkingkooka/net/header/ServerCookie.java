@@ -506,11 +506,6 @@ final public class ServerCookie extends Cookie {
     // Object .................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ServerCookie;
-    }
-
-    @Override
     boolean equals1(final Cookie other) {
         return this.equals2(Cast.to(other));
     }
