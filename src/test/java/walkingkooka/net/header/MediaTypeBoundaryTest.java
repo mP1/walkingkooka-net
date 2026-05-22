@@ -101,16 +101,16 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
         this.parseStringAndCheck("\"abc\"", MediaTypeBoundary.with("abc"));
     }
 
-    // toHeaderText........................................................................................................
+    // text........................................................................................................
 
     @Test
-    public void testToHeaderText() {
-        this.toHeaderTextAndCheck(MediaTypeBoundary.with("abc"), "abc");
+    public void testText() {
+        this.textAndCheck(MediaTypeBoundary.with("abc"), "abc");
     }
 
     @Test
-    public void testToHeaderTextQuotesRequired() {
-        this.toHeaderTextAndCheck(MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
+    public void testTextQuotesRequired() {
+        this.textAndCheck(MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
             "\"gc0pJq0M:08jU534c0p\"");
     }
 

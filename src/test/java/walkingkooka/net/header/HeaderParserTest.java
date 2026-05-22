@@ -260,7 +260,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
             final EncodedText encodedText = EncodedText.with(CharsetName.UTF_8,
                 Optional.of(LanguageName.with("en")),
                 Character.valueOf((char) i).toString());
-            this.encodedTextAndCheck(encodedText.toHeaderText(), encodedText);
+            this.encodedTextAndCheck(encodedText.text(), encodedText);
         }
     }
 

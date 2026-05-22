@@ -496,8 +496,8 @@ public final class ContentRange implements Header {
      * </pre>
      */
     @Override
-    public String toHeaderText() {
-        return this.unit.toHeaderText() + " " +
+    public String text() {
+        return this.unit.text() + " " +
             toHeaderTextRange(this.range) +
             RANGE_SIZE_SEPARATOR +
             toHeaderTextValue(this.size);
@@ -557,6 +557,6 @@ public final class ContentRange implements Header {
 
     @Override
     public String toString() {
-        return this.toHeaderText();
+        return this.text();
     }
 }

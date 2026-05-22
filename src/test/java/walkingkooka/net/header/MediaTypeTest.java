@@ -769,7 +769,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testAcceptCharsetUsesDefault2() {
         this.acceptCharsetAndCheck(
-            MediaType.BINARY.toHeaderText(),
+            MediaType.BINARY.text(),
             "UTF-16",
             "UTF-16"
         );
@@ -848,7 +848,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testContentTypeCharsetUsesDefault2() {
         this.contentTypeCharsetAndCheck(
-            MediaType.BINARY.toHeaderText(),
+            MediaType.BINARY.text(),
             "UTF-16",
             "UTF-16"
         );
@@ -1269,14 +1269,14 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
             () -> mediaType + " requireContentTypeIncompatibleMessage " + other
         );
     }
-    
-    // toHeaderText.....................................................................................................
+
+    // text.....................................................................................................
 
     @Test
     public void testToHeaderTextParse() {
         final String text = "type/subtype";
 
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.parse(text),
             TYPE + "/" + SUBTYPE
         );
@@ -1284,7 +1284,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderTextParseWithParameters() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.parse("type/subtype;a=b;c=d"),
             "type/subtype; a=b; c=d"
         );
@@ -1292,7 +1292,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderTextParseWithParametersWithQuotes() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.parse("type/subtype;a=b;c=\"d e\""),
             "type/subtype; a=b; c=\"d e\""
         );
@@ -1300,7 +1300,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderText() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.with(TYPE, SUBTYPE),
             TYPE + "/" + SUBTYPE
         );
@@ -1308,7 +1308,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             this.mediaType(),
             TYPE + "/" + SUBTYPE + "; parameter123=value456"
         );
@@ -1316,7 +1316,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderTextWithParametersRequireQuotesWhitespace() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.with(TYPE, SUBTYPE)
                 .setParameters(parameters("a", "b c")
                 ),
@@ -1326,7 +1326,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testToHeaderTextWithParametersRequireQuotesBackslash() {
-        this.toHeaderTextAndCheck(
+        this.textAndCheck(
             MediaType.with(TYPE, SUBTYPE)
                 .setParameters(parameters("a", "b\\c")
                 ),

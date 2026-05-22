@@ -248,43 +248,43 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         return RangeHeader.parse(text);
     }
 
-    // toHeaderText.......................................................
+    // text.......................................................
 
     @Test
-    public void testToHeaderTextOpenRange() {
-        toHeaderTextAndCheck("bytes=123-",
+    public void testTextOpenRange() {
+        textAndCheck("bytes=123-",
             UNIT,
             this.rangeGte123());
     }
 
     @Test
-    public void testToHeaderTextClosedRange() {
-        toHeaderTextAndCheck("bytes=123-456",
+    public void testTextClosedRange() {
+        textAndCheck("bytes=123-456",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()));
     }
 
     @Test
-    public void testToHeaderTextClosedRangeOpenRange() {
-        toHeaderTextAndCheck("bytes=123-456, 789-",
+    public void testTextClosedRangeOpenRange() {
+        textAndCheck("bytes=123-456, 789-",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
             this.rangeGte789());
     }
 
     @Test
-    public void testToHeaderTextClosedRangeClosedRange() {
-        toHeaderTextAndCheck("bytes=123-456, 789-1000",
+    public void testTextClosedRangeClosedRange() {
+        textAndCheck("bytes=123-456, 789-1000",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
             this.rangeGte789().and(this.rangeLte1000()));
     }
 
     @SafeVarargs
-    private void toHeaderTextAndCheck(final String headerText,
-                                      final RangeHeaderUnit unit,
-                                      final Range<Long>... ranges) {
-        this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
+    private void textAndCheck(final String headerText,
+                              final RangeHeaderUnit unit,
+                              final Range<Long>... ranges) {
+        this.textAndCheck(this.range(unit, ranges), headerText);
     }
 
     // HashCodeEqualsDefined ..................................................................................................

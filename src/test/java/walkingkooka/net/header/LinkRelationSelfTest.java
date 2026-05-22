@@ -28,7 +28,7 @@ public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelatio
 
     @Test
     public void testHeaderText() {
-        this.toHeaderTextAndCheck("self");
+        this.textAndCheck("self");
     }
 
     @Override

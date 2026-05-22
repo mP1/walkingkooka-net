@@ -53,15 +53,25 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         this.checkEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public void testHeaderTextText() {
-        this.toHeaderTextAndCheck(LinkRelation.with(TEXT), TEXT);
+    public void testTextText() {
+        this.textAndCheck(
+            LinkRelation.with(TEXT),
+            TEXT
+        );
     }
 
     @Test
-    public void testHeaderTextUrl() {
-        this.toHeaderTextAndCheck(LinkRelation.with(URL_TEXT), URL_TEXT);
+    public void testTextUrl() {
+        this.textAndCheck(
+            LinkRelation.with(URL_TEXT),
+            URL_TEXT
+        );
     }
+
+    // parse............................................................................................................
 
     @Test
     public void testParse() {

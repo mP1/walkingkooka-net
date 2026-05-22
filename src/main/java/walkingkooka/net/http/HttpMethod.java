@@ -186,7 +186,7 @@ public final class HttpMethod implements HasValue<String>,
     // Header...........................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.headerText;
     }
 

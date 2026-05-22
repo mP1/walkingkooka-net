@@ -77,17 +77,31 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         this.checkEquals(parameters, encoding.parameters(), "parameters");
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public final void testHeaderText() {
+    public final void testText() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(AcceptEncodingValue.with(text), text);
+        this.textAndCheck(
+            AcceptEncodingValue.with(text),
+            text
+        );
     }
 
     @Test
-    public final void testHeaderTextWithParameters() {
+    public final void testTextWithParameters() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(AcceptEncodingValue.with(text).setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)),
-            text + "; q=0.5");
+
+        this.textAndCheck(
+            AcceptEncodingValue.with(text)
+                .setParameters(
+                    Maps.of(
+                        AcceptEncodingValueParameterName.Q,
+                        0.5f
+                    )
+                ),
+            text + "; q=0.5"
+        );
     }
 
     // HashCodeEqualsDefined ...........................................................................................

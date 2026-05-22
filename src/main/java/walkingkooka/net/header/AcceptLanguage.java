@@ -101,7 +101,7 @@ public final class AcceptLanguage extends Header2<List<AcceptLanguageValue>>
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 

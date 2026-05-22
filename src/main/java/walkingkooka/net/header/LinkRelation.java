@@ -678,7 +678,7 @@ public abstract class LinkRelation<T> extends Header2<T> implements Comparable<L
 
         // if priorities are same compare headerText form otherwise priority sort is enough
         return Comparators.EQUAL == compare ?
-            this.toHeaderText().compareTo(other.toHeaderText()) :
+            this.text().compareTo(other.text()) :
             compare;
     }
 

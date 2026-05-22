@@ -992,8 +992,8 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     // toHeader ........................................................................................................
 
     @Test
-    public void testToHeaderText() {
-        this.toHeaderTextAndCheck(
+    public void testText() {
+        this.textAndCheck(
             ServerCookie.with(
                 NAME,
                 VALUE,

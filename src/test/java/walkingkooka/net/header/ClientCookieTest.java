@@ -253,7 +253,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testToHeaderText() {
-        this.toHeaderTextAndCheck("cookie123=value456;");
+        this.textAndCheck("cookie123=value456;");
     }
 
     // toHeaderTextList ................................................................................................

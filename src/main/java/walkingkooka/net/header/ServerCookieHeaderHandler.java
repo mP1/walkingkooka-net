@@ -51,7 +51,7 @@ final class ServerCookieHeaderHandler extends NonStringHeaderHandler<ServerCooki
 
     @Override
     String toText0(final ServerCookie cookie, final Name name) {
-        return cookie.toHeaderText();
+        return cookie.text();
     }
 
     @Override

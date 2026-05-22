@@ -128,7 +128,7 @@ public final class ContentEncoding extends Header2<List<Encoding>> {
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 

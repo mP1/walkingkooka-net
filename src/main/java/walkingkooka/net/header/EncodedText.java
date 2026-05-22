@@ -154,7 +154,7 @@ public final class EncodedText implements HasValue<String>,
      * </pre>
      */
     @Override
-    public String toHeaderText() {
+    public String text() {
         final CharsetName charset = this.charset;
         final StringBuilder encodedText = new StringBuilder();
 

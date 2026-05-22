@@ -155,7 +155,7 @@ public abstract class ETag implements Header,
      * Returns the text or header value form.
      */
     @Override
-    public final String toHeaderText() {
+    public final String text() {
         return this.toString();
     }
 

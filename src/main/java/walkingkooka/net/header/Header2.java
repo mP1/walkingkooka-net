@@ -77,6 +77,6 @@ abstract class Header2<V> implements Header,
 
     @Override
     public final String toString() {
-        return this.toHeaderText();
+        return this.text();
     }
 }

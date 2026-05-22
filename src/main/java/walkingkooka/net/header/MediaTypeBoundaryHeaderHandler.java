@@ -57,11 +57,11 @@ final class MediaTypeBoundaryHeaderHandler extends NonStringHeaderHandler<MediaT
     }
 
     /**
-     * Delegates to the {@link MediaTypeBoundary#toHeaderText()}.
+     * Delegates to the {@link MediaTypeBoundary#text()}.
      */
     @Override
     String toText0(final MediaTypeBoundary boundary, final Name name) {
-        return boundary.toHeaderText();
+        return boundary.text();
     }
 
     @Override

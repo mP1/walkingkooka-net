@@ -122,11 +122,11 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         );
     }
 
-    // toHeaderText.....................................................................................................
+    // text.....................................................................................................
 
     @Test
-    public void testToHeaderText() {
-        this.toHeaderTextAndCheck(FILENAME);
+    public void testText() {
+        this.textAndCheck(FILENAME);
     }
 
     @Test

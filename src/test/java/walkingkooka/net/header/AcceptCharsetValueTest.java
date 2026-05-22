@@ -98,23 +98,23 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
         assertSame(charset, charset.setParameters(parameters).setParameters(AcceptCharsetValue.NO_PARAMETERS));
     }
 
-    // toHeaderText ...........................................................................................
+    // text ...........................................................................................
 
     @Test
-    public void testToHeaderTextNoParameters() {
-        this.toHeaderTextAndCheck(AcceptCharsetValue.with(VALUE),
-            VALUE.toHeaderText());
+    public void testTextNoParameters() {
+        this.textAndCheck(AcceptCharsetValue.with(VALUE),
+            VALUE.text());
     }
 
     @Test
-    public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(this.acceptCharsetValue(),
+    public void testTextWithParameters() {
+        this.textAndCheck(this.acceptCharsetValue(),
             VALUE + "; p1=v1");
     }
 
     @Test
-    public void testToHeaderTextWithSeveralParameters() {
-        this.toHeaderTextAndCheck(AcceptCharsetValue.with(VALUE)
+    public void testTextWithSeveralParameters() {
+        this.textAndCheck(AcceptCharsetValue.with(VALUE)
                 .setParameters(this.parameters("p1", "v1", "p2", "v2")),
             VALUE + "; p1=v1; p2=v2");
     }
@@ -232,7 +232,7 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     @Test
     public void testToStringNoParameters() {
         this.toStringAndCheck(AcceptCharsetValue.with(VALUE),
-            VALUE.toHeaderText());
+            VALUE.text());
     }
 
     @Test
@@ -248,30 +248,43 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
             VALUE + "; p1=v1; p2=v2");
     }
 
-    // toHeaderTextList ...........................................................................................
+    // toHeaderTextList ................................................................................................
 
     @Test
     public void testToHeaderTextListOne() {
         final String text = "a";
-        this.toHeaderTextListAndCheck(text,
-            AcceptCharsetValue.with(CharsetName.with(text)));
+        this.toHeaderTextListAndCheck(
+            text,
+            AcceptCharsetValue.with(
+                CharsetName.with(text)
+            )
+        );
     }
 
     @Test
-    public void testToHeaderTextListOneWithParameters() {
-        this.toHeaderTextListAndCheck("a; p1=v1",
-            AcceptCharsetValue.with(CharsetName.with("a"))
-                .setParameters(this.parameters()));
+    public void testHeaderTextListOneWithParameters() {
+        this.toHeaderTextListAndCheck(
+            "a; p1=v1",
+            AcceptCharsetValue.with(
+                CharsetName.with("a")
+            ).setParameters(this.parameters())
+        );
     }
 
     @Test
     public void testToHeaderTextListSeveral() {
-        this.toHeaderTextListAndCheck("a, b",
-            AcceptCharsetValue.with(CharsetName.with("a")),
-            AcceptCharsetValue.with(CharsetName.with("b")));
+        this.toHeaderTextListAndCheck(
+            "a, b",
+            AcceptCharsetValue.with(
+                CharsetName.with("a")
+            ),
+            AcceptCharsetValue.with(
+                CharsetName.with("b")
+            )
+        );
     }
 
-    // helpers ...........................................................................................
+    // helpers .........................................................................................................
 
     @Override
     public AcceptCharsetValue createHeaderWithParameters() {

@@ -94,31 +94,47 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
         );
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public void testHeaderText() {
-        this.toHeaderTextAndCheck("UTF-8'en'abc123");
+    public void testText() {
+        this.textAndCheck("UTF-8'en'abc123");
     }
 
     @Test
-    public void testHeaderTextWithoutLanguage() {
-        this.toHeaderTextAndCheck(EncodedText.with(this.charset(),
+    public void testTextWithoutLanguage() {
+        this.textAndCheck(
+            EncodedText.with(
+                this.charset(),
                 EncodedText.NO_LANGUAGE,
-                "abc123"),
-            "UTF-8''abc123");
+                "abc123"
+            ),
+            "UTF-8''abc123"
+        );
     }
 
     @Test
-    public void testHeaderTextEncodesPercent() {
-        this.toHeaderTextAndCheck2("abc%", "UTF-8'en'abc%25");
+    public void testTextEncodesPercent() {
+        this.textAndCheck2(
+            "abc%",
+            "UTF-8'en'abc%25"
+        );
     }
 
     @Test
-    public void testHeaderTextEncodesWhitespace() {
-        this.toHeaderTextAndCheck2("abc\t\r\n ", "UTF-8'en'abc%09%0d%0a%20");
+    public void testTextEncodesWhitespace() {
+        this.textAndCheck2(
+            "abc\t\r\n ",
+            "UTF-8'en'abc%09%0d%0a%20"
+        );
     }
 
-    private void toHeaderTextAndCheck2(final String value, final String headerText) {
-        this.toHeaderTextAndCheck(this.createHeader(value), headerText);
+    private void textAndCheck2(final String value,
+                               final String expected) {
+        this.textAndCheck(
+            this.createHeader(value),
+            expected
+        );
     }
 
     // equals...........................................................................................................

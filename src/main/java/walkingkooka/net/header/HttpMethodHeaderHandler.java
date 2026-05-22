@@ -52,7 +52,7 @@ final class HttpMethodHeaderHandler extends NonStringHeaderHandler<HttpMethod> {
 
     @Override
     String toText0(final HttpMethod method, final Name name) {
-        return method.toHeaderText();
+        return method.text();
     }
 
     @Override

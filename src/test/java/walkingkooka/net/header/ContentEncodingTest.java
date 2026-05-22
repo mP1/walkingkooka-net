@@ -88,17 +88,32 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
                 Encoding.with("br")));
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public void testHeaderText() {
+    public void testText() {
         final String text = "compress";
-        this.toHeaderTextAndCheck(ContentEncoding.parse(text), text);
+
+        this.textAndCheck(
+            ContentEncoding.parse(text),
+            text
+        );
     }
 
     @Test
-    public void testHeaderText2() {
+    public void testText2() {
         final String text = "identity";
-        this.toHeaderTextAndCheck(ContentEncoding.with(Lists.of(Encoding.with(text))), text);
+        this.textAndCheck(
+            ContentEncoding.with(
+                Lists.of(
+                    Encoding.with(text)
+                )
+            ),
+            text
+        );
     }
+
+    // equals...........................................................................................................
 
     @Test
     public void testEqualsDifferentValue() {

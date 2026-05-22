@@ -52,7 +52,7 @@ final class EncodedTextHeaderHandler extends NonStringHeaderHandler<EncodedText>
 
     @Override
     String toText0(final EncodedText filename, final Name name) {
-        return filename.toHeaderText();
+        return filename.text();
     }
 
     @Override

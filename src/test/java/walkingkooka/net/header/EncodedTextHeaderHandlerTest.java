@@ -29,7 +29,7 @@ public final class EncodedTextHeaderHandlerTest extends
 
     @Test
     public void testFilename() {
-        final String filename = this.value().toHeaderText();
+        final String filename = this.value().text();
         this.parseAndToTextAndCheck(filename, this.value());
     }
 

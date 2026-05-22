@@ -183,4 +183,11 @@ abstract public class ContentDispositionFileName implements Name, Header {
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return Name.super.text();
+    }
 }

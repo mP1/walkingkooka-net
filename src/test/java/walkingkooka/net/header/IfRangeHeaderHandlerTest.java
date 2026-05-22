@@ -29,7 +29,7 @@ public final class IfRangeHeaderHandlerTest extends
 
     @Test
     public void testIfRange() {
-        final String header = this.etag().toHeaderText();
+        final String header = this.etag().text();
         this.parseAndToTextAndCheck(header, IfRange.with(this.etag()));
     }
 

@@ -158,7 +158,7 @@ public abstract class IfRange<T> implements Header,
     //Header............................................................................
 
     @Override
-    public final String toHeaderText() {
+    public final String text() {
         return this.handler().toText(this.value(), HEADER_NAME);
     }
 
@@ -209,6 +209,6 @@ public abstract class IfRange<T> implements Header,
 
     @Override
     public final String toString() {
-        return this.toHeaderText();
+        return this.text();
     }
 }

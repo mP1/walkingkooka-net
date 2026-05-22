@@ -47,7 +47,7 @@ final class LinkRelationUrl extends LinkRelation<AbsoluteUrl> {
     // Header ....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.value().toString();
     }
 

@@ -73,7 +73,7 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
 
     @Override
     String toText0(final IfRange<?> value, final Name name) {
-        return value.toHeaderText();
+        return value.text();
     }
 
     @Override

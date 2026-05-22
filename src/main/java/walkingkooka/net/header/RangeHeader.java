@@ -219,7 +219,7 @@ public final class RangeHeader implements Header,
     // Header.............................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.toString();
     }
 
@@ -272,7 +272,7 @@ public final class RangeHeader implements Header,
 
     @Override
     public String toString() {
-        return this.unit.toHeaderText() + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
+        return this.unit.text() + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
             .map(this::toStringRange)
             .collect(Collectors.joining(SEPARATOR + " "));
     }
