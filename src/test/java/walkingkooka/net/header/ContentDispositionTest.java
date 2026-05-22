@@ -280,23 +280,23 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         );
     }
 
-    // toHeaderText ....................................................................................................
+    // text ....................................................................................................
 
     @Test
     public void testToHeaderTextNoParameters() {
-        this.toHeaderTextAndCheck(ContentDisposition.with(TYPE),
+        this.textAndCheck(ContentDisposition.with(TYPE),
             "attachment");
     }
 
     @Test
     public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(this.createHeaderWithParameters(),
+        this.textAndCheck(this.createHeaderWithParameters(),
             "attachment; p1=v1");
     }
 
     @Test
     public void testToHeaderTextWithSeveralParameters() {
-        this.toHeaderTextAndCheck(ContentDisposition.with(TYPE)
+        this.textAndCheck(ContentDisposition.with(TYPE)
                 .setParameters(this.parameters("p1", "v1", "p2", "v2")),
             "attachment; p1=v1; p2=v2");
     }

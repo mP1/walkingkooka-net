@@ -648,11 +648,11 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         return ContentRange.parse(text);
     }
 
-    // toHeaderText.....................................................................................................
+    // text.....................................................................................................
 
     @Test
-    public void testToHeaderTextNoRange() {
-        this.toHeaderTextAndCheck(
+    public void testTextNoRange() {
+        this.textAndCheck(
             "bytes */*",
             UNIT,
             ContentRange.NO_RANGE,
@@ -662,8 +662,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
 
     @Test
-    public void testToHeaderTextMissingRange() {
-        this.toHeaderTextAndCheck(
+    public void testTextMissingRange() {
+        this.textAndCheck(
             "bytes */789",
             UNIT,
             ContentRange.NO_RANGE,
@@ -672,8 +672,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     }
 
     @Test
-    public void testToHeaderTextMissingFilesize() {
-        this.toHeaderTextAndCheck(
+    public void testTextMissingFilesize() {
+        this.textAndCheck(
             "bytes 123-456/*",
             UNIT,
             this.range(),
@@ -682,8 +682,8 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     }
 
     @Test
-    public void testToHeaderTextWithFilesize() {
-        this.toHeaderTextAndCheck(
+    public void testTextWithFilesize() {
+        this.textAndCheck(
             "bytes 123-456/789",
             UNIT,
             this.range(),
@@ -691,11 +691,11 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         );
     }
 
-    private void toHeaderTextAndCheck(final String headerText,
-                                      final RangeHeaderUnit unit,
-                                      final Optional<Range<Long>> range,
-                                      final Optional<Long> size) {
-        this.toHeaderTextAndCheck(
+    private void textAndCheck(final String headerText,
+                              final RangeHeaderUnit unit,
+                              final Optional<Range<Long>> range,
+                              final Optional<Long> size) {
+        this.textAndCheck(
             ContentRange.with(unit, range, size),
             headerText
         );

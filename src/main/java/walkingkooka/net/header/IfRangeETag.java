@@ -49,7 +49,7 @@ final class IfRangeETag extends IfRange<ETag> {
 
     @Override
     public IfRange<LocalDateTime> lastModified() {
-        throw new HeaderException(this.toHeaderText());
+        throw new HeaderException(this.text());
     }
 
     @Override

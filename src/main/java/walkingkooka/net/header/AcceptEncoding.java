@@ -77,7 +77,7 @@ public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 

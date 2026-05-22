@@ -48,7 +48,7 @@ public enum RangeHeaderUnit implements Header {
     abstract RangeHeaderUnit rangeCheck();
 
     @Override
-    public final String toHeaderText() {
+    public final String text() {
         return this.headerText;
     }
 

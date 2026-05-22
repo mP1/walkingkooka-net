@@ -57,7 +57,7 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
     @Test
     public void testParseETag() {
         final ETag etag = ETagValidator.WEAK.setValue("abc");
-        this.parseStringAndCheck(etag.toHeaderText(),
+        this.parseStringAndCheck(etag.text(),
             IfRange.with(etag));
     }
 

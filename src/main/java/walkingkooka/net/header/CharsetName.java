@@ -232,7 +232,7 @@ public abstract class CharsetName extends HeaderNameValue
     // Header ....................................................................................................
 
     @Override
-    public final String toHeaderText() {
+    public final String text() {
         return this.value();
     }
 

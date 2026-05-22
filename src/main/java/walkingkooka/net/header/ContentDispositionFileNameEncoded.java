@@ -104,8 +104,8 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
     // Header ..........................................................................................................
 
     @Override
-    public String toHeaderText() {
-        return this.encodedText.toHeaderText();
+    public String text() {
+        return this.encodedText.text();
     }
 
     private final EncodedText encodedText;

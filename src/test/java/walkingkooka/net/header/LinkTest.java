@@ -111,18 +111,28 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     }
 
 
-    // toHeaderTextList.......................................................................................
+    // toHeaderTextList.................................................................................................
 
     @Test
     public void testToHeaderTextListListOfOne() {
-        this.toHeaderTextListAndCheck("<https://example.com>",
-            this.createLink());
+        this.toHeaderTextListAndCheck(
+            "<https://example.com>",
+            this.createLink()
+        );
     }
 
     @Test
     public void testToHeaderTextListListOfOneWithParameters() {
-        this.toHeaderTextListAndCheck("<https://example.com>;rel=previous",
-            this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))));
+        this.toHeaderTextListAndCheck(
+            "<https://example.com>;rel=previous",
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.REL,
+                        LinkRelation.parse("previous")
+                    )
+                )
+        );
     }
 
     @Test

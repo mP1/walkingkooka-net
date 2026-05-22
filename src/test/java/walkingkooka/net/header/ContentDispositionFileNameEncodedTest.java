@@ -131,11 +131,11 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         );
     }
 
-    // toHeaderText.....................................................................................................
+    // text.....................................................................................................
 
     @Test
-    public void testToHeaderText() {
-        this.toHeaderTextAndCheck("UTF-8'en'filename%20123");
+    public void testText() {
+        this.textAndCheck("UTF-8'en'filename%20123");
     }
 
     @Test

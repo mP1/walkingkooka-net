@@ -51,7 +51,7 @@ public final class HeaderParameterNameTest implements ClassTesting2<HeaderParame
                         }
 
                         @Override
-                        public String toHeaderText() {
+                        public String text() {
                             throw new UnsupportedOperationException();
                         }
 

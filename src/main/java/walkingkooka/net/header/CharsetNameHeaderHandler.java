@@ -52,7 +52,7 @@ final class CharsetNameHeaderHandler extends NonStringHeaderHandler<CharsetName>
 
     @Override
     String toText0(final CharsetName value, final Name name) {
-        return value.toHeaderText();
+        return value.text();
     }
 
     @Override

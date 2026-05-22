@@ -52,7 +52,7 @@ final class ContentDispositionFileNameEncodedHeaderHandler extends NonStringHead
 
     @Override
     String toText0(final ContentDispositionFileName filename, final Name name) {
-        return filename.toHeaderText();
+        return filename.text();
     }
 
     @Override

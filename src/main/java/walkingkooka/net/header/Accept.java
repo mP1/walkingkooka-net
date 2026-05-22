@@ -136,7 +136,7 @@ public final class Accept extends Header2<List<MediaType>> implements Predicate<
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 

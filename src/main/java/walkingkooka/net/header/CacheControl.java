@@ -213,7 +213,7 @@ public final class CacheControl extends Header2<List<CacheControlDirective<?>>> 
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(this.value, SEPARATOR);
     }
 

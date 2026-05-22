@@ -154,24 +154,40 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         return AcceptLanguageValue.parse(text);
     }
 
-    // toHeaderTextList................................................................................................
+    // HasText..........................................................................................................
 
     @Test
-    public void testToHeaderTextList() {
-        this.toHeaderTextAndCheck(AcceptLanguageValue.with(this.en()), "en");
+    public void testTextList() {
+        this.textAndCheck(
+            AcceptLanguageValue.with(
+                this.en()
+            ),
+            "en"
+        );
     }
 
+    // toHeaderTextList.................................................................................................
+
     @Test
-    public void testToHeaderTextListWithParameters() {
-        this.toHeaderTextListAndCheck("en; q=0.75",
+    public void testHeaderTextListWithParameters() {
+        this.toHeaderTextListAndCheck(
+            "en; q=0.75",
             this.en()
-                .setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
+                .setParameters(
+                    Maps.of(
+                        AcceptLanguageParameterName.Q,
+                        0.75f
+                    )
+                )
+        );
     }
 
     @Test
     public void testToHeaderTextListWildcard() {
-        this.toHeaderTextListAndCheck("*",
-            AcceptLanguageValue.WILDCARD);
+        this.toHeaderTextListAndCheck(
+            "*",
+            AcceptLanguageValue.WILDCARD
+        );
     }
 
     // test ............................................................................................................

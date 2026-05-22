@@ -62,9 +62,13 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
         assertThrows(HeaderException.class, () -> this.createCharsetName().test(CharsetName.WILDCARD_CHARSET));
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public final void testHeaderText() {
-        this.toHeaderTextAndCheck(this.charsetNameToString());
+    public final void testText() {
+        this.textAndCheck(
+            this.charsetNameToString()
+        );
     }
 
     @Test

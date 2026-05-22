@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasText;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,8 @@ import java.util.stream.Collectors;
 /**
  * Contract implemented by header value types.
  */
-public interface Header extends HasHeaderScope {
+public interface Header extends HasHeaderScope,
+    HasText {
 
     /**
      * Remove any comments from text. If the text contains an unterminated comment an exception will be thrown.
@@ -44,7 +46,7 @@ public interface Header extends HasHeaderScope {
         Objects.requireNonNull(separator, "separator");
 
         return headers.stream()
-            .map(Header::toHeaderText)
+            .map(Header::text)
             .collect(Collectors.joining(separator));
     }
 
@@ -80,7 +82,7 @@ public interface Header extends HasHeaderScope {
      * 123
      * </pre>
      */
-    String toHeaderText();
+    String text();
 
     /**
      * Returns true only if this is a wildcard.

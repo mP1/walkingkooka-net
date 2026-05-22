@@ -226,7 +226,7 @@ public final class MediaTypeBoundary implements HasValue<String>,
     // headerText.............................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.headerText;
     }
 

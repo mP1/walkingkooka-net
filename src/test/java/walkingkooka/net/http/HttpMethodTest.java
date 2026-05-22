@@ -159,17 +159,17 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     @Test
     public void testHeaderText() {
-        this.toHeaderTextAndCheck2("get", "GET");
+        this.textAndCheck2("get", "GET");
     }
 
     @Test
     public void testHeaderText2() {
-        this.toHeaderTextAndCheck2("xcustom", "XCUSTOM");
+        this.textAndCheck2("xcustom", "XCUSTOM");
     }
 
-    private void toHeaderTextAndCheck2(final String text,
-                                       final String headerText) {
-        this.toHeaderTextAndCheck(HttpMethod.with(text), headerText);
+    private void textAndCheck2(final String text,
+                               final String headerText) {
+        this.textAndCheck(HttpMethod.with(text), headerText);
     }
 
     @Test

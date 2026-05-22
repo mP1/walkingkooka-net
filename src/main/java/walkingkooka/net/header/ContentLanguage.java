@@ -70,7 +70,7 @@ public final class ContentLanguage extends Header2<List<LanguageName>> {
     // Header.....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.value.stream()
             .map(LanguageName::toHeaderText)
             .collect(Collectors.joining(SEPARATOR));

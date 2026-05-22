@@ -107,7 +107,7 @@ public final class Encoding extends Header2<String>
     }
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.value;
     }
 

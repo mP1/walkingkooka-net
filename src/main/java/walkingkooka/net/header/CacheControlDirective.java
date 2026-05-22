@@ -205,7 +205,7 @@ public final class CacheControlDirective<T> implements Header,
     // Header....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         final String name = this.name.toString();
         final Optional<T> parameter = this.parameter;
         return parameter.map(p -> name + "=" + CharSequences.quoteIfChars(p))
@@ -238,6 +238,6 @@ public final class CacheControlDirective<T> implements Header,
 
     @Override
     public String toString() {
-        return this.toHeaderText();
+        return this.text();
     }
 }

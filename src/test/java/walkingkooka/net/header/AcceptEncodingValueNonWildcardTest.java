@@ -121,10 +121,15 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
             AcceptEncodingValue.with("abc").setParameters(Maps.of(AcceptEncodingValueParameterName.with("qrs"), "xyz")));
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public void testHeaderText2() {
+    public void testText2() {
         final String text = "identity";
-        this.toHeaderTextAndCheck(AcceptEncodingValue.with(text), text);
+        this.textAndCheck(
+            AcceptEncodingValue.with(text),
+            text
+        );
     }
 
     // equals ..........................................................................................................

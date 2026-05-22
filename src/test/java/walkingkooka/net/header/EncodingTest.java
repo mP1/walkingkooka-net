@@ -67,10 +67,15 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
         this.parseStringFails("abc;qrs=xyz", InvalidCharacterException.class);
     }
 
+    // HasText..........................................................................................................
+
     @Test
-    public void testHeaderText2() {
+    public void testText2() {
         final String text = "identity";
-        this.toHeaderTextAndCheck(Encoding.with(text), text);
+        this.textAndCheck(
+            Encoding.with(text),
+            text
+        );
     }
 
     // equals ..........................................................................................................

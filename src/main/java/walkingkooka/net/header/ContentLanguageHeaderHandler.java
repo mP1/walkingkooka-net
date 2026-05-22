@@ -56,7 +56,7 @@ final class ContentLanguageHeaderHandler extends NonStringHeaderHandler<ContentL
 
     @Override
     String toText0(final ContentLanguage contentLanguage, final Name name) {
-        return contentLanguage.toHeaderText();
+        return contentLanguage.text();
     }
 
     @Override

@@ -103,16 +103,16 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
                     CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))));
     }
 
-    // toHeaderText .....................................................................................................
+    // text .....................................................................................................
 
     @Test
-    public void testToHeaderText() {
-        this.toHeaderTextAndCheck(CacheControl.with(Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))), "max-age=123");
+    public void testText() {
+        this.textAndCheck(CacheControl.with(Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))), "max-age=123");
     }
 
     @Test
-    public void testToHeaderText2() {
-        this.toHeaderTextAndCheck(CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE)), "no-cache, no-store");
+    public void testText2() {
+        this.textAndCheck(CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE)), "no-cache, no-store");
     }
 
     // equals ..........................................................................................................

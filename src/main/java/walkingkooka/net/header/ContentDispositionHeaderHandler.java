@@ -52,7 +52,7 @@ final class ContentDispositionHeaderHandler extends NonStringHeaderHandler<Conte
 
     @Override
     String toText0(final ContentDisposition value, final Name name) {
-        return value.toHeaderText();
+        return value.text();
     }
 
     @Override

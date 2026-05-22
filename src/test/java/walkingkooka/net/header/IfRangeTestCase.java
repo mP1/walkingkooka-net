@@ -99,8 +99,8 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     @Test
-    public final void testToHeaderText() {
-        this.toHeaderTextAndCheck(this.createHeader(),
+    public final void testText() {
+        this.textAndCheck(this.createHeader(),
             this.headerText());
     }
 

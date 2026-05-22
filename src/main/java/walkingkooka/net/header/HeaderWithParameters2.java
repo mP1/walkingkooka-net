@@ -117,7 +117,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
      * Reproduces this header as text.
      */
     @Override
-    public final String toHeaderText() {
+    public final String text() {
         return this.toHeaderTextValue() +
             this.parameters.entrySet()
                 .stream()
@@ -234,6 +234,6 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
 
     @Override
     public final String toString() {
-        return this.toHeaderText();
+        return this.text();
     }
 }

@@ -28,7 +28,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
 
     @Test
     public void testHeaderText() {
-        this.toHeaderTextAndCheck(TEXT);
+        this.textAndCheck(TEXT);
     }
 
     @Test

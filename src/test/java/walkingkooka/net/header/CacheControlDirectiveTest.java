@@ -242,11 +242,11 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
         this.isWildcardAndCheck(false);
     }
 
-    // toHeaderText ....................................................................................................
+    // text ....................................................................................................
 
     @Test
-    public void testToHeaderTextMaxAge() {
-        this.toHeaderTextAndCheck(
+    public void testTextMaxAge() {
+        this.textAndCheck(
             CacheControlDirectiveName.MAX_AGE.setParameter(
                 Optional.of(123L)
             ),
@@ -255,8 +255,8 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     }
 
     @Test
-    public void testToHeaderTextNoCache() {
-        this.toHeaderTextAndCheck(
+    public void testTextNoCache() {
+        this.textAndCheck(
             CacheControlDirective.NO_CACHE,
             "no-cache"
         );
@@ -283,7 +283,7 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     }
 
     @Test
-    public void testToHeaderTextListMaxAgeNoCacheNoStore() {
+    public void testTextListMaxAgeNoCacheNoStore() {
         this.toHeaderTextListAndCheck(
             "max-age=123, no-cache, no-store",
             CacheControlDirectiveName.MAX_AGE.setParameter(

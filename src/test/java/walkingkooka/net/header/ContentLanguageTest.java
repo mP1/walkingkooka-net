@@ -66,16 +66,28 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
     }
 
     @Test
-    public void testHeaderText() {
+    public void testText() {
         final String text = "en";
-        this.toHeaderTextAndCheck(ContentLanguage.parse(text), text);
+        this.textAndCheck(
+            ContentLanguage.parse(text),
+            text
+        );
     }
 
     @Test
-    public void testHeaderText2() {
+    public void testText2() {
         final String text = "en-GB"; // Locale.EN_GB is "en-GB".
-        this.toHeaderTextAndCheck(ContentLanguage.with(Lists.of(LanguageName.with(text))), text);
+        this.textAndCheck(
+            ContentLanguage.with(
+                Lists.of(
+                    LanguageName.with(text)
+                )
+            ),
+            text
+        );
     }
+
+    // equals...........................................................................................................
 
     @Test
     public void testEqualsDifferentValue() {

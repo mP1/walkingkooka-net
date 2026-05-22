@@ -58,7 +58,7 @@ final class AcceptLanguageHeaderHandler extends NonStringHeaderHandler<AcceptLan
 
     @Override
     String toText0(final AcceptLanguage acceptEncoding, final Name name) {
-        return acceptEncoding.toHeaderText();
+        return acceptEncoding.text();
     }
 
     @Override

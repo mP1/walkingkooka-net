@@ -51,7 +51,7 @@ final class AcceptHeaderHandler extends NonStringHeaderHandler<Accept> {
 
     @Override
     String toText0(final Accept accept, final Name name) {
-        return accept.toHeaderText();
+        return accept.text();
     }
 
     @Override

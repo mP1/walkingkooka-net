@@ -22,13 +22,15 @@ import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasTextTesting;
 
 import java.util.Arrays;
 
 /**
  * Mixin interface with helpers to assist testing of {@link Header} implementations.
  */
-public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTesting2<V>,
+public interface HeaderTesting<V extends Header> extends HasTextTesting,
+    HashCodeEqualsDefinedTesting2<V>,
     ToStringTesting<V> {
 
     @Test
@@ -64,7 +66,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
         this.isWildcardAndCheck(
             header,
             String.valueOf(Header.WILDCARD)
-                .equals(header.toHeaderText())
+                .equals(header.text())
         );
     }
 
@@ -91,16 +93,10 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
         return HeaderException.class;
     }
 
-    default void toHeaderTextAndCheck(final String expected) {
-        this.toHeaderTextAndCheck(this.createHeader(), expected);
-    }
-
-    default void toHeaderTextAndCheck(final Header header,
-                                      final String expected) {
-        this.checkEquals(
-            expected,
-            header.toHeaderText(),
-            () -> "headerText of " + header
+    default void textAndCheck(final String expected) {
+        this.textAndCheck(
+            this.createHeader(),
+            expected
         );
     }
 
@@ -128,7 +124,7 @@ public interface HeaderTesting<V extends Header> extends HashCodeEqualsDefinedTe
                                     final boolean expected) {
         this.isWildcardAndCheck0(header, expected);
 
-        final String text = header.toHeaderText();
+        final String text = header.text();
         this.isWildcardAndCheck0(
             header,
             String.valueOf(Header.WILDCARD)

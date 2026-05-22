@@ -82,7 +82,7 @@ public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
     }
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 

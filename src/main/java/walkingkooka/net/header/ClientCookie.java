@@ -132,7 +132,7 @@ final public class ClientCookie extends Cookie {
      * Returns this cookie in header value form.
      */
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.toString();
     }
 

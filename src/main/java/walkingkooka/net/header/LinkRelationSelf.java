@@ -45,7 +45,7 @@ final class LinkRelationSelf extends LinkRelation<String> {
     // Header ....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public String text() {
         return this.value();
     }
 
