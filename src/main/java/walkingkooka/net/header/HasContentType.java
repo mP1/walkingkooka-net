@@ -30,6 +30,14 @@ import java.util.Optional;
  */
 public interface HasContentType {
 
+    MediaType CURRENCY = json(Currency.class);
+
+    MediaType DATE_TIME_SYMBOLS = json(DateTimeSymbols.class);
+
+    MediaType DECIMAL_NUMBER_SYMBOLS = json(DecimalNumberSymbols.class);
+
+    MediaType LOCALE = json(Locale.class);
+
     /**
      * Tries to get the {@link MediaType content type} for the given object. Note some special cases are tested within
      * such as
@@ -52,16 +60,16 @@ public interface HasContentType {
             final MediaType contentTypeOrNull;
 
             if (object instanceof Currency) {
-                contentTypeOrNull = json(Currency.class);
+                contentTypeOrNull = CURRENCY;
             } else {
                 if (object instanceof DateTimeSymbols) {
-                    contentTypeOrNull = json(DateTimeSymbols.class);
+                    contentTypeOrNull = DATE_TIME_SYMBOLS;
                 } else {
                     if (object instanceof DecimalNumberSymbols) {
-                        contentTypeOrNull = json(DecimalNumberSymbols.class);
+                        contentTypeOrNull = DECIMAL_NUMBER_SYMBOLS;
                     } else {
                         if (object instanceof Locale) {
-                            contentTypeOrNull = json(Locale.class);
+                            contentTypeOrNull = LOCALE;
                         } else {
                             contentTypeOrNull = null;
                         }
