@@ -152,11 +152,6 @@ public final class UrlScheme extends NetName implements Comparable<UrlScheme> {
         return this.compareTo0(other);
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof UrlScheme;
-    }
-
     /**
      * Returns the raw {@link String}.
      */

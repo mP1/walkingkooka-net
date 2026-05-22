@@ -144,11 +144,6 @@ public final class UrlParameterName extends NetName
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof UrlParameterName;
-    }
-
-    @Override
     public String toString() {
         return this.name;
     }

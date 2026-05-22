@@ -519,11 +519,6 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
 
     // Object...........................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof UrlPathName;
-    }
-
     // Comparable......................................................................................................
 
     @Override
