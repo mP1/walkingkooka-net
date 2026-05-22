@@ -57,8 +57,4 @@ final class IfRangeLastModified extends IfRange<LocalDateTime> {
         return DATE_TIME;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof IfRangeLastModified;
-    }
 }

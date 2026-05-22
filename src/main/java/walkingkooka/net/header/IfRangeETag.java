@@ -57,8 +57,4 @@ final class IfRangeETag extends IfRange<ETag> {
         return ETAG;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof IfRangeETag;
-    }
 }
