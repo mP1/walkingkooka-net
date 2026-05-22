@@ -74,11 +74,6 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
         return true;
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Ip6Address;
-    }
-
     // UsesToStringBuilder
 
     @Override

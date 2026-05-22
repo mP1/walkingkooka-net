@@ -83,10 +83,9 @@ abstract public class IpAddress implements HasValue<byte[]>,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-            this.canBeEqual(other) && this.equals0((IpAddress) other);
+            null != other && this.getClass() == other.getClass() &&
+                this.equals0((IpAddress) other);
     }
-
-    abstract boolean canBeEqual(Object other);
 
     private boolean equals0(final IpAddress other) {
         return Arrays.equals(this.components, other.components);
