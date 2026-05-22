@@ -45,11 +45,9 @@ abstract class HttpRequestAttributeRoutingPredicate<T> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            this.canBeEquals(other) &&
+            null != other && this.getClass() == other.getClass() &&
                 this.equals0(Cast.to(other));
     }
-
-    abstract boolean canBeEquals(final Object other);
 
     private boolean equals0(final HttpRequestAttributeRoutingPredicate<?> other) {
         return this.predicate.equals(other.predicate);
