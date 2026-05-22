@@ -49,9 +49,5 @@ final class HttpRequestAttributeRoutingPredicateParameterValue extends HttpReque
                 .anyMatch(this.predicate);
     }
 
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof HttpRequestAttributeRoutingPredicateParameterValue;
-    }
 }
 

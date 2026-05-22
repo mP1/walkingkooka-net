@@ -51,9 +51,5 @@ final class HttpRequestAttributeRoutingPredicateHeader extends HttpRequestAttrib
         return this.predicate.equalsOnlyPresentParameters(header);
     }
 
-    @Override
-    boolean canBeEquals(final Object other) {
-        return other instanceof HttpRequestAttributeRoutingPredicateHeader;
-    }
 }
 
