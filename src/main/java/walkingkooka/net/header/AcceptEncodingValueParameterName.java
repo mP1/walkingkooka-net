@@ -59,8 +59,4 @@ final public class AcceptEncodingValueParameterName<V> extends HeaderParameterNa
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptEncodingValueParameterName;
-    }
 }

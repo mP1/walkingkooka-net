@@ -81,11 +81,6 @@ final public class CookieName extends HeaderNameValue
 
     // HeaderNameValue..............................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CookieName;
-    }
-
     // Object..................................................................................................
 
     /**

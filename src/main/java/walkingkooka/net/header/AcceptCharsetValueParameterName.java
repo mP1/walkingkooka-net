@@ -65,8 +65,4 @@ final public class AcceptCharsetValueParameterName<V> extends HeaderParameterNam
 
     // Header2.................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AcceptCharsetValueParameterName;
-    }
 }

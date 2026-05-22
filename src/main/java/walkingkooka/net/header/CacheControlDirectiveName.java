@@ -239,11 +239,6 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CacheControlDirectiveName;
-    }
-
     // Comparable.......................................................................................................
 
     @Override

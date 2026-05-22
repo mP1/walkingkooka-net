@@ -146,8 +146,4 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ContentDispositionParameterName;
-    }
 }

@@ -171,8 +171,4 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
 
     // HeaderName2......................................................................................................
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LinkParameterName;
-    }
 }
