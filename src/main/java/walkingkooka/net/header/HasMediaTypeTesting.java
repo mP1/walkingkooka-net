@@ -28,7 +28,7 @@ public interface HasMediaTypeTesting extends Testing {
         this.mediaTypeAndCheck(
             has,
             expected,
-            () -> has.toString()
+            has::toString
         );
     }
 

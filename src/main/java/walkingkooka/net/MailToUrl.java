@@ -325,7 +325,7 @@ public final class MailToUrl extends Url
     @Override
     public HostAddress hostAddress() {
         return this.handleHostAddress(
-            (EmailAddress emailAddress) -> emailAddress.hostAddress()
+            EmailAddress::hostAddress
 
         );
     }

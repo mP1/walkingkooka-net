@@ -56,7 +56,7 @@ public interface HasUrlFragmentTesting extends Testing {
         this.urlFragmentAndCheck(
             has,
             expected,
-            () -> has.toString()
+            has::toString
         );
     }
 

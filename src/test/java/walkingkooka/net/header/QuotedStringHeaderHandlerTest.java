@@ -120,9 +120,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
         final String value = "a\"bc";
 
         this.parseStringAndCheck(
-            (t) -> handler.parse(
-                t
-            ),
+            handler::parse,
             text,
             value
         );
