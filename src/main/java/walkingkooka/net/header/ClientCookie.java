@@ -170,11 +170,6 @@ final public class ClientCookie extends Cookie {
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ClientCookie;
-    }
-
-    @Override
     boolean equals1(final Cookie other) {
         return true;
     }
