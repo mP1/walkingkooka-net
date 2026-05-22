@@ -28,7 +28,7 @@ public final class HttpEntityNotEmptyTest implements HasTextTesting,
     // HasText..........................................................................................................
 
     @Test
-    public final void testText() {
+    public void testText() {
         final String text = "ABC123";
 
         this.textAndCheck(
