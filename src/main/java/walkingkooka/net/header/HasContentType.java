@@ -30,6 +30,8 @@ import java.util.Optional;
  */
 public interface HasContentType {
 
+    Optional<MediaType> NO_CONTENT_TYPE = Optional.empty();
+
     MediaType CURRENCY = json(Currency.class);
 
     MediaType DATE_TIME_SYMBOLS = json(DateTimeSymbols.class);
