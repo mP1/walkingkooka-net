@@ -52,7 +52,7 @@ final class NetConverterHttpEntityWithContentType<C extends ConverterContext> ex
 
     private boolean isContentType(final HttpEntity httpEntity) {
         return httpEntity.contentType()
-            .map(c -> this.contentType.test(c))
+            .map(this.contentType::test)
             .orElse(false);
     }
 
