@@ -38,23 +38,46 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
 
     @Test
     public void testContentLength() {
-        this.contentLengthAndCheck(this.createHttpEntity(), TEXT.length());
+        this.contentLengthAndCheck(
+            this.createHttpEntity(),
+            TEXT.length()
+        );
     }
 
     @Test
     public void testContentLengthTextAndByteLengthDifferentContentTypeUtf8() {
         final String text = "\u0256\u0257";
         final int bytesLength = text.getBytes(StandardCharsets.UTF_8).length;
-        this.checkNotEquals(text.length(), bytesLength, "text and encoded byte lengths should be different");
+        this.checkNotEquals(
+            text.length(),
+            bytesLength,
+            "text and encoded byte lengths should be different"
+        );
 
-        this.contentLengthAndCheck(HttpEntityText.with(Cast.to(Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(MediaType.parse("text/plain; charset=UTF8")))), text), bytesLength);
+        this.contentLengthAndCheck(
+            HttpEntityText.with(
+                Cast.to(
+                    Maps.of(
+                        HttpHeaderName.CONTENT_TYPE,
+                        Lists.of(
+                            MediaType.parse("text/plain; charset=UTF8")
+                        )
+                    )
+                ),
+                text
+            ),
+            bytesLength
+        );
     }
 
     @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Map<HttpHeaderName<?>, List<?>> headers = map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        final Map<HttpHeaderName<?>, List<?>> headers = map(
+            HttpHeaderName.CONTENT_TYPE,
+            MediaType.TEXT_PLAIN
+        );
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
@@ -73,7 +96,11 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         final HttpEntity removed = added.removeHeader(header);
         assertNotSame(added, removed);
 
-        this.check(removed, HttpEntity.NO_HEADERS, TEXT);
+        this.check(
+            removed,
+            HttpEntity.NO_HEADERS,
+            TEXT
+        );
     }
 
     @Test
@@ -128,13 +155,23 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
             .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
-        this.check(entity, map(HttpHeaderName.CONTENT_LENGTH, 777L), TEXT);
+        this.check(
+            entity,
+            map(
+                HttpHeaderName.CONTENT_LENGTH,
+                777L
+            ),
+            TEXT
+        );
     }
 
     @Test
     public void testSetBodySameBinary() {
         final HttpEntity entity = this.createHttpEntity();
-        assertSame(entity, entity.setBody(BINARY));
+        assertSame(
+            entity,
+            entity.setBody(BINARY)
+        );
     }
 
     @Override
