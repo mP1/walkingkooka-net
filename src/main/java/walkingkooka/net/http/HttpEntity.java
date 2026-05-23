@@ -21,6 +21,7 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
+import walkingkooka.HasBinary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -52,6 +53,7 @@ import java.util.stream.Collectors;
  */
 public abstract class HttpEntity implements HasHeaders,
     CanBeEmpty,
+    HasBinary,
     HasContentType,
     HasText,
     TreePrintable {
@@ -786,4 +788,11 @@ public abstract class HttpEntity implements HasHeaders,
     }
 
     abstract void printTreeBody(final IndentingPrinter printer);
+
+    // HasBinary........................................................................................................
+
+    @Override
+    public final Binary binary() {
+        return this.body();
+    }
 }

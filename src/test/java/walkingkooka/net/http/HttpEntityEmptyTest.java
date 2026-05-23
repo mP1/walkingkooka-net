@@ -198,6 +198,16 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         );
     }
 
+    // HasBinary.........................................................................................................
+
+    @Test
+    public void testBinary() {
+        this.binaryAndCheck(
+            HttpEntityEmpty.instance(),
+            Binary.EMPTY
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
