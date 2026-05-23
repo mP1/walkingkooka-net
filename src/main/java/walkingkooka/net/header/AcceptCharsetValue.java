@@ -138,12 +138,12 @@ final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharse
     // Header................................................................................................................
 
     @Override
-    String toHeaderTextValue() {
+    String valueToText() {
         return this.value.toString();
     }
 
     @Override
-    String toHeaderTextParameterSeparator() {
+    String textParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 

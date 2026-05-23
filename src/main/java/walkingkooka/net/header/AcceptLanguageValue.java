@@ -123,12 +123,12 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     // header........................................................................................................
 
     @Override
-    String toHeaderTextValue() {
+    String valueToText() {
         return this.value.toString();
     }
 
     @Override
-    String toHeaderTextParameterSeparator() {
+    String textParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 

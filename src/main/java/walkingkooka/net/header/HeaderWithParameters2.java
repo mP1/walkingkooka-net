@@ -118,24 +118,24 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
      */
     @Override
     public final String text() {
-        return this.toHeaderTextValue() +
+        return this.valueToText() +
             this.parameters.entrySet()
                 .stream()
-                .map(this::toHeaderTextParameter)
+                .map(this::parameterToText)
                 .collect(Collectors.joining());
     }
 
     /**
      * Provides an opportunity for special casing how values are included in their parent header value.
      */
-    abstract String toHeaderTextValue();
+    abstract String valueToText();
 
     /**
      * Helper that converts the parameter key/value into text using the name's {@link HeaderHandler}.
      */
-    private String toHeaderTextParameter(final Entry<P, Object> nameAndValue) {
+    private String parameterToText(final Entry<P, Object> nameAndValue) {
         final P name = nameAndValue.getKey();
-        return this.toHeaderTextParameterSeparator() +
+        return this.textParameterSeparator() +
             name.value() +
             PARAMETER_NAME_VALUE_SEPARATOR.character() +
             name.handler.toText(Cast.to(nameAndValue.getValue()), name);
@@ -144,7 +144,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     /**
      * Most header values return {@link #PARAMETER_SEPARATOR} + a space.
      */
-    abstract String toHeaderTextParameterSeparator();
+    abstract String textParameterSeparator();
 
     /**
      * The default parameter separator and space.

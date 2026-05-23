@@ -134,12 +134,12 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
     // Header...........................................................................................................
 
     @Override
-    String toHeaderTextValue() {
+    String valueToText() {
         return this.value.toString();
     }
 
     @Override
-    String toHeaderTextParameterSeparator() {
+    String textParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 

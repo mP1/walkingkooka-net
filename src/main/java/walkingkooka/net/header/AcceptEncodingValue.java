@@ -139,11 +139,11 @@ public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEn
         super(value, parameters);
     }
 
-    @Override final String toHeaderTextValue() {
+    @Override final String valueToText() {
         return this.value;
     }
 
-    @Override final String toHeaderTextParameterSeparator() {
+    @Override final String textParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 
