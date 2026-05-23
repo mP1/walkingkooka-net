@@ -106,12 +106,12 @@ final public class Link extends HeaderWithParameters2<Link,
     // Header................................................................................................................
 
     @Override
-    String toHeaderTextValue() {
+    String valueToText() {
         return "<" + this.value + ">";
     }
 
     @Override
-    String toHeaderTextParameterSeparator() {
+    String textParameterSeparator() {
         return PARAMETER_SEPARATOR.string();
     }
 

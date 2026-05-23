@@ -650,12 +650,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
 
     // mime-type COLON sub-mime-type, suffix already included in sub-mime-type
     @Override
-    String toHeaderTextValue() {
+    String valueToText() {
         return this.value;
     }
 
     @Override
-    String toHeaderTextParameterSeparator() {
+    String textParameterSeparator() {
         return TO_HEADERTEXT_PARAMETER_SEPARATOR;
     }
 
