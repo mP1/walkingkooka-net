@@ -42,14 +42,20 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
 
     @Test
     public void testContentLength() {
-        this.contentLengthAndCheck(this.createHttpEntity(), BINARY.size());
+        this.contentLengthAndCheck(
+            this.createHttpEntity(),
+            BINARY.size()
+        );
     }
 
     @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Map<HttpHeaderName<?>, List<?>> headers = map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        final Map<HttpHeaderName<?>, List<?>> headers = map(
+            HttpHeaderName.CONTENT_TYPE,
+            MediaType.TEXT_PLAIN
+        );
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
@@ -68,7 +74,11 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final HttpEntity removed = added.removeHeader(header);
         assertNotSame(added, removed);
 
-        this.check(removed, HttpEntity.NO_HEADERS, BINARY);
+        this.check(
+            removed,
+            HttpEntity.NO_HEADERS,
+            BINARY
+        );
     }
 
     @Test
@@ -108,13 +118,20 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
 
     @Test
     public void testBodyText() {
-        this.check(this.createHttpEntity(), HttpEntity.NO_HEADERS, TEXT);
+        this.check(
+            this.createHttpEntity(),
+            HttpEntity.NO_HEADERS,
+            TEXT
+        );
     }
 
     @Test
     public void testBodyTextWithHeaders() {
         final HttpEntity entity = this.createHttpEntity()
-            .addHeader(HttpHeaderName.CONTENT_LENGTH, 777L); // ignored
+            .addHeader(
+                HttpHeaderName.CONTENT_LENGTH,
+                777L
+            ); // ignored
         this.check(entity, TEXT);
     }
 
@@ -124,15 +141,27 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final HttpEntity different = entity.setContentType(
             MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_16)
         );
-        assertNotSame(entity, different);
+        assertNotSame(
+            entity,
+            different
+        );
 
-        this.check(different, new String(BINARY.value(), StandardCharsets.UTF_16));
+        this.check(
+            different,
+            new String(
+                BINARY.value(),
+                StandardCharsets.UTF_16
+            )
+        );
     }
 
     @Test
     public void testSetBodySameText() {
         final HttpEntity entity = this.createHttpEntity();
-        assertSame(entity, entity.setBodyText(TEXT));
+        assertSame(
+            entity,
+            entity.setBodyText(TEXT)
+        );
     }
 
     @Test
@@ -223,7 +252,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         );
     }
 
-    // toString ....................................................................................................
+    // toString ........................................................................................................
 
     @Test
     public void testToStringText() {
