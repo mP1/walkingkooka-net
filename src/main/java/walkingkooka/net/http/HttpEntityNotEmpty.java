@@ -157,7 +157,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
         final IndentingPrinter printer = Printers.stringBuilder(b, LineEnding.CRNL)
             .indenting(Indentation.EMPTY);
-        this.printHeaders(
+        this.printTreeHeaders(
             this.alphaSortedHeaders(),
             printer
         );

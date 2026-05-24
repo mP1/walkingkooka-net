@@ -747,7 +747,7 @@ public abstract class HttpEntity implements HasHeaders,
                     printer.println("header(s)");
                     printer.indent();
                     {
-                        this.printHeaders(
+                        this.printTreeHeaders(
                             headers,
                             printer
                         );
@@ -768,8 +768,8 @@ public abstract class HttpEntity implements HasHeaders,
         return headers;
     }
 
-    final void printHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
-                            final IndentingPrinter printer) {
+    final void printTreeHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+                                final IndentingPrinter printer) {
         for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValues : headers.entrySet()) {
             final HttpHeaderName<?> name = headerAndValues.getKey();
 
