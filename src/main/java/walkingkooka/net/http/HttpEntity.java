@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.HasBinary;
+import walkingkooka.HasCharset;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -54,6 +55,7 @@ import java.util.stream.Collectors;
 public abstract class HttpEntity implements HasHeaders,
     CanBeEmpty,
     HasBinary,
+    HasCharset,
     HasContentType,
     HasText,
     TreePrintable {
@@ -379,7 +381,8 @@ public abstract class HttpEntity implements HasHeaders,
         return Maps.immutable(copy);
     }
 
-    final Charset charset() {
+    @Override
+    public final Charset charset() {
         return this.charset(HttpEntity.DEFAULT_BODY_CHARSET);
     }
 
