@@ -32,41 +32,58 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
     ContentDispositionParameterName<?>> {
 
     @Test
-    public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\u0001;"));
+    public void testWithControlCharacterFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ContentDispositionParameterName.with("parameter\u0001;")
+        );
     }
 
     @Test
-    public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter "));
+    public void testWithSpaceFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ContentDispositionParameterName.with("parameter ")
+        );
     }
 
     @Test
-    public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\t"));
+    public void testWithTabFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ContentDispositionParameterName.with("parameter\t")
+        );
     }
 
     @Test
-    public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> ContentDispositionParameterName.with("parameter\u0100;"));
+    public void testWithNonAsciiFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ContentDispositionParameterName.with("parameter\u0100;")
+        );
     }
 
     @Test
-    public void testValid() {
+    public void testWithValid() {
         this.createNameAndCheck("Custom");
     }
 
     @Test
-    public void testConstantNameReturnsConstant() {
-        assertSame(ContentDispositionParameterName.CREATION_DATE, ContentDispositionParameterName.with(ContentDispositionParameterName.CREATION_DATE.value()));
+    public void testWithConstantNameReturnsConstant() {
+        assertSame(
+            ContentDispositionParameterName.CREATION_DATE,
+            ContentDispositionParameterName.with(ContentDispositionParameterName.CREATION_DATE.value())
+        );
     }
 
-    // parameter value......................................................................................
+    // parameter value..................................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(ContentDispositionParameterName.CREATION_DATE,
-            this.contentDisposition());
+        this.parameterValueAndCheckAbsent(
+            ContentDispositionParameterName.CREATION_DATE,
+            this.contentDisposition()
+        );
     }
 
     @Test
@@ -74,9 +91,11 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
         final ContentDispositionParameterName<ContentDispositionFileName> parameter = ContentDispositionParameterName.FILENAME;
         final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
 
-        this.parameterValueAndCheckPresent(parameter,
+        this.parameterValueAndCheckPresent(
+            parameter,
             this.contentDisposition(),
-            filename);
+            filename
+        );
     }
 
     private ContentDisposition contentDisposition() {
