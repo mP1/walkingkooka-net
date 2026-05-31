@@ -30,42 +30,58 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
     AcceptCharsetValueParameterName<?>> {
 
     @Test
-    public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\u0001;"));
+    public void testWithControlCharacterFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptCharsetValueParameterName.with("parameter\u0001;")
+        );
     }
 
     @Test
-    public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter "));
+    public void testWithSpaceFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptCharsetValueParameterName.with("parameter ")
+        );
     }
 
     @Test
-    public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\t"));
+    public void testWithTabFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptCharsetValueParameterName.with("parameter\t")
+        );
     }
 
     @Test
-    public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptCharsetValueParameterName.with("parameter\u0100;"));
+    public void testWithNonAsciiFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptCharsetValueParameterName.with("parameter\u0100;")
+        );
     }
 
     @Test
-    public void testValid() {
+    public void testWithValid() {
         this.createNameAndCheck("Custom");
     }
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(AcceptCharsetValueParameterName.Q,
-            AcceptCharsetValueParameterName.with(AcceptCharsetValueParameterName.Q.value()));
+        assertSame(
+            AcceptCharsetValueParameterName.Q,
+            AcceptCharsetValueParameterName.with(AcceptCharsetValueParameterName.Q.value())
+        );
     }
 
-    // parameter value......................................................................................
+    // parameter value..................................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(AcceptCharsetValueParameterName.with("absent-parameter"),
-            this.acceptCharsetValue());
+        this.parameterValueAndCheckAbsent(
+            AcceptCharsetValueParameterName.with("absent-parameter"),
+            this.acceptCharsetValue()
+        );
     }
 
     @Test
@@ -73,9 +89,11 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
         final AcceptCharsetValueParameterName<Float> parameter = AcceptCharsetValueParameterName.Q;
         final float value = 0.5f;
 
-        this.parameterValueAndCheckPresent(parameter,
+        this.parameterValueAndCheckPresent(
+            parameter,
             this.acceptCharsetValue(),
-            value);
+            value
+        );
     }
 
     private AcceptCharsetValue acceptCharsetValue() {
@@ -85,7 +103,9 @@ final public class AcceptCharsetValueParameterNameTest extends HeaderParameterNa
 
     @Override
     public AcceptCharsetValueParameterName<Object> createName(final String name) {
-        return Cast.to(AcceptCharsetValueParameterName.with(name));
+        return Cast.to(
+            AcceptCharsetValueParameterName.with(name)
+        );
     }
 
     // parse............................................................................................................
