@@ -33,38 +33,59 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     @Test
     public final void testIsStarParameter() {
         final N name = this.createName();
-        this.checkEquals(name.value().endsWith("*"),
+        this.checkEquals(
+            name.value()
+                .endsWith("*"),
             name.isStarParameter(),
-            () -> name + " is star parameter");
+            () -> name + " is star parameter"
+        );
     }
 
     @Test
     public final void testParameterValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createName().parameterValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createName()
+                .parameterValue(null)
+        );
     }
 
     @Test
     public final void testParameterValueOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createName().parameterValueOrFail(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createName()
+                .parameterValueOrFail(null)
+        );
     }
 
     final <VV> void parameterValueAndCheckAbsent(final HeaderParameterName<VV> name,
                                                  final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters) {
-        this.parameterValueAndCheck2(name, hasParameters, Optional.empty());
+        this.parameterValueAndCheck2(
+            name,
+            hasParameters,
+            Optional.empty()
+        );
     }
 
     final <VV> void parameterValueAndCheckPresent(final HeaderParameterName<VV> name,
                                                   final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                                   final VV value) {
-        this.parameterValueAndCheck2(name, hasParameters, Optional.of(value));
+        this.parameterValueAndCheck2(
+            name,
+            hasParameters,
+            Optional.of(value)
+        );
     }
 
     private <VV> void parameterValueAndCheck2(final HeaderParameterName<VV> name,
                                               final HeaderWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                               final Optional<VV> value) {
-        this.checkEquals(value,
+        this.checkEquals(
+            value,
             name.parameterValue(hasParameters),
-            "wrong parameter value " + name + " in " + hasParameters);
+            () -> "wrong parameter value " + name + " in " + hasParameters
+        );
     }
 
     @Override
