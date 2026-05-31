@@ -24,7 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C>>
-    extends HeaderName2TestCase<N, C> {
+    extends HeaderNameValueSharedTestCase<N, C> {
 
     HeaderParameterNameTestCase() {
         super();

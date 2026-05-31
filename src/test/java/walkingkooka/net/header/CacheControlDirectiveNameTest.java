@@ -29,7 +29,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<CacheControlDirectiveName<?>,
+final public class CacheControlDirectiveNameTest extends HeaderNameValueSharedTestCase<CacheControlDirectiveName<?>,
     CacheControlDirectiveName<?>>
     implements NameTesting2<CacheControlDirectiveName<?>, CacheControlDirectiveName<?>> {
 

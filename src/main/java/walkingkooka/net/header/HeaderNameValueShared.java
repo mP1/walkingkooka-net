@@ -22,12 +22,12 @@ import walkingkooka.text.CaseSensitivity;
 /**
  * Base class for all {@link HeaderName}
  */
-abstract class HeaderName2<V> extends HeaderNameValue implements HeaderName<V> {
+abstract class HeaderNameValueShared<V> extends HeaderNameValue implements HeaderName<V> {
 
     /**
      * Package private to limit sub classing.
      */
-    HeaderName2(final String name) {
+    HeaderNameValueShared(final String name) {
         super(name);
     }
 

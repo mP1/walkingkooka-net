@@ -56,7 +56,4 @@ final public class AcceptLanguageParameterName<V> extends HeaderParameterName<V>
     public int compareTo(final AcceptLanguageParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // HeaderName2......................................................................................................
-
 }

@@ -168,7 +168,4 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
     public int compareTo(final LinkParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // HeaderName2......................................................................................................
-
 }

@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<?>, HttpHeaderName<?>>
+final public class HttpHeaderNameTest extends HeaderNameValueSharedTestCase<HttpHeaderName<?>, HttpHeaderName<?>>
     implements ConstantsTesting<HttpHeaderName<?>>,
     NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
 

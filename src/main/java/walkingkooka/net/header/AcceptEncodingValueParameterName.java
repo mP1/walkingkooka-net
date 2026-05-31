@@ -56,7 +56,4 @@ final public class AcceptEncodingValueParameterName<V> extends HeaderParameterNa
     public int compareTo(final AcceptEncodingValueParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // HeaderName2......................................................................................................
-
 }
