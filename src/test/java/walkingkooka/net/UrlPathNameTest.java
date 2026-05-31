@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidTextLengthException;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.PathNameTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
-    NameTesting<UrlPathName, UrlPathName>,
+    PathNameTesting<UrlPathName, UrlPathName>,
     ParseStringTesting<UrlPathName> {
 
     @Override
