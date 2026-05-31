@@ -50,15 +50,31 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
     @Test
     public final void testSetParameters() {
         final L name = this.createName(this.nameText());
-        final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(AcceptLanguageParameterName.Q, 0.5f);
+        final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(
+            AcceptLanguageParameterName.Q,
+            0.5f
+        );
         final AcceptLanguageValue language = name.setParameters(parameters);
         assertSame(name, language.value(), "value");
-        this.checkEquals(parameters, language.parameters(), "parameters");
+
+        this.checkEquals(
+            parameters,
+            language.parameters(),
+            "parameters"
+        );
     }
 
     @Test
-    public final void testWildcardFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createPredicate().test(LanguageName.WILDCARD));
+    public final void testTestWildcardFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createPredicate().test(LanguageName.WILDCARD)
+        );
+    }
+
+    @Override
+    public final L createPredicate() {
+        return this.createName(this.nameText());
     }
 
     final void check(final LanguageName name,
@@ -68,13 +84,19 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
             name,
             value
         );
-        this.checkEquals(locale, name.locale(), "locale");
+        this.checkEquals(
+            locale,
+            name.locale(),
+            "locale"
+        );
     }
 
     @Override
     public final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
+
+    // class............................................................................................................
 
     @Override
     public final Class<L> type() {
@@ -88,22 +110,13 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    // TypeNameTesting .........................................................................................
-
     @Override
-    public String typeNamePrefix() {
+    public final String typeNamePrefix() {
         return LanguageName.class.getSimpleName();
     }
 
     @Override
-    public String typeNameSuffix() {
+    public final String typeNameSuffix() {
         return "";
-    }
-
-    // PredicateTesting2 ................................................................................................
-
-    @Override
-    public final L createPredicate() {
-        return this.createName(this.nameText());
     }
 }
