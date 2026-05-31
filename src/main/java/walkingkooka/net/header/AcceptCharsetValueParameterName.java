@@ -56,13 +56,10 @@ final public class AcceptCharsetValueParameterName<V> extends HeaderParameterNam
         super(value, handler);
     }
 
-    // Comparable..................................................................................................
+    // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final AcceptCharsetValueParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // Header2.................................................................................................
-
 }
