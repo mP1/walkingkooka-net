@@ -143,7 +143,4 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
     public int compareTo(final ContentDispositionParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // HeaderName2......................................................................................................
-
 }

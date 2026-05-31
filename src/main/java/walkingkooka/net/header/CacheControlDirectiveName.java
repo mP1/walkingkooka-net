@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Holds a cache control directive name.
  */
-public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
+public final class CacheControlDirectiveName<V> extends HeaderNameValueShared<Optional<V>>
     implements Comparable<CacheControlDirectiveName<?>> {
 
     /**
@@ -236,8 +236,6 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     }
 
     private final CacheControlDirectiveNameScope scope;
-
-    // HeaderName2......................................................................................................
 
     // Comparable.......................................................................................................
 

@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Base class for any parameter belonging to a header.
  */
-abstract class HeaderParameterName<V> extends HeaderName2<V> {
+abstract class HeaderParameterName<V> extends HeaderNameValueShared<V> {
 
     /**
      * Private ctor to limit sub classing.

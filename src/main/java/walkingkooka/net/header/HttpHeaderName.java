@@ -42,7 +42,7 @@ import java.util.Optional;
 /**
  * The {@link Name} of header.
  */
-final public class HttpHeaderName<T> extends HeaderName2<T>
+final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
     implements HasHeaderScope,
     HttpRequestAttribute<T>,
     Comparable<HttpHeaderName<?>> {
@@ -872,8 +872,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     private final HttpHeaderNameScope scope;
-
-    // HeaderName2......................................................................................................
 
     // Comparable.......................................................................................................
 

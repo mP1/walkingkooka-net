@@ -78,7 +78,4 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
     public int compareTo(final MediaTypeParameterName<?> other) {
         return this.compareTo0(other);
     }
-
-    // HeaderName2......................................................................................................
-
 }

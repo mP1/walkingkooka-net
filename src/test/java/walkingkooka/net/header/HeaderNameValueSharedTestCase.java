@@ -21,11 +21,11 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
-public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C>>
+public abstract class HeaderNameValueSharedTestCase<N extends HeaderNameValueShared<?>, C extends Comparable<C>>
     implements ClassTesting2<N>,
     HeaderNameTesting<N, C> {
 
-    HeaderName2TestCase() {
+    HeaderNameValueSharedTestCase() {
         super();
     }
 
