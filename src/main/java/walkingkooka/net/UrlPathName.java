@@ -21,6 +21,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
+import walkingkooka.naming.PathName;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -33,7 +34,8 @@ import java.util.Objects;
  * A {@link Name} is a component within a {@link UrlPath}. It is assumed that the {@link String value} is decoded and thus may include invalid
  * characters that would otherwise need encoding such as <code>?</code>.
  */
-public final class UrlPathName extends NetName implements Comparable<UrlPathName> {
+public final class UrlPathName extends NetName implements Comparable<UrlPathName>,
+    PathName {
 
     /**
      * The maximum length of a {@link UrlPathName}.
