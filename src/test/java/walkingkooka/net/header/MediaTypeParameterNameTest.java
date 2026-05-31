@@ -30,17 +30,26 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("paramet er"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> MediaTypeParameterName.with("paramet er")
+        );
     }
 
     @Test
     public void testWithIncludesEqualSignFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("parameter=value"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> MediaTypeParameterName.with("parameter=value")
+        );
     }
 
     @Test
     public void testWithIncludesSemiColonFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaTypeParameterName.with("parameter=value;header2"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> MediaTypeParameterName.with("parameter=value;header2")
+        );
     }
 
     @Test
@@ -50,24 +59,34 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     }
 
     @Test
-    public void testConstantNameReturnsConstant() {
-        assertSame(MediaTypeParameterName.Q,
-            MediaTypeParameterName.with(MediaTypeParameterName.Q.value()));
+    public void testWithConstantNameReturnsConstant() {
+        assertSame(
+            MediaTypeParameterName.Q,
+            MediaTypeParameterName.with(MediaTypeParameterName.Q.value())
+        );
     }
 
     @Test
-    public void testConstantNameCaseInsensitiveReturnsConstant() {
+    public void testWithConstantNameCaseInsensitiveReturnsConstant() {
         final String differentCase = MediaTypeParameterName.Q.value().toUpperCase();
-        this.checkNotEquals(differentCase, MediaTypeParameterName.Q.value());
-        assertSame(MediaTypeParameterName.Q, MediaTypeParameterName.with(differentCase));
+        this.checkNotEquals(
+            differentCase,
+            MediaTypeParameterName.Q.value()
+        );
+        assertSame(
+            MediaTypeParameterName.Q,
+            MediaTypeParameterName.with(differentCase)
+        );
     }
 
-    // parameter value......................................................................................
+    // parameter value..................................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(MediaTypeParameterName.Q,
-            this.mediaType());
+        this.parameterValueAndCheckAbsent(
+            MediaTypeParameterName.Q,
+            this.mediaType()
+        );
     }
 
     @Test
@@ -75,9 +94,17 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final MediaTypeParameterName<Float> parameter = MediaTypeParameterName.Q;
         final Float value = 0.75f;
 
-        this.parameterValueAndCheckPresent(parameter,
-            this.mediaType().setParameters(Maps.of(parameter, value)),
-            value);
+        this.parameterValueAndCheckPresent(
+            parameter,
+            this.mediaType()
+                .setParameters(
+                    Maps.of(
+                        parameter,
+                        value
+                    )
+                ),
+            value
+        );
     }
 
     @Test
@@ -85,9 +112,17 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final MediaTypeParameterName<CharsetName> parameter = MediaTypeParameterName.CHARSET;
         final CharsetName charsetName = CharsetName.UTF_8;
 
-        this.parameterValueAndCheckPresent(parameter,
-            this.mediaType().setParameters(Maps.of(parameter, charsetName)),
-            charsetName);
+        this.parameterValueAndCheckPresent(
+            parameter,
+            this.mediaType()
+                .setParameters(
+                    Maps.of(
+                        parameter,
+                        charsetName
+                    )
+                ),
+            charsetName
+        );
     }
 
     private MediaType mediaType() {
