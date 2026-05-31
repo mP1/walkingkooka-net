@@ -30,57 +30,92 @@ final public class AcceptEncodingValueParameterNameTest extends HeaderParameterN
     AcceptEncodingValueParameterName<?>> {
 
     @Test
-    public void testControlCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\u0001;"));
+    public void testWithControlCharacterFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptEncodingValueParameterName.with("parameter\u0001;")
+        );
     }
 
     @Test
-    public void testSpaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter "));
+    public void testWithSpaceFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptEncodingValueParameterName.with("parameter ")
+        );
     }
 
     @Test
-    public void testTabFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\t"));
+    public void testWithTabFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptEncodingValueParameterName.with("parameter\t")
+        );
     }
 
     @Test
-    public void testNonAsciiFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptEncodingValueParameterName.with("parameter\u0100;"));
+    public void testWithNonAsciiFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptEncodingValueParameterName.with("parameter\u0100;")
+        );
     }
 
     @Test
-    public void testValid() {
+    public void testWithValid() {
         this.createNameAndCheck("Custom");
     }
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(AcceptEncodingValueParameterName.Q, AcceptEncodingValueParameterName.with(AcceptEncodingValueParameterName.Q.value()));
+        assertSame(
+            AcceptEncodingValueParameterName.Q,
+            AcceptEncodingValueParameterName.with(AcceptEncodingValueParameterName.Q.value())
+        );
     }
 
-    // parameter value......................................................................................
+    // parameter value..................................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(AcceptEncodingValueParameterName.Q, AcceptEncodingValue.BR);
+        this.parameterValueAndCheckAbsent(
+            AcceptEncodingValueParameterName.Q,
+            AcceptEncodingValue.BR
+        );
     }
 
     @Test
     public void testParameterValuePresent() {
         final AcceptEncodingValueParameterName<Float> parameter = AcceptEncodingValueParameterName.Q;
-        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard("xyz", Maps.of(parameter, 0.75f));
+        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard(
+            "xyz",
+            Maps.of(parameter, 0.75f)
+        );
 
-        this.parameterValueAndCheckPresent(parameter, encoding, 0.75f);
+        this.parameterValueAndCheckPresent(
+            parameter,
+            encoding,
+            0.75f
+        );
     }
 
     @Test
     public void testParameterValuePresent2() {
         final AcceptEncodingValueParameterName<?> parameter = AcceptEncodingValueParameterName.with("abc");
         final String value = "parameter-value-xyz";
-        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard("xyz", Maps.of(parameter, value));
+        final AcceptEncodingValue encoding = AcceptEncodingValue.nonWildcard(
+            "xyz",
+            Maps.of(
+                parameter,
+                value
+            )
+        );
 
-        this.parameterValueAndCheckPresent(parameter, encoding, Cast.to(value));
+        this.parameterValueAndCheckPresent(
+            parameter,
+            encoding,
+            Cast.to(value)
+        );
     }
 
     @Override
