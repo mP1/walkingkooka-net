@@ -30,7 +30,10 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(InvalidCharacterException.class, () -> AcceptLanguageParameterName.with("paramet er"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> AcceptLanguageParameterName.with("paramet er"
+            ));
     }
 
     @Test
@@ -40,24 +43,32 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
     }
 
     @Test
-    public void testConstantNameReturnsConstant() {
-        assertSame(AcceptLanguageParameterName.Q,
-            AcceptLanguageParameterName.with(AcceptLanguageParameterName.Q.value()));
+    public void testWithConstantNameReturnsConstant() {
+        assertSame(
+            AcceptLanguageParameterName.Q,
+            AcceptLanguageParameterName.with(AcceptLanguageParameterName.Q.value()
+            )
+        );
     }
 
     @Test
-    public void testConstantNameCaseInsensitiveReturnsConstant() {
+    public void testWithConstantNameCaseInsensitiveReturnsConstant() {
         final String differentCase = AcceptLanguageParameterName.Q.value().toUpperCase();
         this.checkNotEquals(differentCase, AcceptLanguageParameterName.Q.value());
-        assertSame(AcceptLanguageParameterName.Q, AcceptLanguageParameterName.with(differentCase));
+        assertSame(
+            AcceptLanguageParameterName.Q,
+            AcceptLanguageParameterName.with(differentCase)
+        );
     }
 
-    // parameter value......................................................................................
+    // parameter value..................................................................................................
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(AcceptLanguageParameterName.Q,
-            this.languageTag());
+        this.parameterValueAndCheckAbsent(
+            AcceptLanguageParameterName.Q,
+            this.languageTag()
+        );
     }
 
     @Test
@@ -65,9 +76,14 @@ final public class AcceptLanguageParameterNameTest extends HeaderParameterNameTe
         final AcceptLanguageParameterName<Float> parameter = AcceptLanguageParameterName.Q;
         final Float value = 0.75f;
 
-        this.parameterValueAndCheckPresent(parameter,
-            this.languageTag().setParameters(Maps.of(parameter, value)),
-            value);
+        this.parameterValueAndCheckPresent(
+            parameter,
+            this.languageTag()
+                .setParameters(
+                    Maps.of(parameter, value)
+                ),
+            value
+        );
     }
 
     private AcceptLanguageValue languageTag() {
