@@ -21,6 +21,7 @@ import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQualityFactor;
+import walkingkooka.props.Properties;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasCaseSensitivity;
@@ -124,6 +125,13 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      * Holds a {@link MediaType} for binary payloads that have been base64 encoded, text/base64
      */
     public final static MediaType TEXT_BASE64 = registerConstant("text/base64");
+
+    /**
+     * The {@link MediaType} for {@link Properties}.
+     */
+    public final static MediaType TEXT_PROPERTIES = registerConstant(
+        Properties.CONTENT_TYPE
+    );
 
     /**
      * Holds a {@link MediaType} for MULTIPART BYTE RANGES that contains <code>multipart/byteranges</code>.
