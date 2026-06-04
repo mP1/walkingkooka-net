@@ -68,6 +68,6 @@ final class NetConverterHasHostAddress<C extends ConverterContext> extends NetCo
 
     @Override
     public String toString() {
-        return "has-host-address";
+        return HasHostAddress.class.getSimpleName();
     }
 }

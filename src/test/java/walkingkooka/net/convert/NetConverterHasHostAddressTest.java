@@ -119,6 +119,18 @@ public final class NetConverterHasHostAddressTest extends NetConverterTestCase<N
         return new FakeConverterContext();
     }
 
+    // Object...........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            NetConverterHasHostAddress.instance(),
+            "HasHostAddress"
+        );
+    }
+
+    // Class............................................................................................................
+
     @Override
     public Class<NetConverterHasHostAddress<FakeConverterContext>> type() {
         return Cast.to(NetConverterHasHostAddress.class);
