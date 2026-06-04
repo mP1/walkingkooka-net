@@ -59,6 +59,6 @@ final class NetConverterTextToUrlFragment<C extends ConverterContext> extends Ne
 
     @Override
     public String toString() {
-        return "text-to-url-fragment";
+        return TEXT + " to " + UrlFragment.class.getSimpleName();
     }
 }

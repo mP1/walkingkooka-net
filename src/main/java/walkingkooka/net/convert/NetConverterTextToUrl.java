@@ -62,6 +62,6 @@ final class NetConverterTextToUrl<C extends ConverterContext> extends NetConvert
 
     @Override
     public String toString() {
-        return "text-to-url";
+        return TEXT + " to " + Url.class.getSimpleName();
     }
 }

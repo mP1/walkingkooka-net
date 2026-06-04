@@ -59,6 +59,6 @@ final class NetConverterTextToEmailAddress<C extends ConverterContext> extends N
 
     @Override
     public String toString() {
-        return "text-to-email-address";
+        return "TEXT to " + EmailAddress.class.getSimpleName();
     }
 }
