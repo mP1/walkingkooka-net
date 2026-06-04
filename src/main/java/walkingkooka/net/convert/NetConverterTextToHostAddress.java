@@ -57,8 +57,10 @@ final class NetConverterTextToHostAddress<C extends ConverterContext> extends Ne
         return HostAddress.with(text);
     }
 
+    // Object...........................................................................................................
+
     @Override
     public String toString() {
-        return "text-to-hostAddress";
+        return TEXT + " to " + HostAddress.class.getSimpleName();
     }
 }

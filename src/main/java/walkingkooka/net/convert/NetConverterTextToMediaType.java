@@ -59,6 +59,6 @@ final class NetConverterTextToMediaType<C extends ConverterContext> extends NetC
 
     @Override
     public String toString() {
-        return "text-to-media-type";
+        return TEXT + " to " + MediaType.class.getSimpleName();
     }
 }

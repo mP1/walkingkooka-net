@@ -189,7 +189,7 @@ public class NetConverterTextToHasHostAddressTest extends NetConverterTextToTest
     public void testToString() {
         this.toStringAndCheck(
             NetConverterTextToHasHostAddress.instance(),
-            "text-to-has-host-address"
+            "TEXT to HasHostAddress"
         );
     }
 

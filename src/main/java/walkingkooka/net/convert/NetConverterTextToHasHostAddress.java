@@ -93,10 +93,10 @@ final class NetConverterTextToHasHostAddress<C extends ConverterContext> extends
         return result;
     }
 
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return "text-to-has-host-address";
+        return TEXT + " to " + HasHostAddress.class.getSimpleName();
     }
 }

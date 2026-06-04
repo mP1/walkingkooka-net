@@ -59,6 +59,6 @@ final class NetConverterTextToMailToUrl<C extends ConverterContext> extends NetC
 
     @Override
     public String toString() {
-        return "text-to-mail-to-url";
+        return TEXT + " to " + MailToUrl.class.getSimpleName();
     }
 }

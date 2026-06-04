@@ -59,6 +59,6 @@ final class NetConverterTextToUrlQueryString<C extends ConverterContext> extends
 
     @Override
     public String toString() {
-        return "text-to-url-query-string";
+        return TEXT + " to " + UrlQueryString.class.getSimpleName();
     }
 }
