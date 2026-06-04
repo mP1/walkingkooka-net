@@ -29,4 +29,7 @@ abstract class NetConverterTextTo<C extends ConverterContext> extends NetConvert
     NetConverterTextTo() {
         super();
     }
+
+    @Override
+    public abstract String toString();
 }
