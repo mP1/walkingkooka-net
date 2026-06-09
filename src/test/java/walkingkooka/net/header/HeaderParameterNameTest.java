@@ -39,7 +39,7 @@ public final class HeaderParameterNameTest implements ClassTesting2<HeaderParame
             HeaderException.class,
             () -> AcceptCharsetValueParameterName.with("Hello")
                 .parameterValueOrFail(
-                    new HeaderWithParameters<HeaderParameterName<?>>() {
+                    new HeaderWithParameters<>() {
                         @Override
                         public Map<HeaderParameterName<?>, Object> parameters() {
                             return Map.of();
