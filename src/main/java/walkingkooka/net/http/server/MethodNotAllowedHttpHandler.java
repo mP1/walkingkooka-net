@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 
 /**
  * A {@link HttpHandler} that tests if the request method is acceptable otherwise responds with a {@link HttpStatusCode#METHOD_NOT_ALLOWED}.
- * The {@link Predicate#toString()} is also used to report the allowed methods.
+ * The {@link Object#toString()} is also used to report the allowed methods.
  */
 final class MethodNotAllowedHttpHandler implements HttpHandler {
 

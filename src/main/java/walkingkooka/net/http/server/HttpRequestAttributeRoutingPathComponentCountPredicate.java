@@ -24,7 +24,7 @@ import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} wraps a {@link IntPredicate} delegating all methods including {@link IntPredicate#toString()}.
+ * A {@link Predicate} wraps a {@link IntPredicate} delegating all methods including {@link Object#toString()}.
  */
 final class HttpRequestAttributeRoutingPathComponentCountPredicate implements Predicate<Integer> {
 
