@@ -82,6 +82,7 @@ public interface Header extends HasHeaderScope,
      * 123
      * </pre>
      */
+    @Override
     String text();
 
     /**
