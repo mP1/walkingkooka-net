@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -73,6 +74,141 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
                 this.createRequest(method),
                 response
             )
+        );
+    }
+
+    @Test
+    public void testSetStatusMethodNotAllowedHeadAllowedGet() {
+        final HttpResponse response = HttpResponses.recording();
+
+        final HttpMethod method = HttpMethod.HEAD;
+
+        final HeadHttpResponse headHttpResponse = (HeadHttpResponse) HeadHttpResponse.with(
+            new FakeHttpRequest() {
+                @Override
+                public HttpMethod method() {
+                    return method;
+                }
+            },
+            response
+        );
+
+        headHttpResponse.setMethodNotAllowed(
+            method,
+            Lists.of(HttpMethod.GET)
+        );
+
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setMethodNotAllowed(
+            method,
+            Lists.of(
+                HttpMethod.GET,
+                HttpMethod.HEAD
+            )
+        );
+
+        this.checkEquals(
+            expected,
+            response
+        );
+    }
+
+    @Test
+    public void testSetEntitySetStatusMethodNotAllowedHeadAllowedGet() {
+        final HttpResponse response = HttpResponses.recording();
+
+        final HttpMethod method = HttpMethod.HEAD;
+
+        final HeadHttpResponse headHttpResponse = (HeadHttpResponse) HeadHttpResponse.with(
+            new FakeHttpRequest() {
+                @Override
+                public HttpMethod method() {
+                    return method;
+                }
+            },
+            response
+        );
+
+        final HttpEntity httpEntity = HttpEntity.EMPTY.setBodyText("Hello World")
+            .setContentType(MediaType.TEXT_PLAIN)
+            .setContentLength();
+
+        headHttpResponse.setEntity(httpEntity);
+
+        headHttpResponse.setMethodNotAllowed(
+            method,
+            Lists.of(HttpMethod.GET)
+        );
+
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setMethodNotAllowed(
+            method,
+            Lists.of(
+                HttpMethod.GET,
+                HttpMethod.HEAD
+            )
+        );
+        expected.setEntity(
+            httpEntity.setHeader(
+                HttpHeaderName.ALLOW,
+                Lists.of(
+                    Lists.of(
+                        HttpMethod.GET,
+                        HttpMethod.HEAD
+                    )
+                )
+            ).setBodyText("")
+        );
+
+        this.checkEquals(
+            expected,
+            response
+        );
+    }
+
+    @Test
+    public void testSetStatusMethodNotAllowedHeadAllowedGetAndHead() {
+        final HttpResponse response = HttpResponses.recording();
+
+        final HttpMethod method = HttpMethod.HEAD;
+
+        final HeadHttpResponse headHttpResponse = (HeadHttpResponse) HeadHttpResponse.with(
+            new FakeHttpRequest() {
+                @Override
+                public HttpMethod method() {
+                    return method;
+                }
+            },
+            response
+        );
+
+        headHttpResponse.setEntity(
+            HttpEntity.EMPTY.setContentLength()
+        );
+        headHttpResponse.setMethodNotAllowed(
+            method,
+            Lists.of(
+                HttpMethod.GET,
+                HttpMethod.HEAD
+            )
+        );
+
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setMethodNotAllowed(
+            method,
+            Lists.of(
+                HttpMethod.GET,
+                HttpMethod.HEAD
+            )
+        );
+        expected.setEntity(
+            expected.entity()
+                .setContentLength()
+        );
+
+        this.checkEquals(
+            expected,
+            response
         );
     }
 
