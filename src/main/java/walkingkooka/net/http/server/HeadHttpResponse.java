@@ -29,7 +29,8 @@ import java.util.Objects;
  */
 final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
 
-    static HttpResponse with(final HttpRequest request, final HttpResponse response) {
+    static HttpResponse with(final HttpRequest request,
+                             final HttpResponse response) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
 
@@ -38,7 +39,8 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
             response;
     }
 
-    private HeadHttpResponse(final HttpRequest request, final HttpResponse response) {
+    private HeadHttpResponse(final HttpRequest request,
+                             final HttpResponse response) {
         super(request, response);
     }
 
