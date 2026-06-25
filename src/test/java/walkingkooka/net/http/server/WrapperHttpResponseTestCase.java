@@ -105,6 +105,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                 assertSame(status, s);
                 setStatus++;
             }
+
+            @Override
+            public Optional<HttpStatus> status() {
+                return Optional.empty();
+            }
+
         }).setStatus(status);
         this.checkEquals(1, this.setStatus, "wrapped response setStatus not called");
     }

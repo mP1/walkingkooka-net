@@ -17,10 +17,14 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.net.http.HttpStatusCode;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,10 +50,45 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
     @Override
     public void setStatus(final HttpStatus status) {
         this.response.setStatus(status);
+
+        this.fixAllowedHeaderIfNecessary();
     }
 
     @Override
     public void setEntity(final HttpEntity entity) {
-        this.response.setEntity(entity.setBody(HttpEntity.NO_BODY));
+        this.response.setEntity(
+            entity.setBody(HttpEntity.NO_BODY)
+        );
+        this.fixAllowedHeaderIfNecessary();
+    }
+
+    private void fixAllowedHeaderIfNecessary() {
+        if (this.response.status()
+            .map((HttpStatus s) -> s.value() == HttpStatusCode.METHOD_NOT_ALLOWED)
+            .orElse(false)) {
+
+            final HttpResponse response = this.response;
+
+            final HttpEntity entity = response.entity();
+            final List<HttpMethod> allowed = HttpHeaderName.ALLOW.header(entity)
+                .orElse(Lists.empty());
+
+            // do nothing if already contains HEAD
+            if (false == allowed.contains(HttpMethod.HEAD)) {
+                if (allowed.contains(HttpMethod.GET)) {
+
+                    final List<HttpMethod> allowedAndHeader = Lists.array();
+                    allowedAndHeader.addAll(allowed);
+                    allowedAndHeader.add(HttpMethod.HEAD);
+
+                    response.setEntity(
+                        entity.setHeader(
+                            HttpHeaderName.ALLOW,
+                            Lists.of(allowedAndHeader)
+                        )
+                    );
+                }
+            }
+        }
     }
 }
