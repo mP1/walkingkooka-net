@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HasShortMessageTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
@@ -41,23 +42,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     HeaderTesting<HttpMethod>,
     HasShortMessageTesting,
+    HasValueTesting,
     ThrowableTesting,
     ComparableTesting2<HttpMethod>,
     ConstantsTesting<HttpMethod> {
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> HttpMethod.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpMethod.with(null)
+        );
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with(""));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> HttpMethod.with("")
+        );
     }
 
     @Test
     public void testWithWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with("   "));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> HttpMethod.with("   ")
+        );
     }
 
     @Test
@@ -82,72 +93,94 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     public void testWith() {
         final String value = HttpMethod.GET.value();
         final HttpMethod method = HttpMethod.with(value);
-        assertSame(value, method.value(), "value");
+
+        assertSame(
+            value,
+            method.value(),
+            "value"
+        );
+        this.valueAndCheck(
+            method,
+            value
+        );
+
         assertSame(HttpMethod.GET, method);
     }
 
     @Test
-    public void testCustom() {
+    public void testWithCustom() {
         final String value = "XYZ";
         final HttpMethod method = HttpMethod.with(value);
-        assertSame(value, method.value(), "value");
+
+        assertSame(
+            value,
+            method.value(),
+            "value"
+        );
+        this.valueAndCheck(
+            method,
+            value
+        );
+
         assertNotSame(method, HttpMethod.with(value));
     }
 
     @Test
-    public void testEqualsDifferentCaseGet() {
+    public void testWithGetDifferentCase() {
         assertSame(HttpMethod.GET, HttpMethod.with("GeT"));
     }
 
     @Test
-    public void testHead() {
+    public void testWithHead() {
         this.singleton(HttpMethod.HEAD);
     }
 
     @Test
-    public void testGet() {
+    public void testWithGet() {
         this.singleton(HttpMethod.GET);
     }
 
     @Test
-    public void testPost() {
+    public void testWithPost() {
         this.singleton(HttpMethod.POST);
     }
 
     @Test
-    public void testPut() {
+    public void testWithPut() {
         this.singleton(HttpMethod.PUT);
     }
 
     @Test
-    public void testDelete() {
+    public void testWithDelete() {
         this.singleton(HttpMethod.DELETE);
     }
 
     @Test
-    public void testTrace() {
+    public void testWithTrace() {
         this.singleton(HttpMethod.TRACE);
     }
 
     @Test
-    public void testOptions() {
+    public void testWithOptions() {
         this.singleton(HttpMethod.OPTIONS);
     }
 
     @Test
-    public void testPatch() {
+    public void testWithPatch() {
         this.singleton(HttpMethod.PATCH);
     }
 
     @Test
-    public void testConnect() {
+    public void testWithConnect() {
         this.singleton(HttpMethod.CONNECT);
     }
 
     private void singleton(final HttpMethod method) {
-        assertSame(method,
+        assertSame(
+            method,
             HttpMethod.with(method.value()),
-            "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())");
+            "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())"
+        );
     }
 
     @Test
@@ -156,9 +189,11 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     private void isGetOrHeadCheck(final HttpMethod constant) {
-        this.checkEquals(HttpMethod.GET == constant || HttpMethod.HEAD == constant,
+        this.checkEquals(
+            HttpMethod.GET == constant || HttpMethod.HEAD == constant,
             constant.isGetOrHead(),
-            constant + ".isGetOrHead test");
+            () -> constant + ".isGetOrHead test"
+        );
     }
 
     private Set<HttpMethod> constants() throws Exception {
@@ -190,34 +225,6 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         this.textAndCheck(HttpMethod.with(text), headerText);
     }
 
-    @Test
-    public void testEqualsDifferent() {
-        this.checkNotEquals(HttpMethod.POST);
-    }
-
-    @Test
-    public void testCompareToArraySort() {
-        this.compareToArraySortAndCheck(HttpMethod.HEAD, HttpMethod.PUT, HttpMethod.GET, HttpMethod.POST,
-            HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT);
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(HttpMethod.GET, "GET");
-    }
-
-    // Comparable..........................................................................................
-
-    @Test
-    public void testCompareBefore() {
-        this.compareToAndCheckLess(HttpMethod.POST); // GET < POST
-    }
-
-    @Test
-    public void testCompareAfter() {
-        this.compareToAndCheckMore(HttpMethod.DELETE); // GET > DELETE
-    }
-
     @Override
     public HttpMethod createHeader() {
         return HttpMethod.GET;
@@ -243,7 +250,49 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         return true;
     }
 
-    // ClassTesting.................................................................................
+    // equals/compareTo.................................................................................................
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(HttpMethod.POST);
+    }
+
+    @Test
+    public void testCompareToArraySort() {
+        this.compareToArraySortAndCheck(
+            HttpMethod.HEAD, HttpMethod.PUT, HttpMethod.GET, HttpMethod.POST,
+            HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT
+        );
+    }
+
+    @Test
+    public void testCompareBefore() {
+        this.compareToAndCheckLess(HttpMethod.POST); // GET < POST
+    }
+
+    @Test
+    public void testCompareAfter() {
+        this.compareToAndCheckMore(HttpMethod.DELETE); // GET > DELETE
+    }
+
+    @Override
+    public HttpMethod createObject() {
+        return this.createComparable();
+    }
+
+    @Override
+    public HttpMethod createComparable() {
+        return HttpMethod.GET;
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(HttpMethod.GET, "GET");
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<HttpMethod> type() {
@@ -255,22 +304,10 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         return JavaVisibility.PUBLIC;
     }
 
-    // ConstantsTesting.................................................................................
+    // ConstantsTesting.................................................................................................
 
     @Override
     public Set<HttpMethod> intentionalDuplicateConstants() {
         return Sets.empty();
-    }
-
-    // ComparableTesting.................................................................................
-
-    @Override
-    public HttpMethod createObject() {
-        return this.createComparable();
-    }
-
-    @Override
-    public HttpMethod createComparable() {
-        return HttpMethod.GET;
     }
 }
