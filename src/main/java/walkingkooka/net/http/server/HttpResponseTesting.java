@@ -19,7 +19,9 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.reflect.TypeNameTesting;
@@ -45,6 +47,30 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
             NullPointerException.class,
             () -> this.createResponse()
                 .setStatus(null)
+        );
+    }
+
+    @Test
+    default void testSetMethodNotAllowedWithNullMethodFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createResponse()
+                .setMethodNotAllowed(
+                    null,
+                    Lists.of(HttpMethod.HEAD)
+                )
+        );
+    }
+
+    @Test
+    default void testSetMethodNotAllowedWithNullAllowedMethodsFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createResponse()
+                .setMethodNotAllowed(
+                    HttpMethod.GET,
+                    null
+                )
         );
     }
 

@@ -18,8 +18,11 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -27,10 +30,43 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.printer.TreePrintableTesting;
 
+import java.util.List;
 import java.util.Optional;
 
 public final class HttpResponseTest implements ClassTesting<HttpResponse>,
     TreePrintableTesting {
+
+    // setMethodNotAllowed..............................................................................................
+
+    @Test
+    public void testSetMethodNotAllowed() {
+        final HttpResponse response = HttpResponses.recording();
+
+        final List<HttpMethod> allowedMethods = Lists.of(
+            HttpMethod.GET,
+            HttpMethod.POST
+        );
+        response.setMethodNotAllowed(
+            HttpMethod.HEAD,
+            allowedMethods
+        );
+
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setStatus(
+            HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Method HEAD not allowed")
+        );
+        expected.setEntity(
+            HttpEntity.EMPTY.addHeader(
+                HttpHeaderName.ALLOW,
+                allowedMethods
+            )
+        );
+
+        this.checkEquals(
+            expected,
+            response
+        );
+    }
 
     // TreePrintable....................................................................................................
 
