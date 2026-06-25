@@ -24,8 +24,7 @@ import walkingkooka.net.http.HttpStatus;
 import java.util.Objects;
 
 /**
- * If the request was a HEAD, wraps the response which will only accept the first entity and its headers. All further
- * entities will be ignored.
+ * If the request was a HEAD, wraps the response and clears any body for given {@link HttpEntity}.
  */
 final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
 
@@ -51,11 +50,6 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
 
     @Override
     public void setEntity(final HttpEntity entity) {
-        if (this.first) {
-            this.first = false;
-            this.response.setEntity(entity.setBody(HttpEntity.NO_BODY));
-        }
+        this.response.setEntity(entity.setBody(HttpEntity.NO_BODY));
     }
-
-    private boolean first = true;
 }

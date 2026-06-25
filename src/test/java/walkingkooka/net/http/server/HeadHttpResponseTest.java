@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
@@ -93,6 +94,34 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
                 );
             }
         }
+    }
+
+    @Test
+    public void testSetEntityLastWins() {
+        final RecordingHttpResponse recording = RecordingHttpResponse.with();
+
+        final HttpRequest request = this.createRequest(HttpMethod.HEAD);
+        final HttpResponse response = HeadHttpResponse.with(request, recording);
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
+
+        response.setStatus(
+            HttpStatusCode.OK.status()
+        );
+        response.setEntity(
+            HttpEntity.EMPTY.setBodyText("HttpEntity111")
+        );
+
+        final HttpEntity entity = HttpEntity.EMPTY.setBodyText("HttpEntity222");
+
+        response.setEntity(entity);
+
+        this.checkEquals(
+            HttpResponses.parse(
+                "HTTP/1.0 200 OK"
+            ),
+            recording
+        );
     }
 
     @Test
