@@ -18,12 +18,17 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.header.HasStatus;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -47,6 +52,32 @@ public interface HttpResponse extends HasStatus,
      * Sets the response status
      */
     void setStatus(final HttpStatus status);
+
+    /**
+     * <a href="https://restfulapi.net/http-status-codes/"></a>
+     * <pre>
+     * 405 (Method Not Allowed)
+     * The API responds with a 405 error to indicate that the client tried to use an HTTP method that the resource does not allow. For instance, a read-only resource could support only GET and HEAD, while a controller resource might allow GET and POST, but not PUT or DELETE.
+     *
+     * A 405 response must include the Allow header, which lists the HTTP methods that the resource supports. For example:
+     *
+     * Allow: GET, POST
+     * </pre>>
+     */
+    default void setMethodNotAllowed(final HttpMethod method,
+                                     final List<HttpMethod> allowed) {
+        Objects.requireNonNull(method, "method");
+        Objects.requireNonNull(allowed, "allowed");
+
+        this.setStatus(
+            HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(
+                "Method " + method.value() + " not allowed"
+            )
+        );
+        this.setEntity(
+            HttpEntity.EMPTY.addHeader(HttpHeaderName.ALLOW, allowed)
+        );
+    }
 
     /**
      * Returns the {@link HttpStatus}
