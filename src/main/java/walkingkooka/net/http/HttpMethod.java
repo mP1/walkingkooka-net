@@ -31,63 +31,63 @@ public final class HttpMethod implements HasValue<String>,
     Header,
     Comparable<HttpMethod> {
 
-    private final static String HEAD_STRING = "HEAD";
+    public final static String HEAD_STRING = "HEAD";
 
     /**
      * The <code>HEAD</code> method
      */
     public final static HttpMethod HEAD = createConstant(HEAD_STRING);
 
-    private final static String GET_STRING = "GET";
+    public final static String GET_STRING = "GET";
 
     /**
      * The <code>GET</code> method
      */
     public final static HttpMethod GET = createConstant(GET_STRING);
 
-    private final static String POST_STRING = "POST";
+    public final static String POST_STRING = "POST";
 
     /**
      * The <code>POST</code> method
      */
     public final static HttpMethod POST = createConstant(POST_STRING);
 
-    private final static String PUT_STRING = "PUT";
+    public final static String PUT_STRING = "PUT";
 
     /**
      * The <code>PUT</code> method
      */
     public final static HttpMethod PUT = createConstant(PUT_STRING);
 
-    private final static String DELETE_STRING = "DELETE";
+    public final static String DELETE_STRING = "DELETE";
 
     /**
      * The <code>DELETE</code> method
      */
     public final static HttpMethod DELETE = createConstant(DELETE_STRING);
 
-    private final static String TRACE_STRING = "TRACE";
+    public final static String TRACE_STRING = "TRACE";
 
     /**
      * The <code>TRACE</code> method
      */
     public final static HttpMethod TRACE = createConstant(TRACE_STRING);
 
-    private final static String OPTIONS_STRING = "OPTIONS";
+    public final static String OPTIONS_STRING = "OPTIONS";
 
     /**
      * The <code>OPTIONS</code> method
      */
     public final static HttpMethod OPTIONS = createConstant(OPTIONS_STRING); //
 
-    private final static String CONNECT_STRING = "CONNECT";
+    public final static String CONNECT_STRING = "CONNECT";
 
     /**
      * The <code>CONNECT</code> method
      */
     public final static HttpMethod CONNECT = createConstant(CONNECT_STRING);
 
-    private final static String PATCH_STRING = "PATCH";
+    public final static String PATCH_STRING = "PATCH";
 
     /**
      * The <code>PATCH</code> method
