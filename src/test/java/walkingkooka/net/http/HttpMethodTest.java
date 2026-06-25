@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.header.HeaderTesting;
@@ -25,6 +26,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -37,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     HeaderTesting<HttpMethod>,
+    ThrowableTesting,
     ComparableTesting2<HttpMethod>,
     ConstantsTesting<HttpMethod> {
 
@@ -57,7 +60,15 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     @Test
     public void testWithNonLetterFails() {
-        assertThrows(IllegalArgumentException.class, () -> HttpMethod.with("METH1"));
+        final InvalidCharacterException thrown = assertThrows(
+            InvalidCharacterException.class,
+            () -> HttpMethod.with("METH1")
+        );
+
+        this.getMessageAndCheck(
+            thrown,
+            "Invalid \"Method\" character '1' at 4"
+        );
     }
 
     @Test

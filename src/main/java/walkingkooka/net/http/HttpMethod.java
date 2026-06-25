@@ -19,10 +19,12 @@ package walkingkooka.net.http;
 
 import walkingkooka.Cast;
 import walkingkooka.HasValue;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.header.Header;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
+
+import java.util.Optional;
 
 /**
  * A {@link HasValue} including an enumeration of standards methods that contains the HTTP request methods.
@@ -144,9 +146,12 @@ public final class HttpMethod implements HasValue<String>,
                 for (int i = 0; i < length; i++) {
                     final char c = method.charAt(i);
                     if (false == Character.isLetter(c)) {
-                        throw new IllegalArgumentException(
-                            "Method includes invalid character " + CharSequences.quoteAndEscape(c) + "'="
-                                + CharSequences.quoteAndEscape(method));
+                        throw new InvalidCharacterException(
+                            method,
+                            i
+                        ).setLabel(
+                            Optional.of("Method")
+                        );
                     }
                 }
 
