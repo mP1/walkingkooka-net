@@ -38,44 +38,59 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
     private final static int CONTENT_LENGTH = 26;
 
+    private final Map<HttpHeaderName<?>, List<?>> HEADERS = Maps.of(
+        HttpHeaderName.CONTENT_TYPE, list(MediaType.BINARY),
+        HttpHeaderName.CONTENT_LENGTH, list(Long.valueOf(CONTENT_LENGTH)),
+        HttpHeaderName.SERVER, list("Server 123")
+    );
+
     @Test
-    public void testGetNotWrapped() {
-        this.responseNotWrappedAndCheck(HttpMethod.GET);
+    public void testWithGetNotWrapped() {
+        this.withAndNotWrappedCheck(HttpMethod.GET);
     }
 
     @Test
-    public void testPostNotWrapped() {
-        this.responseNotWrappedAndCheck(HttpMethod.POST);
+    public void testWithPostNotWrapped() {
+        this.withAndNotWrappedCheck(HttpMethod.POST);
     }
 
     @Test
-    public void testDeleteNotWrapped() {
-        this.responseNotWrappedAndCheck(HttpMethod.DELETE);
+    public void testWithDeleteNotWrapped() {
+        this.withAndNotWrappedCheck(HttpMethod.DELETE);
     }
 
     @Test
-    public void testPutNotWrapped() {
-        this.responseNotWrappedAndCheck(HttpMethod.PUT);
+    public void testWithPutNotWrapped() {
+        this.withAndNotWrappedCheck(HttpMethod.PUT);
     }
 
-    private void responseNotWrappedAndCheck(final HttpMethod method) {
+    private void withAndNotWrappedCheck(final HttpMethod method) {
         final HttpResponse response = HttpResponses.fake();
-        assertSame(response, HeadHttpResponse.with(this.createRequest(method), response));
+        assertSame(
+            response,
+            HeadHttpResponse.with(
+                this.createRequest(method),
+                response
+            )
+        );
     }
 
     @Test
     public void testHeadIgnoreResponseBody() {
-        final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
-
         for (final HttpProtocolVersion version : HttpProtocolVersion.values()) {
             for (final HttpStatusCode status : HttpStatusCode.values()) {
-                this.setVersionStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
+                this.setVersionStatusAddEntityAndCheck(
+                    this.createRequest(HttpMethod.HEAD),
                     version,
                     status.status(),
-                    httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])),
+                    httpEntity(HEADERS)
+                        .setBody(
+                            Binary.with(new byte[CONTENT_LENGTH])
+                        ),
                     version,
                     status.status(),
-                    httpEntity(headers));
+                    httpEntity(HEADERS)
+                );
             }
         }
     }
@@ -84,7 +99,6 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
     public void testMultipartResponse() {
         final HttpProtocolVersion version = HttpProtocolVersion.VERSION_1_1;
         final HttpStatus status = HttpStatusCode.OK.status();
-        final Map<HttpHeaderName<?>, List<?>> headers = this.headers();
 
         final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = this.createRequest(HttpMethod.HEAD);
@@ -93,28 +107,38 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         response.setVersion(version);
         response.setStatus(status);
 
-        response.setEntity(httpEntity(headers).setBody(Binary.with(new byte[CONTENT_LENGTH])));
+        response.setEntity(httpEntity(HEADERS)
+            .setBody(
+                Binary.with(new byte[CONTENT_LENGTH])
+            )
+        );
 
         final byte[] bytes2 = new byte[CONTENT_LENGTH];
         Arrays.fill(bytes2, (byte) 'A');
-        response.setEntity(httpEntity(headers).setBody(Binary.with(bytes2)));
+        response.setEntity(
+            httpEntity(HEADERS)
+                .setBody(Binary.with(bytes2)
+                )
+        );
 
-        this.checkResponse(recording,
+        this.checkResponse(
+            recording,
             request,
             version,
             status,
-            httpEntity(headers));
-    }
-
-    private Map<HttpHeaderName<?>, List<?>> headers() {
-        return Maps.of(HttpHeaderName.CONTENT_TYPE, list(MediaType.BINARY),
-            HttpHeaderName.CONTENT_LENGTH, list(Long.valueOf(CONTENT_LENGTH)),
-            HttpHeaderName.SERVER, list("Server 123"));
+            httpEntity(HEADERS)
+        );
     }
 
     @Override
-    HeadHttpResponse createResponse(final HttpRequest request, final HttpResponse response) {
-        return Cast.to(HeadHttpResponse.with(request, response));
+    HeadHttpResponse createResponse(final HttpRequest request,
+                                    final HttpResponse response) {
+        return Cast.to(
+            HeadHttpResponse.with(
+                request,
+                response
+            )
+        );
     }
 
     @Override
@@ -129,6 +153,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
                 return method;
             }
 
+            @Override
             public String toString() {
                 return this.method().toString();
             }
