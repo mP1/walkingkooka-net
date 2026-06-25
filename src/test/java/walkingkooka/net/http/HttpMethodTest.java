@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasShortMessageTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
@@ -39,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     HeaderTesting<HttpMethod>,
+    HasShortMessageTesting,
     ThrowableTesting,
     ComparableTesting2<HttpMethod>,
     ConstantsTesting<HttpMethod> {
@@ -68,6 +70,11 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         this.getMessageAndCheck(
             thrown,
             "Invalid \"Method\" character '1' at 4"
+        );
+
+        this.getShortMessageAndCheck(
+            thrown,
+            "Invalid character '1' at 4"
         );
     }
 
