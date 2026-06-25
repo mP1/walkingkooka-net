@@ -38,7 +38,7 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
             response;
     }
 
-    private HeadHttpResponse(HttpRequest request, HttpResponse response) {
+    private HeadHttpResponse(final HttpRequest request, final HttpResponse response) {
         super(request, response);
     }
 
