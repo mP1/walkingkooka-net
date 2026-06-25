@@ -75,7 +75,8 @@ public interface HttpResponse extends HasStatus,
             )
         );
         this.setEntity(
-            HttpEntity.EMPTY.addHeader(HttpHeaderName.ALLOW, allowed)
+            this.entity()
+                .addHeader(HttpHeaderName.ALLOW, allowed)
         );
     }
 

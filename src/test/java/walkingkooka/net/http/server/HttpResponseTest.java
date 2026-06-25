@@ -42,6 +42,10 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>,
     public void testSetMethodNotAllowed() {
         final HttpResponse response = HttpResponses.recording();
 
+        response.setEntity(
+            HttpEntity.EMPTY.setContentType(MediaType.TEXT_PLAIN)
+        );
+
         final List<HttpMethod> allowedMethods = Lists.of(
             HttpMethod.GET,
             HttpMethod.POST
@@ -59,7 +63,7 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>,
             HttpEntity.EMPTY.addHeader(
                 HttpHeaderName.ALLOW,
                 allowedMethods
-            )
+            ).setContentType(MediaType.TEXT_PLAIN)
         );
 
         this.checkEquals(
