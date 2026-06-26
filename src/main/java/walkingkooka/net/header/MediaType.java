@@ -127,6 +127,21 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public final static MediaType TEXT_HTML = registerConstant("text/html");
 
     /**
+     * Holds a {@link MediaType} for TAB separated values.
+     * <br>
+     * https://en.wikipedia.org/wiki/Tab-separated_values
+     * <pre>
+     * Tab-separated values (TSV) is a plain text data format for storing tabular data where the values of a record are
+     * separated by a tab character and each record is a line (i.e. newline separated).[3] The TSV format is a form of
+     * delimiter-separated values (DSV) and is similar to the commonly-used comma-separated values (CSV) format.
+     *
+     * TSV is a relatively simple format and is widely supported for data exchange by software that generally deals with
+     * tabular data. For example, a TSV file might be used to transfer information from a database to a spreadsheet.
+     * </pre>
+     */
+    public final static MediaType TEXT_TAB_SEPARATED_VALUES = registerConstant("text/tab-separated-values");
+
+    /**
      * Holds a {@link MediaType} for XML text/xml
      */
     public final static MediaType TEXT_XML = registerConstant("text/xml");
