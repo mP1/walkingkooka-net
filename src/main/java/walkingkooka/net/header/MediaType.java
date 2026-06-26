@@ -102,6 +102,16 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public final static MediaType ANY_TEXT = registerConstant("text/*");
 
     /**
+     * Holds a {@link MediaType} for comma separated values.
+     * https://en.wikipedia.org/wiki/Comma-separated_values
+     * <pre>
+     * The format is more formally described in the 2005 technical standard RFC 4180 which codifies the CSV format and
+     * defines the MIME type text/csv for the handling of text-based fields. Among its requirements:
+     * </pre>
+     */
+    public final static MediaType TEXT_CSV = registerConstant("text/csv");
+
+    /**
      * Holds a {@link MediaType} for plain text.
      */
     public final static MediaType TEXT_PLAIN = registerConstant("text/plain");
