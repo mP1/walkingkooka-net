@@ -45,7 +45,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     // tests
 
     @Test
-    public void testNullPathFails() {
+    public void testWithNullPathFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createUrl(
@@ -57,7 +57,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     }
 
     @Test
-    public void testNullQueryFails() {
+    public void testWithNullQueryFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createUrl(
@@ -69,7 +69,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     }
 
     @Test
-    public void testNullFragmentFails() {
+    public void testWithNullFragmentFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createUrl(
