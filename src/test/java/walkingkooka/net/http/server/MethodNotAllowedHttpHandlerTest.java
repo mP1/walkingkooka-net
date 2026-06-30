@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -27,17 +28,18 @@ import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting<MethodNotAllowedHttpHandler>,
-    ToStringTesting<MethodNotAllowedHttpHandler> {
+public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
-    private final static HttpHandler HANDLER = new HttpHandler() {
+    private final static HttpHandler<FakeHttpHandlerContext> HANDLER = new HttpHandler<>() {
         @Override
         public void handle(final HttpRequest request,
-                           final HttpResponse response) {
+                           final HttpResponse response,
+                           final FakeHttpHandlerContext context) {
             response.setStatus(STATUS);
             response.setEntity(ENTITY);
         }
@@ -86,7 +88,7 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     }
 
     @Override
-    public MethodNotAllowedHttpHandler createHttpHandler() {
+    public MethodNotAllowedHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return MethodNotAllowedHttpHandler.with(METHOD, HANDLER);
     }
 
@@ -105,6 +107,11 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
         };
     }
 
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -118,8 +125,8 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<MethodNotAllowedHttpHandler> type() {
-        return MethodNotAllowedHttpHandler.class;
+    public Class<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(MethodNotAllowedHttpHandler.class);
     }
 
     @Override

@@ -26,10 +26,10 @@ import java.util.Set;
 /**
  * Copies headers from the request to the response. If a header is absent from the request it is skipped.
  */
-final class HeadersCopyHttpHandler implements HttpHandler {
+final class HeadersCopyHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static HeadersCopyHttpHandler with(final Set<HttpHeaderName<?>> headers,
-                                       final HttpHandler handler) {
+    static <C extends HttpHandlerContext> HeadersCopyHttpHandler<C> with(final Set<HttpHeaderName<?>> headers,
+                                                                         final HttpHandler<C> handler) {
         Objects.requireNonNull(headers, "headers");
         Objects.requireNonNull(handler, "handler");
 
@@ -38,11 +38,11 @@ final class HeadersCopyHttpHandler implements HttpHandler {
             throw new IllegalArgumentException("Headers to copy must not be empty");
         }
 
-        return new HeadersCopyHttpHandler(copy, handler);
+        return new HeadersCopyHttpHandler<>(copy, handler);
     }
 
     private HeadersCopyHttpHandler(final Set<HttpHeaderName<?>> headers,
-                                   final HttpHandler handler) {
+                                   final HttpHandler<C> handler) {
         super();
         this.headers = headers;
         this.handler = handler;
@@ -50,13 +50,16 @@ final class HeadersCopyHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
-        this.handler.handle(request,
+                       final HttpResponse response,
+                       final C context) {
+        this.handler.handle(
+            request,
             HttpResponses.headersCopy(
                 request,
                 this.headers,
                 response
-            )
+            ),
+            context
         );
     }
 
@@ -65,7 +68,7 @@ final class HeadersCopyHttpHandler implements HttpHandler {
      */
     private final Set<HttpHeaderName<?>> headers;
 
-    private final HttpHandler handler;
+    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {

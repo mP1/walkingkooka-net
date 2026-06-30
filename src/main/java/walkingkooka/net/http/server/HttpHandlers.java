@@ -34,47 +34,47 @@ public final class HttpHandlers implements PublicStaticHelper {
     /**
      * {@see ContentTypeHttpHandler}
      */
-    public static HttpHandler contentType(final MediaType contentType,
-                                          final HttpHandler handler) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> contentType(final MediaType contentType,
+                                                                            final HttpHandler<C> handler) {
         return ContentTypeHttpHandler.with(contentType, handler);
     }
 
     /**
      * {@see FakeHttpHandler}
      */
-    public static HttpHandler fake() {
-        return new FakeHttpHandler();
+    public static <C extends HttpHandlerContext> HttpHandler<C> fake() {
+        return new FakeHttpHandler<>();
     }
 
     /**
      * {@see HeadersCopyHttpHandler}
      */
-    public static HttpHandler headerCopy(final Set<HttpHeaderName<?>> headers,
-                                         final HttpHandler handler) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> headerCopy(final Set<HttpHeaderName<?>> headers,
+                                                                           final HttpHandler<C> handler) {
         return HeadersCopyHttpHandler.with(headers, handler);
     }
 
     /**
      * {@see MethodNotAllowedHttpHandler}
      */
-    public static HttpHandler methodNotAllowed(final HttpMethod method,
-                                               final HttpHandler handler) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> methodNotAllowed(final HttpMethod method,
+                                                                                 final HttpHandler<C> handler) {
         return MethodNotAllowedHttpHandler.with(method, handler);
     }
 
     /**
      * {@see RouterHttpHandler}
      */
-    public static HttpHandler router(final Router<HttpRequestAttribute<?>, HttpHandler> router,
-                                     final HttpHandler notFound) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> router(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
+                                                                       final HttpHandler<C> notFound) {
         return RouterHttpHandler.with(router, notFound);
     }
 
     /**
      * {@see StacktraceDumpingHttpHandler}
      */
-    public static HttpHandler stacktraceDumping(final HttpHandler handler,
-                                                final Function<Throwable, HttpStatus> throwableTranslator) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> stacktraceDumping(final HttpHandler<C> handler,
+                                                                                  final Function<Throwable, HttpStatus> throwableTranslator) {
         return StacktraceDumpingHttpHandler.with(
             handler,
             throwableTranslator
@@ -91,8 +91,8 @@ public final class HttpHandlers implements PublicStaticHelper {
     /**
      * {@see WebFileHttpHandler}
      */
-    public static HttpHandler webFile(final UrlPath basePath,
-                                      final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
+    public static <C extends HttpHandlerContext> HttpHandler<C> webFile(final UrlPath basePath,
+                                                                        final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         return WebFileHttpHandler.with(basePath, files);
     }
 

@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
@@ -31,8 +32,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHttpHandler>,
-    ToStringTesting<RouterHttpHandler> {
+public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<RouterHttpHandler<FakeHttpHandlerContext>> {
 
     @Test
     public void testWithNullRouterFails() {
@@ -86,18 +87,18 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     }
 
     @Override
-    public RouterHttpHandler createHttpHandler() {
+    public RouterHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return RouterHttpHandler.with(
             this.router(),
             this.notFound()
         );
     }
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> router() {
+    private Router<HttpRequestAttribute<?>, HttpHandler<FakeHttpHandlerContext>> router() {
         return this::router0;
     }
 
-    private Optional<HttpHandler> router0(Map<HttpRequestAttribute<?>, Object> parameters) {
+    private Optional<HttpHandler<FakeHttpHandlerContext>> router0(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return Optional.ofNullable(
             HttpMethod.POST == parameters.get(HttpRequestAttributes.METHOD) ?
                 this.ok() :
@@ -105,21 +106,23 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
         );
     }
 
-    private HttpHandler ok() {
+    private HttpHandler<FakeHttpHandlerContext> ok() {
         return this::ok0;
     }
 
     private void ok0(final HttpRequest request,
-                     final HttpResponse response) {
+                     final HttpResponse response,
+                     final FakeHttpHandlerContext context) {
         response.setStatus(HttpStatusCode.OK.status());
     }
 
-    private HttpHandler notFound() {
+    private HttpHandler<FakeHttpHandlerContext> notFound() {
         return this::notFound0;
     }
 
     private void notFound0(final HttpRequest request,
-                           final HttpResponse response) {
+                           final HttpResponse response,
+                           final FakeHttpHandlerContext context) {
         response.setStatus(HttpStatusCode.NOT_FOUND.status());
     }
 
@@ -143,12 +146,18 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
         };
     }
 
+
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
+    }
+
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        final Router<HttpRequestAttribute<?>, HttpHandler> router = this.router();
-        final HttpHandler notFound = this.notFound();
+        final Router<HttpRequestAttribute<?>, HttpHandler<FakeHttpHandlerContext>> router = this.router();
+        final HttpHandler<FakeHttpHandlerContext> notFound = this.notFound();
 
         this.toStringAndCheck(RouterHttpHandler.with(router, notFound), router + " OR " + notFound);
     }
@@ -156,8 +165,8 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     // class............................................................................................................
 
     @Override
-    public Class<RouterHttpHandler> type() {
-        return RouterHttpHandler.class;
+    public Class<RouterHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(RouterHttpHandler.class);
     }
 
     @Override

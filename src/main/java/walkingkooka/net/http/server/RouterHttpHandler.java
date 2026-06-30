@@ -24,18 +24,21 @@ import java.util.Objects;
 /**
  * A {@link HttpHandler} that attempts locate the handler from the request or uses the default handler.
  */
-final class RouterHttpHandler implements HttpHandler {
+final class RouterHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static RouterHttpHandler with(final Router<HttpRequestAttribute<?>, HttpHandler> router,
-                                  final HttpHandler notFound) {
+    static <C extends HttpHandlerContext> RouterHttpHandler<C> with(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
+                                                                    final HttpHandler<C> notFound) {
         Objects.requireNonNull(router, "router");
         Objects.requireNonNull(notFound, "notFound");
 
-        return new RouterHttpHandler(router, notFound);
+        return new RouterHttpHandler<>(
+            router,
+            notFound
+        );
     }
 
-    private RouterHttpHandler(final Router<HttpRequestAttribute<?>, HttpHandler> router,
-                              final HttpHandler notFound) {
+    private RouterHttpHandler(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
+                              final HttpHandler<C> notFound) {
         super();
         this.router = router;
         this.notFound = notFound;
@@ -43,17 +46,23 @@ final class RouterHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         this.router.route(request.routerParameters())
             .orElse(this.notFound)
-            .handle(request, response);
+            .handle(
+                request,
+                response,
+                context
+            );
     }
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
-    private final HttpHandler notFound;
+    private final Router<HttpRequestAttribute<?>, HttpHandler<C>> router;
+    private final HttpHandler<C> notFound;
 
     @Override
     public String toString() {

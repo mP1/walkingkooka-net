@@ -29,18 +29,18 @@ import java.util.Optional;
  * A {@link HttpHandler} that tests if the request content type matches the requested {@link MediaType} or replies with
  * a {@link HttpStatusCode#BAD_REQUEST}.
  */
-final class ContentTypeHttpHandler implements HttpHandler {
+final class ContentTypeHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static ContentTypeHttpHandler with(final MediaType contentType,
-                                       final HttpHandler handler) {
+    static <C extends HttpHandlerContext> ContentTypeHttpHandler<C> with(final MediaType contentType,
+                                                                         final HttpHandler<C> handler) {
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(handler, "handler");
 
-        return new ContentTypeHttpHandler(contentType, handler);
+        return new ContentTypeHttpHandler<>(contentType, handler);
     }
 
     private ContentTypeHttpHandler(final MediaType contentType,
-                                   final HttpHandler handler) {
+                                   final HttpHandler<C> handler) {
         super();
         this.contentType = contentType;
         this.handler = handler;
@@ -48,14 +48,20 @@ final class ContentTypeHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         final MediaType expected = this.contentType;
         final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.header(request);
         if (mediaType.isPresent() && expected.test(mediaType.get())) {
-            this.handler.handle(request, response);
+            this.handler.handle(
+                request,
+                response,
+                context
+            );
         } else {
             response.setStatus(
                 HttpStatusCode.BAD_REQUEST
@@ -79,7 +85,7 @@ final class ContentTypeHttpHandler implements HttpHandler {
      */
     private final MediaType contentType;
 
-    private final HttpHandler handler;
+    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {

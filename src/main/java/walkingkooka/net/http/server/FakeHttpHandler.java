@@ -17,11 +17,11 @@
 
 package walkingkooka.net.http.server;
 
-public class FakeHttpHandler implements HttpHandler {
-
+public class FakeHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         throw new UnsupportedOperationException();
     }
 }
