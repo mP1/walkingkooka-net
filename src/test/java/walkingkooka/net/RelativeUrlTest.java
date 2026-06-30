@@ -79,7 +79,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         );
     }
 
-    // parseRelative..........................................................................................
+    // parseRelative....................................................................................................
 
     @Override
     public void testParseStringEmptyFails() {
@@ -87,7 +87,10 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
 
     @Test
     public void testParseAbsoluteUrlFails() {
-        assertThrows(IllegalArgumentException.class, () -> RelativeUrl.parseRelative0("https://example.com"));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> RelativeUrl.parseRelative0("https://example.com")
+        );
     }
 
     @Test
@@ -216,7 +219,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         return RelativeUrl.parseRelative0(text);
     }
 
-    // UrlVisitor......................................................................................................
+    // UrlVisitor.......................................................................................................
 
     @Test
     public void testAccept() {
@@ -246,7 +249,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         this.checkEquals("152", b.toString());
     }
 
-    // normalize...................................................................................................
+    // normalize........................................................................................................
 
     @Test
     public void testNormalizeRequired() {
@@ -293,8 +296,14 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     }
 
     @Override
-    protected RelativeUrl createUrl(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
-        return Url.relative(path, query, fragment);
+    protected RelativeUrl createUrl(final UrlPath path,
+                                    final UrlQueryString query,
+                                    final UrlFragment fragment) {
+        return Url.relative(
+            path,
+            query,
+            fragment
+        );
     }
 
     // toString.........................................................................................................
