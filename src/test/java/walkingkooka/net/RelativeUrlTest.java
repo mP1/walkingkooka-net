@@ -43,8 +43,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
             relativeUrl,
             UrlPath.parse("/p1/p2")
         );
-        this.checkEquals(
-            relativeUrl.query(),
+        this.queryAndCheck(
+            relativeUrl,
             queryString
         );
         this.checkEquals(
@@ -69,8 +69,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
             relativeUrl,
             path
         );
-        this.checkEquals(
-            relativeUrl.query(),
+        this.queryAndCheck(
+            relativeUrl,
             queryString
         );
         this.checkEquals(
