@@ -54,17 +54,15 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl implements HasHostA
         Objects.requireNonNull(url, "url");
 
         try {
-            return parseAbsolute1(
-                new URL(url),
-                url
+            return extractUrlComponents(
+                new URL(url)
             );
         } catch (final MalformedURLException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
     }
 
-    private static AbsoluteUrl parseAbsolute1(final URL url,
-                                              final String urlString) {
+    private static AbsoluteUrl extractUrlComponents(final URL url) {
         return AbsoluteUrl.with(
             UrlScheme.with(url.getProtocol()),
             credentials(url),
