@@ -182,7 +182,7 @@ public final class MailToUrl extends Url
                           final UrlQueryString headers) {
         return new MailToUrl(
             url,
-            checkEmailAddresses(emailAddresses),
+            Objects.requireNonNull(emailAddresses, "emailAddresses"),
             checkHeaders(headers)
         );
     }
@@ -200,7 +200,7 @@ public final class MailToUrl extends Url
     }
 
     public MailToUrl setEmailAddresses(final List<EmailAddress> emailAddresses) {
-        checkEmailAddresses(emailAddresses);
+        Objects.requireNonNull(emailAddresses, "emailAddresses");
 
         final List<EmailAddress> copy = Lists.immutable(emailAddresses);
         return this.emailAddresses.equals(emailAddresses) ?
@@ -209,10 +209,6 @@ public final class MailToUrl extends Url
                 copy,
                 headers
             );
-    }
-
-    private static List<EmailAddress> checkEmailAddresses(final List<EmailAddress> emailAddresses) {
-        return Objects.requireNonNull(emailAddresses, "emailAddresses");
     }
 
     private final List<EmailAddress> emailAddresses;
