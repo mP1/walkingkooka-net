@@ -19,6 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.HasValue;
 import walkingkooka.compare.Comparators;
+import walkingkooka.naming.HasPath;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -117,6 +118,7 @@ import java.util.Optional;
  * </pre>
  */
 public abstract class AbsoluteOrRelativeUrl extends Url implements HasValue<String>,
+    HasPath<UrlPath>,
     HasUrlQueryString,
     HasUrlFragment {
 
