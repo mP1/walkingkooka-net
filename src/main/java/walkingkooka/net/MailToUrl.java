@@ -183,7 +183,7 @@ public final class MailToUrl extends Url
         return new MailToUrl(
             url,
             Objects.requireNonNull(emailAddresses, "emailAddresses"),
-            checkHeaders(headers)
+            Objects.requireNonNull(headers, "headers")
         );
     }
 
@@ -218,7 +218,7 @@ public final class MailToUrl extends Url
     }
 
     public MailToUrl setHeaders(final UrlQueryString headers) {
-        checkHeaders(headers);
+        Objects.requireNonNull(headers, "headers");
 
         return this.headers.equals(headers) ?
             this :
@@ -226,10 +226,6 @@ public final class MailToUrl extends Url
                 this.emailAddresses,
                 headers
             );
-    }
-
-    private static UrlQueryString checkHeaders(final UrlQueryString headers) {
-        return Objects.requireNonNull(headers, "headers");
     }
 
     private final UrlQueryString headers;
