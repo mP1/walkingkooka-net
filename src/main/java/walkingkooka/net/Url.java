@@ -129,7 +129,7 @@ public abstract class Url implements HasValue<String>,
      * Examines the URL and attempts to parse it as a relative or absolute url.
      */
     public static Url parse(final String url) {
-        checkUrl(url);
+        Objects.requireNonNull(url, "url");
 
         return CharSequences.startsWith(
             url,
@@ -158,7 +158,7 @@ public abstract class Url implements HasValue<String>,
      * Parses a {@link String url} expecting an {@link AbsoluteUrl} or {@link RelativeUrl}.
      */
     public static AbsoluteOrRelativeUrl parseAbsoluteOrRelative(final String url) {
-        checkUrl(url);
+        Objects.requireNonNull(url, "url");
 
         if (url.startsWith("data:")) {
             throw new IllegalArgumentException("Unknown protocol " + CharSequences.quoteAndEscape(url));
@@ -184,10 +184,6 @@ public abstract class Url implements HasValue<String>,
         return absolute ?
             parseAbsolute(url) :
             parseRelative(url);
-    }
-
-    private static String checkUrl(final String url) {
-        return Objects.requireNonNull(url, "url");
     }
 
     /**
