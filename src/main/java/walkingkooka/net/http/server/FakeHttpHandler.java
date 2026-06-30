@@ -18,9 +18,10 @@
 package walkingkooka.net.http.server;
 
 public class FakeHttpHandler implements HttpHandler {
+
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
-
+        throw new UnsupportedOperationException();
     }
 }
