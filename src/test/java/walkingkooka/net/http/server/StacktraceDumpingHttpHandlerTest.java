@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
@@ -34,8 +35,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTesting<StacktraceDumpingHttpHandler>,
-    ToStringTesting<StacktraceDumpingHttpHandler> {
+public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTesting<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
@@ -56,7 +57,7 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         assertThrows(
             NullPointerException.class,
             () -> StacktraceDumpingHttpHandler.with(
-                (r, s) -> {
+                (r, s, c) -> {
                 },
                 null
             )
@@ -71,18 +72,21 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
 
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.fake();
+        final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
         StacktraceDumpingHttpHandler.with(
-                (r, rr) -> {
+                (r, rr, c) -> {
                     assertSame(r, request);
                     assertSame(rr, response);
+                    assertSame(c, context);
 
                     this.handled = true;
                 },
                 TRANSLATOR)
             .handle(
                 request,
-                response
+                response,
+                context
             );
 
         this.checkEquals(true, this.handled);
@@ -94,18 +98,21 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     public void testHandleThrown() {
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.recording();
+        final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
         StacktraceDumpingHttpHandler.with(
-            (r, rr) -> {
+            (r, rr, c) -> {
                 assertSame(r, request);
                 assertSame(rr, response);
+                assertSame(c, context);
 
                 throw new UnsupportedOperationException();
             },
             TRANSLATOR
         ).handle(
             request,
-            response
+            response,
+            context
         );
 
         this.checkEquals(
@@ -127,20 +134,22 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     }
 
     @Override
-    public StacktraceDumpingHttpHandler createHttpHandler() {
+    public StacktraceDumpingHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return StacktraceDumpingHttpHandler.with(
             wrappedHttpHandler(),
             TRANSLATOR
         );
     }
 
-    private HttpHandler wrappedHttpHandler() {
-        return new HttpHandler() {
+    private HttpHandler<FakeHttpHandlerContext> wrappedHttpHandler() {
+        return new HttpHandler<>() {
             @Override
             public void handle(final HttpRequest request,
-                               final HttpResponse response) {
+                               final HttpResponse response,
+                               final FakeHttpHandlerContext context) {
                 Objects.requireNonNull(request, "request");
                 Objects.requireNonNull(response, "response");
+                Objects.requireNonNull(context, "context");
 
                 throw new UnsupportedOperationException();
             }
@@ -152,11 +161,16 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         };
     }
 
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
+    }
+
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        final HttpHandler wrapped = wrappedHttpHandler();
+        final HttpHandler<FakeHttpHandlerContext> wrapped = wrappedHttpHandler();
         this.toStringAndCheck(
             StacktraceDumpingHttpHandler.with(
                 wrapped,
@@ -169,8 +183,8 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     // class............................................................................................................
 
     @Override
-    public Class<StacktraceDumpingHttpHandler> type() {
-        return StacktraceDumpingHttpHandler.class;
+    public Class<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(StacktraceDumpingHttpHandler.class);
     }
 
     @Override

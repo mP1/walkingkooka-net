@@ -36,14 +36,14 @@ import java.util.function.Function;
  * NOT_MODIFIED will be returned with an empty body. The content-type, last-modified headers will always be added to the response,
  * and a content-length when the body contains the file content.
  */
-final class WebFileHttpHandler implements HttpHandler {
+final class WebFileHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static WebFileHttpHandler with(final UrlPath basePath,
-                                   final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
+    static <C extends HttpHandlerContext> WebFileHttpHandler<C> with(final UrlPath basePath,
+                                                                     final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         Objects.requireNonNull(basePath, "basePath");
         Objects.requireNonNull(files, "files");
 
-        return new WebFileHttpHandler(basePath, files);
+        return new WebFileHttpHandler<>(basePath, files);
     }
 
     /**
@@ -58,9 +58,11 @@ final class WebFileHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         // extract path and verify is valid.
         final UrlPath fullPath = request.url()

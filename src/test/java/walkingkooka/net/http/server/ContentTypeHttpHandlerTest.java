@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -36,19 +37,21 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<ContentTypeHttpHandler>,
-    ToStringTesting<ContentTypeHttpHandler> {
+public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<ContentTypeHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<ContentTypeHttpHandler<FakeHttpHandlerContext>> {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
-    private final static HttpHandler HANDLER = new HttpHandler() {
+    private final static HttpHandler<FakeHttpHandlerContext> HANDLER = new HttpHandler<>() {
         @Override
         public void handle(final HttpRequest request,
-                           final HttpResponse response) {
+                           final HttpResponse response,
+                           final FakeHttpHandlerContext context) {
             Objects.requireNonNull(request, "request");
             Objects.requireNonNull(response, "response");
+            Objects.requireNonNull(context, "context");
 
             response.setStatus(STATUS);
             response.setEntity(ENTITY);
@@ -122,8 +125,13 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
     }
 
     @Override
-    public ContentTypeHttpHandler createHttpHandler() {
+    public ContentTypeHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return ContentTypeHttpHandler.with(CONTENT_TYPE, HANDLER);
+    }
+
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
     }
 
     private HttpRequest request(final MediaType... contentType) {
@@ -155,8 +163,8 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ContentTypeHttpHandler> type() {
-        return ContentTypeHttpHandler.class;
+    public Class<ContentTypeHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(ContentTypeHttpHandler.class);
     }
 
     @Override

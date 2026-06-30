@@ -26,17 +26,17 @@ import java.util.function.Function;
 /**
  * Wraps another {@link HttpHandler}, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
  */
-final class StacktraceDumpingHttpHandler implements HttpHandler {
+final class StacktraceDumpingHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static StacktraceDumpingHttpHandler with(final HttpHandler handler,
-                                             final Function<Throwable, HttpStatus> throwableTranslator) {
+    static <C extends HttpHandlerContext> StacktraceDumpingHttpHandler<C> with(final HttpHandler<C> handler,
+                                                                               final Function<Throwable, HttpStatus> throwableTranslator) {
         Objects.requireNonNull(handler, "handler");
         Objects.requireNonNull(throwableTranslator, "throwableTranslator");
 
-        return new StacktraceDumpingHttpHandler(handler, throwableTranslator);
+        return new StacktraceDumpingHttpHandler<>(handler, throwableTranslator);
     }
 
-    private StacktraceDumpingHttpHandler(final HttpHandler handler,
+    private StacktraceDumpingHttpHandler(final HttpHandler<C> handler,
                                          final Function<Throwable, HttpStatus> throwableTranslator) {
         super();
         this.handler = handler;
@@ -45,19 +45,25 @@ final class StacktraceDumpingHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         try {
-            this.handler.handle(request, response);
+            this.handler.handle(
+                request,
+                response,
+                context
+            );
         } catch (final Throwable cause) {
             response.setStatus(this.throwableTranslator.apply(cause));
             response.setEntity(HttpEntity.dumpStackTrace(cause));
         }
     }
 
-    private final HttpHandler handler;
+    private final HttpHandler<C> handler;
     private final Function<Throwable, HttpStatus> throwableTranslator;
 
     @Override

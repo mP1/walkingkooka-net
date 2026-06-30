@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -31,12 +32,13 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<HeadersCopyHttpHandler>,
-    ToStringTesting<HeadersCopyHttpHandler> {
+public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<HeadersCopyHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<HeadersCopyHttpHandler<FakeHttpHandlerContext>> {
 
     @Test
     public void testWithNullHeadersFails() {
@@ -76,7 +78,8 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
         this.createHttpHandler()
             .handle(
                 request,
-                response
+                response,
+                new FakeHttpHandlerContext()
             );
 
         final HttpResponse expected = HttpResponses.recording();
@@ -89,7 +92,7 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
     }
 
     @Override
-    public HeadersCopyHttpHandler createHttpHandler() {
+    public HeadersCopyHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return HeadersCopyHttpHandler.with(
             headers(),
             wrappedHttpHandler()
@@ -100,11 +103,16 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
         return Sets.of(HttpHeaderName.CONTENT_TYPE, HttpHeaderName.CONTENT_LENGTH, HttpHeaderName.with("X-Custom-Header"));
     }
 
-    private static HttpHandler wrappedHttpHandler() {
-        return new HttpHandler() {
+    private static HttpHandler<FakeHttpHandlerContext> wrappedHttpHandler() {
+        return new HttpHandler<>() {
             @Override
             public void handle(final HttpRequest request,
-                               final HttpResponse response) {
+                               final HttpResponse response,
+                               final FakeHttpHandlerContext context) {
+                Objects.requireNonNull(request, "request");
+                Objects.requireNonNull(response, "response");
+                Objects.requireNonNull(context, "context");
+
                 response.setStatus(status());
                 response.setEntity(entity());
             }
@@ -128,6 +136,11 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
             .setBodyText("Body1234");
     }
 
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -138,8 +151,8 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
     // class............................................................................................................
 
     @Override
-    public Class<HeadersCopyHttpHandler> type() {
-        return HeadersCopyHttpHandler.class;
+    public Class<HeadersCopyHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(HeadersCopyHttpHandler.class);
     }
 
     @Override

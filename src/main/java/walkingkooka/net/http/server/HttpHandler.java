@@ -20,8 +20,9 @@ package walkingkooka.net.http.server;
 /**
  * A functional SAM interface that defines the handing of requests and the production of responses.
  */
-public interface HttpHandler {
+public interface HttpHandler<C extends HttpHandlerContext> {
 
     void handle(final HttpRequest request,
-                final HttpResponse response);
+                final HttpResponse response,
+                final C context);
 }

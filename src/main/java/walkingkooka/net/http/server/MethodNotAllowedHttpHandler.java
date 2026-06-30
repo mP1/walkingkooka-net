@@ -28,18 +28,21 @@ import java.util.function.Predicate;
  * A {@link HttpHandler} that tests if the request method is acceptable otherwise responds with a {@link HttpStatusCode#METHOD_NOT_ALLOWED}.
  * The {@link Object#toString()} is also used to report the allowed methods.
  */
-final class MethodNotAllowedHttpHandler implements HttpHandler {
+final class MethodNotAllowedHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static MethodNotAllowedHttpHandler with(final HttpMethod method,
-                                            final HttpHandler handler) {
+    static <C extends HttpHandlerContext> MethodNotAllowedHttpHandler<C> with(final HttpMethod method,
+                                                                              final HttpHandler<C> handler) {
         Objects.requireNonNull(method, "method");
         Objects.requireNonNull(handler, "handler");
 
-        return new MethodNotAllowedHttpHandler(method, handler);
+        return new MethodNotAllowedHttpHandler<>(
+            method,
+            handler
+        );
     }
 
     private MethodNotAllowedHttpHandler(final HttpMethod method,
-                                        final HttpHandler handler) {
+                                        final HttpHandler<C> handler) {
         super();
         this.method = method;
         this.handler = handler;
@@ -47,15 +50,18 @@ final class MethodNotAllowedHttpHandler implements HttpHandler {
 
     @Override
     public void handle(final HttpRequest request,
-                       final HttpResponse response) {
+                       final HttpResponse response,
+                       final C context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
+        Objects.requireNonNull(context, "context");
 
         final HttpMethod method = request.method();
         if (this.method.equals(method)) {
             this.handler.handle(
                 request,
-                response
+                response,
+                context
             );
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));
@@ -68,7 +74,7 @@ final class MethodNotAllowedHttpHandler implements HttpHandler {
      */
     private final HttpMethod method;
 
-    private final HttpHandler handler;
+    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {

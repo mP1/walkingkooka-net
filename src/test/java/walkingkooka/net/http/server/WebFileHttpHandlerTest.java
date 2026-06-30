@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
@@ -44,8 +45,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileHttpHandler>,
-    ToStringTesting<WebFileHttpHandler> {
+public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<WebFileHttpHandler<FakeHttpHandlerContext>> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -269,12 +270,17 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     }
 
     @Override
-    public WebFileHttpHandler createHttpHandler() {
+    public WebFileHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
         return WebFileHttpHandler.with(this.baseUrlPath(), FILES);
     }
 
     private UrlPath baseUrlPath() {
         return UrlPath.parse("/files/server/");
+    }
+
+    @Override
+    public FakeHttpHandlerContext createContext() {
+        return new FakeHttpHandlerContext();
     }
 
     private HttpRequest request(final String url,
@@ -326,8 +332,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     // Class...........................................................................................................
 
     @Override
-    public Class<WebFileHttpHandler> type() {
-        return WebFileHttpHandler.class;
+    public Class<WebFileHttpHandler<FakeHttpHandlerContext>> type() {
+        return Cast.to(WebFileHttpHandler.class);
     }
 
     @Override
