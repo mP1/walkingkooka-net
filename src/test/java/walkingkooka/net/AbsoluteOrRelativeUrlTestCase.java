@@ -256,25 +256,46 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     public final void testSetPathDifferentMissingLeadingSlash() {
         final UrlPath differentPath = UrlPath.parse("different-path");
 
+        final UrlPath expectedPath = UrlPath.parse("/" + differentPath);
+
         this.setPathAndCheck(
             this.createUrl(),
             differentPath,
             this.createUrl(
-                UrlPath.parse("/" + differentPath),
+                expectedPath,
                 QUERY,
                 FRAGMENT
-            )
-
+            ),
+            expectedPath
         );
     }
 
     final void setPathAndCheck(final U url,
                                final UrlPath path,
                                final U expected) {
+        this.setPathAndCheck(
+            url,
+            path,
+            expected,
+            expected.path()
+        );
+    }
+
+    final void setPathAndCheck(final U url,
+                               final UrlPath path,
+                               final U expected,
+                               final UrlPath expectedPath) {
+        final AbsoluteOrRelativeUrl actual = url.setPath(path);
+
         this.checkEquals(
             expected,
-            url.setPath(path),
+            actual,
             () -> url + " setPath " + path
+        );
+
+        this.pathAndCheck(
+            actual,
+            expectedPath
         );
     }
 
