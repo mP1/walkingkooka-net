@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.HasPathTesting;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -27,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
 abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelativeUrl> extends UrlTestCase<U>
-    implements HasUrlQueryStringTesting,
+    implements HasPathTesting,
+    HasUrlQueryStringTesting,
     HasUrlFragmentTesting {
 
     AbsoluteOrRelativeUrlTestCase() {
@@ -85,7 +87,7 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
             QUERY,
             FRAGMENT
         );
-        this.checkPath(url, PATH);
+        this.pathAndCheck(url, PATH);
         this.queryAndCheck(url, QUERY);
         this.urlFragmentAndCheck(
             url,
@@ -618,9 +620,4 @@ abstract public class AbsoluteOrRelativeUrlTestCase<U extends AbsoluteOrRelative
     abstract U createUrl(final UrlPath path,
                          final UrlQueryString query,
                          final UrlFragment fragment);
-
-    final void checkPath(final AbsoluteOrRelativeUrl url,
-                         final UrlPath path) {
-        this.checkEquals(path, url.path(), "path");
-    }
 }

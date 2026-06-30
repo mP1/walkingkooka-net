@@ -39,8 +39,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
             fragment
         );
 
-        this.checkEquals(
-            relativeUrl.path(),
+        this.pathAndCheck(
+            relativeUrl,
             UrlPath.parse("/p1/p2")
         );
         this.checkEquals(
@@ -65,8 +65,8 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
             fragment
         );
 
-        this.checkEquals(
-            relativeUrl.path(),
+        this.pathAndCheck(
+            relativeUrl,
             path
         );
         this.checkEquals(
@@ -95,7 +95,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.EMPTY);
+        this.pathAndCheck(url, UrlPath.EMPTY);
         this.queryAndCheck(url, UrlQueryString.EMPTY);
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
 
@@ -110,7 +110,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/"));
+        this.pathAndCheck(url, UrlPath.parse("/"));
         this.queryAndCheck(url, UrlQueryString.EMPTY);
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
 
@@ -125,7 +125,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/path/file/";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/path/file/"));
+        this.pathAndCheck(url, UrlPath.parse("/path/file/"));
         this.queryAndCheck(url, UrlQueryString.EMPTY);
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
 
@@ -140,7 +140,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/path123?query456";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/path123"));
+        this.pathAndCheck(url, UrlPath.parse("/path123"));
         this.queryAndCheck(url, UrlQueryString.parse("query456"));
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
 
@@ -155,7 +155,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/path123?abc=1+2";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/path123"));
+        this.pathAndCheck(url, UrlPath.parse("/path123"));
         this.queryAndCheck(url, UrlQueryString.parse("abc=1+2"));
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
 
@@ -170,7 +170,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/path123?query456#fragment789";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/path123"));
+        this.pathAndCheck(url, UrlPath.parse("/path123"));
         this.queryAndCheck(url, UrlQueryString.parse("query456"));
         this.urlFragmentAndCheck(url, UrlFragment.with("fragment789"));
 
@@ -185,7 +185,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
         final String string = "/path123?query456#fragment+789";
 
         final RelativeUrl url = RelativeUrl.parseRelative0(string);
-        this.checkPath(url, UrlPath.parse("/path123"));
+        this.pathAndCheck(url, UrlPath.parse("/path123"));
         this.queryAndCheck(url, UrlQueryString.parse("query456"));
         this.urlFragmentAndCheck(url, UrlFragment.with("fragment+789"));
 
@@ -198,7 +198,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Test
     public void testParseOnlyHash() {
         final RelativeUrl url = RelativeUrl.parseRelative0("#");
-        this.checkPath(url, UrlPath.EMPTY);
+        this.pathAndCheck(url, UrlPath.EMPTY);
         this.queryAndCheck(url, UrlQueryString.EMPTY);
         this.urlFragmentAndCheck(url, UrlFragment.EMPTY);
     }
@@ -206,7 +206,7 @@ public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<Relativ
     @Test
     public void testParseOnlyHash2() {
         final RelativeUrl url = RelativeUrl.parseRelative0("#123");
-        this.checkPath(url, UrlPath.EMPTY);
+        this.pathAndCheck(url, UrlPath.EMPTY);
         this.queryAndCheck(url, UrlQueryString.EMPTY);
         this.urlFragmentAndCheck(url, UrlFragment.parse("123"));
     }
