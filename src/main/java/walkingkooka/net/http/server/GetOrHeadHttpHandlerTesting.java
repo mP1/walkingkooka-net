@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 
 /**
  * Mixin interface for testing {@link GetOrHeadHttpHandler}
@@ -53,6 +54,10 @@ public interface GetOrHeadHttpHandlerTesting<H extends GetOrHeadHttpHandler<C>, 
 
     private void handleMethodNotAllowedCheck(final HttpMethod method) {
         final HttpResponse expected = HttpResponses.recording();
+
+        final HttpProtocolVersion protocol = HttpProtocolVersion.VERSION_1_0;
+
+        expected.setVersion(protocol);
         expected.setMethodNotAllowed(
             method,
             Lists.of(
@@ -64,6 +69,12 @@ public interface GetOrHeadHttpHandlerTesting<H extends GetOrHeadHttpHandler<C>, 
         this.handleAndCheck(
             this.createHttpHandler(),
             new FakeHttpRequest() {
+
+                @Override
+                public HttpProtocolVersion protocolVersion() {
+                    return protocol;
+                }
+
                 @Override
                 public HttpMethod method() {
                     return method;

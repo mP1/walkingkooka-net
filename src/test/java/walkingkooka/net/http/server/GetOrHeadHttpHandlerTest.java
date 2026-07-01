@@ -35,6 +35,8 @@ public final class GetOrHeadHttpHandlerTest implements GetOrHeadHttpHandlerTesti
     @Test
     public void testHandlePostMethodNotAllowed() {
         final HttpResponse response = HttpResponses.recording();
+
+        response.setVersion(HttpProtocolVersion.VERSION_1_0);
         response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Method POST not allowed"));
         response.setEntity(
             HttpEntity.EMPTY.addHeader(

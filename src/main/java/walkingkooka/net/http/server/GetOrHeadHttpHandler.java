@@ -44,6 +44,7 @@ public interface GetOrHeadHttpHandler<C extends HttpHandlerContext> extends Http
                 context
             );
         } else {
+            response.setVersion(request.protocolVersion());
             response.setMethodNotAllowed(
                 httpMethod,
                 Lists.of(
