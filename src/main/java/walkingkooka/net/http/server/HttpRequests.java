@@ -41,7 +41,7 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * Creates a request with DELETE
+     * Creates a request with {@link HttpMethod#DELETE}
      */
     public static HttpRequest delete(final HttpTransport transport,
                                      final RelativeUrl url,
@@ -80,7 +80,7 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * Creates a request with GET.
+     * Creates a request with {@link HttpMethod#GET}.
      */
     public static HttpRequest get(final HttpTransport transport,
                                   final RelativeUrl url,
@@ -112,7 +112,7 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * Creates a request with PATCH
+     * Creates a request with {@link HttpMethod#PATCH}
      */
     public static HttpRequest patch(final HttpTransport transport,
                                     final RelativeUrl url,
@@ -128,7 +128,7 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * Creates a request with POST
+     * Creates a request with {@link HttpMethod#POST}
      */
     public static HttpRequest post(final HttpTransport transport,
                                    final RelativeUrl url,
@@ -144,7 +144,7 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * Creates a request with PUT
+     * Creates a request with {@link HttpMethod#PUT}
      */
     public static HttpRequest put(final HttpTransport transport,
                                   final RelativeUrl url,
