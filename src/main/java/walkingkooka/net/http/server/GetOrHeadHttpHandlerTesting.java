@@ -48,7 +48,7 @@ public interface GetOrHeadHttpHandlerTesting<H extends GetOrHeadHttpHandler<C>, 
 
     @Test
     default void testHandleTrace() {
-        this.handleMethodNotAllowedCheck(HttpMethod.POST);
+        this.handleMethodNotAllowedCheck(HttpMethod.TRACE);
     }
 
     private void handleMethodNotAllowedCheck(final HttpMethod method) {
