@@ -25,6 +25,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.reflect.JavaVisibility;
@@ -63,6 +64,87 @@ public final class GetOrHeadHttpHandlerTest implements GetOrHeadHttpHandlerTesti
         );
     }
 
+    @Test
+    public void testHandleGet() {
+        final HttpStatus status = HttpStatusCode.OK.setMessage("Hello world 111 OK");
+        final String responseText = "Hello world 222";
+
+        final HttpResponse response = HttpResponses.recording();
+        response.setStatus(status);
+        response.setEntity(
+            HttpEntity.EMPTY.setBodyText(responseText)
+        );
+
+        this.handleAndCheck(
+            new GetOrHeadHttpHandler<FakeHttpHandlerContext>() {
+                @Override
+                public void handleGetOrHead(final HttpRequest request,
+                                            final HttpResponse response,
+                                            final FakeHttpHandlerContext context) {
+                    checkEquals(
+                        HttpMethod.GET,
+                        request.method(),
+                        "method"
+                    );
+                    response.setStatus(status);
+                    response.setEntity(
+                        HttpEntity.EMPTY.setBodyText(
+                            request.bodyText()
+                        )
+                    );
+                }
+            },
+            HttpRequests.get(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setBodyText(responseText)
+            ),
+            this.createContext(),
+            response
+        );
+    }
+
+    @Test
+    public void testHandleHead() {
+        final HttpStatus status = HttpStatusCode.OK.setMessage("Hello world 111 OK");
+        final String responseText = "Hello world 222";
+
+        final HttpResponse response = HttpResponses.recording();
+        response.setStatus(status);
+        response.setEntity(
+            HttpEntity.EMPTY.setBodyText(responseText)
+        );
+
+        this.handleAndCheck(
+            new GetOrHeadHttpHandler<FakeHttpHandlerContext>() {
+                @Override
+                public void handleGetOrHead(final HttpRequest request,
+                                            final HttpResponse response,
+                                            final FakeHttpHandlerContext context) {
+                    checkEquals(
+                        HttpMethod.HEAD,
+                        request.method(),
+                        "method"
+                    );
+                    response.setStatus(status);
+                    response.setEntity(
+                        HttpEntity.EMPTY.setBodyText(
+                            request.bodyText()
+                        )
+                    );
+                }
+            },
+            HttpRequests.head(
+                HttpTransport.UNSECURED,
+                Url.parseRelative("/api/decimalNumberSymbols/*/localeStartsWith/English?offset=0&count=2"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setBodyText(responseText)
+            ),
+            this.createContext(),
+            response
+        );
+    }
 
     @Override
     public GetOrHeadHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
