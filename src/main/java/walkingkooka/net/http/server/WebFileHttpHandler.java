@@ -100,7 +100,11 @@ final class WebFileHttpHandler<C extends HttpHandlerContext> implements HttpHand
                        final HttpResponse response) {
         final Optional<LocalDateTime> ifModifiedSince = HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request);
         if (ifModifiedSince.isPresent() && ifModifiedSince.map(header -> fileLastModifiedTest(header, file.lastModified())).orElse(false)) {
-            this.notModified(file, response);
+            this.notModified(
+                file,
+                request,
+                response
+            );
         } else {
             this.modified(file, request, response);
         }
@@ -118,7 +122,9 @@ final class WebFileHttpHandler<C extends HttpHandlerContext> implements HttpHand
      * Sets a not-modified response with the last-modified header set to the filesystem file last modified.
      */
     private void notModified(final WebFile file,
+                             final HttpRequest request,
                              final HttpResponse response) {
+        response.setVersion(request.protocolVersion());
         response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
         response.setEntity(headers(file));
     }
@@ -141,6 +147,7 @@ final class WebFileHttpHandler<C extends HttpHandlerContext> implements HttpHand
             status = HttpStatusCode.NOT_ACCEPTABLE.status();
             entity = HttpEntity.EMPTY;
         }
+        response.setVersion(request.protocolVersion());
         response.setStatus(status);
         response.setEntity(entity);
     }
