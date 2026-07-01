@@ -64,6 +64,22 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
+     * Creates a request with {@link HttpMethod#HEAD}
+     */
+    public static HttpRequest head(final HttpTransport transport,
+                                   final RelativeUrl url,
+                                   final HttpProtocolVersion protocolVersion,
+                                   final HttpEntity entity) {
+        return value(
+            transport,
+            HttpMethod.HEAD,
+            url,
+            protocolVersion,
+            entity
+        );
+    }
+
+    /**
      * Creates a request with GET.
      */
     public static HttpRequest get(final HttpTransport transport,
