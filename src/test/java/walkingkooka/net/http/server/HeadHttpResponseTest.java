@@ -93,12 +93,15 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
             response
         );
 
+        headHttpResponse.setVersion(HttpProtocolVersion.VERSION_1_0);
         headHttpResponse.setMethodNotAllowed(
             method,
             Lists.of(HttpMethod.GET)
         );
 
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HttpProtocolVersion.VERSION_1_0);
         expected.setMethodNotAllowed(
             method,
             Lists.of(
@@ -135,12 +138,15 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
         headHttpResponse.setEntity(httpEntity);
 
+        headHttpResponse.setVersion(HttpProtocolVersion.VERSION_1_0);
         headHttpResponse.setMethodNotAllowed(
             method,
             Lists.of(HttpMethod.GET)
         );
 
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HttpProtocolVersion.VERSION_1_0);
         expected.setMethodNotAllowed(
             method,
             Lists.of(
@@ -185,6 +191,8 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         headHttpResponse.setEntity(
             HttpEntity.EMPTY.setContentLength()
         );
+
+        headHttpResponse.setVersion(HttpProtocolVersion.VERSION_1_0);
         headHttpResponse.setMethodNotAllowed(
             method,
             Lists.of(
@@ -194,6 +202,8 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         );
 
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HttpProtocolVersion.VERSION_1_0);
         expected.setMethodNotAllowed(
             method,
             Lists.of(
