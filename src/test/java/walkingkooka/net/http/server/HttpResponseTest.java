@@ -103,14 +103,15 @@ public final class HttpResponseTest implements ClassTesting<HttpResponse>,
                 }
             },
             "HttpResponse\n" +
+                "  HTTP/1.0\n" +
                 "  200 OK hello\n" +
-                "  HttpEntity\n" +
-                "    header(s)\n" +
-                "      Content-Type: text/plain\n" +
-                "    bodyText\n" +
-                "      Hello111\n" +
-                "      Hello222\n" +
-                "      \n"
+                "    HttpEntity\n" +
+                "      header(s)\n" +
+                "        Content-Type: text/plain\n" +
+                "      bodyText\n" +
+                "        Hello111\n" +
+                "        Hello222\n" +
+                "        \n"
         );
     }
 

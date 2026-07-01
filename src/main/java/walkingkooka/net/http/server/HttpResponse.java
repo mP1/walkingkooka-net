@@ -103,14 +103,34 @@ public interface HttpResponse extends HasStatus,
         printer.println(HttpResponse.class.getSimpleName());
         printer.indent();
         {
+            boolean indentHttpEntity = false;
+
+            final HttpProtocolVersion version = this.version()
+                .orElse(null);
+            if (null != version) {
+                indentHttpEntity = true;
+
+                printer.println(version.toString());
+            }
+
             final HttpStatus status = this.status()
                 .orElse(null);
             if (null != status) {
+                indentHttpEntity = true;
+
                 printer.println(status.toString());
+            }
+
+            if (indentHttpEntity) {
+                printer.indent();
             }
             this.entity()
                 .printTree(printer);
             printer.lineStart();
+
+            if (indentHttpEntity) {
+                printer.outdent();
+            }
         }
         printer.outdent();
     }
