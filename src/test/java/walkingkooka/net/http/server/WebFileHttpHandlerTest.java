@@ -31,6 +31,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.JavaVisibility;
@@ -65,6 +66,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
 
     private final static ETag NO_ETAG = null;
     private final static ETag ETAG2 = ETag.parseOne("W/\"222\"");
+
+    private static final HttpProtocolVersion HTTP_PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_0;
 
     private final Function<UrlPath, Either<WebFile, HttpStatus>> FILES = (f) -> {
         switch (f.value()) {
@@ -161,6 +164,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         final HttpRequest request = this.request(FILE1, NO_ETAG, NO_LAST_MODIFIED);
 
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(
@@ -180,6 +185,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     @Test
     public void testHandleRequestUrlRequiresNormalizationFileFound() {
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(
@@ -198,6 +205,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     @Test
     public void testHandleFileFound() {
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
@@ -216,6 +225,7 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     @Test
     public void testHandleRequestIfNotModifiedMatch() {
         final HttpResponse expected = HttpResponses.recording();
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
@@ -234,6 +244,7 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
         final HttpRequest request = this.request(FILE1, NO_ETAG, LAST_MODIFIED1.minusSeconds(10));
 
         final HttpResponse expected = HttpResponses.recording();
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
@@ -251,6 +262,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     @Test
     public void testHandleRequestIfMatchETag() {
         final HttpResponse expected = HttpResponses.recording();
+
+        expected.setVersion(HTTP_PROTOCOL_VERSION);
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
@@ -287,6 +300,11 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
                                 final ETag ifMatch,
                                 final LocalDateTime ifNotModified) {
         return new FakeHttpRequest() {
+
+            @Override
+            public HttpProtocolVersion protocolVersion() {
+                return HTTP_PROTOCOL_VERSION;
+            }
 
             @Override
             public RelativeUrl url() {
