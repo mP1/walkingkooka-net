@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
     HeaderTestCase<F>
-    implements IsMethodTesting<F> {
+    implements IsMethodTesting<F>,
+    HasFileExtensionTesting {
 
     ContentDispositionFileNameTestCase() {
         super();

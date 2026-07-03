@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.io.FileExtension;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -119,6 +120,16 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     public void testToNotEncodedIfPossible() {
         this.toNotEncodedIfPossibleAndCheck(
             ContentDispositionFileNameNotEncoded.with("filename123")
+        );
+    }
+
+    // HasFileExtension.................................................................................................
+
+    @Test
+    public void testFileExtension() {
+        this.fileExtensionAndCheck(
+            ContentDispositionFileNameNotEncoded.with("filename.txt"),
+            FileExtension.TXT
         );
     }
 
