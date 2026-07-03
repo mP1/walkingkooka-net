@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.io.FileExtension;
 
 import java.util.Optional;
 
@@ -128,6 +129,22 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
                     "Filename123\u0fff"
                 )
             )
+        );
+    }
+
+    // HasFileExtension.................................................................................................
+
+    @Test
+    public void testFileExtension() {
+        this.fileExtensionAndCheck(
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_8,
+                    this.language(),
+                    "UTF-8'en'filename%20123.txt"
+                )
+            ),
+            FileExtension.TXT
         );
     }
 

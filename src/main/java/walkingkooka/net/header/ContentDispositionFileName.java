@@ -17,7 +17,8 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.naming.Name;
+import walkingkooka.io.FileExtension;
+import walkingkooka.naming.PathName;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Optional;
@@ -25,7 +26,8 @@ import java.util.Optional;
 /**
  * The value of the filename parameter within a content disposition.
  */
-abstract public class ContentDispositionFileName implements Name, Header {
+abstract public class ContentDispositionFileName implements PathName,
+    Header {
 
     public final static Optional<CharsetName> NO_CHARSET = Optional.empty();
 
@@ -150,6 +152,13 @@ abstract public class ContentDispositionFileName implements Name, Header {
         return true;
     }
 
+    // HasFileExtension.................................................................................................
+
+    @Override
+    public Optional<FileExtension> fileExtension() {
+        return FileExtension.extract(this.value());
+    }
+
     // Object ..........................................................................................................
 
     @Override
@@ -188,6 +197,6 @@ abstract public class ContentDispositionFileName implements Name, Header {
 
     @Override
     public String text() {
-        return Name.super.text();
+        return PathName.super.text();
     }
 }
