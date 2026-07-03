@@ -47,7 +47,7 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         return ContentDispositionParameterName.FILENAME_STAR;
     }
 
-    // Value .................................................................................
+    // Value ............................................................................................................
 
     @Override
     public String value() {
@@ -64,14 +64,21 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         return this.encodedText.language();
     }
 
-    @Override ContentDispositionFileNameEncoded computeWithoutPath() {
+    @Override //
+    ContentDispositionFileNameEncoded computeWithoutPath() {
         final EncodedText encodedText = this.encodedText;
         final String value = encodedText.value();
         final String without = removePathIfNecessaryOrNull(value);
 
         return null == without ?
             this :
-            new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
+            new ContentDispositionFileNameEncoded(
+                EncodedText.with(
+                    encodedText.charset(),
+                    encodedText.language(),
+                    without
+                )
+            );
     }
 
     /**
