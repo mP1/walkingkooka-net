@@ -36,7 +36,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
             FILENAME,
             Optional.of(this.encodedText().charset()),
             this.encodedText().language());
-        this.checkWithoutPath(contentDisposition, null);
+        this.withoutPathAndCheck(contentDisposition, null);
     }
 
     @Test
@@ -45,7 +45,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
         final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
         assertSame(contentDisposition, contentDisposition.withoutPath());
-        this.checkWithoutPath(contentDisposition, contentDisposition);
+        this.withoutPathAndCheck(contentDisposition, contentDisposition);
     }
 
     @Test
@@ -54,7 +54,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
         final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
         assertNotSame(contentDisposition, contentDisposition.withoutPath());
-        this.checkWithoutPath(contentDisposition, ContentDispositionFileNameEncoded.with(encodedText("filename123")));
+        this.withoutPathAndCheck(contentDisposition, ContentDispositionFileNameEncoded.with(encodedText("filename123")));
     }
 
     // parameterName....................................................................................................
