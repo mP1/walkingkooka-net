@@ -60,7 +60,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         return ContentDispositionParameterName.FILENAME;
     }
 
-    // Value .................................................................................
+    // Value ...........................................................................................................
 
     @Override
     public String value() {
@@ -79,7 +79,8 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         return NO_LANGUAGE;
     }
 
-    @Override ContentDispositionFileNameNotEncoded computeWithoutPath() {
+    @Override //
+    ContentDispositionFileNameNotEncoded computeWithoutPath() {
         final String without = removePathIfNecessaryOrNull(this.name);
 
         return null == without ?
@@ -98,10 +99,13 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
         return this.name;
     }
 
-    // Header .........................................................................................................
+    // Header ..........................................................................................................
 
     @Override
     public String text() {
-        return ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
+        return ContentDispositionFileNameNotEncodedHeaderHandler.INSTANCE.toText(
+            this,
+            HttpHeaderName.CONTENT_DISPOSITION
+        );
     }
 }
