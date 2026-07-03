@@ -65,7 +65,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
             value,
             ContentDispositionFileNameNotEncoded.NO_CHARSET,
             ContentDispositionFileNameNotEncoded.NO_LANGUAGE);
-        this.checkWithoutPath(contentDisposition, null);
+        this.withoutPathAndCheck(contentDisposition, null);
     }
 
     @Test
@@ -73,7 +73,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         final String value = "filename123";
         final ContentDispositionFileNameNotEncoded contentDisposition = ContentDispositionFileNameNotEncoded.with(value);
         assertSame(contentDisposition, contentDisposition.withoutPath());
-        this.checkWithoutPath(contentDisposition, contentDisposition);
+        this.withoutPathAndCheck(contentDisposition, contentDisposition);
     }
 
     @Test
@@ -81,7 +81,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         final String value = "/path/filename123";
         final ContentDispositionFileNameNotEncoded contentDisposition = ContentDispositionFileNameNotEncoded.with(value);
         assertNotSame(contentDisposition, contentDisposition.withoutPath());
-        this.checkWithoutPath(contentDisposition, ContentDispositionFileNameNotEncoded.with("filename123"));
+        this.withoutPathAndCheck(contentDisposition, ContentDispositionFileNameNotEncoded.with("filename123"));
     }
 
     @Test
@@ -89,7 +89,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         final String value = "path/filename123";
         final ContentDispositionFileNameNotEncoded contentDisposition = ContentDispositionFileNameNotEncoded.with(value);
         assertNotSame(contentDisposition, contentDisposition.withoutPath());
-        this.checkWithoutPath(contentDisposition, ContentDispositionFileNameNotEncoded.with("filename123"));
+        this.withoutPathAndCheck(contentDisposition, ContentDispositionFileNameNotEncoded.with("filename123"));
     }
 
     // parameterName....................................................................................................

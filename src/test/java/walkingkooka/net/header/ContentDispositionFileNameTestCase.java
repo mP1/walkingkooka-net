@@ -38,8 +38,12 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
 
     @Test
     public final void testWithoutPathCached() {
-        final ContentDispositionFileName contentDisposition = this.createHeader();
-        assertSame(contentDisposition.withoutPath(), contentDisposition.withoutPath());
+        final ContentDispositionFileName filename = this.createHeader();
+
+        assertSame(
+            filename.withoutPath(),
+            filename.withoutPath()
+        );
     }
 
     final void parameterNameAndCheck(final F filename,
@@ -59,13 +63,25 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
             filename,
             value
         );
-        this.checkEquals(charsetName, filename.charsetName(), "charsetName");
-        this.checkEquals(language, filename.language(), "language");
+        this.checkEquals(
+            charsetName,
+            filename.charsetName(),
+            "charsetName"
+        );
+        this.checkEquals(
+            language,
+            filename.language(),
+            "language"
+        );
     }
 
-    final void checkWithoutPath(final ContentDispositionFileName contentDisposition,
-                                final ContentDispositionFileName withoutPath) {
-        this.checkEquals(withoutPath, contentDisposition.withoutPath, "withoutPath");
+    final void withoutPathAndCheck(final ContentDispositionFileName contentDisposition,
+                                   final ContentDispositionFileName withoutPath) {
+        this.checkEquals(
+            withoutPath,
+            contentDisposition.withoutPath,
+            "withoutPath"
+        );
     }
 
     final void toNotEncodedAndCheck(final ContentDispositionFileName filename,
