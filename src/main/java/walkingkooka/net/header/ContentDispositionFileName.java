@@ -128,14 +128,14 @@ abstract public class ContentDispositionFileName implements PathName,
                 .orElse(this);
     }
 
-    // Header .................................................................................
+    // Header ..........................................................................................................
 
     @Override
     public final boolean isWildcard() {
         return false;
     }
 
-    // HasHeaderScope....................................................................
+    // HasHeaderScope...................................................................................................
 
     @Override
     public final boolean isMultipart() {
