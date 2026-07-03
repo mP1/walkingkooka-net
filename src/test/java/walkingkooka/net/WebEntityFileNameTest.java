@@ -19,7 +19,9 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.io.FileExtension;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.naming.PathNameTesting;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.stream.Collectors;
@@ -27,7 +29,8 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebEntityFileNameTest implements NameTesting2<WebEntityFileName, WebEntityFileName> {
+public final class WebEntityFileNameTest implements NameTesting2<WebEntityFileName, WebEntityFileName>,
+    PathNameTesting<WebEntityFileName, WebEntityFileName> {
 
     @Test
     public void testWithForwardSlashFails() {
@@ -96,6 +99,16 @@ public final class WebEntityFileNameTest implements NameTesting2<WebEntityFileNa
     @Override
     public String nameTextLess() {
         return "before.txt";
+    }
+
+    // HasFileExtension.................................................................................................
+
+    @Test
+    public void testFileExtension() {
+        this.fileExtensionAndCheck(
+            WebEntityFileName.with("hello.txt"),
+            FileExtension.TXT
+        );
     }
 
     // class............................................................................................................

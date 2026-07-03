@@ -19,7 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidTextLengthException;
-import walkingkooka.naming.Name;
+import walkingkooka.naming.PathName;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -27,7 +27,7 @@ import walkingkooka.text.CaseSensitivity;
 /**
  * Holds the filename for a {@link WebEntity}.
  */
-public final class WebEntityFileName implements Name,
+public final class WebEntityFileName implements PathName,
     Comparable<WebEntityFileName> {
 
     public final static int MIN_LENGTH = 1;
