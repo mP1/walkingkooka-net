@@ -29,14 +29,33 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     private final static String FILENAME = "filename 123";
 
+    private final static CharsetName CHARSET_NAME = CharsetName.UTF_8;
+
+    private final static Optional<LanguageName> LANGUAGE = language("en");
+
+    private static Optional<LanguageName> language(final String language) {
+        return Optional.of(
+            LanguageName.with(language)
+        );
+    }
+
     @Test
     public void testWith() {
         final ContentDispositionFileNameEncoded contentDisposition = this.createHeader();
-        this.check(contentDisposition,
+        this.check(
+            contentDisposition,
             FILENAME,
-            Optional.of(this.encodedText().charset()),
-            this.encodedText().language());
-        this.withoutPathAndCheck(contentDisposition, null);
+            Optional.of(
+                this.encodedText()
+                    .charset()
+            ),
+            this.encodedText()
+                .language()
+        );
+        this.withoutPathAndCheck(
+            contentDisposition,
+            null
+        );
     }
 
     @Test
@@ -44,17 +63,33 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         final String value = "filename123";
 
         final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
-        assertSame(contentDisposition, contentDisposition.withoutPath());
-        this.withoutPathAndCheck(contentDisposition, contentDisposition);
+        assertSame(
+            contentDisposition,
+            contentDisposition.withoutPath()
+        );
+        this.withoutPathAndCheck(
+            contentDisposition,
+            contentDisposition
+        );
     }
 
     @Test
     public void testWithoutPathRemoved() {
         final String value = "/path/filename123";
 
-        final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
-        assertNotSame(contentDisposition, contentDisposition.withoutPath());
-        this.withoutPathAndCheck(contentDisposition, ContentDispositionFileNameEncoded.with(encodedText("filename123")));
+        final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(
+            encodedText(value)
+        );
+        assertNotSame(
+            contentDisposition,
+            contentDisposition.withoutPath()
+        );
+        this.withoutPathAndCheck(
+            contentDisposition,
+            ContentDispositionFileNameEncoded.with(
+                encodedText("filename123")
+            )
+        );
     }
 
     // parameterName....................................................................................................
@@ -140,7 +175,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
             ContentDispositionFileNameEncoded.with(
                 EncodedText.with(
                     CharsetName.UTF_8,
-                    this.language(),
+                    LANGUAGE,
                     "UTF-8'en'filename%20123.txt"
                 )
             ),
@@ -157,18 +192,28 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     @Test
     public void testEqualsDifferentCharsetName() {
-        this.checkNotEquals(ContentDispositionFileNameEncoded.with(
-            EncodedText.with(CharsetName.UTF_16,
-                this.language(),
-                FILENAME)));
+        this.checkNotEquals(
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CharsetName.UTF_16,
+                    LANGUAGE,
+                    FILENAME
+                )
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentLanguage() {
-        this.checkNotEquals(ContentDispositionFileNameEncoded.with(
-            EncodedText.with(this.charsetName(),
+        this.checkNotEquals(
+            ContentDispositionFileNameEncoded.with(
+                EncodedText.with(
+                    CHARSET_NAME,
                 this.language("fr"),
-                FILENAME)));
+                    FILENAME
+                )
+            )
+        );
     }
 
     @Test
@@ -191,23 +236,17 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     private EncodedText encodedText(final String filename) {
-        return EncodedText.with(this.charsetName(), this.language(), filename);
+        return EncodedText.with(
+            CHARSET_NAME,
+            LANGUAGE,
+            filename
+        );
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<ContentDispositionFileNameEncoded> type() {
         return ContentDispositionFileNameEncoded.class;
-    }
-
-    private CharsetName charsetName() {
-        return CharsetName.UTF_8;
-    }
-
-    private Optional<LanguageName> language() {
-        return this.language("en");
-    }
-
-    private Optional<LanguageName> language(final String language) {
-        return Optional.of(LanguageName.with(language));
     }
 }
