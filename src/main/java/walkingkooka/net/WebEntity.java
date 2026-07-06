@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
+import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -39,6 +40,7 @@ import java.util.Optional;
  * This will be useful to hold the contents of a browser clipboard or other similar payloads.
  */
 public final class WebEntity implements HasBinary,
+    HasContentType,
     HasText,
     CanBeEmpty,
     TreePrintable {
@@ -63,6 +65,7 @@ public final class WebEntity implements HasBinary,
         this.httpEntity = httpEntity;
     }
 
+    @Override
     public Optional<MediaType> contentType() {
         return this.httpEntity.contentType();
     }
