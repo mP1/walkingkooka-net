@@ -19,6 +19,7 @@ package walkingkooka.net;
 
 import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
+import walkingkooka.HasBinary;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
@@ -37,7 +38,8 @@ import java.util.Optional;
  * Holds a payload text/binary along with a describing {@link MediaType}.
  * This will be useful to hold the contents of a browser clipboard or other similar payloads.
  */
-public final class WebEntity implements HasText,
+public final class WebEntity implements HasBinary,
+    HasText,
     CanBeEmpty,
     TreePrintable {
 
@@ -80,6 +82,7 @@ public final class WebEntity implements HasText,
             with(after);
     }
 
+    @Override
     public Binary binary() {
         return this.httpEntity.body();
     }
