@@ -22,13 +22,16 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>, ToStringTesting<UrlPath> {
+public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>,
+    ToStringTesting<UrlPath>,
+    TreePrintableTesting {
 
     UrlPathTestCase() {
         super();
