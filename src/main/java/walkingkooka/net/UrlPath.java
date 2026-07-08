@@ -20,6 +20,8 @@ package walkingkooka.net;
 
 import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -29,7 +31,8 @@ import java.util.function.Predicate;
  * A {@link Path} which may be part of a {@link Url} after the host and port but before any present query string or anchor.
  */
 public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
-    Comparable<UrlPath> {
+    Comparable<UrlPath>,
+    TreePrintable {
 
     final static char SEPARATOR_CHAR = '/';
 
@@ -312,5 +315,12 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
     @Override
     public final int compareTo(final UrlPath path) {
         return this.toString().compareTo(path.toString());
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.print(this.value());
     }
 }

@@ -210,4 +210,16 @@ public final class UrlPathNotEmptyUnnormalizedTest extends UrlPathTestCase<UrlPa
             "/path1/../path3/%2A"
         );
     }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        final String path = "/path1/path2/../path22";
+
+        this.treePrintAndCheck(
+            UrlPath.parse(path),
+            path
+        );
+    }
 }

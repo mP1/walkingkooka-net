@@ -176,4 +176,14 @@ public final class UrlPathRootTest extends UrlPathTestCase<UrlPathRoot> {
     Class<UrlPathRoot> urlPathType() {
         return UrlPathRoot.class;
     }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            UrlPath.ROOT,
+            "/"
+        );
+    }
 }

@@ -171,4 +171,14 @@ public final class UrlPathEmptyTest extends UrlPathTestCase<UrlPathEmpty> {
     Class<UrlPathEmpty> urlPathType() {
         return UrlPathEmpty.class;
     }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            UrlPathEmpty.EMPTY,
+            ""
+        );
+    }
 }

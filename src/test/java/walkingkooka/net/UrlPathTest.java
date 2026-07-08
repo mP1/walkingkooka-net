@@ -27,6 +27,7 @@ import walkingkooka.naming.PathTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlPathTest implements ClassTesting2<UrlPath>,
     IteratorTesting,
     PathTesting<UrlPath, UrlPathName>,
-    ParseStringTesting<UrlPath> {
+    ParseStringTesting<UrlPath>,
+    TreePrintableTesting {
 
     // isStartsWithSeparator............................................................................................
 
@@ -1307,6 +1309,18 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     @Override
     public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
+    }
+
+    // TreePrintable ...................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        final String path = "/api/1/hello";
+
+        this.treePrintAndCheck(
+            UrlPath.parse(path),
+            path
+        );
     }
 
     // ClassTestCase ...................................................................................................
