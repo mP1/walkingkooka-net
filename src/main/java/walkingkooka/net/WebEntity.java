@@ -21,6 +21,7 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.HasBinary;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.naming.HasOptionalName;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
@@ -41,6 +42,7 @@ import java.util.Optional;
  */
 public final class WebEntity implements HasBinary,
     HasContentType,
+    HasOptionalName<WebEntityFileName>,
     HasText,
     CanBeEmpty,
     TreePrintable {
@@ -201,5 +203,12 @@ public final class WebEntity implements HasBinary,
             this.httpEntity.printTree(printer);
         }
         printer.outdent();
+    }
+
+    // HasOptionalName..................................................................................................
+
+    @Override
+    public Optional<WebEntityFileName> name() {
+        return this.filename();
     }
 }
