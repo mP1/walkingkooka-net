@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.naming.HasOptionalNameTesting;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -40,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class WebEntityTest implements CanBeEmptyTesting,
     HashCodeEqualsDefinedTesting2<WebEntity>,
+    HasOptionalNameTesting,
     HasTextTesting,
     ToStringTesting<WebEntity>,
     TreePrintableTesting,
@@ -422,6 +424,11 @@ public final class WebEntityTest implements CanBeEmptyTesting,
             expected,
             webEntity.filename(),
             webEntity::toString
+        );
+
+        this.nameAndCheck(
+            webEntity,
+            expected
         );
     }
 
