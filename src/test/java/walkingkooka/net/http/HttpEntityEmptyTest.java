@@ -208,6 +208,15 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         );
     }
 
+    // HasOptionalName...................................................................................................
+
+    @Test
+    public void testName() {
+        this.nameAndCheck(
+            HttpEntityEmpty.instance()
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test

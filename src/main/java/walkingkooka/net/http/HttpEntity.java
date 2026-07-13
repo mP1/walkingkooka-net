@@ -26,8 +26,11 @@ import walkingkooka.HasCharset;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.naming.HasOptionalName;
+import walkingkooka.naming.Name;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -57,6 +60,7 @@ public abstract class HttpEntity implements HasHeaders,
     HasBinary,
     HasCharset,
     HasContentType,
+    HasOptionalName<Name>,
     HasText,
     TreePrintable {
 
@@ -799,5 +803,13 @@ public abstract class HttpEntity implements HasHeaders,
     @Override
     public final Binary binary() {
         return this.body();
+    }
+
+    // HasOptionalName..................................................................................................
+
+    @Override
+    public final Optional<Name> name() {
+        return HttpHeaderName.CONTENT_DISPOSITION.header(this)
+            .flatMap(ContentDisposition::name);
     }
 }
