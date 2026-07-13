@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.naming.HasOptionalName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -29,7 +30,7 @@ import java.util.Optional;
  */
 public final class ContentDisposition extends HeaderWithParameters2<ContentDisposition,
     ContentDispositionParameterName<?>,
-    ContentDispositionType> {
+    ContentDispositionType> implements HasOptionalName<ContentDispositionFileName> {
     /**
      * A constants with no parameters.
      */
@@ -176,5 +177,12 @@ public final class ContentDisposition extends HeaderWithParameters2<ContentDispo
     boolean equalsValue(final ContentDispositionType value,
                         final ContentDispositionType otherValue) {
         return value.equals(otherValue);
+    }
+
+    // HasOptionalName..................................................................................................
+
+    @Override
+    public Optional<ContentDispositionFileName> name() {
+        return this.filename();
     }
 }
