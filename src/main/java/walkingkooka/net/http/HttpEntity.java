@@ -381,6 +381,8 @@ public abstract class HttpEntity implements HasHeaders,
         return Maps.immutable(copy);
     }
 
+    // HasCharset ......................................................................................................
+
     @Override
     public final Charset charset() {
         return this.charset(HttpEntity.DEFAULT_BODY_CHARSET);
