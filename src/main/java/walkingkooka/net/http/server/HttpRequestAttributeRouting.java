@@ -100,7 +100,12 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      * Adds a requirement for a particular {@link HttpProtocolVersion}.
      */
     public HttpRequestAttributeRouting protocolVersion(final HttpProtocolVersion protocolVersion) {
-        return this.addAttribute(HttpRequestAttributes.HTTP_PROTOCOL_VERSION, Predicates.is(protocolVersion));
+        return this.addAttribute(
+            HttpRequestAttributes.HTTP_PROTOCOL_VERSION,
+            Predicates.is(
+                Objects.requireNonNull(protocolVersion, "protocolVersion")
+            )
+        );
     }
 
     // methods .........................................................................................................
@@ -186,10 +191,14 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      */
     public <H> HttpRequestAttributeRouting headerAndValue(final HttpHeaderName<H> name,
                                                           final H header) {
-        return this.header(name,
+        return this.header(
+            name,
             header instanceof Header ?
                 Cast.to(HttpRequestAttributeRoutingPredicateHeader.with((Header) header)) :
-                Predicates.is(header));
+                Predicates.is(
+                    Objects.requireNonNull(header, "header")
+                )
+        );
     }
 
     /**
@@ -278,7 +287,12 @@ final public class HttpRequestAttributeRouting implements Builder<Map<HttpReques
      */
     public HttpRequestAttributeRouting parameterAndValue(final HttpRequestParameterName parameter,
                                                          final String parameterValue) {
-        return this.parameter(parameter, Predicates.is(parameterValue));
+        return this.parameter(
+            parameter,
+            Predicates.is(
+                Objects.requireNonNull(parameterValue, "parameterValue")
+            )
+        );
     }
 
     /**
