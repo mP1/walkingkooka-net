@@ -809,7 +809,13 @@ public abstract class HttpEntity implements HasHeaders,
 
     @Override
     public final Optional<Name> name() {
-        return HttpHeaderName.CONTENT_DISPOSITION.header(this)
-            .flatMap(ContentDisposition::name);
+        // Cast required because gwtc complains
+        //
+        // [ERROR] Errors in 'jar:file:/Users/miroslav/repos-github/walkingkooka-net/target/it-repo/walkingkooka/walkingkooka-net-gwt/1.0-SNAPSHOT/walkingkooka-net-gwt-1.0-SNAPSHOT.jar!/walkingkooka/net/http/HttpEntity.java'
+        // [ERROR] Line 812: Type mismatch: cannot convert from Optional<ContentDispositionFileName> to Optional<Name>
+        return Cast.to(
+            HttpHeaderName.CONTENT_DISPOSITION.header(this)
+                .flatMap(ContentDisposition::name)
+        );
     }
 }
