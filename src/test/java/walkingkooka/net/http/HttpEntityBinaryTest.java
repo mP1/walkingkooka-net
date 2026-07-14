@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.LineEnding;
@@ -558,6 +559,51 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         this.binaryAndCheck(
             this.createHttpEntity(),
             BINARY
+        );
+    }
+
+    // HasOptionalName..................................................................................................
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
+
+    @Test
+    public void testNameWhenMultipartMissingFilename() {
+        this.nameAndCheck(
+            HttpEntity.parse(
+                    Binary.with(
+                        (
+                            "Content-Type: multipart/form-data;boundary=\"delimiter123\"\r\n" +
+                                "\r\n" +
+                                "--delimiter123\r\n" +
+                                "Content-Disposition: form-data; name=\"field1\"\r\n" +
+                                "\r\n" +
+                                "value1\r\n" +
+                                "--delimiter123--"
+                        ).getBytes(StandardCharsets.UTF_8)
+                    )
+                ).multiparts()
+                .get(0)
+        );
+    }
+
+    @Test
+    public void testNameWhenMultipartWithFilename() {
+        this.nameAndCheck(
+            HttpEntity.parse(
+                    Binary.with(
+                        (
+                            "Content-Type: multipart/form-data;boundary=\"delimiter123\"\r\n" +
+                                "\r\n" +
+                                "--delimiter123\r\n" +
+                                "Content-Disposition: form-data; name=\"field2\"; filename=\"example.txt\"\r\n" +
+                                "\r\n" +
+                                "value2\r\n" +
+                                "--delimiter123--"
+                        ).getBytes(StandardCharsets.UTF_8)
+                    )
+                ).multiparts()
+                .get(0),
+            ContentDispositionFileName.notEncoded("example.txt")
         );
     }
 
