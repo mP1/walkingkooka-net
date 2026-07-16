@@ -30,13 +30,6 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class NetConverters implements PublicStaticHelper {
 
     /**
-     * {@see NetConverterHasHostAddress}
-     */
-    public static <C extends ConverterContext> Converter<C> hasHostAddress() {
-        return NetConverterHasHostAddress.instance();
-    }
-
-    /**
      * {@see NetConverterHttpEntityWithContentType}
      */
     public static <C extends ConverterContext> Converter<C> httpEntityContentType(final MediaType contentType) {
@@ -51,7 +44,7 @@ public final class NetConverters implements PublicStaticHelper {
             Lists.of(
                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                 textToHasHostAddress(),
-                hasHostAddress(),
+                toHostAddress(),
                 textToEmailAddress(),
                 textToHostAddress(),
                 textToMediaType(),
@@ -116,6 +109,13 @@ public final class NetConverters implements PublicStaticHelper {
      */
     public static <C extends ConverterContext> Converter<C> textToUrlQueryString() {
         return NetConverterTextToUrlQueryString.instance();
+    }
+
+    /**
+     * {@see NetConverterToHostAddress}
+     */
+    public static <C extends ConverterContext> Converter<C> toHostAddress() {
+        return walkingkooka.net.convert.NetConverterToHostAddress.instance();
     }
 
     /**

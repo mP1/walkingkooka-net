@@ -27,7 +27,7 @@ import walkingkooka.net.MailToUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 
-public final class NetConverterHasHostAddressTest extends NetConverterTestCase<NetConverterHasHostAddress<FakeConverterContext>, FakeConverterContext> {
+public final class NetConverterToHostAddressTest extends NetConverterTestCase<NetConverterToHostAddress<FakeConverterContext>, FakeConverterContext> {
 
     @Test
     public void testConvertStringToHasHostAddressFails() {
@@ -110,8 +110,8 @@ public final class NetConverterHasHostAddressTest extends NetConverterTestCase<N
     }
 
     @Override
-    public NetConverterHasHostAddress<FakeConverterContext> createConverter() {
-        return NetConverterHasHostAddress.instance();
+    public NetConverterToHostAddress<FakeConverterContext> createConverter() {
+        return walkingkooka.net.convert.NetConverterToHostAddress.instance();
     }
 
     @Override
@@ -124,15 +124,15 @@ public final class NetConverterHasHostAddressTest extends NetConverterTestCase<N
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            NetConverterHasHostAddress.instance(),
-            "HasHostAddress"
+            walkingkooka.net.convert.NetConverterToHostAddress.instance(),
+            "to HostAddress"
         );
     }
 
     // Class............................................................................................................
 
     @Override
-    public Class<NetConverterHasHostAddress<FakeConverterContext>> type() {
-        return Cast.to(NetConverterHasHostAddress.class);
+    public Class<NetConverterToHostAddress<FakeConverterContext>> type() {
+        return Cast.to(NetConverterToHostAddress.class);
     }
 }

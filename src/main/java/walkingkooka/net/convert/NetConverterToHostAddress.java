@@ -28,21 +28,21 @@ import walkingkooka.net.HostAddress;
  *
  * @param <C>
  */
-final class NetConverterHasHostAddress<C extends ConverterContext> extends NetConverter<C> implements TryingShortCircuitingConverter<C> {
+final class NetConverterToHostAddress<C extends ConverterContext> extends NetConverter<C> implements TryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
      */
-    static <C extends ConverterContext> NetConverterHasHostAddress<C> instance() {
+    static <C extends ConverterContext> NetConverterToHostAddress<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static NetConverterHasHostAddress<?> INSTANCE = new NetConverterHasHostAddress<>();
+    private final static NetConverterToHostAddress<?> INSTANCE = new NetConverterToHostAddress<>();
 
-    private NetConverterHasHostAddress() {
+    private NetConverterToHostAddress() {
         super();
     }
 
@@ -68,6 +68,6 @@ final class NetConverterHasHostAddress<C extends ConverterContext> extends NetCo
 
     @Override
     public String toString() {
-        return HasHostAddress.class.getSimpleName();
+        return "to " + HostAddress.class.getSimpleName();
     }
 }
