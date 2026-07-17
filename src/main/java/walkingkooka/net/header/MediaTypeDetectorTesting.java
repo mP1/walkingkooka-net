@@ -22,6 +22,8 @@ import walkingkooka.text.printer.TreePrintableTesting;
 
 public interface MediaTypeDetectorTesting extends TreePrintableTesting {
 
+    MediaTypeDetector MEDIA_TYPE_DETECTOR = MediaTypeDetectors.binary();
+
     default void detectAndCheck(final MediaTypeDetector detector,
                                 final String filename,
                                 final Binary content,
