@@ -18,21 +18,21 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.datetime.HasDateTimeSymbolsTesting;
+import walkingkooka.math.HasDecimalNumberSymbolsTesting;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import java.text.DateFormatSymbols;
-import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HasContentTypeTest implements ClassTesting2<HasContentType> {
+public final class HasContentTypeTest implements ClassTesting2<HasContentType>,
+    HasDateTimeSymbolsTesting,
+    HasDecimalNumberSymbolsTesting {
 
     // tryContentType...................................................................................................
 
@@ -62,11 +62,7 @@ public final class HasContentTypeTest implements ClassTesting2<HasContentType> {
     @Test
     public void testTryContentTypeWithDateTimeSymbols() {
         this.tryContentTypeAndCheck(
-            DateTimeSymbols.fromDateFormatSymbols(
-                new DateFormatSymbols(
-                    Locale.ENGLISH
-                )
-            ),
+            DATE_TIME_SYMBOLS,
             "application/json+walkingkooka.datetime.DateTimeSymbols"
         );
     }
@@ -74,12 +70,7 @@ public final class HasContentTypeTest implements ClassTesting2<HasContentType> {
     @Test
     public void testTryContentTypeWithDecimalNumberSymbols() {
         this.tryContentTypeAndCheck(
-            DecimalNumberSymbols.fromDecimalFormatSymbols(
-                '+',
-                DecimalFormatSymbols.getInstance(
-                    Locale.ENGLISH
-                )
-            ),
+            DECIMAL_NUMBER_SYMBOLS,
             "application/json+walkingkooka.math.DecimalNumberSymbols"
         );
     }
