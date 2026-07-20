@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.Context;
 
 /**
- * The {@link Context} that accompanies each {@link HttpHandler#handle(HttpRequest, HttpResponse)}.
+ * The {@link Context} that accompanies each {@link HttpHandler#handle(HttpRequest, HttpResponse, HttpHandlerContext)}.
  */
 public interface HttpHandlerContext extends Context {
 }
