@@ -203,6 +203,56 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
         );
     }
 
+    // startsWith.......................................................................................................
+
+    @Test
+    public final void testStartsWithWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createPath()
+                .startsWith(null)
+        );
+    }
+
+    @Test
+    public final void testStartsWithDifferent() {
+        this.startsWithAndCheck(
+            this.createPath(),
+            "/other",
+            false
+        );
+    }
+
+    final void startsWithAndCheck(final String path,
+                                  final String otherPath,
+                                  final boolean expected) {
+        this.startsWithAndCheck(
+            UrlPath.parse(path),
+            otherPath,
+            expected
+        );
+    }
+
+    final void startsWithAndCheck(final UrlPath path,
+                                  final String otherPath,
+                                  final boolean expected) {
+        this.startsWithAndCheck(
+            path,
+            UrlPath.parse(otherPath),
+            expected
+        );
+    }
+
+    final void startsWithAndCheck(final UrlPath path,
+                                  final UrlPath otherPath,
+                                  final boolean expected) {
+        this.checkEquals(
+            path.startsWith(otherPath),
+            expected,
+            () -> path + " startsWith " + otherPath
+        );
+    }
+
     // ToString.........................................................................................................
 
     @Test

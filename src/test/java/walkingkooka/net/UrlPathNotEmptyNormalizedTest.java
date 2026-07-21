@@ -158,6 +158,54 @@ public final class UrlPathNotEmptyNormalizedTest extends UrlPathTestCase<UrlPath
         );
     }
 
+    // startsWith.......................................................................................................
+
+    @Test
+    public void testStartsWith() {
+        this.startsWithAndCheck(
+            "/path1/path2",
+            "/path1/",
+            true
+        );
+    }
+
+    @Test
+    public void testStartsWith2() {
+        this.startsWithAndCheck(
+            "/path1/path2",
+            "/path1/",
+            true
+        );
+    }
+
+    @Test
+    public void testStartsWith3() {
+        this.startsWithAndCheck(
+            "/path1/",
+            "/path1",
+            true
+        );
+    }
+
+    @Test
+    public void testStartsWith4() {
+        this.startsWithAndCheck(
+            "/path1/path2/path3",
+            "/path1/path234",
+            false
+        );
+    }
+
+
+    @Test
+    public void testStartsWithDifferentCase() {
+        this.startsWithAndCheck(
+            "/path1/path2",
+            "/PATH1/PATH2",
+            false
+        );
+    }
+
     @Override
     UrlPathNotEmptyNormalized createPath() {
         return UrlPathNotEmptyNormalized.withNormalized(

@@ -158,6 +158,17 @@ public final class UrlPathNotEmptyUnnormalizedTest extends UrlPathTestCase<UrlPa
         );
     }
 
+    // startsWith.......................................................................................................
+
+    @Test
+    public void testStartsWithIfNormalized() {
+        this.startsWithAndCheck(
+            "/path1/../path2",
+            "/path1/path2",
+            false
+        );
+    }
+
     @Override
     UrlPathNotEmptyUnnormalized createPath() {
         return UrlPathNotEmptyUnnormalized.withUnnormalized("/a1",
