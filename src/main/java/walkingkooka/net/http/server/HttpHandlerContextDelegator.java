@@ -17,11 +17,19 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.text.FakeBinaryTextContext;
+import walkingkooka.text.BinaryTextContext;
+import walkingkooka.text.BinaryTextContextDelegator;
 
-public class FakeHttpHandlerContext extends FakeBinaryTextContext implements HttpHandlerContext {
+public interface HttpHandlerContextDelegator extends BinaryTextContextDelegator {
 
-    public FakeHttpHandlerContext() {
-        super();
+    // BinaryTextContextDelegator.......................................................................................
+
+    @Override
+    default BinaryTextContext binaryTextContext() {
+        return this.httpHandlerContext();
     }
+
+    // HttpHandlerContextDelegator......................................................................................
+
+    HttpHandlerContext httpHandlerContext();
 }

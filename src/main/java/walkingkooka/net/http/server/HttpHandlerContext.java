@@ -18,9 +18,11 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Context;
+import walkingkooka.text.BinaryTextContext;
 
 /**
  * The {@link Context} that accompanies each {@link HttpHandler#handle(HttpRequest, HttpResponse, HttpHandlerContext)}.
  */
-public interface HttpHandlerContext extends Context {
+public interface HttpHandlerContext extends Context,
+    BinaryTextContext {
 }
