@@ -17,7 +17,10 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.ContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HttpHandlerContextTesting extends TreePrintableTesting {
+public interface HttpHandlerContextTesting2<C extends HttpHandlerContext> extends HttpHandlerContextTesting,
+    ContextTesting<C>,
+    TreePrintableTesting {
 }
