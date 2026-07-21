@@ -23,4 +23,9 @@ import walkingkooka.text.printer.TreePrintableTesting;
 public interface HttpHandlerContextTesting2<C extends HttpHandlerContext> extends HttpHandlerContextTesting,
     ContextTesting<C>,
     TreePrintableTesting {
+
+    @Override
+    default String typeNameSuffix() {
+        return HttpHandlerContext.class.getSimpleName();
+    }
 }
