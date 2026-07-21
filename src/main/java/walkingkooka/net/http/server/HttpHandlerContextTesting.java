@@ -17,7 +17,9 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HttpHandlerContextTesting extends TreePrintableTesting {
+public interface HttpHandlerContextTesting extends BinaryTextContextTesting,
+    TreePrintableTesting {
 }
