@@ -278,6 +278,32 @@ public abstract class UrlPath implements Path<UrlPath, UrlPathName>,
 
     abstract UrlPath pathAfterNotFirst(final int start);
 
+    /**
+     * Tests if this path starts with the other. Note partial path components are not a match, path separators are the
+     * boundary.
+     * <pre>
+     * / startsWith /hello
+     * true
+     *
+     * /abc/def startsWith /abc
+     * true
+     *
+     * /abc/def startsWith /a
+     * false
+     *
+     * /abc/def startsWith /abcdef
+     * false
+     * </pre>
+     */
+    public final boolean startsWith(final UrlPath other) {
+        Objects.requireNonNull(other, "other");
+
+        return this.value()
+            .startsWith(
+                other.value()
+            );
+    }
+
     // addQueryString...................................................................................................
 
     /**
