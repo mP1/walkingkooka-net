@@ -371,6 +371,65 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         );
     }
 
+    // isBinary.........................................................................................................
+
+    @Test
+    public void testIsBinaryWithTextPlaintext() {
+        this.isBinaryAndCheck(
+            MediaType.TEXT_PLAIN,
+            false
+        );
+    }
+
+    @Test
+    public void testIsBinaryWithTextXml() {
+        this.isBinaryAndCheck(
+            MediaType.TEXT_XML,
+            false
+        );
+    }
+
+    @Test
+    public void testIsBinaryWithApplicationJson() {
+        this.isBinaryAndCheck(
+            MediaType.APPLICATION_JSON,
+            false
+        );
+    }
+
+    @Test
+    public void testIsBinaryWithApplicationBinary() {
+        this.isBinaryAndCheck(
+            MediaType.BINARY,
+            true
+        );
+    }
+
+    @Test
+    public void testIsBinaryWithApplicationImageBmp() {
+        this.isBinaryAndCheck(
+            MediaType.IMAGE_BMP,
+            true
+        );
+    }
+
+    @Test
+    public void testIsBinaryWithApplicationImageJpeg() {
+        this.isBinaryAndCheck(
+            MediaType.IMAGE_JPEG,
+            true
+        );
+    }
+
+    private void isBinaryAndCheck(final MediaType mediaType,
+                                  final boolean expected) {
+        this.checkEquals(
+            expected,
+            mediaType.isBinary(),
+            mediaType::toString
+        );
+    }
+
     // isText...........................................................................................................
 
     @Test
