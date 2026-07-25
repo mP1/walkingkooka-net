@@ -32,7 +32,7 @@ final class ETagNonWildcard extends ETag {
      */
     static ETagNonWildcard with0(final String value, final ETagValidator validator) {
         checkValue(value);
-        checkValidator(validator);
+        Objects.requireNonNull(validator, "validator");
 
         return new ETagNonWildcard(value, validator);
     }
@@ -77,7 +77,7 @@ final class ETagNonWildcard extends ETag {
 
     @Override
     void checkValidator0(final ETagValidator validator) {
-        checkValidator(validator);
+        Objects.requireNonNull(validator, "validator");
     }
 
     // isXXX........................................................................................................

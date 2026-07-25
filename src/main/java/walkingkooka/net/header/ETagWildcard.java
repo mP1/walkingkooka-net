@@ -17,6 +17,8 @@
 
 package walkingkooka.net.header;
 
+import java.util.Objects;
+
 /**
  * Holds a Wildcard ETAG.
  */
@@ -68,7 +70,7 @@ final class ETagWildcard extends ETag {
 
     @Override
     void checkValidator0(final ETagValidator validator) {
-        checkValidator(validator);
+        Objects.requireNonNull(validator, "validator");
         validator.wildcardValidatorCheck();
     }
 

@@ -42,11 +42,15 @@ public abstract class ETag implements Header,
     /**
      * Factory that creates a new {@link ETag}
      */
-    public static ETag with(final String value, final ETagValidator validator) {
+    public static ETag with(final String value,
+                            final ETagValidator validator) {
         checkValue(value);
-        checkValidator(validator);
+        Objects.requireNonNull(validator, "validator");
 
-        return ETagNonWildcard.with0(value, validator);
+        return ETagNonWildcard.with0(
+            value,
+            validator
+        );
     }
 
     /**
@@ -83,7 +87,7 @@ public abstract class ETag implements Header,
 
     abstract boolean testNonNullNonWildcard(final ETag etag);
 
-    // value.....................................................................................................
+    // value............................................................................................................
 
     /**
      * The wildcard character.
@@ -94,11 +98,12 @@ public abstract class ETag implements Header,
      * Would be setter that returns a {@link ETag} with the given value creating a new instance as necessary.
      */
     public final ETag setValue(final String value) {
-        checkValue(value);
-
         return this.value().equals(value) ?
             this :
-            this.replace(value, this.validator());
+            this.replace(
+                checkValue(value),
+                this.validator()
+            );
     }
 
     static String checkValue(final String value) {
@@ -108,7 +113,7 @@ public abstract class ETag implements Header,
         );
     }
 
-    // weak...........................................................................................................
+    // weak.............................................................................................................
 
     /**
      * The optional weak attribute
@@ -123,7 +128,10 @@ public abstract class ETag implements Header,
 
         return this.validator().equals(validator) ?
             this :
-            this.replace(this.value(), validator);
+            this.replace(
+                this.value(),
+                validator
+            );
     }
 
     /**
@@ -131,17 +139,13 @@ public abstract class ETag implements Header,
      */
     abstract void checkValidator0(final ETagValidator validator);
 
-    static void checkValidator(final ETagValidator validator) {
-        Objects.requireNonNull(validator, "validator");
-    }
-
     // replaceParameters ...............................................................................................
 
     private ETag replace(final String value, final ETagValidator validator) {
         return with(value, validator);
     }
 
-    // isXXX........................................................................................................
+    // isXXX............................................................................................................
 
     /**
      * Returns true if this etag is a wildcard.
@@ -149,7 +153,7 @@ public abstract class ETag implements Header,
     @Override
     public abstract boolean isWildcard();
 
-    // Header........................................................................................................
+    // Header...........................................................................................................
 
     /**
      * Returns the text or header value form.
@@ -159,7 +163,7 @@ public abstract class ETag implements Header,
         return this.toString();
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ..................................................................................................
 
     @Override
     public final boolean isMultipart() {
