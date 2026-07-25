@@ -29,5 +29,5 @@ public interface ETagComputer {
     /**
      * Compute {@link ETag} for the given {@link Binary}
      */
-    Optional<ETag> computeEtag(final Binary binary);
+    Optional<ETag> computeETag(final Binary binary);
 }

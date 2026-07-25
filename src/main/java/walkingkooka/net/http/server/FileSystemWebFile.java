@@ -115,7 +115,7 @@ final class FileSystemWebFile implements WebFile {
 
     @Override
     public Optional<ETag> etag() throws WebFileException {
-        return this.etagComputer.computeEtag(
+        return this.etagComputer.computeETag(
             this.binary()
         );
     }

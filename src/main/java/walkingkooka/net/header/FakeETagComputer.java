@@ -28,7 +28,7 @@ public class FakeETagComputer implements ETagComputer {
     }
 
     @Override
-    public Optional<ETag> computeEtag(final Binary binary) {
+    public Optional<ETag> computeETag(final Binary binary) {
         throw new UnsupportedOperationException();
     }
 }

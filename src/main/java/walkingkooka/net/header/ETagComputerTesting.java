@@ -27,7 +27,7 @@ public interface ETagComputerTesting extends TreePrintableTesting {
     ETagComputer ETAG_COMPUTER = new ETagComputer() {
 
         @Override
-        public Optional<ETag> computeEtag(final Binary binary) {
+        public Optional<ETag> computeETag(final Binary binary) {
             return Optional.ofNullable(
                 binary.isEmpty() ?
                     null :
@@ -63,7 +63,7 @@ public interface ETagComputerTesting extends TreePrintableTesting {
                                      final Optional<ETag> expected) {
         this.checkEquals(
             expected,
-            computer.computeEtag(binary),
+            computer.computeETag(binary),
             () -> computer + " computeETag " + binary
         );
     }
