@@ -474,6 +474,19 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     }
 
     /**
+     * Returns true if this media type is probably binary, such as {@link #BINARY} or image.
+     */
+    public boolean isBinary() {
+        final String type = this.type;
+
+        return BINARY.test(this) ||
+            CASE_SENSITIVITY.equals(
+                type,
+                "image"
+            );
+    }
+
+    /**
      * Returns true if this {@link MediaType} is text. Think of this as a guess rather than precise.
      * <br>
      * Currently this returns true if {@link #type} is <code>text</code> or the {@link #subType} is <code>json</code>.
