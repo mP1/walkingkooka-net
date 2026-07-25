@@ -17,16 +17,29 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
+import walkingkooka.net.header.ETag;
 import walkingkooka.text.BinaryTextContext;
 import walkingkooka.text.BinaryTextContextDelegator;
 
-public interface HttpHandlerContextDelegator extends BinaryTextContextDelegator {
+import java.util.Optional;
+
+public interface HttpHandlerContextDelegator extends HttpHandlerContext,
+    BinaryTextContextDelegator {
 
     // BinaryTextContextDelegator.......................................................................................
 
     @Override
     default BinaryTextContext binaryTextContext() {
         return this.httpHandlerContext();
+    }
+
+    // ETagComputer.....................................................................................................
+
+    @Override
+    default Optional<ETag> computeETag(final Binary binary) {
+        return this.httpHandlerContext()
+            .computeETag(binary);
     }
 
     // HttpHandlerContextDelegator......................................................................................
