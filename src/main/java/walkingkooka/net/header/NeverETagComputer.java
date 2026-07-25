@@ -17,28 +17,29 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.Binary;
 
-public final class ETagComputers implements PublicStaticHelper {
+import java.util.Objects;
+import java.util.Optional;
 
-    /**
-     * {@see FakeETagComputer}
-     */
-    public static FakeETagComputer fake() {
-        return new FakeETagComputer();
+final class NeverETagComputer implements ETagComputer {
+
+    final static NeverETagComputer INSTANCE = new NeverETagComputer();
+
+    private NeverETagComputer() {
+        super();
     }
 
-    /**
-     * {@see NeverETagComputer}
-     */
-    public static ETagComputer never() {
-        return NeverETagComputer.INSTANCE;
+    @Override
+    public Optional<ETag> computeETag(final Binary binary) {
+        Objects.requireNonNull(binary, "binary");
+        return Optional.empty();
     }
 
-    /**
-     * Stop creation
-     */
-    private ETagComputers() {
-        throw new UnsupportedOperationException();
+    // Object...........................................................................................................
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }
