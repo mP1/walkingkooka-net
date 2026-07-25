@@ -23,6 +23,7 @@ import org.opentest4j.AssertionFailedError;
 import walkingkooka.Binary;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagComputer;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetector;
@@ -39,7 +40,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,6 +48,14 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     private final static String FILENAME = "file.custom.bin";
     private final static Binary CONTENT = Binary.with("abc123".getBytes(Charset.defaultCharset()));
+
+    private final static ETag ETAG = ETag.with("2222", ETagValidator.STRONG);
+
+    private final static ETagComputer ETAG_COMPUTER = (final Binary binary) -> Optional.ofNullable(
+        binary.equals(CONTENT) ?
+            ETAG :
+            null
+    );
 
     @TempDir
     public Path tempDirectory;
@@ -59,7 +67,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
         this.withFails(
             null,
             this::mediaTypeDetector,
-            this::etagComputer
+            ETAG_COMPUTER
         );
     }
 
@@ -68,7 +76,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
         this.withFails(
             this.path(),
             null,
-            this::etagComputer
+            ETAG_COMPUTER
         );
     }
 
@@ -83,7 +91,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     private void withFails(final Path path,
                            final MediaTypeDetector mediaTypeDetector,
-                           final Function<Binary, Optional<ETag>> etagComputer) {
+                           final ETagComputer etagComputer) {
         assertThrows(
             NullPointerException.class,
             () -> FileSystemWebFile.with(
@@ -139,9 +147,12 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     @Test
     public void testETag() {
         final FileSystemWebFile webFile = this.webFile();
-        this.checkEquals(Optional.of(this.etag()),
+
+        this.checkEquals(
+            Optional.of(ETAG),
             webFile.etag(),
-            "etag");
+            "etag"
+        );
     }
 
     // ToString.........................................................................................................
@@ -155,7 +166,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     // helpers..........................................................................................................
 
     private FileSystemWebFile webFile() {
-        return FileSystemWebFile.with(this.path(), this::mediaTypeDetector, this::etagComputer);
+        return FileSystemWebFile.with(this.path(), this::mediaTypeDetector, ETAG_COMPUTER);
     }
 
     private Path path() {
@@ -175,16 +186,6 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     private MediaType contentType() {
         return MediaType.parse("custom/file-type");
-    }
-
-    private Optional<ETag> etagComputer(final Binary binary) {
-        return Optional.ofNullable(binary.equals(CONTENT) ?
-            this.etag() :
-            null);
-    }
-
-    private ETag etag() {
-        return ETag.with("2222", ETagValidator.STRONG);
     }
 
     // ClassTesting.....................................................................................................

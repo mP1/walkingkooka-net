@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagComputer;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetector;
 
@@ -31,7 +32,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * A {@link WebFile} view of a file {@link Path}.
@@ -43,7 +43,7 @@ final class FileSystemWebFile implements WebFile {
      */
     static FileSystemWebFile with(final Path path,
                                   final MediaTypeDetector contentTypeGuesser,
-                                  final Function<Binary, Optional<ETag>> etagComputer) {
+                                  final ETagComputer etagComputer) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(contentTypeGuesser, "contentTypeGuesser");
         Objects.requireNonNull(etagComputer, "etagComputer");
@@ -61,7 +61,7 @@ final class FileSystemWebFile implements WebFile {
      */
     private FileSystemWebFile(final Path path,
                               final MediaTypeDetector contentTypeGuesser,
-                              final Function<Binary, Optional<ETag>> etagComputer) {
+                              final ETagComputer etagComputer) {
         super();
         this.path = path;
         this.contentTypeGuesser = contentTypeGuesser;
@@ -115,7 +115,9 @@ final class FileSystemWebFile implements WebFile {
 
     @Override
     public Optional<ETag> etag() throws WebFileException {
-        return this.etagComputer.apply(this.binary());
+        return this.etagComputer.computeEtag(
+            this.binary()
+        );
     }
 
     private Binary binary() {
@@ -146,7 +148,7 @@ final class FileSystemWebFile implements WebFile {
     /**
      * Attempts to determine the {@link MediaType} by examining the filename and content.
      */
-    private final Function<Binary, Optional<ETag>> etagComputer;
+    private final ETagComputer etagComputer;
 
     // Object...........................................................................................................
 
