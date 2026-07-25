@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public final class ETagComputerTestingTest implements ETagComputerTesting {
@@ -53,6 +54,20 @@ public final class ETagComputerTestingTest implements ETagComputerTesting {
             },
             Binary.EMPTY,
             etag
+        );
+    }
+
+    @Test
+    public void testETagComputerConstants() {
+        this.computeETagAndCheck(
+            ETAG_COMPUTER,
+            Binary.with(
+                "Hello".getBytes(StandardCharsets.UTF_8)
+            ),
+            ETag.with(
+                "5",
+                ETagValidator.WEAK
+            )
         );
     }
 }

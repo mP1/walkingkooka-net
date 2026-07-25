@@ -24,6 +24,21 @@ import java.util.Optional;
 
 public interface ETagComputerTesting extends TreePrintableTesting {
 
+    ETagComputer ETAG_COMPUTER = new ETagComputer() {
+
+        @Override
+        public Optional<ETag> computeEtag(final Binary binary) {
+            return Optional.ofNullable(
+                binary.isEmpty() ?
+                    null :
+                    ETag.with(
+                        String.valueOf(binary.size()),
+                        ETagValidator.WEAK
+                    )
+            );
+        }
+    };
+
     default void computeETagAndCheck(final ETagComputer computer,
                                      final Binary binary) {
         this.computeETagAndCheck(
