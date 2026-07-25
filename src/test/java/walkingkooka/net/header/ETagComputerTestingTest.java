@@ -30,7 +30,7 @@ public final class ETagComputerTestingTest implements ETagComputerTesting {
         this.computeETagAndCheck(
             new ETagComputer() {
                 @Override
-                public Optional<ETag> computeEtag(final Binary binary) {
+                public Optional<ETag> computeETag(final Binary binary) {
                     return Optional.empty();
                 }
             },
@@ -48,7 +48,7 @@ public final class ETagComputerTestingTest implements ETagComputerTesting {
         this.computeETagAndCheck(
             new ETagComputer() {
                 @Override
-                public Optional<ETag> computeEtag(final Binary binary) {
+                public Optional<ETag> computeETag(final Binary binary) {
                     return Optional.of(etag);
                 }
             },

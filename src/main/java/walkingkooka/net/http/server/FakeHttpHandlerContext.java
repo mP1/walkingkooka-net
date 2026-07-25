@@ -30,7 +30,7 @@ public class FakeHttpHandlerContext extends FakeBinaryTextContext implements Htt
     }
 
     @Override
-    public Optional<ETag> computeEtag(final Binary binary) {
+    public Optional<ETag> computeETag(final Binary binary) {
         throw new UnsupportedOperationException();
     }
 }
