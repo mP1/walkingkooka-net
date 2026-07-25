@@ -18,11 +18,13 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Context;
+import walkingkooka.net.header.ETagComputer;
 import walkingkooka.text.BinaryTextContext;
 
 /**
  * The {@link Context} that accompanies each {@link HttpHandler#handle(HttpRequest, HttpResponse, HttpHandlerContext)}.
  */
 public interface HttpHandlerContext extends Context,
-    BinaryTextContext {
+    BinaryTextContext,
+    ETagComputer {
 }

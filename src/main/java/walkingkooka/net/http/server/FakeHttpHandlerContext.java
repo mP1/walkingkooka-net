@@ -17,11 +17,20 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
+import walkingkooka.net.header.ETag;
 import walkingkooka.text.FakeBinaryTextContext;
+
+import java.util.Optional;
 
 public class FakeHttpHandlerContext extends FakeBinaryTextContext implements HttpHandlerContext {
 
     public FakeHttpHandlerContext() {
         super();
+    }
+
+    @Override
+    public Optional<ETag> computeEtag(final Binary binary) {
+        throw new UnsupportedOperationException();
     }
 }
