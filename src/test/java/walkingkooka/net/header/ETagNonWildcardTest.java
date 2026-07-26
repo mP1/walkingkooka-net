@@ -45,76 +45,108 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
         this.check(etag);
     }
 
-    // test...........................................................................................................
+    // test.............................................................................................................
 
     private final static String DIFFERENT_VALUE = "FEDCBA9876543210";
 
     @Test
     public void testTestStrongStrongSameValue() {
-        this.testTrue(ETagValidator.STRONG.setValue(VALUE),
-            ETagValidator.STRONG.setValue(VALUE));
+        this.testTrue(
+            ETagValidator.STRONG.setValue(VALUE),
+            ETagValidator.STRONG.setValue(VALUE)
+        );
     }
 
     @Test
     public void testTestStrongStrongDifferentValue() {
-        this.testFalse(ETagValidator.STRONG.setValue(VALUE),
-            ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
+        this.testFalse(
+            ETagValidator.STRONG.setValue(VALUE),
+            ETagValidator.STRONG.setValue(DIFFERENT_VALUE)
+        );
     }
 
     @Test
     public void testTestStrongWeakSameValue() {
-        this.testTrue(ETagValidator.STRONG.setValue(VALUE),
-            ETagValidator.WEAK.setValue(VALUE));
+        this.testTrue(
+            ETagValidator.STRONG.setValue(VALUE),
+            ETagValidator.WEAK.setValue(VALUE)
+        );
     }
 
     @Test
     public void testTestStrongWeakDifferentValue() {
-        this.testFalse(ETagValidator.STRONG.setValue(VALUE),
-            ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
+        this.testFalse(
+            ETagValidator.STRONG.setValue(VALUE),
+            ETagValidator.WEAK.setValue(DIFFERENT_VALUE)
+        );
     }
 
     @Test
     public void testTestWeakStrongSameValue() {
-        this.testTrue(ETagValidator.WEAK.setValue(VALUE),
-            ETagValidator.STRONG.setValue(VALUE));
+        this.testTrue(
+            ETagValidator.WEAK.setValue(VALUE),
+            ETagValidator.STRONG.setValue(VALUE)
+        );
     }
 
     @Test
     public void testTestWeakStrongDifferentValue() {
-        this.testFalse(ETagValidator.WEAK.setValue(VALUE),
-            ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
+        this.testFalse(
+            ETagValidator.WEAK.setValue(VALUE),
+            ETagValidator.STRONG.setValue(DIFFERENT_VALUE)
+        );
     }
 
     @Test
     public void testTestWeakWeakSameValue() {
-        this.testTrue(ETagValidator.WEAK.setValue(VALUE),
-            ETagValidator.WEAK.setValue(VALUE));
+        this.testTrue(
+            ETagValidator.WEAK.setValue(VALUE),
+            ETagValidator.WEAK.setValue(VALUE)
+        );
     }
 
     @Test
     public void testTestWeakWeakDifferentValue() {
-        this.testFalse(ETagValidator.WEAK.setValue(VALUE),
-            ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
+        this.testFalse(
+            ETagValidator.WEAK.setValue(VALUE),
+            ETagValidator.WEAK.setValue(DIFFERENT_VALUE)
+        );
     }
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(ETagNonWildcard.with0("different", ETagValidator.STRONG));
+        this.checkNotEquals(
+            ETagNonWildcard.with0(
+                "different",
+                ETagValidator.STRONG
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentWeak() {
-        this.checkNotEquals(ETagNonWildcard.with0(VALUE, ETagValidator.WEAK));
+        this.checkNotEquals(
+            ETagNonWildcard.with0(
+                VALUE,
+                ETagValidator.WEAK
+            )
+        );
     }
 
     @Override
     ETagNonWildcard createETag() {
-        return ETagNonWildcard.with0(VALUE, ETagValidator.STRONG);
+        return ETagNonWildcard.with0(
+            VALUE,
+            ETagValidator.STRONG
+        );
     }
 
     @Override
     public ETagNonWildcard createDifferentHeader() {
-        return ETagNonWildcard.with0("different", ETagValidator.STRONG);
+        return ETagNonWildcard.with0(
+            "different",
+            ETagValidator.STRONG
+        );
     }
 
     @Override
