@@ -17,30 +17,29 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 
-public final class NeverETagComputerTest implements ETagComputerTesting, ClassTesting2<NeverETagComputer> {
+import java.util.Objects;
+import java.util.Optional;
 
-    @Test
-    public void testComputeETag() {
-        this.computeETagAndCheck(
-            NeverETagComputer.INSTANCE,
-            Binary.EMPTY
-        );
-    }
+final class ETagComputerNever implements ETagComputer {
 
-    // class............................................................................................................
+    final static ETagComputerNever INSTANCE = new ETagComputerNever();
 
-    @Override
-    public Class<NeverETagComputer> type() {
-        return NeverETagComputer.class;
+    private ETagComputerNever() {
+        super();
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Optional<ETag> computeETag(final Binary binary) {
+        Objects.requireNonNull(binary, "binary");
+        return Optional.empty();
+    }
+
+    // Object...........................................................................................................
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }
