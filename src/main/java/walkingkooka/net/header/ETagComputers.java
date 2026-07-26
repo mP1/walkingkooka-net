@@ -29,10 +29,10 @@ public final class ETagComputers implements PublicStaticHelper {
     }
 
     /**
-     * {@see NeverETagComputer}
+     * {@see ETagComputerNever}
      */
     public static ETagComputer never() {
-        return NeverETagComputer.INSTANCE;
+        return ETagComputerNever.INSTANCE;
     }
 
     /**
