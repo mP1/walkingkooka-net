@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ETagListHeaderHandlerTest extends
     NonStringHeaderHandlerTestCase<ETagListHeaderHandler, List<ETag>> {
 
+    private static final ETag ETAG = ETag.weak("value");
+
     @Override
     public String typeNamePrefix() {
         return ETag.class.getSimpleName();
@@ -55,17 +57,30 @@ public final class ETagListHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.etag(), null)));
+        assertThrows(
+            HeaderException.class,
+            () -> this.check(
+                Lists.of(
+                    ETAG,
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.etag(), "WRONG!")));
+        assertThrows(
+            HeaderException.class,
+            () -> this.check(
+                Lists.of(
+                    ETAG,
+                    "WRONG!"
+                )
+            )
+        );
     }
 
-    private ETag etag() {
-        return ETag.weak("value");
-    }
 
     @Override
     ETagListHeaderHandler handler() {
