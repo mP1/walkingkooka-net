@@ -118,16 +118,25 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
         );
     }
 
-    void parseStringAndCheck2(final String text, final ETag... tags) {
-        this.checkEquals(Lists.of(tags),
-            listReadOnlyCheck(ETagListHeaderParser.parseList(text)),
-            "Incorrect result parsing " + CharSequences.quote(text));
+    void parseStringAndCheck2(final String text,
+                              final ETag... tags) {
+        this.checkEquals(
+            Lists.of(tags),
+            listReadOnlyCheck(
+                ETagListHeaderParser.parseList(text)
+            ),
+            () -> "Incorrect result parsing " + CharSequences.quote(text)
+        );
     }
 
     @Override
     public ETag parseString(final String text) {
         final List<ETag> tags = ETagListHeaderParser.parseList(text);
-        this.checkEquals(1, tags.size(), "expected one tag =" + CharSequences.quote(text) + "=" + tags);
+        this.checkEquals(
+            1,
+            tags.size(),
+            () -> "expected one tag =" + CharSequences.quote(text) + "=" + tags
+        );
         return tags.get(0);
     }
 
