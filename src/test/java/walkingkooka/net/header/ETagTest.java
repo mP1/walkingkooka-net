@@ -27,10 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagTest extends HeaderTestCase<ETag> {
 
-    private final static String VALUE = "123";
-    private final static ETagValidator WEAK = ETagValidator.WEAK;
-
-    // with .....................................................................................
+    // with ............................................................................................................
 
     @Test
     public void testStrongNullValueFails() {
@@ -64,7 +61,7 @@ public final class ETagTest extends HeaderTestCase<ETag> {
         );
     }
 
-    // text...................................................................
+    // text.............................................................................................................
 
     @Test
     public void testTextString() {
@@ -87,7 +84,7 @@ public final class ETagTest extends HeaderTestCase<ETag> {
         this.isWildcardAndCheck(false);
     }
 
-    // toString ...........................................................................................
+    // toString ........................................................................................................
 
     @Test
     public void testToString() {
@@ -110,7 +107,7 @@ public final class ETagTest extends HeaderTestCase<ETag> {
         throw new UnsupportedOperationException();
     }
 
-    // toHeaderTextList.......................................................................................
+    // toHeaderTextList.................................................................................................
 
     @Test
     public void testTextListOneStrong() {
