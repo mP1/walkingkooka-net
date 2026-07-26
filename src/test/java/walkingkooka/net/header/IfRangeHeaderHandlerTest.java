@@ -54,7 +54,7 @@ public final class IfRangeHeaderHandlerTest extends
     }
 
     private ETag etag() {
-        return ETag.with("abc123", ETagValidator.WEAK);
+        return ETagValidator.WEAK.setValue("abc123");
     }
 
     @Override

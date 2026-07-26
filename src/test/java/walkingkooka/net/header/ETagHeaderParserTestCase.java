@@ -147,8 +147,13 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
         this.parseStringAndCheck(text, value, ETagValidator.STRONG);
     }
 
-    final void parseStringAndCheck(final String text, final String value, final ETagValidator validator) {
-        this.parseStringAndCheck(text, ETag.with(value, validator));
+    final void parseStringAndCheck(final String text,
+                                   final String value,
+                                   final ETagValidator validator) {
+        this.parseStringAndCheck(
+            text,
+            validator.setValue(value)
+        );
     }
 
     @Override final String valueLabel() {

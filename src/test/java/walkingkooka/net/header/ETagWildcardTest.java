@@ -42,7 +42,9 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
 
     @Test
     public void testNonWildcard() {
-        this.checkNotEquals(ETag.with("0123456789", ETagValidator.STRONG));
+        this.checkNotEquals(
+            ETag.strong("0123456789")
+        );
     }
 
     @Override

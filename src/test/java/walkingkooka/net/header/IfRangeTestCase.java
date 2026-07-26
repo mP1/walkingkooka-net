@@ -150,7 +150,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     abstract String headerText();
 
     final ETag etag() {
-        return ETag.with("abc123", ETagValidator.WEAK);
+        return ETag.weak("abc123");
     }
 
     final LocalDateTime lastModified() {

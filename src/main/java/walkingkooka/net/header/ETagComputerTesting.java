@@ -31,9 +31,10 @@ public interface ETagComputerTesting extends TreePrintableTesting {
             return Optional.ofNullable(
                 binary.isEmpty() ?
                     null :
-                    ETag.with(
-                        String.valueOf(binary.size()),
-                        ETagValidator.WEAK
+                    ETag.weak(
+                        String.valueOf(
+                            binary.size()
+                        )
                     )
             );
         }
