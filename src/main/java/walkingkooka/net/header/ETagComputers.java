@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
 
 public final class ETagComputers implements PublicStaticHelper {
@@ -26,6 +27,14 @@ public final class ETagComputers implements PublicStaticHelper {
      */
     public static FakeETagComputer fake() {
         return new FakeETagComputer();
+    }
+
+    /**
+     * {@see ETagComputerMd5}
+     */
+    @GwtIncompatible
+    public static ETagComputer md5() {
+        return ETagComputerMd5.INSTANCE;
     }
 
     /**
