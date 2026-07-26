@@ -33,32 +33,53 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     // with .....................................................................................
 
     @Test
-    public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> ETag.with(null, ETagValidator.STRONG));
+    public void testStrongNullValueFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ETag.strong(null)
+        );
     }
 
     @Test
-    public void testWithInvalidValueCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> ETag.with("abc def", ETagValidator.STRONG));
+    public void testStrongInvalidValueFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ETag.strong("abc def")
+        );
     }
 
     @Test
-    public void testWithNullWeaknessIndicatorFails() {
-        assertThrows(NullPointerException.class, () -> ETag.with(VALUE, null));
+    public void testWeakNullValueFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ETag.weak(null)
+        );
+    }
+
+    @Test
+    public void testWeakInvalidValueFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> ETag.weak("abc def")
+        );
     }
 
     // text...................................................................
 
     @Test
     public void testTextString() {
-        this.textAndCheck(ETag.with("abc123", ETagValidator.STRONG),
-            "\"abc123\"");
+        this.textAndCheck(
+            ETag.strong("abc123"),
+            "\"abc123\""
+        );
     }
 
     @Test
     public void testTextWeak() {
-        this.textAndCheck(ETag.with("abc123", ETagValidator.WEAK),
-            "W/\"abc123\"");
+        this.textAndCheck(
+            ETag.weak("abc123"),
+            "W/\"abc123\""
+        );
     }
 
     @Test
@@ -70,12 +91,18 @@ public final class ETagTest extends HeaderTestCase<ETag> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(ETag.with("abc123", ETagValidator.STRONG), "\"abc123\"");
+        this.toStringAndCheck(
+            ETag.strong("abc123"),
+            "\"abc123\""
+        );
     }
 
     @Test
     public void testToStringWeak() {
-        this.toStringAndCheck(ETag.with("abc123", WEAK), "W/\"abc123\"");
+        this.toStringAndCheck(
+            ETag.weak("abc123"),
+            "W/\"abc123\""
+        );
     }
 
     @Override
@@ -86,15 +113,19 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     // toHeaderTextList.......................................................................................
 
     @Test
-    public void testTextListOne() {
-        this.textListAndCheck("\"abc123\"",
-            ETag.with("abc123", ETagValidator.STRONG));
+    public void testTextListOneStrong() {
+        this.textListAndCheck(
+            "\"abc123\"",
+            ETag.strong("abc123")
+        );
     }
 
     @Test
-    public void testTextListOne2() {
-        this.textListAndCheck("W/\"abc123\"",
-            ETag.with("abc123", ETagValidator.WEAK));
+    public void testTextListOneWeak() {
+        this.textListAndCheck(
+            "W/\"abc123\"",
+            ETag.weak("abc123")
+        );
     }
 
     @Test
@@ -105,23 +136,29 @@ public final class ETagTest extends HeaderTestCase<ETag> {
 
     @Test
     public void testTextListSeveral() {
-        this.textListAndCheck("\"1\", \"2\"",
-            ETag.with("1", ETagValidator.STRONG),
-            ETag.with("2", ETagValidator.STRONG));
+        this.textListAndCheck(
+            "\"1\", \"2\"",
+            ETag.strong("1"),
+            ETag.strong("2")
+        );
     }
 
     @Test
     public void testTextListSeveral2() {
-        this.textListAndCheck("\"11\", \"22\"",
-            ETag.with("11", ETagValidator.STRONG),
-            ETag.with("22", ETagValidator.STRONG));
+        this.textListAndCheck(
+            "\"11\", \"22\"",
+            ETag.strong("11"),
+            ETag.strong("22")
+        );
     }
 
     @Test
     public void testTextListSeveral3() {
-        this.textListAndCheck("W/\"11\", \"22\"",
-            ETag.with("11", ETagValidator.WEAK),
-            ETag.with("22", ETagValidator.STRONG));
+        this.textListAndCheck(
+            "W/\"11\", \"22\"",
+            ETag.weak("11"),
+            ETag.strong("22")
+        );
     }
 
     private void textListAndCheck(final String toString, final ETag... tags) {
@@ -132,12 +169,12 @@ public final class ETagTest extends HeaderTestCase<ETag> {
 
     @Override
     public ETag createHeader() {
-        return ETag.with("A", ETagValidator.WEAK);
+        return ETag.weak("A");
     }
 
     @Override
     public ETag createDifferentHeader() {
-        return ETag.with("Different", ETagValidator.WEAK);
+        return ETag.weak("Different");
     }
 
     @Override

@@ -57,51 +57,65 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
 
     @Test
     public void testETagSeparatorETag() {
-        this.parseStringAndCheck2("\"A\",\"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.STRONG));
+        this.parseStringAndCheck2(
+            "\"A\",\"B\"",
+            ETag.strong("A"),
+            ETag.strong("B")
+        );
     }
 
     @Test
     public void testETagSeparatorSpaceETag() {
-        this.parseStringAndCheck2("\"A\", \"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.STRONG));
+        this.parseStringAndCheck2(
+            "\"A\", \"B\"",
+            ETag.strong("A"),
+            ETag.strong("B")
+        );
     }
 
     @Test
     public void testETagSeparatorTabETag() {
-        this.parseStringAndCheck2("\"A\",\t\"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.STRONG));
+        this.parseStringAndCheck2(
+            "\"A\",\t\"B\"",
+            ETag.strong("A"),
+            ETag.strong("B")
+        );
     }
 
     @Test
     public void testETagSeparatorSpaceSpaceETag() {
-        this.parseStringAndCheck2("\"A\",  \"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.STRONG));
+        this.parseStringAndCheck2(
+            "\"A\",  \"B\"",
+            ETag.strong("A"),
+            ETag.strong("B")
+        );
     }
 
     @Test
     public void testWeakETagSeparatorWeakETag() {
-        this.parseStringAndCheck2("W/\"A\",W/\"B\"",
-            ETag.with("A", ETagValidator.WEAK),
-            ETag.with("B", ETagValidator.WEAK));
+        this.parseStringAndCheck2(
+            "W/\"A\",W/\"B\"",
+            ETag.weak("A"),
+            ETag.weak("B")
+        );
     }
 
     @Test
     public void testWeakETagSeparatorSpaceWeakETag() {
-        this.parseStringAndCheck2("\"A\", W/\"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.WEAK));
+        this.parseStringAndCheck2(
+            "\"A\", W/\"B\"",
+            ETag.strong("A"),
+            ETag.weak("B")
+        );
     }
 
     @Test
     public void testWeakETagSeparatorTabWeakETag() {
-        this.parseStringAndCheck2("\"A\",\tW/\"B\"",
-            ETag.with("A", ETagValidator.STRONG),
-            ETag.with("B", ETagValidator.WEAK));
+        this.parseStringAndCheck2(
+            "\"A\",\tW/\"B\"",
+            ETag.strong("A"),
+            ETag.weak("B")
+        );
     }
 
     void parseStringAndCheck2(final String text, final ETag... tags) {

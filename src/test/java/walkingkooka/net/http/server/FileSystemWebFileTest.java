@@ -24,7 +24,6 @@ import walkingkooka.Binary;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagComputer;
-import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.reflect.ClassTesting2;
@@ -49,7 +48,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     private final static String FILENAME = "file.custom.bin";
     private final static Binary CONTENT = Binary.with("abc123".getBytes(Charset.defaultCharset()));
 
-    private final static ETag ETAG = ETag.with("2222", ETagValidator.STRONG);
+    private final static ETag ETAG = ETag.strong("2222");
 
     private final static ETagComputer ETAG_COMPUTER = (final Binary binary) -> Optional.ofNullable(
         binary.equals(CONTENT) ?

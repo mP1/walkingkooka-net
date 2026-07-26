@@ -34,14 +34,23 @@ public final class ETagListHeaderHandlerTest extends
 
     @Test
     public void testParseETagOne() {
-        this.parseAndToTextAndCheck("W/\"123\"",
-            Lists.of(ETag.with("123", ETagValidator.WEAK)));
+        this.parseAndToTextAndCheck(
+            "W/\"123\"",
+            Lists.of(
+                ETag.weak("123")
+            )
+        );
     }
 
     @Test
     public void testParseETagSeveral() {
-        this.toTextAndCheck(Lists.of(ETag.with("123", ETagValidator.WEAK),
-            ETag.with("456", ETagValidator.WEAK)), "W/\"123\", W/\"456\"");
+        this.toTextAndCheck(
+            Lists.of(
+                ETag.weak("123"),
+                ETag.weak("456")
+            ),
+            "W/\"123\", W/\"456\""
+        );
     }
 
     @Test
@@ -55,7 +64,7 @@ public final class ETagListHeaderHandlerTest extends
     }
 
     private ETag etag() {
-        return ETag.with("value", ETagValidator.WEAK);
+        return ETag.weak("value");
     }
 
     @Override

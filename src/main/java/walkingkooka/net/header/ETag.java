@@ -21,7 +21,6 @@ import walkingkooka.HasValue;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -39,17 +38,17 @@ public abstract class ETag implements Header,
         return ETagWildcard.instance();
     }
 
-    /**
-     * Factory that creates a new {@link ETag}
-     */
-    public static ETag with(final String value,
-                            final ETagValidator validator) {
-        checkValue(value);
-        Objects.requireNonNull(validator, "validator");
-
+    public static ETag strong(final String value) {
         return ETagNonWildcard.with0(
             value,
-            validator
+            ETagValidator.STRONG
+        );
+    }
+
+    public static ETag weak(final String value) {
+        return ETagNonWildcard.with0(
+            value,
+            ETagValidator.WEAK
         );
     }
 
@@ -141,8 +140,9 @@ public abstract class ETag implements Header,
 
     // replaceParameters ...............................................................................................
 
-    private ETag replace(final String value, final ETagValidator validator) {
-        return with(value, validator);
+    private ETag replace(final String value,
+                         final ETagValidator validator) {
+        return validator.setValue(value);
     }
 
     // isXXX............................................................................................................

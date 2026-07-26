@@ -28,12 +28,22 @@ public enum ETagValidator {
         void wildcardValidatorCheck() {
             throw new IllegalArgumentException("Wildcard etag must be " + STRONG + " not " + WEAK);
         }
+
+        @Override
+        public ETag setValue(final String value) {
+            return ETag.weak(value);
+        }
     },
 
     STRONG("") {
         @Override
         void wildcardValidatorCheck() {
             // nop
+        }
+
+        @Override
+        public ETag setValue(final String value) {
+            return ETag.strong(value);
         }
     };
 
@@ -54,7 +64,5 @@ public enum ETagValidator {
     /**
      * Factory that creates a {@link ETag} with this validator and the given {@link String value}.
      */
-    public final ETag setValue(final String value) {
-        return ETag.with(value, this);
-    }
+    public abstract ETag setValue(final String value);
 }

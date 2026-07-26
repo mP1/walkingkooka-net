@@ -29,12 +29,18 @@ public final class ETagHeaderHandlerTest extends
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("W/\"123\"", ETag.with("123", ETagValidator.WEAK));
+        this.parseStringAndCheck(
+            "W/\"123\"",
+            ETag.weak("123")
+        );
     }
 
     @Test
     public void testToText() {
-        this.toTextAndCheck(ETag.with("123", ETagValidator.WEAK), "W/\"123\"");
+        this.toTextAndCheck(
+            ETag.weak("123"),
+            "W/\"123\""
+        );
     }
 
     @Override
@@ -54,7 +60,7 @@ public final class ETagHeaderHandlerTest extends
 
     @Override
     ETag value() {
-        return ETag.with("01234567890", ETagValidator.WEAK);
+        return ETag.weak("01234567890");
     }
 
     @Override

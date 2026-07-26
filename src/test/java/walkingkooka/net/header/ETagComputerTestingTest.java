@@ -40,10 +40,7 @@ public final class ETagComputerTestingTest implements ETagComputerTesting {
 
     @Test
     public void testComputeETagSuccess() {
-        final ETag etag = ETag.with(
-            "123",
-            ETagValidator.STRONG
-        );
+        final ETag etag = ETag.strong("123");
 
         this.computeETagAndCheck(
             new ETagComputer() {
@@ -64,10 +61,7 @@ public final class ETagComputerTestingTest implements ETagComputerTesting {
             Binary.with(
                 "Hello".getBytes(StandardCharsets.UTF_8)
             ),
-            ETag.with(
-                "5",
-                ETagValidator.WEAK
-            )
+            ETag.weak("5")
         );
     }
 }

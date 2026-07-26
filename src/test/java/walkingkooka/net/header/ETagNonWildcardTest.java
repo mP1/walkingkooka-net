@@ -30,7 +30,11 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
 
     @Test
     public void testWithEmpty() {
-        this.check(ETag.with("", ETagValidator.STRONG), "", ETagValidator.STRONG);
+        this.check(
+            ETag.strong(""),
+            "",
+            ETagValidator.STRONG
+        );
     }
 
     @Test
