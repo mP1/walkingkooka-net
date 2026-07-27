@@ -36,20 +36,20 @@ import java.util.function.Function;
  * NOT_MODIFIED will be returned with an empty body. The content-type, last-modified headers will always be added to the response,
  * and a content-length when the body contains the file content.
  */
-final class WebFileHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerWebFile<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static <C extends HttpHandlerContext> WebFileHttpHandler<C> with(final UrlPath basePath,
+    static <C extends HttpHandlerContext> HttpHandlerWebFile<C> with(final UrlPath basePath,
                                                                      final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         Objects.requireNonNull(basePath, "basePath");
         Objects.requireNonNull(files, "files");
 
-        return new WebFileHttpHandler<>(basePath, files);
+        return new HttpHandlerWebFile<>(basePath, files);
     }
 
     /**
      * Private ctor use factory
      */
-    private WebFileHttpHandler(final UrlPath basePath,
+    private HttpHandlerWebFile(final UrlPath basePath,
                                final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
         super();
         this.basePath = basePath;
