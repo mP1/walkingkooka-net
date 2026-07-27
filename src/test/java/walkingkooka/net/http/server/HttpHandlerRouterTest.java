@@ -32,14 +32,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<RouterHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerRouterTest implements HttpHandlerTesting<HttpHandlerRouter<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<HttpHandlerRouter<FakeHttpHandlerContext>> {
 
     @Test
     public void testWithNullRouterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> RouterHttpHandler.with(
+            () -> HttpHandlerRouter.with(
                 null,
                 this.notFound()
             )
@@ -50,7 +50,7 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     public void testWithNotFoundFails() {
         assertThrows(
             NullPointerException.class,
-            () -> RouterHttpHandler.with(
+            () -> HttpHandlerRouter.with(
                 this.router(),
                 null
             )
@@ -87,8 +87,8 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
     }
 
     @Override
-    public RouterHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return RouterHttpHandler.with(
+    public HttpHandlerRouter<FakeHttpHandlerContext> createHttpHandler() {
+        return HttpHandlerRouter.with(
             this.router(),
             this.notFound()
         );
@@ -159,14 +159,14 @@ public final class RouterHttpHandlerTest implements HttpHandlerTesting<RouterHtt
         final Router<HttpRequestAttribute<?>, HttpHandler<FakeHttpHandlerContext>> router = this.router();
         final HttpHandler<FakeHttpHandlerContext> notFound = this.notFound();
 
-        this.toStringAndCheck(RouterHttpHandler.with(router, notFound), router + " OR " + notFound);
+        this.toStringAndCheck(HttpHandlerRouter.with(router, notFound), router + " OR " + notFound);
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<RouterHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(RouterHttpHandler.class);
+    public Class<HttpHandlerRouter<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerRouter.class);
     }
 
     @Override
