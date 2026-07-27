@@ -26,7 +26,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -35,28 +34,17 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTesting<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
 
     @Test
-    public void testWithNullHandlerFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> StacktraceDumpingHttpHandler.with(
-                null,
-                TRANSLATOR
-            )
-        );
-    }
-
-    @Test
     public void testWithNullTranslatorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> StacktraceDumpingHttpHandler.with(
+            () -> HttpHandlerSharedStacktraceDumping.with(
                 (r, s, c) -> {
                 },
                 null
@@ -74,7 +62,7 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         final HttpResponse response = HttpResponses.fake();
         final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
-        StacktraceDumpingHttpHandler.with(
+        HttpHandlerSharedStacktraceDumping.with(
                 (r, rr, c) -> {
                     assertSame(r, request);
                     assertSame(rr, response);
@@ -100,7 +88,7 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
         final HttpResponse response = HttpResponses.recording();
         final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
-        StacktraceDumpingHttpHandler.with(
+        HttpHandlerSharedStacktraceDumping.with(
             (r, rr, c) -> {
                 assertSame(r, request);
                 assertSame(rr, response);
@@ -134,9 +122,9 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     }
 
     @Override
-    public StacktraceDumpingHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return StacktraceDumpingHttpHandler.with(
-            wrappedHttpHandler(),
+    public HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> handler) {
+        return HttpHandlerSharedStacktraceDumping.with(
+            handler,
             TRANSLATOR
         );
     }
@@ -172,7 +160,7 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     public void testToString() {
         final HttpHandler<FakeHttpHandlerContext> wrapped = wrappedHttpHandler();
         this.toStringAndCheck(
-            StacktraceDumpingHttpHandler.with(
+            HttpHandlerSharedStacktraceDumping.with(
                 wrapped,
                 TRANSLATOR
             ),
@@ -183,12 +171,7 @@ public final class StacktraceDumpingHttpHandlerTest implements HttpHandlerTestin
     // class............................................................................................................
 
     @Override
-    public Class<StacktraceDumpingHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(StacktraceDumpingHttpHandler.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerSharedStacktraceDumping.class);
     }
 }
