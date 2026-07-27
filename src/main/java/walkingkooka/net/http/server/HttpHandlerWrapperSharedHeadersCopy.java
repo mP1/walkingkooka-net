@@ -26,32 +26,30 @@ import java.util.Set;
 /**
  * Copies headers from the request to the response. If a header is absent from the request it is skipped.
  */
-final class HeadersCopyHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerWrapperSharedHeadersCopy<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> HeadersCopyHttpHandler<C> with(final Set<HttpHeaderName<?>> headers,
-                                                                         final HttpHandler<C> handler) {
+    static <C extends HttpHandlerContext> HttpHandlerWrapperSharedHeadersCopy<C> with(final Set<HttpHeaderName<?>> headers,
+                                                                                      final HttpHandler<C> handler) {
         Objects.requireNonNull(headers, "headers");
-        Objects.requireNonNull(handler, "handler");
 
         final Set<HttpHeaderName<?>> copy = Sets.immutable(headers);
         if (copy.isEmpty()) {
             throw new IllegalArgumentException("Headers to copy must not be empty");
         }
 
-        return new HeadersCopyHttpHandler<>(copy, handler);
+        return new HttpHandlerWrapperSharedHeadersCopy<>(copy, handler);
     }
 
-    private HeadersCopyHttpHandler(final Set<HttpHeaderName<?>> headers,
-                                   final HttpHandler<C> handler) {
-        super();
+    private HttpHandlerWrapperSharedHeadersCopy(final Set<HttpHeaderName<?>> headers,
+                                                final HttpHandler<C> handler) {
+        super(handler);
         this.headers = headers;
-        this.handler = handler;
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final C context) {
+    void handle0(final HttpRequest request,
+                 final HttpResponse response,
+                 final C context) {
         this.handler.handle(
             request,
             HttpResponses.headersCopy(
@@ -67,8 +65,6 @@ final class HeadersCopyHttpHandler<C extends HttpHandlerContext> implements Http
      * Headers that will be copied from the request to the response.
      */
     private final Set<HttpHeaderName<?>> headers;
-
-    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {
