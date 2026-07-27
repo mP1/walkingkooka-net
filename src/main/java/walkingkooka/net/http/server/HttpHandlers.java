@@ -47,11 +47,11 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeadersCopyHttpHandler}
+     * {@see HttpHandlerWrapperSharedHeadersCopy}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> headerCopy(final Set<HttpHeaderName<?>> headers,
                                                                            final HttpHandler<C> handler) {
-        return HeadersCopyHttpHandler.with(headers, handler);
+        return HttpHandlerWrapperSharedHeadersCopy.with(headers, handler);
     }
 
     /**

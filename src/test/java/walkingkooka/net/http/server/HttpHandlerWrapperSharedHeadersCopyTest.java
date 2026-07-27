@@ -28,7 +28,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.util.List;
 import java.util.Map;
@@ -37,27 +36,35 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<HeadersCopyHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<HeadersCopyHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerWrapperSharedHeadersCopyTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext>> {
+
+    private final static HttpHandler<FakeHttpHandlerContext> WRAPPER = new HttpHandler<>() {
+        @Override
+        public void handle(final HttpRequest request,
+                           final HttpResponse response,
+                           final FakeHttpHandlerContext context) {
+            Objects.requireNonNull(request, "request");
+            Objects.requireNonNull(response, "response");
+            Objects.requireNonNull(context, "context");
+
+            response.setStatus(status());
+            response.setEntity(entity());
+        }
+
+        @Override
+        public String toString() {
+            return TOSTRING;
+        }
+    };
 
     @Test
     public void testWithNullHeadersFails() {
         assertThrows(
             NullPointerException.class,
-            () -> HeadersCopyHttpHandler.with(
+            () -> HttpHandlerWrapperSharedHeadersCopy.with(
                 null,
-                wrappedHttpHandler()
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullHandlersFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> HeadersCopyHttpHandler.with(
-                headers(),
-                null
+                WRAPPER
             )
         );
     }
@@ -75,7 +82,7 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
             }
         };
         final HttpResponse response = HttpResponses.recording();
-        this.createHttpHandler()
+        this.createHttpHandler(WRAPPER)
             .handle(
                 request,
                 response,
@@ -92,36 +99,15 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
     }
 
     @Override
-    public HeadersCopyHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return HeadersCopyHttpHandler.with(
+    public HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> httpHandler) {
+        return HttpHandlerWrapperSharedHeadersCopy.with(
             headers(),
-            wrappedHttpHandler()
+            httpHandler
         );
     }
 
     private static Set<HttpHeaderName<?>> headers() {
         return Sets.of(HttpHeaderName.CONTENT_TYPE, HttpHeaderName.CONTENT_LENGTH, HttpHeaderName.with("X-Custom-Header"));
-    }
-
-    private static HttpHandler<FakeHttpHandlerContext> wrappedHttpHandler() {
-        return new HttpHandler<>() {
-            @Override
-            public void handle(final HttpRequest request,
-                               final HttpResponse response,
-                               final FakeHttpHandlerContext context) {
-                Objects.requireNonNull(request, "request");
-                Objects.requireNonNull(response, "response");
-                Objects.requireNonNull(context, "context");
-
-                response.setStatus(status());
-                response.setEntity(entity());
-            }
-
-            @Override
-            public String toString() {
-                return TOSTRING;
-            }
-        };
     }
 
     private final static String TOSTRING = "Custom to String 123";
@@ -145,18 +131,16 @@ public final class HeadersCopyHttpHandlerTest implements HttpHandlerTesting<Head
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHttpHandler(), headers() + " " + TOSTRING);
+        this.toStringAndCheck(
+            this.createHttpHandler(WRAPPER),
+            headers() + " " + TOSTRING
+        );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<HeadersCopyHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(HeadersCopyHttpHandler.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWrapperSharedHeadersCopy.class);
     }
 }
