@@ -26,15 +26,15 @@ import java.util.function.Function;
 /**
  * Wraps another {@link HttpHandler}, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
  */
-final class HttpHandlerSharedStacktraceDumping<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
+final class HttpHandlerWrapperSharedStacktraceDumping<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> HttpHandlerSharedStacktraceDumping<C> with(final HttpHandler<C> handler,
-                                                                                     final Function<Throwable, HttpStatus> throwableTranslator) {
-        return new HttpHandlerSharedStacktraceDumping<>(handler, throwableTranslator);
+    static <C extends HttpHandlerContext> HttpHandlerWrapperSharedStacktraceDumping<C> with(final HttpHandler<C> handler,
+                                                                                            final Function<Throwable, HttpStatus> throwableTranslator) {
+        return new HttpHandlerWrapperSharedStacktraceDumping<>(handler, throwableTranslator);
     }
 
-    private HttpHandlerSharedStacktraceDumping(final HttpHandler<C> handler,
-                                               final Function<Throwable, HttpStatus> throwableTranslator) {
+    private HttpHandlerWrapperSharedStacktraceDumping(final HttpHandler<C> handler,
+                                                      final Function<Throwable, HttpStatus> throwableTranslator) {
         super(handler);
         this.throwableTranslator = Objects.requireNonNull(throwableTranslator, "throwableTranslator");
     }
