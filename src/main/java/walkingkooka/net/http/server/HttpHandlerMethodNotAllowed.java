@@ -28,34 +28,26 @@ import java.util.function.Predicate;
  * A {@link HttpHandler} that tests if the request method is acceptable otherwise responds with a {@link HttpStatusCode#METHOD_NOT_ALLOWED}.
  * The {@link Object#toString()} is also used to report the allowed methods.
  */
-final class MethodNotAllowedHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerMethodNotAllowed<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> MethodNotAllowedHttpHandler<C> with(final HttpMethod method,
+    static <C extends HttpHandlerContext> HttpHandlerMethodNotAllowed<C> with(final HttpMethod method,
                                                                               final HttpHandler<C> handler) {
-        Objects.requireNonNull(method, "method");
-        Objects.requireNonNull(handler, "handler");
-
-        return new MethodNotAllowedHttpHandler<>(
-            method,
+        return new HttpHandlerMethodNotAllowed<>(
+            Objects.requireNonNull(method, "method"),
             handler
         );
     }
 
-    private MethodNotAllowedHttpHandler(final HttpMethod method,
+    private HttpHandlerMethodNotAllowed(final HttpMethod method,
                                         final HttpHandler<C> handler) {
-        super();
+        super(handler);
         this.method = method;
-        this.handler = handler;
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final C context) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(response, "response");
-        Objects.requireNonNull(context, "context");
-
+    void handle0(final HttpRequest request,
+                 final HttpResponse response,
+                 final C context) {
         final HttpMethod method = request.method();
         if (this.method.equals(method)) {
             this.handler.handle(
@@ -73,8 +65,6 @@ final class MethodNotAllowedHttpHandler<C extends HttpHandlerContext> implements
      * A {@link Predicate} used to test if the request method is acceptable.
      */
     private final HttpMethod method;
-
-    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {
