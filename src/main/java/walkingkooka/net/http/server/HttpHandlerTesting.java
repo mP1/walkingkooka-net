@@ -87,6 +87,17 @@ public interface HttpHandlerTesting<H extends HttpHandler<C>, C extends HttpHand
 
     default void handleAndCheck(final H handler,
                                 final HttpRequest request,
+                                final HttpResponse expected) {
+        this.handleAndCheck(
+            handler,
+            request,
+            this.createContext(),
+            expected
+        );
+    }
+
+    default void handleAndCheck(final H handler,
+                                final HttpRequest request,
                                 final C context,
                                 final HttpResponse expected) {
         final HttpResponse response = HttpResponses.recording();
