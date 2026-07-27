@@ -71,11 +71,11 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see HttpHandlerSharedStacktraceDumping}
+     * {@see HttpHandlerWrapperSharedStacktraceDumping}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> stacktraceDumping(final HttpHandler<C> handler,
                                                                                   final Function<Throwable, HttpStatus> throwableTranslator) {
-        return HttpHandlerSharedStacktraceDumping.with(
+        return HttpHandlerWrapperSharedStacktraceDumping.with(
             handler,
             throwableTranslator
         );

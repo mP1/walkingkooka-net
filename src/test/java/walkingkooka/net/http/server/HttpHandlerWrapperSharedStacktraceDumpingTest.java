@@ -34,8 +34,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>> {
+public final class HttpHandlerWrapperSharedStacktraceDumpingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
@@ -44,7 +44,7 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
     public void testWithNullTranslatorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> HttpHandlerSharedStacktraceDumping.with(
+            () -> HttpHandlerWrapperSharedStacktraceDumping.with(
                 (r, s, c) -> {
                 },
                 null
@@ -62,7 +62,7 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
         final HttpResponse response = HttpResponses.fake();
         final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
-        HttpHandlerSharedStacktraceDumping.with(
+        HttpHandlerWrapperSharedStacktraceDumping.with(
                 (r, rr, c) -> {
                     assertSame(r, request);
                     assertSame(rr, response);
@@ -88,7 +88,7 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
         final HttpResponse response = HttpResponses.recording();
         final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
 
-        HttpHandlerSharedStacktraceDumping.with(
+        HttpHandlerWrapperSharedStacktraceDumping.with(
             (r, rr, c) -> {
                 assertSame(r, request);
                 assertSame(rr, response);
@@ -122,8 +122,8 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
     }
 
     @Override
-    public HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> handler) {
-        return HttpHandlerSharedStacktraceDumping.with(
+    public HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> handler) {
+        return HttpHandlerWrapperSharedStacktraceDumping.with(
             handler,
             TRANSLATOR
         );
@@ -160,7 +160,7 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
     public void testToString() {
         final HttpHandler<FakeHttpHandlerContext> wrapped = wrappedHttpHandler();
         this.toStringAndCheck(
-            HttpHandlerSharedStacktraceDumping.with(
+            HttpHandlerWrapperSharedStacktraceDumping.with(
                 wrapped,
                 TRANSLATOR
             ),
@@ -171,7 +171,7 @@ public final class HttpHandlerSharedStacktraceDumpingTest extends HttpHandlerWra
     // class............................................................................................................
 
     @Override
-    public Class<HttpHandlerSharedStacktraceDumping<FakeHttpHandlerContext>> type() {
-        return Cast.to(HttpHandlerSharedStacktraceDumping.class);
+    public Class<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWrapperSharedStacktraceDumping.class);
     }
 }
