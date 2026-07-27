@@ -24,12 +24,11 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerMethodNotAllowedTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
@@ -43,25 +42,22 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
             response.setStatus(STATUS);
             response.setEntity(ENTITY);
         }
+
+        @Override
+        public String toString() {
+            return "HANDLER";
+        }
     };
 
     @Test
     public void testWithNullMethodFails() {
         assertThrows(
             NullPointerException.class,
-            () -> MethodNotAllowedHttpHandler.with(null, HANDLER)
+            () -> HttpHandlerMethodNotAllowed.with(null, HANDLER)
         );
     }
 
-    @Test
-    public void testWithNullHandlerFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> MethodNotAllowedHttpHandler.with(METHOD, null)
-        );
-    }
-
-    // accept...........................................................................................................
+    // handle...........................................................................................................
 
     @Test
     public void testHandleInvalidMethod() {
@@ -70,6 +66,7 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
+            this.createHttpHandler(HANDLER),
             this.request(HttpMethod.with("invalid")),
             expected
         );
@@ -82,14 +79,10 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
         expected.setEntity(ENTITY);
 
         this.handleAndCheck(
+            this.createHttpHandler(HANDLER),
             this.request(HttpMethod.PATCH),
             expected
         );
-    }
-
-    @Override
-    public MethodNotAllowedHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return MethodNotAllowedHttpHandler.with(METHOD, HANDLER);
     }
 
     private HttpRequest request(final HttpMethod method) {
@@ -108,6 +101,14 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     }
 
     @Override
+    HttpHandlerMethodNotAllowed<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> httpHandler) {
+        return HttpHandlerMethodNotAllowed.with(
+            METHOD,
+            httpHandler
+        );
+    }
+
+    @Override
     public FakeHttpHandlerContext createContext() {
         return new FakeHttpHandlerContext();
     }
@@ -117,20 +118,15 @@ public final class MethodNotAllowedHttpHandlerTest implements HttpHandlerTesting
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            this.createHttpHandler(),
+            this.createHttpHandler(HANDLER),
             METHOD + " " + HANDLER
         );
     }
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
-    public Class<MethodNotAllowedHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(MethodNotAllowedHttpHandler.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerMethodNotAllowed.class);
     }
 }
