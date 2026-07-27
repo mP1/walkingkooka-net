@@ -24,20 +24,20 @@ import java.util.Objects;
 /**
  * A {@link HttpHandler} that attempts locate the handler from the request or uses the default handler.
  */
-final class RouterHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerRouter<C extends HttpHandlerContext> implements HttpHandler<C> {
 
-    static <C extends HttpHandlerContext> RouterHttpHandler<C> with(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
+    static <C extends HttpHandlerContext> HttpHandlerRouter<C> with(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
                                                                     final HttpHandler<C> notFound) {
         Objects.requireNonNull(router, "router");
         Objects.requireNonNull(notFound, "notFound");
 
-        return new RouterHttpHandler<>(
+        return new HttpHandlerRouter<>(
             router,
             notFound
         );
     }
 
-    private RouterHttpHandler(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
+    private HttpHandlerRouter(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
                               final HttpHandler<C> notFound) {
         super();
         this.router = router;

@@ -63,11 +63,11 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see RouterHttpHandler}
+     * {@see HttpHandlerRouter}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> router(final Router<HttpRequestAttribute<?>, HttpHandler<C>> router,
                                                                        final HttpHandler<C> notFound) {
-        return RouterHttpHandler.with(router, notFound);
+        return HttpHandlerRouter.with(router, notFound);
     }
 
     /**
