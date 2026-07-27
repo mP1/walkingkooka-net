@@ -28,18 +28,18 @@ import java.util.function.Predicate;
  * A {@link HttpHandler} that tests if the request method is acceptable otherwise responds with a {@link HttpStatusCode#METHOD_NOT_ALLOWED}.
  * The {@link Object#toString()} is also used to report the allowed methods.
  */
-final class HttpHandlerMethodNotAllowed<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
+final class HttpHandlerWrapperSharedMethodNotAllowed<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> HttpHandlerMethodNotAllowed<C> with(final HttpMethod method,
-                                                                              final HttpHandler<C> handler) {
-        return new HttpHandlerMethodNotAllowed<>(
+    static <C extends HttpHandlerContext> HttpHandlerWrapperSharedMethodNotAllowed<C> with(final HttpMethod method,
+                                                                                           final HttpHandler<C> handler) {
+        return new HttpHandlerWrapperSharedMethodNotAllowed<>(
             Objects.requireNonNull(method, "method"),
             handler
         );
     }
 
-    private HttpHandlerMethodNotAllowed(final HttpMethod method,
-                                        final HttpHandler<C> handler) {
+    private HttpHandlerWrapperSharedMethodNotAllowed(final HttpMethod method,
+                                                     final HttpHandler<C> handler) {
         super(handler);
         this.method = method;
     }

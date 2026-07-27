@@ -55,11 +55,11 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see HttpHandlerMethodNotAllowed}
+     * {@see HttpHandlerWrapperSharedMethodNotAllowed}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> methodNotAllowed(final HttpMethod method,
                                                                                  final HttpHandler<C> handler) {
-        return HttpHandlerMethodNotAllowed.with(method, handler);
+        return HttpHandlerWrapperSharedMethodNotAllowed.with(method, handler);
     }
 
     /**

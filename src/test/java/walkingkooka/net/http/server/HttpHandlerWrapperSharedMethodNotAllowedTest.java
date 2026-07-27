@@ -27,8 +27,8 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpHandlerMethodNotAllowedTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>> {
+public final class HttpHandlerWrapperSharedMethodNotAllowedTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext>> {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
@@ -53,7 +53,7 @@ public final class HttpHandlerMethodNotAllowedTest extends HttpHandlerWrapperSha
     public void testWithNullMethodFails() {
         assertThrows(
             NullPointerException.class,
-            () -> HttpHandlerMethodNotAllowed.with(null, HANDLER)
+            () -> HttpHandlerWrapperSharedMethodNotAllowed.with(null, HANDLER)
         );
     }
 
@@ -101,8 +101,8 @@ public final class HttpHandlerMethodNotAllowedTest extends HttpHandlerWrapperSha
     }
 
     @Override
-    HttpHandlerMethodNotAllowed<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> httpHandler) {
-        return HttpHandlerMethodNotAllowed.with(
+    HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> httpHandler) {
+        return HttpHandlerWrapperSharedMethodNotAllowed.with(
             METHOD,
             httpHandler
         );
@@ -126,7 +126,7 @@ public final class HttpHandlerMethodNotAllowedTest extends HttpHandlerWrapperSha
     // class............................................................................................................
 
     @Override
-    public Class<HttpHandlerMethodNotAllowed<FakeHttpHandlerContext>> type() {
-        return Cast.to(HttpHandlerMethodNotAllowed.class);
+    public Class<HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWrapperSharedMethodNotAllowed.class);
     }
 }
