@@ -26,31 +26,23 @@ import java.util.function.Function;
 /**
  * Wraps another {@link HttpHandler}, catching any thrown exceptions and sending a 500 with the body holding the stacktrace
  */
-final class StacktraceDumpingHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerSharedStacktraceDumping<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> StacktraceDumpingHttpHandler<C> with(final HttpHandler<C> handler,
-                                                                               final Function<Throwable, HttpStatus> throwableTranslator) {
-        Objects.requireNonNull(handler, "handler");
-        Objects.requireNonNull(throwableTranslator, "throwableTranslator");
-
-        return new StacktraceDumpingHttpHandler<>(handler, throwableTranslator);
+    static <C extends HttpHandlerContext> HttpHandlerSharedStacktraceDumping<C> with(final HttpHandler<C> handler,
+                                                                                     final Function<Throwable, HttpStatus> throwableTranslator) {
+        return new HttpHandlerSharedStacktraceDumping<>(handler, throwableTranslator);
     }
 
-    private StacktraceDumpingHttpHandler(final HttpHandler<C> handler,
-                                         final Function<Throwable, HttpStatus> throwableTranslator) {
-        super();
-        this.handler = handler;
-        this.throwableTranslator = throwableTranslator;
+    private HttpHandlerSharedStacktraceDumping(final HttpHandler<C> handler,
+                                               final Function<Throwable, HttpStatus> throwableTranslator) {
+        super(handler);
+        this.throwableTranslator = Objects.requireNonNull(throwableTranslator, "throwableTranslator");
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final C context) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(response, "response");
-        Objects.requireNonNull(context, "context");
-
+    void handle0(final HttpRequest request,
+                 final HttpResponse response,
+                 final C context) {
         try {
             this.handler.handle(
                 request,
@@ -63,7 +55,6 @@ final class StacktraceDumpingHttpHandler<C extends HttpHandlerContext> implement
         }
     }
 
-    private final HttpHandler<C> handler;
     private final Function<Throwable, HttpStatus> throwableTranslator;
 
     @Override
