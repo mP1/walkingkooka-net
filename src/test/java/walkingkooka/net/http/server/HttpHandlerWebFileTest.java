@@ -46,8 +46,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<WebFileHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHandlerWebFile<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+    ToStringTesting<HttpHandlerWebFile<FakeHttpHandlerContext>> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;
     private final static LocalDateTime LAST_MODIFIED1 = LocalDateTime.of(1999, 12, 31, 6, 28, 29);
@@ -132,13 +132,13 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
 
     @Test
     public void testWithUrlNullUrlPathBaseFails() {
-        assertThrows(NullPointerException.class, () -> WebFileHttpHandler.with(null, FILES)
+        assertThrows(NullPointerException.class, () -> HttpHandlerWebFile.with(null, FILES)
         );
     }
 
     @Test
     public void testWithNullFilesFails() {
-        assertThrows(NullPointerException.class, () -> WebFileHttpHandler.with(this.baseUrlPath(), null)
+        assertThrows(NullPointerException.class, () -> HttpHandlerWebFile.with(this.baseUrlPath(), null)
         );
     }
 
@@ -283,8 +283,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     }
 
     @Override
-    public WebFileHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return WebFileHttpHandler.with(this.baseUrlPath(), FILES);
+    public HttpHandlerWebFile<FakeHttpHandlerContext> createHttpHandler() {
+        return HttpHandlerWebFile.with(this.baseUrlPath(), FILES);
     }
 
     private UrlPath baseUrlPath() {
@@ -350,8 +350,8 @@ public final class WebFileHttpHandlerTest implements HttpHandlerTesting<WebFileH
     // Class...........................................................................................................
 
     @Override
-    public Class<WebFileHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(WebFileHttpHandler.class);
+    public Class<HttpHandlerWebFile<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWebFile.class);
     }
 
     @Override

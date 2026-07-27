@@ -89,11 +89,11 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
-     * {@see WebFileHttpHandler}
+     * {@see HttpHandlerWebFile}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> webFile(final UrlPath basePath,
                                                                         final Function<UrlPath, Either<WebFile, HttpStatus>> files) {
-        return WebFileHttpHandler.with(basePath, files);
+        return HttpHandlerWebFile.with(basePath, files);
     }
 
     /**
