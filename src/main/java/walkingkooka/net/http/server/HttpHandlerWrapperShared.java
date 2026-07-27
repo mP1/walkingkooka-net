@@ -24,7 +24,7 @@ abstract class HttpHandlerWrapperShared<C extends HttpHandlerContext> implements
     HttpHandlerWrapperShared(final HttpHandler<C> handler) {
         super();
 
-        this.handler = handler;
+        this.handler = Objects.requireNonNull(handler, "handler");
     }
 
     @Override
