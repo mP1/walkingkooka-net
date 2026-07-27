@@ -29,31 +29,26 @@ import java.util.Optional;
  * A {@link HttpHandler} that tests if the request content type matches the requested {@link MediaType} or replies with
  * a {@link HttpStatusCode#BAD_REQUEST}.
  */
-final class ContentTypeHttpHandler<C extends HttpHandlerContext> implements HttpHandler<C> {
+final class HttpHandlerWrapperSharedContentType<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> ContentTypeHttpHandler<C> with(final MediaType contentType,
-                                                                         final HttpHandler<C> handler) {
-        Objects.requireNonNull(contentType, "contentType");
-        Objects.requireNonNull(handler, "handler");
-
-        return new ContentTypeHttpHandler<>(contentType, handler);
+    static <C extends HttpHandlerContext> HttpHandlerWrapperSharedContentType<C> with(final MediaType contentType,
+                                                                                      final HttpHandler<C> handler) {
+        return new HttpHandlerWrapperSharedContentType<>(
+            Objects.requireNonNull(contentType, "contentType"),
+            handler
+        );
     }
 
-    private ContentTypeHttpHandler(final MediaType contentType,
-                                   final HttpHandler<C> handler) {
-        super();
+    private HttpHandlerWrapperSharedContentType(final MediaType contentType,
+                                                final HttpHandler<C> handler) {
+        super(handler);
         this.contentType = contentType;
-        this.handler = handler;
     }
 
     @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response,
-                       final C context) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(response, "response");
-        Objects.requireNonNull(context, "context");
-
+    void handle0(final HttpRequest request,
+                 final HttpResponse response,
+                 final C context) {
         final MediaType expected = this.contentType;
         final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.header(request);
         if (mediaType.isPresent() && expected.test(mediaType.get())) {
@@ -84,8 +79,6 @@ final class ContentTypeHttpHandler<C extends HttpHandlerContext> implements Http
      * The expected content type.
      */
     private final MediaType contentType;
-
-    private final HttpHandler<C> handler;
 
     @Override
     public String toString() {

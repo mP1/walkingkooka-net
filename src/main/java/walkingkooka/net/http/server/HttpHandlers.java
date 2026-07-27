@@ -32,11 +32,11 @@ import java.util.function.Function;
 public final class HttpHandlers implements PublicStaticHelper {
 
     /**
-     * {@see ContentTypeHttpHandler}
+     * {@see HttpHandlerWrapperSharedContentType}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> contentType(final MediaType contentType,
                                                                             final HttpHandler<C> handler) {
-        return ContentTypeHttpHandler.with(contentType, handler);
+        return HttpHandlerWrapperSharedContentType.with(contentType, handler);
     }
 
     /**

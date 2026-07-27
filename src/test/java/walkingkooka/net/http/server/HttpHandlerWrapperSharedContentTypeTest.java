@@ -28,7 +28,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,14 +36,14 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<ContentTypeHttpHandler<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<ContentTypeHttpHandler<FakeHttpHandlerContext>> {
+public final class HttpHandlerWrapperSharedContentTypeTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext>, FakeHttpHandlerContext>
+    implements ToStringTesting<HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext>> {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");
 
-    private final static HttpHandler<FakeHttpHandlerContext> HANDLER = new HttpHandler<>() {
+    private final static HttpHandler<FakeHttpHandlerContext> HTTP_HANDLER = new HttpHandler<>() {
         @Override
         public void handle(final HttpRequest request,
                            final HttpResponse response,
@@ -56,21 +55,18 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
             response.setStatus(STATUS);
             response.setEntity(ENTITY);
         }
+
+        @Override
+        public String toString() {
+            return "HTTP_HANDLER";
+        }
     };
 
     @Test
     public void testWithNullContentTypeFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ContentTypeHttpHandler.with(null, HANDLER)
-        );
-    }
-
-    @Test
-    public void testWithNullHandlerFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> ContentTypeHttpHandler.with(CONTENT_TYPE, null)
+            () -> HttpHandlerWrapperSharedContentType.with(null, HTTP_HANDLER)
         );
     }
 
@@ -83,6 +79,7 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
+            this.createHttpHandler(HTTP_HANDLER),
             this.request(),
             expected
         );
@@ -95,6 +92,7 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
+            this.createHttpHandler(HTTP_HANDLER),
             this.request(MediaType.BINARY),
             expected
         );
@@ -107,7 +105,10 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(HttpEntity.EMPTY);
 
         this.handleAndCheck(
-            this.request(MediaType.BINARY.setCharset(CharsetName.UTF_8)),
+            this.createHttpHandler(HTTP_HANDLER),
+            this.request(
+                MediaType.BINARY.setCharset(CharsetName.UTF_8)
+            ),
             expected
         );
     }
@@ -119,14 +120,18 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
         expected.setEntity(ENTITY);
 
         this.handleAndCheck(
+            this.createHttpHandler(HTTP_HANDLER),
             this.request(CONTENT_TYPE),
             expected
         );
     }
 
     @Override
-    public ContentTypeHttpHandler<FakeHttpHandlerContext> createHttpHandler() {
-        return ContentTypeHttpHandler.with(CONTENT_TYPE, HANDLER);
+    HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext> createHttpHandler(final HttpHandler<FakeHttpHandlerContext> httpHandler) {
+        return HttpHandlerWrapperSharedContentType.with(
+            CONTENT_TYPE,
+            httpHandler
+        );
     }
 
     @Override
@@ -155,20 +160,15 @@ public final class ContentTypeHttpHandlerTest implements HttpHandlerTesting<Cont
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            this.createHttpHandler(),
-            CONTENT_TYPE + " " + HANDLER
+            this.createHttpHandler(HTTP_HANDLER),
+            CONTENT_TYPE + " " + HTTP_HANDLER
         );
     }
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
-    public Class<ContentTypeHttpHandler<FakeHttpHandlerContext>> type() {
-        return Cast.to(ContentTypeHttpHandler.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWrapperSharedContentType.class);
     }
 }
