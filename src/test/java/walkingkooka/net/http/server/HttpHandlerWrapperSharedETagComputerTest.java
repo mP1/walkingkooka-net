@@ -22,8 +22,6 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.HasCharsetTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagComputerTesting;
@@ -33,9 +31,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -64,6 +59,8 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
         }
     };
 
+    private final static HttpRequest HTTP_REQUEST = new FakeHttpRequest();
+
     // handle...........................................................................................................
 
     @Test
@@ -80,7 +77,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -105,7 +102,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -136,7 +133,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -168,7 +165,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -190,7 +187,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -211,7 +208,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
                 httpStatus,
                 responseBody
             ),
-            this.request(),
+            HTTP_REQUEST,
             expected
         );
     }
@@ -243,22 +240,6 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
             @Override
             public Optional<ETag> computeETag(final Binary binary) {
                 return ETAG_COMPUTER.computeETag(binary);
-            }
-        };
-    }
-
-    private HttpRequest request(final MediaType... contentType) {
-        return new FakeHttpRequest() {
-
-
-            @Override
-            public Map<HttpHeaderName<?>, List<?>> headers() {
-                return Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(contentType));
-            }
-
-            @Override
-            public String toString() {
-                return Arrays.toString(contentType);
             }
         };
     }
