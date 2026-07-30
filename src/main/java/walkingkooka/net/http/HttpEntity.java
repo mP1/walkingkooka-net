@@ -22,14 +22,12 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.HasBinary;
-import walkingkooka.HasCharset;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.HasOptionalName;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.Accept;
-import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.HttpHeaderName;
@@ -58,7 +56,6 @@ import java.util.stream.Collectors;
 public abstract class HttpEntity implements HasHeaders,
     CanBeEmpty,
     HasBinary,
-    HasCharset,
     HasContentType,
     HasOptionalName<Name>,
     HasText,
@@ -82,9 +79,6 @@ public abstract class HttpEntity implements HasHeaders,
     public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(
         (char) HEADER_SEPARATOR_BYTE
     );
-
-    //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
-    public final static Charset DEFAULT_BODY_CHARSET = CharsetName.ISO_8859_1.charset().get();
 
     /**
      * A constant with no headers.
@@ -383,13 +377,6 @@ public abstract class HttpEntity implements HasHeaders,
             copy.put(header, HttpEntityHeaderList.copy(header, Cast.to(nameAndValues.getValue())));
         }
         return Maps.immutable(copy);
-    }
-
-    // HasCharset ......................................................................................................
-
-    @Override
-    public final Charset charset() {
-        return this.charset(HttpEntity.DEFAULT_BODY_CHARSET);
     }
 
     // body ............................................................................................................
