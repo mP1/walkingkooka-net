@@ -38,7 +38,7 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<ETagList> {
 
     @Override
     ETagList parse0(final String text) {
-        return ETag.parseList(text);
+        return ETagList.parse(text);
     }
 
     @Override
@@ -50,8 +50,9 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<ETagList> {
     }
 
     @Override
-    String toText0(final ETagList value, final Name name) {
-        return Header.toHeaderTextList(value, SEPARATOR);
+    String toText0(final ETagList value,
+                   final Name name) {
+        return value.text();
     }
 
     @Override

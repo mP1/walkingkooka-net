@@ -59,13 +59,6 @@ public abstract class ETag implements Header,
     }
 
     /**
-     * Parsers a header value which may hold one or more tags.
-     */
-    public static ETagList parseList(final String text) {
-        return ETagListHeaderParser.parseList(text);
-    }
-
-    /**
      * Package private to limit sub classing.
      */
     ETag() {
