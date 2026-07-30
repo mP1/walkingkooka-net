@@ -56,22 +56,22 @@ final class HttpHandlerWrapperSharedETagComputer<C extends HttpHandlerContext> e
             .orElse(false)) {
 
             // if BODY present
-            final HttpEntity httpEntity = response.entity();
-            final Binary binary = httpEntity.binary();
-            if (binary.isNotEmpty()) {
+            final HttpEntity responseHttpEntity = response.entity();
+            final Binary responseBinary = responseHttpEntity.binary();
+            if (responseBinary.isNotEmpty()) {
 
                 // if missing ETAG
-                if (HttpHeaderName.E_TAG.header(httpEntity).isEmpty()) {
+                if (HttpHeaderName.E_TAG.header(responseHttpEntity).isEmpty()) {
 
                     // compute ETAG
-                    final Optional<ETag> tag = context.computeETag(binary);
-                    if (tag.isPresent()) {
+                    final Optional<ETag> responseTag = context.computeETag(responseBinary);
+                    if (responseTag.isPresent()) {
 
                         // save TAG
                         response.setEntity(
-                            httpEntity.addHeader(
+                            responseHttpEntity.addHeader(
                                 HttpHeaderName.E_TAG,
-                                tag.get()
+                                responseTag.get()
                             )
                         );
                     }
