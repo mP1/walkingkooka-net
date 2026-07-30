@@ -118,10 +118,20 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
         );
     }
 
-    void parseStringAndCheck2(final String text,
-                              final ETag... tags) {
+    private void parseStringAndCheck2(final String text,
+                                      final ETag... tags) {
+        this.parseStringAndCheck2(
+            text,
+            ETagList.EMPTY.setElements(
+                Lists.of(tags)
+            )
+        );
+    }
+
+    private void parseStringAndCheck2(final String text,
+                                      final ETagList expected) {
         this.checkEquals(
-            Lists.of(tags),
+            expected,
             listReadOnlyCheck(
                 ETagListHeaderParser.parseList(text)
             ),

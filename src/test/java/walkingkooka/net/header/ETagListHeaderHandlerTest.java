@@ -20,12 +20,10 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagListHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ETagListHeaderHandler, List<ETag>> {
+    NonStringHeaderHandlerTestCase<ETagListHeaderHandler, ETagList> {
 
     private static final ETag ETAG = ETag.weak("value");
 
@@ -38,7 +36,7 @@ public final class ETagListHeaderHandlerTest extends
     public void testParseETagOne() {
         this.parseAndToTextAndCheck(
             "W/\"123\"",
-            Lists.of(
+            ETagList.EMPTY.concat(
                 ETag.weak("123")
             )
         );
@@ -47,9 +45,11 @@ public final class ETagListHeaderHandlerTest extends
     @Test
     public void testParseETagSeveral() {
         this.toTextAndCheck(
-            Lists.of(
-                ETag.weak("123"),
-                ETag.weak("456")
+            ETagList.EMPTY.setElements(
+                Lists.of(
+                    ETag.weak("123"),
+                    ETag.weak("456")
+                )
             ),
             "W/\"123\", W/\"456\""
         );
@@ -88,7 +88,7 @@ public final class ETagListHeaderHandlerTest extends
     }
 
     @Override
-    HttpHeaderName<List<ETag>> name() {
+    HttpHeaderName<ETagList> name() {
         return HttpHeaderName.IF_MATCH;
     }
 
@@ -98,7 +98,7 @@ public final class ETagListHeaderHandlerTest extends
     }
 
     @Override
-    List<ETag> value() {
+    ETagList value() {
         return ETag.parseList("\"1\",\"2\"");
     }
 
@@ -109,7 +109,7 @@ public final class ETagListHeaderHandlerTest extends
 
     @Override
     String handlerToString() {
-        return "List<ETag>";
+        return "ETagList";
     }
 
     @Override

@@ -23,10 +23,10 @@ import java.util.List;
 
 final class ETagListHeaderParser extends ETagHeaderParser {
 
-    static List<ETag> parseList(final String text) {
+    static ETagList parseList(final String text) {
         final ETagListHeaderParser parser = new ETagListHeaderParser(text);
         parser.parse();
-        return Lists.readOnly(parser.etags);
+        return ETagList.EMPTY.setElements(parser.etags);
     }
 
     private ETagListHeaderParser(final String text) {
