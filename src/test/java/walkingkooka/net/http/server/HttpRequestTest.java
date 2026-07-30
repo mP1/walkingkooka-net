@@ -55,7 +55,7 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
 
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
-        final Charset charset = HttpEntity.DEFAULT_BODY_CHARSET;
+        final Charset charset = HttpEntity.CHARSET;
         final String text = "ABC123";
 
         this.bodyTextAndCheck(null,

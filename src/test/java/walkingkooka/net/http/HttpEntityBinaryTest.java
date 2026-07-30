@@ -378,7 +378,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
 
     private HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
                                               final String text) {
-        return HttpEntityBinary.with(headers, Binary.with(text.getBytes(HttpEntity.DEFAULT_BODY_CHARSET)));
+        return HttpEntityBinary.with(headers, Binary.with(text.getBytes(HttpEntity.CHARSET)));
     }
 
     @Override

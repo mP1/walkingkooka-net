@@ -17,6 +17,8 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.HasCharset;
+import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.HasLineEnding;
 import walkingkooka.text.LineEnding;
@@ -24,12 +26,12 @@ import walkingkooka.text.LineEnding;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Defines a contract for a container that includes headers, such as a http request.
  */
-public interface HasHeaders extends HasLineEnding {
+public interface HasHeaders extends HasCharset,
+    HasLineEnding {
 
     /**
      * The line ending used in http requests/responses.
@@ -46,15 +48,18 @@ public interface HasHeaders extends HasLineEnding {
      */
     Map<HttpHeaderName<?>, List<?>> headers();
 
-    /**
-     * Returns the {@link Charset} using the {@link HttpHeaderName#CONTENT_TYPE} or the default if absent.
-     */
-    default Charset charset(final Charset defaultCharset) {
-        Objects.requireNonNull(defaultCharset, "defaultCharset");
+    //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
+    Charset CHARSET = CharsetName.ISO_8859_1.charset()
+        .get();
 
+    /**
+     * Returns the {@link Charset} of {@link #CHARSET}.
+     */
+    @Override
+    default Charset charset() {
         return HttpHeaderName.CONTENT_TYPE
             .header(this)
-            .map(c -> c.contentTypeCharset(defaultCharset))
-            .orElse(defaultCharset);
+            .map(c -> c.contentTypeCharset(CHARSET))
+            .orElse(CHARSET);
     }
 }

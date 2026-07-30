@@ -125,7 +125,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpServletRequestT
 
     @Test
     public void testBodyTextCharsetHeaderAbsent() {
-        this.checkEquals(new String(BYTES, HttpEntity.DEFAULT_BODY_CHARSET), this.createRequest().bodyText());
+        this.checkEquals(new String(BYTES, HttpEntity.CHARSET), this.createRequest().bodyText());
     }
 
     @Test

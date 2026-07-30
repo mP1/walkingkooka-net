@@ -32,38 +32,41 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class HasHeadersTest implements ClassTesting2<HasHeaders> {
 
     // Charset..........................................................................................................
 
     @Test
-    public void testCharsetNullFails() {
-        assertThrows(NullPointerException.class, () -> this.request("text/plain", new byte[0]).charset(null));
-    }
-
-    @Test
     public void testCharsetContentTypeMissing() {
-        this.charsetAndCheck(null, StandardCharsets.UTF_16, StandardCharsets.UTF_16);
+        this.charsetAndCheck(
+            null,
+            StandardCharsets.ISO_8859_1
+        );
     }
 
     @Test
     public void testCharsetContentTypeCharset() {
-        this.charsetAndCheck("text/plain;charset=UTF-8", StandardCharsets.UTF_16, StandardCharsets.UTF_8);
+        this.charsetAndCheck(
+            "text/plain;charset=UTF-8",
+            StandardCharsets.UTF_8
+        );
     }
 
     @Test
     public void testCharsetContentTypeDefaults() {
-        this.charsetAndCheck("text/plain;", StandardCharsets.UTF_16, StandardCharsets.UTF_16);
+        this.charsetAndCheck(
+            "text/plain;",
+            StandardCharsets.ISO_8859_1
+        );
     }
 
     private void charsetAndCheck(final String contentType,
-                                 final Charset defaultCharset,
                                  final Charset expected) {
-        this.checkEquals(expected,
-            this.request(contentType, new byte[0]).charset(defaultCharset),
-            () -> "contentType: " + contentType + " default: " + defaultCharset);
+        this.checkEquals(
+            expected,
+            this.request(contentType, new byte[0]).charset(),
+            () -> "contentType: " + contentType
+        );
     }
 
     // helper...........................................................................................................

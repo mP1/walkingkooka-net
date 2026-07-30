@@ -142,7 +142,7 @@ final class HttpHandlerWebFile<C extends HttpHandlerContext> implements HttpHand
         if (HttpHeaderName.ACCEPT.parameterValue(request).map(accept -> accept.test(contentType)).orElse(true)) {
             status = HttpStatusCode.OK.status();
             entity = headers(file)
-                .setBody(file, HttpEntity.DEFAULT_BODY_CHARSET);
+                .setBody(file, HttpEntity.CHARSET);
         } else {
             status = HttpStatusCode.NOT_ACCEPTABLE.status();
             entity = HttpEntity.EMPTY;

@@ -21,7 +21,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HasHeaders;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -70,7 +69,10 @@ public interface HttpRequest extends HasHeaders {
     default String bodyText() {
         final byte[] body = this.body();
         return null != body ?
-            new String(body, this.charset(HttpEntity.DEFAULT_BODY_CHARSET)) :
+            new String(
+                body,
+                this.charset()
+            ) :
             "";
     }
 

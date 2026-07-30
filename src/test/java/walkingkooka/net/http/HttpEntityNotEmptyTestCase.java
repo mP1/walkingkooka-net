@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> extends HttpEntityTestCase<H> {
 
     final static String TEXT = "abcdefghijklmnopqrstuvwxyz";
-    final static Binary BINARY = Binary.with(TEXT.getBytes(HttpEntity.DEFAULT_BODY_CHARSET));
+    final static Binary BINARY = Binary.with(TEXT.getBytes(HttpEntity.CHARSET));
 
     HttpEntityNotEmptyTestCase() {
         super();
@@ -391,7 +391,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         this.check(added, map(header, value), entity.body(), entity.bodyText());
 
-        final Binary different = Binary.with("xyz".getBytes(HttpEntity.DEFAULT_BODY_CHARSET));
+        final Binary different = Binary.with("xyz".getBytes(HttpEntity.CHARSET));
         final HttpEntity differentBody = added.setBody(different);
         assertNotSame(added, differentBody);
 
