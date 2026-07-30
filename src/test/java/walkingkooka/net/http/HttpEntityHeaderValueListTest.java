@@ -24,25 +24,25 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class HttpEntityHeaderListTest implements ClassTesting<HttpEntityHeaderList> {
+public final class HttpEntityHeaderValueListTest implements ClassTesting<HttpEntityHeaderValueList> {
 
     @Test
     public void testOneNonMultiHeader() {
         final HttpHeaderName<MediaType> contentType = HttpHeaderName.CONTENT_TYPE;
         this.checkEquals(false, contentType.isMultiple());
-        this.checkEquals(HttpEntityHeaderListOne.class, HttpEntityHeaderList.one(contentType, MediaType.TEXT_PLAIN).getClass());
+        this.checkEquals(HttpEntityHeaderValueListOne.class, HttpEntityHeaderValueList.one(contentType, MediaType.TEXT_PLAIN).getClass());
     }
 
     @Test
     public void testOneMultiHeader() {
         final HttpHeaderName<AcceptLanguage> acceptLanguage = HttpHeaderName.ACCEPT_LANGUAGE;
         this.checkEquals(true, acceptLanguage.isMultiple());
-        this.checkEquals(HttpEntityHeaderListMulti.class, HttpEntityHeaderList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
+        this.checkEquals(HttpEntityHeaderValueListMulti.class, HttpEntityHeaderValueList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
     }
 
     @Override
-    public Class<HttpEntityHeaderList> type() {
-        return HttpEntityHeaderList.class;
+    public Class<HttpEntityHeaderValueList> type() {
+        return HttpEntityHeaderValueList.class;
     }
 
     @Override

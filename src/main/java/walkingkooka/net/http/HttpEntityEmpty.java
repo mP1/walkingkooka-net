@@ -53,12 +53,12 @@ final class HttpEntityEmpty extends HttpEntity {
     // headers..........................................................................................................
 
     @Override //
-    Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
-        return NO_HEADERS_HTTP_ENTITY_HEADER_LIST;
+    Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers2() {
+        return NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST;
     }
 
     @Override
-    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
         return HttpEntityInterop.BINARY ?
             HttpEntityBinary.with(headers, Binary.EMPTY) :
             HttpEntityText.with(headers, "");
@@ -66,14 +66,14 @@ final class HttpEntityEmpty extends HttpEntity {
 
     @Override //
     <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                              final HttpEntityHeaderList value) {
+                              final HttpEntityHeaderValueList value) {
         return this.replaceHeaders(Maps.of(header, value));
     }
 
     @Override //
     <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
                               final T value) {
-        return this.replaceHeaders(Maps.of(header, HttpEntityHeaderList.one(header, value)));
+        return this.replaceHeaders(Maps.of(header, HttpEntityHeaderValueList.one(header, value)));
     }
 
     @Override //
@@ -111,11 +111,11 @@ final class HttpEntityEmpty extends HttpEntity {
     HttpEntity replaceBodyText(final String bodyText) {
         return bodyText.isEmpty() ?
             this :
-            HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_LIST, bodyText);
+            HttpEntityText.with(NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST, bodyText);
     }
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                        final Binary body) {
         return HttpEntityBinary.with(headers, body);
     }

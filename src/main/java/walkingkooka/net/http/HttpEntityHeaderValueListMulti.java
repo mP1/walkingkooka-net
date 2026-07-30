@@ -27,13 +27,13 @@ import java.util.List;
  * A read only {@link List} with operations to append and remove a value returning a new copy for headers that accept
  * multiple header entries.
  */
-final class HttpEntityHeaderListMulti extends HttpEntityHeaderList {
+final class HttpEntityHeaderValueListMulti extends HttpEntityHeaderValueList {
 
     /**
-     * If the {@link List} is not a {@link HttpEntityHeaderListMulti} make a copy of using its values.
+     * If the {@link List} is not a {@link HttpEntityHeaderValueListMulti} make a copy of using its values.
      */
-    static HttpEntityHeaderListMulti with(final HttpHeaderName<?> header,
-                                          final Object... values) {
+    static HttpEntityHeaderValueListMulti with(final HttpHeaderName<?> header,
+                                               final Object... values) {
         if (values.length == 0) {
             throw new IllegalArgumentException(header + " expected at least one value");
         }
@@ -42,7 +42,7 @@ final class HttpEntityHeaderListMulti extends HttpEntityHeaderList {
             header.checkValue(value);
         }
 
-        return new HttpEntityHeaderListMulti(
+        return new HttpEntityHeaderValueListMulti(
             header,
             Arrays.copyOf(values, values.length)
         );
@@ -51,8 +51,8 @@ final class HttpEntityHeaderListMulti extends HttpEntityHeaderList {
     /**
      * Private ctor.
      */
-    private HttpEntityHeaderListMulti(final HttpHeaderName<?> header,
-                                      final Object[] values) {
+    private HttpEntityHeaderValueListMulti(final HttpHeaderName<?> header,
+                                           final Object[] values) {
         super(header);
         this.values = values;
     }

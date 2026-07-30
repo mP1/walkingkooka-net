@@ -25,13 +25,13 @@ import java.util.List;
  * A read only {@link List} with operations to append and remove a value returning a new copy.
  * Note it is never
  */
-final class HttpEntityHeaderListOne extends HttpEntityHeaderList {
+final class HttpEntityHeaderValueListOne extends HttpEntityHeaderValueList {
 
     /**
-     * Creates a new {@link HttpEntityHeaderList} complaining if not given a single value.
+     * Creates a new {@link HttpEntityHeaderValueList} complaining if not given a single value.
      */
-    static HttpEntityHeaderListOne with(final HttpHeaderName<?> header,
-                                        final Object... values) {
+    static HttpEntityHeaderValueListOne with(final HttpHeaderName<?> header,
+                                             final Object... values) {
         switch (values.length) {
             case 0:
                 throw new IllegalArgumentException("Values must not be empty");
@@ -40,7 +40,7 @@ final class HttpEntityHeaderListOne extends HttpEntityHeaderList {
             default:
                 throw new IllegalArgumentException("Expected only one value");
         }
-        return new HttpEntityHeaderListOne(
+        return new HttpEntityHeaderValueListOne(
             header,
             header.checkValue(values[0])
         );
@@ -49,8 +49,8 @@ final class HttpEntityHeaderListOne extends HttpEntityHeaderList {
     /**
      * Private ctor.
      */
-    private HttpEntityHeaderListOne(final HttpHeaderName<?> header,
-                                    final Object value) {
+    private HttpEntityHeaderValueListOne(final HttpHeaderName<?> header,
+                                         final Object value) {
         super(header);
         this.value = value;
     }

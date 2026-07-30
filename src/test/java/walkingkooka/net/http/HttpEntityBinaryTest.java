@@ -361,7 +361,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
     private <T> HttpEntityBinary createHttpEntity(final HttpHeaderName<T> header,
                                                   final T value,
                                                   final String text) {
-        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderList.one(header, value)), text);
+        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderValueList.one(header, value)), text);
     }
 
     private <T1, T2, T3> HttpEntityBinary createHttpEntity(final HttpHeaderName<T1> header1,
@@ -371,18 +371,18 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                                                            final HttpHeaderName<T3> header3,
                                                            final T3 value3,
                                                            final String text) {
-        return this.createHttpEntity(Maps.of(header1, HttpEntityHeaderList.one(header1, value1),
-            header2, HttpEntityHeaderList.one(header2, value2),
-            header3, HttpEntityHeaderList.one(header3, value3)), text);
+        return this.createHttpEntity(Maps.of(header1, HttpEntityHeaderValueList.one(header1, value1),
+            header2, HttpEntityHeaderValueList.one(header2, value2),
+            header3, HttpEntityHeaderValueList.one(header3, value3)), text);
     }
 
-    private HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    private HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                                               final String text) {
         return HttpEntityBinary.with(headers, Binary.with(text.getBytes(HttpEntity.CHARSET)));
     }
 
     @Override
-    HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntityBinary createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
         return HttpEntityBinary.with(headers, BINARY);
     }
 

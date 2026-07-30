@@ -35,7 +35,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
      * Creates a new {@link HttpEntityBinary}
      */
     // @VisibleForTesting
-    static HttpEntityBinary with(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    static HttpEntityBinary with(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                                  final Binary body) {
         return new HttpEntityBinary(headers, Objects.requireNonNull(body, "body"));
     }
@@ -43,7 +43,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     /**
      * Private ctor
      */
-    private HttpEntityBinary(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    private HttpEntityBinary(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                              final Binary body) {
         super(headers);
         this.body = body;
@@ -52,7 +52,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     // headers..........................................................................................................
 
     @Override
-    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
         return this.replace(
             headers,
             this.body
@@ -85,7 +85,7 @@ final class HttpEntityBinary extends HttpEntityNotEmpty {
     // replace..........................................................................................................
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                        final Binary body) {
         return headers.isEmpty() && this.body.isEmpty() ?
             EMPTY :

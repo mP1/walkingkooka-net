@@ -88,7 +88,7 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Internal constant
      */
-    final static Map<HttpHeaderName<?>, HttpEntityHeaderList> NO_HEADERS_HTTP_ENTITY_HEADER_LIST = Maps.empty();
+    final static Map<HttpHeaderName<?>, HttpEntityHeaderValueList> NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST = Maps.empty();
 
     /**
      * A {@link HttpEntity} with no headers and no body.
@@ -253,20 +253,20 @@ public abstract class HttpEntity implements HasHeaders,
         return Cast.to(this.headers2());
     }
 
-    abstract Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2();
+    abstract Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers2();
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given headers creating a new instance if necessary.
      */
     public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = checkHeaders(headers);
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> copy = checkHeaders(headers);
 
         return this.headers().equals(copy) ?
             this :
             this.replaceHeaders(copy);
     }
 
-    abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
+    abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers);
 
     /**
      * Returns the {@link Accept} if one is present.
@@ -298,7 +298,7 @@ public abstract class HttpEntity implements HasHeaders,
     public final HttpEntity setContentLength() {
         return this.setHeader0(
             HttpHeaderName.CONTENT_LENGTH,
-            HttpEntityHeaderList.one(
+            HttpEntityHeaderValueList.one(
                 HttpHeaderName.CONTENT_LENGTH,
                 Long.valueOf(
                     this.contentLength()
@@ -327,7 +327,7 @@ public abstract class HttpEntity implements HasHeaders,
         Objects.requireNonNull(header, "header");
 
         // will return null to indicate values is empty and should be removed
-        final HttpEntityHeaderList copy = HttpEntityHeaderList.copy(header, values);
+        final HttpEntityHeaderValueList copy = HttpEntityHeaderValueList.copy(header, values);
 
         return null != copy ?
             this.setHeader0(header, copy) :
@@ -335,7 +335,7 @@ public abstract class HttpEntity implements HasHeaders,
     }
 
     abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                                       final HttpEntityHeaderList value);
+                                       final HttpEntityHeaderValueList value);
 
     /**
      * Adds the given header from this entity returning a new instance if the header and value are new.
@@ -366,15 +366,15 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * While checking also make a defensive copy of the given {@link Map}.
      */
-    static Map<HttpHeaderName<?>, HttpEntityHeaderList> checkHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
+    static Map<HttpHeaderName<?>, HttpEntityHeaderValueList> checkHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
         Objects.requireNonNull(headers, "headers");
 
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> copy = Maps.ordered();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> copy = Maps.ordered();
 
         for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
             final HttpHeaderName<?> header = nameAndValues.getKey();
 
-            copy.put(header, HttpEntityHeaderList.copy(header, Cast.to(nameAndValues.getValue())));
+            copy.put(header, HttpEntityHeaderValueList.copy(header, Cast.to(nameAndValues.getValue())));
         }
         return Maps.immutable(copy);
     }
@@ -392,7 +392,7 @@ public abstract class HttpEntity implements HasHeaders,
     public final HttpEntity setBody(final Binary body) {
         Objects.requireNonNull(body, "body");
 
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = this.headers2();
         return body.isEmpty() && headers.isEmpty() ?
             EMPTY :
             body.equals(this.body()) ?
@@ -449,7 +449,7 @@ public abstract class HttpEntity implements HasHeaders,
 
     // replace..........................................................................................................
 
-    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                                 final Binary body);
 
     // HasText..........................................................................................................
@@ -737,7 +737,7 @@ public abstract class HttpEntity implements HasHeaders,
         {
             {
                 // headers
-                final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.alphaSortedHeaders();
+                final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = this.alphaSortedHeaders();
 
                 if (false == headers.isEmpty()) {
                     printer.println("header(s)");
@@ -756,17 +756,17 @@ public abstract class HttpEntity implements HasHeaders,
         printer.outdent();
     }
 
-    final Map<HttpHeaderName<?>, HttpEntityHeaderList> alphaSortedHeaders() {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = Maps.sorted();
+    final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> alphaSortedHeaders() {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = Maps.sorted();
         headers.putAll(
             this.headers2()
         );
         return headers;
     }
 
-    final void printTreeHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers,
+    final void printTreeHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
                                 final IndentingPrinter printer) {
-        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValues : headers.entrySet()) {
+        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderValueList> headerAndValues : headers.entrySet()) {
             final HttpHeaderName<?> name = headerAndValues.getKey();
 
             for (final Object value : headerAndValues.getValue()) {

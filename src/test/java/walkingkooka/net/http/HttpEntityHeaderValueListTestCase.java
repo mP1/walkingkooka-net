@@ -27,12 +27,12 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityHeaderListTestCase<L extends HttpEntityHeaderList> implements ClassTesting<L>,
+public abstract class HttpEntityHeaderValueListTestCase<L extends HttpEntityHeaderValueList> implements ClassTesting<L>,
     ListTesting2<L, Object>,
     ToStringTesting<L>,
     TypeNameTesting<L> {
 
-    HttpEntityHeaderListTestCase() {
+    HttpEntityHeaderValueListTestCase() {
         super();
     }
 
@@ -68,7 +68,7 @@ public abstract class HttpEntityHeaderListTestCase<L extends HttpEntityHeaderLis
 
     @Override
     public final String typeNamePrefix() {
-        return HttpEntityHeaderList.class.getSimpleName();
+        return HttpEntityHeaderValueList.class.getSimpleName();
     }
 
     @Override

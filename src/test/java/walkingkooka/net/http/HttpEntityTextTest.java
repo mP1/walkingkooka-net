@@ -175,7 +175,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     }
 
     @Override
-    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
         return HttpEntityText.with(headers, TEXT);
     }
 
@@ -187,17 +187,17 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
             HttpEntityText.with(
                 Maps.of(
                     HttpHeaderName.CONTENT_LENGTH,
-                    HttpEntityHeaderList.one(
+                    HttpEntityHeaderValueList.one(
                         HttpHeaderName.CONTENT_LENGTH,
                         257L
                     ),
                     HttpHeaderName.CONTENT_TYPE,
-                    HttpEntityHeaderList.one(
+                    HttpEntityHeaderValueList.one(
                         HttpHeaderName.CONTENT_TYPE,
                         MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
                     ),
                     HttpHeaderName.SERVER,
-                    HttpEntityHeaderList.one(
+                    HttpEntityHeaderValueList.one(
                         HttpHeaderName.SERVER,
                         "Server 123"
                     )
