@@ -65,7 +65,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
     private final static HttpStatus FILE_NOT_FOUND = HttpStatusCode.NOT_FOUND.setMessage("File not found!");
 
     private final static ETag NO_ETAG = null;
-    private final static ETag ETAG2 = ETag.parseOne("W/\"222\"");
+    private final static ETag ETAG2 = ETag.parse("W/\"222\"");
 
     private static final HttpProtocolVersion HTTP_PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_0;
 
