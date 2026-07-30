@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderListMulti> {
+public final class HttpEntityHeaderValueListMultiTest extends HttpEntityHeaderValueListTestCase<HttpEntityHeaderValueListMulti> {
 
     private final static HttpHeaderName<AcceptLanguage> HEADER = HttpHeaderName.ACCEPT_LANGUAGE;
     private final static AcceptLanguage VALUE1 = AcceptLanguage.parse("EN");
@@ -38,7 +38,7 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     public void testWithInvalidValue() {
         assertThrows(
             HeaderException.class,
-            () -> HttpEntityHeaderListMulti.with(
+            () -> HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 this
             )
@@ -49,7 +49,7 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     public void testWithInvalidValue2() {
         assertThrows(
             HeaderException.class,
-            () -> HttpEntityHeaderListMulti.with(
+            () -> HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 VALUE1,
                 this
@@ -60,7 +60,7 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     @Test
     public void testWithOne() {
         this.valuesAndCheck(
-            HttpEntityHeaderListMulti.with(
+            HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 VALUE1
             ),
@@ -71,7 +71,7 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     @Test
     public void testWithTwo() {
         this.valuesAndCheck(
-            HttpEntityHeaderListMulti.with(
+            HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 VALUE1,
                 VALUE2
@@ -91,8 +91,8 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
 
     @Test
     public void testConcat() {
-        final HttpEntityHeaderListMulti list = this.createList();
-        final HttpEntityHeaderListMulti appended = (HttpEntityHeaderListMulti) list.concat(VALUE2);
+        final HttpEntityHeaderValueListMulti list = this.createList();
+        final HttpEntityHeaderValueListMulti appended = (HttpEntityHeaderValueListMulti) list.concat(VALUE2);
         assertNotSame(list, appended);
 
         this.valuesAndCheck(appended, VALUE1, VALUE2);
@@ -102,7 +102,7 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     public void testConcatNonMultiValueFails() {
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         this.checkEquals(false, header.isMultiple(), "isMultiple should be false");
-        final HttpEntityHeaderListMulti list = HttpEntityHeaderListMulti.with(header, 1L);
+        final HttpEntityHeaderValueListMulti list = HttpEntityHeaderValueListMulti.with(header, 1L);
 
         assertThrows(
             IllegalArgumentException.class,
@@ -120,14 +120,14 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     }
 
     @Override
-    HttpEntityHeaderListMulti createHttpEntityHeaderList(final Object... values) {
-        return HttpEntityHeaderListMulti.with(
+    HttpEntityHeaderValueListMulti createHttpEntityHeaderList(final Object... values) {
+        return HttpEntityHeaderValueListMulti.with(
             HEADER,
             values
         );
     }
 
-    private void valuesAndCheck(final HttpEntityHeaderListMulti list,
+    private void valuesAndCheck(final HttpEntityHeaderValueListMulti list,
                                 final Object... values) {
         assertArrayEquals(
             values,
@@ -137,12 +137,12 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
     }
 
     @Override
-    public HttpEntityHeaderListMulti createList() {
-        return HttpEntityHeaderListMulti.with(HEADER, VALUE1);
+    public HttpEntityHeaderValueListMulti createList() {
+        return HttpEntityHeaderValueListMulti.with(HEADER, VALUE1);
     }
 
     @Override
-    public Class<HttpEntityHeaderListMulti> type() {
-        return Cast.to(HttpEntityHeaderListMulti.class);
+    public Class<HttpEntityHeaderValueListMulti> type() {
+        return Cast.to(HttpEntityHeaderValueListMulti.class);
     }
 }

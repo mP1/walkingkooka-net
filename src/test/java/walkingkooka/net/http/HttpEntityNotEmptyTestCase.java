@@ -587,7 +587,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testEqualsDifferentBody() {
         this.checkNotEquals(
             HttpEntityBinary.with(
-                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
+                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST,
                 Binary.with(new byte[1])
             )
         );
@@ -597,7 +597,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     public final void testEqualsDifferentText() {
         this.checkNotEquals(
             HttpEntityText.with(
-                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST,
+                HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST,
                 "different"
             )
         );
@@ -606,13 +606,13 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
     @Override //
     final H createHttpEntity() {
         return this.createHttpEntity(
-            HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_LIST
+            HttpEntity.NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST
         );
     }
 
     final <T> H createHttpEntity(final HttpHeaderName<T> header, final T value) {
-        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderList.copy(header, list(value))));
+        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderValueList.copy(header, list(value))));
     }
 
-    abstract H createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers);
+    abstract H createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers);
 }

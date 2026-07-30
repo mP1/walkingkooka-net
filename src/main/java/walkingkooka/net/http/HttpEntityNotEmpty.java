@@ -40,7 +40,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     /**
      * Package private
      */
-    HttpEntityNotEmpty(final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers) {
+    HttpEntityNotEmpty(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
         super();
         this.headers = headers;
     }
@@ -48,16 +48,16 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
     // headers..........................................................................................................
 
     @Override //
-    final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers2() {
+    final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers2() {
         return this.headers;
     }
 
-    private final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers;
+    private final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers;
 
     @Override //
     final <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                                    final HttpEntityHeaderList value) {
-        final HttpEntityHeaderList values = this.headers2().get(header);
+                                    final HttpEntityHeaderValueList value) {
+        final HttpEntityHeaderValueList values = this.headers2().get(header);
         return value.equals(values) ?
             this :
             this.setHeader1(header, value);
@@ -67,8 +67,8 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
      * Copy all headers into a new {@link Map} and set the new header with a single value.
      */
     private <T> HttpEntity setHeader1(final HttpHeaderName<T> header,
-                                      final HttpEntityHeaderList value) {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+                                      final HttpEntityHeaderValueList value) {
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> updated = Maps.ordered();
         updated.putAll(this.headers2());
         updated.put(header, value);
 
@@ -80,17 +80,17 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                                     final T value) {
         final HttpEntity added;
 
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
-        final HttpEntityHeaderList values = headers.get(header);
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = this.headers2();
+        final HttpEntityHeaderValueList values = headers.get(header);
         if (null == values) {
             // add a new header
-            final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+            final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> updated = Maps.ordered();
             updated.putAll(headers);
-            updated.put(header, HttpEntityHeaderList.one(header, value));
+            updated.put(header, HttpEntityHeaderValueList.one(header, value));
 
             added = this.replaceHeaders(Maps.readOnly(updated));
         } else {
-            final Map<HttpHeaderName<?>, HttpEntityHeaderList> updated = Maps.ordered();
+            final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> updated = Maps.ordered();
             updated.putAll(headers);
 
             if (values.contains(value)) {
@@ -99,7 +99,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
                 // append value and return new entity
                 updated.put(
                     header,
-                    (HttpEntityHeaderList) values.concat(value)
+                    (HttpEntityHeaderValueList) values.concat(value)
                 );
                 added = this.replaceHeaders(Maps.readOnly(updated));
             }
@@ -110,12 +110,12 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     @Override//
     final HttpEntity remove0(final HttpHeaderName<?> header) {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> removed = Maps.ordered();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> removed = Maps.ordered();
         boolean changed = false;
 
-        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderList> headerAndValue : this.headers2().entrySet()) {
+        for (final Entry<HttpHeaderName<?>, HttpEntityHeaderValueList> headerAndValue : this.headers2().entrySet()) {
             final HttpHeaderName<?> possibleHeader = headerAndValue.getKey();
-            HttpEntityHeaderList values = headerAndValue.getValue();
+            HttpEntityHeaderValueList values = headerAndValue.getValue();
             if (possibleHeader.equals(header)) {
                 changed = true;
                 continue;
@@ -140,7 +140,7 @@ abstract class HttpEntityNotEmpty extends HttpEntity {
 
     @Override //
     final HttpEntity replaceBodyText(final String bodyText) {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderList> headers = this.headers2();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = this.headers2();
 
         return bodyText.isEmpty() && headers.isEmpty() ?
             EMPTY :

@@ -30,43 +30,43 @@ import java.util.Objects;
  * A read only {@link java.util.List} with operations to append and remove a value returning a new copy.
  * Note it is never
  */
-abstract class HttpEntityHeaderList extends AbstractList<Object> implements ImmutableListDefaults<ImmutableList<Object>, Object> {
+abstract class HttpEntityHeaderValueList extends AbstractList<Object> implements ImmutableListDefaults<ImmutableList<Object>, Object> {
 
     /**
-     * If the {@link List} is not a {@link HttpEntityHeaderList} make a copy of using its values.
+     * If the {@link List} is not a {@link HttpEntityHeaderValueList} make a copy of using its values.
      */
-    static HttpEntityHeaderList one(final HttpHeaderName<?> header,
-                                    final Object value) {
+    static HttpEntityHeaderValueList one(final HttpHeaderName<?> header,
+                                         final Object value) {
         return header.isMultiple() ?
-            HttpEntityHeaderListMulti.with(header, value) :
-            HttpEntityHeaderListOne.with(header, value);
+            HttpEntityHeaderValueListMulti.with(header, value) :
+            HttpEntityHeaderValueListOne.with(header, value);
     }
 
     /**
-     * If the {@link List} is not a {@link HttpEntityHeaderList} make a copy of using its values.
+     * If the {@link List} is not a {@link HttpEntityHeaderValueList} make a copy of using its values.
      */
-    static HttpEntityHeaderList copy(final HttpHeaderName<?> header,
-                                     final Collection<?> values) {
-        return values instanceof HttpEntityHeaderList ?
-            checkHttpEntityHeaderList(header, (HttpEntityHeaderList) values) : /* lgtm [java/abstract-to-concrete-cast] */
+    static HttpEntityHeaderValueList copy(final HttpHeaderName<?> header,
+                                          final Collection<?> values) {
+        return values instanceof HttpEntityHeaderValueList ?
+            checkHttpEntityHeaderValueList(header, (HttpEntityHeaderValueList) values) : /* lgtm [java/abstract-to-concrete-cast] */
             copyAndCreate(header, values.toArray());
     }
 
     /**
      * While taking a copy of the array checks each value using the {@link HttpHeaderName}
      */
-    private static HttpEntityHeaderList checkHttpEntityHeaderList(final HttpHeaderName<?> header,
-                                                                  final HttpEntityHeaderList values) {
+    private static HttpEntityHeaderValueList checkHttpEntityHeaderValueList(final HttpHeaderName<?> header,
+                                                                            final HttpEntityHeaderValueList values) {
         return header.isMultiple() == values.isMultipleHeaders() ?
-            checkHttpEntityHeaderList0(header, values) : // already the correct HttpEntityHeaderList sub class, simply check values.
-            copyAndCreate(header, values.toArray()); // wrong HttpEntityHeaderList copy and create another
+            checkHttpEntityHeaderList0(header, values) : // already the correct HttpEntityHeaderValueList sub class, simply check values.
+            copyAndCreate(header, values.toArray()); // wrong HttpEntityHeaderValueList copy and create another
     }
 
     /**
      * Checks that the values are correct values for the given header.
      */
-    private static HttpEntityHeaderList checkHttpEntityHeaderList0(final HttpHeaderName<?> header,
-                                                                   final HttpEntityHeaderList values) {
+    private static HttpEntityHeaderValueList checkHttpEntityHeaderList0(final HttpHeaderName<?> header,
+                                                                        final HttpEntityHeaderValueList values) {
         values.forEach(header::checkValue);
         return values;
     }
@@ -74,30 +74,30 @@ abstract class HttpEntityHeaderList extends AbstractList<Object> implements Immu
     /**
      * While taking a copy of the array checks each value using the {@link HttpHeaderName}
      */
-    private static HttpEntityHeaderList copyAndCreate(final HttpHeaderName<?> header,
-                                                      final Object[] values) {
+    private static HttpEntityHeaderValueList copyAndCreate(final HttpHeaderName<?> header,
+                                                           final Object[] values) {
         return values.length == 0 ?
             null :
             header.isMultiple() ?
-                HttpEntityHeaderListMulti.with(header, values) :
-                HttpEntityHeaderListOne.with(header, values);
+                HttpEntityHeaderValueListMulti.with(header, values) :
+                HttpEntityHeaderValueListOne.with(header, values);
     }
 
     /**
      * Package private ctor to limit sub classing.
      */
-    HttpEntityHeaderList(final HttpHeaderName<?> header) {
+    HttpEntityHeaderValueList(final HttpHeaderName<?> header) {
         super();
         this.header = header;
     }
 
-    // HttpEntityHeaderList..............................................................................................
+    // HttpEntityHeaderValueList..............................................................................................
 
     /**
      * Only returns true if a list for holding multiple header values.
      */
     final boolean isMultipleHeaders() {
-        return this instanceof HttpEntityHeaderListMulti;
+        return this instanceof HttpEntityHeaderValueListMulti;
     }
 
     // ImmutableListDefaults............................................................................................

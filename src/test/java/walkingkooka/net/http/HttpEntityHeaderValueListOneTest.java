@@ -26,7 +26,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderListOne> {
+public final class HttpEntityHeaderValueListOneTest extends HttpEntityHeaderValueListTestCase<HttpEntityHeaderValueListOne> {
 
     private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
     private final static String VALUE = "Server 123";
@@ -35,7 +35,7 @@ public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestC
     public void testWithTwoValues() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> HttpEntityHeaderListOne.with(
+            () -> HttpEntityHeaderValueListOne.with(
                 HEADER,
                 "Server1",
                 "Server2"
@@ -47,7 +47,7 @@ public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestC
     public void testWithInvalidValue() {
         assertThrows(
             HeaderException.class,
-            () -> HttpEntityHeaderListOne.with(
+            () -> HttpEntityHeaderValueListOne.with(
                 HEADER,
                 this
             )
@@ -56,7 +56,7 @@ public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestC
 
     @Test
     public void testWith() {
-        final HttpEntityHeaderListOne list = HttpEntityHeaderListOne.with(
+        final HttpEntityHeaderValueListOne list = HttpEntityHeaderValueListOne.with(
             HEADER,
             VALUE
         );
@@ -72,17 +72,17 @@ public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestC
     }
 
     @Override
-    HttpEntityHeaderListOne createHttpEntityHeaderList(final Object... values) {
-        return HttpEntityHeaderListOne.with(HEADER, values);
+    HttpEntityHeaderValueListOne createHttpEntityHeaderList(final Object... values) {
+        return HttpEntityHeaderValueListOne.with(HEADER, values);
     }
 
     @Override
-    public HttpEntityHeaderListOne createList() {
-        return HttpEntityHeaderListOne.with(HEADER, VALUE);
+    public HttpEntityHeaderValueListOne createList() {
+        return HttpEntityHeaderValueListOne.with(HEADER, VALUE);
     }
 
     @Override
-    public Class<HttpEntityHeaderListOne> type() {
-        return Cast.to(HttpEntityHeaderListOne.class);
+    public Class<HttpEntityHeaderValueListOne> type() {
+        return Cast.to(HttpEntityHeaderValueListOne.class);
     }
 }
