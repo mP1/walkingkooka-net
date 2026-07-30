@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.text.HasLineEnding;
 import walkingkooka.text.LineEnding;
 
 import java.nio.charset.Charset;
@@ -28,12 +29,17 @@ import java.util.Objects;
 /**
  * Defines a contract for a container that includes headers, such as a http request.
  */
-public interface HasHeaders {
+public interface HasHeaders extends HasLineEnding {
 
     /**
      * The line ending used in http requests/responses.
      */
     LineEnding LINE_ENDING = LineEnding.CRNL;
+
+    @Override
+    default LineEnding lineEnding() {
+        return LINE_ENDING;
+    }
 
     /**
      * Returns a {@link Map} view of all headers.
