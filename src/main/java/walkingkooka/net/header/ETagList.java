@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasText;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -28,12 +29,20 @@ import java.util.Objects;
 /**
  * An immutable list holding non null {@link ETag}.
  */
-public final class ETagList extends AbstractList<ETag> implements ImmutableListDefaults<ETagList, ETag> {
+public final class ETagList extends AbstractList<ETag> implements ImmutableListDefaults<ETagList, ETag>,
+    HasText {
 
     /**
      * Empty immutable singleton
      */
     public static final ETagList EMPTY = new ETagList(Lists.empty());
+
+    /**
+     * Parsers a header value which may hold one or more tags.
+     */
+    public static ETagList parse(final String text) {
+        return ETagListHeaderParser.parseList(text);
+    }
 
     private final List<ETag> etags;
 
@@ -78,5 +87,15 @@ public final class ETagList extends AbstractList<ETag> implements ImmutableListD
         return this.equals(eTagList) ?
             this :
             eTagList;
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return Header.toHeaderTextList(
+            this,
+            ETagListHeaderHandler.SEPARATOR
+        );
     }
 }

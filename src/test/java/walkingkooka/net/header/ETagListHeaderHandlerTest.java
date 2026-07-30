@@ -99,7 +99,7 @@ public final class ETagListHeaderHandlerTest extends
 
     @Override
     ETagList value() {
-        return ETag.parseList("\"1\",\"2\"");
+        return ETagList.parse("\"1\",\"2\"");
     }
 
     @Override

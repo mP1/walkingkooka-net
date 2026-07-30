@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagList;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -302,8 +303,8 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
         };
     }
 
-    private List<ETag> ifNoneMatch() {
-        return ETag.parseList("W/\"X1\",\"X2\",\"X3\"");
+    private ETagList ifNoneMatch() {
+        return ETagList.parse("W/\"X1\",\"X2\",\"X3\"");
     }
 
     private ETag etag(final int value) {
