@@ -62,6 +62,13 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHandlerWrapperSharedIfNoneMatch}
+     */
+    public static <C extends HttpHandlerContext> HttpHandler<C> ifNoneMatch(final HttpHandler<C> handler) {
+        return HttpHandlerWrapperSharedIfNoneMatch.with(handler);
+    }
+
+    /**
      * {@see HttpHandlerWrapperSharedMethodNotAllowed}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> methodNotAllowed(final HttpMethod method,
