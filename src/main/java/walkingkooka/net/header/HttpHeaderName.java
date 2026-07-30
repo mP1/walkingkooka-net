@@ -58,10 +58,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
     );
 
     /**
-     * Creates a header constant with a list of {@link ETag} values.
+     * Creates a header constant with a {@link ETagList} values.
      */
-    private static HttpHeaderName<List<ETag>> registerETagListConstant(final String name,
-                                                                       final HttpHeaderNameScope scope) {
+    private static HttpHeaderName<ETagList> registerETagListConstant(final String name,
+                                                                     final HttpHeaderNameScope scope) {
         return registerConstant(
             name,
             scope,
@@ -544,7 +544,7 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<ETag>> IF_MATCH = registerETagListConstant(
+    public final static HttpHeaderName<ETagList> IF_MATCH = registerETagListConstant(
         "If-Match",
         HttpHeaderNameScope.REQUEST
     );
@@ -568,7 +568,7 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-None-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<ETag>> IF_NONE_MATCHED = registerETagListConstant(
+    public final static HttpHeaderName<ETagList> IF_NONE_MATCHED = registerETagListConstant(
         "If-None-Match",
         HttpHeaderNameScope.REQUEST
     );

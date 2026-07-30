@@ -160,7 +160,7 @@ abstract class HeaderHandler<T> {
     /**
      * {@see ETagListHeaderHandler}
      */
-    static HeaderHandler<List<ETag>> eTagList() {
+    static HeaderHandler<ETagList> eTagList() {
         return ETagListHeaderHandler.INSTANCE;
     }
 

@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 import walkingkooka.HasValue;
 import walkingkooka.text.CharacterConstant;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -62,7 +61,7 @@ public abstract class ETag implements Header,
     /**
      * Parsers a header value which may hold one or more tags.
      */
-    public static List<ETag> parseList(final String text) {
+    public static ETagList parseList(final String text) {
         return ETagListHeaderParser.parseList(text);
     }
 

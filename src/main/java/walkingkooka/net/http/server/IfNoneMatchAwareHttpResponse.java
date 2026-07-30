@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagList;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -55,7 +56,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
         if (request.method().isGetOrHead()) {
 
             // if-none-matched must be absent
-            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.header(request);
+            final Optional<ETagList> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.header(request);
             if (maybeIfNoneMatch.isPresent()) {
                 final List<ETag> ifNoneMatch = maybeIfNoneMatch.get()
                     .stream()

@@ -19,12 +19,10 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
  * A {@link HeaderHandler} that expects comma separated {@link ETag tags}.
  */
-final class ETagListHeaderHandler extends NonStringHeaderHandler<List<ETag>> {
+final class ETagListHeaderHandler extends NonStringHeaderHandler<ETagList> {
 
     /**
      * Singleton
@@ -39,7 +37,7 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<List<ETag>> {
     }
 
     @Override
-    List<ETag> parse0(final String text) {
+    ETagList parse0(final String text) {
         return ETag.parseList(text);
     }
 
@@ -52,12 +50,12 @@ final class ETagListHeaderHandler extends NonStringHeaderHandler<List<ETag>> {
     }
 
     @Override
-    String toText0(final List<ETag> value, final Name name) {
+    String toText0(final ETagList value, final Name name) {
         return Header.toHeaderTextList(value, SEPARATOR);
     }
 
     @Override
     public String toString() {
-        return toStringListOf(ETag.class);
+        return ETagList.class.getSimpleName();
     }
 }
