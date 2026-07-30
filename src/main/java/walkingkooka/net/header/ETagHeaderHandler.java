@@ -40,7 +40,7 @@ final class ETagHeaderHandler extends NonStringHeaderHandler<ETag> {
 
     @Override
     ETag parse0(final String text) {
-        return ETag.parseOne(text);
+        return ETag.parse(text);
     }
 
     @Override

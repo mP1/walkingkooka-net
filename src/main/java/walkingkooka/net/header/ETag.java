@@ -54,7 +54,7 @@ public abstract class ETag implements Header,
     /**
      * Parsers a header value holding a single tag.
      */
-    public static ETag parseOne(final String text) {
+    public static ETag parse(final String text) {
         return ETagOneHeaderParser.parseOne(text);
     }
 

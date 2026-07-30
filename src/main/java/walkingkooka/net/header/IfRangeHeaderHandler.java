@@ -43,7 +43,7 @@ final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
     IfRange<?> parse0(final String text) {
         IfRange<?> parsed;
         try {
-            parsed = IfRangeETag.with(ETag.parseOne(text));
+            parsed = IfRangeETag.with(ETag.parse(text));
         } catch (final HeaderException mustBeLastModified) {
             final LocalDateTime date;
 
