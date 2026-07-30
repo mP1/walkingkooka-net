@@ -26,7 +26,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestCase2<HttpEntityHeaderListOne> {
+public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderListOne> {
 
     private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
     private final static String VALUE = "Server 123";
