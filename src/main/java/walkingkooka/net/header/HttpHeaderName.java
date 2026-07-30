@@ -53,14 +53,20 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * A read only cache of already prepared {@link HttpHeaderName names}. The selected constants are taken from<br>
      * <a href="http://en.wikipedia.org/wiki/List_of_HTTP_headers"></a>.
      */
-    final static Map<String, HttpHeaderName<?>> CONSTANTS = Maps.sorted(HttpHeaderName.CASE_SENSITIVITY.comparator());
+    final static Map<String, HttpHeaderName<?>> CONSTANTS = Maps.sorted(
+        HttpHeaderName.CASE_SENSITIVITY.comparator()
+    );
 
     /**
      * Creates a header constant with a list of {@link ETag} values.
      */
     private static HttpHeaderName<List<ETag>> registerETagListConstant(final String name,
                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(name, scope, HeaderHandler.eTagList());
+        return registerConstant(
+            name,
+            scope,
+            HeaderHandler.eTagList()
+        );
     }
 
     /**
@@ -68,7 +74,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String name,
                                                                                final HttpHeaderNameScope scope) {
-        return registerConstant(name, scope, HeaderHandler.localDateTime());
+        return registerConstant(
+            name,
+            scope,
+            HeaderHandler.localDateTime()
+        );
     }
 
     /**
@@ -76,7 +86,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      */
     private static HttpHeaderName<Long> registerLongConstant(final String name,
                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(name, scope, HeaderHandler.longHandler());
+        return registerConstant(
+            name,
+            scope,
+            HeaderHandler.longHandler()
+        );
     }
 
     /**
@@ -84,7 +98,12 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      */
     private static HttpHeaderName<String> registerStringConstant(final String name,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(name, scope, HeaderHandler.string(), false);
+        return registerConstant(
+            name,
+            scope,
+            HeaderHandler.string(),
+            false // multi=false
+        );
     }
 
     /**
@@ -92,7 +111,12 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      */
     private static HttpHeaderName<String> registerMultiStringConstant(final String name,
                                                                       final HttpHeaderNameScope scope) {
-        return registerConstant(name, scope, HeaderHandler.string(), true);
+        return registerConstant(
+            name,
+            scope,
+            HeaderHandler.string(),
+            true // multi=true
+        );
     }
 
     /**
@@ -106,7 +130,12 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
     private static <T> HttpHeaderName<T> registerConstant(final String name,
                                                           final HttpHeaderNameScope scope,
                                                           final HeaderHandler<T> handler) {
-        return registerConstant(name, scope, handler, false);
+        return registerConstant(
+            name,
+            scope,
+            handler,
+            false // multi=false
+        );
     }
 
     /**
@@ -115,7 +144,12 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
     private static <T> HttpHeaderName<T> registerMultiConstant(final String name,
                                                                final HttpHeaderNameScope scope,
                                                                final HeaderHandler<T> handler) {
-        return registerConstant(name, scope, handler, true);
+        return registerConstant(
+            name,
+            scope,
+            handler,
+            true // multi=true
+        );
     }
 
     /**
@@ -143,13 +177,18 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
                 break;
         }
 
-        final HttpHeaderName<T> httpHeader = new HttpHeaderName<>(name,
+        final HttpHeaderName<T> httpHeader = new HttpHeaderName<>(
+            name,
             scope,
             handler,
             conditional,
             CaseSensitivity.INSENSITIVE.startsWith(name, CONTENT_HEADER_PREFIX),
-            multi);
-        HttpHeaderName.CONSTANTS.put(name, httpHeader);
+            multi
+        );
+        HttpHeaderName.CONSTANTS.put(
+            name,
+            httpHeader
+        );
         return httpHeader;
     }
 
@@ -160,9 +199,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept: text/html, application/xhtml+xml, application/xml;q=0.9, * /*;q=0.8
      * </pre>
      */
-    public final static HttpHeaderName<Accept> ACCEPT = registerConstant("Accept",
+    public final static HttpHeaderName<Accept> ACCEPT = registerConstant(
+        "Accept",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.accept());
+        HeaderHandler.accept()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Charset</code>
@@ -171,9 +212,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<AcceptCharset> ACCEPT_CHARSET = registerConstant("Accept-Charset",
+    public final static HttpHeaderName<AcceptCharset> ACCEPT_CHARSET = registerConstant(
+        "Accept-Charset",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.acceptCharset());
+        HeaderHandler.acceptCharset()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Encoding</code>
@@ -189,9 +232,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerMultiConstant("Accept-Encoding",
+    public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerMultiConstant(
+        "Accept-Encoding",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.acceptEncoding());
+        HeaderHandler.acceptEncoding()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Language</code>
@@ -204,9 +249,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerMultiConstant("Accept-Language",
+    public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerMultiConstant(
+        "Accept-Language",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.acceptLanguage());
+        HeaderHandler.acceptLanguage()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Ranges</code>
@@ -215,9 +262,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<RangeHeaderUnit> ACCEPT_RANGES = registerMultiConstant("Accept-Ranges",
+    public final static HttpHeaderName<RangeHeaderUnit> ACCEPT_RANGES = registerMultiConstant(
+        "Accept-Ranges",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.rangeUnit());
+        HeaderHandler.rangeUnit()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Age</code>
@@ -226,8 +275,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * </pre>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age/>
      */
-    public final static HttpHeaderName<Long> ACCESS_CONTROL_MAX_AGE = registerLongConstant("Access-Control-Max-Age",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<Long> ACCESS_CONTROL_MAX_AGE = registerLongConstant(
+        "Access-Control-Max-Age",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Access-Control-Max-Age</code>
@@ -235,8 +286,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Age: <delta-seconds>
      * </pre>
      */
-    public final static HttpHeaderName<Long> AGE = registerLongConstant("Age",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<Long> AGE = registerLongConstant(
+        "Age",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Allow</code>
@@ -244,9 +297,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Allow: GET, POST, HEAD
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpMethod>> ALLOW = registerConstant("Allow",
+    public final static HttpHeaderName<List<HttpMethod>> ALLOW = registerConstant(
+        "Allow",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.methodList());
+        HeaderHandler.methodList()
+    );
 
 
     /**
@@ -255,8 +310,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Authorization: <type> <credentials>
      * </pre>
      */
-    public final static HttpHeaderName<String> AUTHORIZATION = registerStringConstant("Authorization",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> AUTHORIZATION = registerStringConstant(
+        "Authorization",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Cache-Control</code>
@@ -272,9 +329,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Cache-Control: s-maxage=<seconds>
      * </pre>
      */
-    public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerMultiConstant("Cache-Control",
+    public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerMultiConstant(
+        "Cache-Control",
         HttpHeaderNameScope.REQUEST_RESPONSE,
-        HeaderHandler.cacheControl());
+        HeaderHandler.cacheControl()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Connection</code>
@@ -283,8 +342,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Connection: close
      * </pre>
      */
-    public final static HttpHeaderName<String> CONNECTION = registerStringConstant("Connection",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> CONNECTION = registerStringConstant(
+        "Connection",
+        HttpHeaderNameScope.REQUEST
+    );
 
 
     /**
@@ -299,9 +360,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
      * </pre>
      */
-    public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
+    public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant(
+        "Content-Disposition",
         HttpHeaderNameScope.REQUEST_RESPONSE,
-        HeaderHandler.contentDisposition());
+        HeaderHandler.contentDisposition()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
@@ -317,9 +380,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerMultiConstant("Content-Encoding",
+    public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerMultiConstant(
+        "Content-Encoding",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.contentEncoding());
+        HeaderHandler.contentEncoding()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Language</code>
@@ -329,9 +394,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerMultiConstant("Content-Language",
+    public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerMultiConstant(
+        "Content-Language",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.contentLanguage());
+        HeaderHandler.contentLanguage()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Length</code>
@@ -339,8 +406,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Length: <length>
      * </pre>
      */
-    public final static HttpHeaderName<Long> CONTENT_LENGTH = registerLongConstant("Content-Length",
-        HttpHeaderNameScope.REQUEST_RESPONSE);
+    public final static HttpHeaderName<Long> CONTENT_LENGTH = registerLongConstant(
+        "Content-Length",
+        HttpHeaderNameScope.REQUEST_RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Location</code>
@@ -351,9 +420,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Accept: text/plain, text/*	Content-Location: /documents/foo.txt
      * </pre>
      */
-    public final static HttpHeaderName<RelativeUrl> CONTENT_LOCATION = registerConstant("Content-Location",
+    public final static HttpHeaderName<RelativeUrl> CONTENT_LOCATION = registerConstant(
+        "Content-Location",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.relativeUrl());
+        HeaderHandler.relativeUrl()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Range</code>
@@ -363,9 +434,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Range: <unit> * /<size>
      * </pre>
      */
-    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerMultiConstant("Content-Range",
+    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerMultiConstant(
+        "Content-Range",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.contentRange());
+        HeaderHandler.contentRange()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Type</code>
@@ -374,9 +447,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Content-Type: multipart/form-data; boundary=something
      * </pre>
      */
-    public final static HttpHeaderName<MediaType> CONTENT_TYPE = registerConstant("Content-Type",
+    public final static HttpHeaderName<MediaType> CONTENT_TYPE = registerConstant(
+        "Content-Type",
         HttpHeaderNameScope.REQUEST_RESPONSE_MULTIPART,
-        HeaderHandler.mediaType());
+        HeaderHandler.mediaType()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Cookie</code>
@@ -386,9 +461,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Cookie: name=value; name2=value2; name3=value3
      * </pre>
      */
-    public final static HttpHeaderName<List<ClientCookie>> COOKIE = registerMultiConstant("Cookie",
+    public final static HttpHeaderName<List<ClientCookie>> COOKIE = registerMultiConstant(
+        "Cookie",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.clientCookieList());
+        HeaderHandler.clientCookieList()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Date</code>
@@ -396,8 +473,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Date: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<LocalDateTime> DATE = registerLocalDateTimeConstant("Date",
-        HttpHeaderNameScope.REQUEST_RESPONSE);
+    public final static HttpHeaderName<LocalDateTime> DATE = registerLocalDateTimeConstant(
+        "Date",
+        HttpHeaderNameScope.REQUEST_RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>ETag</code>
@@ -406,9 +485,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * ETag: W/"0815"
      * </pre>
      */
-    public final static HttpHeaderName<ETag> E_TAG = registerConstant("ETag",
+    public final static HttpHeaderName<ETag> E_TAG = registerConstant(
+        "ETag",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.eTag());
+        HeaderHandler.eTag()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>EXPIRES</code>
@@ -416,8 +497,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Expires: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<LocalDateTime> EXPIRES = registerLocalDateTimeConstant("Expires",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<LocalDateTime> EXPIRES = registerLocalDateTimeConstant(
+        "Expires",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Expect</code>
@@ -425,8 +508,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Expect: 100-continue
      * </pre>
      */
-    public final static HttpHeaderName<String> EXPECT = registerStringConstant("Expect",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> EXPECT = registerStringConstant(
+        "Expect",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>From</code>
@@ -434,9 +519,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * From: webmaster@example.org
      * </pre>
      */
-    public final static HttpHeaderName<EmailAddress> FROM = registerConstant("From",
+    public final static HttpHeaderName<EmailAddress> FROM = registerConstant(
+        "From",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.emailAddress());
+        HeaderHandler.emailAddress()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Host</code>
@@ -444,8 +531,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Host: <host>:<port>
      * </pre>
      */
-    public final static HttpHeaderName<String> HOST = registerStringConstant("Host",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> HOST = registerStringConstant(
+        "Host",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Match</code>
@@ -455,8 +544,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<ETag>> IF_MATCH = registerETagListConstant("If-Match",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<List<ETag>> IF_MATCH = registerETagListConstant(
+        "If-Match",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Modified-Since</code>
@@ -464,8 +555,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-Modified-Since: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<LocalDateTime> IF_MODIFIED_SINCE = registerLocalDateTimeConstant("If-Modified-Since",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<LocalDateTime> IF_MODIFIED_SINCE = registerLocalDateTimeConstant(
+        "If-Modified-Since",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>If-None-Match</code>
@@ -475,8 +568,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-None-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<ETag>> IF_NONE_MATCHED = registerETagListConstant("If-None-Match",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<List<ETag>> IF_NONE_MATCHED = registerETagListConstant(
+        "If-None-Match",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Range</code>
@@ -484,9 +579,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-Range: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<IfRange<?>> IF_RANGE = registerConstant("If-Range",
+    public final static HttpHeaderName<IfRange<?>> IF_RANGE = registerConstant(
+        "If-Range",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.ifRange());
+        HeaderHandler.ifRange()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Unmodified-Since</code>
@@ -494,8 +591,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * If-Unmodified-Since: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<LocalDateTime> IF_UNMODIFIED_SINCE = registerLocalDateTimeConstant("If-Unmodified-Since",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<LocalDateTime> IF_UNMODIFIED_SINCE = registerLocalDateTimeConstant(
+        "If-Unmodified-Since",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Keep-Alive</code>
@@ -503,8 +602,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Keep-Alive: timeout=5, max=1000
      * </pre>
      */
-    public final static HttpHeaderName<String> KEEP_ALIVE = registerStringConstant("Keep-Alive",
-        HttpHeaderNameScope.REQUEST_RESPONSE);
+    public final static HttpHeaderName<String> KEEP_ALIVE = registerStringConstant(
+        "Keep-Alive",
+        HttpHeaderNameScope.REQUEST_RESPONSE
+    );
 
 
     /**
@@ -513,16 +614,20 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<LocalDateTime> LAST_MODIFIED = registerLocalDateTimeConstant("Last-Modified",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<LocalDateTime> LAST_MODIFIED = registerLocalDateTimeConstant(
+        "Last-Modified",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Link</code>
      * <a href="http://www.rfc-editor.org/rfc/rfc5988.txt"></a>
      */
-    public final static HttpHeaderName<List<Link>> LINK = registerConstant("Link",
+    public final static HttpHeaderName<List<Link>> LINK = registerConstant(
+        "Link",
         HttpHeaderNameScope.REQUEST_RESPONSE,
-        HeaderHandler.link());
+        HeaderHandler.link()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Location</code>
@@ -532,9 +637,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Location: /index.html
      * </pre>
      */
-    public final static HttpHeaderName<Url> LOCATION = registerConstant("Location",
+    public final static HttpHeaderName<Url> LOCATION = registerConstant(
+        "Location",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.url());
+        HeaderHandler.url()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Pragma</code>
@@ -542,8 +649,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Pragma: no-cache
      * </pre>
      */
-    public final static HttpHeaderName<String> PRAGMA = registerStringConstant("Pragma",
-        HttpHeaderNameScope.REQUEST_RESPONSE);
+    public final static HttpHeaderName<String> PRAGMA = registerStringConstant(
+        "Pragma",
+        HttpHeaderNameScope.REQUEST_RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Range</code>
@@ -554,9 +663,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Range: <unit>=<range-start>-<range-end>, <range-start>-<range-end>, <range-start>-<range-end>
      * </pre>
      */
-    public final static HttpHeaderName<RangeHeader> RANGE = registerConstant("Range",
+    public final static HttpHeaderName<RangeHeader> RANGE = registerConstant(
+        "Range",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.range());
+        HeaderHandler.range()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Referer</code>
@@ -564,9 +675,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
      * </pre>
      */
-    public final static HttpHeaderName<AbsoluteUrl> REFERER = registerConstant("Referer",
+    public final static HttpHeaderName<AbsoluteUrl> REFERER = registerConstant(
+        "Referer",
         HttpHeaderNameScope.REQUEST,
-        HeaderHandler.absoluteUrl());
+        HeaderHandler.absoluteUrl()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Retry-After</code>
@@ -575,8 +688,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Retry-After: <delay-seconds>
      * </pre>
      */
-    public final static HttpHeaderName<String> RETRY_AFTER = registerStringConstant("Retry-After",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<String> RETRY_AFTER = registerStringConstant(
+        "Retry-After",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Server</code>
@@ -584,8 +699,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Server: Apache/2.4.1 (Unix)
      * </pre>
      */
-    public final static HttpHeaderName<String> SERVER = registerStringConstant("Server",
-        HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<String> SERVER = registerStringConstant(
+        "Server",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Set-Cookie</code>
@@ -605,9 +722,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
      * </pre>
      */
-    public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerMultiConstant("Set-Cookie",
+    public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerMultiConstant(
+        "Set-Cookie",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.serverCookie());
+        HeaderHandler.serverCookie()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>TE</code>
@@ -621,7 +740,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<String> TE = registerMultiStringConstant("TE", HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> TE = registerMultiStringConstant(
+        "TE",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Trailer</code>
@@ -629,9 +751,11 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Trailer: header-names
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderName<?>>> TRAILER = registerConstant("Trailer",
+    public final static HttpHeaderName<List<HttpHeaderName<?>>> TRAILER = registerConstant(
+        "Trailer",
         HttpHeaderNameScope.RESPONSE,
-        HeaderHandler.httpHeaderNameList());
+        HeaderHandler.httpHeaderNameList()
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Transfer-Encoding</code>
@@ -646,7 +770,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Transfer-Encoding: gzip, chunked
      * </pre>
      */
-    public final static HttpHeaderName<String> TRANSFER_ENCODING = registerStringConstant("Transfer-Encoding", HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<String> TRANSFER_ENCODING = registerStringConstant(
+        "Transfer-Encoding",
+        HttpHeaderNameScope.RESPONSE
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>User-Agent</code>
@@ -658,8 +785,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * User-Agent: Mozilla/<version> (<system-information>) <platform> (<platform-details>) <extensions>
      * </pre>
      */
-    public final static HttpHeaderName<String> USER_AGENT = registerStringConstant("User-Agent",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> USER_AGENT = registerStringConstant(
+        "User-Agent",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * A {@link HttpHeaderName} holding <code>Warning</code>
@@ -670,8 +799,10 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
      * Warning: 112 - "cache down" "Wed, 21 Oct 2015 07:28:00 GMT"
      * </pre>
      */
-    public final static HttpHeaderName<String> WARNING = registerStringConstant("Warning",
-        HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> WARNING = registerStringConstant(
+        "Warning",
+        HttpHeaderNameScope.REQUEST
+    );
 
     /**
      * Factory that creates a {@link HttpHeaderName}.
@@ -682,7 +813,14 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
             httpHeaderName :
-            new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderHandler.string(), NOT_CONDITIONAL, NOT_CONTENT, true);
+            new HttpHeaderName<>(
+                checkName(name),
+                HttpHeaderNameScope.UNKNOWN,
+                HeaderHandler.string(),
+                NOT_CONDITIONAL,
+                NOT_CONTENT,
+                true
+            );
     }
 
     private static String checkName(final String name) {
