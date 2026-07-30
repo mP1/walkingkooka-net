@@ -40,6 +40,13 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHandlerWrapperSharedETagComputer}
+     */
+    public static <C extends HttpHandlerContext> HttpHandler<C> etagComputer(final HttpHandler<C> handler) {
+        return HttpHandlerWrapperSharedETagComputer.with(handler);
+    }
+
+    /**
      * {@see FakeHttpHandler}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> fake() {
