@@ -113,6 +113,27 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
         return UrlParameterValueList.empty();
     }
 
+    // firstOrEmpty.....................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            UrlParameterValueList.empty()
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmpty() {
+        this.firstOrEmptyAndCheck(
+            UrlParameterValueList.empty()
+                .concat("111")
+                .concat("222"),
+            "111"
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<UrlParameterValueList> type() {
         return UrlParameterValueList.class;
