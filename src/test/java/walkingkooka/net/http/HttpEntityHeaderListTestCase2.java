@@ -21,14 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.ListTesting2;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderList> extends HttpEntityHeaderListTestCase<L>
-    implements ListTesting2<L, Object>,
-    TypeNameTesting<L>,
-    ToStringTesting<L> {
+public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderList> implements ClassTesting<L>,
+    ListTesting2<L, Object>,
+    ToStringTesting<L>,
+    TypeNameTesting<L> {
 
     HttpEntityHeaderListTestCase2() {
         super();
@@ -57,7 +59,12 @@ public abstract class HttpEntityHeaderListTestCase2<L extends HttpEntityHeaderLi
 
     abstract L createHttpEntityHeaderList(final Object... values);
 
-    // TypeNameTesting...................................................................................................
+    // class............................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
 
     @Override
     public final String typeNamePrefix() {
