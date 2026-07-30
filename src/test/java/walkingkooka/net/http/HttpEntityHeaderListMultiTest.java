@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTestCase2<HttpEntityHeaderListMulti> {
+public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderListMulti> {
 
     private final static HttpHeaderName<AcceptLanguage> HEADER = HttpHeaderName.ACCEPT_LANGUAGE;
     private final static AcceptLanguage VALUE1 = AcceptLanguage.parse("EN");
