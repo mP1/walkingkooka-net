@@ -36,22 +36,49 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
 
     @Test
     public void testWithInvalidValue() {
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderListMulti.with(HEADER, this));
+        assertThrows(
+            HeaderException.class,
+            () -> HttpEntityHeaderListMulti.with(
+                HEADER,
+                this
+            )
+        );
     }
 
     @Test
     public void testWithInvalidValue2() {
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderListMulti.with(HEADER, VALUE1, this));
+        assertThrows(
+            HeaderException.class,
+            () -> HttpEntityHeaderListMulti.with(
+                HEADER,
+                VALUE1,
+                this
+            )
+        );
     }
 
     @Test
     public void testWithOne() {
-        this.check(HttpEntityHeaderListMulti.with(HEADER, VALUE1), VALUE1);
+        this.valuesAndCheck(
+            HttpEntityHeaderListMulti.with(
+                HEADER,
+                VALUE1
+            ),
+            VALUE1
+        );
     }
 
     @Test
     public void testWithTwo() {
-        this.check(HttpEntityHeaderListMulti.with(HEADER, VALUE1, VALUE2), VALUE1, VALUE2);
+        this.valuesAndCheck(
+            HttpEntityHeaderListMulti.with(
+                HEADER,
+                VALUE1,
+                VALUE2
+            ),
+            VALUE1,
+            VALUE2
+        );
     }
 
     @Test
@@ -68,31 +95,45 @@ public final class HttpEntityHeaderListMultiTest extends HttpEntityHeaderListTes
         final HttpEntityHeaderListMulti appended = (HttpEntityHeaderListMulti) list.concat(VALUE2);
         assertNotSame(list, appended);
 
-        this.check(appended, VALUE1, VALUE2);
+        this.valuesAndCheck(appended, VALUE1, VALUE2);
     }
 
     @Test
-    public void testAppendNonMultiValueFails() {
+    public void testConcatNonMultiValueFails() {
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         this.checkEquals(false, header.isMultiple(), "isMultiple should be false");
         final HttpEntityHeaderListMulti list = HttpEntityHeaderListMulti.with(header, 1L);
 
-        assertThrows(IllegalArgumentException.class, () -> list.concat(999L));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> list.concat(999L)
+        );
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createList(), Lists.of(VALUE1).toString());
+        this.toStringAndCheck(
+            this.createList(),
+            Lists.of(VALUE1).
+                toString()
+        );
     }
 
     @Override
     HttpEntityHeaderListMulti createHttpEntityHeaderList(final Object... values) {
-        return HttpEntityHeaderListMulti.with(HEADER, values);
+        return HttpEntityHeaderListMulti.with(
+            HEADER,
+            values
+        );
     }
 
-    private void check(final HttpEntityHeaderListMulti list,
-                       final Object... values) {
-        assertArrayEquals(values, list.values, "values");
+    private void valuesAndCheck(final HttpEntityHeaderListMulti list,
+                                final Object... values) {
+        assertArrayEquals(
+            values,
+            list.values,
+            "values"
+        );
     }
 
     @Override
