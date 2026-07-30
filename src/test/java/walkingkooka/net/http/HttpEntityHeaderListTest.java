@@ -21,8 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-public final class HttpEntityHeaderListTest extends HttpEntityHeaderListTestCase<HttpEntityHeaderList> {
+public final class HttpEntityHeaderListTest implements ClassTesting<HttpEntityHeaderList> {
 
     @Test
     public void testOneNonMultiHeader() {
@@ -41,5 +43,10 @@ public final class HttpEntityHeaderListTest extends HttpEntityHeaderListTestCase
     @Override
     public Class<HttpEntityHeaderList> type() {
         return HttpEntityHeaderList.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
