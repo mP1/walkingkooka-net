@@ -32,19 +32,38 @@ public final class HttpEntityHeaderListOneTest extends HttpEntityHeaderListTestC
     private final static String VALUE = "Server 123";
 
     @Test
-    public void testWithTwo() {
-        assertThrows(IllegalArgumentException.class, () -> HttpEntityHeaderListOne.with(HEADER, "Server1", "Server2"));
+    public void testWithTwoValues() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> HttpEntityHeaderListOne.with(
+                HEADER,
+                "Server1",
+                "Server2"
+            )
+        );
     }
 
     @Test
     public void testWithInvalidValue() {
-        assertThrows(HeaderException.class, () -> HttpEntityHeaderListOne.with(HEADER, this));
+        assertThrows(
+            HeaderException.class,
+            () -> HttpEntityHeaderListOne.with(
+                HEADER,
+                this
+            )
+        );
     }
 
     @Test
     public void testWith() {
-        final HttpEntityHeaderListOne list = HttpEntityHeaderListOne.with(HEADER, VALUE);
-        assertSame(VALUE, list.value);
+        final HttpEntityHeaderListOne list = HttpEntityHeaderListOne.with(
+            HEADER,
+            VALUE
+        );
+        assertSame(
+            VALUE,
+            list.value
+        );
     }
 
     @Test
