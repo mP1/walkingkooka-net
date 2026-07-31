@@ -27,6 +27,8 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.datetime.HasLastModifiedTesting;
+import walkingkooka.datetime.HasOptionalLastModifiedTesting;
 import walkingkooka.naming.HasOptionalNameTesting;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.HasContentTypeTesting;
@@ -53,6 +55,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasContentTypeTesting,
     HasBinaryTesting,
     HasCharsetTesting,
+    HasLastModifiedTesting,
+    HasOptionalLastModifiedTesting,
     HasOptionalNameTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<H>,
@@ -409,6 +413,72 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         this.isEmptyAndCheck(
             this.createHttpEntity(),
             this instanceof HttpEntityEmptyTest
+        );
+    }
+
+    // setLastModified..................................................................................................
+
+    @Test
+    public final void testSetLastModifiedWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHttpEntity()
+                .setLastModified(null)
+        );
+    }
+
+    @Test
+    public final void testSetLastModifiedNotHasLastModifiedOrHasOptionalLastModified() {
+        this.setLastModifiedAndCheck(
+            this.createHttpEntity(),
+            this
+        );
+    }
+
+    @Test
+    public final void testSetLastModifiedWithHasLastModified() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        this.setLastModifiedAndCheck(
+            entity,
+            HAS_LAST_MODIFIED,
+            entity.setHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                Lists.of(LAST_MODIFIED)
+            )
+        );
+    }
+
+    @Test
+    public final void testSetLastModifiedWithHasOptionalLastModified() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        this.setLastModifiedAndCheck(
+            entity,
+            HAS_OPTIONAL_LAST_MODIFIED,
+            entity.setHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                Lists.of(LAST_MODIFIED)
+            )
+        );
+    }
+
+    final void setLastModifiedAndCheck(final HttpEntity entity,
+                                       final Object value) {
+        this.setLastModifiedAndCheck(
+            entity,
+            value,
+            entity
+        );
+    }
+
+    final void setLastModifiedAndCheck(final HttpEntity entity,
+                                       final Object value,
+                                       final HttpEntity expected) {
+        this.checkEquals(
+            expected,
+            entity.setLastModified(value),
+            () -> "setLastModified " + value
         );
     }
 

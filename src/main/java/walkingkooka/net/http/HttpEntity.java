@@ -25,6 +25,8 @@ import walkingkooka.HasBinary;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.datetime.HasLastModified;
+import walkingkooka.datetime.HasOptionalLastModified;
 import walkingkooka.naming.HasOptionalName;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.Accept;
@@ -42,6 +44,7 @@ import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -336,6 +339,34 @@ public abstract class HttpEntity implements HasHeaders,
 
     abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
                                        final HttpEntityHeaderValueList value);
+
+    /**
+     * Conditionally sets the {@link HttpHeaderName#LAST_MODIFIED} header if the value including null given contains a
+     * {@link LocalDateTime}, implementing {@link HasLastModified} or {@link HasOptionalLastModified}.
+     */
+    public final HttpEntity setLastModified(final Object maybeLastModified) {
+        Objects.requireNonNull(maybeLastModified, "maybeLastModified");
+
+        LocalDateTime lastModified = null;
+
+        if (maybeLastModified instanceof HasLastModified) {
+            lastModified = ((HasLastModified) maybeLastModified)
+                .lastModified();
+        }
+
+        if (maybeLastModified instanceof HasOptionalLastModified) {
+            lastModified = ((HasOptionalLastModified) maybeLastModified)
+                .lastModified()
+                .orElse(null);
+        }
+
+        return null != lastModified ?
+            this.setHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                Lists.of(lastModified)
+            ) :
+            this;
+    }
 
     /**
      * Adds the given header from this entity returning a new instance if the header and value are new.
