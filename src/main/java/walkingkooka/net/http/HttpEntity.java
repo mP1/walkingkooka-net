@@ -435,6 +435,13 @@ public abstract class HttpEntity implements HasHeaders,
                 this.replace(headers, body);
     }
 
+    /**
+     * Clears the body
+     */
+    public final HttpEntity clearBody() {
+        return this.setBody(Binary.EMPTY);
+    }
+
     // bodyText ........................................................................................................
 
     /**
