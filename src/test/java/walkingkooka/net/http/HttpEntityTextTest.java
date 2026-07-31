@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -171,6 +172,16 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         assertSame(
             entity,
             entity.setBody(BINARY)
+        );
+    }
+
+    @Test
+    public void testClearBodyAfterSetText() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        this.clearBodyAndCheck(
+            entity.setBodyText("Hello"),
+            entity.setBody(Binary.EMPTY)
         );
     }
 

@@ -253,6 +253,20 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         );
     }
 
+    @Test
+    public void testClearBodyAfterSetBinary() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        this.clearBodyAndCheck(
+            entity.setBody(
+                Binary.with(
+                    "Hello".getBytes(CHARSET)
+                )
+            ),
+            entity.setBody(Binary.EMPTY)
+        );
+    }
+
     // toString ........................................................................................................
 
     @Test

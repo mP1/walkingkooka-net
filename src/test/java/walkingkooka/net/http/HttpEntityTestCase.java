@@ -406,6 +406,44 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         );
     }
 
+    // clearBody........................................................................................................
+
+    @Test
+    public final void testClearBody() {
+        final HttpEntity entity = this.createHttpEntity()
+            .clearBody();
+
+        this.binaryAndCheck(
+            entity,
+            Binary.EMPTY
+        );
+
+        this.textAndCheck(
+            entity,
+            ""
+        );
+    }
+
+    final void clearBodyAndCheck(final HttpEntity entity,
+                                 final HttpEntity expected) {
+        final HttpEntity cleared = entity.clearBody();
+
+        this.checkEquals(
+            expected,
+            cleared
+        );
+
+        this.binaryAndCheck(
+            cleared,
+            Binary.EMPTY
+        );
+
+        this.textAndCheck(
+            cleared,
+            ""
+        );
+    }
+
     // isEmpty..........................................................................................................
 
     @Test
