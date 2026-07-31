@@ -156,7 +156,7 @@ final class HttpHandlerWebFile<C extends HttpHandlerContext> implements HttpHand
         final HttpEntity entity = HttpEntity.EMPTY
             .setContentType(file.contentType())
             .addHeader(HttpHeaderName.CONTENT_LENGTH, file.contentSize())
-            .addHeader(HttpHeaderName.LAST_MODIFIED, file.lastModified());
+            .setLastModified(file.lastModified());
         return file.etag()
             .map(e -> entity.addHeader(HttpHeaderName.E_TAG, e))
             .orElse(entity);

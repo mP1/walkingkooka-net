@@ -170,7 +170,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
 
         expected.setEntity(
             HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .setLastModified(LAST_MODIFIED1)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .setContentType(CONTENT_TYPE1)
                 .setBody(CONTENT1)
@@ -191,7 +191,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
 
         expected.setEntity(
             HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+                .setLastModified(LAST_MODIFIED1)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
                 .setContentType(CONTENT_TYPE1)
                 .setBody(CONTENT1));
@@ -210,7 +210,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
-            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+            .setLastModified(LAST_MODIFIED2)
             .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
             .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
             .addHeader(HttpHeaderName.E_TAG, ETAG2)
@@ -229,7 +229,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
-            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+            .setLastModified(LAST_MODIFIED1)
             .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
             .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1));
 
@@ -248,7 +248,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
         expected.setStatus(HttpStatusCode.OK.status());
 
         expected.setEntity(HttpEntity.EMPTY
-            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED1)
+            .setLastModified(LAST_MODIFIED1)
             .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT1.size())
             .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE1)
             .setBody(CONTENT1));
@@ -267,7 +267,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
 
         expected.setEntity(HttpEntity.EMPTY
-            .addHeader(HttpHeaderName.LAST_MODIFIED, LAST_MODIFIED2)
+            .setLastModified(LAST_MODIFIED2)
             .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) CONTENT2.size())
             .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE2)
             .addHeader(HttpHeaderName.E_TAG, ETAG2));
