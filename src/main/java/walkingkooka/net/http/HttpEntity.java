@@ -349,6 +349,10 @@ public abstract class HttpEntity implements HasHeaders,
 
         LocalDateTime lastModified = null;
 
+        if (maybeLastModified instanceof LocalDateTime) {
+            lastModified = (LocalDateTime) maybeLastModified;
+        }
+
         if (maybeLastModified instanceof HasLastModified) {
             lastModified = ((HasLastModified) maybeLastModified)
                 .lastModified();

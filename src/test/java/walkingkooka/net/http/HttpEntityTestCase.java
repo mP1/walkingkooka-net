@@ -436,6 +436,20 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     }
 
     @Test
+    public final void testSetLastModifiedWithLocalDateTime() {
+        final HttpEntity entity = this.createHttpEntity();
+
+        this.setLastModifiedAndCheck(
+            entity,
+            LAST_MODIFIED,
+            entity.setHeader(
+                HttpHeaderName.LAST_MODIFIED,
+                Lists.of(LAST_MODIFIED)
+            )
+        );
+    }
+
+    @Test
     public final void testSetLastModifiedWithHasLastModified() {
         final HttpEntity entity = this.createHttpEntity();
 
