@@ -262,7 +262,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         final HttpEntity multipart1 = HttpEntity.EMPTY
             .addHeader(HttpHeaderName.SERVER, "Server123")
             .addHeader(HttpHeaderName.E_TAG, this.etag())
-            .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+            .setLastModified(this.lastModified())
             .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
             .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
@@ -290,7 +290,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         final HttpEntity multipart1 = HttpEntity.EMPTY
             .addHeader(HttpHeaderName.SERVER, "Server123")
             .addHeader(HttpHeaderName.E_TAG, this.etag())
-            .addHeader(HttpHeaderName.LAST_MODIFIED, this.lastModified())
+            .setLastModified(this.lastModified())
             .addHeader(HttpHeaderName.CONTENT_TYPE, this.multipartContentType())
             .addHeader(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
