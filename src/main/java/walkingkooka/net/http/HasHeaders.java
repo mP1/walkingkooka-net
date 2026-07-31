@@ -53,7 +53,7 @@ public interface HasHeaders extends HasCharset,
         .get();
 
     /**
-     * Returns the {@link Charset} of {@link #CHARSET}.
+     * Returns the {@link Charset} of this instance default to {@link #CHARSET} when absent.
      */
     @Override
     default Charset charset() {
