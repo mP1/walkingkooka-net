@@ -19,17 +19,15 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.nio.charset.StandardCharsets;
 
-public final class ETagComputerMd5Test implements ETagComputerTesting, ClassTesting2<ETagComputerMd5> {
+public final class ETagComputerMessageDigestMd5Test extends ETagComputerMessageDigestTestCase<ETagComputerMessageDigestMd5> {
 
     @Test
     public void testComputeETagWithEmptyBinary() {
         this.computeETagAndCheck(
-            ETagComputerMd5.INSTANCE,
+            ETagComputerMessageDigestMd5.INSTANCE,
             Binary.EMPTY,
             ETag.strong("d41d8cd98f00b204e9800998ecf8427e")
         );
@@ -38,7 +36,7 @@ public final class ETagComputerMd5Test implements ETagComputerTesting, ClassTest
     @Test
     public void testComputeETagWithNonEmptyBinary() {
         this.computeETagAndCheck(
-            ETagComputerMd5.INSTANCE,
+            ETagComputerMessageDigestMd5.INSTANCE,
             Binary.with(
                 "abcdefghijklmnopqrstuvwxyz".getBytes(StandardCharsets.UTF_8)
             ),
@@ -49,12 +47,7 @@ public final class ETagComputerMd5Test implements ETagComputerTesting, ClassTest
     // class............................................................................................................
 
     @Override
-    public Class<ETagComputerMd5> type() {
-        return ETagComputerMd5.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<ETagComputerMessageDigestMd5> type() {
+        return ETagComputerMessageDigestMd5.class;
     }
 }
