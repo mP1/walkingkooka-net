@@ -26,28 +26,23 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An {@link ETagComputer} that computes the MD5 for any given {@link Binary}.
+ * An {@link ETagComputer} that computes using a {@link MessageDigest}.
  */
 @GwtIncompatible
-final class ETagComputerMd5 implements ETagComputer {
+abstract class ETagComputerMessageDigest implements ETagComputer {
 
-    /**
-     * Singleton
-     */
-    final static ETagComputerMd5 INSTANCE = new ETagComputerMd5();
-
-    private ETagComputerMd5() {
+    ETagComputerMessageDigest() {
         super();
     }
 
     @Override
-    public Optional<ETag> computeETag(final Binary binary) {
+    public final Optional<ETag> computeETag(final Binary binary) {
         Objects.requireNonNull(binary, "binary");
 
         ETag etag;
 
         try {
-            final MessageDigest md = MessageDigest.getInstance("MD5");
+            final MessageDigest md = MessageDigest.getInstance(this.algorithm());
             md.update(
                 binary.value()
             );
@@ -72,12 +67,14 @@ final class ETagComputerMd5 implements ETagComputer {
         return Optional.ofNullable(etag);
     }
 
+    abstract String algorithm();
+
     private final static char[] BYTE_TO_CHAR = "0123456789abcdef".toCharArray();
 
     // Object...........................................................................................................
 
     @Override
-    public String toString() {
+    public final String toString() {
         return this.getClass().getSimpleName();
     }
 }

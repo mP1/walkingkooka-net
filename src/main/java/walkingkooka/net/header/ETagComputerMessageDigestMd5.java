@@ -18,36 +18,25 @@
 package walkingkooka.net.header;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.Binary;
 
-public final class ETagComputers implements PublicStaticHelper {
+/**
+ * An {@link ETagComputer} that computes the MD5 for any given {@link Binary}.
+ */
+@GwtIncompatible
+final class ETagComputerMessageDigestMd5 extends ETagComputerMessageDigest {
 
     /**
-     * {@see FakeETagComputer}
+     * Singleton
      */
-    public static FakeETagComputer fake() {
-        return new FakeETagComputer();
+    final static ETagComputerMessageDigestMd5 INSTANCE = new ETagComputerMessageDigestMd5();
+
+    private ETagComputerMessageDigestMd5() {
+        super();
     }
 
-    /**
-     * {@see ETagComputerMessageDigestMd5}
-     */
-    @GwtIncompatible
-    public static ETagComputer md5() {
-        return ETagComputerMessageDigestMd5.INSTANCE;
-    }
-
-    /**
-     * {@see ETagComputerNever}
-     */
-    public static ETagComputer never() {
-        return ETagComputerNever.INSTANCE;
-    }
-
-    /**
-     * Stop creation
-     */
-    private ETagComputers() {
-        throw new UnsupportedOperationException();
+    @Override
+    String algorithm() {
+        return "MD5";
     }
 }
