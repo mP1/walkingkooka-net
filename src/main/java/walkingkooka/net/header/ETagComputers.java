@@ -45,6 +45,14 @@ public final class ETagComputers implements PublicStaticHelper {
     }
 
     /**
+     * {@see ETagComputerMessageDigestSha1}
+     */
+    @GwtIncompatible
+    public static ETagComputer sha1() {
+        return ETagComputerMessageDigestSha1.INSTANCE;
+    }
+
+    /**
      * Stop creation
      */
     private ETagComputers() {
