@@ -112,6 +112,10 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
     public final static MediaType TEXT_CSV = registerConstant("text/csv");
 
     /**
+     * An unofficial media type for *.ENV files.
+     */
+    public final static MediaType TEXT_ENV = registerConstant("text/x-env");
+    /**
      * Holds a {@link MediaType} for plain text.
      */
     public final static MediaType TEXT_PLAIN = registerConstant("text/plain");
