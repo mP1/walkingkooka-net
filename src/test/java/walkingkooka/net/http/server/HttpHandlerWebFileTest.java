@@ -148,7 +148,7 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHand
     public void testHandleFileNotFound() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(FILE_NOT_FOUND);
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.request(

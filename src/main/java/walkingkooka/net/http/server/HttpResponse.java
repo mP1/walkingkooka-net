@@ -92,6 +92,13 @@ public interface HttpResponse extends HasStatus,
     void setEntity(final HttpEntity entity);
 
     /**
+     * Clears the body, equivalent to {@link #setEntity} with {@link HttpEntity#EMPTY}.
+     */
+    default void clearEntity() {
+        this.setEntity(HttpEntity.EMPTY);
+    }
+
+    /**
      * Returns the {@link HttpEntity}.
      */
     HttpEntity entity();

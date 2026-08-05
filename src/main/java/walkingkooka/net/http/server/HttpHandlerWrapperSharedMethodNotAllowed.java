@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 
@@ -57,7 +56,7 @@ final class HttpHandlerWrapperSharedMethodNotAllowed<C extends HttpHandlerContex
             );
         } else {
             response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected " + this.method + " got " + method));
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 

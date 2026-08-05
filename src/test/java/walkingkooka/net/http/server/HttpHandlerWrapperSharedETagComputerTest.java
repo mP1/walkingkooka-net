@@ -50,7 +50,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
             Objects.requireNonNull(context, "context");
 
             response.setStatus(HttpStatusCode.CREATED.status());
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
 
         @Override

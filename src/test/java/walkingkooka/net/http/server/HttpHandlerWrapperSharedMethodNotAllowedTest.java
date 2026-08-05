@@ -63,7 +63,7 @@ public final class HttpHandlerWrapperSharedMethodNotAllowedTest extends HttpHand
     public void testHandleInvalidMethod() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("Expected PATCH got invalid"));
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(HANDLER),

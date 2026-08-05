@@ -136,7 +136,7 @@ public final class HttpHandlerWrapperSharedIfNoneMatchTest extends HttpHandlerWr
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(
@@ -160,7 +160,7 @@ public final class HttpHandlerWrapperSharedIfNoneMatchTest extends HttpHandlerWr
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(
@@ -189,7 +189,7 @@ public final class HttpHandlerWrapperSharedIfNoneMatchTest extends HttpHandlerWr
 
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(
