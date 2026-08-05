@@ -66,15 +66,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see RequiredHeadersHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse requiredHeaders(final HttpRequest request,
-                                               final HttpResponse response) {
-        return RequiredHeadersHttpResponse.with(request, response);
-    }
-
-    /**
      * Stop creation
      */
     private HttpResponses() {
