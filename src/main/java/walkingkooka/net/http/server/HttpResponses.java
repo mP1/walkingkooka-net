@@ -32,15 +32,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see AutoContentLengthHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse contentLength(final HttpRequest request,
-                                             final HttpResponse response) {
-        return AutoContentLengthHttpResponse.with(request, response);
-    }
-
-    /**
      * {@see FakeHttpResponse}
      */
     public static HttpResponse fake() {
