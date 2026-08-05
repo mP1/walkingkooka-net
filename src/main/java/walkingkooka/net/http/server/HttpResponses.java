@@ -47,15 +47,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see AutoGzipEncodingHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse autoGzipEncoding(final HttpRequest request,
-                                                final HttpResponse response) {
-        return AutoGzipEncodingHttpResponse.with(request, response);
-    }
-
-    /**
      * {@see DefaultHeadersHttpResponse}
      */
     @GwtIncompatible
