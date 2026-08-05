@@ -18,10 +18,8 @@
 package walkingkooka.net.http.server;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.net.header.ETag;
 import walkingkooka.reflect.PublicStaticHelper;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class HttpResponses implements PublicStaticHelper {
@@ -47,16 +45,6 @@ public final class HttpResponses implements PublicStaticHelper {
      */
     public static HttpResponse fake() {
         return new FakeHttpResponse();
-    }
-
-    /**
-     * {@see IfNoneMatchAwareHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse ifNoneMatchAware(final HttpRequest request,
-                                                final HttpResponse response,
-                                                final Function<byte[], ETag> computer) {
-        return IfNoneMatchAwareHttpResponse.with(request, response, computer);
     }
 
     /**
