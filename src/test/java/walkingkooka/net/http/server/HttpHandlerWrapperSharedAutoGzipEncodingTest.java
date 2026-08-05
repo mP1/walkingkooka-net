@@ -129,7 +129,7 @@ public final class HttpHandlerWrapperSharedAutoGzipEncodingTest extends HttpHand
             ).addHeader(
                 HttpHeaderName.CONTENT_ENCODING,
                 ContentEncoding.GZIP
-            )
+            ).setContentLength()
         );
 
         this.handleAndCheck(

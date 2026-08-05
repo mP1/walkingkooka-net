@@ -59,16 +59,18 @@ final class HttpHandlerWrapperSharedAutoGzipEncoding<C extends HttpHandlerContex
 
                 final Optional<ContentEncoding> contentEncodings = HttpHeaderName.CONTENT_ENCODING.header(responseEntity);
                 if (false == contentEncodings.isPresent()) {
+                    final Binary binary = gzip(
+                        responseEntity.body()
+                    );
+
                     // content-encoding absent so gzip
                     responseEntity = responseEntity.addHeader(
                         HttpHeaderName.CONTENT_ENCODING,
                         ContentEncoding.GZIP
                     );
-                    responseEntity = responseEntity.setBody(
-                        gzip(
-                            responseEntity.body()
-                        )
-                    );
+
+                    responseEntity = responseEntity.setBody(binary)
+                        .setContentLength();
                 }
             }
 
