@@ -48,15 +48,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see LastModifiedAwareHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse lastModifiedAware(final HttpRequest request,
-                                                 final HttpResponse response) {
-        return LastModifiedAwareHttpResponse.with(request, response);
-    }
-
-    /**
      * {@see RangeAwareHttpResponse}
      */
     @GwtIncompatible
