@@ -91,14 +91,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeaderScopeHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse headerScope(final HttpResponse response) {
-        return HeaderScopeHttpResponse.with(response);
-    }
-
-    /**
      * {@see IfNoneMatchAwareHttpResponse}
      */
     @GwtIncompatible
