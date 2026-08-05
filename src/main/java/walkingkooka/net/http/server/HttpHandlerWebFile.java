@@ -168,7 +168,7 @@ final class HttpHandlerWebFile<C extends HttpHandlerContext> implements HttpHand
     private void notFound(final HttpStatus status,
                           final HttpResponse response) {
         response.setStatus(status);
-        response.setEntity(HttpEntity.EMPTY);
+        response.clearEntity();
     }
 
     @Override

@@ -49,7 +49,7 @@ public final class HttpHandlerWrapperSharedAutoGzipEncodingTest extends HttpHand
             Objects.requireNonNull(context, "context");
 
             response.setStatus(HttpStatusCode.CREATED.status());
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
 
         @Override

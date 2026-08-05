@@ -19,7 +19,6 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.Objects;
@@ -71,7 +70,7 @@ final class HttpHandlerWrapperSharedContentType<C extends HttpHandlerContext> ex
                             )
                     )
             );
-            response.setEntity(HttpEntity.EMPTY);
+            response.clearEntity();
         }
     }
 

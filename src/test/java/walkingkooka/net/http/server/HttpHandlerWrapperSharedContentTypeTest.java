@@ -76,7 +76,7 @@ public final class HttpHandlerWrapperSharedContentTypeTest extends HttpHandlerWr
     public void testHandleMissingContentType() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain missing " + HttpHeaderName.CONTENT_TYPE));
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(HTTP_HANDLER),
@@ -89,7 +89,7 @@ public final class HttpHandlerWrapperSharedContentTypeTest extends HttpHandlerWr
     public void testHandleInvalidContentType() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain got application/octet-stream"));
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(HTTP_HANDLER),
@@ -102,7 +102,7 @@ public final class HttpHandlerWrapperSharedContentTypeTest extends HttpHandlerWr
     public void testHandleInvalidContentTypeMessageWithoutParameters() {
         final HttpResponse expected = HttpResponses.recording();
         expected.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Expected text/plain got application/octet-stream"));
-        expected.setEntity(HttpEntity.EMPTY);
+        expected.clearEntity();
 
         this.handleAndCheck(
             this.createHttpHandler(HTTP_HANDLER),
