@@ -76,6 +76,13 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHandlerWrapperSharedIfModifiedSince}
+     */
+    public static <C extends HttpHandlerContext> HttpHandler<C> ifModifiedSince(final HttpHandler<C> handler) {
+        return HttpHandlerWrapperSharedIfModifiedSince.with(handler);
+    }
+
+    /**
      * {@see HttpHandlerWrapperSharedMethodNotAllowed}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> methodNotAllowed(final HttpMethod method,
