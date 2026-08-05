@@ -32,6 +32,13 @@ import java.util.function.Function;
 public final class HttpHandlers implements PublicStaticHelper {
 
     /**
+     * {@see HttpHandlerWrapperSharedAutoGzipEncoding}
+     */
+    public static <C extends HttpHandlerContext> HttpHandler<C> autoGzipEncoding(final HttpHandler<C> handler) {
+        return HttpHandlerWrapperSharedAutoGzipEncoding.with(handler);
+    }
+
+    /**
      * {@see HttpHandlerWrapperSharedContentType}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> contentType(final MediaType contentType,
