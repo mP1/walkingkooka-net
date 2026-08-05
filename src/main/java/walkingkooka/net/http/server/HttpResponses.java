@@ -52,14 +52,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeadHttpResponse}
-     */
-    @GwtIncompatible
-    public static HttpResponse head(final HttpRequest request, final HttpResponse response) {
-        return HeadHttpResponse.with(request, response);
-    }
-
-    /**
      * {@see HeadersCopyHttpResponse}
      */
     public static HttpResponse headersCopy(final HttpRequest request,
