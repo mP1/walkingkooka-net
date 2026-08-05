@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.collect.CanFirstOrEmpty;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.server.HttpRequest;
@@ -72,19 +73,10 @@ public final class UrlParameterName extends NetName
      * Returns the first parameter or empty.
      */
     public Optional<String> firstParameterValue(final Map<HttpRequestAttribute<?>, ?> parameters) {
-        List<String> values = this.parameterValue(parameters).orElse(Lists.empty());
-
-        final String first;
-        switch (values.size()) {
-            case 0:
-                first = null;
-                break;
-            default:
-                first = values.get(0);
-                break;
-        }
-
-        return Optional.ofNullable(first);
+        return CanFirstOrEmpty.firstOrEmptyCollection(
+            this.parameterValue(parameters)
+                .orElse(Lists.empty())
+        );
     }
 
     /**
