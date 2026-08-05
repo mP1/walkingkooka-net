@@ -17,9 +17,14 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
@@ -52,13 +57,38 @@ final class HttpHandlerWrapperSharedHeadersCopy<C extends HttpHandlerContext> ex
                  final C context) {
         this.handler.handle(
             request,
-            HttpResponses.headersCopy(
-                request,
-                this.headers,
-                response
-            ),
+            response,
             context
         );
+
+        HttpEntity responseEntity = response.entity();
+        if (responseEntity.isNotEmpty()) {
+
+            final Map<HttpHeaderName<?>, List<?>> requestHeaders = request.headers();
+            final Map<HttpHeaderName<?>, List<?>> allHeaders = Maps.sorted();
+
+            // copy request headers...
+            for (final HttpHeaderName<?> name : this.headers) {
+                final List<?> copy = requestHeaders.get(name);
+                if (null != copy && copy.size() > 0) {
+                    allHeaders.put(
+                        name,
+                        copy
+                    );
+                }
+            }
+
+            // copy entity added headers...
+            for (final Entry<HttpHeaderName<?>, List<?>> nameAndHeader : responseEntity.headers().entrySet()) {
+                allHeaders.put(
+                    nameAndHeader.getKey(),
+                    nameAndHeader.getValue()
+                );
+            }
+
+            responseEntity = responseEntity.setHeaders(allHeaders);
+        }
+        response.setEntity(responseEntity);
     }
 
     /**
