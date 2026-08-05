@@ -19,10 +19,8 @@ package walkingkooka.net.http.server;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PublicStaticHelper;
 
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -49,17 +47,6 @@ public final class HttpResponses implements PublicStaticHelper {
      */
     public static HttpResponse fake() {
         return new FakeHttpResponse();
-    }
-
-    /**
-     * {@see HeadersCopyHttpResponse}
-     */
-    public static HttpResponse headersCopy(final HttpRequest request,
-                                           final Set<HttpHeaderName<?>> headers,
-                                           final HttpResponse response) {
-        return HeadersCopyHttpResponse.with(request,
-            headers,
-            response);
     }
 
     /**
