@@ -40,6 +40,12 @@ public final class UrlParameterName extends NetName
 
     private final static long serialVersionUID = 1L;
 
+    public final static UrlParameterName COUNT = new UrlParameterName("count");
+
+    public final static UrlParameterName LOCALE = new UrlParameterName("locale");
+
+    public final static UrlParameterName OFFSET = new UrlParameterName("offset");
+
     /**
      * Factory that creates a {@link UrlParameterName}
      */
