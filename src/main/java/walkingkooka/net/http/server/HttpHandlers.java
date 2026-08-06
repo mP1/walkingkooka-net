@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Either;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
@@ -34,6 +35,7 @@ public final class HttpHandlers implements PublicStaticHelper {
     /**
      * {@see HttpHandlerWrapperSharedAutoGzipEncoding}
      */
+    @GwtIncompatible
     public static <C extends HttpHandlerContext> HttpHandler<C> autoGzipEncoding(final HttpHandler<C> handler) {
         return HttpHandlerWrapperSharedAutoGzipEncoding.with(handler);
     }

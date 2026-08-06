@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.ContentEncoding;
@@ -30,6 +31,7 @@ import java.util.Optional;
  * If {@link HttpHeaderName#ACCEPT_ENCODING} supports GZIP encoding and the response body is not empty or encoded, then
  * GZIP encodes
  */
+@GwtIncompatible
 final class HttpHandlerWrapperSharedAutoGzipEncoding<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
     static <C extends HttpHandlerContext> HttpHandlerWrapperSharedAutoGzipEncoding<C> with(final HttpHandler<C> handler) {
