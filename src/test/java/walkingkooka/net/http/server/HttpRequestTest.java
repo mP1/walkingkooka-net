@@ -18,9 +18,13 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.locale.FakeLocaleContext;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -33,7 +37,10 @@ import walkingkooka.reflect.JavaVisibility;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -139,6 +146,115 @@ public final class HttpRequestTest implements ClassTesting<HttpRequest> {
         };
     }
 
+    // count............................................................................................................
+
+    @Test
+    public void testCountMissing() {
+        this.checkEquals(
+            OptionalInt.empty(),
+            HttpRequest.count(
+                Maps.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testCount() {
+        this.checkEquals(
+            OptionalInt.of(123),
+            HttpRequest.count(
+                Maps.of(
+                    UrlParameterName.COUNT,
+                    Lists.of("123")
+                )
+            )
+        );
+    }
+
+    // locale...........................................................................................................
+
+    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
+
+    @Test
+    public void testLocaleQueryParameterMissing() {
+        this.localeAndCheck(
+            Optional.empty(), // no query parameters
+            LOCALE,
+            LOCALE
+        );
+    }
+
+    @Test
+    public void testLocale() {
+        this.localeAndCheck(
+            Optional.of(LOCALE),
+            Locale.FRENCH,
+            LOCALE
+        );
+    }
+
+    private void localeAndCheck(final Optional<Locale> parameters,
+                                final Locale context,
+                                final Locale expected) {
+        this.localeAndCheck(
+            Cast.to(
+                parameters.map(
+                    l -> Maps.of(
+                        UrlParameterName.LOCALE,
+                        Lists.of(
+                            l.toLanguageTag()
+                        )
+                    )
+                ).orElse(Maps.empty())
+            ),
+            new FakeLocaleContext() {
+                @Override
+                public Locale locale() {
+                    return context;
+                }
+            },
+            expected
+        );
+    }
+
+    private void localeAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final LocaleContext context,
+                                final Locale expected) {
+        this.checkEquals(
+            expected,
+            HttpRequest.locale(
+                parameters,
+                context
+            ),
+            () -> parameters.toString() + " " + context
+        );
+    }
+
+    // offset.............................................................................................................
+
+    @Test
+    public void testOffsetMissingParameter() {
+        this.checkEquals(
+            OptionalInt.empty(),
+            HttpRequest.offset(
+                Maps.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testOffset() {
+        this.checkEquals(
+            OptionalInt.of(123),
+            HttpRequest.offset(
+                Maps.of(
+                    UrlParameterName.OFFSET,
+                    Lists.of("123")
+                )
+            )
+        );
+    }
+    
     // ClassTesting.....................................................................................................
 
     @Override
