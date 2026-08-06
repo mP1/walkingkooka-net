@@ -19,5 +19,5 @@ package walkingkooka.net.header;
 
 public interface HasHateosContentType {
 
-    MediaType HATEOS_CONTENT_TYPE = MediaType.APPLICATION_JAVASCRIPT.setCharset(CharsetName.UTF_8);
+    MediaType HATEOS_CONTENT_TYPE = MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8);
 }
