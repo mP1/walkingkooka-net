@@ -18,15 +18,20 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.OptionalInt;
 
 /**
  * Defines a HTTP request.
@@ -98,10 +103,57 @@ public interface HttpRequest extends HasHeaders {
      */
     List<String> parameterValues(final HttpRequestParameterName parameterName);
 
+    // routerParameters.................................................................................................
+
     /**
      * Returns a {@link Map} of all {@link HttpRequestAttribute} parameters.
      */
     default Map<HttpRequestAttribute<?>, Object> routerParameters() {
         return HttpRequestRouterParametersMap.with(this);
+    }
+
+    /**
+     * Returns the count parameter as an integer.
+     */
+    static OptionalInt count(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return get(
+            UrlParameterName.COUNT,
+            parameters
+        );
+    }
+
+    static Locale locale(final Map<HttpRequestAttribute<?>, Object> parameters,
+                         final LocaleContext context) {
+        return UrlParameterName.LOCALE.firstParameterValue(parameters)
+            .map((Locale::forLanguageTag))
+            .orElse(context.locale());
+    }
+
+    /**
+     * Returns the offset parameter as an integer.
+     */
+    static OptionalInt offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return get(
+            UrlParameterName.OFFSET,
+            parameters
+        );
+    }
+
+    private static OptionalInt get(final UrlParameterName parameter,
+                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return parameter.firstParameterValue(parameters)
+            .map(s -> parseInt(s, parameter))
+            .orElse(OptionalInt.empty());
+    }
+
+    private static OptionalInt parseInt(final String text,
+                                        final UrlParameterName parameter) {
+        try {
+            return OptionalInt.of(
+                Integer.parseInt(text)
+            );
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(text));
+        }
     }
 }
