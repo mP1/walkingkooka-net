@@ -84,7 +84,7 @@ public final class UrlParameterName extends NetName
      */
     public <T> T parameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters,
                                       final Function<String, T> converter) {
-        checkParameters(parameters);
+        Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(converter, "converter");
 
         final Optional<List<String>> maybeValues = this.parameterValue(parameters);
@@ -112,10 +112,6 @@ public final class UrlParameterName extends NetName
         } catch (final Exception cause) {
             throw new IllegalArgumentException("Invalid parameter " + this + " value " + CharSequences.quoteIfChars(value));
         }
-    }
-
-    private static void checkParameters(final Map<HttpRequestAttribute<?>, ?> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
     }
 
     // HttpRequestAttribute..............................................................................................
