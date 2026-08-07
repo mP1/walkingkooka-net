@@ -38,19 +38,11 @@ public interface HasHeaders extends HasCharset,
     HasOptionalLastModified {
 
     /**
-     * The line ending used in http requests/responses.
-     */
-    LineEnding LINE_ENDING = LineEnding.CRNL;
-
-    @Override
-    default LineEnding lineEnding() {
-        return LINE_ENDING;
-    }
-
-    /**
      * Returns a {@link Map} view of all headers.
      */
     Map<HttpHeaderName<?>, List<?>> headers();
+
+    // HasCharset.......................................................................................................
 
     //https://www.w3.org/International/articles/http-charset/index#:~:text=Documents%20transmitted%20with%20HTTP%20that,is%20ISO%2D8859%2D1.
     Charset CHARSET = CharsetName.ISO_8859_1.charset()
@@ -65,6 +57,18 @@ public interface HasHeaders extends HasCharset,
             .header(this)
             .map(c -> c.contentTypeCharset(CHARSET))
             .orElse(CHARSET);
+    }
+
+    // HasLineEnding....................................................................................................
+
+    /**
+     * The line ending used in http requests/responses.
+     */
+    LineEnding LINE_ENDING = LineEnding.CRNL;
+
+    @Override
+    default LineEnding lineEnding() {
+        return LINE_ENDING;
     }
 
     // HasOptionalLastModified..........................................................................................
