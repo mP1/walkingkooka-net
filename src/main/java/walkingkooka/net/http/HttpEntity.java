@@ -722,7 +722,7 @@ public abstract class HttpEntity implements HasHeaders,
                 () -> new IllegalArgumentException("Part " + partNumber + " missing header " + CharSequences.quoteAndEscape(HttpHeaderName.CONTENT_DISPOSITION.value()))
             );
         final Optional<?> contentTransferEncoding = CONTENT_TRANSFER_ENCODING.header(this);
-        final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.header(this);
+        final Optional<MediaType> contentType = this.contentType();
 
         final Set<HttpHeaderName<?>> headers = this.headers()
             .keySet();

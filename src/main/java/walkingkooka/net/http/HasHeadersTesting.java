@@ -19,9 +19,11 @@ package walkingkooka.net.http;
 
 import walkingkooka.HasCharsetTesting;
 import walkingkooka.datetime.HasOptionalLastModifiedTesting;
+import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.text.HasLineEndingTesting;
 
 public interface HasHeadersTesting extends HasCharsetTesting,
+    HasContentTypeTesting,
     HasLineEndingTesting,
     HasOptionalLastModifiedTesting {
 }
