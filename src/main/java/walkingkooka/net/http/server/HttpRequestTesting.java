@@ -19,6 +19,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.http.HasHeadersTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Map;
@@ -26,7 +27,8 @@ import java.util.Map;
 /**
  * Mixin interface for testing {@link HttpRequest}
  */
-public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesting<R>,
+public interface HttpRequestTesting<R extends HttpRequest> extends HasHeadersTesting,
+    ToStringTesting<R>,
     TypeNameTesting<R> {
 
     @Test
