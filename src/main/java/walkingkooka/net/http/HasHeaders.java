@@ -20,7 +20,9 @@ package walkingkooka.net.http;
 import walkingkooka.HasCharset;
 import walkingkooka.datetime.HasOptionalLastModified;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.text.HasLineEnding;
 import walkingkooka.text.LineEnding;
 
@@ -34,6 +36,7 @@ import java.util.Optional;
  * Defines a contract for a container that includes headers, such as a http request.
  */
 public interface HasHeaders extends HasCharset,
+    HasContentType,
     HasLineEnding,
     HasOptionalLastModified {
 
@@ -53,10 +56,16 @@ public interface HasHeaders extends HasCharset,
      */
     @Override
     default Charset charset() {
-        return HttpHeaderName.CONTENT_TYPE
-            .header(this)
+        return this.contentType()
             .map(c -> c.contentTypeCharset(CHARSET))
             .orElse(CHARSET);
+    }
+
+    // HasContentType...................................................................................................
+
+    @Override
+    default Optional<MediaType> contentType() {
+        return HttpHeaderName.CONTENT_TYPE.header(this);
     }
 
     // HasLineEnding....................................................................................................
