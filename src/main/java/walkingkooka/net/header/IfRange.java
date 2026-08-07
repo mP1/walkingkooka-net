@@ -175,7 +175,7 @@ public abstract class IfRange<T> implements Header,
      */
     abstract HeaderHandler<T> handler();
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ...................................................................................................
 
     @Override
     public final boolean isMultipart() {
@@ -192,7 +192,7 @@ public abstract class IfRange<T> implements Header,
         return false;
     }
 
-    // Object .........................................................................................
+    // Object ..........................................................................................................
 
     @Override
     public final int hashCode() {
