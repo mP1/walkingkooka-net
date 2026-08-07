@@ -18,8 +18,10 @@
 package walkingkooka.net.http;
 
 import walkingkooka.HasCharsetTesting;
+import walkingkooka.datetime.HasOptionalLastModifiedTesting;
 import walkingkooka.text.HasLineEndingTesting;
 
 public interface HasHeadersTesting extends HasCharsetTesting,
-    HasLineEndingTesting {
+    HasLineEndingTesting,
+    HasOptionalLastModifiedTesting {
 }
