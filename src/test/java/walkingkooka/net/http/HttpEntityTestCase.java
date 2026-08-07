@@ -22,7 +22,6 @@ import walkingkooka.Binary;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.HasBinaryTesting;
-import walkingkooka.HasCharsetTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
@@ -54,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasContentTypeTesting,
     HasBinaryTesting,
-    HasCharsetTesting,
+    HasHeadersTesting,
     HasLastModifiedTesting,
     HasOptionalLastModifiedTesting,
     HasOptionalNameTesting,
