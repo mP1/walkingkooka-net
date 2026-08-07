@@ -117,7 +117,7 @@ public abstract class IfRange<T> implements Header,
 
         return this.value.equals(value) ?
             Cast.to(this) :
-            this.replace(value);
+            Cast.to(with(value));
     }
 
     private final T value;
@@ -129,10 +129,6 @@ public abstract class IfRange<T> implements Header,
         if (false == value instanceof ETag && false == value instanceof LocalDateTime) {
             throw new IllegalArgumentException("Expected etag or datetime but got " + CharSequences.quoteIfChars(value));
         }
-    }
-
-    private <TT> IfRange<TT> replace(final TT value) {
-        return Cast.to(with(value));
     }
 
     /**
