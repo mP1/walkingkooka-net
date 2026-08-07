@@ -18,20 +18,24 @@
 package walkingkooka.net.http;
 
 import walkingkooka.HasCharset;
+import walkingkooka.datetime.HasOptionalLastModified;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.HasLineEnding;
 import walkingkooka.text.LineEnding;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Defines a contract for a container that includes headers, such as a http request.
  */
 public interface HasHeaders extends HasCharset,
-    HasLineEnding {
+    HasLineEnding,
+    HasOptionalLastModified {
 
     /**
      * The line ending used in http requests/responses.
@@ -61,5 +65,12 @@ public interface HasHeaders extends HasCharset,
             .header(this)
             .map(c -> c.contentTypeCharset(CHARSET))
             .orElse(CHARSET);
+    }
+
+    // HasOptionalLastModified..........................................................................................
+
+    @Override
+    default Optional<LocalDateTime> lastModified() {
+        return HttpHeaderName.LAST_MODIFIED.header(this);
     }
 }
