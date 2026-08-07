@@ -83,14 +83,32 @@ public abstract class IfRange<T> implements Header,
     final static HeaderHandler<LocalDateTime> DATE_TIME = HeaderHandler.localDateTime();
 
     /**
-     * Factory that creates an {@link IfRange} expecting an etag or date/time.
+     * Factory that creates an {@link IfRange} expecting an etag or date/time, with other types throwing a {@link IllegalArgumentException}.
      */
     public static <T> IfRange<T> with(final T value) {
-        check(value);
+        final IfRange<T> ifRange;
 
-        return Cast.to(value instanceof ETag ?
-            IfRangeETag.etag((ETag) value) :
-            IfRangeLastModified.lastModified((LocalDateTime) value));
+        if (value instanceof ETag) {
+            ifRange = Cast.to(
+                IfRangeETag.etag(
+                    (ETag) value
+                )
+            );
+        } else {
+            if (value instanceof LocalDateTime) {
+                ifRange = Cast.to(
+                    IfRangeLastModified.lastModified(
+                        (LocalDateTime) value
+                    )
+                );
+            } else {
+                Objects.requireNonNull(value, "value");
+
+                throw new IllegalArgumentException("Expected etag or datetime but got " + CharSequences.quoteIfChars(value));
+            }
+        }
+
+        return ifRange;
     }
 
     /**
@@ -113,23 +131,12 @@ public abstract class IfRange<T> implements Header,
      * Returns an instance with the given value creating a new instance if necessary.
      */
     public <TT> IfRange<TT> setValue(final TT value) {
-        check(value);
-
         return this.value.equals(value) ?
             Cast.to(this) :
-            Cast.to(with(value));
+            with(value);
     }
 
     private final T value;
-
-
-    private static void check(final Object value) {
-        Objects.requireNonNull(value, "value");
-
-        if (false == value instanceof ETag && false == value instanceof LocalDateTime) {
-            throw new IllegalArgumentException("Expected etag or datetime but got " + CharSequences.quoteIfChars(value));
-        }
-    }
 
     /**
      * Returns true if the value is an etag.
