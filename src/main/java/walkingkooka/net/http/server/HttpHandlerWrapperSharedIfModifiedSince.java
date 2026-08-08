@@ -80,7 +80,7 @@ final class HttpHandlerWrapperSharedIfModifiedSince<C extends HttpHandlerContext
 
                     final HttpEntity responseHttpEntity = response.entity();
 
-                    final LocalDateTime lastModifiedOrNull = HttpHeaderName.LAST_MODIFIED.header(responseHttpEntity)
+                    final LocalDateTime lastModifiedOrNull = responseHttpEntity.lastModified()
                         .orElse(null);
                     if (null != lastModifiedOrNull && false == requestIfModifiedSince.isAfter(lastModifiedOrNull)) {
                         response.setStatus(
