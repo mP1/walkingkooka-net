@@ -96,14 +96,6 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
-     * {@see HeaderScopeHttpRequest}
-     */
-    @GwtIncompatible
-    public static HttpRequest headerScope(final HttpRequest request) {
-        return HeaderScopeHttpRequest.with(request);
-    }
-
-    /**
      * {@see HttpServletRequestHttpRequest}
      */
     @GwtIncompatible
