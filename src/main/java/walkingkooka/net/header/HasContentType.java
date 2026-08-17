@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.text.CharSequences;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -100,4 +101,20 @@ public interface HasContentType {
      * Returns the content type
      */
     Optional<MediaType> contentType();
+
+    /**
+     * Throws an {@link IllegalArgumentException} if the {@link MediaType} is missing.
+     */
+    default MediaType contentTypeOrFail() {
+        return this.contentType()
+            .orElseThrow(
+                // Missing "Content-type"
+                () -> new IllegalArgumentException(
+                    "Missing " +
+                        CharSequences.quoteAndEscape(
+                            HttpHeaderName.CONTENT_TYPE.value()
+                        )
+                )
+            );
+    }
 }
