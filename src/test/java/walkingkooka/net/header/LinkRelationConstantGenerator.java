@@ -20,10 +20,9 @@ package walkingkooka.net.header;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.select.NodeSelectorContext;
 import walkingkooka.tree.select.NodeSelectorContexts;
+import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContexts;
 import walkingkooka.tree.xml.XmlAttributeName;
 import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlElement;
@@ -35,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -62,11 +60,13 @@ final class LinkRelationConstantGenerator {
     }
 
     private static NodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String> context() {
-        return NodeSelectorContexts.basic(() -> false, // dont stop!
+        return NodeSelectorContexts.basic(
+            () -> false, // dont stop!
             Predicates.always(), // filter match all
             LinkRelationConstantGenerator::record,
-            expressionEvaluationContext(),
-            XmlNode.class);
+            (c) -> NodeSelectorExpressionEvaluationContexts.fake(),
+            XmlNode.class
+        );
     }
 
     /**
@@ -140,8 +140,4 @@ final class LinkRelationConstantGenerator {
     }
 
     private final static Printer printer = Printers.sysOut();
-
-    private static Function<NodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return (c) -> ExpressionEvaluationContexts.fake();
-    }
 }
