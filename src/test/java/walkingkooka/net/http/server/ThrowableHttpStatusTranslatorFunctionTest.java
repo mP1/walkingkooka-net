@@ -22,11 +22,11 @@ import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.util.FunctionTesting;
+import walkingkooka.util.FunctionTesting2;
 
 import java.util.Optional;
 
-public final class ThrowableHttpStatusTranslatorFunctionTest implements FunctionTesting<ThrowableHttpStatusTranslatorFunction, Throwable, HttpStatus> {
+public final class ThrowableHttpStatusTranslatorFunctionTest implements FunctionTesting2<ThrowableHttpStatusTranslatorFunction, Throwable, HttpStatus> {
 
     private final static String MESSAGE = "message123";
     private final static String MESSAGE_MULTI_LINE = MESSAGE + "\n2\r3";
