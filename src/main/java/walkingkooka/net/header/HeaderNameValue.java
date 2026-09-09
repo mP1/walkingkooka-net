@@ -47,7 +47,7 @@ abstract class HeaderNameValue implements Name {
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
             null != other && this.getClass() == other.getClass() &&
                 this.equals0((HeaderNameValue) other);
