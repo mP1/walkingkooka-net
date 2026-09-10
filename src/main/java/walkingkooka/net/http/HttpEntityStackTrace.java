@@ -19,34 +19,28 @@ package walkingkooka.net.http;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.Printers;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Objects;
 
 abstract class HttpEntityStackTrace extends HttpEntityStackTraceJ2cl {
 
     @GwtIncompatible
-    static HttpEntity dumpStackTrace(final Throwable cause) {
+    static HttpEntity dumpStackTrace(final Throwable cause,
+                                     final LineEnding lineEnding) {
         Objects.requireNonNull(cause, "cause");
 
-        HttpEntity result;
+        final StringBuilder b = new StringBuilder();
+        try (final PrintWriter printWriter = Printers.stringBuilder(b, lineEnding).asPrintWriter()) {
+            cause.printStackTrace(printWriter);
+            printWriter.flush();
 
-        try (final StringWriter stringWriter = new StringWriter()) {
-            try (final PrintWriter printWriter = new PrintWriter(stringWriter)) {
-                cause.printStackTrace(printWriter);
-                printWriter.flush();
-
-                result = HttpEntity.EMPTY
-                    .setContentType(MediaType.TEXT_PLAIN)
-                    .setBodyText(stringWriter.toString())
-                    .setContentLength();
-            }
-        } catch (final IOException never) {
-            result = HttpEntity.EMPTY;
+            return HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText(b.toString())
+                .setContentLength();
         }
-
-        return result;
     }
 }

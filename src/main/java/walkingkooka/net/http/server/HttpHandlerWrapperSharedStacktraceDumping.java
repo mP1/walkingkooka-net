@@ -51,7 +51,12 @@ final class HttpHandlerWrapperSharedStacktraceDumping<C extends HttpHandlerConte
             );
         } catch (final Throwable cause) {
             response.setStatus(this.throwableTranslator.apply(cause));
-            response.setEntity(HttpEntity.dumpStackTrace(cause));
+            response.setEntity(
+                HttpEntity.dumpStackTrace(
+                    cause,
+                    context.lineEnding()
+                )
+            );
         }
     }
 

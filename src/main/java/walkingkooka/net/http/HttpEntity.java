@@ -40,6 +40,7 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 
@@ -101,8 +102,12 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Returns a {@link HttpEntity} filled with the {@link Throwable} stack trace.
      */
-    public static HttpEntity dumpStackTrace(final Throwable thrown) {
-        return HttpEntityStackTrace.dumpStackTrace(thrown);
+    public static HttpEntity dumpStackTrace(final Throwable thrown,
+                                            final LineEnding lineEnding) {
+        return HttpEntityStackTrace.dumpStackTrace(
+            thrown,
+            lineEnding
+        );
     }
 
     private final static byte CR = '\r';

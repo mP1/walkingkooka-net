@@ -17,12 +17,16 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.text.LineEnding;
+
 import java.util.Objects;
 
 abstract class HttpEntityStackTraceJ2cl {
 
-    static HttpEntity dumpStackTrace(final Throwable cause) {
+    static HttpEntity dumpStackTrace(final Throwable cause,
+                                     final LineEnding lineEnding) {
         Objects.requireNonNull(cause, "cause");
+        Objects.requireNonNull(lineEnding, "lineEnding");
         return HttpEntity.EMPTY;
     }
 }

@@ -26,6 +26,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.text.HasLineEndingTesting;
+import walkingkooka.text.LineEnding;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -35,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerWrapperSharedStacktraceDumpingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>> {
+    implements HasLineEndingTesting,
+    ToStringTesting<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>> {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;
@@ -86,7 +89,12 @@ public final class HttpHandlerWrapperSharedStacktraceDumpingTest extends HttpHan
     public void testHandleThrown() {
         final HttpRequest request = HttpRequests.fake();
         final HttpResponse response = HttpResponses.recording();
-        final FakeHttpHandlerContext context = new FakeHttpHandlerContext();
+        final FakeHttpHandlerContext context = new FakeHttpHandlerContext() {
+            @Override
+            public LineEnding lineEnding() {
+                return HttpHandlerWrapperSharedStacktraceDumpingTest.LINE_ENDING;
+            }
+        };
 
         HttpHandlerWrapperSharedStacktraceDumping.with(
             (r, rr, c) -> {

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.text.LineEnding;
 
 import java.util.List;
 import java.util.Map;
@@ -30,15 +31,30 @@ public final class HttpEntityStackTraceTest extends HttpEntityStackTraceTestCase
     @Test
     public void testDump() {
         final Throwable thrown = new Throwable("hello");
-        final HttpEntity entity = this.dumpStackTrace(thrown);
+        final HttpEntity entity = this.dumpStackTrace(
+            thrown,
+            LINE_ENDING
+        );
         final Map<HttpHeaderName<?>, List<?>> headers = entity.headers();
-        this.checkEquals(Lists.of(MediaType.TEXT_PLAIN), headers.get(HttpHeaderName.CONTENT_TYPE), () -> "content-type\n" + entity);
-        this.checkNotEquals(null, headers.get(HttpHeaderName.CONTENT_LENGTH), () -> "content-length\n" + entity);
+        this.checkEquals(
+            Lists.of(MediaType.TEXT_PLAIN),
+            headers.get(HttpHeaderName.CONTENT_TYPE),
+            () -> "content-type\n" + entity
+        );
+        this.checkNotEquals(
+            null,
+            headers.get(HttpHeaderName.CONTENT_LENGTH),
+            () -> "content-length\n" + entity
+        );
     }
 
     @Override
-    HttpEntity dumpStackTrace(final Throwable cause) {
-        return HttpEntityStackTrace.dumpStackTrace(cause);
+    HttpEntity dumpStackTrace(final Throwable cause,
+                              final LineEnding lineEnding) {
+        return HttpEntityStackTrace.dumpStackTrace(
+            cause,
+            lineEnding
+        );
     }
 
     @Override
