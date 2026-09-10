@@ -20,25 +20,54 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.HasLineEndingTesting;
+import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpEntityStackTraceTestCase<H extends HttpEntityStackTraceJ2cl> implements ClassTesting2<H> {
+public abstract class HttpEntityStackTraceTestCase<H extends HttpEntityStackTraceJ2cl> implements ClassTesting2<H>,
+    HasLineEndingTesting {
 
     HttpEntityStackTraceTestCase() {
         super();
     }
 
     @Test
-    public final void testNullFails() {
-        assertThrows(NullPointerException.class, () -> this.dumpStackTrace(null));
+    public final void testWithNullCauseFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.dumpStackTrace(
+                null,
+                LINE_ENDING
+            )
+        );
     }
 
-    final void dumpStackTraceAndCheck(final Throwable cause, final HttpEntity expected) {
-        this.checkEquals(expected, this.dumpStackTrace(cause));
+    @Test
+    public final void testWithNullLineEndingFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.dumpStackTrace(
+                new RuntimeException(),
+                null
+            )
+        );
     }
 
-    abstract HttpEntity dumpStackTrace(final Throwable cause);
+    final void dumpStackTraceAndCheck(final Throwable cause,
+                                      final LineEnding lineEnding,
+                                      final HttpEntity expected) {
+        this.checkEquals(
+            expected,
+            this.dumpStackTrace(
+                cause,
+                lineEnding
+            )
+        );
+    }
+
+    abstract HttpEntity dumpStackTrace(final Throwable cause,
+                                       final LineEnding lineEnding);
 
     // ClassTesting.....................................................................................................
 

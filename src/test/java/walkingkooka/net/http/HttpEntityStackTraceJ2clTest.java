@@ -18,17 +18,26 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.text.LineEnding;
 
 public final class HttpEntityStackTraceJ2clTest extends HttpEntityStackTraceTestCase<HttpEntityStackTraceJ2cl> {
 
     @Test
     public void testDump() {
-        this.dumpStackTraceAndCheck(new Throwable("hello"), HttpEntity.EMPTY);
+        this.dumpStackTraceAndCheck(
+            new Throwable("hello"),
+            LINE_ENDING,
+            HttpEntity.EMPTY
+        );
     }
 
     @Override
-    HttpEntity dumpStackTrace(final Throwable cause) {
-        return HttpEntityStackTraceJ2cl.dumpStackTrace(cause);
+    HttpEntity dumpStackTrace(final Throwable cause,
+                              final LineEnding lineEnding) {
+        return HttpEntityStackTraceJ2cl.dumpStackTrace(
+            cause,
+            lineEnding
+        );
     }
 
     @Override
