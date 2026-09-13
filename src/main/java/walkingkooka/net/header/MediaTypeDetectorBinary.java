@@ -25,14 +25,14 @@ import java.util.Objects;
 /**
  * A {@link MediaTypeDetector} that always returns {@link MediaType#BINARY}.
  */
-final class BinaryMediaTypeDetector implements MediaTypeDetector {
+final class MediaTypeDetectorBinary implements MediaTypeDetector {
 
     /**
      * Singleton
      */
-    final static BinaryMediaTypeDetector INSTANCE = new BinaryMediaTypeDetector();
+    final static MediaTypeDetectorBinary INSTANCE = new MediaTypeDetectorBinary();
 
-    private BinaryMediaTypeDetector() {
+    private MediaTypeDetectorBinary() {
         super();
     }
 
