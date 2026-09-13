@@ -25,7 +25,7 @@ import walkingkooka.naming.Name;
  * Content-type: multipart/mixed; boundary="abcdefGHIJK"
  * </pre>
  */
-final class MediaTypeBoundaryHeaderHandler extends NonStringHeaderHandler<MediaTypeBoundary> {
+final class MediaTypeBoundaryHeaderHandler extends HeaderHandlerNonString<MediaTypeBoundary> {
 
     /**
      * Singleton

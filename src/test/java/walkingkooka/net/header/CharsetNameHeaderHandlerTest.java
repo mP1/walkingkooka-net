@@ -23,12 +23,7 @@ import walkingkooka.net.email.EmailAddress;
 import java.nio.charset.StandardCharsets;
 
 public final class CharsetNameHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<CharsetNameHeaderHandler, CharsetName> {
-
-    @Override
-    public String typeNamePrefix() {
-        return CharsetName.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<CharsetNameHeaderHandler, CharsetName> {
 
     @Test
     public void testContent() {
@@ -78,8 +73,20 @@ public final class CharsetNameHeaderHandlerTest extends
         return CharsetName.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<CharsetNameHeaderHandler> type() {
         return CharsetNameHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return CharsetName.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

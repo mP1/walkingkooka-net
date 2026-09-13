@@ -29,7 +29,7 @@ import walkingkooka.naming.Name;
  * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
  * </pre>
  */
-final class AcceptLanguageHeaderHandler extends NonStringHeaderHandler<AcceptLanguage> {
+final class AcceptLanguageHeaderHandler extends HeaderHandlerNonString<AcceptLanguage> {
 
     /**
      * Singleton

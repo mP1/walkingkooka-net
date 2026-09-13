@@ -19,8 +19,8 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-public final class LongHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<LongHeaderHandler, Long> {
+public final class HeaderHandlerNonStringLongTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringLong, Long> {
 
     private final static String TEXT = "123";
     private final static Long VALUE = 123L;
@@ -41,19 +41,14 @@ public final class LongHeaderHandlerTest extends
         );
     }
 
-    @Override
-    public String typeNamePrefix() {
-        return Long.class.getSimpleName();
-    }
-
     @Test
     public void testContentLength() {
         this.parseAndToTextAndCheck(TEXT, VALUE);
     }
 
     @Override
-    LongHeaderHandler handler() {
-        return LongHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringLong handler() {
+        return HeaderHandlerNonStringLong.INSTANCE;
     }
 
     @Override
@@ -81,8 +76,20 @@ public final class LongHeaderHandlerTest extends
         return Long.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<LongHeaderHandler> type() {
-        return LongHeaderHandler.class;
+    public Class<HeaderHandlerNonStringLong> type() {
+        return HeaderHandlerNonStringLong.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Long.class.getSimpleName();
     }
 }

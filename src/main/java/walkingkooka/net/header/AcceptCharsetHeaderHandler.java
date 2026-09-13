@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that parses a content header value into a {@link AcceptCharset}.
  */
-final class AcceptCharsetHeaderHandler extends NonStringHeaderHandler<AcceptCharset> {
+final class AcceptCharsetHeaderHandler extends HeaderHandlerNonString<AcceptCharset> {
 
     /**
      * Singleton

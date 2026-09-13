@@ -20,12 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ServerCookieHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ServerCookieHeaderHandler, ServerCookie> {
-
-    @Override
-    public String typeNamePrefix() {
-        return ServerCookie.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<ServerCookieHeaderHandler, ServerCookie> {
 
     @Test
     public void testServerCookie() {
@@ -63,8 +58,20 @@ public final class ServerCookieHeaderHandlerTest extends
         return "ServerCookie";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ServerCookieHeaderHandler> type() {
         return ServerCookieHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ServerCookie.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

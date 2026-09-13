@@ -21,12 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
 public final class ContentDispositionHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ContentDispositionHeaderHandler, ContentDisposition> {
-
-    @Override
-    public String typeNamePrefix() {
-        return ContentDisposition.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<ContentDispositionHeaderHandler, ContentDisposition> {
 
     @Test
     public void testHeader() {
@@ -64,8 +59,20 @@ public final class ContentDispositionHeaderHandlerTest extends
         return ContentDisposition.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ContentDispositionHeaderHandler> type() {
         return ContentDispositionHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ContentDisposition.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

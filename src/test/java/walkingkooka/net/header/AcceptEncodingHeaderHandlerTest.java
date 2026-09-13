@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingHeaderHandlerTest extends NonStringHeaderHandlerTestCase<AcceptEncodingHeaderHandler, AcceptEncoding> {
+public final class AcceptEncodingHeaderHandlerTest extends HeaderHandlerNonStringTestCase<AcceptEncodingHeaderHandler, AcceptEncoding> {
 
     @Test
     public void testParseToken() {
@@ -106,13 +106,20 @@ public final class AcceptEncodingHeaderHandlerTest extends NonStringHeaderHandle
         return this.valueType(AcceptEncoding.class);
     }
 
+    // class............................................................................................................
+
+    @Override
+    public Class<AcceptEncodingHeaderHandler> type() {
+        return AcceptEncodingHeaderHandler.class;
+    }
+
     @Override
     public String typeNamePrefix() {
         return AcceptEncoding.class.getSimpleName();
     }
 
     @Override
-    public Class<AcceptEncodingHeaderHandler> type() {
-        return AcceptEncodingHeaderHandler.class;
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

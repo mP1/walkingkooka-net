@@ -24,7 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * A {@link HeaderHandler} that parses a content header value into a {@link ContentDispositionFileNameNotEncoded}.
  */
-final class ContentDispositionFileNameNotEncodedHeaderHandler extends NonStringHeaderHandler<ContentDispositionFileName> {
+final class ContentDispositionFileNameNotEncodedHeaderHandler extends HeaderHandlerNonString<ContentDispositionFileName> {
 
     /**
      * Singleton

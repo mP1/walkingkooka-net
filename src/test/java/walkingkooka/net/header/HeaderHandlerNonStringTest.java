@@ -17,16 +17,13 @@
 
 package walkingkooka.net.header;
 
-public abstract class NonStringHeaderHandlerTestCase<C extends NonStringHeaderHandler<T>, T> extends HeaderHandlerTestCase<C, T> {
+import walkingkooka.Cast;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-    NonStringHeaderHandlerTestCase() {
-        super();
-    }
-
-    // class............................................................................................................
+public final class HeaderHandlerNonStringTest implements PackagePrivateClassTesting<HeaderHandlerNonString<Void>> {
 
     @Override
-    public final String typeNameSuffix() {
-        return HeaderHandler.class.getSimpleName();
+    public Class<HeaderHandlerNonString<Void>> type() {
+        return Cast.to(HeaderHandlerNonString.class);
     }
 }

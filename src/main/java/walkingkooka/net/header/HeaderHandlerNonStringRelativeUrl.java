@@ -18,47 +18,47 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
 /**
- * A {@link HeaderHandler} that parses a header value into a {@link AbsoluteUrl}.
- * This is useful for headers such as {@link HttpHeaderName#REFERER}.
+ * A {@link HeaderHandler} that parses a header value into a {@link RelativeUrl}.
+ * This is useful for headers such as {@link HttpHeaderName#CONTENT_LOCATION}.
  */
-final class AbsoluteUrlHeaderHandler extends NonStringHeaderHandler<AbsoluteUrl> {
+final class HeaderHandlerNonStringRelativeUrl extends HeaderHandlerNonString<RelativeUrl> {
 
     /**
      * Singleton
      */
-    final static AbsoluteUrlHeaderHandler INSTANCE = new AbsoluteUrlHeaderHandler();
+    final static HeaderHandlerNonStringRelativeUrl INSTANCE = new HeaderHandlerNonStringRelativeUrl();
 
     /**
      * Private ctor use singleton.
      */
-    private AbsoluteUrlHeaderHandler() {
+    private HeaderHandlerNonStringRelativeUrl() {
         super();
     }
 
     @Override
-    AbsoluteUrl parse0(final String text) {
-        return Url.parseAbsolute(text);
+    RelativeUrl parse0(final String text) {
+        return Url.parseRelative(text);
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-            v -> v instanceof AbsoluteUrl,
-            AbsoluteUrl.class
+            v -> v instanceof RelativeUrl,
+            RelativeUrl.class
         );
     }
 
     @Override
-    String toText0(final AbsoluteUrl value, final Name name) {
-        return value.value();
+    String toText0(final RelativeUrl value, final Name name) {
+        return value.toString();
     }
 
     @Override
     public String toString() {
-        return toStringType(AbsoluteUrl.class);
+        return toStringType(RelativeUrl.class);
     }
 }

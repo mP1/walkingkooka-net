@@ -21,12 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 public final class MediaTypeHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<MediaTypeHeaderHandler, MediaType> {
-
-    @Override
-    public String typeNamePrefix() {
-        return MediaType.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<MediaTypeHeaderHandler, MediaType> {
 
     @Test
     public void testContentType() {
@@ -65,8 +60,20 @@ public final class MediaTypeHeaderHandlerTest extends
         return MediaType.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<MediaTypeHeaderHandler> type() {
         return MediaTypeHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return MediaType.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that handles converting header values to {@link ContentDisposition}.
  */
-final class ContentDispositionHeaderHandler extends NonStringHeaderHandler<ContentDisposition> {
+final class ContentDispositionHeaderHandler extends HeaderHandlerNonString<ContentDisposition> {
 
     /**
      * Singleton

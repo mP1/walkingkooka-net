@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 
-public final class AbsoluteUrlHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<AbsoluteUrlHeaderHandler, AbsoluteUrl> {
+public final class HeaderHandlerNonStringAbsoluteUrlTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringAbsoluteUrl, AbsoluteUrl> {
 
     private final static String URL = "https://example.com";
 
@@ -32,8 +32,8 @@ public final class AbsoluteUrlHeaderHandlerTest extends
     }
 
     @Override
-    AbsoluteUrlHeaderHandler handler() {
-        return AbsoluteUrlHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringAbsoluteUrl handler() {
+        return HeaderHandlerNonStringAbsoluteUrl.INSTANCE;
     }
 
     @Override
@@ -64,12 +64,17 @@ public final class AbsoluteUrlHeaderHandlerTest extends
     // class............................................................................................................
 
     @Override
-    public Class<AbsoluteUrlHeaderHandler> type() {
-        return AbsoluteUrlHeaderHandler.class;
+    public Class<HeaderHandlerNonStringAbsoluteUrl> type() {
+        return HeaderHandlerNonStringAbsoluteUrl.class;
     }
 
     @Override
     public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
         return AbsoluteUrl.class.getSimpleName();
     }
 }

@@ -22,14 +22,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 
 public final class RangeHeaderHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<RangeHeaderHeaderHandler, RangeHeader> {
+    HeaderHandlerNonStringTestCase<RangeHeaderHeaderHandler, RangeHeader> {
 
     private final static String TEXT = "bytes=123-456, 789-";
-
-    @Override
-    public String typeNamePrefix() {
-        return RangeHeader.class.getSimpleName();
-    }
 
     @Test
     public void testParseRangeHeader() {
@@ -77,8 +72,20 @@ public final class RangeHeaderHeaderHandlerTest extends
         return RangeHeader.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<RangeHeaderHeaderHandler> type() {
         return RangeHeaderHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RangeHeader.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-public abstract class HeaderHandlerStringTestCase<C extends HeaderHandlerString> extends HeaderHandlerTestCase<C, String> {
+public abstract class HeaderHandlerStringTestCase<H extends HeaderHandlerString> extends HeaderHandlerTestCase<H, String> {
 
     HeaderHandlerStringTestCase() {
         super();

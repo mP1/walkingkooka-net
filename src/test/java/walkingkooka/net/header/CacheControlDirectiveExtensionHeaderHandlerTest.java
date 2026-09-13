@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<CacheControlDirectiveExtensionHeaderHandler, Object> {
+    HeaderHandlerNonStringTestCase<CacheControlDirectiveExtensionHeaderHandler, Object> {
 
     @Test
     public void testCheckLong() {
@@ -63,11 +63,6 @@ public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
     }
 
     @Override
-    public String typeNamePrefix() {
-        return "CacheControlDirectiveExtension";
-    }
-
-    @Override
     String invalidHeader() {
         return ",";
     }
@@ -97,8 +92,20 @@ public final class CacheControlDirectiveExtensionHeaderHandlerTest extends
         return this.valueType(String.class);
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<CacheControlDirectiveExtensionHeaderHandler> type() {
         return CacheControlDirectiveExtensionHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return "CacheControlDirectiveExtension";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link HeaderHandler} that expects comma separated {@link HttpMethod methods}.
  */
-final class HttpMethodListHeaderHandler extends NonStringHeaderHandler<List<HttpMethod>> {
+final class HttpMethodListHeaderHandler extends HeaderHandlerNonString<List<HttpMethod>> {
 
     /**
      * Singleton

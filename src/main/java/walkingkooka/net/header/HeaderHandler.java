@@ -42,7 +42,7 @@ abstract class HeaderHandler<T> {
      * {@see AbsoluteUrlHeaderHandler}
      */
     static HeaderHandler<AbsoluteUrl> absoluteUrl() {
-        return AbsoluteUrlHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringAbsoluteUrl.INSTANCE;
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class HeaderHandler<T> {
      * {@see EmailAddressHeaderHandler}
      */
     static HeaderHandler<EmailAddress> emailAddress() {
-        return EmailAddressHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringEmailAddress.INSTANCE;
     }
 
     /**
@@ -196,14 +196,14 @@ abstract class HeaderHandler<T> {
      * {@see LocalDateTimeHeaderHandler}
      */
     static HeaderHandler<LocalDateTime> localDateTime() {
-        return LocalDateTimeHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringLocalDateTime.INSTANCE;
     }
 
     /**
      * {@see LongHeaderHandler}
      */
     static HeaderHandler<Long> longHandler() {
-        return LongHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringLong.INSTANCE;
     }
 
     /**
@@ -231,7 +231,7 @@ abstract class HeaderHandler<T> {
      * {@see OffsetDateTimeHeaderHandler}
      */
     static HeaderHandler<OffsetDateTime> offsetDateTime() {
-        return OffsetDateTimeHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringOffsetDateTime.INSTANCE;
     }
 
     /**
@@ -276,7 +276,7 @@ abstract class HeaderHandler<T> {
      * {@see RelativeUrlHeaderHandler}
      */
     static HeaderHandler<RelativeUrl> relativeUrl() {
-        return RelativeUrlHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringRelativeUrl.INSTANCE;
     }
 
     /**
@@ -311,7 +311,7 @@ abstract class HeaderHandler<T> {
      * {@see UrlHeaderHandler}
      */
     static HeaderHandler<Url> url() {
-        return UrlHeaderHandler.INSTANCE;
+        return HeaderHandlerNonStringUrl.INSTANCE;
     }
 
     /**

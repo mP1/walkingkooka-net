@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 import java.util.Optional;
 
 public final class CacheControlHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<CacheControlHeaderHandler, CacheControl> {
+    HeaderHandlerNonStringTestCase<CacheControlHeaderHandler, CacheControl> {
 
     @Test
     public void testCacheControlRoundtrip() {
@@ -32,11 +32,6 @@ public final class CacheControlHeaderHandlerTest extends
             CacheControl.with(Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                 CacheControlDirective.NO_CACHE,
                 CacheControlDirective.NO_STORE)));
-    }
-
-    @Override
-    public String typeNamePrefix() {
-        return CacheControl.class.getSimpleName();
     }
 
     @Override
@@ -69,8 +64,20 @@ public final class CacheControlHeaderHandlerTest extends
         return this.valueType(CacheControl.class);
     }
 
+    // class.............................................................................................................
+
     @Override
     public Class<CacheControlHeaderHandler> type() {
         return CacheControlHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return CacheControl.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

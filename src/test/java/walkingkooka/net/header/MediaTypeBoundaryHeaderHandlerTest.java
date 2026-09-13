@@ -20,14 +20,9 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class MediaTypeBoundaryHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<MediaTypeBoundaryHeaderHandler, MediaTypeBoundary> {
+    HeaderHandlerNonStringTestCase<MediaTypeBoundaryHeaderHandler, MediaTypeBoundary> {
 
     private final static String TEXT = "abc123";
-
-    @Override
-    public String typeNamePrefix() {
-        return MediaTypeBoundary.class.getSimpleName();
-    }
 
     @Override
     public void testInvalidHeaderFails() {
@@ -82,8 +77,20 @@ public final class MediaTypeBoundaryHeaderHandlerTest extends
         return MediaTypeBoundary.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<MediaTypeBoundaryHeaderHandler> type() {
         return MediaTypeBoundaryHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return MediaTypeBoundary.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

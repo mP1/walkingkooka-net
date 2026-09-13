@@ -22,12 +22,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
-public final class UrlHeaderHandlerTest extends NonStringHeaderHandlerTestCase<UrlHeaderHandler, Url> {
-
-    @Override
-    public String typeNamePrefix() {
-        return Url.class.getSimpleName();
-    }
+public final class HeaderHandlerNonStringUrlTest extends HeaderHandlerNonStringTestCase<HeaderHandlerNonStringUrl, Url> {
 
     @Override
     public void testInvalidHeaderFails() {
@@ -47,8 +42,8 @@ public final class UrlHeaderHandlerTest extends NonStringHeaderHandlerTestCase<U
     }
 
     @Override
-    protected UrlHeaderHandler handler() {
-        return UrlHeaderHandler.INSTANCE;
+    protected HeaderHandlerNonStringUrl handler() {
+        return HeaderHandlerNonStringUrl.INSTANCE;
     }
 
     @Override
@@ -76,8 +71,20 @@ public final class UrlHeaderHandlerTest extends NonStringHeaderHandlerTestCase<U
         return Url.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<UrlHeaderHandler> type() {
-        return UrlHeaderHandler.class;
+    public Class<HeaderHandlerNonStringUrl> type() {
+        return HeaderHandlerNonStringUrl.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Url.class.getSimpleName();
     }
 }

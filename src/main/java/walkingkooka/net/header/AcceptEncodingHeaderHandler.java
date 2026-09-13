@@ -33,7 +33,7 @@ import walkingkooka.naming.Name;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-final class AcceptEncodingHeaderHandler extends NonStringHeaderHandler<AcceptEncoding> {
+final class AcceptEncodingHeaderHandler extends HeaderHandlerNonString<AcceptEncoding> {
 
     /**
      * Singleton

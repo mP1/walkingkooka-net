@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that expects comma separated {@link ETag tags}.
  */
-final class ETagListHeaderHandler extends NonStringHeaderHandler<ETagList> {
+final class ETagListHeaderHandler extends HeaderHandlerNonString<ETagList> {
 
     /**
      * Singleton

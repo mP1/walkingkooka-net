@@ -20,12 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class QualityFactorHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<QualityFactorHeaderHandler, Float> {
-
-    @Override
-    public String typeNamePrefix() {
-        return "QualityFactor";
-    }
+    HeaderHandlerNonStringTestCase<QualityFactorHeaderHandler, Float> {
 
     @Test
     public void testParseEmptyStringFails() {
@@ -104,8 +99,20 @@ public final class QualityFactorHeaderHandlerTest extends
         return "QualityFactor";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<QualityFactorHeaderHandler> type() {
         return QualityFactorHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return "QualityFactor";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

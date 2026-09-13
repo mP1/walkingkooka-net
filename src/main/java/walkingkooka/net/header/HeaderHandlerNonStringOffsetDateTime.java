@@ -18,12 +18,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 import java.time.format.SignStyle;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,50 +37,52 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
 /**
- * A {@link HeaderHandler} that parses a header value into a {@link LocalDateTime}.
+ * A {@link HeaderHandler} that parses a header value into a {@link OffsetDateTime}.
  * Sample Date/Time
  * <pre>
- * Fri, 07 Nov 2014 23:59:59 GMT
+ * Content-Disposition: attachment; filename=genome.jpeg;
+ * modification-date="Wed, 12 Feb 1997 16:29:51 -0500";
  * </pre>
- * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields"></a>
+ * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateTime> {
+final class HeaderHandlerNonStringOffsetDateTime extends HeaderHandlerNonString<OffsetDateTime> {
 
     /**
      * Singleton
      */
-    final static LocalDateTimeHeaderHandler INSTANCE = new LocalDateTimeHeaderHandler();
+    final static HeaderHandlerNonStringOffsetDateTime INSTANCE = new HeaderHandlerNonStringOffsetDateTime();
 
     /**
      * Private ctor use singleton.
      */
-    private LocalDateTimeHeaderHandler() {
+    private HeaderHandlerNonStringOffsetDateTime() {
         super();
     }
 
     @Override
-    LocalDateTime parse0(final String text) {
+    OffsetDateTime parse0(final String text) {
         try {
-            return LocalDateTime.parse(
-                text,
-                FORMATTER
-            );
-        } catch (final DateTimeParseException cause) {
-            throw new HeaderException("Invalid date in " + CharSequences.quoteAndEscape(text));
+            return OffsetDateTime.parse(
+                QUOTED_STRING.parse(text),
+                FORMATTER);
+        } catch (final IllegalArgumentException cause) {
+            throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
         }
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-            v -> v instanceof LocalDateTime,
-            LocalDateTime.class
+            v -> v instanceof OffsetDateTime,
+            OffsetDateTime.class
         );
     }
 
     @Override
-    String toText0(final LocalDateTime value, final Name name) {
-        return FORMATTER.format(value);
+    String toText0(final OffsetDateTime value, final Name name) {
+        return QUOTED_STRING.toText(
+            FORMATTER.format(value),
+            name);
     }
 
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.2
@@ -135,12 +137,17 @@ final class LocalDateTimeHeaderHandler extends NonStringHeaderHandler<LocalDateT
             .appendLiteral(':')
             .appendValue(SECOND_OF_MINUTE, 2)
             .optionalEnd()
-            .appendLiteral(" GMT")
+            .appendLiteral(' ')
+            .appendOffset("+HHMM", "")
             .toFormatter();
     }
 
+    private final static HeaderHandler<String> QUOTED_STRING = HeaderHandler.quoted(
+        CharPredicates.asciiPrintable(),
+        false);
+
     @Override
     public String toString() {
-        return toStringType(LocalDateTime.class);
+        return toStringType(OffsetDateTime.class);
     }
 }

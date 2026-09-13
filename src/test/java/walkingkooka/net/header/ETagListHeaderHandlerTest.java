@@ -23,14 +23,9 @@ import walkingkooka.collect.list.Lists;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagListHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ETagListHeaderHandler, ETagList> {
+    HeaderHandlerNonStringTestCase<ETagListHeaderHandler, ETagList> {
 
     private static final ETag ETAG = ETag.weak("value");
-
-    @Override
-    public String typeNamePrefix() {
-        return ETag.class.getSimpleName();
-    }
 
     @Test
     public void testParseETagOne() {
@@ -112,8 +107,20 @@ public final class ETagListHeaderHandlerTest extends
         return "ETagList";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ETagListHeaderHandler> type() {
         return ETagListHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ETag.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

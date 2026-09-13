@@ -20,12 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class IfRangeHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<IfRangeHeaderHandler, IfRange<?>> {
-
-    @Override
-    public String typeNamePrefix() {
-        return IfRange.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<IfRangeHeaderHandler, IfRange<?>> {
 
     @Test
     public void testIfRange() {
@@ -67,8 +62,20 @@ public final class IfRangeHeaderHandlerTest extends
         return "IfRange";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<IfRangeHeaderHandler> type() {
         return IfRangeHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return IfRange.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

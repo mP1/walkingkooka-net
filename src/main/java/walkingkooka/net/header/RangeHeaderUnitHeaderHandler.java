@@ -28,7 +28,7 @@ import walkingkooka.naming.Name;
  * Accept-Ranges: none
  * </pre>
  */
-final class RangeHeaderUnitHeaderHandler extends NonStringHeaderHandler<RangeHeaderUnit> {
+final class RangeHeaderUnitHeaderHandler extends HeaderHandlerNonString<RangeHeaderUnit> {
 
     /**
      * Singleton

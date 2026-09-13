@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into a list of {@link LinkRelation}.
  */
-final class LinkRelationHeaderHandler extends NonStringHeaderHandler<List<LinkRelation<?>>> {
+final class LinkRelationHeaderHandler extends HeaderHandlerNonString<List<LinkRelation<?>>> {
 
     /**
      * Singleton

@@ -20,14 +20,9 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class RangeHeaderUnitHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<RangeHeaderUnitHeaderHandler, RangeHeaderUnit> {
+    HeaderHandlerNonStringTestCase<RangeHeaderUnitHeaderHandler, RangeHeaderUnit> {
 
     private final static String TEXT = "bytes";
-
-    @Override
-    public String typeNamePrefix() {
-        return RangeHeaderUnit.class.getSimpleName();
-    }
 
     @Test
     public void testParseRangeHeader() {
@@ -73,8 +68,20 @@ public final class RangeHeaderUnitHeaderHandlerTest extends
         return RangeHeaderUnit.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<RangeHeaderUnitHeaderHandler> type() {
         return RangeHeaderUnitHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RangeHeaderUnit.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }
