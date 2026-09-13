@@ -28,12 +28,12 @@ import walkingkooka.predicate.character.CharPredicate;
  * <a href="https://mimesniff.spec.whatwg.org/#parsing-a-mime-type">mime type</a>
  * <a href="https://fetch.spec.whatwg.org/#collect-an-http-quoted-string">Quoted string</a>
  */
-final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
+final class HeaderHandlerStringQuotedUnquoted extends HeaderHandlerString {
 
-    static QuotedUnquotedStringHeaderHandler with(final CharPredicate quotedPredicate,
+    static HeaderHandlerStringQuotedUnquoted with(final CharPredicate quotedPredicate,
                                                   final boolean supportBackslashEscaping,
                                                   final CharPredicate unquotedPredicate) {
-        return new QuotedUnquotedStringHeaderHandler(
+        return new HeaderHandlerStringQuotedUnquoted(
             HeaderHandler.quoted(quotedPredicate, supportBackslashEscaping),
             HeaderHandler.unquoted(unquotedPredicate));
     }
@@ -41,7 +41,7 @@ final class QuotedUnquotedStringHeaderHandler extends StringHeaderHandler {
     /**
      * Private ctor use singleton.
      */
-    private QuotedUnquotedStringHeaderHandler(final HeaderHandler<String> quoted,
+    private HeaderHandlerStringQuotedUnquoted(final HeaderHandler<String> quoted,
                                               final HeaderHandler<String> unquoted) {
         super();
         this.quoted = quoted;

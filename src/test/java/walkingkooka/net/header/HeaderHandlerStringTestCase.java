@@ -20,9 +20,9 @@ package walkingkooka.net.header;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-public abstract class StringHeaderHandlerTestCase<C extends StringHeaderHandler> extends HeaderHandlerTestCase2<C, String> {
+public abstract class HeaderHandlerStringTestCase<C extends HeaderHandlerString> extends HeaderHandlerTestCase<C, String> {
 
-    StringHeaderHandlerTestCase() {
+    HeaderHandlerStringTestCase() {
         super();
     }
 
@@ -44,5 +44,10 @@ public abstract class StringHeaderHandlerTestCase<C extends StringHeaderHandler>
         return CharPredicates.letter();
     }
 
+    // class............................................................................................................
 
+    @Override
+    public final String typeNamePrefix() {
+        return HeaderHandlerString.class.getSimpleName();
+    }
 }

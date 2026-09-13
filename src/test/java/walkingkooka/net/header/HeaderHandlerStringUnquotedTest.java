@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-public final class UnquotedStringHeaderHandlerTest extends QuotedOrUnquotedStringHeaderHandlerTestCase<UnquotedStringHeaderHandler> {
+public final class HeaderHandlerStringUnquotedTest extends HeaderHandlerStringQuotedOrUnquotedTestCase<HeaderHandlerStringUnquoted> {
 
     @Test
     public void testParseOpeningDoubleQuoteFails() {
@@ -43,22 +43,22 @@ public final class UnquotedStringHeaderHandlerTest extends QuotedOrUnquotedStrin
     }
 
     @Override
-    public String typeNamePrefix() {
-        return "UnquotedString";
-    }
-
-    @Override
     String invalidHeader() {
         return "123";
     }
 
     @Override
-    protected UnquotedStringHeaderHandler handler() {
-        return UnquotedStringHeaderHandler.with(this.charPredicate());
+    protected HeaderHandlerStringUnquoted handler() {
+        return HeaderHandlerStringUnquoted.with(this.charPredicate());
     }
 
     @Override
-    public Class<UnquotedStringHeaderHandler> type() {
-        return UnquotedStringHeaderHandler.class;
+    public Class<HeaderHandlerStringUnquoted> type() {
+        return HeaderHandlerStringUnquoted.class;
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "Unquoted";
     }
 }

@@ -26,20 +26,20 @@ import walkingkooka.text.CharSequences;
 /**
  * A {@link HeaderHandler} that handles string values in quotes with possible backslash escaping.
  */
-final class QuotedStringHeaderHandler extends QuotedOrUnquotedStringHeaderHandler {
+final class HeaderHandlerStringQuoted extends HeaderHandlerStringQuotedOrUnquoted {
 
     /**
-     * Factory that creates a new {@link QuotedStringHeaderHandler}.
+     * Factory that creates a new {@link HeaderHandlerStringQuoted}.
      */
-    static QuotedStringHeaderHandler with(final CharPredicate predicate,
+    static HeaderHandlerStringQuoted with(final CharPredicate predicate,
                                           final boolean supportBackslashEscaping) {
-        return new QuotedStringHeaderHandler(predicate, supportBackslashEscaping);
+        return new HeaderHandlerStringQuoted(predicate, supportBackslashEscaping);
     }
 
     /**
      * Private ctor use singleton.
      */
-    private QuotedStringHeaderHandler(final CharPredicate predicate,
+    private HeaderHandlerStringQuoted(final CharPredicate predicate,
                                       final boolean supportBackslashEscaping) {
         super(predicate);
         this.supportBackslashEscaping = supportBackslashEscaping;

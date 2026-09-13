@@ -24,19 +24,19 @@ import walkingkooka.predicate.character.CharPredicate;
 /**
  * A {@link HeaderHandler} that handles string values without any escaping or quotes.
  */
-final class UnquotedStringHeaderHandler extends QuotedOrUnquotedStringHeaderHandler {
+final class HeaderHandlerStringUnquoted extends HeaderHandlerStringQuotedOrUnquoted {
 
     /**
-     * Factory that creates a new {@link UnquotedStringHeaderHandler}.
+     * Factory that creates a new {@link HeaderHandlerStringUnquoted}.
      */
-    static UnquotedStringHeaderHandler with(final CharPredicate predicate) {
-        return new UnquotedStringHeaderHandler(predicate);
+    static HeaderHandlerStringUnquoted with(final CharPredicate predicate) {
+        return new HeaderHandlerStringUnquoted(predicate);
     }
 
     /**
      * Private ctor use factory.
      */
-    private UnquotedStringHeaderHandler(final CharPredicate predicate) {
+    private HeaderHandlerStringUnquoted(final CharPredicate predicate) {
         super(predicate);
     }
 
