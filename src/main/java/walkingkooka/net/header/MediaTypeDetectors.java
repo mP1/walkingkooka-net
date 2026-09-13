@@ -25,10 +25,10 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class MediaTypeDetectors implements PublicStaticHelper {
 
     /**
-     * {@see BinaryMediaTypeDetector}
+     * {@see MediaTypeDetectorBinary}
      */
     public static MediaTypeDetector binary() {
-        return BinaryMediaTypeDetector.INSTANCE;
+        return MediaTypeDetectorBinary.INSTANCE;
     }
 
     /**

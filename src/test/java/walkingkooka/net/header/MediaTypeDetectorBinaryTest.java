@@ -25,9 +25,9 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.nio.charset.StandardCharsets;
 
-public final class BinaryMediaTypeDetectorTest implements MediaTypeDetectorTesting2<BinaryMediaTypeDetector>,
-    ToStringTesting<BinaryMediaTypeDetector>,
-    ClassTesting<BinaryMediaTypeDetector> {
+public final class MediaTypeDetectorBinaryTest implements MediaTypeDetectorTesting2<MediaTypeDetectorBinary>,
+    ToStringTesting<MediaTypeDetectorBinary>,
+    ClassTesting<MediaTypeDetectorBinary> {
 
     @Test
     public void testDetectTextFile() {
@@ -48,8 +48,8 @@ public final class BinaryMediaTypeDetectorTest implements MediaTypeDetectorTesti
     }
 
     @Override
-    public BinaryMediaTypeDetector createMediaTypeDetector() {
-        return BinaryMediaTypeDetector.INSTANCE;
+    public MediaTypeDetectorBinary createMediaTypeDetector() {
+        return MediaTypeDetectorBinary.INSTANCE;
     }
 
     // toString.........................................................................................................
@@ -65,8 +65,8 @@ public final class BinaryMediaTypeDetectorTest implements MediaTypeDetectorTesti
     // class.........................................................................................................
 
     @Override
-    public Class<BinaryMediaTypeDetector> type() {
-        return BinaryMediaTypeDetector.class;
+    public Class<MediaTypeDetectorBinary> type() {
+        return MediaTypeDetectorBinary.class;
     }
 
     @Override
