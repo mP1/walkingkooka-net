@@ -17,9 +17,16 @@
 
 package walkingkooka.net.header;
 
-public abstract class NonStringHeaderHandlerTestCase<C extends NonStringHeaderHandler<T>, T> extends HeaderHandlerTestCase2<C, T> {
+public abstract class NonStringHeaderHandlerTestCase<C extends NonStringHeaderHandler<T>, T> extends HeaderHandlerTestCase<C, T> {
 
     NonStringHeaderHandlerTestCase() {
         super();
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

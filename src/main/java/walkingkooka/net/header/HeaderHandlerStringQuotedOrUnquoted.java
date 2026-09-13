@@ -22,12 +22,12 @@ import walkingkooka.predicate.character.CharPredicate;
 /**
  * A {@link HeaderHandler} that handles string values using a {@link CharPredicate}.
  */
-abstract class QuotedOrUnquotedStringHeaderHandler extends StringHeaderHandler {
+abstract class HeaderHandlerStringQuotedOrUnquoted extends HeaderHandlerString {
 
     /**
      * Package private to limit sub classing.
      */
-    QuotedOrUnquotedStringHeaderHandler(final CharPredicate predicate) {
+    HeaderHandlerStringQuotedOrUnquoted(final CharPredicate predicate) {
         super();
         this.predicate = predicate;
     }

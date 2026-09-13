@@ -17,13 +17,12 @@
 
 package walkingkooka.net.header;
 
-public abstract class QuotedOrUnquotedStringHeaderHandlerTestCase<C extends QuotedOrUnquotedStringHeaderHandler> extends StringHeaderHandlerTestCase<C> {
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-    QuotedOrUnquotedStringHeaderHandlerTestCase() {
-        super();
-    }
+public final class HeaderHandlerStringQuotedOrUnquotedTest implements PackagePrivateClassTesting<HeaderHandlerStringQuotedOrUnquoted> {
 
-    @Override final String handlerToString() {
-        return this.charPredicate().toString();
+    @Override
+    public Class<HeaderHandlerStringQuotedOrUnquoted> type() {
+        return HeaderHandlerStringQuotedOrUnquoted.class;
     }
 }

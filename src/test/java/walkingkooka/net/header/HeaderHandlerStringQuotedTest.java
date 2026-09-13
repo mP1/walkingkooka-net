@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTestCase<QuotedStringHeaderHandler> {
+public final class HeaderHandlerStringQuotedTest extends HeaderHandlerStringTestCase<HeaderHandlerStringQuoted> {
 
     @Test
     public void testParseControlCharacterFails() {
@@ -115,7 +115,7 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
 
     @Test
     public void testRoundtripWithBackslash() {
-        final QuotedStringHeaderHandler handler = this.handlerSupportingBackslashes();
+        final HeaderHandlerStringQuoted handler = this.handlerSupportingBackslashes();
         final String text = "\"a\\\"bc\"";
         final String value = "a\"bc";
 
@@ -128,22 +128,17 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     }
 
     @Override
-    public String typeNamePrefix() {
-        return "QuotedString";
-    }
-
-    @Override
     String invalidHeader() {
         return "123";
     }
 
     @Override
-    protected QuotedStringHeaderHandler handler() {
-        return QuotedStringHeaderHandler.with(this.charPredicate(), false);
+    protected HeaderHandlerStringQuoted handler() {
+        return HeaderHandlerStringQuoted.with(this.charPredicate(), false);
     }
 
-    private QuotedStringHeaderHandler handlerSupportingBackslashes() {
-        return QuotedStringHeaderHandler.with(this.charPredicate(), true);
+    private HeaderHandlerStringQuoted handlerSupportingBackslashes() {
+        return HeaderHandlerStringQuoted.with(this.charPredicate(), true);
     }
 
     @Override String handlerToString() {
@@ -151,7 +146,12 @@ public final class QuotedStringHeaderHandlerTest extends StringHeaderHandlerTest
     }
 
     @Override
-    public Class<QuotedStringHeaderHandler> type() {
-        return QuotedStringHeaderHandler.class;
+    public Class<HeaderHandlerStringQuoted> type() {
+        return HeaderHandlerStringQuoted.class;
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "Quoted";
     }
 }

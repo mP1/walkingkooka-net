@@ -17,28 +17,37 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderHandler} that handles string values.
+ * A {@link HeaderHandler} that handles returns {@link String} header values as they are which may or may not include comments etc.
  */
-abstract class StringHeaderHandler extends HeaderHandler<String> {
+final class HeaderHandlerStringUnaltered extends HeaderHandlerString {
 
     /**
-     * Package private to limit sub classing.
+     * Singleton
      */
-    StringHeaderHandler() {
+    final static HeaderHandlerStringUnaltered INSTANCE = new HeaderHandlerStringUnaltered();
+
+    /**
+     * Private ctor use singleton
+     */
+    private HeaderHandlerStringUnaltered() {
         super();
     }
 
-    @Override final void checkNonNull(final Object value) {
-        this.checkType(value,
-            (v) -> v instanceof String,
-            String.class
-        );
+    @Override
+    String parse0(final String text) {
+        return text;
     }
 
-    @Override final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
-        return Cast.to(headerName);
+    @Override
+    String toText0(final String value, final Name name) {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "String";
     }
 }

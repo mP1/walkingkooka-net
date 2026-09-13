@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerTestCase<UnalteredStringHeaderHandler> {
+public final class HeaderHandlerStringUnalteredTest extends HeaderHandlerStringTestCase<HeaderHandlerStringUnaltered> {
 
     @Override
     public void testInvalidHeaderFails() {
@@ -77,18 +77,13 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
     }
 
     @Override
-    public String typeNamePrefix() {
-        return "UnalteredString";
-    }
-
-    @Override
     String invalidHeader() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected UnalteredStringHeaderHandler handler() {
-        return UnalteredStringHeaderHandler.INSTANCE;
+    protected HeaderHandlerStringUnaltered handler() {
+        return HeaderHandlerStringUnaltered.INSTANCE;
     }
 
     @Override String handlerToString() {
@@ -96,7 +91,12 @@ public final class UnalteredStringHeaderHandlerTest extends StringHeaderHandlerT
     }
 
     @Override
-    public Class<UnalteredStringHeaderHandler> type() {
-        return UnalteredStringHeaderHandler.class;
+    public Class<HeaderHandlerStringUnaltered> type() {
+        return HeaderHandlerStringUnaltered.class;
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "UnalteredString";
     }
 }

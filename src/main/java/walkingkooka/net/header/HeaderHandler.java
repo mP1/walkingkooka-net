@@ -240,7 +240,7 @@ abstract class HeaderHandler<T> {
     static HeaderHandler<String> quotedUnquotedString(final CharPredicate quotedPredicate,
                                                       final boolean supportBackslashEscaping,
                                                       final CharPredicate unquotedPredicate) {
-        return QuotedUnquotedStringHeaderHandler.with(quotedPredicate, supportBackslashEscaping, unquotedPredicate);
+        return HeaderHandlerStringQuotedUnquoted.with(quotedPredicate, supportBackslashEscaping, unquotedPredicate);
     }
 
     /**
@@ -248,7 +248,7 @@ abstract class HeaderHandler<T> {
      */
     static HeaderHandler<String> quoted(final CharPredicate predicate,
                                         final boolean supportBackslashEscaping) {
-        return QuotedStringHeaderHandler.with(predicate, supportBackslashEscaping);
+        return HeaderHandlerStringQuoted.with(predicate, supportBackslashEscaping);
     }
 
     /**
@@ -297,14 +297,14 @@ abstract class HeaderHandler<T> {
      * {@see UnalteredStringHeaderHandler}
      */
     static HeaderHandler<String> string() {
-        return UnalteredStringHeaderHandler.INSTANCE;
+        return HeaderHandlerStringUnaltered.INSTANCE;
     }
 
     /**
      * {@see UnquotedStringHeaderHandler}
      */
     static HeaderHandler<String> unquoted(final CharPredicate predicate) {
-        return UnquotedStringHeaderHandler.with(predicate);
+        return HeaderHandlerStringUnquoted.with(predicate);
     }
 
     /**
