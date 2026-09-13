@@ -21,12 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpMethod;
 
 public final class HttpMethodHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<HttpMethodHeaderHandler, HttpMethod> {
-
-    @Override
-    public String typeNamePrefix() {
-        return HttpMethod.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<HttpMethodHeaderHandler, HttpMethod> {
 
     @Test
     public void testRoundtripGet() {
@@ -73,8 +68,20 @@ public final class HttpMethodHeaderHandlerTest extends
         return HttpMethod.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<HttpMethodHeaderHandler> type() {
         return HttpMethodHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpMethod.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

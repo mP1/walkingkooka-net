@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that parses the {@link CacheControl} header.
  */
-final class CacheControlHeaderHandler extends NonStringHeaderHandler<CacheControl> {
+final class CacheControlHeaderHandler extends HeaderHandlerNonString<CacheControl> {
 
     /**
      * Singleton

@@ -23,14 +23,9 @@ import walkingkooka.collect.Range;
 import java.util.Optional;
 
 public final class ContentRangeHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ContentRangeHeaderHandler, ContentRange> {
+    HeaderHandlerNonStringTestCase<ContentRangeHeaderHandler, ContentRange> {
 
     private final static String TEXT = "bytes 123-456/789";
-
-    @Override
-    public String typeNamePrefix() {
-        return ContentRange.class.getSimpleName();
-    }
 
     @Test
     public void testParseRangeHeader() {
@@ -83,8 +78,20 @@ public final class ContentRangeHeaderHandlerTest extends
         return ContentRange.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ContentRangeHeaderHandler> type() {
         return ContentRangeHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ContentRange.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

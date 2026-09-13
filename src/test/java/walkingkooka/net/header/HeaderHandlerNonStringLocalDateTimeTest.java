@@ -21,13 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-public final class LocalDateTimeHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<LocalDateTimeHeaderHandler, LocalDateTime> {
-
-    @Override
-    public String typeNamePrefix() {
-        return LocalDateTime.class.getSimpleName();
-    }
+public final class HeaderHandlerNonStringLocalDateTimeTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringLocalDateTime, LocalDateTime> {
 
     private final static String TEXT = "Wed, 21 Oct 2015 07:28:00 GMT";
     private final static LocalDateTime VALUE = LocalDateTime.of(2015, 10, 21, 7, 28, 0);
@@ -43,8 +38,8 @@ public final class LocalDateTimeHeaderHandlerTest extends
     }
 
     @Override
-    LocalDateTimeHeaderHandler handler() {
-        return LocalDateTimeHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringLocalDateTime handler() {
+        return HeaderHandlerNonStringLocalDateTime.INSTANCE;
     }
 
     @Override
@@ -72,8 +67,20 @@ public final class LocalDateTimeHeaderHandlerTest extends
         return LocalDateTime.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<LocalDateTimeHeaderHandler> type() {
-        return LocalDateTimeHeaderHandler.class;
+    public Class<HeaderHandlerNonStringLocalDateTime> type() {
+        return HeaderHandlerNonStringLocalDateTime.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return LocalDateTime.class.getSimpleName();
     }
 }

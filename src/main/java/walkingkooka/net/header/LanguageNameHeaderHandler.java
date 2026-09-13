@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into one {@link LanguageName}.
  */
-final class LanguageNameHeaderHandler extends NonStringHeaderHandler<LanguageName> {
+final class LanguageNameHeaderHandler extends HeaderHandlerNonString<LanguageName> {
 
     /**
      * Singleton

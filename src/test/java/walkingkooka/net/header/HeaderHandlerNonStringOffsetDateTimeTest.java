@@ -24,8 +24,8 @@ import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class OffsetDateTimeHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<OffsetDateTimeHeaderHandler, OffsetDateTime> {
+public final class HeaderHandlerNonStringOffsetDateTimeTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringOffsetDateTime, OffsetDateTime> {
 
     @Test
     public void testyParseEmptyFails() {
@@ -51,14 +51,9 @@ public final class OffsetDateTimeHeaderHandlerTest extends
         );
     }
 
-    @Override
-    public String typeNamePrefix() {
-        return OffsetDateTime.class.getSimpleName();
-    }
-
     @Test
     public void testDateWithGmtFails() {
-        assertThrows(HeaderException.class, () -> OffsetDateTimeHeaderHandler.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\""
+        assertThrows(HeaderException.class, () -> HeaderHandlerNonStringOffsetDateTime.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\""
         ));
     }
 
@@ -89,8 +84,8 @@ public final class OffsetDateTimeHeaderHandlerTest extends
     }
 
     @Override
-    OffsetDateTimeHeaderHandler handler() {
-        return OffsetDateTimeHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringOffsetDateTime handler() {
+        return HeaderHandlerNonStringOffsetDateTime.INSTANCE;
     }
 
     @Override
@@ -125,8 +120,20 @@ public final class OffsetDateTimeHeaderHandlerTest extends
         return OffsetDateTime.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<OffsetDateTimeHeaderHandler> type() {
-        return OffsetDateTimeHeaderHandler.class;
+    public Class<HeaderHandlerNonStringOffsetDateTime> type() {
+        return HeaderHandlerNonStringOffsetDateTime.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return OffsetDateTime.class.getSimpleName();
     }
 }

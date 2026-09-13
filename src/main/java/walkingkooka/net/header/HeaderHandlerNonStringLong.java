@@ -18,46 +18,52 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.Url;
+import walkingkooka.text.CharSequences;
 
 /**
- * A {@link HeaderHandler} that parses a header value into a {@link Url}.
- * This is useful for headers such as {@link HttpHeaderName#LOCATION}.
+ * A {@link HeaderHandler} that parses a header value into a {@link Long}
  */
-final class UrlHeaderHandler extends NonStringHeaderHandler<Url> {
+final class HeaderHandlerNonStringLong extends HeaderHandlerNonString<Long> {
 
     /**
      * Singleton
      */
-    final static UrlHeaderHandler INSTANCE = new UrlHeaderHandler();
+    final static HeaderHandlerNonStringLong INSTANCE = new HeaderHandlerNonStringLong();
 
     /**
      * Private ctor use singleton.
      */
-    private UrlHeaderHandler() {
+    private HeaderHandlerNonStringLong() {
         super();
     }
 
     @Override
-    Url parse0(final String text) {
-        return Url.parse(text);
+    Long parse0(final String text) {
+        final String trimmed = text.trim();
+        CharSequences.failIfNullOrEmpty(trimmed, "text");
+
+        try {
+            return Long.parseLong(trimmed);
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid number in " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-            v -> v instanceof Url,
-            Url.class
+            v -> v instanceof Long,
+            Long.class
         );
     }
 
     @Override
-    String toText0(final Url value, final Name name) {
-        return value.toString();
+    String toText0(final Long value, final Name name) {
+        return Long.toString(value);
     }
 
     @Override
     public String toString() {
-        return toStringType(Url.class);
+        return toStringType(Long.class);
     }
 }

@@ -27,12 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class LinkHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<LinkHeaderHandler, List<Link>> {
-
-    @Override
-    public String typeNamePrefix() {
-        return Link.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<LinkHeaderHandler, List<Link>> {
 
     // http://www.rfc-editor.org/rfc/rfc5988.txt
 
@@ -100,8 +95,20 @@ public final class LinkHeaderHandlerTest extends
         return "List<Link>";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<LinkHeaderHandler> type() {
         return LinkHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return Link.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

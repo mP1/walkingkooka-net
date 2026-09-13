@@ -24,14 +24,9 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<AcceptHeaderHandler, Accept> {
+    HeaderHandlerNonStringTestCase<AcceptHeaderHandler, Accept> {
 
     private final static String TEXT = "type1/subType1; p1=v1, type2/subType2";
-
-    @Override
-    public String typeNamePrefix() {
-        return Accept.class.getSimpleName();
-    }
 
     @Test
     public void testParseMultipleMediaTypes() {
@@ -87,8 +82,20 @@ public final class AcceptHeaderHandlerTest extends
         return Accept.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<AcceptHeaderHandler> type() {
         return AcceptHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return Accept.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

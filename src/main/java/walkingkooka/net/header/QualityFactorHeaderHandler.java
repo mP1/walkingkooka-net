@@ -24,7 +24,7 @@ import walkingkooka.text.CharSequences;
  * A {@link HeaderHandler} that parses a header text into a quality weights and verifies the value is within the
  * accept range of 0.0 and 1.0 (inclusive).
  */
-final class QualityFactorHeaderHandler extends NonStringHeaderHandler<Float> {
+final class QualityFactorHeaderHandler extends HeaderHandlerNonString<Float> {
 
     /**
      * Singleton

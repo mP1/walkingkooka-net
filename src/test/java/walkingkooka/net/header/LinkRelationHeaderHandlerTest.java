@@ -23,12 +23,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 
 public final class LinkRelationHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<LinkRelationHeaderHandler, List<LinkRelation<?>>> {
-
-    @Override
-    public String typeNamePrefix() {
-        return LinkRelation.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<LinkRelationHeaderHandler, List<LinkRelation<?>>> {
 
     // http://www.rfc-editor.org/rfc/rfc5988.txt
 
@@ -87,8 +82,20 @@ public final class LinkRelationHeaderHandlerTest extends
         return "List<LinkRelation>";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<LinkRelationHeaderHandler> type() {
         return LinkRelationHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return LinkRelation.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

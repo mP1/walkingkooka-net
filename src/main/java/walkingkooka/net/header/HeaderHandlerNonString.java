@@ -20,11 +20,11 @@ package walkingkooka.net.header;
 /**
  * Base handler that provides support for converting header text to values and back where T is not {@link String}.
  */
-abstract class NonStringHeaderHandler<T> extends HeaderHandler<T> {
+abstract class HeaderHandlerNonString<T> extends HeaderHandler<T> {
     /**
      * Package private to limit sub classing.
      */
-    NonStringHeaderHandler() {
+    HeaderHandlerNonString() {
         super();
     }
 

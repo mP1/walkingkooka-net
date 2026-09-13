@@ -25,12 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHeaderNameListHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<HttpHeaderNameListHeaderHandler, List<HttpHeaderName<?>>> {
-
-    @Override
-    public String typeNamePrefix() {
-        return HttpHeaderName.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<HttpHeaderNameListHeaderHandler, List<HttpHeaderName<?>>> {
 
     @Test
     public void testParse() {
@@ -113,8 +108,20 @@ public final class HttpHeaderNameListHeaderHandlerTest extends
         return "List<HttpHeaderName>";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<HttpHeaderNameListHeaderHandler> type() {
         return HttpHeaderNameListHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpHeaderName.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

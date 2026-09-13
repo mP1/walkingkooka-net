@@ -25,7 +25,7 @@ import walkingkooka.text.CharSequences;
  * A handler that accepts both {@link Long} and {@link String} values. This handler is only intended
  * for extension (non standard) directives which could hold either numbers or quoted text.
  */
-final class CacheControlDirectiveExtensionHeaderHandler extends NonStringHeaderHandler<Object> {
+final class CacheControlDirectiveExtensionHeaderHandler extends HeaderHandlerNonString<Object> {
 
     /**
      * Singleton

@@ -17,55 +17,48 @@
 
 package walkingkooka.net.header;
 
-
 import walkingkooka.naming.Name;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.CharSequences;
-
-import java.util.Optional;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 
 /**
- * A {@link HeaderHandler} that parses a header value into a {@link EmailAddress}.
- * This is useful for headers such as {@link HttpHeaderName#FROM}.
+ * A {@link HeaderHandler} that parses a header value into a {@link AbsoluteUrl}.
+ * This is useful for headers such as {@link HttpHeaderName#REFERER}.
  */
-final class EmailAddressHeaderHandler extends NonStringHeaderHandler<EmailAddress> {
+final class HeaderHandlerNonStringAbsoluteUrl extends HeaderHandlerNonString<AbsoluteUrl> {
 
     /**
      * Singleton
      */
-    final static EmailAddressHeaderHandler INSTANCE = new EmailAddressHeaderHandler();
+    final static HeaderHandlerNonStringAbsoluteUrl INSTANCE = new HeaderHandlerNonStringAbsoluteUrl();
 
     /**
      * Private ctor use singleton.
      */
-    private EmailAddressHeaderHandler() {
+    private HeaderHandlerNonStringAbsoluteUrl() {
         super();
     }
 
     @Override
-    EmailAddress parse0(final String text) {
-        final Optional<EmailAddress> emailAddress = EmailAddress.tryParse(text);
-        if (!emailAddress.isPresent()) {
-            throw new IllegalArgumentException("Invalid email " + CharSequences.quote(text));
-        }
-        return emailAddress.get();
+    AbsoluteUrl parse0(final String text) {
+        return Url.parseAbsolute(text);
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-            v -> v instanceof EmailAddress,
-            EmailAddress.class
+            v -> v instanceof AbsoluteUrl,
+            AbsoluteUrl.class
         );
     }
 
     @Override
-    String toText0(final EmailAddress value, final Name name) {
-        return value.toString();
+    String toText0(final AbsoluteUrl value, final Name name) {
+        return value.value();
     }
 
     @Override
     public String toString() {
-        return toStringType(EmailAddress.class);
+        return toStringType(AbsoluteUrl.class);
     }
 }

@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into one {@link ServerCookie}.
  */
-final class ServerCookieHeaderHandler extends NonStringHeaderHandler<ServerCookie> {
+final class ServerCookieHeaderHandler extends HeaderHandlerNonString<ServerCookie> {
 
     /**
      * Singleton

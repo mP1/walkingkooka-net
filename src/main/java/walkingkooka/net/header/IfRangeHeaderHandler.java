@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into one {@link IfRange}.
  */
-final class IfRangeHeaderHandler extends NonStringHeaderHandler<IfRange<?>> {
+final class IfRangeHeaderHandler extends HeaderHandlerNonString<IfRange<?>> {
 
     /**
      * Singleton

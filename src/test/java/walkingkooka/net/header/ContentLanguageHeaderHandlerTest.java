@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentLanguageHeaderHandlerTest extends NonStringHeaderHandlerTestCase<ContentLanguageHeaderHandler, ContentLanguage> {
+public final class ContentLanguageHeaderHandlerTest extends HeaderHandlerNonStringTestCase<ContentLanguageHeaderHandler, ContentLanguage> {
 
     @Test
     public void testParse() {
@@ -75,11 +75,6 @@ public final class ContentLanguageHeaderHandlerTest extends NonStringHeaderHandl
         return this.valueType(ContentLanguage.class);
     }
 
-    @Override
-    public String typeNamePrefix() {
-        return ContentLanguage.class.getSimpleName();
-    }
-
     private LanguageName en() {
         return LanguageName.with("en");
     }
@@ -88,8 +83,20 @@ public final class ContentLanguageHeaderHandlerTest extends NonStringHeaderHandl
         return LanguageName.with("fr");
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ContentLanguageHeaderHandler> type() {
         return ContentLanguageHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ContentLanguage.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

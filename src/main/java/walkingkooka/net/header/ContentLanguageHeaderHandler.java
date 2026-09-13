@@ -27,7 +27,7 @@ import walkingkooka.naming.Name;
  * Content-Language: de-DE, en-CA
  * </pre>
  */
-final class ContentLanguageHeaderHandler extends NonStringHeaderHandler<ContentLanguage> {
+final class ContentLanguageHeaderHandler extends HeaderHandlerNonString<ContentLanguage> {
 
     /**
      * Singleton

@@ -17,13 +17,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.reflect.PackagePrivateClassTesting;
+public abstract class HeaderHandlerNonStringTestCase<C extends HeaderHandlerNonString<T>, T> extends HeaderHandlerTestCase<C, T> {
 
-public final class NonStringHeaderHandlerTest implements PackagePrivateClassTesting<NonStringHeaderHandler<Void>> {
-
-    @Override
-    public Class<NonStringHeaderHandler<Void>> type() {
-        return Cast.to(NonStringHeaderHandler.class);
+    HeaderHandlerNonStringTestCase() {
+        super();
     }
 }

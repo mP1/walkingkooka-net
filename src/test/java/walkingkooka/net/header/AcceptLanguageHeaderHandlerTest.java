@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptLanguageHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<AcceptLanguageHeaderHandler, AcceptLanguage> {
+    HeaderHandlerNonStringTestCase<AcceptLanguageHeaderHandler, AcceptLanguage> {
 
     private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
 
@@ -84,17 +84,20 @@ public final class AcceptLanguageHeaderHandlerTest extends
         return AcceptLanguage.class.getSimpleName();
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<AcceptLanguageHeaderHandler> type() {
         return AcceptLanguageHeaderHandler.class;
     }
 
-    // TypeNameTesting..................................................................................................
-
     @Override
     public String typeNamePrefix() {
-        return "";
+        return AcceptLanguage.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

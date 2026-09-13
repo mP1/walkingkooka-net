@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into an {@link Accept}.
  */
-final class AcceptHeaderHandler extends NonStringHeaderHandler<Accept> {
+final class AcceptHeaderHandler extends HeaderHandlerNonString<Accept> {
 
     /**
      * Singleton

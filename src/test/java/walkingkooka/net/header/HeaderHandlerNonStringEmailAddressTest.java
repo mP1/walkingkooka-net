@@ -20,13 +20,8 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
-public final class EmailAddressHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<EmailAddressHeaderHandler, EmailAddress> {
-
-    @Override
-    public String typeNamePrefix() {
-        return EmailAddress.class.getSimpleName();
-    }
+public final class HeaderHandlerNonStringEmailAddressTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringEmailAddress, EmailAddress> {
 
     @Test
     public void testFrom() {
@@ -35,8 +30,8 @@ public final class EmailAddressHeaderHandlerTest extends
     }
 
     @Override
-    EmailAddressHeaderHandler handler() {
-        return EmailAddressHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringEmailAddress handler() {
+        return HeaderHandlerNonStringEmailAddress.INSTANCE;
     }
 
     @Override
@@ -64,8 +59,20 @@ public final class EmailAddressHeaderHandlerTest extends
         return EmailAddress.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<EmailAddressHeaderHandler> type() {
-        return EmailAddressHeaderHandler.class;
+    public Class<HeaderHandlerNonStringEmailAddress> type() {
+        return HeaderHandlerNonStringEmailAddress.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return EmailAddress.class.getSimpleName();
     }
 }

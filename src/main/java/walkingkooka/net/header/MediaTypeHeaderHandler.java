@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into one {@link MediaType}.
  */
-final class MediaTypeHeaderHandler extends NonStringHeaderHandler<MediaType> {
+final class MediaTypeHeaderHandler extends HeaderHandlerNonString<MediaType> {
 
     /**
      * Singleton

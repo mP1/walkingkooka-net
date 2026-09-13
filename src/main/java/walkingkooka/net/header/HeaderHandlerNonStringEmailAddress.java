@@ -17,48 +17,55 @@
 
 package walkingkooka.net.header;
 
+
 import walkingkooka.naming.Name;
-import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.Url;
+import walkingkooka.net.email.EmailAddress;
+import walkingkooka.text.CharSequences;
+
+import java.util.Optional;
 
 /**
- * A {@link HeaderHandler} that parses a header value into a {@link RelativeUrl}.
- * This is useful for headers such as {@link HttpHeaderName#CONTENT_LOCATION}.
+ * A {@link HeaderHandler} that parses a header value into a {@link EmailAddress}.
+ * This is useful for headers such as {@link HttpHeaderName#FROM}.
  */
-final class RelativeUrlHeaderHandler extends NonStringHeaderHandler<RelativeUrl> {
+final class HeaderHandlerNonStringEmailAddress extends HeaderHandlerNonString<EmailAddress> {
 
     /**
      * Singleton
      */
-    final static RelativeUrlHeaderHandler INSTANCE = new RelativeUrlHeaderHandler();
+    final static HeaderHandlerNonStringEmailAddress INSTANCE = new HeaderHandlerNonStringEmailAddress();
 
     /**
      * Private ctor use singleton.
      */
-    private RelativeUrlHeaderHandler() {
+    private HeaderHandlerNonStringEmailAddress() {
         super();
     }
 
     @Override
-    RelativeUrl parse0(final String text) {
-        return Url.parseRelative(text);
+    EmailAddress parse0(final String text) {
+        final Optional<EmailAddress> emailAddress = EmailAddress.tryParse(text);
+        if (!emailAddress.isPresent()) {
+            throw new IllegalArgumentException("Invalid email " + CharSequences.quote(text));
+        }
+        return emailAddress.get();
     }
 
     @Override
     void checkNonNull(final Object value) {
         this.checkType(value,
-            v -> v instanceof RelativeUrl,
-            RelativeUrl.class
+            v -> v instanceof EmailAddress,
+            EmailAddress.class
         );
     }
 
     @Override
-    String toText0(final RelativeUrl value, final Name name) {
+    String toText0(final EmailAddress value, final Name name) {
         return value.toString();
     }
 
     @Override
     public String toString() {
-        return toStringType(RelativeUrl.class);
+        return toStringType(EmailAddress.class);
     }
 }

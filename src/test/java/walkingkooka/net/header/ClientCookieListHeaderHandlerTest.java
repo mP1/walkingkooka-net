@@ -25,12 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ClientCookieListHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ClientCookieListHeaderHandler, List<ClientCookie>> {
-
-    @Override
-    public String typeNamePrefix() {
-        return ClientCookie.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<ClientCookieListHeaderHandler, List<ClientCookie>> {
 
     @Test
     public void testClientCookie() {
@@ -88,8 +83,20 @@ public final class ClientCookieListHeaderHandlerTest extends
         return "List<ClientCookie>";
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ClientCookieListHeaderHandler> type() {
         return ClientCookieListHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ClientCookie.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

@@ -21,13 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
-public final class RelativeUrlHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<RelativeUrlHeaderHandler, RelativeUrl> {
-
-    @Override
-    public String typeNamePrefix() {
-        return RelativeUrl.class.getSimpleName();
-    }
+public final class HeaderHandlerNonStringRelativeUrlTest extends
+    HeaderHandlerNonStringTestCase<HeaderHandlerNonStringRelativeUrl, RelativeUrl> {
 
     @Test
     public void testContentLocation() {
@@ -36,8 +31,8 @@ public final class RelativeUrlHeaderHandlerTest extends
     }
 
     @Override
-    RelativeUrlHeaderHandler handler() {
-        return RelativeUrlHeaderHandler.INSTANCE;
+    HeaderHandlerNonStringRelativeUrl handler() {
+        return HeaderHandlerNonStringRelativeUrl.INSTANCE;
     }
 
     @Override
@@ -65,8 +60,20 @@ public final class RelativeUrlHeaderHandlerTest extends
         return RelativeUrl.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<RelativeUrlHeaderHandler> type() {
-        return RelativeUrlHeaderHandler.class;
+    public Class<HeaderHandlerNonStringRelativeUrl> type() {
+        return HeaderHandlerNonStringRelativeUrl.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderHandlerNonString.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return RelativeUrl.class.getSimpleName();
     }
 }

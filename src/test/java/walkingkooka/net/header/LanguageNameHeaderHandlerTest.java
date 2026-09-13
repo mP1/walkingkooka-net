@@ -20,12 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class LanguageNameHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<LanguageNameHeaderHandler, LanguageName> {
-
-    @Override
-    public String typeNamePrefix() {
-        return LanguageName.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<LanguageNameHeaderHandler, LanguageName> {
 
     @Test
     public void testRoundtrip() {
@@ -62,8 +57,20 @@ public final class LanguageNameHeaderHandlerTest extends
         return LanguageName.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<LanguageNameHeaderHandler> type() {
         return LanguageNameHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return LanguageName.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.net.http.HttpMethod;
 /**
  * A {@link HeaderHandler} that handles a single {@link HttpMethod method}.
  */
-final class HttpMethodHeaderHandler extends NonStringHeaderHandler<HttpMethod> {
+final class HttpMethodHeaderHandler extends HeaderHandlerNonString<HttpMethod> {
 
     /**
      * Singleton

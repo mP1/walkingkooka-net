@@ -20,12 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ETagHeaderHandlerTest extends
-    NonStringHeaderHandlerTestCase<ETagHeaderHandler, ETag> {
-
-    @Override
-    public String typeNamePrefix() {
-        return ETag.class.getSimpleName();
-    }
+    HeaderHandlerNonStringTestCase<ETagHeaderHandler, ETag> {
 
     @Test
     public void testParse() {
@@ -73,8 +68,20 @@ public final class ETagHeaderHandlerTest extends
         return ETag.class.getSimpleName();
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<ETagHeaderHandler> type() {
         return ETagHeaderHandler.class;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ETag.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderHandler.class.getSimpleName();
     }
 }

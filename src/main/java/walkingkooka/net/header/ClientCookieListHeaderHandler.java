@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A {@link HeaderHandler} that converts a {@link String} into one {@link ClientCookie}.
  */
-final class ClientCookieListHeaderHandler extends NonStringHeaderHandler<List<ClientCookie>> {
+final class ClientCookieListHeaderHandler extends HeaderHandlerNonString<List<ClientCookie>> {
 
     /**
      * Singleton
