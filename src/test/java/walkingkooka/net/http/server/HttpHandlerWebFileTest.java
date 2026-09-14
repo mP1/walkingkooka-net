@@ -46,7 +46,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpHandlerWebFileTest implements HttpHandlerTesting<HttpHandlerWebFile<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
+public final class HttpHandlerWebFileTest implements HttpHandlerTesting2<HttpHandlerWebFile<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
     ToStringTesting<HttpHandlerWebFile<FakeHttpHandlerContext>> {
 
     private final static LocalDateTime NO_LAST_MODIFIED = null;

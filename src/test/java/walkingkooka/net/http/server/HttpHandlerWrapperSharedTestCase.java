@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpHandlerWrapperSharedTestCase<H extends HttpHandlerWrapperShared<C>, C extends HttpHandlerContext>
-    implements HttpHandlerTesting<H, C>,
+    implements HttpHandlerTesting2<H, C>,
     TypeNameTesting<H> {
 
     HttpHandlerWrapperSharedTestCase() {

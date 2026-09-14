@@ -24,7 +24,7 @@ import walkingkooka.net.http.HttpMethod;
 /**
  * Mixin interface for testing {@link GetOrHeadHttpHandler}
  */
-public interface GetHeadPostOrDeleteHttpHandlerTesting<H extends GetHeadPostOrDeleteHttpHandler<C>, C extends HttpHandlerContext> extends HttpHandlerTesting<H, C> {
+public interface GetHeadPostOrDeleteHttpHandlerTesting<H extends GetHeadPostOrDeleteHttpHandler<C>, C extends HttpHandlerContext> extends HttpHandlerTesting2<H, C> {
 
     @Test
     default void testHandleConnect() {
