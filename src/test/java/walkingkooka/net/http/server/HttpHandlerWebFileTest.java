@@ -34,7 +34,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -352,10 +351,5 @@ public final class HttpHandlerWebFileTest implements HttpHandlerTesting2<HttpHan
     @Override
     public Class<HttpHandlerWebFile<FakeHttpHandlerContext>> type() {
         return Cast.to(HttpHandlerWebFile.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
