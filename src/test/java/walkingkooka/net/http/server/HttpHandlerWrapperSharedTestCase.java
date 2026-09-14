@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,11 +46,6 @@ public abstract class HttpHandlerWrapperSharedTestCase<H extends HttpHandlerWrap
     }
 
     abstract H createHttpHandler(final HttpHandler<C> handler);
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 
     @Override
     public final String typeNamePrefix() {

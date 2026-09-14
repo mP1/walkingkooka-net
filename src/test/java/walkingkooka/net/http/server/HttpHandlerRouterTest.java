@@ -24,7 +24,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
 
 import java.util.Map;
@@ -167,10 +166,5 @@ public final class HttpHandlerRouterTest implements HttpHandlerTesting2<HttpHand
     @Override
     public Class<HttpHandlerRouter<FakeHttpHandlerContext>> type() {
         return Cast.to(HttpHandlerRouter.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

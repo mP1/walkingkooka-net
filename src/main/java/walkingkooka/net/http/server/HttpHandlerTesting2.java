@@ -18,11 +18,11 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface HttpHandlerTesting2<H extends HttpHandler<C>, C extends HttpHandlerContext> extends ClassTesting<H>,
+public interface HttpHandlerTesting2<H extends HttpHandler<C>, C extends HttpHandlerContext> extends PackagePrivateClassTesting<H>,
     HttpHandlerTesting {
 
     @Test
