@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class HttpHandler2Test implements HttpHandlerTesting<FakeHttpHandler2<FakeHttpHandlerContext>, FakeHttpHandlerContext> {
+public final class HttpHandler2Test implements HttpHandlerTesting2<FakeHttpHandler2<FakeHttpHandlerContext>, FakeHttpHandlerContext> {
 
     @Test
     public void testHandleConnect() {

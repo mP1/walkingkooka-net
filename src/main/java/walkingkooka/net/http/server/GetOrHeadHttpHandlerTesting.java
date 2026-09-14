@@ -25,7 +25,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 /**
  * Mixin interface for testing {@link GetOrHeadHttpHandler}
  */
-public interface GetOrHeadHttpHandlerTesting<H extends GetOrHeadHttpHandler<C>, C extends HttpHandlerContext> extends HttpHandlerTesting<H, C> {
+public interface GetOrHeadHttpHandlerTesting<H extends GetOrHeadHttpHandler<C>, C extends HttpHandlerContext> extends HttpHandlerTesting2<H, C> {
 
     @Test
     default void testHandleConnect() {

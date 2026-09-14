@@ -17,89 +17,14 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public interface HttpHandlerTesting extends TreePrintableTesting {
 
-public interface HttpHandlerTesting<H extends HttpHandler<C>, C extends HttpHandlerContext> extends ClassTesting<H>,
-    TreePrintableTesting {
-
-    @Test
-    default void testHandleWithNullRequestFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHttpHandler()
-                .handle(
-                    null,
-                    HttpResponses.fake(),
-                    this.createContext()
-                )
-        );
-    }
-
-    @Test
-    default void testHandleWithNullResponseFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHttpHandler()
-                .handle(
-                    HttpRequests.fake(),
-                    null,
-                    this.createContext()
-                )
-        );
-    }
-
-    @Test
-    default void testHandleWithNullContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHttpHandler()
-                .handle(
-                    HttpRequests.fake(),
-                    HttpResponses.fake(),
-                    null
-                )
-        );
-    }
-
-    default void handleAndCheck(final HttpRequest request,
-                                final HttpResponse expected) {
-        this.handleAndCheck(
-            request,
-            this.createContext(),
-            expected
-        );
-    }
-
-    default void handleAndCheck(final HttpRequest request,
-                                final C context,
-                                final HttpResponse expected) {
-        this.handleAndCheck(
-            this.createHttpHandler(),
-            request,
-            context,
-            expected
-        );
-    }
-
-    default void handleAndCheck(final H handler,
-                                final HttpRequest request,
-                                final HttpResponse expected) {
-        this.handleAndCheck(
-            handler,
-            request,
-            this.createContext(),
-            expected
-        );
-    }
-
-    default void handleAndCheck(final H handler,
-                                final HttpRequest request,
-                                final C context,
-                                final HttpResponse expected) {
+    default <H extends HttpHandler<C>, C extends HttpHandlerContext> void handleAndCheck(final H handler,
+                                                                                         final HttpRequest request,
+                                                                                         final C context,
+                                                                                         final HttpResponse expected) {
         final HttpResponse response = HttpResponses.recording();
 
         handler.handle(
@@ -114,8 +39,4 @@ public interface HttpHandlerTesting<H extends HttpHandler<C>, C extends HttpHand
             request::toString
         );
     }
-
-    H createHttpHandler();
-
-    C createContext();
 }
