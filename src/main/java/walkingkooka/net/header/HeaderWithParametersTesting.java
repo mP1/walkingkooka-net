@@ -32,13 +32,22 @@ public interface HeaderWithParametersTesting<V extends HeaderWithParameters<N>,
 
     @Test
     default void testSetParametersNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createHeaderWithParameters().setParameters(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHeaderWithParameters()
+                .setParameters(null)
+        );
     }
 
     @Test
     default void testSetParametersSame() {
         final V headerWithParameters = this.createHeaderWithParameters();
-        assertSame(headerWithParameters, headerWithParameters.setParameters(headerWithParameters.parameters()));
+        assertSame(
+            headerWithParameters,
+            headerWithParameters.setParameters(
+                headerWithParameters.parameters()
+            )
+        );
     }
 
     V createHeaderWithParameters();
