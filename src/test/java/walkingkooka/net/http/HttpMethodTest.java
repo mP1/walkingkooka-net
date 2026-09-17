@@ -23,7 +23,7 @@ import walkingkooka.HasValueTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.net.header.HeaderTesting;
+import walkingkooka.net.header.HeaderTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.FieldAttributes;
@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
-    HeaderTesting<HttpMethod>,
+    HeaderTesting2<HttpMethod>,
     HasShortMessageTesting,
     HasValueTesting,
     ThrowableTesting,

@@ -17,112 +17,20 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.ToStringTesting;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.HasTextTesting;
-
-import java.util.Arrays;
 
 /**
  * Mixin interface with helpers to assist testing of {@link Header} implementations.
  */
-public interface HeaderTesting<V extends Header> extends HasTextTesting,
-    HashCodeEqualsDefinedTesting2<V>,
-    ToStringTesting<V> {
-
-    @Test
-    default void testIsMultipart() {
-        this.checkEquals(
-            this.isMultipart(),
-            this.createHeader()
-                .isMultipart()
-        );
-    }
-
-    @Test
-    default void testIsRequest() {
-        this.checkEquals(
-            this.isRequest(),
-            this.createHeader()
-                .isRequest()
-        );
-    }
-
-    @Test
-    default void testIsResponse() {
-        this.checkEquals(
-            this.isResponse(),
-            this.createHeader()
-                .isResponse()
-        );
-    }
-
-    @Test
-    default void testIsWildcardHeaderText() {
-        final V header = this.createHeader();
-        this.isWildcardAndCheck(
-            header,
-            String.valueOf(Header.WILDCARD)
-                .equals(header.text())
-        );
-    }
-
-    boolean isMultipart();
-
-    boolean isRequest();
-
-    boolean isResponse();
-
-    V createHeader();
-
-    V createDifferentHeader();
-
-    //@Override
-    default RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(
-            expected.getMessage(),
-            expected
-        );
-    }
-
-    //@Override
-    default Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return HeaderException.class;
-    }
-
-    default void textAndCheck(final String expected) {
-        this.textAndCheck(
-            this.createHeader(),
-            expected
-        );
-    }
-
-    default void toHeaderTextListAndCheck(final String toString,
-                                          final Header... headers) {
-        this.checkEquals(
-            toString,
-            Header.toHeaderTextList(
-                Lists.of(headers),
-                Header.SEPARATOR.string()
-                    .concat(" ")
-            ),
-            () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headers)
-        );
-    }
-
-    default void isWildcardAndCheck(final boolean expected) {
-        this.isWildcardAndCheck(
-            this.createHeader(),
-            expected
-        );
-    }
+public interface HeaderTesting extends HasTextTesting {
 
     default void isWildcardAndCheck(final Header header,
                                     final boolean expected) {
-        this.isWildcardAndCheck0(header, expected);
+        this.isWildcardAndCheck0(
+            header,
+            expected
+        );
 
         final String text = header.text();
         this.isWildcardAndCheck0(
@@ -142,60 +50,14 @@ public interface HeaderTesting<V extends Header> extends HasTextTesting,
         );
     }
 
-    // equalsIgnoringParameters.........................................................................................
-
-    @Test
-    default void testEqualsIgnoringParametersNullFalse() {
-        this.equalsIgnoringParametersAndCheck(
-            this.createHeader(),
-            null,
-            false
-        );
-    }
-
-    @Test
-    default void testEqualsIgnoringParametersInvalidTypeFalse() {
-        this.equalsIgnoringParametersAndCheck(
-            this.createHeader(),
-            this,
-            false
-        );
-    }
-
-    @Test
-    default void testEqualsIgnoringParametersDifferent() {
-        this.equalsIgnoringParametersAndCheck(
-            this.createHeader(),
-            this.createDifferentHeader(),
-            false
-        );
-    }
-
-    @Test
-    default void testEqualsIgnoringParametersSelfTrue() {
-        final V header = this.createHeader();
-        this.equalsIgnoringParametersAndCheck(
-            header,
-            header,
-            true
-        );
-    }
-
-    @Test
-    default void testEqualsIgnoringParametersTrue() {
-        this.equalsIgnoringParametersAndCheck(
-            this.createHeader(),
-            this.createHeader(),
-            true
-        );
-    }
-
     default void equalsIgnoringParametersAndCheck(final Header header,
                                                   final Object other,
                                                   final boolean expected) {
-        this.checkEquals(expected,
+        this.checkEquals(
+            expected,
             header.equalsIgnoringParameters(other),
-            () -> header + " equalsIgnoringParameters " + other);
+            () -> header + " equalsIgnoringParameters " + other
+        );
 
         if (other instanceof Header) {
             final Header otherHeader = Cast.to(other);
@@ -205,66 +67,13 @@ public interface HeaderTesting<V extends Header> extends HasTextTesting,
         }
     }
 
-    // equalsOnlyPresentParameters......................................................................................
-
-    @Test
-    default void testEqualsOnlyPresentParametersNullFalse() {
-        this.equalsOnlyPresentParametersAndCheck(
-            this.createHeader(),
-            null,
-            false
-        );
-    }
-
-    @Test
-    default void testEqualsOnlyPresentParametersInvalidTypeFalse() {
-        this.equalsOnlyPresentParametersAndCheck(
-            this.createHeader(),
-            this,
-            false
-        );
-    }
-
-    @Test
-    default void testEqualsOnlyPresentParametersSelfTrue() {
-        final V header = this.createHeader();
-        this.equalsOnlyPresentParametersAndCheck(
-            header,
-            header,
-            true
-        );
-    }
-
-    @Test
-    default void testEqualsOnlyPresentParametersTrue() {
-        this.equalsOnlyPresentParametersAndCheck(
-            this.createHeader(),
-            this.createHeader(),
-            true
-        );
-    }
-
-
-    @Test
-    default void testEqualsOnlyPresentParametersDifferentFalse() {
-        this.equalsOnlyPresentParametersAndCheck(
-            this.createHeader(),
-            this.createDifferentHeader(),
-            false
-        );
-    }
-
     default void equalsOnlyPresentParametersAndCheck(final Header header,
                                                      final Object other,
                                                      final boolean expected) {
         this.checkEquals(
             expected,
             header.equalsOnlyPresentParameters(other),
-            () -> header + " equalsOnlyPresentParameters " + other);
-    }
-
-    @Override
-    default V createObject() {
-        return this.createHeader();
+            () -> header + " equalsOnlyPresentParameters " + other
+        );
     }
 }

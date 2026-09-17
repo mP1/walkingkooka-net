@@ -30,7 +30,7 @@ import java.util.List;
  * Base class for all {@link Header} in this package.
  */
 public abstract class HeaderTestCase<V extends Header> implements ClassTesting2<V>,
-    HeaderTesting<V>,
+    HeaderTesting2<V>,
     ListTesting,
     HasValueTesting {
 
