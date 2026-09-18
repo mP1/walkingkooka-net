@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class ETagComputersTest implements PublicStaticHelperTesting<ETagCo
     @Override
     public Class<ETagComputers> type() {
         return ETagComputers.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
