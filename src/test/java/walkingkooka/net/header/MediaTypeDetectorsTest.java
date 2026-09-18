@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -32,10 +31,5 @@ public final class MediaTypeDetectorsTest implements PublicStaticHelperTesting<M
     @Override
     public Class<MediaTypeDetectors> type() {
         return MediaTypeDetectors.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class HttpHandlersTest implements PublicStaticHelperTesting<HttpHan
     @Override
     public Class<HttpHandlers> type() {
         return HttpHandlers.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

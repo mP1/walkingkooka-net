@@ -31,7 +31,6 @@ import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -202,11 +201,6 @@ public final class NetConvertersTest implements ConverterTesting,
     @Override
     public Class<NetConverters> type() {
         return NetConverters.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
