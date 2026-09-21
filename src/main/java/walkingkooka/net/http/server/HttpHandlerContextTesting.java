@@ -17,11 +17,13 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.net.header.ETagComputerTesting;
 import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 public interface HttpHandlerContextTesting extends BinaryTextContextTesting,
     ETagComputerTesting,
+    LoggingContextTesting,
     TreePrintableTesting {
 }

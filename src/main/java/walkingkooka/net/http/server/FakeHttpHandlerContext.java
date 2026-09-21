@@ -18,16 +18,38 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
+import walkingkooka.logging.FakeLoggingContext;
 import walkingkooka.net.header.ETag;
-import walkingkooka.text.FakeBinaryTextContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 
+import java.nio.charset.Charset;
 import java.util.Optional;
 
-public class FakeHttpHandlerContext extends FakeBinaryTextContext implements HttpHandlerContext {
+public class FakeHttpHandlerContext extends FakeLoggingContext implements HttpHandlerContext {
 
     public FakeHttpHandlerContext() {
         super();
     }
+
+    // BinaryTextContext................................................................................................
+
+    @Override
+    public Indentation indentation() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Charset charset() {
+        throw new UnsupportedOperationException();
+    }
+
+    // ETagComputer.....................................................................................................
 
     @Override
     public Optional<ETag> computeETag(final Binary binary) {

@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Context;
+import walkingkooka.logging.LoggingContext;
 import walkingkooka.net.header.ETagComputer;
 import walkingkooka.text.BinaryTextContext;
 
@@ -26,5 +27,6 @@ import walkingkooka.text.BinaryTextContext;
  */
 public interface HttpHandlerContext extends Context,
     BinaryTextContext,
-    ETagComputer {
+    ETagComputer,
+    LoggingContext {
 }
