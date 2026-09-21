@@ -18,6 +18,8 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.net.header.ETag;
 import walkingkooka.text.BinaryTextContext;
 import walkingkooka.text.BinaryTextContextDelegator;
@@ -25,7 +27,8 @@ import walkingkooka.text.BinaryTextContextDelegator;
 import java.util.Optional;
 
 public interface HttpHandlerContextDelegator extends HttpHandlerContext,
-    BinaryTextContextDelegator {
+    BinaryTextContextDelegator,
+    LoggingContextDelegator {
 
     // BinaryTextContextDelegator.......................................................................................
 
@@ -40,6 +43,13 @@ public interface HttpHandlerContextDelegator extends HttpHandlerContext,
     default Optional<ETag> computeETag(final Binary binary) {
         return this.httpHandlerContext()
             .computeETag(binary);
+    }
+
+    // LoggingContextDelegator..........................................................................................
+
+    @Override
+    default LoggingContext loggingContext() {
+        return this.httpHandlerContext();
     }
 
     // HttpHandlerContextDelegator......................................................................................
