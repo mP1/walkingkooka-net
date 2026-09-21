@@ -17,11 +17,11 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.ContextTesting;
+import walkingkooka.logging.LoggingContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 public interface HttpHandlerContextTesting2<C extends HttpHandlerContext> extends HttpHandlerContextTesting,
-    ContextTesting<C>,
+    LoggingContextTesting2<C>,
     TreePrintableTesting {
 
     @Override
