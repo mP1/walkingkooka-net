@@ -90,3 +90,18 @@ A collection of Converters for various types within `walkingkooka.net`
 - [text-to-url-fragment](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToUrlFragment.java)
 - [text-to-url-query-string](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterTextToUrlQueryString.java)
 - [to-host-address](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/convert/NetConverterToHostAddress.java)
+
+### [HttpHandlers]()
+
+[autoGzipEncoding](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedAutoGzipEncoding.java)
+[contentType](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedContentType.java)
+[etagComputer](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedETagComputer.java)
+[fake](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/FakeHttpHandler.java)
+[headerCopy](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedHeadersCopy.java)
+[ifModifiedSince](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedIfModifiedSince.java)
+[ifNoneMatch](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedIfNoneMatch.java)
+[logging](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrappedSharedLogging.java)
+[methodNotAllowed](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedMethodNotAllowed.java)
+[router](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerRouter.java)
+[stacktraceDumping](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedStacktraceDumping.java)
+[webFile](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWebFile.java)
