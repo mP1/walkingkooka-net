@@ -33,13 +33,13 @@ import java.util.Map.Entry;
 /**
  * A {@link HttpHandler} that logs the request and response, without altering either.
  */
-final class HttpHandlerWrappedSharedLogging<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
+final class HttpHandlerWrapperSharedLogging<C extends HttpHandlerContext> extends HttpHandlerWrapperShared<C> {
 
-    static <C extends HttpHandlerContext> HttpHandlerWrappedSharedLogging<C> with(final HttpHandler<C> handler) {
-        return new HttpHandlerWrappedSharedLogging<>(handler);
+    static <C extends HttpHandlerContext> HttpHandlerWrapperSharedLogging<C> with(final HttpHandler<C> handler) {
+        return new HttpHandlerWrapperSharedLogging<>(handler);
     }
 
-    private HttpHandlerWrappedSharedLogging(final HttpHandler<C> handler) {
+    private HttpHandlerWrapperSharedLogging(final HttpHandler<C> handler) {
         super(handler);
     }
 
