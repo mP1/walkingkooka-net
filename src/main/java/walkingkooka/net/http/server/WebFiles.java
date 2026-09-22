@@ -34,13 +34,13 @@ public final class WebFiles implements PublicStaticHelper {
     }
 
     /**
-     * {@see FileSystemWebFile}
+     * {@see WebFileFileSystem}
      */
     @GwtIncompatible
     public static WebFile file(final Path path,
                                final MediaTypeDetector contentTypeDetector,
                                final ETagComputer etagComputer) {
-        return FileSystemWebFile.with(
+        return WebFileFileSystem.with(
             path,
             contentTypeDetector,
             etagComputer

@@ -42,8 +42,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebFile>,
-    ToStringTesting<FileSystemWebFile> {
+public final class WebFileFileSystemTest implements ClassTesting2<WebFileFileSystem>,
+    ToStringTesting<WebFileFileSystem> {
 
     private final static String FILENAME = "file.custom.bin";
     private final static Binary CONTENT = Binary.with("abc123".getBytes(Charset.defaultCharset()));
@@ -93,7 +93,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
                            final ETagComputer etagComputer) {
         assertThrows(
             NullPointerException.class,
-            () -> FileSystemWebFile.with(
+            () -> WebFileFileSystem.with(
                 path,
                 mediaTypeDetector,
                 etagComputer
@@ -105,7 +105,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testLastModified() throws Exception {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
         this.checkEquals(LocalDateTime.ofInstant(Files.getLastModifiedTime(webFile.path).toInstant(), ZoneId.systemDefault()),
             webFile.lastModified(),
             "lastModified");
@@ -113,7 +113,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testContentType() {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
         this.checkEquals(this.contentType(),
             webFile.contentType(),
             "contentType");
@@ -121,7 +121,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testContentSize() {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
         this.checkEquals(Long.valueOf(CONTENT.size()),
             webFile.contentSize(),
             "contentSize");
@@ -129,7 +129,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testContent() throws IOException {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
 
         try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             try (final InputStream input = webFile.content()) {
@@ -145,7 +145,7 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testETag() {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
 
         this.checkEquals(
             Optional.of(ETAG),
@@ -158,14 +158,14 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
 
     @Test
     public void testToString() {
-        final FileSystemWebFile webFile = this.webFile();
+        final WebFileFileSystem webFile = this.webFile();
         this.toStringAndCheck(webFile, webFile.path.toString());
     }
 
     // helpers..........................................................................................................
 
-    private FileSystemWebFile webFile() {
-        return FileSystemWebFile.with(this.path(), this::mediaTypeDetector, ETAG_COMPUTER);
+    private WebFileFileSystem webFile() {
+        return WebFileFileSystem.with(this.path(), this::mediaTypeDetector, ETAG_COMPUTER);
     }
 
     private Path path() {
@@ -190,8 +190,8 @@ public final class FileSystemWebFileTest implements ClassTesting2<FileSystemWebF
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<FileSystemWebFile> type() {
-        return FileSystemWebFile.class;
+    public Class<WebFileFileSystem> type() {
+        return WebFileFileSystem.class;
     }
 
     @Override
