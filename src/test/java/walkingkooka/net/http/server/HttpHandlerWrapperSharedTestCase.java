@@ -41,7 +41,12 @@ public abstract class HttpHandlerWrapperSharedTestCase<H extends HttpHandlerWrap
     @Override
     public final H createHttpHandler() {
         return this.createHttpHandler(
-            HttpHandlers.fake()
+            new FakeHttpHandler<>() {
+                @Override
+                public String toString() {
+                    return FakeHttpHandler.class.getSimpleName();
+                }
+            }
         );
     }
 
