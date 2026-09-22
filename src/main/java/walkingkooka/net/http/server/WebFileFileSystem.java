@@ -36,12 +36,12 @@ import java.util.Optional;
 /**
  * A {@link WebFile} view of a file {@link Path}.
  */
-final class FileSystemWebFile implements WebFile {
+final class WebFileFileSystem implements WebFile {
 
     /**
-     * Creates a new {@link FileSystemWebFile} assuming the file exists.
+     * Creates a new {@link WebFileFileSystem} assuming the file exists.
      */
-    static FileSystemWebFile with(final Path path,
+    static WebFileFileSystem with(final Path path,
                                   final MediaTypeDetector contentTypeGuesser,
                                   final ETagComputer etagComputer) {
         Objects.requireNonNull(path, "path");
@@ -51,7 +51,7 @@ final class FileSystemWebFile implements WebFile {
         if (false == Files.isRegularFile(path)) {
             throw new WebFileException("Path " + path + " is not a file");
         }
-        return new FileSystemWebFile(path,
+        return new WebFileFileSystem(path,
             contentTypeGuesser,
             etagComputer);
     }
@@ -59,7 +59,7 @@ final class FileSystemWebFile implements WebFile {
     /**
      * Private ctor
      */
-    private FileSystemWebFile(final Path path,
+    private WebFileFileSystem(final Path path,
                               final MediaTypeDetector contentTypeGuesser,
                               final ETagComputer etagComputer) {
         super();
