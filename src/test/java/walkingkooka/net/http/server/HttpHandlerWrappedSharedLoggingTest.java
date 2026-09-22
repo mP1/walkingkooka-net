@@ -304,7 +304,7 @@ public final class HttpHandlerWrappedSharedLoggingTest extends HttpHandlerWrappe
     public void testToString() {
         this.toStringAndCheck(
             this.createHttpHandler(),
-            "@"
+            "logging FakeHttpHandler"
         );
     }
 
