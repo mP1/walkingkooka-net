@@ -85,6 +85,13 @@ public final class HttpHandlers implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHandlerWrappedSharedLogging}
+     */
+    public static <C extends HttpHandlerContext> HttpHandler<C> with(final HttpHandler<C> handler) {
+        return HttpHandlerWrappedSharedLogging.with(handler);
+    }
+
+    /**
      * {@see HttpHandlerWrapperSharedMethodNotAllowed}
      */
     public static <C extends HttpHandlerContext> HttpHandler<C> methodNotAllowed(final HttpMethod method,
