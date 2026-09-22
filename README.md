@@ -100,7 +100,7 @@ A collection of Converters for various types within `walkingkooka.net`
 [headerCopy](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedHeadersCopy.java)
 [ifModifiedSince](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedIfModifiedSince.java)
 [ifNoneMatch](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedIfNoneMatch.java)
-[logging](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrappedSharedLogging.java)
+[logging](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedLogging.java)
 [methodNotAllowed](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedMethodNotAllowed.java)
 [router](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerRouter.java)
 [stacktraceDumping](https://github.com/mP1/walkingkooka-net/blob/master/src/main/java/walkingkooka/net/http/server/HttpHandlerWrapperSharedStacktraceDumping.java)

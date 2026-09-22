@@ -42,10 +42,10 @@ import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printers;
 
-public final class HttpHandlerWrappedSharedLoggingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrappedSharedLogging<HttpHandlerContext>, HttpHandlerContext>
+public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedLogging<HttpHandlerContext>, HttpHandlerContext>
     implements HasCharsetTesting,
     HasLineEndingTesting,
-    ToStringTesting<HttpHandlerWrappedSharedLogging<HttpHandlerContext>> {
+    ToStringTesting<HttpHandlerWrapperSharedLogging<HttpHandlerContext>> {
 
     @Test
     public void testHandleGet() {
@@ -224,8 +224,8 @@ public final class HttpHandlerWrappedSharedLoggingTest extends HttpHandlerWrappe
     }
 
     @Override
-    HttpHandlerWrappedSharedLogging<HttpHandlerContext> createHttpHandler(final HttpHandler<HttpHandlerContext> handler) {
-        return HttpHandlerWrappedSharedLogging.with(handler);
+    HttpHandlerWrapperSharedLogging<HttpHandlerContext> createHttpHandler(final HttpHandler<HttpHandlerContext> handler) {
+        return HttpHandlerWrapperSharedLogging.with(handler);
     }
 
     @Override
@@ -311,8 +311,8 @@ public final class HttpHandlerWrappedSharedLoggingTest extends HttpHandlerWrappe
     // class............................................................................................................
 
     @Override
-    public Class<HttpHandlerWrappedSharedLogging<HttpHandlerContext>> type() {
-        return Cast.to(HttpHandlerWrappedSharedLogging.class);
+    public Class<HttpHandlerWrapperSharedLogging<HttpHandlerContext>> type() {
+        return Cast.to(HttpHandlerWrapperSharedLogging.class);
     }
 
     @Override
