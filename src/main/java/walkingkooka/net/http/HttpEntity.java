@@ -42,6 +42,8 @@ import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.text.printer.TreePrintable;
 
 import java.nio.charset.Charset;
@@ -102,12 +104,20 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Returns a {@link HttpEntity} filled with the {@link Throwable} stack trace.
      */
-    public static HttpEntity dumpStackTrace(final Throwable thrown,
+    public static HttpEntity dumpStackTrace(final Throwable cause,
                                             final LineEnding lineEnding) {
-        return HttpEntityStackTrace.dumpStackTrace(
-            thrown,
-            lineEnding
-        );
+        Objects.requireNonNull(cause, "cause");
+
+        final StringBuilder b = new StringBuilder();
+        try (final Printer printer = Printers.stringBuilder(b, lineEnding)) {
+            printer.printThrowable(cause);
+            printer.flush();
+
+            return HttpEntity.EMPTY
+                .setContentType(MediaType.TEXT_PLAIN)
+                .setBodyText(b.toString())
+                .setContentLength();
+        }
     }
 
     private final static byte CR = '\r';
