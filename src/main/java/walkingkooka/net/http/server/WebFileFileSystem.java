@@ -17,6 +17,7 @@
 
 package walkingkooka.net.http.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagComputer;
@@ -36,6 +37,7 @@ import java.util.Optional;
 /**
  * A {@link WebFile} view of a file {@link Path}.
  */
+@GwtIncompatible
 final class WebFileFileSystem implements WebFile {
 
     /**
