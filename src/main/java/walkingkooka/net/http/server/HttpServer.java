@@ -17,16 +17,17 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Stoppable;
+import walkingkooka.StartableStoppable;
 
 /**
  * A http server.
  */
-public interface HttpServer extends Stoppable {
+public interface HttpServer extends StartableStoppable {
 
     /**
      * Starts the server.
      */
+    @Override
     void start();
 
     /**
