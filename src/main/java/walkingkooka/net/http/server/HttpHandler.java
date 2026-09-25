@@ -17,10 +17,14 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.logging.LoggerPath;
+
 /**
  * A functional SAM interface that defines the handing of requests and the production of responses.
  */
 public interface HttpHandler<C extends HttpHandlerContext> {
+
+    LoggerPath HTTP_LOGGER = LoggerPath.parse("http");
 
     void handle(final HttpRequest request,
                 final HttpResponse response,
