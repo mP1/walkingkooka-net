@@ -212,7 +212,7 @@ public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrappe
                 "  http.request.headers DEBUG Cookie: CookieName123=CookieValue123;\n" +
                 "  http.request.headers DEBUG Content-Type: text/plain\n" +
                 "  http.request.headers DEBUG Content-Length: 37\n" +
-                "  http.response.body DEBUG RequestBody111\n" +
+                "  http.request.body DEBUG RequestBody111\n" +
                 "  Request222\n" +
                 "  Request333\n" +
                 "  \n" +

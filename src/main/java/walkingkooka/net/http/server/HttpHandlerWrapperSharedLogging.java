@@ -73,7 +73,7 @@ final class HttpHandlerWrapperSharedLogging<C extends HttpHandlerContext> extend
 
             if (isText(request)) {
                 logBodyText(
-                    HTTP_RESPONSE_BODY,
+                    HTTP_REQUEST_BODY,
                     request.bodyText(),
                     context
                 );
