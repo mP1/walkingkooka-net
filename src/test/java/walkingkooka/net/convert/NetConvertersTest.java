@@ -253,6 +253,7 @@ public final class NetConvertersTest implements ConverterTesting,
                 "        TEXT to UrlFragment (walkingkooka.net.convert.NetConverterTextToUrlFragment)\n" +
                 "        TEXT to UrlQueryString (walkingkooka.net.convert.NetConverterTextToUrlQueryString)\n" +
                 "        to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n" +
+                "  to HasHostAddress (walkingkooka.net.convert.NetConverterToHasHostAddress)\n" +
                 "  to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n"
         );
     }
