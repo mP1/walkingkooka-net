@@ -244,7 +244,6 @@ public final class NetConvertersTest implements ConverterTesting,
                 "  ConverterCustomToString\n" +
                 "    \"net\"\n" +
                 "      ConverterCollection\n" +
-                "        to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n" +
                 "        Character or CharSequence or HasText or String to Character or CharSequence or String (walkingkooka.convert.ConverterCharacterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString)\n" +
                 "        TEXT to HasHostAddress (walkingkooka.net.convert.NetConverterTextToHasHostAddress)\n" +
                 "        TEXT to EmailAddress (walkingkooka.net.convert.NetConverterTextToEmailAddress)\n" +
@@ -253,6 +252,7 @@ public final class NetConvertersTest implements ConverterTesting,
                 "        TEXT to Url (walkingkooka.net.convert.NetConverterTextToUrl)\n" +
                 "        TEXT to UrlFragment (walkingkooka.net.convert.NetConverterTextToUrlFragment)\n" +
                 "        TEXT to UrlQueryString (walkingkooka.net.convert.NetConverterTextToUrlQueryString)\n" +
+                "        to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n" +
                 "  to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n"
         );
     }

@@ -42,7 +42,6 @@ public final class NetConverters implements PublicStaticHelper {
     public static <C extends ConverterContext> Converter<C> net() {
         return Converters.<C>collection(
             Lists.of(
-                toHostAddress(),
                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                 textToHasHostAddress(),
                 textToEmailAddress(),
@@ -50,7 +49,8 @@ public final class NetConverters implements PublicStaticHelper {
                 textToMediaType(),
                 textToUrl(),
                 textToUrlFragment(),
-                textToUrlQueryString()
+                textToUrlQueryString(),
+                toHostAddress()
             )
         ).setToString("net");
     }
