@@ -112,6 +112,13 @@ public final class NetConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NetConverterToHasHostAddress}
+     */
+    public static <C extends ConverterContext> Converter<C> toHasHostAddress() {
+        return NetConverterToHasHostAddress.instance();
+    }
+
+    /**
      * {@see NetConverterToHostAddress}
      */
     public static <C extends ConverterContext> Converter<C> toHostAddress() {
