@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterTesting;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
@@ -31,9 +32,12 @@ import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.function.Function;
 
 public final class NetConvertersTest implements ConverterTesting,
@@ -193,6 +197,63 @@ public final class NetConvertersTest implements ConverterTesting,
             "net",
             NetConverters.net()
                 .toString()
+        );
+    }
+
+    @Test
+    public void testConverterCollectionWithAllConvertersPrintTree() throws Exception {
+        final List<Converter<ConverterContext>> converters = Lists.array();
+
+        for (final Method method : NetConverters.class.getMethods()) {
+            if (false == MethodAttributes.STATIC.is(method)) {
+                continue;
+            }
+
+            if (false == method.getReturnType().equals(Converter.class)) {
+                continue;
+            }
+
+            if (method.getParameterCount() != 0) {
+                continue;
+            }
+
+            if (method.getName().equals("fake")) {
+                continue;
+            }
+
+            converters.add(
+                (Converter<ConverterContext>) method.invoke(null)
+            );
+        }
+
+        converters.sort(
+            (Converter<?> left, Converter<?> right) -> left.toString().compareTo(right.toString())
+        );
+
+        this.treePrintAndCheck(
+            (TreePrintable) Converters.collection(converters),
+            "ConverterCollection\n" +
+                "  TEXT to EmailAddress (walkingkooka.net.convert.NetConverterTextToEmailAddress)\n" +
+                "  TEXT to HasHostAddress (walkingkooka.net.convert.NetConverterTextToHasHostAddress)\n" +
+                "  TEXT to HostAddress (walkingkooka.net.convert.NetConverterTextToHostAddress)\n" +
+                "  TEXT to MailToUrl (walkingkooka.net.convert.NetConverterTextToMailToUrl)\n" +
+                "  TEXT to MediaType (walkingkooka.net.convert.NetConverterTextToMediaType)\n" +
+                "  TEXT to Url (walkingkooka.net.convert.NetConverterTextToUrl)\n" +
+                "  TEXT to UrlFragment (walkingkooka.net.convert.NetConverterTextToUrlFragment)\n" +
+                "  TEXT to UrlQueryString (walkingkooka.net.convert.NetConverterTextToUrlQueryString)\n" +
+                "  ConverterCustomToString\n" +
+                "    \"net\"\n" +
+                "      ConverterCollection\n" +
+                "        Character or CharSequence or HasText or String to Character or CharSequence or String (walkingkooka.convert.ConverterCharacterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString)\n" +
+                "        TEXT to HasHostAddress (walkingkooka.net.convert.NetConverterTextToHasHostAddress)\n" +
+                "        to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n" +
+                "        TEXT to EmailAddress (walkingkooka.net.convert.NetConverterTextToEmailAddress)\n" +
+                "        TEXT to HostAddress (walkingkooka.net.convert.NetConverterTextToHostAddress)\n" +
+                "        TEXT to MediaType (walkingkooka.net.convert.NetConverterTextToMediaType)\n" +
+                "        TEXT to Url (walkingkooka.net.convert.NetConverterTextToUrl)\n" +
+                "        TEXT to UrlFragment (walkingkooka.net.convert.NetConverterTextToUrlFragment)\n" +
+                "        TEXT to UrlQueryString (walkingkooka.net.convert.NetConverterTextToUrlQueryString)\n" +
+                "  to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n"
         );
     }
 
