@@ -43,12 +43,18 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> LanguageNameNonWildcard.nonWildcard(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> LanguageNameNonWildcard.nonWildcard(null)
+        );
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> LanguageNameNonWildcard.nonWildcard(""));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> LanguageNameNonWildcard.nonWildcard("")
+        );
     }
 
     @Test
@@ -86,13 +92,19 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
     }
 
     private void check(final LanguageName name) {
-        this.check(name, VALUE, LOCALE_LANGUAGE_TAG);
+        this.check(
+            name,
+            VALUE,
+            LOCALE_LANGUAGE_TAG
+        );
     }
 
     @Test
     public void testConstant() {
-        assertSame(LanguageNameNonWildcard.nonWildcard("en"),
-            LanguageNameNonWildcard.nonWildcard("en"));
+        assertSame(
+            LanguageNameNonWildcard.nonWildcard("en"),
+            LanguageNameNonWildcard.nonWildcard("en")
+        );
     }
 
     @Test
@@ -102,13 +114,18 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testTestSameTrueWithDifferentParameters() {
-        this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)),
-            LanguageName.with(this.nameText()));
+        this.testTrue(
+            LanguageName.with(this.nameText())
+                .setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)),
+            LanguageName.with(this.nameText())
+        );
     }
 
     @Test
     public void testTestDifferentFalse() {
-        this.testFalse(LanguageName.with(this.differentNameText()));
+        this.testFalse(
+            LanguageName.with(this.differentNameText())
+        );
     }
 
     @Test
@@ -118,7 +135,9 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testEqualsDifferentCase() {
-        this.checkEquals(LanguageNameNonWildcard.nonWildcard("EN"));
+        this.checkEquals(
+            LanguageNameNonWildcard.nonWildcard("EN")
+        );
     }
 
     @Test
@@ -129,8 +148,10 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
         final LanguageName de = LanguageName.with("de");
         final LanguageName wildcard = LanguageName.WILDCARD;
 
-        this.compareToArraySortAndCheck(de, ar, cz, wildcard, br,
-            wildcard, ar, br, cz, de);
+        this.compareToArraySortAndCheck(
+            de, ar, cz, wildcard, br,
+            wildcard, ar, br, cz, de
+        );
     }
 
     @Override
