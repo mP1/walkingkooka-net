@@ -72,7 +72,7 @@ final class LanguageNameNonWildcard extends LanguageName {
 
     private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
         .or(CharPredicates.range('a', 'z'))
-        .or(CharPredicates.is('_'));
+        .or(CharPredicates.is('-'));
 
     /**
      * Private ctor use factory
