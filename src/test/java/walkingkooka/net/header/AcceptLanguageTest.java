@@ -35,7 +35,10 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> AcceptLanguage.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> AcceptLanguage.with(null)
+        );
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
@@ -43,13 +46,19 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
     @Test
     public void testQualityFactorSort() {
         final AcceptLanguage accept = AcceptLanguage.parse("en;q=1.0,fr;q=0.75");
-        this.qualitySortedValuesAndCheck(accept, accept.value());
+        this.qualitySortedValuesAndCheck(
+            accept,
+            accept.value()
+        );
     }
 
     @Test
     public void testQualityFactorSort2() {
-        this.qualitySortedValuesAndCheck(AcceptLanguage.parse("de;q=0.5,en,fr;q=0.25,gr;q=1.0"),
-            AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25").value());
+        this.qualitySortedValuesAndCheck(
+            AcceptLanguage.parse("de;q=0.5,en,fr;q=0.25,gr;q=1.0"),
+            AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25")
+                .value()
+        );
     }
 
     // highestQualityFactoryValue.......................................................................................
@@ -74,56 +83,92 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(acceptLanguage(AcceptLanguageValue.WILDCARD), ContentLanguage.parse("en"));
+        this.testTrue(
+            acceptLanguage(AcceptLanguageValue.WILDCARD),
+            ContentLanguage.parse("en")
+        );
     }
 
     @Test
     public void testTestWildcard2() {
-        this.testTrue(acceptLanguage(AcceptLanguageValue.WILDCARD), ContentLanguage.parse("fr"));
+        this.testTrue(
+            acceptLanguage(AcceptLanguageValue.WILDCARD),
+            ContentLanguage.parse("fr")
+        );
     }
 
     @Test
     public void testTestDifferentWildcard() {
-        this.testTrue(acceptLanguage(this.en(), AcceptLanguageValue.WILDCARD), ContentLanguage.parse("abc"));
+        this.testTrue(
+            acceptLanguage(
+                this.en(),
+                AcceptLanguageValue.WILDCARD
+            ),
+            ContentLanguage.parse("abc")
+        );
     }
 
     @Test
     public void testTestDifferentNonWildcard() {
-        this.testFalse(ContentLanguage.parse("abc"));
+        this.testFalse(
+            ContentLanguage.parse("abc")
+        );
     }
 
     @Test
     public void testTestNonWildcardDifferentCase() {
-        this.testTrue(ContentLanguage.parse("EN"));
+        this.testTrue(
+            ContentLanguage.parse("EN")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCase() {
-        this.testTrue(ContentLanguage.parse("en"));
+        this.testTrue(
+            ContentLanguage.parse("en")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCaseMany() {
-        this.testTrue(ContentLanguage.parse("en, xyz")); // matches first
+        this.testTrue(
+            ContentLanguage.parse("en, xyz")
+        ); // matches first
     }
 
     @Test
     public void testTestNonWildcardSameCaseMany2() {
-        this.testTrue(ContentLanguage.parse("xyz, en")); // matches second
+        this.testTrue(
+            ContentLanguage.parse("xyz, en")
+        ); // matches second
     }
 
     @Test
     public void testTestManyAndMany() {
-        this.testTrue(AcceptLanguage.parse("fr, en"), ContentLanguage.parse("xyz, en")); // second and second
+        this.testTrue(
+            AcceptLanguage.parse("fr, en"),
+            ContentLanguage.parse("xyz, en")
+        ); // second and second
     }
 
     // parse.............................................................................................................
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("en, *;q=0.5",
-            AcceptLanguage.with(Lists.of(AcceptLanguageValue.parse("en"),
-                AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.5f)))));
+        this.parseStringAndCheck(
+            "en, *;q=0.5",
+            AcceptLanguage.with(
+                Lists.of(
+                    AcceptLanguageValue.parse("en"),
+                    AcceptLanguageValue.WILDCARD.setParameters(
+                        Maps.of(
+                            AcceptLanguageParameterName.Q,
+                            0.5f
+                        )
+                    )
+                )
+            )
+        );
     }
 
     // helpers..........................................................................................................
@@ -134,12 +179,17 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
     }
 
     private AcceptLanguage acceptLanguage(final AcceptLanguageValue... value) {
-        return this.createHeader(Lists.of(value));
+        return this.createHeader(
+            Lists.of(value)
+        );
     }
 
     @Override
     List<AcceptLanguageValue> value() {
-        return Lists.of(AcceptLanguageValue.parse("en"), AcceptLanguageValue.parse("fr"));
+        return Lists.of(
+            AcceptLanguageValue.parse("en"),
+            AcceptLanguageValue.parse("fr")
+        );
     }
 
     private AcceptLanguageValue en() {
@@ -148,7 +198,11 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
 
     @Override
     List<AcceptLanguageValue> differentValue() {
-        return Lists.of(AcceptLanguageValue.with(LanguageName.with("diff")));
+        return Lists.of(
+            AcceptLanguageValue.with(
+                LanguageName.with("diff")
+            )
+        );
     }
 
     @Override
@@ -185,14 +239,14 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
         return this.createHeader();
     }
 
-    // ClassTestCase ............................................................................................
+    // class............................................................................................................
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 
-    // TypeNaming ............................................................................................
+    // TypeNaming ......................................................................................................
 
     @Override
     public String typeNamePrefix() {
