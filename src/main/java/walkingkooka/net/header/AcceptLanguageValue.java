@@ -46,7 +46,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
      * Factory that creates a new {@link AcceptLanguageValue}
      */
     public static AcceptLanguageValue with(final LanguageName value) {
-        checkValue(value);
+        Objects.requireNonNull(value, "value");
 
         return value.isWildcard() ?
             WILDCARD :
@@ -91,15 +91,11 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
      * Would be setter that returns a {@link AcceptLanguageValue} with the given value creating a new instance as necessary.
      */
     public AcceptLanguageValue setValue(final LanguageName value) {
-        checkValue(value);
+        Objects.requireNonNull(value, "value");
 
         return this.value.equals(value) ?
             this :
             this.replace(value);
-    }
-
-    private static void checkValue(final LanguageName value) {
-        Objects.requireNonNull(value, "value");
     }
 
     // replaceParameters ...............................................................................................
