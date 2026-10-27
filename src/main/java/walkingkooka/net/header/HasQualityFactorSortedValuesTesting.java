@@ -22,11 +22,40 @@ import walkingkooka.net.HasQualityFactor;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A mixin which has helpers to test {@link HasQualityFactorSortedValues#qualityFactorSortedValues()}.
  */
 public interface HasQualityFactorSortedValuesTesting extends TreePrintableTesting {
+
+    // highestQualityFactoryValueAndCheck...............................................................................
+
+    default <V extends HasQualityFactor> void highestQualityFactorValueAndCheck(final HasQualityFactorSortedValues<V> has) {
+        this.highestQualityFactorValueAndCheck(
+            has,
+            Optional.empty()
+        );
+    }
+
+    default <V extends HasQualityFactor> void highestQualityFactorValueAndCheck(final HasQualityFactorSortedValues<V> has,
+                                                                                final V expected) {
+        this.highestQualityFactorValueAndCheck(
+            has,
+            Optional.of(expected)
+        );
+    }
+
+    default <V extends HasQualityFactor> void highestQualityFactorValueAndCheck(final HasQualityFactorSortedValues<V> has,
+                                                                                final Optional<V> expected) {
+        this.checkEquals(
+            expected,
+            has.highestQualityFactorValue(),
+            has::toString
+        );
+    }
+
+    // qualitySortedValuesAndCheck......................................................................................
 
     @SuppressWarnings("unchecked")
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,

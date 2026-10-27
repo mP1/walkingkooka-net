@@ -22,12 +22,22 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQualityFactor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Includes a getter to return the values sorted by their quality factor.
  */
 public interface HasQualityFactorSortedValues<V extends HasQualityFactor> extends HasValue<List<V>> {
+
+    /**
+     * Returns the value with the highest or best quality factor.
+     */
+    default Optional<V> highestQualityFactorValue() {
+        return Lists.immutable(
+            this.qualityFactorSortedValues()
+        ).firstOrEmpty();
+    }
 
     /**
      * Helper that returns a new immutable {@link List} holding the values after sorting.
