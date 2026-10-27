@@ -74,21 +74,21 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
             .setParameters(parameters);
     }
 
-    // Locale ........................................................................................................
+    // Locale ..........................................................................................................
 
     /**
      * {@link Locale} getter.
      */
     abstract public Optional<Locale> locale();
 
-    // isXXX........................................................................................................
+    // isXXX............................................................................................................
 
     /**
      * Returns true if this LanguageName is a wildcard.
      */
     public abstract boolean isWildcard();
 
-    // Header........................................................................................................
+    // Header...........................................................................................................
 
     /**
      * Returns the text or header value form.
@@ -117,23 +117,23 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
 
     abstract boolean testNonNullNonWildcard(final LanguageName language);
 
-    // HeaderNameValue..............................................................................................
+    // HeaderNameValue..................................................................................................
 
-    // Comparable..........................................................................................................
+    // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final LanguageName other) {
         return this.compareTo0(other);
     }
 
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public final String toString() {
         return this.toHeaderText();
     }
 
-    // HasCaseSensitivity................................................................................................
+    // HasCaseSensitivity...............................................................................................
 
     @Override
     public CaseSensitivity caseSensitivity() {
