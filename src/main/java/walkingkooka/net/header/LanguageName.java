@@ -103,7 +103,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
      * True if the languages are equal.
      */
     @Override
-    public boolean test(final LanguageName language) {
+    public final boolean test(final LanguageName language) {
         return null != language &&
             this.testNonNull(language);
     }
@@ -122,7 +122,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     // Comparable.......................................................................................................
 
     @Override
-    public int compareTo(final LanguageName other) {
+    public final int compareTo(final LanguageName other) {
         return this.compareTo0(other);
     }
 
@@ -136,7 +136,7 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     // HasCaseSensitivity...............................................................................................
 
     @Override
-    public CaseSensitivity caseSensitivity() {
+    public final CaseSensitivity caseSensitivity() {
         return CASE_SENSITIVITY;
     }
 
