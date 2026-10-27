@@ -31,13 +31,18 @@ public interface HasQualityFactorSortedValuesTesting extends TreePrintableTestin
     @SuppressWarnings("unchecked")
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
                                                                           final V... sorted) {
-        this.qualitySortedValuesAndCheck(has, Lists.of(sorted));
+        this.qualitySortedValuesAndCheck(
+            has,
+            Lists.of(sorted)
+        );
     }
 
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
                                                                           final List<V> sorted) {
-        this.checkEquals(sorted,
+        this.checkEquals(
+            sorted,
             has.qualityFactorSortedValues(),
-            () -> "" + has);
+            () -> "" + has
+        );
     }
 }
