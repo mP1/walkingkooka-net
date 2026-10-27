@@ -38,7 +38,7 @@ public final class LanguageNameWildcardTest extends LanguageNameTestCase<Languag
     public void testWith() {
         this.check(LanguageNameWildcard.INSTANCE,
             "*",
-            LanguageName.NO_LOCALE);
+            LanguageName.NO_LOCALE_LANGUAGE_TAG);
     }
 
     @Test

@@ -17,10 +17,12 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -32,7 +34,12 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
     implements NameTesting2<LanguageNameNonWildcard, LanguageName> {
 
     private final static String VALUE = "en";
-    private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
+
+    private final static Optional<LocaleLanguageTag> LOCALE_LANGUAGE_TAG = Optional.of(
+        LocaleLanguageTag.fromLocale(
+            Locale.forLanguageTag(VALUE)
+        )
+    );
 
     @Test
     public void testWithNullFails() {
@@ -46,7 +53,10 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testWithInvalidLanguageTagNameFails() {
-        assertThrows(InvalidCharacterException.class, () -> LanguageNameNonWildcard.nonWildcard("\0xyz"));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> LanguageNameNonWildcard.nonWildcard("\0xyz")
+        );
     }
 
     @Override
@@ -63,11 +73,20 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
     public void testWithEnAu() {
         final String locale = "en-AU";
         final LanguageNameNonWildcard LanguageTagName = LanguageNameNonWildcard.nonWildcard(locale);
-        this.check(LanguageTagName, locale, Optional.of(Locale.forLanguageTag(locale)));
+
+        this.check(
+            LanguageTagName,
+            locale,
+            Optional.of(
+                LocaleLanguageTag.fromLocale(
+                    Locale.forLanguageTag(locale)
+                )
+            )
+        );
     }
 
     private void check(final LanguageName name) {
-        this.check(name, VALUE, LOCALE);
+        this.check(name, VALUE, LOCALE_LANGUAGE_TAG);
     }
 
     @Test
@@ -146,7 +165,39 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Override
     public String possibleValidChars(final int position) {
-        return ASCII_LETTERS + "-";
+        return 2 == position ?
+            "-" :
+            ASCII_LETTERS;
+    }
+
+    @Test
+    @Override
+    public void testNameInvalidCharFails() {
+        int min = this.minLength();
+        int max = Math.min(this.maxLength(), 99);
+
+        for (int i = min; i <= max; ++i) {
+            char[] chars = new char[i];
+            int last = i - 1;
+
+            for (int j = 0; j < last; ++j) {
+                chars[j] = this.possibleValidChars(j).charAt(0);
+            }
+
+            String invalid = this.possibleInvalidChars(last);
+
+            for (char c : invalid.toCharArray()) {
+                chars[last] = c;
+                String text = new String(chars);
+                Assertions.assertThrows(
+                    IllegalArgumentException.class,
+                    () -> this.createName(text),
+                    () -> "Name text=" + CharSequences.quoteAndEscape(text)
+                );
+                ++i;
+            }
+        }
+
     }
 
     @Override

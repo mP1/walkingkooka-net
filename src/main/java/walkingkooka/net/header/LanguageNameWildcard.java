@@ -17,7 +17,8 @@
 
 package walkingkooka.net.header;
 
-import java.util.Locale;
+import walkingkooka.locale.LocaleLanguageTag;
+
 import java.util.Optional;
 
 /**
@@ -38,8 +39,8 @@ final class LanguageNameWildcard extends LanguageName {
     }
 
     @Override
-    public Optional<Locale> locale() {
-        return NO_LOCALE;
+    public Optional<LocaleLanguageTag> localeLanguageTag() {
+        return NO_LOCALE_LANGUAGE_TAG;
     }
 
     // isXXX............................................................................................................

@@ -18,8 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.locale.LocaleLanguageTag;
 
 import java.util.Locale;
 import java.util.Map;
@@ -40,8 +39,18 @@ final class LanguageNameNonWildcard extends LanguageName {
         final Map<String, LanguageNameNonWildcard> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
 
         for (Locale locale : Locale.getAvailableLocales()) {
-            final String languageTag = locale.toLanguageTag();
-            constants.put(languageTag, new LanguageNameNonWildcard(languageTag, Optional.of(locale)));
+            if (LocaleLanguageTag.isValidLocale(locale)) {
+                final String languageTag = locale.toLanguageTag();
+                constants.put(
+                    languageTag,
+                    new LanguageNameNonWildcard(
+                        languageTag,
+                        Optional.of(
+                            LocaleLanguageTag.fromLocale(locale)
+                        )
+                    )
+                );
+            }
         }
 
         return constants;
@@ -50,44 +59,33 @@ final class LanguageNameNonWildcard extends LanguageName {
     /**
      * Factory that creates a new {@link LanguageNameNonWildcard}
      */
-    static LanguageNameNonWildcard nonWildcard(final String value) {
-        final LanguageNameNonWildcard constant = CONSTANTS.get(value);
+    static LanguageNameNonWildcard nonWildcard(final String localeLanguageTag) {
+        final LanguageNameNonWildcard constant = CONSTANTS.get(localeLanguageTag);
         return null != constant ?
             constant :
-            nonWildcard0(value);
+            new LanguageNameNonWildcard(
+                localeLanguageTag,
+                Optional.of(
+                    LocaleLanguageTag.parse(localeLanguageTag)
+                )
+            );
     }
-
-    /**
-     * Parsers the language as a java locale. A basic check for valid characters is performed. Validating the locale
-     * exists it not performed because in a j2cl environment not all locales will be available in a javascript environment.
-     */
-    private static LanguageNameNonWildcard nonWildcard0(final String language) {
-        PREDICATE.failIfNullOrEmptyOrFalse(
-            "language",
-            language
-        );
-
-        return new LanguageNameNonWildcard(language, Optional.of(Locale.forLanguageTag(language)));
-    }
-
-    private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
-        .or(CharPredicates.range('a', 'z'))
-        .or(CharPredicates.is('-'));
 
     /**
      * Private ctor use factory
      */
-    private LanguageNameNonWildcard(final String value, final Optional<Locale> locale) {
+    private LanguageNameNonWildcard(final String value,
+                                    final Optional<LocaleLanguageTag> localeLanguageTag) {
         super(value);
-        this.locale = locale;
+        this.localeLanguageTag = localeLanguageTag;
     }
 
     @Override
-    public Optional<Locale> locale() {
-        return this.locale;
+    public Optional<LocaleLanguageTag> localeLanguageTag() {
+        return this.localeLanguageTag;
     }
 
-    private final Optional<Locale> locale;
+    private final Optional<LocaleLanguageTag> localeLanguageTag;
 
     // isXXX............................................................................................................
 
