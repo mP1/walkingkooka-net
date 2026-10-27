@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.ClassTesting2;
@@ -26,7 +27,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -79,15 +79,15 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
 
     final void check(final LanguageName name,
                      final String value,
-                     final Optional<Locale> locale) {
+                     final Optional<LocaleLanguageTag> LocaleLanguageTag) {
         this.valueAndCheck(
             name,
             value
         );
         this.checkEquals(
-            locale,
-            name.locale(),
-            "locale"
+            LocaleLanguageTag,
+            name.localeLanguageTag(),
+            "LocaleLanguageTag"
         );
     }
 

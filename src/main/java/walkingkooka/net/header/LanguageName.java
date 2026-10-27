@@ -17,11 +17,11 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -33,9 +33,9 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     Predicate<LanguageName> {
 
     /**
-     * No {@link Locale}.
+     * No {@link LocaleLanguageTag}.
      */
-    public final static Optional<Locale> NO_LOCALE = Optional.empty();
+    public final static Optional<LocaleLanguageTag> NO_LOCALE_LANGUAGE_TAG = Optional.empty();
 
     /**
      * Returns a wildcard {@link LanguageName}
@@ -74,12 +74,12 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
             .setParameters(parameters);
     }
 
-    // Locale ..........................................................................................................
+    // LocaleLanguageTag................................................................................................
 
     /**
-     * {@link Locale} getter.
+     * {@link LocaleLanguageTag} getter.
      */
-    abstract public Optional<Locale> locale();
+    abstract public Optional<LocaleLanguageTag> localeLanguageTag();
 
     // isXXX............................................................................................................
 
