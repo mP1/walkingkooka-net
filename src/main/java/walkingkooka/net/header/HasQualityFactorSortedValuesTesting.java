@@ -19,14 +19,14 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQualityFactor;
-import walkingkooka.test.Testing;
+import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.List;
 
 /**
  * A mixin which has helpers to test {@link HasQualityFactorSortedValues#qualityFactorSortedValues()}.
  */
-public interface HasQualityFactorSortedValuesTesting extends Testing {
+public interface HasQualityFactorSortedValuesTesting extends TreePrintableTesting {
 
     @SuppressWarnings("unchecked")
     default <V extends HasQualityFactor> void qualitySortedValuesAndCheck(final HasQualityFactorSortedValues<V> has,
