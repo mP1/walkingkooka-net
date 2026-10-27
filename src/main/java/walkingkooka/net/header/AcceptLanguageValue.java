@@ -40,7 +40,10 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     /**
      * A {@link AcceptLanguageValue} wildcard without any parameters.
      */
-    public final static AcceptLanguageValue WILDCARD = new AcceptLanguageValue(LanguageName.WILDCARD, NO_PARAMETERS);
+    public final static AcceptLanguageValue WILDCARD = new AcceptLanguageValue(
+        LanguageName.WILDCARD,
+        NO_PARAMETERS
+    );
 
     /**
      * Factory that creates a new {@link AcceptLanguageValue}
@@ -63,7 +66,8 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
     /**
      * Private ctor use factory methods.
      */
-    private AcceptLanguageValue(final LanguageName value, final Map<AcceptLanguageParameterName<?>, Object> parameters) {
+    private AcceptLanguageValue(final LanguageName value,
+                                final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -91,32 +95,41 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
      * Would be setter that returns a {@link AcceptLanguageValue} with the given value creating a new instance as necessary.
      */
     public AcceptLanguageValue setValue(final LanguageName value) {
-        Objects.requireNonNull(value, "value");
-
         return this.value.equals(value) ?
             this :
-            this.replace(value);
+            this.replace(
+                Objects.requireNonNull(value, "value")
+            );
     }
 
     // replaceParameters ...............................................................................................
 
     private AcceptLanguageValue replace(final LanguageName value) {
-        return this.replace0(value, this.parameters);
+        return this.replace0(
+            value,
+            this.parameters
+        );
     }
 
     @Override
     AcceptLanguageValue replaceParameters(final Map<AcceptLanguageParameterName<?>, Object> parameters) {
-        return this.replace0(this.value, parameters);
+        return this.replace0(
+            this.value,
+            parameters
+        );
     }
 
     private AcceptLanguageValue replace0(final LanguageName name,
                                          final Map<AcceptLanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
             WILDCARD :
-            new AcceptLanguageValue(name, parameters);
+            new AcceptLanguageValue(
+                name,
+                parameters
+            );
     }
 
-    // header........................................................................................................
+    // header...........................................................................................................
 
     @Override
     String valueToText() {
@@ -136,7 +149,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         return this.value.isWildcard();
     }
 
-    // HasQualityFactor................................................................................................
+    // HasQualityFactor.................................................................................................
 
     /**
      * Retrieves the quality factor for this value.
@@ -146,7 +159,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         return this.qualityFactor(AcceptLanguageParameterName.Q);
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ..................................................................................................
 
     @Override
     public boolean isMultipart() {
@@ -163,7 +176,7 @@ public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLangu
         return true;
     }
 
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     int hashCodeValue(final LanguageName value) {
