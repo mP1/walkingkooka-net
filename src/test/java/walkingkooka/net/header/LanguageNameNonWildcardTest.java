@@ -146,7 +146,7 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Override
     public String possibleValidChars(final int position) {
-        return ASCII_LETTERS + "_";
+        return ASCII_LETTERS + "-";
     }
 
     @Override
