@@ -52,6 +52,24 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
             AcceptLanguage.parse("en,gr;q=1.0,de;q=0.5,fr;q=0.25").value());
     }
 
+    // highestQualityFactoryValue.......................................................................................
+
+    @Test
+    public void testHighestQualityFactoryValue() {
+        this.highestQualityFactorValueAndCheck(
+            AcceptLanguage.parse("en-AU;q=1.0,en-NZ;q=0.9"),
+            AcceptLanguageValue.parse("en-AU;q=1.0")
+        );
+    }
+
+    @Test
+    public void testHighestQualityFactoryValue2() {
+        this.highestQualityFactorValueAndCheck(
+            AcceptLanguage.parse("en-NZ;q=0.9,en-AU;q=1.0"),
+            AcceptLanguageValue.parse("en-AU;q=1.0")
+        );
+    }
+
     // predicate.......................................................................................................
 
     @Test
