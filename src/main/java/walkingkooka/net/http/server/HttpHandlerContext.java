@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Context;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.logging.LoggingContext;
 import walkingkooka.net.header.ETagComputer;
 import walkingkooka.text.BinaryTextContext;
@@ -29,4 +30,6 @@ public interface HttpHandlerContext extends Context,
     BinaryTextContext,
     ETagComputer,
     LoggingContext {
+
+    LoggerPath HTTP_HANDLER_LOGGER = LoggerPath.parse("httpHandler");
 }
