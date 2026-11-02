@@ -39,6 +39,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.props.Properties;
 import walkingkooka.text.HasLineEndingTesting;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printers;
 
@@ -95,7 +96,7 @@ public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrappe
                 "  http.request.headers DEBUG Cookie: CookieName123=CookieValue123;\n" +
                 "http.response INFO 200 OK\n" +
                 "  http.response.headers DEBUG Content-Type: text/plain\n" +
-                "  http.response.headers DEBUG Content-Length: 47\n" +
+                "  Content-Length: 47\n" +
                 "  http.response.body DEBUG ResponseBody111\n" +
                 "  ResponseBody222\n" +
                 "  ResponseBody333\n",
@@ -154,7 +155,7 @@ public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrappe
                 "  http.request.headers DEBUG Cookie: CookieName123=CookieValue123;\n" +
                 "http.response INFO 200 OK\n" +
                 "  http.response.headers DEBUG Content-Type: application/octet-stream\n" +
-                "  http.response.headers DEBUG Content-Length: 5\n",
+                "  Content-Length: 5\n",
             b.toString()
         );
     }
@@ -210,15 +211,15 @@ public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrappe
         this.checkEquals(
             "http.request INFO POST /file.bin HTTP/1.0\n" +
                 "  http.request.headers DEBUG Cookie: CookieName123=CookieValue123;\n" +
-                "  http.request.headers DEBUG Content-Type: text/plain\n" +
-                "  http.request.headers DEBUG Content-Length: 37\n" +
+                "  Content-Type: text/plain\n" +
+                "  Content-Length: 37\n" +
                 "  http.request.body DEBUG RequestBody111\n" +
                 "  Request222\n" +
                 "  Request333\n" +
                 "  \n" +
                 "http.response INFO 200 OK\n" +
                 "  http.response.headers DEBUG Content-Type: application/octet-stream\n" +
-                "  http.response.headers DEBUG Content-Length: 5\n",
+                "  Content-Length: 5\n",
             b.toString()
         );
     }
@@ -295,6 +296,11 @@ public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrappe
                     LoggingLevel.DEBUG
                 )
             );
+
+            @Override
+            public LineEnding lineEnding() {
+                return LINE_ENDING;
+            }
         };
     }
 
