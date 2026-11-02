@@ -18,11 +18,14 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.StartableStoppable;
+import walkingkooka.logging.LoggerPath;
 
 /**
  * A http server.
  */
 public interface HttpServer extends StartableStoppable {
+
+    LoggerPath HTTP_SERVER_LOGGER = LoggerPath.parse("httpServer");
 
     /**
      * Starts the server.
