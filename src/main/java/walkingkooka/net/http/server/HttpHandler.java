@@ -24,7 +24,7 @@ import walkingkooka.logging.LoggerPath;
  */
 public interface HttpHandler<C extends HttpHandlerContext> {
 
-    LoggerPath HTTP_LOGGER = LoggerPath.parse("http");
+    LoggerPath HTTP_HANDLER_LOGGER = LoggerPath.parse("httpHandler");
 
     void handle(final HttpRequest request,
                 final HttpResponse response,
