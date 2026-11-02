@@ -25,6 +25,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.text.LineEnding;
 
 import java.util.List;
 import java.util.Map;
@@ -120,16 +121,27 @@ final class HttpHandlerWrapperSharedLogging<C extends HttpHandlerContext> extend
 
     private static void logHeaders(final LoggerPath logger,
                                    final Map<HttpHeaderName<?>, List<?>> headers,
-                                   final LoggingContext context) {
+                                   final HttpHandlerContext context) {
         if (context.isDebugEnabled()) {
             try {
                 context.logEnter(logger);
+
+                final StringBuilder b = new StringBuilder();
+                final LineEnding lineEnding = context.lineEnding();
+                int i = 0;
 
                 for (final Entry<HttpHeaderName<?>, List<?>> headerAndValue : headers.entrySet()) {
                     final HttpHeaderName<?> header = headerAndValue.getKey();
 
                     for (final Object value : headerAndValue.getValue()) {
-                        context.debug(
+
+                        // saves an unnecessary empty line being logged
+                        if (i > 0) {
+                            b.append(lineEnding);
+                        }
+                        i++;
+
+                        b.append(
                             "" +
                                 header +
                                 HttpEntity.HEADER_NAME_SEPARATOR +
@@ -139,6 +151,10 @@ final class HttpHandlerWrapperSharedLogging<C extends HttpHandlerContext> extend
                                 )
                         );
                     }
+                }
+
+                if (b.length() > 0) {
+                    context.debug(b.toString());
                 }
             } finally {
                 context.logExit();
