@@ -42,7 +42,7 @@ public final class NetConverters implements PublicStaticHelper {
     public static <C extends ConverterContext> Converter<C> net() {
         return Converters.<C>collection(
             Lists.of(
-                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                Converters.toText(),
                 toHasHostAddress(),
                 toHostAddress(),
                 textToHasHostAddress(),

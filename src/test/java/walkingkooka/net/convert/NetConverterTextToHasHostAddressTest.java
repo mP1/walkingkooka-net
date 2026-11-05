@@ -174,7 +174,7 @@ public class NetConverterTextToHasHostAddressTest extends NetConverterTextToTest
 
             private final Converter<FakeConverterContext> converter = Converters.collection(
                 Lists.of(
-                    Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                    Converters.toText(),
                     NetConverters.textToEmailAddress(),
                     NetConverters.textToHostAddress(),
                     NetConverters.textToUrl()

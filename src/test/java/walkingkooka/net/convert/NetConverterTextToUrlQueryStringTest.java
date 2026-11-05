@@ -75,7 +75,7 @@ public final class NetConverterTextToUrlQueryStringTest extends NetConverterText
                 );
             }
 
-            private final Converter<FakeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+            private final Converter<FakeConverterContext> converter = Converters.toText();
         };
     }
 

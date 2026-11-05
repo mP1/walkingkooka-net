@@ -120,7 +120,7 @@ public final class NetConverterTextToUrlTest extends NetConverterTestCase<NetCon
                 );
             }
 
-            private final Converter<FakeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+            private final Converter<FakeConverterContext> converter = Converters.toText();
         };
     }
 

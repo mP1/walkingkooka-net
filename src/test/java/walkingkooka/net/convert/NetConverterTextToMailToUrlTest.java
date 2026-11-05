@@ -94,7 +94,7 @@ public final class NetConverterTextToMailToUrlTest extends NetConverterTextToTes
                 );
             }
 
-            private final Converter<FakeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+            private final Converter<FakeConverterContext> converter = Converters.toText();
         };
     }
 

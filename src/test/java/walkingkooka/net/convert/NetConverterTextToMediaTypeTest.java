@@ -105,7 +105,7 @@ public final class NetConverterTextToMediaTypeTest extends NetConverterTextToTes
                 );
             }
 
-            private final Converter<FakeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+            private final Converter<FakeConverterContext> converter = Converters.toText();
         };
     }
 
