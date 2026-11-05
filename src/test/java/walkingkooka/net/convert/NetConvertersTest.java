@@ -244,7 +244,6 @@ public final class NetConvertersTest implements ConverterTesting,
                 "  ConverterCustomToString\n" +
                 "    \"net\"\n" +
                 "      ConverterCollection\n" +
-                "        to Text (walkingkooka.convert.ConverterToText)\n" +
                 "        to HasHostAddress (walkingkooka.net.convert.NetConverterToHasHostAddress)\n" +
                 "        to HostAddress (walkingkooka.net.convert.NetConverterToHostAddress)\n" +
                 "        TEXT to HasHostAddress (walkingkooka.net.convert.NetConverterTextToHasHostAddress)\n" +
