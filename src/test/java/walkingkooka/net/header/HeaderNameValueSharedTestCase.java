@@ -17,13 +17,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 public abstract class HeaderNameValueSharedTestCase<N extends HeaderNameValueShared<?>, C extends Comparable<C>>
-    implements ClassTesting2<N>,
-    HeaderNameTesting<N, C> {
+    implements HeaderNameTesting<N, C> {
 
     HeaderNameValueSharedTestCase() {
         super();
@@ -59,12 +56,5 @@ public abstract class HeaderNameValueSharedTestCase<N extends HeaderNameValueSha
     @Override
     public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
-    }
-
-    // class............................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

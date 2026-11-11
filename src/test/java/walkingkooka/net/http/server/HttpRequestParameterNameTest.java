@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
@@ -31,8 +29,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class HttpRequestParameterNameTest implements ClassTesting2<HttpRequestParameterName>,
-    NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
+final public class HttpRequestParameterNameTest implements NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
     public void testParameterValueRequest() {
@@ -97,10 +94,5 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
     @Override
     public Class<HttpRequestParameterName> type() {
         return HttpRequestParameterName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

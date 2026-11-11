@@ -24,8 +24,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
@@ -35,8 +33,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
-final public class CookieNameTest implements ClassTesting2<CookieName>,
-    NameTesting2<CookieName, CookieName> {
+final public class CookieNameTest implements NameTesting2<CookieName, CookieName> {
 
     private final static String NAME = "cookie123";
     private final static String VALUE = "value123";
@@ -224,10 +221,5 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     @Override
     public Class<CookieName> type() {
         return CookieName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

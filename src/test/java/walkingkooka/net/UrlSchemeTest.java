@@ -20,15 +20,12 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
-    NameTesting2<UrlScheme, UrlScheme> {
+public final class UrlSchemeTest implements NameTesting2<UrlScheme, UrlScheme> {
 
     @Override
     public void testTypeNaming() {
@@ -148,10 +145,5 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
     @Override
     public Class<UrlScheme> type() {
         return UrlScheme.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

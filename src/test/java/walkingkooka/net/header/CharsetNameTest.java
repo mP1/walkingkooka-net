@@ -19,8 +19,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.nio.charset.Charset;
@@ -30,8 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class CharsetNameTest implements ClassTesting2<CharsetName>,
-    NameTesting2<CharsetName, CharsetName> {
+public final class CharsetNameTest implements NameTesting2<CharsetName, CharsetName> {
 
     @Test
     public void testWithUtfDash8() {
@@ -191,10 +188,5 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     @Override
     public Class<CharsetName> type() {
         return CharsetName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

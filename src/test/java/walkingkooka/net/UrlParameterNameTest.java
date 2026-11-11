@@ -24,8 +24,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.math.BigDecimal;
@@ -36,8 +34,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
-    NameTesting<UrlParameterName, UrlParameterName> {
+public final class UrlParameterNameTest implements NameTesting<UrlParameterName, UrlParameterName> {
 
     @Override
     public void testEmptyFails() {
@@ -323,10 +320,5 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Override
     public Class<UrlParameterName> type() {
         return UrlParameterName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
