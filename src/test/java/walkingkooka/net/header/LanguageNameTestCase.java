@@ -22,8 +22,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 
@@ -33,18 +33,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class LanguageNameTestCase<L extends LanguageName> implements ClassTesting2<L>,
-    NameTesting<L, LanguageName>,
+public abstract class LanguageNameTestCase<L extends LanguageName> implements NameTesting<L, LanguageName>,
+    PackagePrivateClassTesting<L>,
     PredicateTesting2<L, LanguageName>,
     TypeNameTesting<L> {
 
     LanguageNameTestCase() {
         super();
-    }
-
-    @Override
-    public void testPublicClass() {
-        // ignore
     }
 
     @Test

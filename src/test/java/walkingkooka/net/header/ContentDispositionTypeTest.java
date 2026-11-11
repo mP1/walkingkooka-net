@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -31,8 +29,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ContentDispositionTypeTest implements ClassTesting2<ContentDispositionType>,
-    NameTesting2<ContentDispositionType, ContentDispositionType> {
+final public class ContentDispositionTypeTest implements NameTesting2<ContentDispositionType, ContentDispositionType> {
 
     @Test
     public void testConstantNameReturnsConstant() {
@@ -241,17 +238,12 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         return CONTROL + RFC2045_TSPECIAL + BYTE_NON_ASCII;
     }
 
+    // class.................. .........................................................................................
+
     @Override
     public Class<ContentDispositionType> type() {
         return Cast.to(ContentDispositionType.class);
     }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    // TypeNameTesting .........................................................................................
 
     @Override
     public String typeNamePrefix() {
