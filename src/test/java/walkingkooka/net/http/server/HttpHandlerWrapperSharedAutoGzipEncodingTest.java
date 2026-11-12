@@ -37,7 +37,7 @@ public final class HttpHandlerWrapperSharedAutoGzipEncodingTest extends HttpHand
     implements
     ETagComputerTesting,
     HasCharsetTesting,
-    ToStringTesting<HttpHandlerWrapperSharedAutoGzipEncoding<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     private final static HttpHandler<FakeHttpHandlerContext> HTTP_HANDLER = new HttpHandler<>() {
         @Override

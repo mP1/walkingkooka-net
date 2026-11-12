@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>,
-    ToStringTesting<UrlPath>,
+    ToStringTesting,
     TreePrintableTesting {
 
     UrlPathTestCase() {

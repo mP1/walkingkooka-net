@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
     ConstantsTesting<HttpStatusCode>,
     HashCodeEqualsDefinedTesting2<HttpStatusCode>,
-    ToStringTesting<HttpStatusCode>,
+    ToStringTesting,
     TypeNameTesting<HttpStatusCode>,
     HasValueTesting {
 

@@ -76,10 +76,6 @@ public final class UrlVisitorTest implements UrlVisitorTesting<UrlVisitor> {
     }
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
     public UrlVisitor createVisitor() {
         return new UrlVisitor() {
         };

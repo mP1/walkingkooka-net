@@ -1248,12 +1248,6 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         this.compareToAndCheckLess(UrlPath.parse("/path/to/zzzzz"));
     }
 
-    // toString.........................................................................................................
-
-    @Override
-    public void testCheckToStringOverridden() {
-    }
-
     // helpers..........................................................................................................
 
     @Override

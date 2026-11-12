@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestAttributeUrlPathNameTest implements ClassTesting2<HttpRequestAttributeUrlPathName>,
     HashCodeEqualsDefinedTesting2<HttpRequestAttributeUrlPathName>,
-    ToStringTesting<HttpRequestAttributeUrlPathName> {
+    ToStringTesting {
 
     @Test
     public void testInvalidIndexFails() {

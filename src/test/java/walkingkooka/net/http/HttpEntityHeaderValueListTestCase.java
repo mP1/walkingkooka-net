@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HttpEntityHeaderValueListTestCase<L extends HttpEntityHeaderValueList> implements ClassTesting<L>,
     ListTesting2<L, Object>,
-    ToStringTesting<L>,
+    ToStringTesting,
     TypeNameTesting<L> {
 
     HttpEntityHeaderValueListTestCase() {

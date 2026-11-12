@@ -46,7 +46,7 @@ import walkingkooka.text.printer.Printers;
 public final class HttpHandlerWrapperSharedLoggingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedLogging<HttpHandlerContext>, HttpHandlerContext>
     implements HasCharsetTesting,
     HasLineEndingTesting,
-    ToStringTesting<HttpHandlerWrapperSharedLogging<HttpHandlerContext>> {
+    ToStringTesting {
 
     @Test
     public void testHandleGet() {

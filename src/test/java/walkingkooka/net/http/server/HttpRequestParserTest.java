@@ -32,7 +32,7 @@ import walkingkooka.test.ParseStringTesting;
 
 public final class HttpRequestParserTest implements ClassTesting2<HttpRequestParser>,
     ParseStringTesting<HttpRequest>,
-    ToStringTesting<HttpRequestParser> {
+    ToStringTesting {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
 

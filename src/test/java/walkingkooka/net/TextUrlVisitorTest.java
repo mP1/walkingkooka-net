@@ -337,11 +337,6 @@ public final class TextUrlVisitorTest implements TextUrlVisitorTesting<TextUrlVi
         };
     }
 
-    @Override
-    public void testCheckToStringOverridden() {
-        throw new UnsupportedOperationException();
-    }
-
     // class............................................................................................................
 
     @Override

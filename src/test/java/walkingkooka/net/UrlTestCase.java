@@ -37,7 +37,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     IsMethodTesting<U>,
     ParseStringTesting<U>,
     HasTextTesting,
-    ToStringTesting<U>,
+    ToStringTesting,
     TypeNameTesting<U>,
     HasValueTesting {
 

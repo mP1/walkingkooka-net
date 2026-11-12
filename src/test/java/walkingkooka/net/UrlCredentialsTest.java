@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     HashCodeEqualsDefinedTesting2<UrlCredentials>,
     ComparableTesting2<UrlCredentials>,
-    ToStringTesting<UrlCredentials> {
+    ToStringTesting {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";

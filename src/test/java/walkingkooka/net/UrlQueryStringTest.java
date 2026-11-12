@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
     ParseStringTesting<UrlQueryString>,
-    ToStringTesting<UrlQueryString>,
+    ToStringTesting,
     ComparableTesting2<UrlQueryString>,
     HasUrlQueryStringTesting,
     HasTextTesting {

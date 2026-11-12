@@ -43,7 +43,7 @@ public final class WebEntityTest implements CanBeEmptyTesting,
     HashCodeEqualsDefinedTesting2<WebEntity>,
     HasOptionalNameTesting,
     HasTextTesting,
-    ToStringTesting<WebEntity>,
+    ToStringTesting,
     TreePrintableTesting,
     ClassTesting<WebEntity> {
 

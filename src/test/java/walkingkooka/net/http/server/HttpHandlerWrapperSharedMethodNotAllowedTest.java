@@ -28,7 +28,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerWrapperSharedMethodNotAllowedTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerWrapperSharedMethodNotAllowed<FakeHttpHandlerContext>> {
+    implements ToStringTesting {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");

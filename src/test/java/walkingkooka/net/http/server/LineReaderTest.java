@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LineReaderTest implements ClassTesting2<LineReader>, ToStringTesting<LineReader> {
+public final class LineReaderTest implements ClassTesting2<LineReader>, ToStringTesting {
 
     @Test
     public void testCrMissingNl() {

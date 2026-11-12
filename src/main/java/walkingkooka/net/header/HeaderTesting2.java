@@ -31,7 +31,7 @@ import java.util.Arrays;
 public interface HeaderTesting2<V extends Header> extends HeaderTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<V>,
-    ToStringTesting<V> {
+    ToStringTesting {
 
     @Test
     default void testIsMultipart() {

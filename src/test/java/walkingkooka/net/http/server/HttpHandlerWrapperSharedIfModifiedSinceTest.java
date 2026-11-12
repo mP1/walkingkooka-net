@@ -34,7 +34,7 @@ public final class HttpHandlerWrapperSharedIfModifiedSinceTest extends HttpHandl
     implements ETagComputerTesting,
     HasCharsetTesting,
     HasNowTesting,
-    ToStringTesting<HttpHandlerWrapperSharedIfModifiedSince<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");
     private final static HttpEntity ENTITY = HttpEntity.EMPTY.setBodyText("Success123");

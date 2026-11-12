@@ -56,7 +56,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
-    ToStringTesting<H>,
+    ToStringTesting,
     ClassTesting<H>,
     TreePrintableTesting {
 

@@ -40,7 +40,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     HasHostAddressTesting<HostAddress>,
     HasTextTesting,
     ThrowableTesting,
-    ToStringTesting<HostAddress>,
+    ToStringTesting,
     HasValueTesting {
 
     private final static String HOST = "example.com";

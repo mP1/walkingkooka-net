@@ -43,7 +43,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class WebFileFileSystemTest implements ClassTesting2<WebFileFileSystem>,
-    ToStringTesting<WebFileFileSystem> {
+    ToStringTesting {
 
     private final static String FILENAME = "file.custom.bin";
     private final static Binary CONTENT = Binary.with("abc123".getBytes(Charset.defaultCharset()));

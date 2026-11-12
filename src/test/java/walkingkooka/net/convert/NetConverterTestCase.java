@@ -24,7 +24,7 @@ import walkingkooka.reflect.ClassTesting;
 
 public abstract class NetConverterTestCase<C extends NetConverter<CC>, CC extends ConverterContext> implements ConverterTesting2<C, CC>,
     ClassTesting<C>,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     NetConverterTestCase() {
         super();

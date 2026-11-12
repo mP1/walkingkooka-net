@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 import java.nio.charset.StandardCharsets;
 
 public final class MediaTypeDetectorBinaryTest implements MediaTypeDetectorTesting2<MediaTypeDetectorBinary>,
-    ToStringTesting<MediaTypeDetectorBinary>,
+    ToStringTesting,
     ClassTesting<MediaTypeDetectorBinary> {
 
     @Test

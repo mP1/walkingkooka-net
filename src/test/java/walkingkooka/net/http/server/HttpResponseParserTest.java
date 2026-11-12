@@ -31,7 +31,7 @@ import walkingkooka.test.ParseStringTesting;
 
 public final class HttpResponseParserTest implements ClassTesting2<HttpResponseParser>,
     ParseStringTesting<HttpResponse>,
-    ToStringTesting<HttpResponseParser> {
+    ToStringTesting {
 
     @Test
     public void testParseEmptyFails() {

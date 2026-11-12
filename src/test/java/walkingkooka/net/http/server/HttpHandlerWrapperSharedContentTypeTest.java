@@ -37,7 +37,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerWrapperSharedContentTypeTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerWrapperSharedContentType<FakeHttpHandlerContext>> {
+    implements ToStringTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.TEXT_PLAIN;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");

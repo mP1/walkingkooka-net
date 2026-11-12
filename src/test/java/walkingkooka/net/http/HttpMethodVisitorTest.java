@@ -29,10 +29,6 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     public void testAllConstructorsVisibility() {
     }
 
-    @Override
-    public void testCheckToStringOverridden() {
-    }
-
     @Test
     public void testHead() {
         final StringBuilder b = new StringBuilder();
