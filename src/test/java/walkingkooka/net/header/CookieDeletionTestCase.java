@@ -29,7 +29,7 @@ public abstract class CookieDeletionTestCase<D extends CookieDeletion>
     implements ClassTesting2<D>,
     HashCodeEqualsDefinedTesting2<D>,
     IsMethodTesting<D>,
-    ToStringTesting<D> {
+    ToStringTesting {
 
     CookieDeletionTestCase() {
         super();

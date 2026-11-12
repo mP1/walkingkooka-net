@@ -32,7 +32,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerRouterTest implements HttpHandlerTesting2<HttpHandlerRouter<FakeHttpHandlerContext>, FakeHttpHandlerContext>,
-    ToStringTesting<HttpHandlerRouter<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     @Test
     public void testWithNullRouterFails() {

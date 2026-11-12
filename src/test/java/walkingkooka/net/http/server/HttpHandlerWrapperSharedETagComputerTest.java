@@ -38,7 +38,7 @@ public final class HttpHandlerWrapperSharedETagComputerTest extends HttpHandlerW
     implements
     ETagComputerTesting,
     HasCharsetTesting,
-    ToStringTesting<HttpHandlerWrapperSharedETagComputer<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     private final static HttpHandler<FakeHttpHandlerContext> HTTP_HANDLER = new HttpHandler<>() {
         @Override

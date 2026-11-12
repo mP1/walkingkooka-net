@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class HeaderHandlerTestCase<H extends HeaderHandler<T>, T> implements PackagePrivateClassTesting<H>,
     ParseStringTesting<T>,
-    ToStringTesting<H>,
+    ToStringTesting,
     TypeNameTesting<H> {
 
     HeaderHandlerTestCase() {

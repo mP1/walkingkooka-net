@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerWrapperSharedStacktraceDumpingTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>, FakeHttpHandlerContext>
     implements HasLineEndingTesting,
-    ToStringTesting<HttpHandlerWrapperSharedStacktraceDumping<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     private final static HttpStatus STATUS = HttpStatusCode.withCode(999).setMessage("Failed!");
     private final static Function<Throwable, HttpStatus> TRANSLATOR = (t) -> STATUS;

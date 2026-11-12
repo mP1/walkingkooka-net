@@ -30,7 +30,8 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTesting<R>, TypeNameTesting<R> {
+public interface HttpResponseTesting<R extends HttpResponse> extends TypeNameTesting<R>,
+    ToStringTesting {
 
     @Test
     default void testSetVersionNullFails() {

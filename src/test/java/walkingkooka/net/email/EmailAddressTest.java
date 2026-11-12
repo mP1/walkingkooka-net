@@ -48,7 +48,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     ComparableTesting2<EmailAddress>,
     ParseStringTesting<EmailAddress>,
     ThrowableTesting,
-    ToStringTesting<EmailAddress>,
+    ToStringTesting,
     HasValueTesting {
 
     @Test

@@ -28,7 +28,7 @@ import java.util.Map;
  * Mixin interface for testing {@link HttpRequest}
  */
 public interface HttpRequestTesting<R extends HttpRequest> extends HasHeadersTesting,
-    ToStringTesting<R>,
+    ToStringTesting,
     TypeNameTesting<R> {
 
     @Test

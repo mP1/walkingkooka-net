@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestValueTest implements ClassTesting2<HttpRequestValue>,
     HashCodeEqualsDefinedTesting2<HttpRequestValue>,
-    ToStringTesting<HttpRequestValue> {
+    ToStringTesting {
 
     private final static HttpMethod METHOD = HttpMethod.CONNECT;
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;

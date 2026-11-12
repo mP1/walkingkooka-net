@@ -37,7 +37,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHandlerWrapperSharedHeadersCopyTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext>, FakeHttpHandlerContext>
-    implements ToStringTesting<HttpHandlerWrapperSharedHeadersCopy<FakeHttpHandlerContext>> {
+    implements ToStringTesting {
 
     private final static HttpHandler<FakeHttpHandlerContext> WRAPPER = new HttpHandler<>() {
         @Override

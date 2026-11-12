@@ -24,7 +24,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
-    ToStringTesting<HttpTransport> {
+    ToStringTesting {
 
     @Test
     public void testUnsecured() {

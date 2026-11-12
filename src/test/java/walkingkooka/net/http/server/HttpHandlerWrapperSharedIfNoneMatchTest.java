@@ -40,7 +40,7 @@ import java.util.Optional;
 public final class HttpHandlerWrapperSharedIfNoneMatchTest extends HttpHandlerWrapperSharedTestCase<HttpHandlerWrapperSharedIfNoneMatch<FakeHttpHandlerContext>, FakeHttpHandlerContext>
     implements ETagComputerTesting,
     HasCharsetTesting,
-    ToStringTesting<HttpHandlerWrapperSharedIfNoneMatch<FakeHttpHandlerContext>> {
+    ToStringTesting {
 
     private final static HttpMethod METHOD = HttpMethod.PATCH;
     private final static HttpStatus STATUS = HttpStatusCode.OK.setMessage("OK!");

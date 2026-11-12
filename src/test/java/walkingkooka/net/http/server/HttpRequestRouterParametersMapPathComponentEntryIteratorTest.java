@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 
 public final class HttpRequestRouterParametersMapPathComponentEntryIteratorTest implements ClassTesting2<HttpRequestRouterParametersMapPathComponentEntryIterator>,
     IteratorTesting,
-    ToStringTesting<HttpRequestRouterParametersMapPathComponentEntryIterator>,
+    ToStringTesting,
     TypeNameTesting<HttpRequestRouterParametersMapPathComponentEntryIterator> {
 
     private final static UrlPathName NAME1 = UrlPathName.with("a");

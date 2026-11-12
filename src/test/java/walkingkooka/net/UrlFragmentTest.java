@@ -37,7 +37,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
     HasTextTesting,
     ComparableTesting2<UrlFragment>,
     CanBeEmptyTesting,
-    ToStringTesting<UrlFragment>,
+    ToStringTesting,
     HasValueTesting {
 
     @Test

@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>,
-    ToStringTesting<HttpHeaderScope> {
+    ToStringTesting {
 
     // checkRequest .....................................................
 

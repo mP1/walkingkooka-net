@@ -102,11 +102,6 @@ public final class ETagTest extends HeaderTestCase<ETag> {
         );
     }
 
-    @Override
-    public void testCheckToStringOverridden() {
-        throw new UnsupportedOperationException();
-    }
-
     // toHeaderTextList.................................................................................................
 
     @Test

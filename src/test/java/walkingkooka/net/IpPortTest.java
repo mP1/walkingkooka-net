@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class IpPortTest implements ClassTesting2<IpPort>,
     ConstantsTesting<IpPort>,
     ComparableTesting2<IpPort>,
-    ToStringTesting<IpPort> {
+    ToStringTesting {
 
     @Test
     public void testIsPort() {
