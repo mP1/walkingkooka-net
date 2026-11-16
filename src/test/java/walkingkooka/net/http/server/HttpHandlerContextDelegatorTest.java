@@ -71,6 +71,12 @@ public final class HttpHandlerContextDelegatorTest implements HttpHandlerContext
                     Objects.requireNonNull(loggingLevel, "loggingLevel");
                     throw new UnsupportedOperationException();
                 }
+
+                @Override
+                public void setLoggingLevel(final LoggingLevel loggingLevel) {
+                    Objects.requireNonNull(loggingLevel, "loggingLevel");
+                    throw new UnsupportedOperationException();
+                }
             };
         }
 
