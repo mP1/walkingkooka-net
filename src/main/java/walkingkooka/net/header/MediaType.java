@@ -101,6 +101,12 @@ final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeP
      */
     public final static MediaType ANY_TEXT = registerConstant("text/*");
 
+
+    /**
+     * Holds the {@link MediaType} for {@link walkingkooka.tree.expression.Expression}
+     */
+    public final static MediaType EXPRESSION = registerConstant("text/expression");
+
     /**
      * Holds a {@link MediaType} for comma separated values.
      * https://en.wikipedia.org/wiki/Comma-separated_values
