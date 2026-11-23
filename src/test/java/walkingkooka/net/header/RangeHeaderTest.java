@@ -161,31 +161,49 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Test
     public void testParseWithOverlapFails() {
-        this.parseStringFails2("bytes=100-150,200-250,225-300");
+        this.parseStringFails(
+            "bytes=100-150,200-250,225-300",
+            HeaderException.class
+        );
     }
 
     @Test
     public void testParseWithOverlapFails2() {
-        this.parseStringFails2("bytes=100-150,200-250,225-");
+        this.parseStringFails(
+            "bytes=100-150,200-250,225-",
+            HeaderException.class
+        );
     }
 
     @Test
     public void testParseWithOverlapFails3() {
-        this.parseStringFails2("bytes=-150,200-250,125-175");
+        this.parseStringFails(
+            "bytes=-150,200-250,125-175",
+            HeaderException.class
+        );
     }
 
     @Test
     public void testParseRangeMissingStartFails() {
-        this.parseStringFails2("bytes=-99");
+        this.parseStringFails(
+            "bytes=-99",
+            HeaderException.class
+        );
     }
 
     @Test
     public void testParseRangeMissingStartFails2() {
-        this.parseStringFails2("bytes=98-99,-50");
+        this.parseStringFails(
+            "bytes=98-99,-50",
+            HeaderException.class
+        );
     }
 
     private void parseStringFails2(final String text) {
-        this.parseStringFails(text, HeaderException.class);
+        this.parseStringFails(
+            text,
+            IllegalArgumentException.class
+        );
     }
 
     @Test
@@ -245,7 +263,14 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Override
     public RangeHeader parseString(final String text) {
-        return RangeHeader.parse(text);
+        try {
+            return RangeHeader.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
     }
 
     // text.......................................................

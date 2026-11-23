@@ -105,7 +105,7 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
     }
 
     @Override
-    public List<Link> parseString(final String text) {
+    List<Link> parseHeader(final String text) {
         return LinkHeaderParser.parseLink(text);
     }
 

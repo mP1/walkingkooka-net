@@ -59,7 +59,7 @@ public final class AcceptLanguageHeaderParserTest extends AcceptLanguageOrAccept
     }
 
     @Override
-    public AcceptLanguage parseString(final String text) {
+    AcceptLanguage parseHeader(final String text) {
         return AcceptLanguageHeaderParser.parseAcceptLanguage(text);
     }
 

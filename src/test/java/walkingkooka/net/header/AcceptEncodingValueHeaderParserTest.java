@@ -101,7 +101,7 @@ public final class AcceptEncodingValueHeaderParserTest extends HeaderParserTestC
     }
 
     @Override
-    public AcceptEncodingValue parseString(final String text) {
+    AcceptEncodingValue parseHeader(final String text) {
         return AcceptEncodingValueHeaderParser.parseEncoding(text);
     }
 

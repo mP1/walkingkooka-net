@@ -163,16 +163,6 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         return UrlPathName.parse(text);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
-    }
-
     // class............................................................................................................
 
     @Override

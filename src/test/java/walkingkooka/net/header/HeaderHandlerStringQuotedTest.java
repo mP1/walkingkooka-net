@@ -23,39 +23,42 @@ public final class HeaderHandlerStringQuotedTest extends HeaderHandlerStringTest
 
     @Test
     public void testParseControlCharacterFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "a\\0",
-            new HeaderException("Invalid character 'a' at 0")
+            'a'
         );
     }
 
     @Test
     public void testParseNonAsciiFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "a\u0080",
-            new HeaderException("Invalid character 'a' at 0")
+            'a'
         );
     }
 
     @Test
     public void testParseMissingOpeningDoubleQuoteFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "abc\"",
-            new HeaderException("Invalid character 'a' at 0")
+            'a'
         );
     }
 
     @Test
     public void testParseUnsupportedBackslashFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "a\\bc",
-            new HeaderException("Invalid character 'a' at 0")
+            'a'
         );
     }
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("\"abc\"", "abc");
+        this.parseStringAndCheck(
+            "\"abc\"",
+            "abc"
+        );
     }
 
     @Test

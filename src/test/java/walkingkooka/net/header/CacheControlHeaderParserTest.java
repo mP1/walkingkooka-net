@@ -579,7 +579,7 @@ public final class CacheControlHeaderParserTest extends HeaderParserTestCase<Cac
     }
 
     @Override
-    public CacheControl parseString(final String text) {
+    CacheControl parseHeader(final String text) {
         return CacheControlHeaderParser.parseCacheControl(text);
     }
 

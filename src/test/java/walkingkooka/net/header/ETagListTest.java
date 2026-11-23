@@ -158,15 +158,6 @@ public class ETagListTest implements ListTesting2<ETagList, ETag>,
     // parse............................................................................................................
 
     @Test
-    @Override
-    public void testParseStringEmptyFails() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.parseString("")
-        );
-    }
-
-    @Test
     public void testParseStrong() {
         this.parseStringAndCheck(
             "\"strong111\"",
@@ -195,16 +186,6 @@ public class ETagListTest implements ListTesting2<ETagList, ETag>,
     @Override
     public ETagList parseString(final String text) {
         return ETagList.parse(text);
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
     }
 
     // HasText..........................................................................................................

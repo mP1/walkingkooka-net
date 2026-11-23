@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.EmptyTextException;
 import walkingkooka.HasValue;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeBound;
@@ -66,7 +67,7 @@ public final class RangeHeader implements Header,
     public static RangeHeader parse(final String header) {
         Objects.requireNonNull(header, "header");
         if (header.isEmpty()) {
-            throw new HeaderException("Header text empty");
+            throw new EmptyTextException("header");
         }
 
         final int equalsAfterUnit = header.indexOf('=');

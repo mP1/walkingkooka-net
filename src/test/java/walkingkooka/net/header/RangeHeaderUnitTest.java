@@ -55,11 +55,16 @@ public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
         assertSame(RangeHeaderUnit.NONE, RangeHeaderUnit.parse("none"));
     }
 
-    // ParseStringTesting ........................................................................................
-
     @Override
     public RangeHeaderUnit parseString(final String text) {
-        return RangeHeaderUnit.parse(text);
+        try {
+            return RangeHeaderUnit.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
     }
 
     @Override

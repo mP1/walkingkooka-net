@@ -73,7 +73,7 @@ public final class EncodingHeaderParserTest extends HeaderParserTestCase<Encodin
     }
 
     @Override
-    public Encoding parseString(final String text) {
+    Encoding parseHeader(final String text) {
         return EncodingHeaderParser.parseEncoding(text);
     }
 

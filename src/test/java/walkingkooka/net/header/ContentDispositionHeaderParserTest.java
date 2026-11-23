@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 import walkingkooka.collect.map.Maps;
 
 import java.time.OffsetDateTime;
@@ -413,9 +414,9 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testCreationDateInvalidFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "V; creation-date=123",
-            "Invalid character '1' at 0"
+            0
         );
     }
 
@@ -433,7 +434,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testFilenameMissingFails() {
         this.parseStringFails(
             "V; filename=\"\"",
-            "Empty \"filename\""
+            new EmptyTextException("filename")
         );
     }
 
@@ -475,9 +476,9 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testModificationDateInvalidFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "V; modification-date=123",
-            "Invalid character '1' at 0"
+            0
         );
     }
 
@@ -493,9 +494,9 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testReadDateInvalidFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "V; read-date=123",
-            "Invalid character '1' at 0"
+            0
         );
     }
 
@@ -513,7 +514,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     public void testSizeInvalidFails() {
         this.parseStringFails(
             "V; size=A",
-            "Invalid number in \"A\""
+            new IllegalArgumentException("Invalid number in \"A\"")
         );
     }
 
@@ -528,7 +529,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     // helpers...................................................................................................
 
     @Override
-    public ContentDisposition parseString(final String text) {
+    ContentDisposition parseHeader(final String text) {
         return ContentDispositionHeaderParser.parseContentDisposition(text);
     }
 

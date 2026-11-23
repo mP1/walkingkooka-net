@@ -58,7 +58,7 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
     public final void testWildcardQWeightInvalidValueFails() {
         this.parseStringFails(
             "*; q=ABC",
-            "Invalid number in \"ABC\""
+            new IllegalArgumentException("Invalid number in \"ABC\"")
         );
     }
 

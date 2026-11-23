@@ -136,16 +136,6 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         return UrlFragment.parse(fragment);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
-    }
-
     // with............................................................................................................
 
     @Test

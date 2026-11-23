@@ -80,19 +80,6 @@ public interface HeaderTesting2<V extends Header> extends HeaderTesting,
 
     V createDifferentHeader();
 
-    //@Override
-    default RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(
-            expected.getMessage(),
-            expected
-        );
-    }
-
-    //@Override
-    default Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return HeaderException.class;
-    }
-
     default void textAndCheck(final String expected) {
         this.textAndCheck(
             this.createHeader(),

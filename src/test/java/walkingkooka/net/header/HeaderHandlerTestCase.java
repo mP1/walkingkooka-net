@@ -111,20 +111,17 @@ public abstract class HeaderHandlerTestCase<H extends HeaderHandler<T>, T> imple
 
     @Override
     public final T parseString(final String text) {
-        return this.handler()
-            .parse(
-                text
-            );
-    }
-
-    @Override
-    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public final RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
+        try {
+            return this.handler()
+                .parse(
+                    text
+                );
+        } catch (final HeaderException headerException) {
+            final RuntimeException cause = (RuntimeException) headerException.getCause();
+            throw null != cause ?
+                cause :
+                headerException;
+        }
     }
 
     final void parseAndToTextAndCheck(final String text, final T value) {
