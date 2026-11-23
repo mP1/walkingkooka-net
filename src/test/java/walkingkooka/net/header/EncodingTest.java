@@ -165,6 +165,13 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
 
     @Override
     public Encoding parseString(final String text) {
-        return Encoding.parse(text);
+        try {
+            return Encoding.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
     }
 }

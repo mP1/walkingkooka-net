@@ -410,15 +410,4 @@ public final class UrlTest implements ClassTesting2<Url>,
     public Url parseString(final String text) {
         return Url.parse(text);
     }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
 }

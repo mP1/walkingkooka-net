@@ -86,7 +86,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     }
 
     @Override
-    public EncodedText parseString(final String text) {
+    EncodedText parseHeader(final String text) {
         return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text);
     }
 

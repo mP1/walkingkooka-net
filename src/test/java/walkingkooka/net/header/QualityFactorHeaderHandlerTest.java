@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 
 public final class QualityFactorHeaderHandlerTest extends
     HeaderHandlerNonStringTestCase<QualityFactorHeaderHandler, Float> {
@@ -26,7 +27,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseEmptyStringFails() {
         this.parseStringFails(
             "",
-            new HeaderException("Empty \"text\"")
+            new EmptyTextException("text")
         );
     }
 
@@ -34,7 +35,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseInvalidNumberFails() {
         this.parseStringFails(
             "ABC",
-            new HeaderException("Invalid number in \"ABC\"")
+            new IllegalArgumentException("Invalid number in \"ABC\"")
         );
     }
 

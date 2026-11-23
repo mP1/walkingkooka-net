@@ -189,14 +189,4 @@ public final class HttpRequestParserTest implements ClassTesting2<HttpRequestPar
     public HttpRequest parseString(final String text) {
         return HttpRequestParser.parse(TRANSPORT, text);
     }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
 }

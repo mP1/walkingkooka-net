@@ -102,16 +102,6 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         return UrlQueryString.parse(queryString);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> type) {
-        return type;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException cause) {
-        return cause;
-    }
-
     // parameterValues..................................................................................................
 
     @Test

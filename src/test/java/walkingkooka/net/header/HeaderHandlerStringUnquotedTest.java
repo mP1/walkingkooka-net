@@ -23,17 +23,17 @@ public final class HeaderHandlerStringUnquotedTest extends HeaderHandlerStringQu
 
     @Test
     public void testParseOpeningDoubleQuoteFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "\"abc",
-            new HeaderException("Invalid character '\\\"' at 0")
+            '"'
         );
     }
 
     @Test
     public void testParseBackslashFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "a\\bc",
-            new HeaderException("Invalid character '\\\\' at 1")
+            '\\'
         );
     }
 

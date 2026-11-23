@@ -155,7 +155,7 @@ public final class CommentRemovingHeaderParserTest extends HeaderParserTestCase<
     }
 
     @Override
-    public String parseString(final String text) {
+    String parseHeader(final String text) {
         return CommentRemovingHeaderParser.removeComments(text);
     }
 

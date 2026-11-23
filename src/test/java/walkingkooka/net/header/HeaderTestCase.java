@@ -52,14 +52,4 @@ public abstract class HeaderTestCase<V extends Header> implements ClassTesting2<
             }
         }
     }
-
-    @Override
-    public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(expected.getMessage(), expected);
-    }
-
-    @Override
-    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return HeaderException.class;
-    }
 }

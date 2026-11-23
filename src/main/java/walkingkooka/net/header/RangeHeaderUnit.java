@@ -83,7 +83,7 @@ public enum RangeHeaderUnit implements Header {
             .filter(u -> u.headerText.equalsIgnoreCase(text))
             .findFirst();
         if (!found.isPresent()) {
-            throw new HeaderException("Unknown range unit " + CharSequences.quote(text));
+            throw new IllegalArgumentException("Unknown range unit " + CharSequences.quote(text));
         }
         return found.get();
     }

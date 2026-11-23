@@ -47,14 +47,4 @@ public abstract class HeaderNameValueSharedTestCase<N extends HeaderNameValueSha
     public final Object parseString(final String text) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
 }

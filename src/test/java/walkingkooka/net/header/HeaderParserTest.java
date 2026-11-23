@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.reflect.ThrowableTesting;
@@ -182,7 +183,10 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     @Test
     public void testEncodedTextEmptyFails() {
-        assertThrows(HeaderException.class, () -> this.encodedText(""));
+        assertThrows(
+            EmptyTextException.class,
+            () -> this.encodedText("")
+        );
     }
 
     @Test
@@ -534,7 +538,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     // helpers.................................................................................................
 
     @Override
-    public Void parseString(final String text) {
+    Void parseHeader(final String text) {
         new TestHeaderParser(text);
         return null;
     }

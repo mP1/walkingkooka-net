@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -36,10 +37,9 @@ abstract class HeaderParser {
      * Package private to limit sub classing.
      */
     HeaderParser(final String text) {
-        //CharSequences.failIfNullOrEmpty(text, "Text");
-        Objects.requireNonNull(text, "Text");
+        Objects.requireNonNull(text, "header");
         if (text.isEmpty()) {
-            throw new HeaderException("Text is empty");
+            throw new EmptyTextException("header");
         }
 
         this.text = text;

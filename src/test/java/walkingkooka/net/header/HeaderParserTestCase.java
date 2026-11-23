@@ -17,7 +17,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
@@ -39,32 +38,25 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     // parse ...........................................................................................................
 
-    /**
-     * Asserts that a {@link InvalidCharacterException} is thrown and the position matches the expected position.
-     * The actual message which may include a label is ignored.
-     */
     @Override
-    public final void parseStringInvalidCharacterFails(final String text,
-                                                       final int pos) {
-        final HeaderException thrown = assertThrows(
-            HeaderException.class,
-            () -> this.parseString(text)
-        );
-
-        final InvalidCharacterException invalidCharacterException = (InvalidCharacterException) thrown.getCause();
-
-        this.checkEquals(
-            pos,
-            invalidCharacterException.position()
-        );
+    public final V parseString(final String text) {
+        try {
+            return this.parseHeader(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
     }
+
+    abstract V parseHeader(final String text);
 
     final void parseStringCommentFails(final String text,
                                        final int pos) {
-        this.parseStringFails(text,
-            this.parseStringFailedExpected(
-                new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))
-            )
+        this.parseStringFails(
+            text,
+            new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))
         );
     }
 
@@ -120,19 +112,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
             text,
             new HeaderException(message)
         );
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(
-            expected.getMessage(),
-            expected
-        );
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return HeaderException.class;
     }
 
     static <TT> List<TT> listReadOnlyCheck(final List<TT> list) {

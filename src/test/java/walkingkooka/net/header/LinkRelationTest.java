@@ -172,11 +172,19 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
+
     // ParseStringTesting ........................................................................................
 
     @Override
     public List<LinkRelation<?>> parseString(final String text) {
-        return LinkRelation.parse(text);
+        try {
+            return LinkRelation.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
     }
 
     // ToUrlPathName....................................................................................................

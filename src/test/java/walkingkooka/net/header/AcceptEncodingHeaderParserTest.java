@@ -146,7 +146,7 @@ public final class AcceptEncodingHeaderParserTest extends HeaderParserTestCase<A
     }
 
     @Override
-    public AcceptEncoding parseString(final String text) {
+    AcceptEncoding parseHeader(final String text) {
         return AcceptEncodingHeaderParser.parseAcceptEncoding(text);
     }
 

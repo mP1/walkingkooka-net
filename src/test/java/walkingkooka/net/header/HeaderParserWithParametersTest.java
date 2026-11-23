@@ -291,7 +291,7 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     }
 
     @Override
-    public Void parseString(final String text) {
+    Void parseHeader(final String text) {
         new HeaderParserWithParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>(text) {
 
             @Override

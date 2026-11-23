@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -31,23 +32,23 @@ public final class HeaderHandlerNonStringOffsetDateTimeTest extends
     public void testyParseEmptyFails() {
         this.parseStringFails(
             "",
-            new HeaderException("Empty \"text\"")
+            new EmptyTextException("text")
         );
     }
 
     @Test
     public void testyParseMissingOpeningDoubleQuoteFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "abc\"",
-            new HeaderException("Invalid character 'a' at 0")
+            'a'
         );
     }
 
     @Test
     public void testyParseMissingClosingDoubleQuoteFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "\"abc",
-            new HeaderException("Invalid character 'c' at 3")
+            'c'
         );
     }
 

@@ -96,18 +96,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         );
     }
 
-    // ParseStringTesting ..............................................................................................
-
-    @Override
-    public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
     // TypeNameTesting .................................................................................................
 
     @Override
