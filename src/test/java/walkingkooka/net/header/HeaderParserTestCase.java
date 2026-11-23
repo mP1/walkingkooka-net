@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -38,6 +39,26 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
     }
 
     // parse ...........................................................................................................
+
+    /**
+     * Asserts that a {@link InvalidCharacterException} is thrown and the position matches the expected position.
+     * The actual message which may include a label is ignored.
+     */
+    @Override
+    public final void parseStringInvalidCharacterFails(final String text,
+                                                       final int pos) {
+        final HeaderException thrown = assertThrows(
+            HeaderException.class,
+            () -> this.parseString(text)
+        );
+
+        final InvalidCharacterException invalidCharacterException = (InvalidCharacterException) thrown.getCause();
+
+        this.checkEquals(
+            pos,
+            invalidCharacterException.position()
+        );
+    }
 
     final void parseStringCommentFails(final String text, final int pos) {
         this.parseStringFails(text,
