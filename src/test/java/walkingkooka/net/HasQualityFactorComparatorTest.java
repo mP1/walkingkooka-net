@@ -21,10 +21,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparatorTesting2;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQualityFactorComparator<MediaType>>,
+public final class HasQualityFactorComparatorTest implements PackagePrivateClassTesting<HasQualityFactorComparator<MediaType>>,
     ComparatorTesting2<HasQualityFactorComparator<MediaType>, MediaType> {
 
     @Test
@@ -76,10 +75,5 @@ public final class HasQualityFactorComparatorTest implements ClassTesting2<HasQu
     @Override
     public Class<HasQualityFactorComparator<MediaType>> type() {
         return Cast.to(HasQualityFactorComparator.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
