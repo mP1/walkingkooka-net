@@ -19,8 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
@@ -29,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements ClassTesting2<P>,
+public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements PackagePrivateClassTesting<P>,
     ParseStringTesting<V>,
     ToStringTesting,
     TypeNameTesting<P> {
@@ -106,13 +105,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
     static <TT> List<TT> listReadOnlyCheck(final List<TT> list) {
         assertThrows(UnsupportedOperationException.class, () -> list.remove(0));
         return list;
-    }
-
-    // TypeTesting ....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................
