@@ -59,42 +59,75 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
         );
     }
 
-    final void parseStringCommentFails(final String text, final int pos) {
+    final void parseStringCommentFails(final String text,
+                                       final int pos) {
         this.parseStringFails(text,
-            this.parseStringFailedExpected(new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
+            this.parseStringFailedExpected(
+                new CommentHeaderException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))
+            )
+        );
     }
 
     final void parseMissingClosingQuoteFails(final String text) {
-        this.parseStringFails(text, HeaderParser.missingClosingQuote(text));
+        this.parseStringFails(
+            text,
+            HeaderParser.missingClosingQuote(text)
+        );
     }
 
     final void parseStringMissingValueFails(final String text) {
-        this.parseStringMissingValueFails(text, text.length());
+        this.parseStringMissingValueFails(
+            text,
+            text.length()
+        );
     }
 
-    final void parseStringMissingValueFails(final String text, final int pos) {
-        this.parseStringFails(text,
-            HeaderParser.emptyToken(this.valueLabel(), pos, text));
+    final void parseStringMissingValueFails(final String text,
+                                            final int pos) {
+        this.parseStringFails(
+            text,
+            HeaderParser.emptyToken(
+                this.valueLabel(),
+                pos,
+                text
+            )
+        );
     }
 
     abstract String valueLabel();
 
     final void parseStringMissingParameterValueFails(final String text) {
-        this.parseStringMissingParameterValueFails(text, text.length());
+        this.parseStringMissingParameterValueFails(
+            text,
+            text.length()
+        );
     }
 
-    final void parseStringMissingParameterValueFails(final String text, final int pos) {
-        this.parseStringFails(text,
-            HeaderParser.missingParameterValue(pos, text));
+    final void parseStringMissingParameterValueFails(final String text,
+                                                     final int pos) {
+        this.parseStringFails(
+            text,
+            HeaderParser.missingParameterValue(
+                pos,
+                text
+            )
+        );
     }
 
-    final void parseStringFails(final String text, final String message) {
-        this.parseStringFails(text, new HeaderException(message));
+    final void parseStringFails(final String text,
+                                final String message) {
+        this.parseStringFails(
+            text,
+            new HeaderException(message)
+        );
     }
 
     @Override
     public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return new HeaderException(expected.getMessage(), expected);
+        return new HeaderException(
+            expected.getMessage(),
+            expected
+        );
     }
 
     @Override
@@ -103,19 +136,26 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
     }
 
     static <TT> List<TT> listReadOnlyCheck(final List<TT> list) {
-        assertThrows(UnsupportedOperationException.class, () -> list.remove(0));
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> list.remove(0)
+        );
         return list;
     }
 
-    // TypeNameTesting .........................................................................................
+    // class............................................................................................................
 
     @Override
-    public String typeNamePrefix() {
-        return "";
+    public final String typeNamePrefix() {
+        return this instanceof HeaderParserWithParametersTest ?
+            HeaderParser.class.getSimpleName() :
+            "";
     }
 
     @Override
-    public String typeNameSuffix() {
-        return HeaderParser.class.getSimpleName();
+    public final String typeNameSuffix() {
+        return this instanceof HeaderParserWithParametersTest ?
+            "" :
+            HeaderParser.class.getSimpleName();
     }
 }
