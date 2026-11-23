@@ -17,18 +17,12 @@
 
 package walkingkooka.net;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class AbsoluteOrRelativeUrlTest implements ClassTesting2<AbsoluteOrRelativeUrl> {
+public final class AbsoluteOrRelativeUrlTest implements PublicClassTesting<AbsoluteOrRelativeUrl> {
 
     @Override
     public Class<AbsoluteOrRelativeUrl> type() {
         return AbsoluteOrRelativeUrl.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
