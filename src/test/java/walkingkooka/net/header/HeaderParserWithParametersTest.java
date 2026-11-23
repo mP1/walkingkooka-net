@@ -348,16 +348,4 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     public Class<HeaderParserWithParameters<?, ?>> type() {
         return Cast.to(HeaderParserWithParameters.class);
     }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    public String typeNamePrefix() {
-        return HeaderParser.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
-    }
 }
