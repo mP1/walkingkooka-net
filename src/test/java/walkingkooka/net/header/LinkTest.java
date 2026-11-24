@@ -24,7 +24,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -36,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderWithParametersTestCase<Link,
     LinkParameterName<?>>
-    implements ParseStringTesting<List<Link>> {
+    implements ParseStringTesting<List<Link>>,
+    PublicClassTesting<Link> {
 
     @Test
     public void testWithNullFails() {
@@ -307,11 +308,6 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Override
     public Class<Link> type() {
         return Link.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting ........................................................................................
