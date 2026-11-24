@@ -36,7 +36,10 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> AcceptEncoding.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> AcceptEncoding.with(null)
+        );
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
@@ -44,60 +47,100 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
     @Test
     public void testQualityFactorSort() {
         final AcceptEncoding accept = AcceptEncoding.parse("a;q=1.0,b");
-        this.qualitySortedValuesAndCheck(accept, accept.value());
+        this.qualitySortedValuesAndCheck(
+            accept,
+            accept.value()
+        );
     }
 
     @Test
     public void testQualityFactorSort2() {
-        this.qualitySortedValuesAndCheck(AcceptEncoding.parse("a;q=0.5,b,c;q=0.75,d;q=1.0"),
-            AcceptEncoding.parse("b,d;q=1.0,a;q=0.5,c;q=0.75").value());
+        this.qualitySortedValuesAndCheck(
+            AcceptEncoding.parse("a;q=0.5,b,c;q=0.75,d;q=1.0"),
+            AcceptEncoding.parse("b,d;q=1.0,a;q=0.5,c;q=0.75").value()
+        );
     }
 
     // predicate.......................................................................................................
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING), ContentEncoding.GZIP);
+        this.testTrue(
+            acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING),
+            ContentEncoding.GZIP
+        );
     }
 
     @Test
     public void testTestWildcard2() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING), ContentEncoding.parse("abc"));
+        this.testTrue(
+            acceptEncoding(AcceptEncodingValue.WILDCARD_ENCODING),
+            ContentEncoding.parse("abc")
+        );
     }
 
     @Test
     public void testTestDifferentWildcard() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("different"), AcceptEncodingValue.WILDCARD_ENCODING), ContentEncoding.parse("abc"));
+        this.testTrue(
+            acceptEncoding(
+                AcceptEncodingValue.with("different"),
+                AcceptEncodingValue.WILDCARD_ENCODING
+            ),
+            ContentEncoding.parse("abc")
+        );
     }
 
     @Test
     public void testTestDifferentNonWildcard() {
-        this.testFalse(acceptEncoding(AcceptEncodingValue.with("different")), ContentEncoding.parse("abc"));
+        this.testFalse(
+            acceptEncoding(AcceptEncodingValue.with("different")),
+            ContentEncoding.parse("abc")
+        );
     }
 
     @Test
     public void testTestNonWildcardDifferentCase() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("ABC")), ContentEncoding.parse("abc"));
+        this.testTrue(
+            acceptEncoding(AcceptEncodingValue.with("ABC")),
+            ContentEncoding.parse("abc")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCase() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("xyz")), ContentEncoding.parse("xyz"));
+        this.testTrue(
+            acceptEncoding(AcceptEncodingValue.with("xyz")),
+            ContentEncoding.parse("xyz")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCaseMany() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("xyz")), ContentEncoding.parse("xyz, abc"));
+        this.testTrue(
+            acceptEncoding(AcceptEncodingValue.with("xyz")),
+            ContentEncoding.parse("xyz, abc")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCaseMany2() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("xyz")), ContentEncoding.parse("abc, xyz"));
+        this.testTrue(
+            acceptEncoding(
+                AcceptEncodingValue.with("xyz")
+            ),
+            ContentEncoding.parse("abc, xyz")
+        );
     }
 
     @Test
     public void testTestNonWildcardSameCase2() {
-        this.testTrue(acceptEncoding(AcceptEncodingValue.with("different"), AcceptEncodingValue.with("ABC")), ContentEncoding.parse("ABC"));
+        this.testTrue(
+            acceptEncoding(
+                AcceptEncodingValue.with("different"),
+                AcceptEncodingValue.with("ABC")
+            ),
+            ContentEncoding.parse("ABC")
+        );
     }
 
     @Override
@@ -109,9 +152,19 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("gzip, *;q=0.5",
-            AcceptEncoding.with(Lists.of(AcceptEncodingValue.GZIP,
-                AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
+        this.parseStringAndCheck(
+            "gzip, *;q=0.5",
+            AcceptEncoding.with(
+                Lists.of(AcceptEncodingValue.GZIP,
+                    AcceptEncodingValue.WILDCARD_ENCODING.setParameters(
+                        Maps.of(
+                            AcceptEncodingValueParameterName.Q,
+                            0.5f
+                        )
+                    )
+                )
+            )
+        );
     }
 
     @Override
@@ -121,13 +174,15 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
 
     // helpers.......................................................................................................
 
+    private AcceptEncoding acceptEncoding(final AcceptEncodingValue... value) {
+        return this.createHeader(
+            Lists.of(value)
+        );
+    }
+
     @Override
     AcceptEncoding createHeader(final List<AcceptEncodingValue> value) {
         return AcceptEncoding.with(value);
-    }
-
-    private AcceptEncoding acceptEncoding(final AcceptEncodingValue... value) {
-        return this.createHeader(Lists.of(value));
     }
 
     @Override
