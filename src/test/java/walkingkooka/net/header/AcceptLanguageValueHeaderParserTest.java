@@ -22,13 +22,17 @@ import org.junit.jupiter.api.Test;
 public final class AcceptLanguageValueHeaderParserTest extends AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<AcceptLanguageValueHeaderParser, AcceptLanguageValue> {
 
     @Test
-    public void testLanguageTagValueSeparatorFails() {
+    public void testParseLanguageTagValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("en,");
     }
 
     @Override
-    void parseStringAndCheck2(final String text, final AcceptLanguageValue expected) {
-        this.parseStringAndCheck(text, expected);
+    void parseStringAndCheck2(final String text,
+                              final AcceptLanguageValue expected) {
+        this.parseStringAndCheck(
+            text,
+            expected
+        );
     }
 
     @Override
