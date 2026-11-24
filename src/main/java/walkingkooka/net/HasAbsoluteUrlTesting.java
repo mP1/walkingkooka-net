@@ -17,11 +17,11 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.Testing;
+import walkingkooka.text.printer.TreePrintableTesting;
 
-public interface HasAbsoluteUrlTesting<T extends HasAbsoluteUrl> extends Testing {
+public interface HasAbsoluteUrlTesting extends TreePrintableTesting {
 
-    default void urlAndCheck(final T has,
+    default void urlAndCheck(final HasAbsoluteUrl has,
                              final AbsoluteUrl expected) {
         this.checkEquals(
             expected,
