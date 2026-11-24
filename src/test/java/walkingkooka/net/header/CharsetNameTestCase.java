@@ -19,12 +19,13 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderTestCase<N>
-    implements PredicateTesting2<N, CharsetName> {
+    implements PredicateTesting2<N, CharsetName>,
+    PackagePrivateClassTesting<N> {
 
     CharsetNameTestCase() {
         super();
@@ -98,13 +99,6 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
     @Override
     public final boolean isResponse() {
         return true;
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // PredicateTesting.................................................................................................
