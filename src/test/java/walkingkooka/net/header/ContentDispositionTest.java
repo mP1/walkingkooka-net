@@ -298,7 +298,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     // text ............................................................................................................
 
     @Test
-    public void testToHeaderTextNoParameters() {
+    public void testTextNoParameters() {
         this.textAndCheck(
             ContentDisposition.with(TYPE),
             "attachment"
@@ -306,7 +306,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     }
 
     @Test
-    public void testToHeaderTextWithParameters() {
+    public void testTextWithParameters() {
         this.textAndCheck(
             this.createHeaderWithParameters(),
             "attachment; p1=v1"
@@ -314,7 +314,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     }
 
     @Test
-    public void testToHeaderTextWithSeveralParameters() {
+    public void testTextWithSeveralParameters() {
         this.textAndCheck(
             ContentDisposition.with(TYPE)
                 .setParameters(
