@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptEncoding>,
-    PredicateTesting2<AcceptEncoding, ContentEncoding> {
+    PredicateTesting2<AcceptEncoding, ContentEncoding>,
+    PublicClassTesting<AcceptEncoding> {
 
     @Test
     public void testWithNullFails() {
@@ -163,14 +164,7 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
         return this.createHeader();
     }
 
-    // ClassTestCase ............................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    // TypeNaming ............................................................................................
+    // Class............................................................................................................
 
     @Override
     public String typeNamePrefix() {
