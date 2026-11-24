@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.Range;
 import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
@@ -473,7 +472,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseUnitInvalidFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes-0-100/*",
             '-'
         );
@@ -481,7 +480,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseUnitLowerBoundInvalidFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 0/",
             '/'
         );
@@ -489,7 +488,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidLowerBoundCharacterFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes ?0-100/*",
             '?'
         );
@@ -497,7 +496,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidLowerBoundCharacterFails2() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 1?0-100/*",
             '?'
         );
@@ -505,7 +504,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseMissingRangeSeparatorFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-*/*",
             '*'
         );
@@ -513,7 +512,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseMissingRangeSeparatorFails2() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100?200/*",
             '?'
         );
@@ -521,7 +520,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidUpperBoundCharacterFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-?00/*",
             '?'
         );
@@ -529,7 +528,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidUpperBoundCharacterFails2() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-2?00/*",
             '?'
         );
@@ -545,7 +544,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidSizeCharacterFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-200/?*",
             '?'
         );
@@ -553,7 +552,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidSizeCharacterFails2() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-200/1?",
             '?'
         );
@@ -561,7 +560,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidSizeCharacterFails3() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes 100-200/1*",
             '*'
         );
@@ -569,7 +568,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
 
     @Test
     public void testParseInvalidRangeSeparatorFails() {
-        this.parseStringFails(
+        this.parseStringInvalidCharacterFails(
             "bytes *!*",
             '!'
         );
@@ -636,25 +635,10 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     }
 
     private void parseStringFails(final String text,
-                                  final char invalid) {
+                                  final String message) {
         this.parseStringFails(
             text,
-            new InvalidCharacterException(
-                text,
-                text.indexOf(invalid)
-            ).getMessage()
-        );
-    }
-
-    private void parseStringFails(final String text,
-                                  final String message) {
-        final HeaderException expected = assertThrows(
-            HeaderException.class,
-            () -> ContentRange.parse(text)
-        );
-        this.getMessageAndCheck(
-            expected,
-            message
+            new IllegalArgumentException(message)
         );
     }
 
