@@ -119,7 +119,12 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
             IllegalArgumentException.class,
             () -> ContentRange.with(
                 UNIT,
-                Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
+                Optional.of(
+                    Range.greaterThanEquals(123L)
+                        .and(
+                            Range.lessThan(456L)
+                        )
+                ),
                 SIZE
             )
         );
@@ -283,7 +288,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         this.check(contentRange);
     }
 
-    // setSize.....................................................................................................
+    // setSize..........................................................................................................
 
     @Test
     public void testSetSizeWithNullFails() {
@@ -346,22 +351,39 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
         this.check(contentRange);
     }
 
-    // valueAndCheck ..................................................................................................
+    // check............................................................................................................
 
     private void check(final ContentRange contentRange) {
-        this.check(contentRange, UNIT, this.range(), SIZE);
+        this.check(
+            contentRange,
+            UNIT,
+            this.range(),
+            SIZE
+        );
     }
 
     private void check(final ContentRange contentRange,
                        final RangeHeaderUnit unit,
                        final Optional<Range<Long>> range,
                        final Optional<Long> size) {
-        this.checkEquals(unit, contentRange.unit(), "unit");
-        this.checkEquals(range, contentRange.range(), "range");
-        this.checkEquals(size, contentRange.size(), "size");
+        this.checkEquals(
+            unit,
+            contentRange.unit(),
+            "unit"
+        );
+        this.checkEquals(
+            range,
+            contentRange.range(),
+            "range"
+        );
+        this.checkEquals(
+            size,
+            contentRange.size(),
+            "size"
+        );
     }
 
-    // valueAndCheck ...........................................................................................................
+    // isWildcard ......................................................................................................
 
     @Test
     public void testIsWildcard() {
@@ -617,7 +639,10 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
                                   final char invalid) {
         this.parseStringFails(
             text,
-            new InvalidCharacterException(text, text.indexOf(invalid)).getMessage()
+            new InvalidCharacterException(
+                text,
+                text.indexOf(invalid)
+            ).getMessage()
         );
     }
 
@@ -701,7 +726,6 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
             headerText
         );
     }
-
 
     // hashCode/equals .................................................................................................
 
