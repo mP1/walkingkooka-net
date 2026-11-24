@@ -138,7 +138,7 @@ public final class AcceptLanguageValue extends HeaderWithValueAndParameters<Acce
 
     @Override
     String textParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+        return TEXT_PARAMETER_SEPARATOR;
     }
 
     /**

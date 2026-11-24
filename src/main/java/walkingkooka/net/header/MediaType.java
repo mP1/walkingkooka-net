@@ -712,7 +712,7 @@ final public class MediaType extends HeaderWithValueAndParameters<MediaType, Med
 
     @Override
     String textParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+        return TEXT_PARAMETER_SEPARATOR;
     }
 
     @Override
