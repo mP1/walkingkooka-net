@@ -22,7 +22,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Arrays;
@@ -32,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundary>
     implements ComparableTesting2<MediaTypeBoundary>,
-    ParseStringTesting<MediaTypeBoundary> {
+    ParseStringTesting<MediaTypeBoundary>,
+    PublicClassTesting<MediaTypeBoundary> {
 
     // with ............................................................................................................
 
@@ -323,10 +324,5 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     @Override
     public Class<MediaTypeBoundary> type() {
         return MediaTypeBoundary.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
