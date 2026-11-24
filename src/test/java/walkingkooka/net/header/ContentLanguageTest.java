@@ -30,9 +30,18 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
     implements ParseStringTesting<ContentLanguage>,
     PublicClassTesting<ContentLanguage> {
 
+    private final static LanguageName EN = LanguageName.with("en");
+
+    private final static LanguageName FR = LanguageName.with("fr");
+
+    private final static LanguageName GR = LanguageName.with("gr");
+
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> ContentLanguage.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> ContentLanguage.with(null)
+        );
     }
 
     @Test
@@ -45,7 +54,9 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     @Test
     public void testWith2() {
-        final List<LanguageName> languages = Lists.of(LanguageName.with("unknown"));
+        final List<LanguageName> languages = Lists.of(
+            LanguageName.with("unknown")
+        );
         this.valueAndCheck(
             ContentLanguage.with(languages),
             languages
@@ -56,14 +67,22 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("en, fr",
-            this.createHeader(this.en(), this.fr()));
+        this.parseStringAndCheck(
+            "en, fr",
+            this.createHeader(EN, FR)
+        );
     }
 
     @Test
     public void testParseExtraWhitespace() {
-        this.parseStringAndCheck("en,  fr,  gr",
-            this.createHeader(this.en(), this.fr(), this.gr()));
+        this.parseStringAndCheck(
+            "en,  fr,  gr",
+            this.createHeader(
+                EN,
+                FR,
+                GR
+            )
+        );
     }
 
     @Test
@@ -92,12 +111,21 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(ContentLanguage.with(Lists.of(LanguageName.with("hu"))));
+        this.checkNotEquals(
+            ContentLanguage.with(
+                Lists.of(
+                    LanguageName.with("hu")
+                )
+            )
+        );
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeader(), "en, fr");
+        this.toStringAndCheck(
+            this.createHeader(),
+            "en, fr"
+        );
     }
 
     @Override
@@ -107,7 +135,9 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
 
     @Override
     public ContentLanguage createDifferentHeader() {
-        return ContentLanguage.with(Lists.of(this.gr()));
+        return ContentLanguage.with(
+            Lists.of(GR)
+        );
     }
 
     private ContentLanguage createHeader(final LanguageName... languages) {
@@ -115,19 +145,10 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
     }
 
     private List<LanguageName> value() {
-        return Lists.of(this.en(), this.fr());
-    }
-
-    private LanguageName en() {
-        return LanguageName.with("en");
-    }
-
-    private LanguageName fr() {
-        return LanguageName.with("fr");
-    }
-
-    private LanguageName gr() {
-        return LanguageName.with("gr");
+        return Lists.of(
+            EN,
+            FR
+        );
     }
 
     @Override
