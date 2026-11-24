@@ -42,7 +42,7 @@ public final class AcceptEncodingValueWildcardTest extends AcceptEncodingValueTe
     @Test
     @Override
     public void testWith() {
-        this.checkValue(this.createHeader());
+        this.valueAndParametersCheck(this.createHeader());
     }
 
     // predicate........................................................................................................
