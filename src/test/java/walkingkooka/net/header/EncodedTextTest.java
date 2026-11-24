@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasCharsetTesting;
 import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Optional;
@@ -25,7 +26,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EncodedTextTest extends HeaderTestCase<EncodedText>
-    implements PublicClassTesting<EncodedText> {
+    implements PublicClassTesting<EncodedText>,
+    HasCharsetTesting {
+
+    private final static CharsetName CHARSET_NAME = CharsetName.UTF_8;
 
     @Test
     public void testWithNullCharsetFails() {
@@ -39,29 +43,28 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Test
     public void testWithNullLanguageFails() {
-        assertThrows(NullPointerException.class, () -> EncodedText.with(this.charset(), null, ""));
+        assertThrows(NullPointerException.class, () -> EncodedText.with(CHARSET_NAME, null, ""));
     }
 
     @Test
     public void testWith() {
-        this.check(this.createHeader(), this.charset(), this.language(), this.value());
+        this.check(this.createHeader(), CHARSET_NAME, this.language(), this.value());
     }
 
     @Test
     public void testWithEmptyText() {
-        final CharsetName charset = this.charset();
         final Optional<LanguageName> language = this.language();
         final String text = "";
 
-        this.check(EncodedText.with(charset, language, text),
-            charset,
+        this.check(EncodedText.with(CHARSET_NAME, language, text),
+            CHARSET_NAME,
             language,
             text);
     }
 
     @Test
     public void testWithPath() {
-        final CharsetName charset = this.charset();
+        final CharsetName charset = CHARSET_NAME;
         final Optional<LanguageName> language = this.language();
         final String text = "/path/filename.txt";
 
@@ -73,7 +76,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Test
     public void testWithNoLanguage() {
-        final CharsetName charset = this.charset();
+        final CharsetName charset = CHARSET_NAME;
         final Optional<LanguageName> language = EncodedText.NO_LANGUAGE;
         final String text = this.value();
 
@@ -106,7 +109,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
     public void testTextWithoutLanguage() {
         this.textAndCheck(
             EncodedText.with(
-                this.charset(),
+                CHARSET_NAME,
                 EncodedText.NO_LANGUAGE,
                 "abc123"
             ),
@@ -149,21 +152,21 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Test
     public void testEqualsDifferentLanguage() {
-        this.checkNotEquals(EncodedText.with(this.charset(),
+        this.checkNotEquals(EncodedText.with(CHARSET_NAME,
             Optional.of(LanguageName.with("fr")),
             this.value()));
     }
 
     @Test
     public void testEqualsDifferentLanguage2() {
-        this.checkNotEquals(EncodedText.with(this.charset(),
+        this.checkNotEquals(EncodedText.with(CHARSET_NAME,
             EncodedText.NO_LANGUAGE,
             this.value()));
     }
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(EncodedText.with(this.charset(),
+        this.checkNotEquals(EncodedText.with(CHARSET_NAME,
             this.language(),
             "different"));
     }
@@ -183,11 +186,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
     }
 
     private EncodedText createHeader(final String value) {
-        return EncodedText.with(this.charset(), this.language(), value);
-    }
-
-    private CharsetName charset() {
-        return CharsetName.UTF_8;
+        return EncodedText.with(CHARSET_NAME, this.language(), value);
     }
 
     private Optional<LanguageName> language() {
@@ -200,7 +199,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Override
     public EncodedText createDifferentHeader() {
-        return EncodedText.with(this.charset(), Optional.empty(), "different");
+        return EncodedText.with(CHARSET_NAME, Optional.empty(), "different");
     }
 
     @Override
