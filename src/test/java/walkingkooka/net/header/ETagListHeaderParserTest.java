@@ -26,37 +26,37 @@ import java.util.List;
 public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETagListHeaderParser> {
 
     @Test
-    public void testValueSeparatorFails() {
+    public void testParseValueSeparatorFails() {
         this.parseStringMissingValueFails(",");
     }
 
     @Test
-    public void testSeparatorFails() {
+    public void testParseSeparatorFails() {
         this.parseStringMissingValueFails("\"ABC\",");
     }
 
     @Test
-    public void testSeparatorSpaceFails() {
+    public void testParseSeparatorSpaceFails() {
         this.parseStringMissingValueFails("\"ABC\", ");
     }
 
     @Test
-    public void testSeparatorTabFails() {
+    public void testParseSeparatorTabFails() {
         this.parseStringMissingValueFails("\"ABC\",\t");
     }
 
     @Test
-    public void testWeakSeparatorSpaceFails() {
+    public void testParseWeakSeparatorSpaceFails() {
         this.parseStringMissingValueFails("W/\"ABC\", ");
     }
 
     @Test
-    public void testWeakSeparatorTabFails() {
+    public void testParseWeakSeparatorTabFails() {
         this.parseStringMissingValueFails("W/\"ABC\",\t");
     }
 
     @Test
-    public void testETagSeparatorETag() {
+    public void testParseETagSeparatorETag() {
         this.parseStringAndCheck2(
             "\"A\",\"B\"",
             ETag.strong("A"),
@@ -65,7 +65,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testETagSeparatorSpaceETag() {
+    public void testParseETagSeparatorSpaceETag() {
         this.parseStringAndCheck2(
             "\"A\", \"B\"",
             ETag.strong("A"),
@@ -74,7 +74,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testETagSeparatorTabETag() {
+    public void testParseETagSeparatorTabETag() {
         this.parseStringAndCheck2(
             "\"A\",\t\"B\"",
             ETag.strong("A"),
@@ -83,7 +83,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testETagSeparatorSpaceSpaceETag() {
+    public void testParseETagSeparatorSpaceSpaceETag() {
         this.parseStringAndCheck2(
             "\"A\",  \"B\"",
             ETag.strong("A"),
@@ -92,7 +92,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testWeakETagSeparatorWeakETag() {
+    public void testParseWeakETagSeparatorWeakETag() {
         this.parseStringAndCheck2(
             "W/\"A\",W/\"B\"",
             ETag.weak("A"),
@@ -101,7 +101,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testWeakETagSeparatorSpaceWeakETag() {
+    public void testParseWeakETagSeparatorSpaceWeakETag() {
         this.parseStringAndCheck2(
             "\"A\", W/\"B\"",
             ETag.strong("A"),
@@ -110,7 +110,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Test
-    public void testWeakETagSeparatorTabWeakETag() {
+    public void testParseWeakETagSeparatorTabWeakETag() {
         this.parseStringAndCheck2(
             "\"A\",\tW/\"B\"",
             ETag.strong("A"),
