@@ -33,18 +33,18 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> IfRange.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> IfRange.with(null)
+        );
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> IfRange.with(""));
-    }
-
-    @Test
-    @Override
-    public void testParseStringEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> IfRange.parse(""));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> IfRange.with("")
+        );
     }
 
     @Test
@@ -53,25 +53,40 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
     }
 
     @Test
+    @Override
+    public void testParseStringEmptyFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> IfRange.parse("")
+        );
+    }
+
+    @Test
     public void testParseInvalidFails() {
-        assertThrows(HeaderException.class, () -> IfRange.parse("\"1234567890abcdef"));
+        assertThrows(
+            HeaderException.class,
+            () -> IfRange.parse("\"1234567890abcdef")
+        );
     }
 
     @Test
     public void testParseETag() {
         final ETag etag = ETagValidator.WEAK.setValue("abc");
-        this.parseStringAndCheck(etag.text(),
-            IfRange.with(etag));
+
+        this.parseStringAndCheck(
+            etag.text(),
+            IfRange.with(etag)
+        );
     }
 
     @Test
     public void testParseLastModified() {
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
-        this.parseStringAndCheck(HttpHeaderName.LAST_MODIFIED.headerText(lastModified),
-            IfRange.with(lastModified));
+        this.parseStringAndCheck(
+            HttpHeaderName.LAST_MODIFIED.headerText(lastModified),
+            IfRange.with(lastModified)
+        );
     }
-
-    // ParseStringTesting ........................................................................................
 
     @Override
     public IfRange<?> parseString(final String text) {
