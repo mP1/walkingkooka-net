@@ -26,82 +26,131 @@ import java.util.List;
 
 public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderParser, List<Link>> {
 
+    private final static Link LINK = Link.with(
+        Url.parse("/path/file")
+    );
+
     @Test
-    public void testKeyValueSeparatorFails() {
+    public void testParseKeyValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
-    public void testMultiValueSeparatorFails() {
+    public void testParseMultiValueSeparatorFails() {
         this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
-    public void testSlashFails() {
+    public void testParseSlashFails() {
         this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
-    public void testWildcardFails() {
+    public void testParseWildcardFails() {
         this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
-    public void testMissingValueFails() {
-        this.parseStringMissingValueFails("<", 1);
+    public void testParseMissingValueFails() {
+        this.parseStringMissingValueFails(
+            "<",
+            1
+        );
     }
 
     @Test
-    public void testInvalidValueFails() {
-        this.parseStringInvalidCharacterFails("https://example.com", 0);
+    public void testParseInvalidValueFails() {
+        this.parseStringInvalidCharacterFails(
+            "https://example.com",
+            0
+        );
     }
 
     @Test
-    public void testLinkAbsoluteUrl() {
-        this.parseStringAndCheck2("<https://example.com>",
-            Link.with(Url.parse("https://example.com")));
+    public void testParseLinkAbsoluteUrl() {
+        this.parseStringAndCheck2(
+            "<https://example.com>",
+            Link.with(
+                Url.parse("https://example.com")
+            )
+        );
     }
 
     @Test
-    public void testLinkRelativeUrl() {
-        this.parseStringAndCheck2("</path/file>",
-            this.link());
+    public void testParseLinkRelativeUrl() {
+        this.parseStringAndCheck2(
+            "</path/file>",
+            LINK
+        );
     }
 
     @Test
-    public void testLinkTypeParameter() {
-        this.parseStringAndCheck2("</path/file>; type=text/plain",
-            this.link(LinkParameterName.TYPE, MediaType.TEXT_PLAIN));
+    public void testParseLinkTypeParameter() {
+        this.parseStringAndCheck2(
+            "</path/file>; type=text/plain",
+            link(
+                LinkParameterName.TYPE,
+                MediaType.TEXT_PLAIN
+            )
+        );
     }
 
     @Test
-    public void testLinkRelParameter() {
-        this.parseStringAndCheck2("</path/file>; rel=prev",
-            this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV)));
+    public void testParseLinkRelParameter() {
+        this.parseStringAndCheck2(
+            "</path/file>; rel=prev",
+            link(
+                LinkParameterName.REL,
+                Lists.of(
+                    LinkRelation.PREV
+                )
+            )
+        );
     }
 
     @Test
-    public void testLinkRelParameterUrlValue() {
-        this.parseStringAndCheck2("</path/file>; rel=https://example.com",
-            this.link(LinkParameterName.REL, Lists.of(LinkRelation.with("https://example.com"))));
+    public void testParseLinkRelParameterUrlValue() {
+        this.parseStringAndCheck2(
+            "</path/file>; rel=https://example.com",
+            link(
+                LinkParameterName.REL,
+                Lists.of(
+                    LinkRelation.with("https://example.com")
+                )
+            )
+        );
     }
 
     @Test
-    public void testLinkRelParameterMultipleValues() {
-        this.parseStringAndCheck2("</path/file>; rel=\"prev next\"",
-            this.link(LinkParameterName.REL, Lists.of(LinkRelation.PREV, LinkRelation.NEXT)));
+    public void testParseLinkRelParameterMultipleValues() {
+        this.parseStringAndCheck2(
+            "</path/file>; rel=\"prev next\"",
+            link(
+                LinkParameterName.REL,
+                Lists.of(
+                    LinkRelation.PREV,
+                    LinkRelation.NEXT
+                )
+            )
+        );
     }
 
-    private Link link() {
-        return Link.with(Url.parse("/path/file"));
+    private static <T> Link link(final LinkParameterName<T> parameterName,
+                                 final T parameterValue) {
+        return LINK.setParameters(
+            Maps.of(
+                parameterName,
+                parameterValue
+            )
+        );
     }
 
-    private <T> Link link(final LinkParameterName<T> parameterName, final T parameterValue) {
-        return this.link().setParameters(Maps.of(parameterName, parameterValue));
-    }
-
-    private void parseStringAndCheck2(final String text, final Link... links) {
-        this.parseStringAndCheck(text, Lists.of(links));
+    private void parseStringAndCheck2(final String text,
+                                      final Link... links) {
+        this.parseStringAndCheck(
+            text,
+            Lists.of(links)
+        );
     }
 
     @Override
