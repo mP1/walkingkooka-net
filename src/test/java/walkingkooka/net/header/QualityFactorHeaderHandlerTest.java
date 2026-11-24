@@ -43,7 +43,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseNegativeFails() {
         this.parseStringFails(
             "-0.1",
-            new HeaderException("Q factor -0.1 must be between 0.0 and 1.0")
+            new IllegalArgumentException("Invalid \"Q\" factor -0.1 must be between 0.0 and 1.0")
         );
     }
 
@@ -51,7 +51,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testMoreThanOneFails() {
         this.parseStringFails(
             "1.01",
-            new HeaderException("Q factor 1.01 must be between 0.0 and 1.0")
+            new IllegalArgumentException("Invalid \"Q\" factor 1.01 must be between 0.0 and 1.0")
         );
     }
 

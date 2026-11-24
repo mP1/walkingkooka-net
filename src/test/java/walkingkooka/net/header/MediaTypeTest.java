@@ -478,15 +478,18 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
 
     @Test
     public void testSetParametersInvalidQFactor() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.mediaType()
-                .setParameters(
-                    Maps.of(
-                        MediaTypeParameterName.Q,
-                        -1.0f
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.mediaType()
+                    .setParameters(
+                        Maps.of(
+                            MediaTypeParameterName.Q,
+                            -1.0f
+                        )
                     )
-                )
+            ),
+            "Invalid \"Q\" factor -1.0 must be between 0.0 and 1.0"
         );
     }
 
