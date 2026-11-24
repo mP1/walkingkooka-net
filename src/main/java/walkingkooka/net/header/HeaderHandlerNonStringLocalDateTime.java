@@ -66,7 +66,7 @@ final class HeaderHandlerNonStringLocalDateTime extends HeaderHandlerNonString<L
                 FORMATTER
             );
         } catch (final DateTimeParseException cause) {
-            throw new HeaderException("Invalid date in " + CharSequences.quoteAndEscape(text));
+            throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
         }
     }
 
