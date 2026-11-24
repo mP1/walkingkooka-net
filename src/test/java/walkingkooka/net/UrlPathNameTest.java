@@ -20,8 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.PathNameTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -31,7 +30,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
+public final class UrlPathNameTest implements PublicClassTesting<UrlPathName>,
     PathNameTesting<UrlPathName, UrlPathName>,
     ParseStringTesting<UrlPathName> {
 
@@ -168,10 +167,5 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     @Override
     public Class<UrlPathName> type() {
         return UrlPathName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
