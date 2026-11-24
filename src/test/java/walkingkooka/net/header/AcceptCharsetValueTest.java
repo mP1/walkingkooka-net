@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Map;
 
@@ -28,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<AcceptCharsetValue, AcceptCharsetValueParameterName<?>>
-    implements PredicateTesting {
+    implements PredicateTesting,
+    PublicClassTesting<AcceptCharsetValue> {
 
     private final static CharsetName VALUE = CharsetName.UTF_8;
     private final static String PARAMETER_VALUE = "v1";
@@ -365,15 +366,10 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
         return true;
     }
 
-    // ClassTesting.....................................................................................................
+    // ClassT...........................................................................................................
 
     @Override
     public Class<AcceptCharsetValue> type() {
         return AcceptCharsetValue.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
