@@ -20,12 +20,14 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.PackagePrivateClassTesting;
+import walkingkooka.reflect.ThrowableTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderTestCase<N>
     implements PredicateTesting2<N, CharsetName>,
-    PackagePrivateClassTesting<N> {
+    PackagePrivateClassTesting<N>,
+    ThrowableTesting {
 
     CharsetNameTestCase() {
         super();
@@ -66,10 +68,13 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
 
     @Test
     public final void testTestWildcardFails() {
+        this.getMessageAndCheck(
         assertThrows(
-            HeaderException.class,
+            IllegalStateException.class,
             () -> this.createCharsetName()
                 .test(CharsetName.WILDCARD_CHARSET)
+        ),
+            "Invalid test: \"Accept-Charset charset=*\""
         );
     }
 
