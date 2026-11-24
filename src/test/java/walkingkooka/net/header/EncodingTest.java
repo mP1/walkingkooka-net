@@ -20,14 +20,15 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class EncodingTest extends HeaderTestCase<Encoding>
     implements ComparableTesting2<Encoding>,
-    ParseStringTesting<Encoding> {
+    ParseStringTesting<Encoding>,
+    PublicClassTesting<Encoding> {
 
     // constants ......................................................................................................
 
@@ -159,15 +160,10 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
         return true;
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<Encoding> type() {
         return Encoding.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
