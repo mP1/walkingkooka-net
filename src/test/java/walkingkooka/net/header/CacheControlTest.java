@@ -33,22 +33,36 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
     implements ParseStringTesting<CacheControl>,
     PublicClassTesting<CacheControl> {
 
+    private final static List<CacheControlDirective<?>> DIRECTIVES = Lists.of(
+        CacheControlDirective.NO_CACHE,
+        CacheControlDirective.NO_STORE
+    );
+
     // with..............................................................................................................
 
     @Test
-    public void testWithullFails() {
-        assertThrows(NullPointerException.class, () -> CacheControl.with(null));
+    public void testWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> CacheControl.with(null)
+        );
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> CacheControl.with(Lists.empty()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> CacheControl.with(Lists.empty())
+        );
     }
 
     @Test
     public void testWith() {
         final List<CacheControlDirective<?>> directives = Lists.of(CacheControlDirective.NO_CACHE);
-        this.valueAndCheck(CacheControl.with(directives), directives);
+        this.valueAndCheck(
+            CacheControl.with(directives),
+            directives
+        );
     }
 
     // setValues........................................................................................................
@@ -57,20 +71,29 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
     public void testSetValueNullFails() {
         final CacheControl cacheControl = this.createHeader();
 
-        assertThrows(NullPointerException.class, () -> cacheControl.setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> cacheControl.setValue(null)
+        );
     }
 
     @Test
     public void testSetValuesEmptyFails() {
         final CacheControl cacheControl = this.createHeader();
 
-        assertThrows(IllegalArgumentException.class, () -> cacheControl.setValue(Lists.empty()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> cacheControl.setValue(Lists.empty())
+        );
     }
 
     @Test
     public void testSetValuesSame() {
         final CacheControl cacheControl = this.createHeader();
-        assertSame(cacheControl, cacheControl.setValue(this.directives()));
+        assertSame(
+            cacheControl,
+            cacheControl.setValue(DIRECTIVES)
+        );
     }
 
     @Test
@@ -82,8 +105,14 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
 
         assertNotSame(cacheControl, different);
 
-        this.valueAndCheck(different, values);
-        this.valueAndCheck(cacheControl, this.directives());
+        this.valueAndCheck(
+            different,
+            values
+        );
+        this.valueAndCheck(
+            cacheControl,
+            DIRECTIVES
+        );
     }
 
     // wildcard.........................................................................................................
@@ -108,38 +137,64 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
 
     @Test
     public void testText() {
-        this.textAndCheck(CacheControl.with(Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)))), "max-age=123");
+        this.textAndCheck(
+            CacheControl.with(
+                Lists.of(
+                    CacheControlDirectiveName.MAX_AGE.setParameter(
+                        Optional.of(123L)
+                    )
+                )
+            ),
+            "max-age=123"
+        );
     }
 
     @Test
     public void testText2() {
-        this.textAndCheck(CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE)), "no-cache, no-store");
+        this.textAndCheck(
+            CacheControl.with(
+                Lists.of(
+                    CacheControlDirective.NO_CACHE,
+                    CacheControlDirective.NO_STORE
+                )
+            ),
+            "no-cache, no-store"
+        );
     }
 
     // equals ..........................................................................................................
 
     @Test
     public void testEqualsDifferentDirectives() {
-        this.checkNotEquals(CacheControl.with(Lists.of(CacheControlDirective.NO_TRANSFORM)));
+        this.checkNotEquals(
+            CacheControl.with(
+                Lists.of(CacheControlDirective.NO_TRANSFORM)
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentOrder() {
-        this.checkNotEquals(CacheControl.with(Lists.of(CacheControlDirective.NO_STORE, CacheControlDirective.NO_CACHE)));
+        this.checkNotEquals(
+            CacheControl.with(
+                Lists.of(
+                    CacheControlDirective.NO_STORE,
+                    CacheControlDirective.NO_CACHE
+                )
+            )
+        );
     }
 
     @Override
     public CacheControl createHeader() {
-        return CacheControl.with(this.directives());
-    }
-
-    private List<CacheControlDirective<?>> directives() {
-        return Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE);
+        return CacheControl.with(DIRECTIVES);
     }
 
     @Override
     public CacheControl createDifferentHeader() {
-        return CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE));
+        return CacheControl.with(
+            Lists.of(CacheControlDirective.NO_CACHE)
+        );
     }
 
     @Override
