@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.PublicClassTesting;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.Optional;
 
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControlDirective<?>>
-    implements PublicClassTesting<CacheControlDirective<?>> {
+    implements PublicClassTesting<CacheControlDirective<?>>,
+    ThrowableTesting {
 
     // with.............................................................................................................
 
@@ -56,12 +58,15 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Test
     public void testWithParameterInvalidFails() {
-        assertThrows(
-            HeaderException.class,
-            () -> CacheControlDirective.with(
-                CacheControlDirectiveName.MAX_AGE,
-                Optional.empty()
-            )
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> CacheControlDirective.with(
+                    CacheControlDirectiveName.MAX_AGE,
+                    Optional.empty()
+                )
+            ),
+            "Directive \"max-age\" missing required parameter."
         );
     }
 
@@ -91,11 +96,14 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(
-            HeaderException.class,
-            () -> CacheControlDirectiveName.MAX_AGE.setParameter(
-                Optional.of(123L)
-            ).setParameter(Optional.empty())
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> CacheControlDirectiveName.MAX_AGE.setParameter(
+                    Optional.of(123L)
+                ).setParameter(Optional.empty())
+            ),
+            "Directive \"max-age\" missing required parameter."
         );
     }
 
