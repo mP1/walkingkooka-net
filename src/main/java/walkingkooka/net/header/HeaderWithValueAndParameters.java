@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 /**
  * Base class for all implementations of {@link HeaderWithParameters} in this package.
  */
-abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
+abstract class HeaderWithValueAndParameters<H extends HeaderWithValueAndParameters<H, P, V>,
     P extends HeaderParameterName<?>,
     V> implements HeaderWithParameters<P>,
     HasValue<V> {
@@ -38,8 +38,8 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
     /**
      * Package private to limit sub classing.
      */
-    HeaderWithParameters2(final V value,
-                          final Map<P, Object> parameters) {
+    HeaderWithValueAndParameters(final V value,
+                                 final Map<P, Object> parameters) {
         super();
         this.value = value;
         this.parameters = parameters;
@@ -170,7 +170,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
                 this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HeaderWithParameters2<H, P, V> other) {
+    private boolean equals0(final HeaderWithValueAndParameters<H, P, V> other) {
         return this.equalsValue(this.value, other.value) && //
             this.parameters.equals(other.parameters);
     }
@@ -182,7 +182,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
                 this.equalsIgnoringParameters0(Cast.to(other));
     }
 
-    private boolean equalsIgnoringParameters0(final HeaderWithParameters2<H, P, V> other) {
+    private boolean equalsIgnoringParameters0(final HeaderWithValueAndParameters<H, P, V> other) {
         return this.equalsValue(
             this.value,
             other.value
@@ -196,7 +196,7 @@ abstract class HeaderWithParameters2<H extends HeaderWithParameters2<H, P, V>,
                 this.equalsOnlyPresentParameters0(Cast.to(other));
     }
 
-    private boolean equalsOnlyPresentParameters0(final HeaderWithParameters2<H, P, V> other) {
+    private boolean equalsOnlyPresentParameters0(final HeaderWithValueAndParameters<H, P, V> other) {
         boolean equals = this.equalsValue(
             this.value,
             other.value

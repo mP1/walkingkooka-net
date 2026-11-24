@@ -28,7 +28,7 @@ import java.util.Optional;
  * Represents a content disposition header and its component values.<br>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-public final class ContentDisposition extends HeaderWithParameters2<ContentDisposition,
+public final class ContentDisposition extends HeaderWithValueAndParameters<ContentDisposition,
     ContentDispositionParameterName<?>,
     ContentDispositionType> implements HasOptionalName<ContentDispositionFileName> {
     /**

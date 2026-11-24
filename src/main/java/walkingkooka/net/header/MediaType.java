@@ -50,7 +50,7 @@ import java.util.function.Predicate;
  * message/External-body is not case-sensitive.)
  * </pre>
  */
-final public class MediaType extends HeaderWithParameters2<MediaType, MediaTypeParameterName<?>, String>
+final public class MediaType extends HeaderWithValueAndParameters<MediaType, MediaTypeParameterName<?>, String>
     implements HasCaseSensitivity,
     HasQualityFactor,
     Predicate<MediaType> {

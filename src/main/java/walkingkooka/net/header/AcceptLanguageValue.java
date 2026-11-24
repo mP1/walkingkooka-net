@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 /**
  * Holds a Language with parameters within a accept-language header.
  */
-public final class AcceptLanguageValue extends HeaderWithParameters2<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
+public final class AcceptLanguageValue extends HeaderWithValueAndParameters<AcceptLanguageValue, AcceptLanguageParameterName<?>, LanguageName>
     implements Predicate<LanguageName>,
     HasQualityFactor {
 
