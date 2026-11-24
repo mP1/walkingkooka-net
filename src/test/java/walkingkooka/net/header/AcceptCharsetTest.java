@@ -36,34 +36,51 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     PredicateTesting,
     PublicClassTesting<AcceptCharset> {
 
-    // charset...................................................................................................
+    // charset..........................................................................................................
 
     @Test
     public void testCharset() {
-        this.charsetAndCheck(this.createHeader(), CharsetName.UTF_8.charset());
+        this.charsetAndCheck(
+            this.createHeader(),
+            CharsetName.UTF_8.charset()
+        );
     }
 
     @Test
     public void testCharset2() {
         this.charsetAndCheck(
-            this.createHeader(AcceptCharsetValue.with(CharsetName.UTF_8)),
-            CharsetName.UTF_8.charset());
+            this.createHeader(
+                AcceptCharsetValue.with(CharsetName.UTF_8)
+            ),
+            CharsetName.UTF_8.charset()
+        );
     }
 
     @Test
     public void testCharsetWithout() {
         this.charsetAndCheck(
-            this.createHeader(AcceptCharsetValue.with(CharsetName.with("X-custom"))));
+            this.createHeader(
+                AcceptCharsetValue.with(
+                    CharsetName.with("X-custom")
+                )
+            )
+        );
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset) {
-        this.charsetAndCheck(acceptCharset, Optional.empty());
+        this.charsetAndCheck(
+            acceptCharset,
+            Optional.empty()
+        );
     }
 
-    private void charsetAndCheck(final AcceptCharset acceptCharset, final Optional<Charset> expected) {
-        this.checkEquals(expected,
+    private void charsetAndCheck(final AcceptCharset acceptCharset,
+                                 final Optional<Charset> expected) {
+        this.checkEquals(
+            expected,
             acceptCharset.charset(),
-            acceptCharset + " .charset()");
+            acceptCharset + " .charset()"
+        );
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
@@ -71,21 +88,38 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Test
     public void testQualityFactorSort() {
         final AcceptCharset accept = AcceptCharset.parse("UTF8;q=1.0,UTF16;q=0.75");
-        this.qualitySortedValuesAndCheck(accept, accept.value());
+        this.qualitySortedValuesAndCheck(
+            accept,
+            accept.value()
+        );
     }
 
     @Test
     public void testQualityFactorSort2() {
-        this.qualitySortedValuesAndCheck(AcceptCharset.parse("UTF8;q=0.5,UTF16"),
-            AcceptCharset.parse("UTF16,UTF8;q=0.5").value());
+        this.qualitySortedValuesAndCheck(
+            AcceptCharset.parse("UTF8;q=0.5,UTF16"),
+            AcceptCharset.parse("UTF16,UTF8;q=0.5").value()
+        );
     }
 
-    // parse.......................................................................................................
+    // parse............................................................................................................
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("UTF-8;bcd=123 ",
-            AcceptCharset.with(Lists.of(AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.with("bcd"), "123")))));
+        this.parseStringAndCheck(
+            "UTF-8;bcd=123 ",
+            AcceptCharset.with(
+                Lists.of(
+                    AcceptCharsetValue.with(CharsetName.UTF_8)
+                        .setParameters(
+                            Maps.of(
+                                AcceptCharsetValueParameterName.with("bcd"),
+                                "123"
+                            )
+                        )
+                )
+            )
+        );
     }
 
     @Test
@@ -96,46 +130,75 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
         );
     }
 
+    @Override
+    public AcceptCharset parseString(final String text) {
+        return AcceptCharset.parse(text);
+    }
+
     // Predicate........................................................................................................
 
     @Test
     public void testTestCharsetMissingFromContentType() {
-        this.testFalse(AcceptCharset.parse("UTF-8"), MediaType.TEXT_HTML);
+        this.testFalse(
+            AcceptCharset.parse("UTF-8"),
+            MediaType.TEXT_HTML
+        );
     }
 
     @Test
     public void testTestCharsetPresentTrue() {
-        this.testTrue(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-8"));
+        this.testTrue(
+            AcceptCharset.parse("UTF-8"),
+            MediaType.parse("text/plain;charset=UTF-8")
+        );
     }
 
     @Test
     public void testTestCharsetDifferentFalse() {
-        this.testFalse(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-16"));
+        this.testFalse(
+            AcceptCharset.parse("UTF-8"),
+            MediaType.parse("text/plain;charset=UTF-16")
+        );
     }
 
     @Test
     public void testTestCharsetPresentTrueIgnoresOtherMediaTypeParameters() {
-        this.testTrue(AcceptCharset.parse("UTF-8"), MediaType.parse("text/plain;charset=UTF-8;a1=b2"));
+        this.testTrue(
+            AcceptCharset.parse("UTF-8"),
+            MediaType.parse("text/plain;charset=UTF-8;a1=b2")
+        );
     }
 
     @Test
     public void testTestCharsetLastAcceptCharsetValueMatchTrue() {
-        this.testTrue(AcceptCharset.parse("UTF32,UTF16,UTF-8"), MediaType.parse("text/plain;charset=UTF-8"));
+        this.testTrue(
+            AcceptCharset.parse("UTF32,UTF16,UTF-8"),
+            MediaType.parse("text/plain;charset=UTF-8")
+        );
     }
 
     @Test
     public void testTestCharsetAbsentFalse() {
-        this.testFalse(AcceptCharset.parse("US-ASCII,UTF8"), MediaType.parse("text/plain;charset=UTF-16"));
+        this.testFalse(
+            AcceptCharset.parse("US-ASCII,UTF8"),
+            MediaType.parse("text/plain;charset=UTF-16")
+        );
     }
 
     @Test
     public void testTestCharsetIncludesParametersFalse() {
-        this.testFalse(AcceptCharset.parse("US-ASCII;q=0.7"), MediaType.parse("text/plain;charset=UTF-8"));
+        this.testFalse(
+            AcceptCharset.parse("US-ASCII;q=0.7"),
+            MediaType.parse("text/plain;charset=UTF-8")
+        );
     }
 
     @Test
     public void testTestCharsetIncludesParametersTrue() {
-        this.testTrue(AcceptCharset.parse("UTF8;q=0.7"), MediaType.parse("text/plain;charset=UTF-8"));
+        this.testTrue(
+            AcceptCharset.parse("UTF8;q=0.7"),
+            MediaType.parse("text/plain;charset=UTF-8")
+        );
     }
 
     // helpers..........................................................................................................
@@ -179,12 +242,5 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Override
     public Class<AcceptCharset> type() {
         return AcceptCharset.class;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public AcceptCharset parseString(final String text) {
-        return AcceptCharset.parse(text);
     }
 }
