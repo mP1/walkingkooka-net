@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.EmptyTextException;
 import walkingkooka.HasValue;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeBound;
@@ -65,42 +64,36 @@ public final class RangeHeader implements Header,
      * Parsers a header value.
      */
     public static RangeHeader parse(final String header) {
-        Objects.requireNonNull(header, "header");
-        if (header.isEmpty()) {
-            throw new EmptyTextException("header");
-        }
+        CharSequences.failIfNullOrEmpty(
+            header,
+            "Range"
+        );
 
         final int equalsAfterUnit = header.indexOf('=');
         if (-1 == equalsAfterUnit) {
-            throw new HeaderException("Missing unit and '=' from header value " + CharSequences.quote(header));
+            throw new IllegalArgumentException("Missing unit");
         }
 
         final List<Range<Long>> ranges = Arrays.stream(header.substring(equalsAfterUnit + 1).split(SEPARATOR.string()))
             .map(RangeHeader::range)
             .collect(Collectors.toList());
 
-        try {
-            final RangeHeaderUnit unit = RangeHeaderUnit.parse(header.substring(0, equalsAfterUnit));
-            unit.rangeCheck();
-            checkValue(ranges);
+        final RangeHeaderUnit unit = RangeHeaderUnit.parse(header.substring(0, equalsAfterUnit));
+        unit.rangeCheck();
+        checkValue(ranges);
 
-            return new RangeHeader(unit, ranges);
-        } catch (final IllegalArgumentException cause) {
-            throw new HeaderException(cause.getMessage(), cause);
-        }
+        return new RangeHeader(unit, ranges);
     }
 
     private static Range<Long> range(final String value) {
         final int dash = value.indexOf(BETWEEN.character());
         if (-1 == dash) {
-            throw new HeaderException("Missing " +
-                CharSequences.quoteIfChars(BETWEEN.character()) +
-                " from header value " +
-                CharSequences.quote(value));
+            throw new IllegalArgumentException(
+                "Invalid Range: Missing " + CharSequences.quoteIfChars(BETWEEN.character()));
         }
 
         if (0 == dash) {
-            throw new HeaderException("Header range missing start " + CharSequences.quote(value));
+            throw new IllegalArgumentException("Invalid Range: Missing start");
         }
 
         final Range<Long> from = Range.greaterThanEquals(Long.parseLong(value.substring(0, dash).trim()));
@@ -196,7 +189,7 @@ public final class RangeHeader implements Header,
     private static void checkValue(final List<Range<Long>> ranges) {
         final int count = ranges.size();
         if (0 == count) {
-            throw new HeaderException("Missing range");
+            throw new IllegalArgumentException("Missing range");
         }
         final int last = count - 1;
         for (int i = 0; i < last; i++) {
@@ -205,7 +198,7 @@ public final class RangeHeader implements Header,
             for (int j = i + 1; j < count; j++) {
                 final Range<Long> other = ranges.get(j);
                 if (range.isOverlapping(other)) {
-                    throw new HeaderException("Range overlap between " + range + " and " + other);
+                    throw new IllegalArgumentException("Overlap between " + range + " and " + other);
                 }
             }
         }

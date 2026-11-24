@@ -255,7 +255,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderRangeFails() {
         this.parseStringFails(
             "Range: ???\r\n",
-            new IllegalArgumentException("Range: Missing unit and '=' from header value \" ???\"")
+            new IllegalArgumentException("Range: Missing unit")
         );
     }
 
