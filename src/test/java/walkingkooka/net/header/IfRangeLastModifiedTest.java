@@ -18,17 +18,25 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag> {
+public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag>
+    implements ThrowableTesting {
 
     @Test
     public void testETag() {
-        assertThrows(HeaderException.class, () -> this.createHeader().etag());
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalStateException.class,
+                () -> this.createHeader().etag()
+            ),
+            "Invalid \"IfRangeETag\" Fri, 31 Dec 1999 12:58:59 GMT"
+        );
     }
 
     @Test
