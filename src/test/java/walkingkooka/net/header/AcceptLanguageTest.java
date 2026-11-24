@@ -152,6 +152,11 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
         ); // second and second
     }
 
+    @Override
+    public AcceptLanguage createPredicate() {
+        return this.createHeader();
+    }
+
     // parse.............................................................................................................
 
     @Test
@@ -170,6 +175,11 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
                 )
             )
         );
+    }
+
+    @Override
+    public AcceptLanguage parseString(final String text) {
+        return AcceptLanguage.parse(text);
     }
 
     // helpers..........................................................................................................
@@ -221,26 +231,12 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
         return false;
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<AcceptLanguage> type() {
         return AcceptLanguage.class;
     }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public AcceptLanguage parseString(final String text) {
-        return AcceptLanguage.parse(text);
-    }
-
-    // Predicate.......................................................................................................
-
-    @Override
-    public AcceptLanguage createPredicate() {
-        return this.createHeader();
-    }
-
-    // class............................................................................................................
 
     @Override
     public String typeNamePrefix() {
