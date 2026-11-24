@@ -21,6 +21,10 @@ import walkingkooka.text.printer.TreePrintableTesting;
 
 public interface HasAbsoluteUrlTesting extends TreePrintableTesting {
 
+    AbsoluteUrl ABSOLUTE_URL = Url.parseAbsolute("https://example.com");
+
+    AbsoluteUrl DIFFERENT_ABSOLUTE_URL = Url.parseAbsolute("https://different.example.com");
+
     default void urlAndCheck(final HasAbsoluteUrl has,
                              final AbsoluteUrl expected) {
         this.checkEquals(
