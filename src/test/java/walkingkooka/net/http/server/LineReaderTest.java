@@ -20,13 +20,13 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +34,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LineReaderTest implements ClassTesting2<LineReader>, ToStringTesting {
+public final class LineReaderTest implements ClassTesting2<LineReader>,
+    ThrowableTesting,
+    ToStringTesting {
 
     @Test
     public void testCrMissingNl() {
@@ -103,13 +105,12 @@ public final class LineReaderTest implements ClassTesting2<LineReader>, ToString
 
     @Test
     public void testInvalidHeaderFails2() {
-        final HeaderException thrown = assertThrows(
-            HeaderException.class,
-            () -> LineReader.with("Content-Length:A").readHeaders()
-        );
-        this.checkEquals(
-            "Content-Length: Invalid number in \"A\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> LineReader.with("Content-Length:A").readHeaders()
+            ),
+            "Content-Length: Invalid number in \"A\""
         );
     }
 
