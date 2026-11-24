@@ -34,93 +34,173 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
 
-    // with.......................................................
+    // with.............................................................................................................
 
     @Test
     public void testWithNullUnitFails() {
-        assertThrows(NullPointerException.class, () -> RangeHeader.with(null, ranges()));
+        assertThrows(
+            NullPointerException.class,
+            () -> RangeHeader.with(
+                null,
+                ranges()
+            )
+        );
     }
 
     @Test
     public void testWithNullRangesFails() {
-        assertThrows(NullPointerException.class, () -> RangeHeader.with(UNIT, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> RangeHeader.with(
+                UNIT,
+                null
+            )
+        );
     }
 
     @Test
     public void testWithEmptyRangesFails() {
-        assertThrows(HeaderException.class, () -> RangeHeader.with(UNIT, Lists.empty()));
+        assertThrows(
+            HeaderException.class,
+            () -> RangeHeader.with(
+                UNIT,
+                Lists.empty()
+            )
+        );
     }
 
     @Test
     public void testWithOverlappingRangesFails() {
-        assertThrows(HeaderException.class, () -> RangeHeader.with(UNIT, this.rangesWithOverlap()));
+        assertThrows(
+            HeaderException.class,
+            () -> RangeHeader.with(
+                UNIT,
+                this.rangesWithOverlap()
+            )
+        );
     }
 
     @Test
     public void testWithOverlappingRangesFails2() {
-        assertThrows(HeaderException.class, () -> RangeHeader.with(UNIT, this.rangesWithOverlap2()));
+        assertThrows(
+            HeaderException.class,
+            () -> RangeHeader.with(
+                UNIT,
+                this.rangesWithOverlap2()
+            )
+        );
     }
 
     @Test
     public void testWithOverlappingRangesFails3() {
-        assertThrows(HeaderException.class, () -> RangeHeader.with(UNIT, this.rangesWithOverlap3()));
+        assertThrows(
+            HeaderException.class,
+            () -> RangeHeader.with(
+                UNIT,
+                this.rangesWithOverlap3()
+            )
+        );
     }
 
     @Test
     public void testWith() {
         final RangeHeader range = this.range();
-        this.check(range, UNIT, this.ranges());
+        this.check(
+            range,
+            UNIT,
+            this.ranges()
+        );
     }
 
-    // setUnit.......................................................
+    // setUnit..........................................................................................................
 
     @Test
     public void testSetUnitNullFails() {
-        assertThrows(NullPointerException.class, () -> this.range().setUnit(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.range()
+                .setUnit(null)
+        );
     }
 
     @Test
     public void testSetUnitNoneFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.range().setUnit(RangeHeaderUnit.NONE));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.range()
+                .setUnit(RangeHeaderUnit.NONE)
+        );
     }
 
     @Test
     public void testSetUnitSame() {
         final RangeHeader range = this.range();
-        assertSame(range, range.setUnit(UNIT));
+        assertSame(
+            range,
+            range.setUnit(UNIT)
+        );
     }
 
-    // setValue.......................................................
+    // setValue.........................................................................................................
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.range().setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.range()
+                .setValue(null)
+        );
     }
 
     @Test
     public void testSetValueEmptyFails() {
-        assertThrows(HeaderException.class, () -> this.range().setValue(Lists.empty()));
+        assertThrows(
+            HeaderException.class,
+            () -> this.range()
+                .setValue(Lists.empty())
+        );
     }
 
     @Test
     public void testSetValueWithOverlapFails() {
-        assertThrows(HeaderException.class, () -> this.range().setValue(this.rangesWithOverlap()));
+        assertThrows(
+            HeaderException.class,
+            () -> this.range()
+                .setValue(
+                    this.rangesWithOverlap()
+                )
+        );
     }
 
     @Test
     public void testSetValueWithOverlapFails2() {
-        assertThrows(HeaderException.class, () -> this.range().setValue(this.rangesWithOverlap2()));
+        assertThrows(
+            HeaderException.class,
+            () -> this.range()
+                .setValue(
+                    this.rangesWithOverlap2()
+                )
+        );
     }
 
     @Test
     public void testSetValueWithOverlapFails3() {
-        assertThrows(HeaderException.class, () -> this.range().setValue(this.rangesWithOverlap3()));
+        assertThrows(
+            HeaderException.class,
+            () -> this.range()
+                .setValue(
+                    this.rangesWithOverlap3()
+                )
+        );
     }
 
     @Test
     public void testSetValueSame() {
         final RangeHeader range = this.range();
-        assertSame(range, range.setValue(this.ranges()));
+        assertSame(
+            range,
+            range.setValue(this.ranges())
+        );
     }
 
     @Test
@@ -128,7 +208,11 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         final RangeHeader range = this.range();
         final List<Range<Long>> value = Lists.of(rangeLte1000());
         final RangeHeader different = range.setValue(value);
-        this.check(different, UNIT, value);
+        this.check(
+            different,
+            UNIT,
+            value
+        );
     }
 
     private void check(final RangeHeader range,
@@ -141,14 +225,14 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         );
     }
 
-    // isWildcard ..................................................................................................
+    // isWildcard ......................................................................................................
 
     @Test
     public void testIsWildcard() {
         this.isWildcardAndCheck(false);
     }
 
-    // parse ...........................................................
+    // parse ...........................................................................................................
 
     @Test
     public void testParseWithInvalidUnitFails() {
@@ -260,8 +344,6 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         this.parseStringAndCheck(text, RangeHeader.with(unit, Lists.of(values)));
     }
 
-    // ParseStringTesting ........................................................................................
-
     @Override
     public RangeHeader parseString(final String text) {
         try {
@@ -274,99 +356,127 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
         }
     }
 
-    // text.......................................................
+    // text.............................................................................................................
 
     @Test
     public void testTextOpenRange() {
-        textAndCheck("bytes=123-",
+        textAndCheck(
+            "bytes=123-",
             UNIT,
-            this.rangeGte123());
+            this.rangeGte123()
+        );
     }
 
     @Test
     public void testTextClosedRange() {
-        textAndCheck("bytes=123-456",
+        textAndCheck(
+            "bytes=123-456",
             UNIT,
-            this.rangeGte123().and(this.rangeLte456()));
+            this.rangeGte123().and(this.rangeLte456())
+        );
     }
 
     @Test
     public void testTextClosedRangeOpenRange() {
-        textAndCheck("bytes=123-456, 789-",
+        textAndCheck(
+            "bytes=123-456, 789-",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
-            this.rangeGte789());
+            this.rangeGte789()
+        );
     }
 
     @Test
     public void testTextClosedRangeClosedRange() {
-        textAndCheck("bytes=123-456, 789-1000",
+        textAndCheck(
+            "bytes=123-456, 789-1000",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
-            this.rangeGte789().and(this.rangeLte1000()));
+            this.rangeGte789().and(this.rangeLte1000())
+        );
     }
 
     @SafeVarargs
     private void textAndCheck(final String headerText,
                               final RangeHeaderUnit unit,
                               final Range<Long>... ranges) {
-        this.textAndCheck(this.range(unit, ranges), headerText);
+        this.textAndCheck(
+            this.range(unit, ranges),
+            headerText
+        );
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // hashCode/equals .................................................................................................
 
     @Test
     public void testEqualsDifferentRanges() {
         this.checkNotEquals(this.range(UNIT, Range.greaterThan(456L)));
     }
 
-    // toString.......................................................
+    // toString.........................................................................................................
 
     @Test
     public void testToStringOpenRange() {
-        toStringAndCheck("bytes=123-",
+        toStringAndCheck(
+            "bytes=123-",
             UNIT,
-            this.rangeGte123());
+            this.rangeGte123()
+        );
     }
 
     @Test
     public void testToStringClosedRange() {
-        toStringAndCheck("bytes=123-456",
+        toStringAndCheck(
+            "bytes=123-456",
             UNIT,
-            this.rangeGte123().and(this.rangeLte456()));
+            this.rangeGte123().and(this.rangeLte456())
+        );
     }
 
     @Test
     public void testToStringClosedRangeOpenRange() {
-        toStringAndCheck("bytes=123-456, 789-",
+        toStringAndCheck(
+            "bytes=123-456, 789-",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
-            this.rangeGte789());
+            this.rangeGte789()
+        );
     }
 
     @Test
     public void testToStringClosedRangeClosedRange() {
-        toStringAndCheck("bytes=123-456, 789-1000",
+        toStringAndCheck(
+            "bytes=123-456, 789-1000",
             UNIT,
             this.rangeGte123().and(this.rangeLte456()),
-            this.rangeGte789().and(this.rangeLte1000()));
+            this.rangeGte789().and(this.rangeLte1000())
+        );
     }
 
     @SafeVarargs
     private void toStringAndCheck(final String toString,
                                   final RangeHeaderUnit unit,
                                   final Range<Long>... ranges) {
-        this.toStringAndCheck(this.range(unit, ranges), toString);
+        this.toStringAndCheck(
+            this.range(unit, ranges),
+            toString
+        );
     }
 
     private RangeHeader range() {
-        return this.range(UNIT, this.rangeGte123());
+        return this.range(
+            UNIT,
+            this.rangeGte123()
+        );
     }
 
     @SafeVarargs
     private RangeHeader range(final RangeHeaderUnit unit,
                               final Range<Long>... ranges) {
-        return RangeHeader.with(unit, Lists.of(ranges));
+        return RangeHeader.with(
+            unit,
+            Lists.of(ranges)
+        );
     }
 
     private List<Range<Long>> ranges() {
@@ -410,8 +520,12 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
             between(75, 150));
     }
 
-    private Range<Long> between(final long lower, final long upper) {
-        return Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper));
+    private Range<Long> between(final long lower,
+                                final long upper) {
+        return Range.greaterThanEquals(lower)
+            .and(
+                Range.lessThanEquals(upper)
+            );
     }
 
     @Override
@@ -421,7 +535,12 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Override
     public RangeHeader createDifferentHeader() {
-        return RangeHeader.with(RangeHeaderUnit.BYTES, Lists.of(Range.greaterThan(999L)));
+        return RangeHeader.with(
+            RangeHeaderUnit.BYTES,
+            Lists.of(
+                Range.greaterThan(999L)
+            )
+        );
     }
 
     @Override
