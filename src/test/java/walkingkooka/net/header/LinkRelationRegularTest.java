@@ -25,22 +25,24 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
 
     @Test
     public void testWithUpperCase() {
-        this.createAndCheck("AB");
+        this.createAndValueCheck("AB");
     }
 
     @Test
     public void testWithDots() {
-        this.createAndCheck("A.b");
+        this.createAndValueCheck("A.b");
     }
 
     @Test
     public void testWithDash() {
-        this.createAndCheck("A-b");
+        this.createAndValueCheck("A-b");
     }
 
-    private void createAndCheck(final String text) {
-        final LinkRelationRegular linkRelation = LinkRelationRegular.regular(text);
-        this.checkEquals(text, linkRelation.value(), "value");
+    private void createAndValueCheck(final String text) {
+        this.valueAndCheck(
+            LinkRelationRegular.regular(text),
+            text
+        );
     }
 
     @Test
