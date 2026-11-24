@@ -22,28 +22,40 @@ import org.junit.jupiter.api.Test;
 public final class ETagOneHeaderParserTest extends ETagHeaderParserTestCase<ETagOneHeaderParser> {
 
     @Test
-    public void testValueSeparatorFails() {
+    public void testParseValueSeparatorFails() {
         this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
-    public void testSeparatorFails() {
-        this.parseStringInvalidCharacterFails("\"ABC\",", ',');
+    public void testParseSeparatorFails() {
+        this.parseStringInvalidCharacterFails(
+            "\"ABC\",",
+            ','
+        );
     }
 
     @Test
-    public void testSeparatorWhitespaceFails() {
-        this.parseStringInvalidCharacterFails("\"ABC\", ", ',');
+    public void testParseSeparatorWhitespaceFails() {
+        this.parseStringInvalidCharacterFails(
+            "\"ABC\", ",
+            ','
+        );
     }
 
     @Test
-    public void testWeakSeparatorWhitespaceFails() {
-        this.parseStringInvalidCharacterFails("W/\"ABC\", ", ',');
+    public void testParseWeakSeparatorWhitespaceFails() {
+        this.parseStringInvalidCharacterFails(
+            "W/\"ABC\", ",
+            ','
+        );
     }
 
     @Test
-    public void testManyTags() {
-        this.parseStringInvalidCharacterFails("\"A\",\"B\"", ',');
+    public void testParseManyTags() {
+        this.parseStringInvalidCharacterFails(
+            "\"A\",\"B\"",
+            ','
+        );
     }
 
     @Override
