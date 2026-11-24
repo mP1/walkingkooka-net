@@ -27,7 +27,7 @@ public abstract class HeaderParserWithParametersTestCase<P extends HeaderParser,
     }
 
     @Test
-    public final void testCommentFails() {
+    public final void testParseCommentFails() {
         this.parseStringCommentFails("(comment-123)", 0);
     }
 }
