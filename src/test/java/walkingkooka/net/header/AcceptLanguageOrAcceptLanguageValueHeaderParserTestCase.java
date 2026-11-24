@@ -30,32 +30,35 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
     }
 
     @Test
-    public final void testWildcard() {
-        this.parseStringAndCheck2("*", AcceptLanguageValue.WILDCARD);
+    public final void testParseWildcard() {
+        this.parseStringAndCheck2(
+            "*",
+            AcceptLanguageValue.WILDCARD
+        );
     }
 
     @Test
-    public final void testWildcardKeyValueSeparatorFails() {
+    public final void testParseWildcardKeyValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("*;=");
     }
 
     @Test
-    public final void testWildcardKeyValueSeparatorFails2() {
+    public final void testParseWildcardKeyValueSeparatorFails2() {
         this.parseStringInvalidCharacterFails("*; =");
     }
 
     @Test
-    public final void testWildcardParameterNameFails() {
+    public final void testParseWildcardParameterNameFails() {
         this.parseStringMissingParameterValueFails("*; parameter");
     }
 
     @Test
-    public final void testWildcardParameterNameKeyValueSeparatorFails() {
+    public final void testParseWildcardParameterNameKeyValueSeparatorFails() {
         this.parseStringMissingParameterValueFails("*; parameter=");
     }
 
     @Test
-    public final void testWildcardQWeightInvalidValueFails() {
+    public final void testParseWildcardQWeightInvalidValueFails() {
         this.parseStringFails(
             "*; q=ABC",
             new IllegalArgumentException("Invalid \"Q factor\" number in \"ABC\"")
@@ -63,35 +66,60 @@ public abstract class AcceptLanguageOrAcceptLanguageValueHeaderParserTestCase<P 
     }
 
     @Test
-    public final void testWildcardWithQWeight() {
-        this.parseStringAndCheck2("*; q=0.75",
-            AcceptLanguageValue.WILDCARD.setParameters(Maps.of(AcceptLanguageParameterName.Q, 0.75f)));
+    public final void testParseWildcardWithQWeight() {
+        this.parseStringAndCheck2(
+            "*; q=0.75",
+            AcceptLanguageValue.WILDCARD.setParameters(
+                Maps.of(
+                    AcceptLanguageParameterName.Q,
+                    0.75f
+                )
+            )
+        );
     }
 
     @Test
-    public final void testWildcardWithParameters() {
-        final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(AcceptLanguageParameterName.with("a"), "b",
-            AcceptLanguageParameterName.with("c"), "d");
+    public final void testParseWildcardWithParameters() {
+        final Map<AcceptLanguageParameterName<?>, Object> parameters = Maps.of(
+            AcceptLanguageParameterName.with("a"), "b",
+            AcceptLanguageParameterName.with("c"), "d"
+        );
 
-        this.parseStringAndCheck2("*; a=b; c=d",
-            AcceptLanguageValue.WILDCARD.setParameters(parameters));
+        this.parseStringAndCheck2(
+            "*; a=b; c=d",
+            AcceptLanguageValue.WILDCARD.setParameters(parameters)
+        );
     }
 
     @Test
-    public final void testLanguage_en() {
-        this.parseStringAndCheck2("en", AcceptLanguageValue.with(LanguageName.with("en")));
+    public final void testParseLanguage_en() {
+        this.parseStringAndCheck2(
+            "en",
+            AcceptLanguageValue.with(
+                LanguageName.with("en")
+            )
+        );
     }
 
     @Test
-    public final void testLanguage_de_CH() {
-        this.parseStringAndCheck2("de-CH", AcceptLanguageValue.with(LanguageName.with("de-CH")));
+    public final void testParseLanguage_de_CH() {
+        this.parseStringAndCheck2(
+            "de-CH",
+            AcceptLanguageValue.with(
+                LanguageName.with("de-CH")
+            )
+        );
     }
 
-    abstract void parseStringAndCheck2(final String text, final AcceptLanguageValue expected);
+    abstract void parseStringAndCheck2(final String text,
+                                       final AcceptLanguageValue expected);
 
     @Test
-    public final void testQuotedFails() {
-        this.parseStringFails("\"quoted\"", InvalidCharacterException.class);
+    public final void testParseQuotedFails() {
+        this.parseStringFails(
+            "\"quoted\"",
+            InvalidCharacterException.class
+        );
     }
 
     @Override final String valueLabel() {
