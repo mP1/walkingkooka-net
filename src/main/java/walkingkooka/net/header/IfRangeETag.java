@@ -17,6 +17,8 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.text.CharSequences;
+
 import java.time.LocalDateTime;
 
 /**
@@ -49,7 +51,12 @@ final class IfRangeETag extends IfRange<ETag> {
 
     @Override
     public IfRange<LocalDateTime> lastModified() {
-        throw new HeaderException(this.text());
+        throw new IllegalStateException(
+            "Invalid " +
+                CharSequences.quoteAndEscape(IfRangeLastModified.class.getSimpleName()) +
+                " " +
+                this.text()
+        );
     }
 
     @Override
