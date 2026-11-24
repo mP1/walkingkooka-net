@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
+public final class AcceptTest extends HeaderWithValueTestCase<Accept, List<MediaType>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<Accept>,
     PredicateTesting,

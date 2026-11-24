@@ -34,7 +34,7 @@ import java.util.function.Predicate;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-public final class AcceptCharset extends Header2<List<AcceptCharsetValue>>
+public final class AcceptCharset extends HeaderWithValue<List<AcceptCharsetValue>>
     implements Predicate<MediaType>,
     HasQualityFactorSortedValues<AcceptCharsetValue> {
 

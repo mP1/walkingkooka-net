@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
+public final class AcceptCharsetTest extends HeaderWithValueTestCase<AcceptCharset, List<AcceptCharsetValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptCharset>,
     PredicateTesting,

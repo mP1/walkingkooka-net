@@ -33,7 +33,7 @@ import java.util.Optional;
  * Holds a link relation.<br>
  * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
-public abstract class LinkRelation<T> extends Header2<T> implements Comparable<LinkRelation<?>> {
+public abstract class LinkRelation<T> extends HeaderWithValue<T> implements Comparable<LinkRelation<?>> {
 
     // Constants below are in LinkRelation and not LinkRelationRegular to avoid race conditions when init LinkRelation.
     //

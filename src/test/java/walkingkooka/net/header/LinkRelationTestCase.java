@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends Header2TestCase<R, T>
+public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends HeaderWithValueTestCase<R, T>
     implements PackagePrivateClassTesting<R> {
 
     LinkRelationTestCase() {

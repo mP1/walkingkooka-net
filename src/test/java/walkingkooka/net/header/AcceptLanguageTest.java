@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
+public final class AcceptLanguageTest extends HeaderWithValueTestCase<AcceptLanguage, List<AcceptLanguageValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptLanguage>,
     PredicateTesting2<AcceptLanguage, ContentLanguage>,

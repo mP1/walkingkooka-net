@@ -90,7 +90,7 @@ import java.util.stream.Collectors;
  *       this default set ought to be configurable by the user.
  * </pre>
  */
-public final class Accept extends Header2<List<MediaType>> implements Predicate<MediaType>,
+public final class Accept extends HeaderWithValue<List<MediaType>> implements Predicate<MediaType>,
     HasQualityFactorSortedValues<MediaType> {
 
     // @VisibleForTesting

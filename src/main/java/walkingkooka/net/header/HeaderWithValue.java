@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Abstract templated class for {@link Header} that hold a single typed {@link HasValue}.
  */
-abstract class Header2<V> implements Header,
+abstract class HeaderWithValue<V> implements Header,
     HasValue<V> {
 
     static <V> List<V> nonEmptyImmutableList(final List<V> list,
@@ -45,7 +45,7 @@ abstract class Header2<V> implements Header,
     /**
      * Package private to limit sub-classing.
      */
-    Header2(final V value) {
+    HeaderWithValue(final V value) {
         super();
         this.value = value;
     }
@@ -73,7 +73,7 @@ abstract class Header2<V> implements Header,
                 this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final Header2<?> other) {
+    private boolean equals0(final HeaderWithValue<?> other) {
         return this.value.equals(other.value);
     }
 
