@@ -191,7 +191,7 @@ public final class ContentRange implements Header {
                     }
                     if (WHITESPACE.test(c)) {
                         if (i == 0) {
-                            throw new HeaderException("Unit missing from " + CharSequences.quote(text));
+                            throw new IllegalArgumentException("Missing unit");
                         }
                         unit = RangeHeaderUnit.parse(text.substring(0, i));
                         mode = MODE_RANGE_START_INITIAL;
@@ -227,7 +227,7 @@ public final class ContentRange implements Header {
                     }
                     if (RANGE_SIZE_SEPARATOR == c) {
                         if (upper <= lower) {
-                            throw new HeaderException("Invalid upper bounds " + upper + " < " + lower + " in " + CharSequences.quote(text));
+                            throw new IllegalArgumentException("Invalid upper bounds " + upper + " < " + lower);
                         }
                         range = range.and(Range.lessThanEquals(upper)); /* lgtm [java/dereferenced-value-may-be-null] */
                         mode = MODE_SIZE_INITIAL;
@@ -300,8 +300,9 @@ public final class ContentRange implements Header {
         return value * 10 + Character.digit(c, 10);
     }
 
-    private static void failMissing(final String component, final String text) {
-        throw new HeaderException("Missing " + component + " from " + CharSequences.quote(text));
+    private static void failMissing(final String component,
+                                    final String text) {
+        throw new IllegalArgumentException("Missing " + component + " from " + CharSequences.quote(text));
     }
 
     /**
