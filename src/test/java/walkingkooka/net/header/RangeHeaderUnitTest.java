@@ -26,33 +26,45 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
     implements ParseStringTesting<RangeHeaderUnit> {
 
-    // isWildcard ..................................................................................................
+    // isWildcard ......................................................................................................
 
     @Test
     public void testIsWildcard() {
         this.isWildcardAndCheck(false);
     }
 
-    // parse ..................................................................................................
+    // parse ...........................................................................................................
 
     @Test
     public void testParseUnknownFails() {
-        this.parseStringFails("unknown", IllegalArgumentException.class);
+        this.parseStringFails(
+            "unknown",
+            IllegalArgumentException.class
+        );
     }
 
     @Test
     public void testParseBytes() {
-        assertSame(RangeHeaderUnit.BYTES, RangeHeaderUnit.parse("bytes"));
+        assertSame(
+            RangeHeaderUnit.BYTES,
+            RangeHeaderUnit.parse("bytes")
+        );
     }
 
     @Test
     public void testParseBytesCaseUnimportant() {
-        assertSame(RangeHeaderUnit.BYTES, RangeHeaderUnit.parse("BYtes"));
+        assertSame(
+            RangeHeaderUnit.BYTES,
+            RangeHeaderUnit.parse("BYtes")
+        );
     }
 
     @Test
     public void testParseNone() {
-        assertSame(RangeHeaderUnit.NONE, RangeHeaderUnit.parse("none"));
+        assertSame(
+            RangeHeaderUnit.NONE,
+            RangeHeaderUnit.parse("none")
+        );
     }
 
     @Override
