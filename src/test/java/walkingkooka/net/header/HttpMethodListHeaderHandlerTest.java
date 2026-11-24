@@ -49,12 +49,28 @@ public final class HttpMethodListHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.method(), null)));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.check(
+                Lists.of(
+                    this.method(),
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.method(), "WRONG!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.method(),
+                    "WRONG!"
+                )
+            )
+        );
     }
 
     private HttpMethod method() {

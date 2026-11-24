@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,7 +42,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testKeyValueSeparatorFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser().keyValueSeparator()
         );
     }
@@ -49,7 +50,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testMissingValueFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.createHeaderParser()
                 .missingValue()
         );
@@ -58,7 +59,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testMultiValueSeparatorFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .multiValueSeparator()
         );
@@ -67,7 +68,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testQuotedTextSeparatorFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .quotedText()
         );
@@ -76,7 +77,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testSlashFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .slash()
         );
@@ -85,7 +86,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testTokenSeparatorFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .tokenSeparator()
         );
@@ -94,7 +95,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testWhitespaceFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .whitespace()
         );
@@ -103,7 +104,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testWildcardFails() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .wildcard()
         );
@@ -112,7 +113,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     @Test
     public void testComment() {
         assertThrows(
-            HeaderException.class,
+            InvalidCharacterException.class,
             () -> this.createHeaderParser()
                 .comment()
         );
@@ -128,7 +129,7 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
     }
 
     @Override
-    EncodedText parseHeader(final String text) {
+    public EncodedText parseString(final String text) {
         return EncodedTextHeaderHandlerHeaderParser.parseEncodedText(text);
     }
 

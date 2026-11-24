@@ -48,12 +48,28 @@ public final class HttpHeaderNameListHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.header(), null)));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.check(
+                Lists.of(
+                    this.header(),
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.header(), "WRONG!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.header(),
+                    "WRONG!"
+                )
+            )
+        );
     }
 
     private HttpHeaderName<?> header() {

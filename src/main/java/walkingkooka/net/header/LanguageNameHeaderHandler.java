@@ -50,7 +50,7 @@ final class LanguageNameHeaderHandler extends HeaderHandlerNonString<LanguageNam
     }
 
     @Override
-    String toText0(final LanguageName value, final Name name) {
+    String toText(final LanguageName value, final Name name) {
         return value.toString();
     }
 

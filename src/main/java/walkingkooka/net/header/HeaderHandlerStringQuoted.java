@@ -98,7 +98,7 @@ final class HeaderHandlerStringQuoted extends HeaderHandlerStringQuotedOrUnquote
     }
 
     @Override
-    String toText0(final String value, final Name name) {
+    String toText(final String value, final Name name) {
         final boolean supportBackslashEscaping = this.supportBackslashEscaping;
         final CharPredicate predicate = this.predicate;
         final StringBuilder text = new StringBuilder();

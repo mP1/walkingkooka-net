@@ -357,14 +357,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Override
     public RangeHeader parseString(final String text) {
-        try {
-            return RangeHeader.parse(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
+        return RangeHeader.parse(text);
     }
 
     // text.............................................................................................................

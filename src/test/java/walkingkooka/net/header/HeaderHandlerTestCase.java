@@ -40,14 +40,23 @@ public abstract class HeaderHandlerTestCase<H extends HeaderHandler<T>, T> imple
 
     @Test
     public void testInvalidHeaderFails() {
-        assertThrows(HeaderException.class, () -> this.handler().parse(this.invalidHeader()));
+        assertThrows(
+            RuntimeException.class,
+            () -> this.handler()
+                .parse(
+                    this.invalidHeader()
+                )
+        );
     }
 
     abstract String invalidHeader();
 
     @Test
     public void testCheckNullFails() {
-        assertThrows(NullPointerException.class, () -> this.check(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.check(null)
+        );
     }
 
     // Invalid value type got walkingkooka.net.header.AbsoluteUrlHeaderHandlerTest@29a1505c required AbsoluteUrl
@@ -111,17 +120,10 @@ public abstract class HeaderHandlerTestCase<H extends HeaderHandler<T>, T> imple
 
     @Override
     public final T parseString(final String text) {
-        try {
-            return this.handler()
-                .parse(
-                    text
-                );
-        } catch (final HeaderException headerException) {
-            final RuntimeException cause = (RuntimeException) headerException.getCause();
-            throw null != cause ?
-                cause :
-                headerException;
-        }
+        return this.handler()
+            .parse(
+                text
+            );
     }
 
     final void parseAndToTextAndCheck(final String text, final T value) {

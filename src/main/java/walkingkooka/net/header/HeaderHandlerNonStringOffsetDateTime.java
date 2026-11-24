@@ -17,6 +17,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -64,8 +65,11 @@ final class HeaderHandlerNonStringOffsetDateTime extends HeaderHandlerNonString<
         try {
             return OffsetDateTime.parse(
                 QUOTED_STRING.parse(text),
-                FORMATTER);
-        } catch (final IllegalArgumentException cause) {
+                FORMATTER
+            );
+        } catch (final InvalidCharacterException invalidCharacterException) {
+            throw invalidCharacterException;
+        } catch (final RuntimeException cause) {
             throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
         }
     }
@@ -79,7 +83,7 @@ final class HeaderHandlerNonStringOffsetDateTime extends HeaderHandlerNonString<
     }
 
     @Override
-    String toText0(final OffsetDateTime value, final Name name) {
+    String toText(final OffsetDateTime value, final Name name) {
         return QUOTED_STRING.toText(
             FORMATTER.format(value),
             name);

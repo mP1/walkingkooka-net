@@ -50,7 +50,7 @@ final class CacheControlHeaderHandler extends HeaderHandlerNonString<CacheContro
     }
 
     @Override
-    String toText0(final CacheControl cacheControl, final Name name) {
+    String toText(final CacheControl cacheControl, final Name name) {
         return cacheControl.text();
     }
 

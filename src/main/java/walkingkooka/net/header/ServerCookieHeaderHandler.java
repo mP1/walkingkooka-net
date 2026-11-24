@@ -50,7 +50,7 @@ final class ServerCookieHeaderHandler extends HeaderHandlerNonString<ServerCooki
     }
 
     @Override
-    String toText0(final ServerCookie cookie, final Name name) {
+    String toText(final ServerCookie cookie, final Name name) {
         return cookie.text();
     }
 

@@ -41,12 +41,28 @@ public final class ClientCookieListHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.cookie(), null)));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.check(
+                Lists.of(
+                    this.cookie(),
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.cookie(), "WRONG!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.cookie(),
+                    "WRONG!"
+                )
+            )
+        );
     }
 
     private ClientCookie cookie() {

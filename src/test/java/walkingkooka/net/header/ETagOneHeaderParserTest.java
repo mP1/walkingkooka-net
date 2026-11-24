@@ -59,7 +59,7 @@ public final class ETagOneHeaderParserTest extends ETagHeaderParserTestCase<ETag
     }
 
     @Override
-    ETag parseHeader(final String text) {
+    public ETag parseString(final String text) {
         return ETagOneHeaderParser.parseOne(text);
     }
 

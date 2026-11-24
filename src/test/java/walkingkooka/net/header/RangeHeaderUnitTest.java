@@ -70,14 +70,7 @@ public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
 
     @Override
     public RangeHeaderUnit parseString(final String text) {
-        try {
-            return RangeHeaderUnit.parse(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
+        return RangeHeaderUnit.parse(text);
     }
 
     @Override

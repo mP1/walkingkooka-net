@@ -52,7 +52,7 @@ final class HeaderHandlerNonStringUrl extends HeaderHandlerNonString<Url> {
     }
 
     @Override
-    String toText0(final Url value, final Name name) {
+    String toText(final Url value, final Name name) {
         return value.toString();
     }
 

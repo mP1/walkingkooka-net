@@ -52,7 +52,7 @@ final class ContentDispositionFileNameNotEncodedHeaderHandler extends HeaderHand
     }
 
     @Override
-    String toText0(final ContentDispositionFileName filename, final Name name) {
+    String toText(final ContentDispositionFileName filename, final Name name) {
         return QUOTED_UNQUOTED_STRING.toText(filename.value(), name);
     }
 

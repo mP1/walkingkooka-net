@@ -32,7 +32,12 @@ public final class ContentLanguageHeaderHandlerTest extends HeaderHandlerNonStri
 
     @Test
     public void testCheckEmptyListFails() {
-        assertThrows(HeaderException.class, () -> ContentLanguageHeaderHandler.INSTANCE.check(Lists.empty()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ContentLanguageHeaderHandler.INSTANCE.check(
+                Lists.empty()
+            )
+        );
     }
 
     @Test

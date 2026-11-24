@@ -149,7 +149,7 @@ public final class ContentLanguageHeaderParserTest extends HeaderParserTestCase<
     }
 
     @Override
-    ContentLanguage parseHeader(final String text) {
+    public ContentLanguage parseString(final String text) {
         return ContentLanguageHeaderParser.parseContentLanguage(text);
     }
 

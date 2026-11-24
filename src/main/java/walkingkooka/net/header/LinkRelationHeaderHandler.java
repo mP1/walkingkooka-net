@@ -56,7 +56,7 @@ final class LinkRelationHeaderHandler extends HeaderHandlerNonString<List<LinkRe
      * Join all values separated by a single space.
      */
     @Override
-    String toText0(final List<LinkRelation<?>> value, final Name name) {
+    String toText(final List<LinkRelation<?>> value, final Name name) {
         return LinkRelation.toHeaderTextList(value);
     }
 

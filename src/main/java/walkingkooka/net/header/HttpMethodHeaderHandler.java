@@ -51,7 +51,7 @@ final class HttpMethodHeaderHandler extends HeaderHandlerNonString<HttpMethod> {
     }
 
     @Override
-    String toText0(final HttpMethod method, final Name name) {
+    String toText(final HttpMethod method, final Name name) {
         return method.text();
     }
 

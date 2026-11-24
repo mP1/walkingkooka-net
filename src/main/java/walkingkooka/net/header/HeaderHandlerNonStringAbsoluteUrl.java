@@ -53,7 +53,7 @@ final class HeaderHandlerNonStringAbsoluteUrl extends HeaderHandlerNonString<Abs
     }
 
     @Override
-    String toText0(final AbsoluteUrl value, final Name name) {
+    String toText(final AbsoluteUrl value, final Name name) {
         return value.value();
     }
 

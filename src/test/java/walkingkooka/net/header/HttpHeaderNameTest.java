@@ -338,7 +338,12 @@ final public class HttpHeaderNameTest extends HeaderNameValueSharedTestCase<Http
     @Test
     public void testCheckInvalidValueTypeFails() {
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
-        assertThrows(HeaderException.class, () -> header.checkValue(Cast.to("invalid!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> header.checkValue(
+                Cast.to("invalid!")
+            )
+        );
     }
 
     // parse ...........................................................................................................

@@ -53,7 +53,7 @@ public final class ETagListHeaderHandlerTest extends
     @Test
     public void testCheckIncludesNullFails() {
         assertThrows(
-            HeaderException.class,
+            NullPointerException.class,
             () -> this.check(
                 Lists.of(
                     ETAG,
@@ -66,7 +66,7 @@ public final class ETagListHeaderHandlerTest extends
     @Test
     public void testCheckIncludesWrongTypeFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.check(
                 Lists.of(
                     ETAG,

@@ -36,7 +36,7 @@ public final class AcceptLanguageValueHeaderParserTest extends AcceptLanguageOrA
     }
 
     @Override
-    AcceptLanguageValue parseHeader(final String text) {
+    public AcceptLanguageValue parseString(final String text) {
         return AcceptLanguageValueHeaderParser.parseLanguage(text);
     }
 

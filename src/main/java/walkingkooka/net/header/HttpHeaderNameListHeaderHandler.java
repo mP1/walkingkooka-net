@@ -57,7 +57,7 @@ final class HttpHeaderNameListHeaderHandler extends HeaderHandlerNonString<List<
     }
 
     @Override
-    String toText0(final List<HttpHeaderName<?>> names, final Name name) {
+    String toText(final List<HttpHeaderName<?>> names, final Name name) {
         return names.stream()
             .map(HeaderNameValue::value)
             .collect(Collectors.joining(", "));

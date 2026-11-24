@@ -222,7 +222,7 @@ public final class AcceptEncodingHeaderParserTest extends HeaderParserTestCase<A
     }
 
     @Override
-    AcceptEncoding parseHeader(final String text) {
+    public AcceptEncoding parseString(final String text) {
         return AcceptEncodingHeaderParser.parseAcceptEncoding(text);
     }
 

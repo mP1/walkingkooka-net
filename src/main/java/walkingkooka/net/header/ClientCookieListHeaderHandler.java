@@ -53,7 +53,7 @@ final class ClientCookieListHeaderHandler extends HeaderHandlerNonString<List<Cl
     }
 
     @Override
-    String toText0(final List<ClientCookie> cookies, final Name name) {
+    String toText(final List<ClientCookie> cookies, final Name name) {
         return ClientCookie.toHeaderTextList(cookies);
     }
 

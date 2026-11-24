@@ -50,7 +50,7 @@ public final class LinkRelationHeaderParserTest extends HeaderParserTestCase<Lin
     }
 
     @Override
-    List<LinkRelation<?>> parseHeader(final String text) {
+    public List<LinkRelation<?>> parseString(final String text) {
         return LinkRelationHeaderParser.parseLinkRelationList(text);
     }
 

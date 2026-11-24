@@ -51,7 +51,7 @@ final class AcceptCharsetHeaderHandler extends HeaderHandlerNonString<AcceptChar
     }
 
     @Override
-    String toText0(final AcceptCharset value, final Name name) {
+    String toText(final AcceptCharset value, final Name name) {
         return value.text();
     }
 

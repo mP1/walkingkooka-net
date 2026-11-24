@@ -52,7 +52,7 @@ final class LinkHeaderHandler extends HeaderHandlerNonString<List<Link>> {
     }
 
     @Override
-    String toText0(final List<Link> value, final Name name) {
+    String toText(final List<Link> value, final Name name) {
         return Link.toHeaderTextList(value);
     }
 

@@ -50,7 +50,7 @@ final class MediaTypeHeaderHandler extends HeaderHandlerNonString<MediaType> {
     }
 
     @Override
-    String toText0(final MediaType value, final Name name) {
+    String toText(final MediaType value, final Name name) {
         return value.toString();
     }
 

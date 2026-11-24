@@ -58,7 +58,7 @@ final class HeaderHandlerNonStringLong extends HeaderHandlerNonString<Long> {
     }
 
     @Override
-    String toText0(final Long value, final Name name) {
+    String toText(final Long value, final Name name) {
         return Long.toString(value);
     }
 

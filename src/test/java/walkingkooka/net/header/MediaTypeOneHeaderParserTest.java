@@ -55,7 +55,7 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
     }
 
     @Override
-    MediaType parseHeader(final String text) {
+    public MediaType parseString(final String text) {
         return MediaTypeOneHeaderParser.parseMediaType(text);
     }
 

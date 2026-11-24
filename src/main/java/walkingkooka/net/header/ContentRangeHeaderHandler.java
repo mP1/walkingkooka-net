@@ -50,7 +50,7 @@ final class ContentRangeHeaderHandler extends HeaderHandlerNonString<ContentRang
     }
 
     @Override
-    String toText0(final ContentRange value, final Name name) {
+    String toText(final ContentRange value, final Name name) {
         return value.toString();
     }
 

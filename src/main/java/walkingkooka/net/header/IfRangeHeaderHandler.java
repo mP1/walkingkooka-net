@@ -44,14 +44,14 @@ final class IfRangeHeaderHandler extends HeaderHandlerNonString<IfRange<?>> {
         IfRange<?> parsed;
         try {
             parsed = IfRangeETag.with(ETag.parse(text));
-        } catch (final HeaderException mustBeLastModified) {
+        } catch (final IllegalArgumentException mustBeLastModified) {
             final LocalDateTime date;
 
             try {
                 date = DATE_TIME.parse(
                     text
                 );
-            } catch (final HeaderException cause) {
+            } catch (final RuntimeException cause) {
                 throw new IllegalArgumentException("Invalid date in " + CharSequences.quoteAndEscape(text));
             }
             parsed = IfRangeLastModified.with(
@@ -72,7 +72,7 @@ final class IfRangeHeaderHandler extends HeaderHandlerNonString<IfRange<?>> {
     }
 
     @Override
-    String toText0(final IfRange<?> value, final Name name) {
+    String toText(final IfRange<?> value, final Name name) {
         return value.text();
     }
 

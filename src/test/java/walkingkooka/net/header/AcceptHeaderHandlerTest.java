@@ -36,12 +36,28 @@ public final class AcceptHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.mediaType1(), null)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.mediaType1(),
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.mediaType1(), "WRONG!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.mediaType1(),
+                    "WRONG!"
+                )
+            )
+        );
     }
 
     private MediaType mediaType1() {

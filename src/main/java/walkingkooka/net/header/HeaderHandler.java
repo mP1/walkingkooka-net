@@ -334,24 +334,15 @@ abstract class HeaderHandler<T> {
     final T parse(final String text) {
         Objects.requireNonNull(text, "text");
 
-        try {
-            return this.check(
-                    this.parse0(text)
-            );
-        } catch (final HeaderException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new HeaderException(
-                    cause.getMessage(),
-                    cause
-            );
-        }
+        return this.check(
+            this.parse0(text)
+        );
     }
 
     /**
      * Sub classes parse the {@link String} value.
      */
-    abstract T parse0(final String text) throws HeaderException;
+    abstract T parse0(final String text);
 
     // checkValue...........................................................
 
@@ -364,17 +355,17 @@ abstract class HeaderHandler<T> {
     abstract void checkNonNull(final Object value);
 
     /**
-     * Checks the type of the given value and throws a {@link HeaderException} if this test fails.
+     * Checks the type of the given value and throws a {@link IllegalArgumentException} if this test fails.
      */
     final void checkType(final Object value,
                          final Predicate<Object> instanceofTester,
                          final Class<?> type) {
         if (false == instanceofTester.test(value)) {
-            throw new HeaderException(
-                    invalidTypeNameMessage(
-                            value,
-                            type.getSimpleName()
-                    )
+            throw new IllegalArgumentException(
+                invalidTypeNameMessage(
+                    value,
+                    type.getSimpleName()
+                )
             );
         }
     }
@@ -383,26 +374,30 @@ abstract class HeaderHandler<T> {
     final static String PACKAGE = "walkingkooka.net.header";
 
     /**
-     * Checks the type of the given value and throws a {@link HeaderException} if this test fails.
+     * Checks the type of the given value and throws a {@link IllegalArgumentException} if this test fails.
      */
     final void checkListOfType(final Object value,
                                final Predicate<Object> instanceofTester,
                                final Class<?> type) {
-        if (!(value instanceof List)) {
-            throw new HeaderException(invalidTypeNameMessage(value, "List of " + type.getSimpleName()));
+        if (false == (value instanceof List)) {
+            throw new IllegalArgumentException(
+                invalidTypeNameMessage(
+                    value,
+                    "List of " + type.getSimpleName())
+            );
         }
 
         final List<?> list = Cast.to(value);
         for (Object element : list) {
             if (null == element) {
-                throw new HeaderException("null found");
+                throw new NullPointerException("null found");
             }
-            if (!instanceofTester.test(element)) {
-                throw new HeaderException(
-                        "Invalid element " +
-                                CharSequences.quoteIfChars(element) +
-                                " is not a " +
-                                type.getSimpleName()
+            if (false == instanceofTester.test(element)) {
+                throw new IllegalArgumentException(
+                    "Invalid element " +
+                        CharSequences.quoteIfChars(element) +
+                        " is not a " +
+                        type.getSimpleName()
                 );
             }
         }
@@ -418,20 +413,8 @@ abstract class HeaderHandler<T> {
     /**
      * Accepts a typed value and formats it into a http response header string.
      */
-    final String toText(final T value, final Name name) {
-        try {
-            return this.toText0(value, name);
-        } catch (final HeaderException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new HeaderException("Failed to convert " + CharSequences.quote(name.value()) +
-                    " value " + CharSequences.quoteIfChars(value) +
-                    " to text, message: " + cause.getMessage(),
-                    cause);
-        }
-    }
-
-    abstract String toText0(final T value, final Name name);
+    abstract String toText(final T value,
+                           final Name name);
 
     // httpHeaderNameCast ....................................................................................................
 

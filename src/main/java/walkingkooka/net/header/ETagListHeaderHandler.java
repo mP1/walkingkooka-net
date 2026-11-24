@@ -50,8 +50,8 @@ final class ETagListHeaderHandler extends HeaderHandlerNonString<ETagList> {
     }
 
     @Override
-    String toText0(final ETagList value,
-                   final Name name) {
+    String toText(final ETagList value,
+                  final Name name) {
         return value.text();
     }
 

@@ -51,7 +51,7 @@ final class ContentDispositionHeaderHandler extends HeaderHandlerNonString<Conte
     }
 
     @Override
-    String toText0(final ContentDisposition value, final Name name) {
+    String toText(final ContentDisposition value, final Name name) {
         return value.text();
     }
 

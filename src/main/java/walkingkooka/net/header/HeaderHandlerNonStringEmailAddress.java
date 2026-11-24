@@ -60,7 +60,7 @@ final class HeaderHandlerNonStringEmailAddress extends HeaderHandlerNonString<Em
     }
 
     @Override
-    String toText0(final EmailAddress value, final Name name) {
+    String toText(final EmailAddress value, final Name name) {
         return value.toString();
     }
 

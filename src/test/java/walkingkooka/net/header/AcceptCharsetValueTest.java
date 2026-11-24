@@ -84,7 +84,7 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     @Test
     public void testSetParametersInvalidParameterValueFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.acceptCharsetValue()
                 .setParameters(
                     this.parameters(
