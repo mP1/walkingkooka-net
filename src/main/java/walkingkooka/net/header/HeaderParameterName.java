@@ -78,7 +78,7 @@ abstract class HeaderParameterName<V> extends HeaderNameValueShared<V> {
      */
     public final V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
-        if (!value.isPresent()) {
+        if (value.isEmpty()) {
             throw new HeaderException("Missing header parameter " + this);
         }
         return value.get();
