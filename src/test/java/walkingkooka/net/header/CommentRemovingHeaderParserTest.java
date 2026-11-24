@@ -22,12 +22,15 @@ import org.junit.jupiter.api.Test;
 public final class CommentRemovingHeaderParserTest extends HeaderParserTestCase<CommentRemovingHeaderParser, String> {
 
     @Test
-    public void testUnterminatedCommentFails() {
-        this.parseStringFails("(unclosed", "Missing closing ')' in \"(unclosed\"");
+    public void testParseUnterminatedCommentFails() {
+        this.parseStringFails(
+            "(unclosed",
+            "Missing closing ')' in \"(unclosed\""
+        );
     }
 
     @Test
-    public void testUnterminatedDoubleQuotedTextFails() {
+    public void testParseUnterminatedDoubleQuotedTextFails() {
         this.parseMissingClosingQuoteFails("\"abc");
     }
 
@@ -36,118 +39,145 @@ public final class CommentRemovingHeaderParserTest extends HeaderParserTestCase<
     }
 
     @Test
-    public void testEmpty() {
+    public void testParseEmpty() {
         this.parseStringAndCheck("");
     }
 
     @Test
-    public void testSpace() {
+    public void testParseSpace() {
         this.parseStringAndCheck(" ");
     }
 
     @Test
-    public void testLetters() {
+    public void testParseLetters() {
         this.parseStringAndCheck("abc");
     }
 
     @Test
-    public void testDigits() {
+    public void testParseDigits() {
         this.parseStringAndCheck("123");
     }
 
     @Test
-    public void testSlash() {
+    public void testParseSlash() {
         this.parseStringAndCheck("/");
     }
 
     @Test
-    public void testWildcard() {
+    public void testParseWildcard() {
         this.parseStringAndCheck("*");
     }
 
     @Test
-    public void testMimeType() {
+    public void testParseMimeType() {
         this.parseStringAndCheck("text/plain");
     }
 
     @Test
-    public void testMimeTypeStar() {
+    public void testParseMimeTypeStar() {
         this.parseStringAndCheck("text/*");
     }
 
     @Test
-    public void testMimeTypeTokenSeparator() {
+    public void testParseMimeTypeTokenSeparator() {
         this.parseStringAndCheck("text/plain;");
     }
 
     @Test
-    public void testMimeTypeWithParameters() {
+    public void testParseMimeTypeWithParameters() {
         this.parseStringAndCheck("text/plain;q=0.5");
     }
 
     @Test
-    public void testTokenWithParameters() {
+    public void testParseTokenWithParameters() {
         this.parseStringAndCheck("abc;q=0.5");
     }
 
     @Test
-    public void testTokenWithManyParameters() {
+    public void testParseTokenWithManyParameters() {
         this.parseStringAndCheck("abc;q=0.5,r=2");
     }
 
     @Test
-    public void testDoubleQuotedText() {
+    public void testParseDoubleQuotedText() {
         this.parseStringAndCheck("\"abc123\"");
     }
 
     @Test
-    public void testDoubleQuotedTextWithEscaped() {
+    public void testParseDoubleQuotedTextWithEscaped() {
         this.parseStringAndCheck("\"abc\\t123\"");
     }
 
     @Test
-    public void testEmptyComment() {
-        this.parseStringAndCheck("()", "");
+    public void testParseEmptyComment() {
+        this.parseStringAndCheck(
+            "()",
+            ""
+        );
     }
 
     @Test
-    public void testComment() {
-        this.parseStringAndCheck("(comment-a1)", "");
+    public void testParseComment() {
+        this.parseStringAndCheck(
+            "(comment-a1)",
+            ""
+        );
     }
 
     @Test
-    public void testCommentComment() {
-        this.parseStringAndCheck("(comment-a1)(comment-b2)", "");
+    public void testParseCommentComment() {
+        this.parseStringAndCheck(
+            "(comment-a1)(comment-b2)",
+            ""
+        );
     }
 
     @Test
-    public void testCommentCommentText() {
-        this.parseStringAndCheck("(comment-a1)(comment-b2)abc", "abc");
+    public void testParseCommentCommentText() {
+        this.parseStringAndCheck(
+            "(comment-a1)(comment-b2)abc",
+            "abc"
+        );
     }
 
     @Test
-    public void testCommentTextComment() {
-        this.parseStringAndCheck("(comment-a1)bcd(comment-d2)", "bcd");
+    public void testParseCommentTextComment() {
+        this.parseStringAndCheck(
+            "(comment-a1)bcd(comment-d2)",
+            "bcd"
+        );
     }
 
     @Test
-    public void testTextCommentTextComment() {
-        this.parseStringAndCheck("a1(comment-1)b2(comment-2)c3", "a1b2c3");
+    public void testParseTextCommentTextComment() {
+        this.parseStringAndCheck(
+            "a1(comment-1)b2(comment-2)c3",
+            "a1b2c3"
+        );
     }
 
     @Test
-    public void testTextCommentDoubleQuotedText() {
-        this.parseStringAndCheck("a1(comment-1)\"xyz\"", "a1\"xyz\"");
+    public void testParseTextCommentDoubleQuotedText() {
+        this.parseStringAndCheck(
+            "a1(comment-1)\"xyz\"",
+            "a1\"xyz\""
+        );
     }
 
     @Test
-    public void testTextCommentDoubleQuotedTextTextSingleQuoted() {
-        this.parseStringAndCheck("a1(comment-1)\"xyz\".'qrs'", "a1\"xyz\".'qrs'");
+    public void testParseTextCommentDoubleQuotedTextTextSingleQuoted() {
+        this.parseStringAndCheck(
+            "a1(comment-1)\"xyz\".'qrs'",
+            "a1\"xyz\".'qrs'"
+        );
     }
 
     @Test
-    public void testNoise() {
-        this.parseStringAndCheck("a*1;/=\"xyz\",q", "a*1;/=\"xyz\",q");
+    public void testParseNoise() {
+        this.parseStringAndCheck(
+            "a*1;/=\"xyz\",q",
+            "a*1;/=\"xyz\",q"
+        );
     }
 
     private void parseStringAndCheck(final String text) {
