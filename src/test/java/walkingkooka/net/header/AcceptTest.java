@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -32,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<Accept>,
-    PredicateTesting {
+    PredicateTesting,
+    PublicClassTesting<Accept> {
 
     @Test
     public void testWithDefault() {
@@ -322,10 +323,5 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
     @Override
     public Class<Accept> type() {
         return Accept.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
