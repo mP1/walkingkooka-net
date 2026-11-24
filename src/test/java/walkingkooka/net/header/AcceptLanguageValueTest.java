@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
@@ -32,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<AcceptLanguageValue,
     AcceptLanguageParameterName<?>>
     implements ParseStringTesting<AcceptLanguageValue>,
-    PredicateTesting2<AcceptLanguageValue, LanguageName> {
+    PredicateTesting2<AcceptLanguageValue, LanguageName>,
+    PublicClassTesting<AcceptLanguageValue> {
 
     @Test
     public void testWithNullFails() {
@@ -312,16 +313,6 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         return AcceptLanguageValue.with(this.fr());
     }
 
-    @Override
-    public Class<AcceptLanguageValue> type() {
-        return AcceptLanguageValue.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
     // PredicateTesting2................................................................................................
 
     @Override
@@ -329,7 +320,12 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         return this.createHeaderWithParameters();
     }
 
-    // TypeNameTesting...................................................................................................
+    // class............................................................................................................
+
+    @Override
+    public Class<AcceptLanguageValue> type() {
+        return AcceptLanguageValue.class;
+    }
 
     @Override
     public String typeNamePrefix() {
