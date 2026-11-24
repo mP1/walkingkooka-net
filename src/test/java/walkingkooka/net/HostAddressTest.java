@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
@@ -35,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class HostAddressTest implements ClassTesting2<HostAddress>,
+public final class HostAddressTest implements PublicClassTesting<HostAddress>,
     ComparableTesting2<HostAddress>,
     HasHostAddressTesting<HostAddress>,
     HasTextTesting,
@@ -1654,11 +1653,6 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     @Override
     public Class<HostAddress> type() {
         return HostAddress.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // helpers..........................................................................................................
