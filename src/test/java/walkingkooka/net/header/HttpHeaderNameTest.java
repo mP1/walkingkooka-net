@@ -37,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -281,19 +282,17 @@ final public class HttpHeaderNameTest extends HeaderNameValueSharedTestCase<Http
 
     @Test
     public void testHeaderOrFailAbsent() {
-        final HeaderException thrown = assertThrows(
-            HeaderException.class,
-            () -> HttpHeaderName.ALLOW.headerOrFail(
-                this.headers(
-                    HttpHeaderName.CONTENT_LENGTH,
-                    123L
+        this.getMessageAndCheck(
+            assertThrows(
+                NoSuchElementException.class,
+                () -> HttpHeaderName.ALLOW.headerOrFail(
+                    this.headers(
+                        HttpHeaderName.CONTENT_LENGTH,
+                        123L
+                    )
                 )
-            )
-        );
-
-        this.checkEquals(
-            "Missing header Allow",
-            thrown.getMessage()
+            ),
+            "Missing header \"Allow\""
         );
     }
 

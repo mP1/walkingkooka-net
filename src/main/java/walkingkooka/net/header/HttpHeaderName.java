@@ -32,10 +32,12 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -940,12 +942,12 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
     }
 
     /**
-     * Retrieves the value or throws a {@link HeaderException} if absent.
+     * Retrieves the value or throws a {@link NoSuchElementException} if absent.
      */
-    public T headerOrFail(final HasHeaders headers) {
+    public T headerOrFail(final HasHeaders headers) throws NoSuchElementException {
         final Optional<T> value = this.header(headers);
-        if (!value.isPresent()) {
-            throw new HeaderException("Missing header " + this);
+        if (value.isEmpty()) {
+            throw new NoSuchElementException("Missing header " + CharSequences.quoteAndEscape(this.name));
         }
         return value.get();
     }
