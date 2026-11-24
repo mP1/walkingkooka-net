@@ -154,10 +154,17 @@ public final class ETagTest extends HeaderTestCase<ETag>
         );
     }
 
-    private void textListAndCheck(final String toString, final ETag... tags) {
-        this.checkEquals(toString,
-            Header.toHeaderTextList(Lists.of(tags), Header.SEPARATOR.string().concat(" ")),
-            "ETag.toString(List) failed =" + CharSequences.quote(toString));
+    private void textListAndCheck(final String toString,
+                                  final ETag... tags) {
+        this.checkEquals(
+            toString,
+            Header.toHeaderTextList(
+                Lists.of(tags),
+                Header.SEPARATOR.string()
+                    .concat(" ")
+            ),
+            "ETag.toString(List) failed =" + CharSequences.quote(toString)
+        );
     }
 
     @Override
