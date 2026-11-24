@@ -169,7 +169,7 @@ public final class RangeHeader implements Header,
 
         final int count = ranges.size();
         if (0 == count) {
-            throw new HeaderException("Missing range");
+            throw new IllegalArgumentException("Empty ranges");
         }
         final int last = count - 1;
         for (int i = 0; i < last; i++) {
@@ -178,7 +178,7 @@ public final class RangeHeader implements Header,
             for (int j = i + 1; j < count; j++) {
                 final Range<Long> other = copy.get(j);
                 if (range.isOverlapping(other)) {
-                    throw new HeaderException("Range overlap between " + range + " and " + other);
+                    throw new IllegalArgumentException("Overlap between " + range + " and " + other);
                 }
             }
         }

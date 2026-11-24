@@ -61,7 +61,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testWithEmptyRangesFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> RangeHeader.with(
                 UNIT,
                 Lists.empty()
@@ -72,7 +72,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testWithOverlappingRangesFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> RangeHeader.with(
                 UNIT,
                 this.rangesWithOverlap()
@@ -83,7 +83,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testWithOverlappingRangesFails2() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> RangeHeader.with(
                 UNIT,
                 this.rangesWithOverlap2()
@@ -94,7 +94,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Test
     public void testWithOverlappingRangesFails3() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> RangeHeader.with(
                 UNIT,
                 this.rangesWithOverlap3()
@@ -154,43 +154,55 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Test
     public void testSetValueEmptyFails() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.range()
-                .setValue(Lists.empty())
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.range()
+                    .setValue(Lists.empty())
+            ),
+            "Empty ranges"
         );
     }
 
     @Test
     public void testSetValueWithOverlapFails() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.range()
-                .setValue(
-                    this.rangesWithOverlap()
-                )
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.range()
+                    .setValue(
+                        this.rangesWithOverlap()
+                    )
+            ),
+            "Overlap between (100..200) and (200..300)"
         );
     }
 
     @Test
     public void testSetValueWithOverlapFails2() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.range()
-                .setValue(
-                    this.rangesWithOverlap2()
-                )
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.range()
+                    .setValue(
+                        this.rangesWithOverlap2()
+                    )
+            ),
+            "Overlap between (100..200) and (200..300)"
         );
     }
 
     @Test
     public void testSetValueWithOverlapFails3() {
-        assertThrows(
-            HeaderException.class,
-            () -> this.range()
-                .setValue(
-                    this.rangesWithOverlap3()
-                )
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.range()
+                    .setValue(
+                        this.rangesWithOverlap3()
+                    )
+            ),
+            "Overlap between <=100 and (75..150)"
         );
     }
 
