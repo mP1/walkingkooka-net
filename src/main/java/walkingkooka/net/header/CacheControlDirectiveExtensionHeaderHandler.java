@@ -84,8 +84,11 @@ final class CacheControlDirectiveExtensionHeaderHandler extends HeaderHandlerNon
         return QUOTED_UNQUOTED_STRING.toText(value, name);
     }
 
-    private String failInvalidValue(final Object value, final Name name) {
-        throw new HeaderException(name + "  value is not a long or string " + CharSequences.quoteIfChars(value));
+    private String failInvalidValue(final Object value,
+                                    final Name name) {
+        throw new IllegalArgumentException(
+            "Invalid " + CharSequences.quoteAndEscape(name.text()) + " value, not a number or string " + CharSequences.quoteIfChars(value)
+        );
     }
 
     private final static HeaderHandler<String> QUOTED_UNQUOTED_STRING = HeaderHandler.quotedUnquotedString(
