@@ -44,7 +44,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Override
     LocalDateTime value() {
-        return this.lastModified();
+        return LAST_MODIFIED;
     }
 
     @Override

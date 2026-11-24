@@ -59,7 +59,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Override
     LocalDateTime otherValue() {
-        return this.lastModified();
+        return DIFFERENT_LAST_MODIFIED;
     }
 
     @Override
