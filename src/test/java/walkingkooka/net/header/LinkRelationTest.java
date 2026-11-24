@@ -36,11 +36,6 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     private final static String TEXT = "abc123";
     private final static String URL_TEXT = "https://example.com";
 
-    @Override
-    public void testWith2() {
-        // ignored
-    }
-
     @Test
     public void testWithText() {
         final LinkRelation<?> linkRelation = LinkRelation.with(TEXT);
@@ -51,6 +46,11 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     public void testWithUrl() {
         final LinkRelation<?> linkRelation = LinkRelation.with(URL_TEXT);
         this.checkEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
+    }
+
+    @Override
+    public void testWithDifferentValue() {
+        throw new UnsupportedOperationException();
     }
 
     // HasText..........................................................................................................

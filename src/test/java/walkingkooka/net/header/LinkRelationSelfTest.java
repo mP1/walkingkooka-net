@@ -22,7 +22,8 @@ import org.junit.jupiter.api.Test;
 public final class LinkRelationSelfTest extends LinkRelationTestCase<LinkRelationSelf, String> {
 
     @Override
-    public void testWith2() {
+    public void testWithDifferentValue() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
