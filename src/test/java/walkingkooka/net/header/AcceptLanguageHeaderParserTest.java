@@ -25,37 +25,58 @@ public final class AcceptLanguageHeaderParserTest extends AcceptLanguageOrAccept
     AcceptLanguage> {
 
     @Test
-    public void testMultipleLanguages() {
-        this.parseStringAndCheck3("en-US,en;q=0.5",
-            this.language("en-US"),
-            this.language("en", 0.5f));
+    public void testParseMultipleLanguages() {
+        this.parseStringAndCheck3(
+            "en-US,en;q=0.5",
+            language("en-US"),
+            language("en", 0.5f)
+        );
     }
 
     @Test
-    public void testMultipleLanguagesSorted() {
-        this.parseStringAndCheck3("de;q=0.75,fr;q=0.25,en;q=0.5",
-            this.language("de", 0.75f),
-            this.language("en", 0.5f),
-            this.language("fr", 0.25f));
+    public void testParseMultipleLanguagesSorted() {
+        this.parseStringAndCheck3(
+            "de;q=0.75,fr;q=0.25,en;q=0.5",
+            language("de", 0.75f),
+            language("en", 0.5f),
+            language("fr", 0.25f)
+        );
     }
 
-    private AcceptLanguageValue language(final String language, final float qFactor) {
-        return this.language(language)
-            .setParameters(Maps.of(AcceptLanguageParameterName.Q, qFactor));
+    private static AcceptLanguageValue language(final String language,
+                                         final float qFactor) {
+        return language(language)
+            .setParameters(
+                Maps.of(
+                    AcceptLanguageParameterName.Q,
+                    qFactor
+                )
+            );
     }
 
-    private AcceptLanguageValue language(final String language) {
-        return AcceptLanguageValue.with(LanguageName.with(language));
+    private static AcceptLanguageValue language(final String language) {
+        return AcceptLanguageValue.with(
+            LanguageName.with(language)
+        );
     }
 
     private void parseStringAndCheck3(final String text,
                                       final AcceptLanguageValue... languages) {
-        this.parseStringAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
+        this.parseStringAndCheck(
+            text,
+            AcceptLanguage.with(
+                Lists.of(languages)
+            )
+        );
     }
 
     @Override
-    void parseStringAndCheck2(final String text, final AcceptLanguageValue language) {
-        this.parseStringAndCheck3(text, language);
+    void parseStringAndCheck2(final String text,
+                              final AcceptLanguageValue language) {
+        this.parseStringAndCheck3(
+            text,
+            language
+        );
     }
 
     @Override
