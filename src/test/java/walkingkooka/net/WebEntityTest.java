@@ -27,8 +27,7 @@ import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
@@ -45,7 +44,7 @@ public final class WebEntityTest implements CanBeEmptyTesting,
     HasTextTesting,
     ToStringTesting,
     TreePrintableTesting,
-    ClassTesting<WebEntity> {
+    PublicClassTesting<WebEntity> {
 
     private final static Optional<MediaType> CONTENT_TYPE = Optional.of(MediaType.APPLICATION_JSON);
 
@@ -549,10 +548,5 @@ public final class WebEntityTest implements CanBeEmptyTesting,
     @Override
     public Class<WebEntity> type() {
         return WebEntity.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
