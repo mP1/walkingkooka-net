@@ -40,13 +40,13 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Test
     public void testWith() {
-        this.checkValue(this.createHeader());
+        this.valueAndParametersCheck(this.createHeader());
     }
 
     @Test
     public void testWith2() {
         final String text = "unknown";
-        this.checkValue(AcceptEncodingValue.with(text),
+        this.valueAndParametersCheck(AcceptEncodingValue.with(text),
             text,
             AcceptEncodingValue.NO_PARAMETERS);
     }
@@ -59,22 +59,26 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         final AcceptEncodingValue different = acceptEncoding.setParameters(parameters);
         assertNotSame(parameters, different);
 
-        this.checkValue(different, acceptEncoding.value(), parameters);
-        this.checkValue(acceptEncoding);
+        this.valueAndParametersCheck(different, acceptEncoding.value(), parameters);
+        this.valueAndParametersCheck(acceptEncoding);
     }
 
-    final void checkValue(final AcceptEncodingValue encoding) {
-        this.checkValue(encoding, this.value(), AcceptEncodingValue.NO_PARAMETERS);
+    final void valueAndParametersCheck(final AcceptEncodingValue encoding) {
+        this.valueAndParametersCheck(encoding, this.value(), AcceptEncodingValue.NO_PARAMETERS);
     }
 
-    final void checkValue(final AcceptEncodingValue encoding,
-                          final String value,
-                          final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
+    final void valueAndParametersCheck(final AcceptEncodingValue encoding,
+                                       final String value,
+                                       final Map<AcceptEncodingValueParameterName<?>, Object> parameters) {
         this.valueAndCheck(
             encoding,
             value
         );
-        this.checkEquals(parameters, encoding.parameters(), "parameters");
+        this.checkEquals(
+            parameters,
+            encoding.parameters(),
+            "parameters"
+        );
     }
 
     // HasText..........................................................................................................

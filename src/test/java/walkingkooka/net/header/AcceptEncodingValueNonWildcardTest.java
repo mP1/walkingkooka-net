@@ -44,14 +44,14 @@ public final class AcceptEncodingValueNonWildcardTest extends AcceptEncodingValu
     @Test
     @Override
     public void testWith() {
-        this.checkValue(this.createHeader());
+        this.valueAndParametersCheck(this.createHeader());
     }
 
     @Test
     @Override
     public void testWith2() {
         final String text = "unknown";
-        this.checkValue(AcceptEncodingValue.with(text),
+        this.valueAndParametersCheck(AcceptEncodingValue.with(text),
             text,
             AcceptEncodingValue.NO_PARAMETERS);
     }
