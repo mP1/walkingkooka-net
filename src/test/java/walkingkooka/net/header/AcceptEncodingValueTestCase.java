@@ -84,10 +84,9 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
             encoding,
             value
         );
-        this.checkEquals(
-            parameters,
-            encoding.parameters(),
-            "parameters"
+        this.parametersAndCheck(
+            encoding,
+            parameters
         );
     }
 
