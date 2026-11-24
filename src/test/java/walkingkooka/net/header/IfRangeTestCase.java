@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -27,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderTestCase<R> {
+public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderTestCase<R>
+    implements PackagePrivateClassTesting<R> {
 
     IfRangeTestCase() {
         super();
@@ -170,10 +171,5 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Override
     public boolean isResponse() {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
