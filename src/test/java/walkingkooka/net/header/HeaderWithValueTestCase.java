@@ -26,7 +26,7 @@ public abstract class HeaderWithValueTestCase<H extends HeaderWithValue<V>, V> e
     }
 
     @Test
-    public final void testWith() {
+    public final void testWithValue() {
         final V value = this.value();
 
         this.valueAndCheck(
@@ -35,8 +35,9 @@ public abstract class HeaderWithValueTestCase<H extends HeaderWithValue<V>, V> e
         );
     }
 
+    // some sub-classes will override to disable
     @Test
-    public void testWith2() {
+    public void testWithDifferentValue() {
         final V value = this.differentValue();
 
         this.valueAndCheck(
