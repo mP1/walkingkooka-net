@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
+public final class UrlParameterValueListTest implements PackagePrivateClassTesting<UrlParameterValueList>,
     ImmutableListTesting<UrlParameterValueList, String> {
 
     @Test
@@ -137,10 +136,5 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
     @Override
     public Class<UrlParameterValueList> type() {
         return UrlParameterValueList.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
