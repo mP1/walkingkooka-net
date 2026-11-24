@@ -107,9 +107,10 @@ public final class RangeHeader implements Header,
      * Factory that creates a new {@link RangeHeader}
      */
     public static RangeHeader with(final RangeHeaderUnit unit, final List<Range<Long>> ranges) {
-        checkUnit(unit);
-
-        return new RangeHeader(unit, copyAndCheckValue(ranges));
+        return new RangeHeader(
+            checkUnit(unit),
+            copyAndCheckValue(ranges)
+        );
     }
 
     /**
@@ -128,18 +129,21 @@ public final class RangeHeader implements Header,
     }
 
     public RangeHeader setUnit(final RangeHeaderUnit unit) {
-        checkUnit(unit);
         return this.unit.equals(unit) ?
             this :
-            this.replace(unit, this.ranges);
+            this.replace(
+                checkUnit(unit),
+                this.ranges
+            );
     }
 
     private final RangeHeaderUnit unit;
 
-    private static void checkUnit(final RangeHeaderUnit unit) {
+    private static RangeHeaderUnit checkUnit(final RangeHeaderUnit unit) {
         Objects.requireNonNull(unit, "unit");
 
         unit.rangeCheck();
+        return unit;
     }
 
     // value ........................................................................................
