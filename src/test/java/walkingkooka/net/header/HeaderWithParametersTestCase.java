@@ -17,9 +17,9 @@
 
 package walkingkooka.net.header;
 
-import java.util.Map;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Map;
 
 public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameters<N>,
     N extends HeaderParameterName<?>> extends HeaderTestCase<V>
@@ -29,19 +29,10 @@ public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameter
         super();
     }
 
-    final void parametersAndCheck(final HeaderWithParameters<N> header,
-                                  final Map<N, ?> parameters) {
-        this.checkEquals(
-            parameters,
-            header.parameters(),
-            () -> "parameters " + header);
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> header.parameters()
-                .put(
-                    this.parameterName(),
-                    null
-                )
+    @Test
+    public final void testParametersReadonly() {
+        this.parametersReadOnlyCheck(
+            this.parameterName()
         );
     }
 
