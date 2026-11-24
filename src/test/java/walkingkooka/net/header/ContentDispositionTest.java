@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.HasOptionalNameTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
@@ -32,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ContentDispositionTest extends HeaderWithParametersTestCase<ContentDisposition,
     ContentDispositionParameterName<?>>
     implements ParseStringTesting<ContentDisposition>,
-    HasOptionalNameTesting {
+    HasOptionalNameTesting,
+    PublicClassTesting<ContentDisposition> {
 
     private final static ContentDispositionType TYPE = ContentDispositionType.ATTACHMENT;
     private final static String PARAMETER_VALUE = "v1";
@@ -503,10 +504,5 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     @Override
     public Class<ContentDisposition> type() {
         return ContentDisposition.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
