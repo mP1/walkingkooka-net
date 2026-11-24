@@ -37,7 +37,10 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> AcceptLanguageValue.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> AcceptLanguageValue.with(null)
+        );
     }
 
     @Test
@@ -48,26 +51,38 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testWithCached() {
-        assertSame(AcceptLanguageValue.with(LanguageName.WILDCARD), AcceptLanguageValue.with(LanguageName.WILDCARD));
+        assertSame(
+            AcceptLanguageValue.with(LanguageName.WILDCARD),
+            AcceptLanguageValue.with(LanguageName.WILDCARD)
+        );
     }
 
     //setValue..........................................................................................................
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> AcceptLanguageValue.WILDCARD.setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> AcceptLanguageValue.WILDCARD.setValue(null)
+        );
     }
 
     @Test
     public void testSetValueSame() {
         final AcceptLanguageValue language = AcceptLanguageValue.WILDCARD;
-        assertSame(language, language.setValue(LanguageName.WILDCARD));
+        assertSame(
+            language,
+            language.setValue(LanguageName.WILDCARD)
+        );
     }
 
     @Test
     public void testSetValueSame2() {
         final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
-        assertSame(language, language.setValue(this.en()));
+        assertSame(
+            language,
+            language.setValue(this.en())
+        );
     }
 
     @Test
@@ -92,15 +107,24 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testSetValueDifferentWithParameters() {
-        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en()).setParameters(this.parametersWithQFactor());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en())
+            .setParameters(this.parametersWithQFactor());
         final LanguageName name = this.fr();
         final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
-        this.check(different, name, this.parametersWithQFactor());
+        this.check(
+            different,
+            name,
+            this.parametersWithQFactor()
+        );
     }
 
     private void check(final AcceptLanguageValue language) {
-        this.check(language, this.en(), AcceptLanguageValue.NO_PARAMETERS);
+        this.check(
+            language,
+            this.en(),
+            AcceptLanguageValue.NO_PARAMETERS
+        );
     }
 
     // setParameters....................................................................................................
@@ -132,22 +156,34 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
             language,
             value
         );
-        this.parametersAndCheck(language, parameters);
+        this.parametersAndCheck(
+            language,
+            parameters
+        );
     }
 
     // ParseStringTesting ..............................................................................................
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("en",
-            AcceptLanguageValue.with(this.en()));
+        this.parseStringAndCheck(
+            "en",
+            AcceptLanguageValue.with(this.en())
+        );
     }
 
     @Test
     public void testParseWithParameters() {
-        this.parseStringAndCheck("en; abc=123",
+        this.parseStringAndCheck(
+            "en; abc=123",
             AcceptLanguageValue.with(this.en())
-                .setParameters(Maps.of(AcceptLanguageParameterName.with("abc"), "123")));
+                .setParameters(
+                    Maps.of(
+                        AcceptLanguageParameterName.with("abc"),
+                        "123"
+                    )
+                )
+        );
     }
 
     @Override
@@ -195,22 +231,34 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(AcceptLanguageValue.WILDCARD, this.en());
+        this.testTrue(
+            AcceptLanguageValue.WILDCARD,
+            this.en()
+        );
     }
 
     @Test
-    public void testTestWildcardNonWildcardFails2() {
-        this.testTrue(AcceptLanguageValue.WILDCARD, this.fr());
+    public void testTestWildcardNonWildcard() {
+        this.testTrue(
+            AcceptLanguageValue.WILDCARD,
+            this.fr()
+        );
     }
 
     @Test
     public void testTestNonWildcardNonWildcard() {
-        this.testTrue(AcceptLanguageValue.with(this.en()), this.en());
+        this.testTrue(
+            AcceptLanguageValue.with(this.en()),
+            this.en()
+        );
     }
 
     @Test
     public void testTestNonWildcardNonWildcard2() {
-        this.testFalse(AcceptLanguageValue.with(this.en()), this.fr());
+        this.testFalse(
+            AcceptLanguageValue.with(this.en()),
+            this.fr()
+        );
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -220,7 +268,8 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         this.equalsIgnoringParametersAndCheck(
             AcceptLanguageValue.parse("EN"),
             AcceptLanguageValue.parse("FR"),
-            false);
+            false
+        );
     }
 
     @Test
@@ -228,17 +277,19 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         this.equalsIgnoringParametersAndCheck(
             AcceptLanguageValue.parse("EN;q=1.0"),
             AcceptLanguageValue.parse("EN;q=0.5"),
-            true);
+            true
+        );
     }
 
-    // equalsOnlyPresentParameters.........................................................................................
+    // equalsOnlyPresentParameters......................................................................................
 
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
         this.equalsOnlyPresentParametersAndCheck(
             AcceptLanguageValue.parse("EN"),
             AcceptLanguageValue.parse("FR"),
-            false);
+            false
+        );
     }
 
     @Test
@@ -246,7 +297,8 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         this.equalsOnlyPresentParametersAndCheck(
             AcceptLanguageValue.parse("EN;q=1.0"),
             AcceptLanguageValue.parse("EN;q=0.5"),
-            false);
+            false
+        );
     }
 
     @Test
@@ -262,7 +314,8 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         this.equalsOnlyPresentParametersAndCheck(
             AcceptLanguageValue.parse("EN;q=1.0"),
             AcceptLanguageValue.parse("EN;q=1.0"),
-            true);
+            true
+        );
     }
 
     @Test
@@ -270,7 +323,8 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         this.equalsOnlyPresentParametersAndCheck(
             AcceptLanguageValue.parse("EN;q=1.0"),
             AcceptLanguageValue.parse("EN;q=1.0;parameter-2=value2"),
-            true);
+            true
+        );
     }
 
     // helpers..........................................................................................................
