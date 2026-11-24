@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.IsMethodTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.function.Predicate;
 
@@ -28,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
-    implements IsMethodTesting<C> {
+    implements IsMethodTesting<C>,
+    PublicClassTesting<C> {
 
     CookieTestCase() {
         super();
@@ -166,11 +167,6 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderTestCase<C>
     @Override
     public final boolean isMultipart() {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // IsMethodTesting..................................................................................................
