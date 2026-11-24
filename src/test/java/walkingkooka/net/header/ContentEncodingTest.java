@@ -31,16 +31,21 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
     implements ParseStringTesting<ContentEncoding>,
     PublicClassTesting<ContentEncoding> {
 
+    private final static List<Encoding> VALUE = Lists.of(Encoding.GZIP);
+
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> ContentEncoding.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> ContentEncoding.with(null)
+        );
     }
 
     @Test
     public void testWith() {
         this.valueAndCheck(
             this.createHeader(),
-            this.value()
+            VALUE
         );
     }
 
@@ -64,29 +69,49 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
     @Test
     public void testWithBrConstant() {
         final ContentEncoding constant = ContentEncoding.BR;
-        assertSame(constant, ContentEncoding.parse("BR"));
+        assertSame(
+            constant,
+            ContentEncoding.parse("BR")
+        );
     }
 
     @Test
     public void testWithCompressConstantCaseInsignificant() {
         final ContentEncoding constant = ContentEncoding.COMPRESS;
-        assertSame(constant, ContentEncoding.parse("compRESS"));
+        assertSame(
+            constant,
+            ContentEncoding.parse("compRESS")
+        );
     }
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("gzip, deflate, br",
-            this.createHeader(Encoding.parse("gzip"),
+        this.parseStringAndCheck(
+            "gzip, deflate, br",
+            this.createHeader(
+                Encoding.parse("gzip"),
                 Encoding.parse("deflate"),
-                Encoding.parse("br")));
+                Encoding.parse("br"
+                )
+            )
+        );
     }
 
     @Test
     public void testParseExtraWhitespace() {
-        this.parseStringAndCheck("gzip,  deflate,  br",
-            this.createHeader(Encoding.parse("gzip"),
+        this.parseStringAndCheck(
+            "gzip,  deflate,  br",
+            this.createHeader(
+                Encoding.parse("gzip"),
                 Encoding.with("deflate"),
-                Encoding.with("br")));
+                Encoding.with("br")
+            )
+        );
+    }
+
+    @Override
+    public ContentEncoding parseString(final String text) {
+        return ContentEncoding.parse(text);
     }
 
     // HasText..........................................................................................................
@@ -123,18 +148,29 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeader(), Header.toHeaderTextList(this.value(), ContentEncoding.SEPARATOR));
+        this.toStringAndCheck(
+            this.createHeader(),
+            Header.toHeaderTextList(
+                VALUE,
+                ContentEncoding.SEPARATOR
+            )
+        );
     }
 
     @Test
     public void testToString2() {
         final String text = "compress";
-        this.toStringAndCheck(this.createHeader(Encoding.with(text)), text);
+        this.toStringAndCheck(
+            this.createHeader(
+                Encoding.with(text)
+            ),
+            text
+        );
     }
 
     @Override
     public ContentEncoding createHeader() {
-        return ContentEncoding.with(this.value());
+        return ContentEncoding.with(VALUE);
     }
 
     @Override
@@ -143,11 +179,9 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
     }
 
     private ContentEncoding createHeader(final Encoding... encodings) {
-        return ContentEncoding.with(Lists.of(encodings));
-    }
-
-    private List<Encoding> value() {
-        return Lists.of(Encoding.GZIP);
+        return ContentEncoding.with(
+            Lists.of(encodings)
+        );
     }
 
     @Override
@@ -170,13 +204,5 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
     @Override
     public Class<ContentEncoding> type() {
         return ContentEncoding.class;
-    }
-
-
-    // ParseStringTesting...............................................................................................
-
-    @Override
-    public ContentEncoding parseString(final String text) {
-        return ContentEncoding.parse(text);
     }
 }
