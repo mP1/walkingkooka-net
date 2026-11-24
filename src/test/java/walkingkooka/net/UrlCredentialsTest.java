@@ -22,12 +22,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
+public final class UrlCredentialsTest implements PublicClassTesting<UrlCredentials>,
     HashCodeEqualsDefinedTesting2<UrlCredentials>,
     ComparableTesting2<UrlCredentials>,
     ToStringTesting {
@@ -116,10 +115,5 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
     @Override
     public Class<UrlCredentials> type() {
         return UrlCredentials.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
