@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlTest extends HeaderTestCase<CacheControl>
-    implements ParseStringTesting<CacheControl> {
+    implements ParseStringTesting<CacheControl>,
+    PublicClassTesting<CacheControl> {
 
     // with..............................................................................................................
 
@@ -158,16 +159,11 @@ public final class CacheControlTest extends HeaderTestCase<CacheControl>
     public boolean isResponse() {
         return true;
     }
-    // ClassTesting .....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<CacheControl> type() {
         return CacheControl.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting ..............................................................................................
