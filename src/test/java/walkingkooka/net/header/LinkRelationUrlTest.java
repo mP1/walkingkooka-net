@@ -19,20 +19,25 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.Url;
+import walkingkooka.net.HasAbsoluteUrlTesting;
 
-public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl> {
-
-    private final static String TEXT = "https://example.com";
+public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl>
+    implements HasAbsoluteUrlTesting {
 
     @Test
     public void testHeaderText() {
-        this.textAndCheck(TEXT);
+        this.textAndCheck(
+            ABSOLUTE_URL.toString()
+        );
     }
 
     @Test
     public void testEqualsDifferentUrl() {
-        this.checkNotEquals(LinkRelation.with("https://example2.com"));
+        this.checkNotEquals(
+            LinkRelation.with(
+                DIFFERENT_ABSOLUTE_URL.toString()
+            )
+        );
     }
 
     @Override
@@ -47,12 +52,12 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
 
     @Override
     AbsoluteUrl value() {
-        return Url.parseAbsolute(TEXT);
+        return ABSOLUTE_URL;
     }
 
     @Override
     AbsoluteUrl differentValue() {
-        return Url.parseAbsolute("https://example.com/different");
+        return DIFFERENT_ABSOLUTE_URL;
     }
 
     @Override
