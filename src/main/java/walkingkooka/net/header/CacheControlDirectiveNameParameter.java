@@ -29,7 +29,8 @@ enum CacheControlDirectiveNameParameter {
 
     REQUIRED {
         @Override
-        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+        <T> Optional<T> checkOptional(final Optional<T> value,
+                                      final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
                 name.handler.check(value.get());
             } else {
@@ -40,7 +41,8 @@ enum CacheControlDirectiveNameParameter {
     },
     OPTIONAL {
         @Override
-        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+        <T> Optional<T> checkOptional(final Optional<T> value,
+                                      final CacheControlDirectiveName<T> name) {
             value.ifPresent(name.handler::check);
 
             return value;
@@ -48,7 +50,8 @@ enum CacheControlDirectiveNameParameter {
     },
     ABSENT {
         @Override
-        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+        <T> Optional<T> checkOptional(final Optional<T> value,
+                                      final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
                 fail(
                     "Directive " + CharSequences.quoteAndEscape(name.name) + " does not accept parameter " + CharSequences.quoteIfChars(value)
@@ -58,14 +61,19 @@ enum CacheControlDirectiveNameParameter {
         }
     };
 
-    final <T> Optional<T> check(final Object value, final CacheControlDirectiveName<T> name) {
+    final <T> Optional<T> check(final Object value,
+                                final CacheControlDirectiveName<T> name) {
         if (false == value instanceof Optional) {
             fail("Incorrect parameter type " + CharSequences.quoteIfChars(value) + " for " + name);
         }
-        return this.check0(Cast.to(value), name);
+        return this.checkOptional(
+            Cast.to(value),
+            name
+        );
     }
 
-    abstract <T> Optional<T> check0(Optional<T> value, final CacheControlDirectiveName<T> name);
+    abstract <T> Optional<T> checkOptional(final Optional<T> value,
+                                           final CacheControlDirectiveName<T> name);
 
     final <T> Optional<T> fail(final String message) {
         throw new IllegalArgumentException(message);
