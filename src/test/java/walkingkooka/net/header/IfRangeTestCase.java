@@ -56,13 +56,20 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createHeader().setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHeader()
+                .setValue(null)
+        );
     }
 
     @Test
     public final void testSetValueSame() {
         final R range = this.createHeader();
-        assertSame(range, range.setValue(this.value()));
+        assertSame(
+            range,
+            range.setValue(this.value())
+        );
     }
 
     @Test
@@ -91,18 +98,28 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testIsETag() {
-        this.checkEquals(this.isETag(), this.createHeader().isETag());
+        this.checkEquals(
+            this.isETag(),
+            this.createHeader()
+                .isETag()
+        );
     }
 
     @Test
     public final void testIsLastModified() {
-        this.checkEquals(!this.isETag(), this.createHeader().isLastModified());
+        this.checkEquals(
+            false == this.isETag(),
+            this.createHeader()
+                .isLastModified()
+        );
     }
 
     @Test
     public final void testText() {
-        this.textAndCheck(this.createHeader(),
-            this.headerText());
+        this.textAndCheck(
+            this.createHeader(),
+            this.headerText()
+        );
     }
 
     @Test
@@ -112,20 +129,27 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     @Test
     public final void testEqualsDifferentValue() {
-        this.checkNotEquals(this.createHeader(this.differentValue()));
+        this.checkNotEquals(
+            this.createHeader(this.differentValue())
+        );
     }
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createHeader(), this.headerText());
+        this.toStringAndCheck(
+            this.createHeader(),
+            this.headerText()
+        );
     }
 
     @Test
     public final void testParse() {
         final String text = this.headerText();
-        this.checkEquals(this.createHeader(),
+        this.checkEquals(
+            this.createHeader(),
             IfRange.parse(text),
-            "Parsing " + CharSequences.quote(text));
+            "Parsing " + CharSequences.quote(text)
+        );
     }
 
     @Override
