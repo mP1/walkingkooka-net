@@ -57,13 +57,20 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
 
     @Test
     public void testSetTypeNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createHeaderWithParameters().setType(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createHeaderWithParameters()
+                .setType(null)
+        );
     }
 
     @Test
     public void testSetTypeSame() {
         final ContentDisposition disposition = this.createHeaderWithParameters();
-        assertSame(disposition, disposition.setType(TYPE));
+        assertSame(
+            disposition,
+            disposition.setType(TYPE)
+        );
     }
 
     @Test
@@ -334,8 +341,10 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     }
 
     private void checkNotEquals2(final String disposition2) {
-        this.checkNotEquals(ContentDisposition.parse("attachment; p1=\"v1\";"),
-            ContentDisposition.parse(disposition2));
+        this.checkNotEquals(
+            ContentDisposition.parse("attachment; p1=\"v1\";"),
+            ContentDisposition.parse(disposition2)
+        );
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -442,8 +451,12 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         return this.parameters("p1", PARAMETER_VALUE);
     }
 
-    private Map<ContentDispositionParameterName<?>, Object> parameters(final String name, final Object value) {
-        return this.parameters(ContentDispositionParameterName.with(name), value);
+    private Map<ContentDispositionParameterName<?>, Object> parameters(final String name,
+                                                                       final Object value) {
+        return this.parameters(
+            ContentDispositionParameterName.with(name),
+            value
+        );
     }
 
     private Map<ContentDispositionParameterName<?>, Object> parameters(final ContentDispositionParameterName<?> name,
@@ -455,27 +468,42 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                                                                        final Object value1,
                                                                        final String name2,
                                                                        final Object value2) {
-        return this.parameters(ContentDispositionParameterName.with(name1),
+        return this.parameters(
+            ContentDispositionParameterName.with(name1),
             value1,
             ContentDispositionParameterName.with(name2),
-            value2);
+            value2
+        );
     }
 
     private Map<ContentDispositionParameterName<?>, Object> parameters(final ContentDispositionParameterName<?> name1,
                                                                        final Object value1,
                                                                        final ContentDispositionParameterName<?> name2,
                                                                        final Object value2) {
-        return Maps.of(name1, value1, name2, value2);
+        return Maps.of(
+            name1,
+            value1,
+            name2,
+            value2
+        );
     }
 
     private void check(final ContentDisposition token) {
-        this.check(token, TYPE, token.parameters());
+        this.check(
+            token,
+            TYPE,
+            token.parameters()
+        );
     }
 
     private void check(final ContentDisposition contentDisposition,
                        final ContentDispositionType type,
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        this.checkEquals(type, contentDisposition.type(), "type");
+        this.checkEquals(
+            type,
+            contentDisposition.type(),
+            "type"
+        );
         this.parametersAndCheck(contentDisposition, parameters);
     }
 
