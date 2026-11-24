@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, List<AcceptLanguageValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptLanguage>,
-    PredicateTesting2<AcceptLanguage, ContentLanguage> {
+    PredicateTesting2<AcceptLanguage, ContentLanguage>,
+    PublicClassTesting<AcceptLanguage> {
 
     @Test
     public void testWithNullFails() {
@@ -240,13 +241,6 @@ public final class AcceptLanguageTest extends Header2TestCase<AcceptLanguage, Li
     }
 
     // class............................................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    // TypeNaming ......................................................................................................
 
     @Override
     public String typeNamePrefix() {
