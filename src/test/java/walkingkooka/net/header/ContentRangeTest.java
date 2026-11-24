@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.Range;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentRangeTest extends HeaderTestCase<ContentRange> implements ParseStringTesting<ContentRange>,
-    ThrowableTesting {
+    ThrowableTesting,
+    PublicClassTesting<ContentRange> {
 
     private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(789L);
@@ -857,10 +858,5 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     @Override
     public Class<ContentRange> type() {
         return ContentRange.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
