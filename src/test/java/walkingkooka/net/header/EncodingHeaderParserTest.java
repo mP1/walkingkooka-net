@@ -22,54 +22,77 @@ import org.junit.jupiter.api.Test;
 public final class EncodingHeaderParserTest extends HeaderParserTestCase<EncodingHeaderParser, Encoding> {
 
     @Test
-    public void testWhitespaceFails() {
+    public void testParseWhitespaceFails() {
         this.parseStringInvalidCharacterFails(" ");
     }
 
     @Test
-    public void testSlashFails() {
-        this.parseStringInvalidCharacterFails("ab/c", '/');
+    public void testParseSlashFails() {
+        this.parseStringInvalidCharacterFails(
+            "ab/c",
+            '/'
+        );
     }
 
     @Test
-    public void testCommentFails() {
-        this.parseStringCommentFails("(abc)", 0);
+    public void testParseCommentFails() {
+        this.parseStringCommentFails(
+            "(abc)",
+            0
+        );
     }
 
     @Test
-    public void testKeyValueSeparatorFails() {
-        this.parseStringInvalidCharacterFails("=", '=');
+    public void testParseKeyValueSeparatorFails() {
+        this.parseStringInvalidCharacterFails(
+            "=",
+            '='
+        );
     }
 
     @Test
-    public void testTokenCommentFails() {
-        this.parseStringCommentFails("gzip(abc)", 4);
+    public void testParseTokenCommentFails() {
+        this.parseStringCommentFails(
+            "gzip(abc)",
+            4
+        );
     }
 
     @Test
-    public void testQuotedTextFails() {
-        this.parseStringInvalidCharacterFails("\"quoted text 123\"", 0);
+    public void testParseQuotedTextFails() {
+        this.parseStringInvalidCharacterFails(
+            "\"quoted text 123\"",
+            0
+        );
     }
 
     @Test
-    public void testToken() {
-        this.parseStringAndCheck("gzip",
-            Encoding.GZIP);
+    public void testParseToken() {
+        this.parseStringAndCheck(
+            "gzip",
+            Encoding.GZIP
+        );
     }
 
     @Test
-    public void testTokenParameter() {
-        this.parseStringInvalidCharacterFails("gzip;q=0.5", ';');
+    public void testParseTokenParameter() {
+        this.parseStringInvalidCharacterFails(
+            "gzip;q=0.5",
+            ';'
+        );
     }
 
     @Test
-    public void testWildcard() {
+    public void testParseWildcard() {
         this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
-    public void testTokenCommaToken() {
-        this.parseStringInvalidCharacterFails("gzip,deflate", ',');
+    public void testParseTokenCommaToken() {
+        this.parseStringInvalidCharacterFails(
+            "gzip,deflate",
+            ','
+        );
     }
 
     @Override
