@@ -47,16 +47,21 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     @Test
     public void testWith2() {
         final String text = "unknown";
-        this.valueAndParametersCheck(AcceptEncodingValue.with(text),
+        this.valueAndParametersCheck(
+            AcceptEncodingValue.with(text),
             text,
-            AcceptEncodingValue.NO_PARAMETERS);
+            AcceptEncodingValue.NO_PARAMETERS
+        );
     }
 
     @Test
     public final void testSetParametersDifferent() {
         final A acceptEncoding = this.createHeaderWithParameters();
 
-        final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(AcceptEncodingValueParameterName.Q, 0.5f);
+        final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(
+            AcceptEncodingValueParameterName.Q,
+            0.5f
+        );
         final AcceptEncodingValue different = acceptEncoding.setParameters(parameters);
         assertNotSame(parameters, different);
 
@@ -65,7 +70,11 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
     }
 
     final void valueAndParametersCheck(final AcceptEncodingValue encoding) {
-        this.valueAndParametersCheck(encoding, this.value(), AcceptEncodingValue.NO_PARAMETERS);
+        this.valueAndParametersCheck(
+            encoding,
+            this.value(),
+            AcceptEncodingValue.NO_PARAMETERS
+        );
     }
 
     final void valueAndParametersCheck(final AcceptEncodingValue encoding,
@@ -118,27 +127,52 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
 
     @Test
     public final void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createHeaderWithParameters().setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)));
+        this.checkNotEquals(
+            this.createHeaderWithParameters()
+                .setParameters(
+                    Maps.of(
+                        AcceptEncodingValueParameterName.Q,
+                        0.5f
+                    )
+                )
+        );
     }
 
     @Test
     public final void testEqualsParameters() {
-        final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(AcceptEncodingValueParameterName.Q, 0.5f);
+        final Map<AcceptEncodingValueParameterName<?>, Object> parameters = Maps.of(
+            AcceptEncodingValueParameterName.Q,
+            0.5f
+        );
         final A acceptEncoding = this.createHeaderWithParameters();
 
-        this.checkEqualsAndHashCode(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
+        this.checkEqualsAndHashCode(
+            acceptEncoding.setParameters(parameters),
+            acceptEncoding.setParameters(parameters)
+        );
     }
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createHeader(), this.value());
+        this.toStringAndCheck(
+            this.createHeader(),
+            this.value()
+        );
     }
 
     @Test
     public final void testToStringWithParameters() {
         final String value = this.value();
-        this.toStringAndCheck(AcceptEncodingValue.with(value).setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)),
-            value + "; q=0.5");
+        this.toStringAndCheck(
+            AcceptEncodingValue.with(value)
+                .setParameters(
+                    Maps.of(
+                        AcceptEncodingValueParameterName.Q,
+                        0.5f
+                    )
+                ),
+            value + "; q=0.5"
+        );
     }
 
     @Override
@@ -179,7 +213,6 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         return this.createHeaderWithParameters();
     }
 
-
     // ParsingStringTest................................................................................................
 
     @Override
@@ -187,7 +220,7 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         return AcceptEncodingValue.parse(text);
     }
 
-    // PredicateTesting2...............................................................................................
+    // PredicateTesting2................................/...............................................................
 
     @Override
     public final AcceptEncodingValue createPredicate() {
