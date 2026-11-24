@@ -100,6 +100,11 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
         this.testTrue(acceptEncoding(AcceptEncodingValue.with("different"), AcceptEncodingValue.with("ABC")), ContentEncoding.parse("ABC"));
     }
 
+    @Override
+    public AcceptEncoding createPredicate() {
+        return this.createHeader();
+    }
+
     // parse...........................................................................................................
 
     @Test
@@ -107,6 +112,11 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
         this.parseStringAndCheck("gzip, *;q=0.5",
             AcceptEncoding.with(Lists.of(AcceptEncodingValue.GZIP,
                 AcceptEncodingValue.WILDCARD_ENCODING.setParameters(Maps.of(AcceptEncodingValueParameterName.Q, 0.5f)))));
+    }
+
+    @Override
+    public AcceptEncoding parseString(final String text) {
+        return AcceptEncoding.parse(text);
     }
 
     // helpers.......................................................................................................
@@ -148,20 +158,6 @@ public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, Li
     @Override
     public Class<AcceptEncoding> type() {
         return AcceptEncoding.class;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public AcceptEncoding parseString(final String text) {
-        return AcceptEncoding.parse(text);
-    }
-
-    // Predicate.......................................................................................................
-
-    @Override
-    public AcceptEncoding createPredicate() {
-        return this.createHeader();
     }
 
     // Class............................................................................................................
