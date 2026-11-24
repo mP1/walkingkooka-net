@@ -38,29 +38,44 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
     @Test
     public final void testIsSupported() {
         final N charsetName = this.createCharsetName();
-        this.checkEquals(this.type() == CharsetNameSupportedCharset.class,
+        this.checkEquals(
+            this.type() == CharsetNameSupportedCharset.class,
             charsetName.isSupported(),
-            () -> charsetName + " isSupported");
+            () -> charsetName + " isSupported"
+        );
     }
 
     @Test
     public final void testIsUnsupported() {
         final N charsetName = this.createCharsetName();
-        this.checkEquals(this.type() == CharsetNameUnsupportedCharset.class,
+        this.checkEquals(
+            this.type() == CharsetNameUnsupportedCharset.class,
             charsetName.isUnsupported(),
-            () -> charsetName + " isUnsupported");
+            () -> charsetName + " isUnsupported"
+        );
     }
 
     @Test
     public final void testIsWildcard() {
-        this.isWildcardAndCheck(CharsetNameWildcard.class.equals(this.type()));
+        this.isWildcardAndCheck(
+            CharsetNameWildcard.class.equals(this.type())
+        );
     }
 
     // Predicate........................................................................................................
 
     @Test
     public final void testTestWildcardFails() {
-        assertThrows(HeaderException.class, () -> this.createCharsetName().test(CharsetName.WILDCARD_CHARSET));
+        assertThrows(
+            HeaderException.class,
+            () -> this.createCharsetName()
+                .test(CharsetName.WILDCARD_CHARSET)
+        );
+    }
+
+    @Override
+    public final N createPredicate() {
+        return this.createCharsetName();
     }
 
     // HasText..........................................................................................................
@@ -74,7 +89,10 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createCharsetName(), this.charsetNameToString());
+        this.toStringAndCheck(
+            this.createCharsetName(),
+            this.charsetNameToString()
+        );
     }
 
     @Override
@@ -99,12 +117,5 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderT
     @Override
     public final boolean isResponse() {
         return true;
-    }
-
-    // PredicateTesting.................................................................................................
-
-    @Override
-    public final N createPredicate() {
-        return this.createCharsetName();
     }
 }
