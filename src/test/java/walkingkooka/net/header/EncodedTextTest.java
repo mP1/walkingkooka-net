@@ -18,13 +18,14 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
+public final class EncodedTextTest extends HeaderTestCase<EncodedText>
+    implements PublicClassTesting<EncodedText> {
 
     @Test
     public void testWithNullCharsetFails() {
@@ -220,10 +221,5 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText> {
     @Override
     public Class<EncodedText> type() {
         return EncodedText.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
