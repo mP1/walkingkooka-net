@@ -31,10 +31,18 @@ public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameter
 
     final void checkParameters(final HeaderWithParameters<N> header,
                                final Map<N, ?> parameters) {
-        this.checkEquals(parameters,
+        this.checkEquals(
+            parameters,
             header.parameters(),
             () -> "parameters " + header);
-        assertThrows(UnsupportedOperationException.class, () -> header.parameters().put(this.parameterName(), null));
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> header.parameters()
+                .put(
+                    this.parameterName(),
+                    null
+                )
+        );
     }
 
     /**
