@@ -23,7 +23,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.nio.charset.Charset;
@@ -36,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
     implements ParseStringTesting<MediaType>,
-    PredicateTesting2<MediaType, MediaType> {
+    PredicateTesting2<MediaType, MediaType>,
+    PublicClassTesting<MediaType> {
 
     // constants
 
@@ -1813,15 +1814,10 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
         return true;
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<MediaType> type() {
         return MediaType.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
