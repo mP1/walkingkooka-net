@@ -29,8 +29,8 @@ public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameter
         super();
     }
 
-    final void checkParameters(final HeaderWithParameters<N> header,
-                               final Map<N, ?> parameters) {
+    final void parametersAndCheck(final HeaderWithParameters<N> header,
+                                  final Map<N, ?> parameters) {
         this.checkEquals(
             parameters,
             header.parameters(),

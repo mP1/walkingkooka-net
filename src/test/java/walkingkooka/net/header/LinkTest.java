@@ -107,7 +107,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
                final Url value,
                final Map<LinkParameterName<?>, Object> parameters) {
         this.checkEquals(value, language.value(), "value");
-        this.checkParameters(language, parameters);
+        this.parametersAndCheck(language, parameters);
     }
 
 

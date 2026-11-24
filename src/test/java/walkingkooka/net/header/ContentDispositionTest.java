@@ -475,7 +475,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
                        final ContentDispositionType type,
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
         this.checkEquals(type, contentDisposition.type(), "type");
-        this.checkParameters(contentDisposition, parameters);
+        this.parametersAndCheck(contentDisposition, parameters);
     }
 
     @Override
