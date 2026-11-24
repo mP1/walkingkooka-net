@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
  * Content-Language MAY be applied to any media type -- it is not limited to textual documents.
  * </pre>
  */
-public final class ContentLanguage extends Header2<List<LanguageName>> {
+public final class ContentLanguage extends HeaderWithValue<List<LanguageName>> {
 
     /**
      * Parses a header value that contains one or more encodings.

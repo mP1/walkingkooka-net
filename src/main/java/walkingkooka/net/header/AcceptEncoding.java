@@ -35,7 +35,7 @@ import java.util.function.Predicate;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-public final class AcceptEncoding extends Header2<List<AcceptEncodingValue>>
+public final class AcceptEncoding extends HeaderWithValue<List<AcceptEncodingValue>>
     implements Predicate<ContentEncoding>,
     HasQualityFactorSortedValues<AcceptEncodingValue> {
 

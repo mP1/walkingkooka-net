@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * An individual encoding belonging to a {@link ContentEncoding}.
  */
-public final class Encoding extends Header2<String>
+public final class Encoding extends HeaderWithValue<String>
     implements Comparable<Encoding> {
 
     /**

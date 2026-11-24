@@ -166,7 +166,7 @@ import java.util.Objects;
  * Unrecognized cache-directives MUST be ignored; it is assumed that any cache-directive likely to be unrecognized by an HTTP/1.1 cache will be combined with standard directives (or the response's default cacheability) such that the cache behavior will remain minimally correct even if the cache does not understand the extension(s).
  * </pre>
  */
-public final class CacheControl extends Header2<List<CacheControlDirective<?>>> {
+public final class CacheControl extends HeaderWithValue<List<CacheControlDirective<?>>> {
 
     /**
      * Parses a header value that contains one or more directives.

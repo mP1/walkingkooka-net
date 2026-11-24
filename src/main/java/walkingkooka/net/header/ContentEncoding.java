@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
  * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.
  * </pre>
  */
-public final class ContentEncoding extends Header2<List<Encoding>> {
+public final class ContentEncoding extends HeaderWithValue<List<Encoding>> {
 
     /**
      * Holds all constants.

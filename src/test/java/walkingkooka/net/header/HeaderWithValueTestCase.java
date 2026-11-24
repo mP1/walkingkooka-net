@@ -19,9 +19,9 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-public abstract class Header2TestCase<H extends Header2<V>, V> extends HeaderTestCase<H> {
+public abstract class HeaderWithValueTestCase<H extends HeaderWithValue<V>, V> extends HeaderTestCase<H> {
 
-    Header2TestCase() {
+    HeaderWithValueTestCase() {
         super();
     }
 

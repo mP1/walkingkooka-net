@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingTest extends Header2TestCase<AcceptEncoding, List<AcceptEncodingValue>>
+public final class AcceptEncodingTest extends HeaderWithValueTestCase<AcceptEncoding, List<AcceptEncodingValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptEncoding>,
     PredicateTesting2<AcceptEncoding, ContentEncoding>,
