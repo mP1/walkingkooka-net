@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.datetime.HasLastModifiedTesting;
 import walkingkooka.reflect.PackagePrivateClassTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderTestCase<R>
     implements PackagePrivateClassTesting<R>,
-    HasLastModifiedTesting {
+    HasLastModifiedTesting,
+    ThrowableTesting {
 
     IfRangeTestCase() {
         super();

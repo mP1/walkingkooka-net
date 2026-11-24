@@ -18,15 +18,13 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ThrowableTesting;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag>
-    implements ThrowableTesting {
+public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag> {
 
     @Test
     public void testETag() {
