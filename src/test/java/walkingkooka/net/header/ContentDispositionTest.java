@@ -50,7 +50,7 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
 
     @Test
     public void testWith() {
-        this.check(this.createHeaderWithParameters());
+        this.typeAndParametersCheck(this.createHeaderWithParameters());
     }
 
     // setType .........................................................................................................
@@ -77,8 +77,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     public void testSetTypeDifferent() {
         final ContentDisposition disposition = this.createHeaderWithParameters();
         final ContentDispositionType type = ContentDispositionType.INLINE;
-        this.check(disposition.setType(type), type, this.parameters());
-        this.check(disposition);
+        this.typeAndParametersCheck(disposition.setType(type), type, this.parameters());
+        this.typeAndParametersCheck(disposition);
     }
 
     // setParameters ...................................................................................................
@@ -87,8 +87,8 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
     public void testSetParametersDifferent() {
         final ContentDisposition disposition = this.createHeaderWithParameters();
         final Map<ContentDispositionParameterName<?>, Object> parameters = this.parameters("different", "2");
-        this.check(disposition.setParameters(parameters), TYPE, parameters);
-        this.check(disposition);
+        this.typeAndParametersCheck(disposition.setParameters(parameters), TYPE, parameters);
+        this.typeAndParametersCheck(disposition);
     }
 
     // parse ...........................................................................................................
@@ -488,17 +488,17 @@ public final class ContentDispositionTest extends HeaderWithParametersTestCase<C
         );
     }
 
-    private void check(final ContentDisposition token) {
-        this.check(
+    private void typeAndParametersCheck(final ContentDisposition token) {
+        this.typeAndParametersCheck(
             token,
             TYPE,
             token.parameters()
         );
     }
 
-    private void check(final ContentDisposition contentDisposition,
-                       final ContentDispositionType type,
-                       final Map<ContentDispositionParameterName<?>, Object> parameters) {
+    private void typeAndParametersCheck(final ContentDisposition contentDisposition,
+                                        final ContentDispositionType type,
+                                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
         this.checkEquals(
             type,
             contentDisposition.type(),
