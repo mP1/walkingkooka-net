@@ -23,8 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
+public final class UrlQueryStringTest implements PublicClassTesting<UrlQueryString>,
     ParseStringTesting<UrlQueryString>,
     ToStringTesting,
     ComparableTesting2<UrlQueryString>,
@@ -720,15 +719,10 @@ public final class UrlQueryStringTest implements ClassTesting<UrlQueryString>,
         return UrlQueryString.parse("abc123");
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<UrlQueryString> type() {
         return UrlQueryString.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
