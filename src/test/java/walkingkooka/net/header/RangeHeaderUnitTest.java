@@ -18,13 +18,14 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
-    implements ParseStringTesting<RangeHeaderUnit> {
+    implements ParseStringTesting<RangeHeaderUnit>,
+    PublicClassTesting<RangeHeaderUnit> {
 
     // isWildcard ......................................................................................................
 
@@ -107,10 +108,5 @@ public final class RangeHeaderUnitTest extends HeaderTestCase<RangeHeaderUnit>
     @Override
     public Class<RangeHeaderUnit> type() {
         return RangeHeaderUnit.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
