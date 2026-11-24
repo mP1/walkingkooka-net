@@ -67,6 +67,18 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
         this.parseStringFails("abc;qrs=xyz", InvalidCharacterException.class);
     }
 
+    @Override
+    public Encoding parseString(final String text) {
+        try {
+            return Encoding.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
+    }
+
     // HasText..........................................................................................................
 
     @Test
@@ -96,6 +108,16 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
     public void testCompareLessCaseInsignificant() {
         this.compareToAndCheckLess(Encoding.with("abc"),
             Encoding.with("XYZ"));
+    }
+
+    @Override
+    public Encoding createComparable() {
+        return this.createHeader();
+    }
+
+    @Override
+    public Encoding createObject() {
+        return this.createHeader();
     }
 
     // toString ........................................................................................................
@@ -147,31 +169,5 @@ public final class EncodingTest extends HeaderTestCase<Encoding>
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // ComparableTesting................................................................................................
-
-    @Override
-    public Encoding createComparable() {
-        return this.createHeader();
-    }
-
-    @Override
-    public Encoding createObject() {
-        return this.createHeader();
-    }
-
-    // ParseStringTesting................................................................................................
-
-    @Override
-    public Encoding parseString(final String text) {
-        try {
-            return Encoding.parse(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
     }
 }
