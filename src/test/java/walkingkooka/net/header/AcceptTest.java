@@ -46,12 +46,18 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> Accept.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Accept.with(null)
+        );
     }
 
     @Test
     public void testWithEmptyMediaTypesFails() {
-        assertThrows(IllegalArgumentException.class, () -> Accept.with(Lists.empty()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Accept.with(Lists.empty())
+        );
     }
 
     // parse............................................................................................................
@@ -62,6 +68,11 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
             Accept.DEFAULT,
             Accept.parse("*/*")
         );
+    }
+
+    @Override
+    public Accept parseString(final String text) {
+        return Accept.parse(text);
     }
 
     // HasQualityFactorSortedValuesTesting..............................................................................
@@ -306,14 +317,7 @@ public final class AcceptTest extends Header2TestCase<Accept, List<MediaType>>
         return false;
     }
 
-    // ParseStringTesting ..............................................................................................
-
-    @Override
-    public Accept parseString(final String text) {
-        return Accept.parse(text);
-    }
-
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<Accept> type() {
