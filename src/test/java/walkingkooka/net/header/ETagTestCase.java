@@ -20,13 +20,14 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ETagTestCase<E extends ETag> extends HeaderTestCase<E>
-    implements PredicateTesting2<E, ETag> {
+    implements PredicateTesting2<E, ETag>,
+    PackagePrivateClassTesting<E> {
 
     ETagTestCase() {
         super();
@@ -137,12 +138,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderTestCase<E>
         return true;
     }
 
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    // TypeNameTesting..................................................................................................
+    // class............................................................................................................
 
     @Override
     public final String typeNamePrefix() {
