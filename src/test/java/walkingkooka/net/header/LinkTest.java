@@ -50,7 +50,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testWithAbsoluteUrl() {
         final AbsoluteUrl url = this.value();
-        this.check(
+        this.valueAndParametersCheck(
             Link.with(url),
             url,
             Link.NO_PARAMETERS
@@ -60,7 +60,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testWithRelativeUrl() {
         final RelativeUrl url = Url.parseRelative("/path/file");
-        this.check(
+        this.valueAndParametersCheck(
             Link.with(url),
             url,
             Link.NO_PARAMETERS
@@ -101,7 +101,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
             different
         );
 
-        this.check(
+        this.valueAndParametersCheck(
             different,
             value,
             Link.NO_PARAMETERS
@@ -113,7 +113,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         final Link link = this.createLink();
         final Map<LinkParameterName<?>, Object> parameters = this.parameters();
         final Link different = link.setParameters(parameters);
-        this.check(different, link.value(), parameters);
+        this.valueAndParametersCheck(different, link.value(), parameters);
     }
 
     @Test
@@ -132,9 +132,9 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         );
     }
 
-    void check(final Link language,
-               final Url value,
-               final Map<LinkParameterName<?>, Object> parameters) {
+    void valueAndParametersCheck(final Link language,
+                                 final Url value,
+                                 final Map<LinkParameterName<?>, Object> parameters) {
         this.valueAndCheck(
             language,
             value
