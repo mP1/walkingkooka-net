@@ -22,65 +22,66 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName<?>>,
+    ThrowableTesting,
     TypeNameTesting<HeaderParameterName<?>> {
 
     // parameterValueOrFail.............................................................................................
 
     @Test
     public void testParameterValueOrFailWithUnknownParameterFails() {
-        final HeaderException thrown = assertThrows(
-            HeaderException.class,
-            () -> AcceptCharsetValueParameterName.with("Hello")
-                .parameterValueOrFail(
-                    new HeaderWithParameters<>() {
-                        @Override
-                        public Map<HeaderParameterName<?>, Object> parameters() {
-                            return Map.of();
-                        }
+        this.getMessageAndCheck(
+            assertThrows(
+                NoSuchElementException.class,
+                () -> AcceptCharsetValueParameterName.with("Hello")
+                    .parameterValueOrFail(
+                        new HeaderWithParameters<>() {
+                            @Override
+                            public Map<HeaderParameterName<?>, Object> parameters() {
+                                return Map.of();
+                            }
 
-                        @Override
-                        public HeaderWithParameters<HeaderParameterName<?>> setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
-                            throw new UnsupportedOperationException();
-                        }
+                            @Override
+                            public HeaderWithParameters<HeaderParameterName<?>> setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
+                                throw new UnsupportedOperationException();
+                            }
 
-                        @Override
-                        public String text() {
-                            throw new UnsupportedOperationException();
-                        }
+                            @Override
+                            public String text() {
+                                throw new UnsupportedOperationException();
+                            }
 
-                        @Override
-                        public boolean isWildcard() {
-                            throw new UnsupportedOperationException();
-                        }
+                            @Override
+                            public boolean isWildcard() {
+                                throw new UnsupportedOperationException();
+                            }
 
-                        @Override
-                        public boolean isMultipart() {
-                            throw new UnsupportedOperationException();
-                        }
+                            @Override
+                            public boolean isMultipart() {
+                                throw new UnsupportedOperationException();
+                            }
 
-                        @Override
-                        public boolean isRequest() {
-                            throw new UnsupportedOperationException();
-                        }
+                            @Override
+                            public boolean isRequest() {
+                                throw new UnsupportedOperationException();
+                            }
 
-                        @Override
-                        public boolean isResponse() {
-                            throw new UnsupportedOperationException();
+                            @Override
+                            public boolean isResponse() {
+                                throw new UnsupportedOperationException();
+                            }
                         }
-                    }
-                )
-        );
-
-        this.checkEquals(
-            "Missing header parameter Hello",
-            thrown.getMessage()
+                    )
+            ),
+            "Missing header parameter Hello"
         );
     }
 

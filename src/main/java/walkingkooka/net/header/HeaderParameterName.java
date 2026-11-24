@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.text.CharacterConstant;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -74,13 +75,10 @@ abstract class HeaderParameterName<V> extends HeaderNameValueShared<V> {
     }
 
     /**
-     * Retrieves the value or throws a {@link HeaderException} if absent.
+     * Retrieves the value or throws a {@link NoSuchElementException} if absent.
      */
-    public final V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) {
-        final Optional<V> value = this.parameterValue(hasParameters);
-        if (value.isEmpty()) {
-            throw new HeaderException("Missing header parameter " + this);
-        }
-        return value.get();
+    public final V parameterValueOrFail(final HeaderWithParameters<?> hasParameters) throws NoSuchElementException {
+        return this.parameterValue(hasParameters)
+            .orElseThrow(() -> new NoSuchElementException("Missing header parameter " + this));
     }
 }
