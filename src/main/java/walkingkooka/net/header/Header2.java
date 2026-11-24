@@ -50,6 +50,8 @@ abstract class Header2<V> implements Header,
         this.value = value;
     }
 
+    // HasValue.........................................................................................................
+
     @Override
     public final V value() {
         return this.value;
