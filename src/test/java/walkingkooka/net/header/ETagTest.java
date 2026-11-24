@@ -20,12 +20,13 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ETagTest extends HeaderTestCase<ETag> {
+public final class ETagTest extends HeaderTestCase<ETag>
+    implements PublicClassTesting<ETag> {
 
     // with ............................................................................................................
 
@@ -187,10 +188,5 @@ public final class ETagTest extends HeaderTestCase<ETag> {
     @Override
     public Class<ETag> type() {
         return ETag.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
