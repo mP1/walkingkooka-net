@@ -28,20 +28,28 @@ public abstract class Header2TestCase<H extends Header2<V>, V> extends HeaderTes
     @Test
     public final void testWith() {
         final V value = this.value();
-        final H header = this.createHeader(value);
-        this.checkEquals(value, header.value(), "value");
+
+        this.valueAndCheck(
+            this.createHeader(value),
+            value
+        );
     }
 
     @Test
     public void testWith2() {
         final V value = this.differentValue();
-        final H header = this.createHeader(value);
-        this.checkEquals(value, header.value(), "value");
+
+        this.valueAndCheck(
+            this.createHeader(value),
+            value
+        );
     }
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(this.createHeader(this.differentValue()));
+        this.checkNotEquals(
+            this.createHeader(this.differentValue())
+        );
     }
 
     @Override
