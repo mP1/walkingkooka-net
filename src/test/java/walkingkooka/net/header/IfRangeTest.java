@@ -19,14 +19,15 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>> {
+public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>>,
+    PublicClassTesting<IfRange<?>> {
 
     @Test
     public void testWithNullFails() {
@@ -103,10 +104,5 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
     @Override
     public Class<IfRange<?>> type() {
         return Cast.to(IfRange.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
