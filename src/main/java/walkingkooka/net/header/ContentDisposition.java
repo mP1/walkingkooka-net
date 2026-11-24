@@ -56,9 +56,10 @@ public final class ContentDisposition extends HeaderWithValueAndParameters<Conte
      * Factory that creates a new {@link ContentDisposition}
      */
     public static ContentDisposition with(final ContentDispositionType type) {
-        checkType(type);
-
-        return new ContentDisposition(type, NO_PARAMETERS);
+        return new ContentDisposition(
+            Objects.requireNonNull(type, "type"),
+            NO_PARAMETERS
+        );
     }
 
     /**
@@ -81,14 +82,12 @@ public final class ContentDisposition extends HeaderWithValueAndParameters<Conte
      * Would be setter that returns a {@link ContentDisposition} with the given type creating a new instance if necessary.
      */
     public ContentDisposition setType(final ContentDispositionType type) {
-        checkType(type);
         return this.value.equals(type) ?
             this :
-            this.replace(type, this.parameters);
-    }
-
-    private static void checkType(final ContentDispositionType type) {
-        Objects.requireNonNull(type, "type");
+            this.replace(
+                Objects.requireNonNull(type, "type"),
+                this.parameters
+            );
     }
 
     // replaceParameters ...............................................................................................
