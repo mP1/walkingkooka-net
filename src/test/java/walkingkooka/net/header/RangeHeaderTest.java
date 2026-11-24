@@ -236,19 +236,25 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
 
     @Test
     public void testParseWithInvalidUnitFails() {
-        this.parseStringFails2("invalid=0-100");
+        this.parseStringFails(
+            "invalid=0-100",
+            new IllegalArgumentException("Unknown range unit \"invalid\"")
+        );
     }
 
     @Test
     public void testParseWithNoneUnitFails() {
-        this.parseStringFails2("none=0-100");
+        this.parseStringFails(
+            "none=0-100",
+            new IllegalArgumentException("Invalid range unit=NONE")
+        );
     }
 
     @Test
     public void testParseWithOverlapFails() {
         this.parseStringFails(
             "bytes=100-150,200-250,225-300",
-            HeaderException.class
+            new IllegalArgumentException("Overlap between (200..250) and (225..300)")
         );
     }
 
@@ -256,7 +262,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseWithOverlapFails2() {
         this.parseStringFails(
             "bytes=100-150,200-250,225-",
-            HeaderException.class
+            new IllegalArgumentException("Overlap between (200..250) and >=225")
         );
     }
 
@@ -264,7 +270,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseWithOverlapFails3() {
         this.parseStringFails(
             "bytes=-150,200-250,125-175",
-            HeaderException.class
+            new IllegalArgumentException("Invalid Range: Missing start")
         );
     }
 
@@ -272,7 +278,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseRangeMissingStartFails() {
         this.parseStringFails(
             "bytes=-99",
-            HeaderException.class
+            new IllegalArgumentException("Invalid Range: Missing start")
         );
     }
 
@@ -280,14 +286,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseRangeMissingStartFails2() {
         this.parseStringFails(
             "bytes=98-99,-50",
-            HeaderException.class
-        );
-    }
-
-    private void parseStringFails2(final String text) {
-        this.parseStringFails(
-            text,
-            IllegalArgumentException.class
+            new IllegalArgumentException("Invalid Range: Missing start")
         );
     }
 
