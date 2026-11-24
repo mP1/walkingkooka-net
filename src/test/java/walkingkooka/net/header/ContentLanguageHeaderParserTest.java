@@ -22,98 +22,130 @@ import walkingkooka.collect.list.Lists;
 
 public final class ContentLanguageHeaderParserTest extends HeaderParserTestCase<ContentLanguageHeaderParser, ContentLanguage> {
 
+    private final static LanguageName EN = LanguageName.with("en");
+
+    private final static LanguageName FR = LanguageName.with("fr");
+
+    private final static LanguageName GR = LanguageName.with("gr");
+
     @Test
-    public void testWhitespaceFails() {
+    public void testParseWhitespaceFails() {
         this.parseStringMissingValueFails("  ");
     }
 
     @Test
-    public void testCommentFails() {
-        this.parseStringCommentFails("(abc)", 0);
+    public void testParseCommentFails() {
+        this.parseStringCommentFails(
+            "(abc)",
+            0
+        );
     }
 
     @Test
-    public void testParametersFails() {
-        this.parseStringInvalidCharacterFails("en;x=1", ';');
+    public void testParseParametersFails() {
+        this.parseStringInvalidCharacterFails(
+            "en;x=1",
+            ';'
+        );
     }
 
     @Test
-    public void testQuotedTextFails() {
-        this.parseStringInvalidCharacterFails("\"hello\"", 0);
+    public void testParseQuotedTextFails() {
+        this.parseStringInvalidCharacterFails(
+            "\"hello\"",
+            0
+        );
     }
 
     @Test
-    public void testSlashFails() {
-        this.parseStringInvalidCharacterFails("ab/c", '/');
+    public void testParseSlashFails() {
+        this.parseStringInvalidCharacterFails(
+            "ab/c",
+            '/'
+        );
     }
 
     @Test
-    public void testWildcardFails() {
-        this.parseStringInvalidCharacterFails("*", '*');
+    public void testParseWildcardFails() {
+        this.parseStringInvalidCharacterFails(
+            "*",
+            '*'
+        );
     }
 
     @Test
-    public void testTokenCommaWildcardFails() {
-        this.parseStringInvalidCharacterFails("abc, *, def", '*');
+    public void testParseTokenCommaWildcardFails() {
+        this.parseStringInvalidCharacterFails(
+            "abc, *, def",
+            '*'
+        );
     }
 
     @Test
-    public void testTokenCommentFails() {
-        this.parseStringCommentFails("en(abc)", 2);
+    public void testParseTokenCommentFails() {
+        this.parseStringCommentFails(
+            "en(abc)",
+            2
+        );
     }
 
     @Test
-    public void testTokenSeparatorFails() {
-        this.parseStringInvalidCharacterFails("abc;", ';');
+    public void testParseTokenSeparatorFails() {
+        this.parseStringInvalidCharacterFails(
+            "abc;",
+            ';'
+        );
     }
 
     @Test
-    public void testToken() {
+    public void testParseToken() {
         this.parseStringAndCheck2("en",
-            this.en());
+            EN);
     }
 
     @Test
-    public void testTokenWhitespace() {
-        this.parseStringAndCheck2("en ",
-            this.en());
+    public void testParseTokenWhitespace() {
+        this.parseStringAndCheck2(
+            "en ",
+            EN
+        );
     }
 
     @Test
-    public void testWhitespaceToken() {
-        this.parseStringAndCheck2(" en",
-            this.en());
+    public void testParseWhitespaceToken() {
+        this.parseStringAndCheck2(
+            " en",
+            EN
+        );
     }
 
     @Test
-    public void testTokenCommaToken() {
-        this.parseStringAndCheck2("en,fr",
-            this.en(),
-            this.fr());
+    public void testParseTokenCommaToken() {
+        this.parseStringAndCheck2(
+            "en,fr",
+            EN,
+            FR
+        );
     }
 
     @Test
-    public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
-        this.parseStringAndCheck2("en, fr,  gr",
-            this.en(),
-            this.fr(),
-            this.gr());
+    public void testParseTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
+        this.parseStringAndCheck2(
+            "en, fr,  gr",
+            EN,
+            FR,
+            GR
+        );
     }
 
-    private LanguageName en() {
-        return LanguageName.with("en");
-    }
-
-    private LanguageName fr() {
-        return LanguageName.with("fr");
-    }
-
-    private LanguageName gr() {
-        return LanguageName.with("gr");
-    }
-
-    private void parseStringAndCheck2(final String text, final LanguageName... languages) {
-        this.parseStringAndCheck(text, ContentLanguage.with(Lists.of(languages)));
+    private void parseStringAndCheck2(final String text,
+                                      final LanguageName... languages) {
+        this.parseStringAndCheck(
+            text,
+            ContentLanguage.with(
+                Lists.of(languages)
+            )
+        );
     }
 
     @Override
