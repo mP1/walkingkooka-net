@@ -34,21 +34,30 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     implements ComparableTesting2<MediaTypeBoundary>,
     ParseStringTesting<MediaTypeBoundary> {
 
-    // with ................................................................................................
+    // with ............................................................................................................
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> MediaTypeBoundary.with(null)
+        );
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> MediaTypeBoundary.with(""));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> MediaTypeBoundary.with("")
+        );
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> MediaTypeBoundary.with("abc\"def"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> MediaTypeBoundary.with("abc\"def")
+        );
     }
 
     @Test
@@ -77,7 +86,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
         this.compareToAndCheckLess(MediaTypeBoundary.with("qrst"));
     }
 
-    // Comparable ..................................................................................................
+    // Comparable ......................................................................................................
 
     @Test
     public void testEqualsDifferent() {
@@ -89,29 +98,62 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
         this.checkNotEquals(MediaTypeBoundary.with("ABC123"));
     }
 
-    // parse........................................................................................................
+    @Override
+    public MediaTypeBoundary createComparable() {
+        return this.createHeader();
+    }
+
+    @Override
+    public MediaTypeBoundary createObject() {
+        return this.createHeader();
+    }
+
+    // parse............................................................................................................
 
     @Test
     public void testParseUnquoted() {
-        this.parseStringAndCheck("abc", MediaTypeBoundary.with("abc"));
+        this.parseStringAndCheck(
+            "abc",
+            MediaTypeBoundary.with("abc")
+        );
     }
 
     @Test
     public void testParseQuoted() {
-        this.parseStringAndCheck("\"abc\"", MediaTypeBoundary.with("abc"));
+        this.parseStringAndCheck(
+            "\"abc\"",
+            MediaTypeBoundary.with("abc")
+        );
     }
 
-    // text........................................................................................................
+    @Override
+    public MediaTypeBoundary parseString(final String text) {
+        try {
+            return MediaTypeBoundary.parse(text);
+        } catch (final HeaderException headerException) {
+            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
+            throw null != runtimeException ?
+                runtimeException :
+                headerException;
+        }
+    }
+
+    // text.............................................................................................................
 
     @Test
     public void testText() {
-        this.textAndCheck(MediaTypeBoundary.with("abc"), "abc");
+        this.textAndCheck(
+            MediaTypeBoundary.with("abc"),
+            "abc"
+        );
     }
 
     @Test
     public void testTextQuotesRequired() {
-        this.textAndCheck(MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
-            "\"gc0pJq0M:08jU534c0p\"");
+        this.textAndCheck(
+            MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
+            "\"gc0pJq0M:08jU534c0p\""
+        );
     }
 
     @Test
@@ -119,45 +161,82 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
         this.isWildcardAndCheck(false);
     }
 
-    // generate ....................................................................................................
+    // generate ........................................................................................................
 
     @Test
     public void testGenerateNullBodyFails() {
-        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE));
+        assertThrows(
+            NullPointerException.class,
+            () -> MediaTypeBoundary.generate(
+                null,
+                () -> Byte.MAX_VALUE
+            )
+        );
     }
 
     @Test
     public void testGenerateNullBoundaryCharacterFails() {
-        assertThrows(NullPointerException.class, () -> MediaTypeBoundary.generate(new byte[0], null));
+        assertThrows(
+            NullPointerException.class,
+            () -> MediaTypeBoundary.generate(
+                new byte[0],
+                null
+            )
+        );
     }
 
     @Test
     public void testGenerateNoClash() {
-        this.generateAndCheck(new byte[20], "ABCDEF", "ABCDEF");
+        this.generateAndCheck(
+            new byte[20],
+            "ABCDEF",
+            "ABCDEF"
+        );
     }
 
     @Test
     public void testGenerateRetry() {
-        this.generateAndCheck("ABCD", "ABCDEF", "DEF");
+        this.generateAndCheck(
+            "ABCD",
+            "ABCDEF",
+            "DEF"
+        );
     }
 
     @Test
     public void testGenerateRetry2() {
-        this.generateAndCheck("1ABC23", "ABCDEF", "DEF");
+        this.generateAndCheck(
+            "1ABC23",
+            "ABCDEF",
+            "DEF"
+        );
     }
 
     @Test
     public void testGenerateRetry3() {
-        this.generateAndCheck("1ABC2DEF", "ABCDEFGHI", "GHI");
+        this.generateAndCheck(
+            "1ABC2DEF",
+            "ABCDEFGHI",
+            "GHI"
+        );
     }
 
-    private void generateAndCheck(final String body, final String randomSource, final String boundary) {
-        this.generateAndCheck(body.getBytes(CharsetName.UTF_8.charset().get()),
+    private void generateAndCheck(final String body,
+                                  final String randomSource,
+                                  final String boundary) {
+        this.generateAndCheck(
+            body.getBytes(
+                CharsetName.UTF_8.charset()
+                    .get()
+            ),
             randomSource,
-            boundary);
+            boundary
+        );
     }
 
-    private void generateAndCheck(final byte[] body, final String randomSource, final String boundary) {
+    private void generateAndCheck(final byte[] body,
+                                  final String randomSource,
+                                  final String boundary) {
         final Supplier<Byte> boundaryCharcters = new Supplier<>() {
 
             @Override
@@ -169,37 +248,52 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
             int i = 0;
         };
 
-        final MediaTypeBoundary mediaTypeBoundary = MediaTypeBoundary.generate0(body,
+        final MediaTypeBoundary mediaTypeBoundary = MediaTypeBoundary.generate0(
+            body,
             boundaryCharcters,
-            boundary.length());
+            boundary.length()
+        );
 
-        this.checkEquals(MediaTypeBoundary.with(boundary),
+        this.checkEquals(
+            MediaTypeBoundary.with(boundary),
             mediaTypeBoundary,
-            "Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build());
+            "Incorrect boundary generated for " + ToStringBuilder.empty()
+                .value(body)
+                .build()
+        );
     }
 
-    // multipartByteRanges........................................................................................................
+    // multipartByteRanges..............................................................................................
 
     @Test
     public void testMultipartByteRanges() {
         final MediaTypeBoundary boundary = MediaTypeBoundary.with("abc");
         final MediaType mediaType = boundary.multipartByteRanges();
-        this.checkEquals("multipart/byteranges; boundary=abc", mediaType.toString());
+        this.checkEquals(
+            "multipart/byteranges; boundary=abc",
+            mediaType.toString()
+        );
     }
 
-    // toString........................................................................................................
+    // toString..........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(MediaTypeBoundary.with("abc"), "abc");
+        this.toStringAndCheck(
+            MediaTypeBoundary.with("abc"),
+            "abc"
+        );
     }
 
     @Test
     public void testToString2() {
-        this.toStringAndCheck(MediaTypeBoundary.with("--abc"), "--abc");
+        this.toStringAndCheck(
+            MediaTypeBoundary.with("--abc"),
+            "--abc"
+        );
     }
 
-    // helpers........................................................................................................
+    // helpers.........................................................................................................
 
     @Override
     public MediaTypeBoundary createHeader() {
@@ -234,29 +328,5 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public MediaTypeBoundary createComparable() {
-        return this.createHeader();
-    }
-
-    @Override
-    public MediaTypeBoundary createObject() {
-        return this.createHeader();
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public MediaTypeBoundary parseString(final String text) {
-        try {
-            return MediaTypeBoundary.parse(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
     }
 }
