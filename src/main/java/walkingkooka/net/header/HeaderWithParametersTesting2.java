@@ -30,6 +30,18 @@ public interface HeaderWithParametersTesting2<V extends HeaderWithParameters<N>,
     extends HeaderTesting2<V>,
     HeaderWithParametersTesting {
 
+    default void parametersReadOnlyCheck(final N parameter) {
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> this.createHeaderWithParameters()
+                .parameters()
+                .put(
+                    parameter,
+                    null
+                )
+        );
+    }
+
     // setParameters ...........................................................................................
 
     @Test

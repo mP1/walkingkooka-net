@@ -17,8 +17,19 @@
 
 package walkingkooka.net.header;
 
+import java.util.Map;
+
 /**
  * Mixin interface with helpers to assist testing of {@link HeaderWithParameters} implementations.
  */
 public interface HeaderWithParametersTesting extends HeaderTesting {
+
+    default <N extends HeaderParameterName<?>> void parametersAndCheck(final HeaderWithParameters<N> header,
+                                                                       final Map<N, ?> expected) {
+        this.checkEquals(
+            expected,
+            header.parameters(),
+            () -> "parameters " + header
+        );
+    }
 }
