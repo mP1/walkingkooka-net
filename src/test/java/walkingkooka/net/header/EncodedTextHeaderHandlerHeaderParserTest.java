@@ -28,52 +28,94 @@ public final class EncodedTextHeaderHandlerHeaderParserTest extends HeaderParser
 
     @Test
     public void testParse() {
-        this.parseStringAndCheck("UTF-8''abc%20123", EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"));
+        this.parseStringAndCheck(
+            "UTF-8''abc%20123",
+            EncodedText.with(
+                CharsetName.UTF_8,
+                EncodedText.NO_LANGUAGE,
+                "abc 123"
+            )
+        );
     }
 
     @Test
     public void testKeyValueSeparatorFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().keyValueSeparator());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser().keyValueSeparator()
+        );
     }
 
     @Test
     public void testMissingValueFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().missingValue());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .missingValue()
+        );
     }
 
     @Test
     public void testMultiValueSeparatorFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().multiValueSeparator());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .multiValueSeparator()
+        );
     }
 
     @Test
     public void testQuotedTextSeparatorFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().quotedText());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .quotedText()
+        );
     }
 
     @Test
     public void testSlashFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().slash());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .slash()
+        );
     }
 
     @Test
     public void testTokenSeparatorFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().tokenSeparator());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .tokenSeparator()
+        );
     }
 
     @Test
     public void testWhitespaceFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().whitespace());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .whitespace()
+        );
     }
 
     @Test
     public void testWildcardFails() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().wildcard());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .wildcard()
+        );
     }
 
     @Test
     public void testComment() {
-        assertThrows(HeaderException.class, () -> this.createHeaderParser().comment());
+        assertThrows(
+            HeaderException.class,
+            () -> this.createHeaderParser()
+                .comment()
+        );
     }
 
     private EncodedTextHeaderHandlerHeaderParser createHeaderParser() {
