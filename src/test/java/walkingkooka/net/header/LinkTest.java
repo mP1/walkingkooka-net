@@ -39,6 +39,11 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     implements ParseStringTesting<List<Link>>,
     PublicClassTesting<Link> {
 
+    private final static Map<LinkParameterName<?>, Object> PARAMETERS = Maps.of(
+        LinkParameterName.REL,
+        LinkRelation.parse("previous")
+    );
+
     @Test
     public void testWithNullFails() {
         assertThrows(
@@ -111,7 +116,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testSetParameterDifferent() {
         final Link link = this.createLink();
-        final Map<LinkParameterName<?>, Object> parameters = this.parameters();
+        final Map<LinkParameterName<?>, Object> parameters = PARAMETERS;
         final Link different = link.setParameters(parameters);
         this.valueAndParametersCheck(different, link.value(), parameters);
     }
@@ -121,15 +126,8 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         final Link link = this.createLink();
         this.checkEquals(link,
             link
-                .setParameters(this.parameters())
+                .setParameters(PARAMETERS)
                 .setParameters(Link.NO_PARAMETERS));
-    }
-
-    private Map<LinkParameterName<?>, Object> parameters() {
-        return Maps.of(
-            LinkParameterName.REL,
-            LinkRelation.parse("previous")
-        );
     }
 
     void valueAndParametersCheck(final Link language,
@@ -187,7 +185,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         this.checkNotEquals(
             Link.with(
                 Url.parse("/different")
-            ).setParameters(this.parameters())
+            ).setParameters(PARAMETERS)
         );
     }
 
