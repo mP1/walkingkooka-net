@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 /**
  * An individual encoding belonging to a {@link AcceptEncoding}.
  */
-public abstract class AcceptEncodingValue extends HeaderWithParameters2<AcceptEncodingValue,
+public abstract class AcceptEncodingValue extends HeaderWithValueAndParameters<AcceptEncodingValue,
     AcceptEncodingValueParameterName<?>,
     String>
     implements Comparable<AcceptEncodingValue>,

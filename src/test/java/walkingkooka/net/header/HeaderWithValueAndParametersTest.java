@@ -21,10 +21,10 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class HeaderWithParameters2Test implements ClassTesting2<HeaderWithParameters2<?, ?, ?>> {
+public final class HeaderWithValueAndParametersTest implements ClassTesting2<HeaderWithValueAndParameters<?, ?, ?>> {
     @Override
-    public Class<HeaderWithParameters2<?, ?, ?>> type() {
-        return Cast.to(HeaderWithParameters2.class);
+    public Class<HeaderWithValueAndParameters<?, ?, ?>> type() {
+        return Cast.to(HeaderWithValueAndParameters.class);
     }
 
     @Override

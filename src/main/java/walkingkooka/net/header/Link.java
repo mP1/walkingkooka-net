@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * A {@link HasValue} as described in <a href="https://tools.ietf.org/search/rfc5988"></a>.
  */
-final public class Link extends HeaderWithParameters2<Link,
+final public class Link extends HeaderWithValueAndParameters<Link,
     LinkParameterName<?>,
     Url> {
 

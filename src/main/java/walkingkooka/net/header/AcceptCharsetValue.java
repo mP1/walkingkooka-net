@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 /**
  * A {@link HeaderWithParameters} that represents a single charset name with optional parameters.
  */
-final public class AcceptCharsetValue extends HeaderWithParameters2<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
+final public class AcceptCharsetValue extends HeaderWithValueAndParameters<AcceptCharsetValue, AcceptCharsetValueParameterName<?>, CharsetName>
     implements HasQualityFactor,
     Predicate<CharsetName> {
 
