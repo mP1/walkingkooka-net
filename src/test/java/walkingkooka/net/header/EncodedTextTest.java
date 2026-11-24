@@ -31,6 +31,12 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     private final static CharsetName CHARSET_NAME = CharsetName.UTF_8;
 
+    private final static Optional<LanguageName> LANGUAGE = Optional.of(
+        LanguageName.with("en")
+    );
+
+    private final static String VALUE = "abc123";
+
     @Test
     public void testWithNullCharsetFails() {
         assertThrows(
@@ -72,42 +78,39 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
         this.check(
             this.createHeader(),
             CHARSET_NAME,
-            this.language(),
-            this.value()
+            LANGUAGE,
+            VALUE
         );
     }
 
     @Test
     public void testWithEmptyText() {
-        final Optional<LanguageName> language = this.language();
         final String text = "";
 
         this.check(
             EncodedText.with(
                 CHARSET_NAME,
-                language,
+                LANGUAGE,
                 text
             ),
             CHARSET_NAME,
-            language,
+            LANGUAGE,
             text
         );
     }
 
     @Test
     public void testWithPath() {
-        final CharsetName charset = CHARSET_NAME;
-        final Optional<LanguageName> language = this.language();
         final String text = "/path/filename.txt";
 
         this.check(
             EncodedText.with(
-                charset,
-                language,
+                CHARSET_NAME,
+                LANGUAGE,
                 text
             ),
-            charset,
-            language,
+            CHARSET_NAME,
+            LANGUAGE,
             text
         );
     }
@@ -115,17 +118,16 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
     @Test
     public void testWithNoLanguage() {
         final Optional<LanguageName> language = EncodedText.NO_LANGUAGE;
-        final String text = this.value();
 
         this.check(
             EncodedText.with(
                 CHARSET_NAME,
                 language,
-                text
+                VALUE
             ),
             CHARSET_NAME,
             language,
-            text
+            VALUE
         );
     }
 
@@ -196,9 +198,13 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Test
     public void testEqualsDifferentCharset() {
-        this.checkNotEquals(EncodedText.with(CharsetName.UTF_16,
-            this.language(),
-            this.value()));
+        this.checkNotEquals(
+            EncodedText.with(
+                CharsetName.UTF_16,
+                LANGUAGE,
+                VALUE
+            )
+        );
     }
 
     @Test
@@ -208,7 +214,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
                 Optional.of(
                     LanguageName.with("fr")
                 ),
-                this.value()
+                VALUE
             )
         );
     }
@@ -219,7 +225,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
             EncodedText.with(
                 CHARSET_NAME,
                 EncodedText.NO_LANGUAGE,
-                this.value()
+                VALUE
             )
         );
     }
@@ -229,7 +235,7 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
         this.checkNotEquals(
             EncodedText.with(
                 CHARSET_NAME,
-                this.language(),
+                LANGUAGE,
                 "different"
             )
         );
@@ -249,25 +255,15 @@ public final class EncodedTextTest extends HeaderTestCase<EncodedText>
 
     @Override
     public EncodedText createHeader() {
-        return this.createHeader(this.value());
+        return this.createHeader(VALUE);
     }
 
     private EncodedText createHeader(final String value) {
         return EncodedText.with(
             CHARSET_NAME,
-            this.language(),
+            LANGUAGE,
             value
         );
-    }
-
-    private Optional<LanguageName> language() {
-        return Optional.of(
-            LanguageName.with("en")
-        );
-    }
-
-    private String value() {
-        return "abc123";
     }
 
     @Override
