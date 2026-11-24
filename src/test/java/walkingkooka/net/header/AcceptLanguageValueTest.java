@@ -131,7 +131,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
             language,
             value
         );
-        this.checkParameters(language, parameters);
+        this.parametersAndCheck(language, parameters);
     }
 
     // ParseStringTesting ..............................................................................................

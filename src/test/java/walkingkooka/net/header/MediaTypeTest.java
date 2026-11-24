@@ -562,7 +562,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
             () -> "suffix " + mediaType
         );
 
-        this.checkParameters(
+        this.parametersAndCheck(
             mediaType,
             parameters
         );

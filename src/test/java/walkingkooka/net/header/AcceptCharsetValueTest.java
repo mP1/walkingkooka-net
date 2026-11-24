@@ -342,7 +342,7 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
             acceptCharsetValue,
             value
         );
-        this.checkParameters(acceptCharsetValue, parameters);
+        this.parametersAndCheck(acceptCharsetValue, parameters);
     }
 
     @Override
