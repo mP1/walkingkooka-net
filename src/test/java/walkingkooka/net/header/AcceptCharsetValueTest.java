@@ -35,11 +35,14 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     private final static String PARAMETER_VALUE = "v1";
     private final static float Q = 0.5f;
 
-    // with.........................................................................................
+    // with.............................................................................................................
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> AcceptCharsetValue.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> AcceptCharsetValue.with(null)
+        );
     }
 
     @Test
@@ -52,13 +55,20 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.acceptCharsetValue().setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.acceptCharsetValue()
+                .setValue(null)
+        );
     }
 
     @Test
     public void testSetValueSame() {
         final AcceptCharsetValue charset = this.acceptCharsetValue();
-        assertSame(charset, charset.setValue(VALUE));
+        assertSame(
+            charset,
+            charset.setValue(VALUE)
+        );
     }
 
     @Test
@@ -69,11 +79,20 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
         this.check(charset);
     }
 
-    // setParameters ...........................................................................................
+    // setParameters ...................................................................................................
 
     @Test
     public void testSetParametersInvalidParameterValueFails() {
-        assertThrows(HeaderException.class, () -> this.acceptCharsetValue().setParameters(this.parameters("Q", "INVALID!")));
+        assertThrows(
+            HeaderException.class,
+            () -> this.acceptCharsetValue()
+                .setParameters(
+                    this.parameters(
+                        "Q",
+                        "INVALID!"
+                    )
+                )
+        );
     }
 
     @Test
@@ -88,36 +107,57 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     public void testWildcardSetParametersDifferent() {
         final AcceptCharsetValue charset = AcceptCharsetValue.WILDCARD_VALUE;
         final Map<AcceptCharsetValueParameterName<?>, Object> parameters = this.parameters("different", "2");
-        this.check(charset.setParameters(parameters), CharsetName.WILDCARD_CHARSET, parameters);
-        this.check(charset, CharsetName.WILDCARD_CHARSET, AcceptCharsetValue.NO_PARAMETERS);
+
+        this.check(
+            charset.setParameters(parameters),
+            CharsetName.WILDCARD_CHARSET,
+            parameters
+        );
+        this.check(
+            charset,
+            CharsetName.WILDCARD_CHARSET,
+            AcceptCharsetValue.NO_PARAMETERS
+        );
     }
 
     @Test
     public void testWildcardSetParametersDifferent2() {
         final AcceptCharsetValue charset = AcceptCharsetValue.WILDCARD_VALUE;
         final Map<AcceptCharsetValueParameterName<?>, Object> parameters = this.parameters("different", "2");
-        assertSame(charset, charset.setParameters(parameters).setParameters(AcceptCharsetValue.NO_PARAMETERS));
+        assertSame(
+            charset,
+            charset.setParameters(parameters)
+                .setParameters(AcceptCharsetValue.NO_PARAMETERS)
+        );
     }
 
-    // text ...........................................................................................
+    // text ............................................................................................................
 
     @Test
     public void testTextNoParameters() {
-        this.textAndCheck(AcceptCharsetValue.with(VALUE),
-            VALUE.text());
+        this.textAndCheck(
+            AcceptCharsetValue.with(VALUE),
+            VALUE.text()
+        );
     }
 
     @Test
     public void testTextWithParameters() {
-        this.textAndCheck(this.acceptCharsetValue(),
-            VALUE + "; p1=v1");
+        this.textAndCheck(
+            this.acceptCharsetValue(),
+            VALUE + "; p1=v1"
+        );
     }
 
     @Test
     public void testTextWithSeveralParameters() {
-        this.textAndCheck(AcceptCharsetValue.with(VALUE)
-                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-            VALUE + "; p1=v1; p2=v2");
+        this.textAndCheck(
+            AcceptCharsetValue.with(VALUE)
+                .setParameters(
+                    this.parameters("p1", "v1", "p2", "v2")
+                ),
+            VALUE + "; p1=v1; p2=v2"
+        );
     }
 
     // Predicate. ......................................................................................................
@@ -126,19 +166,30 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     public void testTestCharsetNameTrue() {
         final CharsetName charsetName = CharsetName.with("UTF-16");
 
-        this.testTrue(AcceptCharsetValue.with(charsetName),
-            charsetName);
+        this.testTrue(
+            AcceptCharsetValue.with(charsetName),
+            charsetName
+        );
     }
 
     @Test
     public void testTestCharsetNameTrue2() {
-        this.testTrue(AcceptCharsetValue.with(CharsetName.with("utf-16")), CharsetName.with("UTF-16"));
+        this.testTrue(
+            AcceptCharsetValue.with(
+                CharsetName.with("utf-16")
+            ),
+            CharsetName.with("UTF-16")
+        );
     }
 
     @Test
     public void testTestCharsetNameFalse() {
-        this.testFalse(AcceptCharsetValue.with(CharsetName.with("UTF-8")),
-            CharsetName.with("UTF-16"));
+        this.testFalse(
+            AcceptCharsetValue.with(
+                CharsetName.with("UTF-8")
+            ),
+            CharsetName.with("UTF-16")
+        );
     }
 
     // isWildcard ......................................................................................................
@@ -148,24 +199,38 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
         this.isWildcardAndCheck(false);
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // hashCode/equals..................................................................................................
 
     @Test
     public void testEqualsDifferentCharset() {
-        this.checkNotEquals(AcceptCharsetValue.with(CharsetName.UTF_16)
-            .setParameters(this.parameters()));
+        this.checkNotEquals(
+            AcceptCharsetValue.with(CharsetName.UTF_16)
+                .setParameters(this.parameters())
+        );
     }
 
     @Test
     public void testEqualsDifferentParameterValue() {
-        this.checkNotEquals(AcceptCharsetValue.with(VALUE)
-            .setParameters(this.parameters(AcceptCharsetValueParameterName.Q, Q + 0.5f)));
+        this.checkNotEquals(
+            AcceptCharsetValue.with(VALUE)
+                .setParameters(this.parameters(
+                        AcceptCharsetValueParameterName.Q,
+                        Q + 0.5f
+                    )
+                )
+        );
     }
 
     @Test
     public void testEqualsDifferentParameter() {
-        this.checkNotEquals(AcceptCharsetValue.with(VALUE)
-            .setParameters(this.parameters(AcceptCharsetValueParameterName.with("different"), "xyz")));
+        this.checkNotEquals(
+            AcceptCharsetValue.with(VALUE).setParameters(
+                this.parameters(
+                    AcceptCharsetValueParameterName.with("different"),
+                    "xyz"
+                )
+            )
+        );
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -181,12 +246,25 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     @Test
     public void testEqualsIgnoringParametersDifferentParameters() {
         this.equalsIgnoringParametersAndCheck(
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f)),
-            true);
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        0.5f
+                    )
+                ),
+            true
+        );
     }
 
-    // equalsOnlyPresentParameters.........................................................................................
+    // equalsOnlyPresentParameters......................................................................................
 
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
@@ -199,54 +277,117 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 0.5f)),
-            false);
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        0.5f
+                    )
+                ),
+            false
+        );
     }
 
     @Test
     public void testEqualsOnlyPresentParametersDifferentParameters2() {
         this.equalsOnlyPresentParametersAndCheck(
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f, AcceptCharsetValueParameterName.with("parameter2"), "value2")),
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            false);
+            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(
+                Maps.of(
+                    AcceptCharsetValueParameterName.Q,
+                    1.0f,
+                    AcceptCharsetValueParameterName.with("parameter2"),
+                    "value2"
+                )
+            ),
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            false
+        );
     }
 
     @Test
     public void testEqualsOnlyPresentParametersSharedParameters() {
         this.equalsOnlyPresentParametersAndCheck(
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            true);
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            true
+        );
     }
 
     @Test
     public void testEqualsOnlyPresentParametersExtraParametersIgnored() {
         this.equalsOnlyPresentParametersAndCheck(
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f)),
-            AcceptCharsetValue.with(CharsetName.UTF_8).setParameters(Maps.of(AcceptCharsetValueParameterName.Q, 1.0f, AcceptCharsetValueParameterName.with("parameter2"), "value2")),
-            true);
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f
+                    )
+                ),
+            AcceptCharsetValue.with(CharsetName.UTF_8)
+                .setParameters(
+                    Maps.of(
+                        AcceptCharsetValueParameterName.Q,
+                        1.0f,
+                        AcceptCharsetValueParameterName.with("parameter2"),
+                        "value2"
+                    )
+                ),
+            true
+        );
     }
 
-    // toString ...........................................................................................
+    // toString ........................................................................................................
 
     @Test
     public void testToStringNoParameters() {
-        this.toStringAndCheck(AcceptCharsetValue.with(VALUE),
-            VALUE.text());
+        this.toStringAndCheck(
+            AcceptCharsetValue.with(VALUE),
+            VALUE.text()
+        );
     }
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.acceptCharsetValue(),
-            VALUE + "; p1=v1");
+        this.toStringAndCheck(
+            this.acceptCharsetValue(),
+            VALUE + "; p1=v1"
+        );
     }
 
     @Test
     public void testToStringWithSeveralParameters() {
-        this.toStringAndCheck(AcceptCharsetValue.with(VALUE)
-                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-            VALUE + "; p1=v1; p2=v2");
+        this.toStringAndCheck(
+            AcceptCharsetValue.with(VALUE)
+                .setParameters(
+                    this.parameters("p1", "v1", "p2", "v2")
+                ),
+            VALUE + "; p1=v1; p2=v2"
+        );
     }
 
     // toHeaderTextList ................................................................................................
@@ -329,11 +470,20 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
                                                                        final Object value1,
                                                                        final AcceptCharsetValueParameterName<?> name2,
                                                                        final Object value2) {
-        return Maps.of(name1, value1, name2, value2);
+        return Maps.of(
+            name1,
+            value1,
+            name2,
+            value2
+        );
     }
 
     private void check(final AcceptCharsetValue acceptCharsetValue) {
-        this.check(acceptCharsetValue, VALUE, acceptCharsetValue.parameters());
+        this.check(
+            acceptCharsetValue,
+            VALUE,
+            acceptCharsetValue.parameters()
+        );
     }
 
     private void check(final AcceptCharsetValue acceptCharsetValue,
@@ -343,7 +493,10 @@ public final class AcceptCharsetValueTest extends HeaderWithParametersTestCase<A
             acceptCharsetValue,
             value
         );
-        this.parametersAndCheck(acceptCharsetValue, parameters);
+        this.parametersAndCheck(
+            acceptCharsetValue,
+            parameters
+        );
     }
 
     @Override
