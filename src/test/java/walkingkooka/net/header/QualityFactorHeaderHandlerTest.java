@@ -27,7 +27,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseEmptyStringFails() {
         this.parseStringFails(
             "",
-            new EmptyTextException("text")
+            new EmptyTextException("Q factor")
         );
     }
 
@@ -35,7 +35,7 @@ public final class QualityFactorHeaderHandlerTest extends
     public void testParseInvalidNumberFails() {
         this.parseStringFails(
             "ABC",
-            new IllegalArgumentException("Invalid number in \"ABC\"")
+            new IllegalArgumentException("Invalid \"Q factor\" number in \"ABC\"")
         );
     }
 

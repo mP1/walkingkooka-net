@@ -552,7 +552,7 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     public void testParseQInvalidValueFails() {
         this.parseStringFails(
             "utf-8; q=X",
-            new IllegalArgumentException("Invalid number in \"X\"")
+            new IllegalArgumentException("Invalid \"Q factor\" number in \"X\"")
         );
     }
 
