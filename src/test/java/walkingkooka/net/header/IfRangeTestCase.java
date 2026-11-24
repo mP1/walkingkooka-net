@@ -18,17 +18,17 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.HasLastModifiedTesting;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.text.CharSequences;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderTestCase<R>
-    implements PackagePrivateClassTesting<R> {
+    implements PackagePrivateClassTesting<R>,
+    HasLastModifiedTesting {
 
     IfRangeTestCase() {
         super();
@@ -152,10 +152,6 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     final ETag etag() {
         return ETag.weak("abc123");
-    }
-
-    final LocalDateTime lastModified() {
-        return LocalDateTime.of(2000, 12, 31, 6, 28, 29);
     }
 
     @Override
