@@ -106,7 +106,8 @@ public final class RangeHeader implements Header,
     /**
      * Factory that creates a new {@link RangeHeader}
      */
-    public static RangeHeader with(final RangeHeaderUnit unit, final List<Range<Long>> ranges) {
+    public static RangeHeader with(final RangeHeaderUnit unit,
+                                   final List<Range<Long>> ranges) {
         return new RangeHeader(
             checkUnit(unit),
             copyAndCheckValue(ranges)
@@ -116,13 +117,14 @@ public final class RangeHeader implements Header,
     /**
      * Private ctor use factory.
      */
-    private RangeHeader(final RangeHeaderUnit unit, final List<Range<Long>> ranges) {
+    private RangeHeader(final RangeHeaderUnit unit,
+                        final List<Range<Long>> ranges) {
         super();
         this.unit = unit;
         this.ranges = ranges;
     }
 
-    // unit ........................................................................................
+    // unit ............................................................................................................
 
     public RangeHeaderUnit unit() {
         return this.unit;
@@ -146,7 +148,7 @@ public final class RangeHeader implements Header,
         return unit;
     }
 
-    // value ........................................................................................
+    // value ...........................................................................................................
 
     @Override
     public List<Range<Long>> value() {
@@ -208,13 +210,14 @@ public final class RangeHeader implements Header,
         }
     }
 
-    // replaceParameters.............................................................................
+    // replaceParameters................................................................................................
 
-    private RangeHeader replace(final RangeHeaderUnit unit, final List<Range<Long>> ranges) {
+    private RangeHeader replace(final RangeHeaderUnit unit,
+                                final List<Range<Long>> ranges) {
         return new RangeHeader(unit, ranges);
     }
 
-    // Header.............................................................................
+    // Header...........................................................................................................
 
     @Override
     public String text() {
@@ -226,7 +229,7 @@ public final class RangeHeader implements Header,
         return false;
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHeaderScope ..................................................................................................
 
     final static boolean IS_MULTIPART = false;
 
@@ -249,11 +252,14 @@ public final class RangeHeader implements Header,
         return IS_RESPONSE;
     }
 
-    // Object.............................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.unit, this.ranges);
+        return Objects.hash(
+            this.unit,
+            this.ranges
+        );
     }
 
     @Override
