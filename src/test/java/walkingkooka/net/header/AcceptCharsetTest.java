@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.nio.charset.Charset;
@@ -33,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List<AcceptCharsetValue>>
     implements HasQualityFactorSortedValuesTesting,
     ParseStringTesting<AcceptCharset>,
-    PredicateTesting {
+    PredicateTesting,
+    PublicClassTesting<AcceptCharset> {
 
     // charset...................................................................................................
 
@@ -185,12 +186,5 @@ public final class AcceptCharsetTest extends Header2TestCase<AcceptCharset, List
     @Override
     public AcceptCharset parseString(final String text) {
         return AcceptCharset.parse(text);
-    }
-
-    // ClassTestCase ............................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
