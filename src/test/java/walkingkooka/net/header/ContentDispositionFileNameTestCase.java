@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.IsMethodTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
     HeaderTestCase<F>
     implements IsMethodTesting<F>,
-    HasFileExtensionTesting {
+    HasFileExtensionTesting,
+    PackagePrivateClassTesting<F> {
 
     ContentDispositionFileNameTestCase() {
         super();
@@ -172,12 +173,5 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
             ContentDispositionFileName.class.getSimpleName(), // drop-prefix
             "" // drop-suffix
         );
-    }
-
-    // class............................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
