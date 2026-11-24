@@ -20,15 +20,14 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements ClassTesting2<A>,
+abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements PublicClassTesting<A>,
     ComparableTesting2<A>,
     ToStringTesting,
     TypeNameTesting<A> {
@@ -64,11 +63,6 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> imp
     abstract A createAddress(byte[] components);
 
     abstract int bitCount();
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     // TypeNameTesting .........................................................................................
 
