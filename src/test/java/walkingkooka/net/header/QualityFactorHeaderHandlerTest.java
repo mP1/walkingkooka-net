@@ -48,7 +48,7 @@ public final class QualityFactorHeaderHandlerTest extends
     }
 
     @Test
-    public void testMoreThanOneFails() {
+    public void testParseMoreThanOneFails() {
         this.parseStringFails(
             "1.01",
             new IllegalArgumentException("Invalid \"Q\" factor 1.01 must be between 0.0 and 1.0")
@@ -56,17 +56,17 @@ public final class QualityFactorHeaderHandlerTest extends
     }
 
     @Test
-    public void testZero() {
+    public void testParseZero() {
         this.parseAndToTextAndCheck("0.0", 0f);
     }
 
     @Test
-    public void testHalf() {
+    public void testParseHalf() {
         this.parseAndToTextAndCheck("0.5", 0.5f);
     }
 
     @Test
-    public void testOne() {
+    public void testParseOne() {
         this.parseAndToTextAndCheck("1.0", 1.0f);
     }
 
