@@ -254,13 +254,13 @@ abstract class HeaderParser {
      * <a href="https://tools.ietf.org/html/rfc5987"></a>
      */
     final EncodedText encodedText() {
-        final CharsetName charset = this.token(MIME_CHARSETC, CharsetName::with);
+        final CharsetName charset = this.token(MIME_CHARSET, CharsetName::with);
         if (!this.hasMoreCharacters()) {
             this.incompleteEncodedAsciiText();
         }
         this.languageQuoteCharacter();
 
-        final Optional<LanguageName> languageName = this.tokenOptional(MIME_CHARSETC,
+        final Optional<LanguageName> languageName = this.tokenOptional(MIME_CHARSET,
             LanguageName::with);
 
         this.languageQuoteCharacter();
@@ -395,7 +395,7 @@ abstract class HeaderParser {
      *                    ; SHOULD be registered in the IANA charset registry
      * </pre>
      */
-    private final static CharPredicate MIME_CHARSETC = CharPredicates.builder()
+    private final static CharPredicate MIME_CHARSET = CharPredicates.builder()
         .range('A', 'Z')
         .range('a', 'z')
         .range('0', '9')
