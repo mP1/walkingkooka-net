@@ -17,11 +17,10 @@
 
 package walkingkooka.net;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
-abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements ClassTesting2<P>,
+abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements PackagePrivateClassTesting<P>,
     TypeNameTesting<P> {
 
     HostAddressProblemTestCase() {
@@ -34,13 +33,6 @@ abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> i
         this.checkEquals(message,
             problem.message(address),
             () -> problem + " " + address);
-    }
-
-    // class.................. .........................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .................................................................................................
