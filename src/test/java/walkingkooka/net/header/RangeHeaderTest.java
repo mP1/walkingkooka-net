@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -29,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
-    implements ParseStringTesting<RangeHeader> {
+    implements ParseStringTesting<RangeHeader>,
+    PublicClassTesting<RangeHeader> {
 
     private final static RangeHeaderUnit UNIT = RangeHeaderUnit.BYTES;
 
@@ -441,10 +442,5 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     @Override
     public Class<RangeHeader> type() {
         return RangeHeader.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
