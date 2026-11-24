@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.HasNowTesting;
 import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
@@ -27,7 +28,8 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>>,
-    PublicClassTesting<IfRange<?>> {
+    PublicClassTesting<IfRange<?>>,
+    HasNowTesting {
 
     @Test
     public void testWithNullFails() {
@@ -93,12 +95,12 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
 
     @Override
     public IfRange<?> createHeader() {
-        return IfRange.with(LocalDateTime.of(2000, 12, 31, 6, 28, 29));
+        return IfRange.with(NOW);
     }
 
     @Override
     public IfRange<?> createDifferentHeader() {
-        return IfRange.with(LocalDateTime.of(1999, 1, 2, 0, 58, 59));
+        return IfRange.with(DIFFERENT_NOW);
     }
 
     @Override
