@@ -84,7 +84,7 @@ public final class ContentDisposition extends HeaderWithValueAndParameters<Conte
     public ContentDisposition setType(final ContentDispositionType type) {
         return this.value.equals(type) ?
             this :
-            this.replace(
+            new ContentDisposition(
                 Objects.requireNonNull(type, "type"),
                 this.parameters
             );
@@ -94,11 +94,10 @@ public final class ContentDisposition extends HeaderWithValueAndParameters<Conte
 
     @Override
     ContentDisposition replaceParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        return this.replace(this.value, parameters);
-    }
-
-    private ContentDisposition replace(final ContentDispositionType type, final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        return new ContentDisposition(type, parameters);
+        return new ContentDisposition(
+            this.value,
+            parameters
+        );
     }
 
     // filename.........................................................................................................
