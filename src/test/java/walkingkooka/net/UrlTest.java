@@ -20,8 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 
@@ -31,7 +30,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlTest implements ClassTesting2<Url>,
+public final class UrlTest implements PublicClassTesting<Url>,
     ParseStringTesting<Url> {
 
     // EMPTY RELATIVE URL...............................................................................................
@@ -392,22 +391,16 @@ public final class UrlTest implements ClassTesting2<Url>,
         );
     }
 
-    // ClassTesting ...................................................................................................
+    @Override
+    public Url parseString(final String text) {
+        return Url.parse(text);
+    }
+
+
+    // Class............................................................................................................
 
     @Override
     public Class<Url> type() {
         return Url.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public Url parseString(final String text) {
-        return Url.parse(text);
     }
 }
