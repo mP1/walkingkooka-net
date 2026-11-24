@@ -41,24 +41,39 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> Link.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Link.with(null)
+        );
     }
 
     @Test
     public void testWithAbsoluteUrl() {
         final AbsoluteUrl url = this.value();
-        this.check(Link.with(url), url, Link.NO_PARAMETERS);
+        this.check(
+            Link.with(url),
+            url,
+            Link.NO_PARAMETERS
+        );
     }
 
     @Test
     public void testWithRelativeUrl() {
         final RelativeUrl url = Url.parseRelative("/path/file");
-        this.check(Link.with(url), url, Link.NO_PARAMETERS);
+        this.check(
+            Link.with(url),
+            url,
+            Link.NO_PARAMETERS
+        );
     }
 
     @Test
     public void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createLink().setValue(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createLink()
+                .setValue(null)
+        );
     }
 
     @Test
@@ -70,7 +85,10 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Test
     public void testSetValueSame2() {
         final Link link = this.createLink();
-        assertSame(link, link.setValue(this.value()));
+        assertSame(
+            link,
+            link.setValue(this.value())
+        );
     }
 
     @Test
@@ -78,9 +96,16 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         final Link link = this.createLink();
         final AbsoluteUrl value = Url.parseAbsolute("https://example2.com");
         final Link different = link.setValue(value);
-        assertNotSame(link, different);
+        assertNotSame(
+            link,
+            different
+        );
 
-        this.check(different, value, Link.NO_PARAMETERS);
+        this.check(
+            different,
+            value,
+            Link.NO_PARAMETERS
+        );
     }
 
     @Test
@@ -101,16 +126,24 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     }
 
     private Map<LinkParameterName<?>, Object> parameters() {
-        return Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"));
+        return Maps.of(
+            LinkParameterName.REL,
+            LinkRelation.parse("previous")
+        );
     }
 
     void check(final Link language,
                final Url value,
                final Map<LinkParameterName<?>, Object> parameters) {
-        this.checkEquals(value, language.value(), "value");
-        this.parametersAndCheck(language, parameters);
+        this.valueAndCheck(
+            language,
+            value
+        );
+        this.parametersAndCheck(
+            language,
+            parameters
+        );
     }
-
 
     // toHeaderTextList.................................................................................................
 
@@ -147,42 +180,92 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         );
     }
 
-    // HashCodeEqualsDefined ..................................................................................................
+    // hashCode/equals..................................................................................................
 
     @Test
     public void testEqualsDifferentUrl() {
-        this.checkNotEquals(Link.with(Url.parse("/different")).setParameters(this.parameters()));
+        this.checkNotEquals(
+            Link.with(
+                Url.parse("/different")
+            ).setParameters(this.parameters())
+        );
     }
 
     @Test
     public void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+        this.checkNotEquals(
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.TYPE,
+                        MediaType.TEXT_PLAIN
+                    )
+                )
+        );
     }
 
     @Test
     public void testEqualsDifferentParameters2() {
-        this.checkNotEquals(this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)),
-            this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.BINARY)));
+        this.checkNotEquals(
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.TYPE,
+                        MediaType.TEXT_PLAIN
+                    )
+                ),
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.TYPE,
+                        MediaType.BINARY
+                    )
+                )
+        );
     }
 
-    // parse.......................................................................................
+    // parse............................................................................................................
 
     @Test
     public void testParseLinkWithMedia() {
-        this.parseStringAndCheck("<https://example.com>;media=\"abc 123\"",
-            this.createLink().setParameters(Maps.of(LinkParameterName.MEDIA, "abc 123")));
+        this.parseStringAndCheck(
+            "<https://example.com>;media=\"abc 123\"",
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.MEDIA,
+                        "abc 123"
+                    )
+                )
+        );
     }
 
     @Test
     public void testParseLinkWithMethod() {
-        this.parseStringAndCheck("<https://example.com>;method=GET",
-            this.createLink().setParameters(Maps.of(LinkParameterName.METHOD, HttpMethod.GET)));
+        this.parseStringAndCheck(
+            "<https://example.com>;method=GET",
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.METHOD,
+                        HttpMethod.GET
+                    )
+                )
+        );
     }
 
     @Test
     public void testParseLinkWithType() {
-        this.parseStringAndCheck("<https://example.com>;type=text/plain",
-            this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+        this.parseStringAndCheck(
+            "<https://example.com>;type=text/plain",
+            this.createLink()
+                .setParameters(
+                    Maps.of(
+                        LinkParameterName.TYPE,
+                        MediaType.TEXT_PLAIN
+                    )
+                )
+        );
     }
 
     @Test
@@ -201,8 +284,17 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
         );
     }
 
-    private void parseStringAndCheck(final String text, final Link... links) {
-        this.parseStringAndCheck(text, Lists.of(links));
+    private void parseStringAndCheck(final String text,
+                                     final Link... links) {
+        this.parseStringAndCheck(
+            text,
+            Lists.of(links)
+        );
+    }
+
+    @Override
+    public List<Link> parseString(final String text) {
+        return Link.parse(text);
     }
 
     // equalsIgnoringParameters.........................................................................................
@@ -223,7 +315,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
             true);
     }
 
-    // equalsOnlyPresentParameters.........................................................................................
+    // equalsOnlyPresentParameters......................................................................................
 
     @Test
     public void testEqualsOnlyPresentParametersDifferent() {
@@ -265,7 +357,7 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
             true);
     }
 
-    // helpers.......................................................................................
+    // helpers.........................................................................................................
 
     @Override
     public Link createHeaderWithParameters() {
@@ -308,12 +400,5 @@ public final class LinkTest extends HeaderWithParametersTestCase<Link,
     @Override
     public Class<Link> type() {
         return Link.class;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public List<Link> parseString(final String text) {
-        return Link.parse(text);
     }
 }
