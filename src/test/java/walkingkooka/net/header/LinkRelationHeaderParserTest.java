@@ -25,27 +25,27 @@ public final class LinkRelationHeaderParserTest extends HeaderParserTestCase<Lin
     List<LinkRelation<?>>> {
 
     @Test
-    public void testTokenSeparatorFails() {
+    public void testParseTokenSeparatorFails() {
         this.parseStringInvalidCharacterFails(";");
     }
 
     @Test
-    public void testKeyValueSeparatorFails() {
+    public void testParseKeyValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
-    public void testMultiValueSeparatorFails() {
+    public void testParseMultiValueSeparatorFails() {
         this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
-    public void testWildcardFails() {
+    public void testParseWildcardFails() {
         this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
-    public void testSlashFails() {
+    public void testParseSlashFails() {
         this.parseStringInvalidCharacterFails("/");
     }
 
