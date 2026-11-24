@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderWithParametersTestCase<V extends HeaderWithParameters<N>,
     N extends HeaderParameterName<?>> extends HeaderTestCase<V>
-    implements HeaderWithParametersTesting<V, N> {
+    implements HeaderWithParametersTesting2<V, N> {
 
     HeaderWithParametersTestCase() {
         super();
