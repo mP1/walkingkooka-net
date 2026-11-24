@@ -57,22 +57,34 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
 
     @Test
     public void testParseCharsetSeparatorSpaceFails() {
-        this.parseStringFails("utf-8, ", "Missing charset at 7 in \"utf-8, \"");
+        this.parseStringFails(
+            "utf-8, ",
+            "Missing charset at 7 in \"utf-8, \""
+        );
     }
 
     @Test
     public void testParseCharsetSeparatorTabFails() {
-        this.parseStringFails("utf-8,\t", "Missing charset at 7 in \"utf-8,\\t\"");
+        this.parseStringFails(
+            "utf-8,\t",
+            "Missing charset at 7 in \"utf-8,\\t\""
+        );
     }
 
     @Test
     public void testParseCharsetInvalidInitialCharacterFails() {
-        this.parseStringInvalidCharacterFails("!utf-8", '!');
+        this.parseStringInvalidCharacterFails(
+            "!utf-8",
+            '!'
+        );
     }
 
     @Test
     public void testParseCharsetInvalidPartCharacterFails() {
-        this.parseStringInvalidCharacterFails("utf\08", '\0');
+        this.parseStringInvalidCharacterFails(
+            "utf\08",
+            '\0'
+        );
     }
 
     @Test
@@ -580,14 +592,26 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
         return AcceptCharsetHeaderParser.parseAcceptCharset(text);
     }
 
-    private void parseStringAndCheck(final String header, final String charset) {
-        this.parseStringAndCheck(header, charset, AcceptCharsetValue.NO_PARAMETERS);
+    private void parseStringAndCheck(final String header,
+                                     final String charset) {
+        this.parseStringAndCheck(
+            header,
+            charset,
+            AcceptCharsetValue.NO_PARAMETERS
+        );
     }
 
     private void parseStringAndCheck(final String header,
                                      final String charset,
                                      final String parameterName, final Object parameterValue) {
-        this.parseStringAndCheck(header, charset, this.parameters(parameterName, parameterValue));
+        this.parseStringAndCheck(
+            header,
+            charset,
+            this.parameters(
+                parameterName,
+                parameterValue
+            )
+        );
     }
 
     private void parseStringAndCheck(final String header,
