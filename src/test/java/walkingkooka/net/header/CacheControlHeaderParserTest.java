@@ -26,556 +26,689 @@ import java.util.Optional;
 public final class CacheControlHeaderParserTest extends HeaderParserTestCase<CacheControlHeaderParser,
     CacheControl> {
 
+    private static final Optional<Long> MAX_AGE = Optional.of(123L);
+    private static final Optional<Long> MAX_STALE = Optional.of(456L);
+
     @Test
-    public void testWildcardFails() {
+    public void testParseWildcardFails() {
         this.parseStringInvalidCharacterFails("*");
     }
 
     @Test
-    public void testParameterSeparatorFails() {
+    public void testParseParameterSeparatorFails() {
         this.parseStringInvalidCharacterFails(";");
     }
 
     @Test
-    public void testKeyValueSeparatorFails() {
+    public void testParseKeyValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("=");
     }
 
     @Test
-    public void testSlashFails() {
+    public void testParseSlashFails() {
         this.parseStringInvalidCharacterFails("/");
     }
 
     @Test
-    public void testValueSeparatorFails() {
+    public void testParseValueSeparatorFails() {
         this.parseStringInvalidCharacterFails(",");
     }
 
     @Test
-    public void testDirective() {
+    public void testParseDirective() {
         this.parseStringAndCheck2("A", "A");
     }
 
     @Test
-    public void testDirectiveParameterSeparatorFails() {
+    public void testParseDirectiveParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("A=");
     }
 
     @Test
-    public void testDirectiveParameterSeparatorWhitespaceFails() {
+    public void testParseDirectiveParameterSeparatorWhitespaceFails() {
         this.parseStringInvalidCharacterFails("A= ");
     }
 
     @Test
-    public void testDirectiveWhitespaceFails() {
+    public void testParseDirectiveWhitespaceFails() {
         this.parseStringInvalidCharacterFails("A ");
     }
 
     @Test
-    public void testDirectiveValueSeparatorFails() {
+    public void testParseDirectiveValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("A,");
     }
 
     @Test
-    public void testDirectiveValueSeparatorSpaceFails() {
+    public void testParseDirectiveValueSeparatorSpaceFails() {
         this.parseStringInvalidCharacterFails("A, ");
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorUnclosedQuoteFails() {
+    public void testParseDirectiveKeyValueSeparatorUnclosedQuoteFails() {
         this.parseMissingClosingQuoteFails("A=\"");
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorUnclosedQuoteFails2() {
+    public void testParseDirectiveKeyValueSeparatorUnclosedQuoteFails2() {
         this.parseMissingClosingQuoteFails("A=\"BCD");
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterNonNumericValueFails() {
+    public void testParseDirectiveKeyValueSeparatorParameterNonNumericValueFails() {
         this.parseStringInvalidCharacterFails("A=B");
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterNonNumericValueFails2() {
-        this.parseStringInvalidCharacterFails("A=BCD", 'B');
+    public void testParseDirectiveKeyValueSeparatorParameterNonNumericValueFails2() {
+        this.parseStringInvalidCharacterFails(
+            "A=BCD",
+            'B'
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterNumericValue() {
-        this.parseStringAndCheck2("A=1", "A", 1L);
+    public void testParseDirectiveKeyValueSeparatorParameterNumericValue() {
+        this.parseStringAndCheck2(
+            "A=1",
+            "A",
+            1L
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterNumericValue2() {
-        this.parseStringAndCheck2("A=123", "A", 123L);
+    public void testParseDirectiveKeyValueSeparatorParameterNumericValue2() {
+        this.parseStringAndCheck2(
+            "A=123",
+            "A",
+            123L
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote() {
-        this.parseStringAndCheck2("A=\"B\"", "A", "B");
+    public void testParseDirectiveKeyValueSeparatorParameterQuoteValueQuote() {
+        this.parseStringAndCheck2(
+            "A=\"B\"",
+            "A",
+            "B"
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote2() {
-        this.parseStringAndCheck2("A=\"BCD\"", "A", "BCD");
+    public void testParseDirectiveKeyValueSeparatorParameterQuoteValueQuote2() {
+        this.parseStringAndCheck2(
+            "A=\"BCD\"",
+            "A",
+            "BCD"
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote3() {
-        this.parseStringAndCheck2("A=\"1\"", "A", "1");
+    public void testParseDirectiveKeyValueSeparatorParameterQuoteValueQuote3() {
+        this.parseStringAndCheck2(
+            "A=\"1\"",
+            "A",
+            "1"
+        );
     }
 
     @Test
-    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuoteValueFails() {
+    public void testParseDirectiveKeyValueSeparatorParameterQuoteValueQuoteValueFails() {
         final String text = "A=\"1\"\"2\"";
-        this.parseStringInvalidCharacterFails(text, text.indexOf('2') - 1);
+        this.parseStringInvalidCharacterFails(
+            text,
+            text.indexOf('2') - 1
+        );
     }
 
     @Test
-    public void testDirectiveCommentKeyValueSeparatorParameterNumericValue() {
-        this.parseStringAndCheck2("(abc)A=1", "A", 1L);
+    public void testParseDirectiveCommentKeyValueSeparatorParameterNumericValue() {
+        this.parseStringAndCheck2(
+            "(abc)A=1",
+            "A",
+            1L
+        );
     }
 
-    // max-age.....................................................
+    // max-age..........................................................................................................
 
     @Test
-    public void testMaxAgeWithoutSecondsFails() {
+    public void testParseMaxAgeWithoutSecondsFails() {
         this.parseStringMissingParameterValueFails("max-age");
     }
 
     @Test
-    public void testMaxAgeWithoutSecondsSeparatorFails() {
+    public void testParseMaxAgeWithoutSecondsSeparatorFails() {
         this.parseStringInvalidCharacterFails("max-age,");
     }
 
     @Test
-    public void testMaxAgeWithoutSecondsSpaceSeparatorFails() {
+    public void testParseMaxAgeWithoutSecondsSpaceSeparatorFails() {
         this.parseStringInvalidCharacterFails("max-age ");
     }
 
     @Test
-    public void testMaxAgeWithoutSecondsTabSeparatorFails() {
+    public void testParseMaxAgeWithoutSecondsTabSeparatorFails() {
         this.parseStringInvalidCharacterFails("max-age\t");
     }
 
     @Test
-    public void testMaxAgeInvalidCharacterFails() {
+    public void testParseMaxAgeInvalidCharacterFails() {
         this.parseStringInvalidCharacterFails("max-age=!");
     }
 
     @Test
-    public void testMaxAgeInvalidCharacterFails2() {
+    public void testParseMaxAgeInvalidCharacterFails2() {
         this.parseStringInvalidCharacterFails("max-age=1!");
     }
 
     @Test
-    public void testMaxAgeWithSeconds() {
-        this.parseStringAndCheck2("max-age=1", "max-age", 1L);
+    public void testParseMaxAgeWithSeconds() {
+        this.parseStringAndCheck2(
+            "max-age=1",
+            "max-age",
+            1L
+        );
     }
 
     @Test
-    public void testMaxAgeWithSeconds2() {
-        this.parseStringAndCheck2("max-age=23", "max-age", 23L);
+    public void testParseMaxAgeWithSeconds2() {
+        this.parseStringAndCheck2(
+            "max-age=23",
+            "max-age",
+            23L
+        );
     }
 
-    // max-stale.....................................................
+    // max-stale........................................................................................................
 
     @Test
-    public void testMaxStaleWithoutSeconds() {
+    public void testParseMaxStaleWithoutSeconds() {
         this.parseStringAndCheck2("max-stale", "max-stale");
     }
 
     @Test
-    public void testMaxStaleWithoutSecondsSeparatorFails() {
+    public void testParseMaxStaleWithoutSecondsSeparatorFails() {
         this.parseStringInvalidCharacterFails("max-stale,");
     }
 
     @Test
-    public void testMaxStaleWithoutSecondsSpace() {
+    public void testParseMaxStaleWithoutSecondsSpace() {
         this.parseStringInvalidCharacterFails("max-stale ");
     }
 
     @Test
-    public void testMaxStaleWithoutSecondsTab() {
+    public void testParseMaxStaleWithoutSecondsTab() {
         this.parseStringInvalidCharacterFails("max-stale\t");
     }
 
     @Test
-    public void testMaxStaleInvalidCharacterFails() {
+    public void testParseMaxStaleInvalidCharacterFails() {
         this.parseStringInvalidCharacterFails("max-stale=!");
     }
 
     @Test
-    public void testMaxStaleInvalidCharacterFails2() {
+    public void testParseMaxStaleInvalidCharacterFails2() {
         this.parseStringInvalidCharacterFails("max-stale=1!");
     }
 
     @Test
-    public void testMaxStaleWithSeconds() {
-        this.parseStringAndCheck2("max-stale=1", "max-stale", 1L);
+    public void testParseMaxStaleWithSeconds() {
+        this.parseStringAndCheck2(
+            "max-stale=1",
+            "max-stale",
+            1L
+        );
     }
 
     @Test
-    public void testMaxStaleWithSeconds2() {
-        this.parseStringAndCheck2("max-stale=23", "max-stale", 23L);
+    public void testParseMaxStaleWithSeconds2() {
+        this.parseStringAndCheck2(
+            "max-stale=23",
+            "max-stale",
+            23L
+        );
     }
 
-    // must-revalidate.....................................................
+    // must-revalidate..................................................................................................
 
     @Test
-    public void testMustRevalidateWithoutSecondsSpaceFails() {
+    public void testParseMustRevalidateWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("must-revalidate ");
     }
 
     @Test
-    public void testMustRevalidateWithoutSecondsTabFails() {
+    public void testParseMustRevalidateWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("must-revalidate\t");
     }
 
     @Test
-    public void testMustRevalidateParameterSeparatorFails() {
+    public void testParseMustRevalidateParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("must-revalidate=");
     }
 
     @Test
-    public void testMustRevalidateSeparatorFails() {
+    public void testParseMustRevalidateSeparatorFails() {
         this.parseStringInvalidCharacterFails("must-revalidate,");
     }
 
     @Test
-    public void testMustRevalidate() {
-        this.parseStringAndCheck2("must-revalidate", "must-revalidate");
+    public void testParseMustRevalidate() {
+        this.parseStringAndCheck2(
+            "must-revalidate",
+            "must-revalidate"
+        );
     }
 
-    // no-cache.....................................................
+    // no-cache.........................................................................................................
 
     @Test
-    public void testNoCacheWithoutSecondsSpaceFails() {
+    public void testParseNoCacheWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("no-cache ");
     }
 
     @Test
-    public void testNoCacheWithoutSecondsTabFails() {
+    public void testParseNoCacheWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("no-cache\t");
     }
 
     @Test
-    public void testNoCacheParameterSeparatorFails() {
+    public void testParseNoCacheParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("no-cache=");
     }
 
     @Test
-    public void testNoCacheSeparatorFails() {
+    public void testParseNoCacheSeparatorFails() {
         this.parseStringInvalidCharacterFails("no-cache,");
     }
 
     @Test
-    public void testNoCache() {
-        this.parseStringAndCheck2("no-cache", "no-cache");
+    public void testParseNoCache() {
+        this.parseStringAndCheck2(
+            "no-cache",
+            "no-cache"
+        );
     }
 
-    // no-store.....................................................
+    // no-store.........................................................................................................
 
     @Test
-    public void testNoStoreWithoutSecondsSpaceFails() {
+    public void testParseNoStoreWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("no-store ");
     }
 
     @Test
-    public void testNoStoreWithoutSecondsTabFails() {
+    public void testParseNoStoreWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("no-store\t");
     }
 
     @Test
-    public void testNoStoreParameterSeparatorFails() {
+    public void testParseNoStoreParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("no-store=");
     }
 
     @Test
-    public void testNoStoreSeparatorFails() {
+    public void testParseNoStoreSeparatorFails() {
         this.parseStringInvalidCharacterFails("no-store,");
     }
 
     @Test
-    public void testNoStore() {
+    public void testParseNoStore() {
         this.parseStringAndCheck2("no-store", "no-store");
     }
 
-    // no-transform.....................................................
+    // no-transform.....................................................................................................
 
     @Test
-    public void testNoTransformWithoutSecondsSpaceFails() {
+    public void testParseNoTransformWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("no-transform ");
     }
 
     @Test
-    public void testNoTransformWithoutSecondsTabFails() {
+    public void testParseNoTransformWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("no-transform\t");
     }
 
     @Test
-    public void testNoTransformParameterSeparatorFails() {
+    public void testParseNoTransformParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("no-transform=");
     }
 
     @Test
-    public void testNoTransformSeparatorFails() {
+    public void testParseNoTransformSeparatorFails() {
         this.parseStringInvalidCharacterFails("no-transform,");
     }
 
     @Test
-    public void testNoTransform() {
-        this.parseStringAndCheck2("no-transform", "no-transform");
+    public void testParseNoTransform() {
+        this.parseStringAndCheck2(
+            "no-transform",
+            "no-transform"
+        );
     }
 
-    // public.....................................................
+    // public...........................................................................................................
 
     @Test
-    public void testPublicWithoutSecondsSpaceFails() {
+    public void testParsePublicWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("public ");
     }
 
     @Test
-    public void testPublicWithoutSecondsTabFails() {
+    public void testParsePublicWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("public\t");
     }
 
     @Test
-    public void testPublicParameterSeparatorFails() {
+    public void testParsePublicParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("public=");
     }
 
     @Test
-    public void testPublicSeparatorFails() {
+    public void testParsePublicSeparatorFails() {
         this.parseStringInvalidCharacterFails("public,");
     }
 
     @Test
-    public void testPublic() {
-        this.parseStringAndCheck2("public", "public");
+    public void testParsePublic() {
+        this.parseStringAndCheck2(
+            "public",
+            "public"
+        );
     }
 
-    // private.....................................................
+    // private..........................................................................................................
 
     @Test
-    public void testPrivateWithoutSecondsSpaceFails() {
+    public void testParsePrivateWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("private ");
     }
 
     @Test
-    public void testPrivateWithoutSecondsTabFails() {
+    public void testParsePrivateWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("private\t");
     }
 
     @Test
-    public void testPrivateParameterSeparatorFails() {
+    public void testParsePrivateParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("private=");
     }
 
     @Test
-    public void testPrivateSeparatorFails() {
+    public void testParsePrivateSeparatorFails() {
         this.parseStringInvalidCharacterFails("private,");
     }
 
     @Test
-    public void testPrivate() {
-        this.parseStringAndCheck2("private", "private");
+    public void testParsePrivate() {
+        this.parseStringAndCheck2(
+            "private",
+            "private"
+        );
     }
 
-    // proxy-revalidate.....................................................
+    // proxy-revalidate.................................................................................................
 
     @Test
-    public void testProxyRevalidateWithoutSecondsSpaceFails() {
+    public void testParseProxyRevalidateWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("proxy-revalidate ");
     }
 
     @Test
-    public void testProxyRevalidateWithoutSecondsTabFails() {
+    public void testParseProxyRevalidateWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("proxy-revalidate\t");
     }
 
     @Test
-    public void testProxyRevalidateParameterSeparatorFails() {
+    public void testParseProxyRevalidateParameterSeparatorFails() {
         this.parseStringMissingParameterValueFails("proxy-revalidate=");
     }
 
     @Test
-    public void testProxyRevalidateSeparatorFails() {
+    public void testParseProxyRevalidateSeparatorFails() {
         this.parseStringInvalidCharacterFails("proxy-revalidate,");
     }
 
     @Test
-    public void testProxyRevalidate() {
-        this.parseStringAndCheck2("proxy-revalidate", "proxy-revalidate");
+    public void testParseProxyRevalidate() {
+        this.parseStringAndCheck2(
+            "proxy-revalidate",
+            "proxy-revalidate"
+        );
     }
 
-    // s-maxage.....................................................
+    // s-maxage.........................................................................................................
 
     @Test
-    public void testSmaxAgeWithoutSecondsFails() {
+    public void testParseSmaxAgeWithoutSecondsFails() {
         this.parseStringMissingParameterValueFails("s-maxage", 8);
     }
 
     @Test
-    public void testSmaxAgeWithoutSecondsSeparatorFails() {
+    public void testParseSmaxAgeWithoutSecondsSeparatorFails() {
         this.parseStringInvalidCharacterFails("s-maxage,");
     }
 
     @Test
-    public void testSmaxAgeWithoutSecondsSpaceFails() {
+    public void testParseSmaxAgeWithoutSecondsSpaceFails() {
         this.parseStringInvalidCharacterFails("s-maxage ");
     }
 
     @Test
-    public void testSmaxAgeWithoutSecondsTabFails() {
+    public void testParseSmaxAgeWithoutSecondsTabFails() {
         this.parseStringInvalidCharacterFails("s-maxage\t");
     }
 
     @Test
-    public void testSmaxAgeInvalidCharacterFails() {
+    public void testParseSmaxAgeInvalidCharacterFails() {
         this.parseStringInvalidCharacterFails("s-maxage=!");
     }
 
     @Test
-    public void testSmaxAgeInvalidCharacterFails2() {
+    public void testParseSmaxAgeInvalidCharacterFails2() {
         this.parseStringInvalidCharacterFails("s-maxage=1!");
     }
 
     @Test
-    public void testSmaxAgeWithSeconds() {
-        this.parseStringAndCheck2("s-maxage=1", "s-maxage", 1L);
+    public void testParseSmaxAgeWithSeconds() {
+        this.parseStringAndCheck2(
+            "s-maxage=1",
+            "s-maxage",
+            1L
+        );
     }
 
     @Test
-    public void testSmaxAgeWithSeconds2() {
-        this.parseStringAndCheck2("s-maxage=23", "s-maxage", 23L);
+    public void testParseSmaxAgeWithSeconds2() {
+        this.parseStringAndCheck2(
+            "s-maxage=23",
+            "s-maxage",
+            23L
+        );
     }
 
-    // custom .....................................................................
+    // custom ..........................................................................................................
 
     @Test
-    public void testCustomQuotedValues() {
-        this.parseStringAndCheck2("custom=\"abc\"",
+    public void testParseCustomQuotedValues() {
+        this.parseStringAndCheck2(
+            "custom=\"abc\"",
             "custom",
-            "abc");
+            "abc"
+        );
     }
 
     @Test
-    public void testCustomUnquotedValuesFails() {
-        this.parseStringInvalidCharacterFails("custom=abc", 'a');
+    public void testParseCustomUnquotedValuesFails() {
+        this.parseStringInvalidCharacterFails(
+            "custom=abc",
+            'a'
+        );
     }
 
     @Test
-    public void testImmutable() {
-        this.parseStringAndCheck2("immutable", "immutable");
+    public void testParseImmutable() {
+        this.parseStringAndCheck2(
+            "immutable",
+            "immutable"
+        );
     }
 
     @Test
-    public void testStaleWhileRevalidateNumber() {
-        this.parseStringAndCheck2("stale-while-revalidate=123", "stale-while-revalidate", 123L);
+    public void testParseStaleWhileRevalidateNumber() {
+        this.parseStringAndCheck2(
+            "stale-while-revalidate=123",
+            "stale-while-revalidate",
+            123L
+        );
     }
 
     @Test
-    public void testStaleIfError() {
-        this.parseStringAndCheck2("stale-if-error=456", "stale-if-error", 456L);
+    public void testParseStaleIfError() {
+        this.parseStringAndCheck2(
+            "stale-if-error=456",
+            "stale-if-error",
+            456L
+        );
     }
 
-    // several ....................................................................
+    // several .........................................................................................................
 
     @Test
-    public void testMaxAgeSeparatorNoCache() {
-        this.parseStringAndCheck3("max-age=123,no-cache",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-            CacheControlDirective.NO_CACHE);
-    }
-
-    @Test
-    public void testMaxAgeSpaceNoCache() {
-        this.parseStringAndCheck3("max-age=123, no-cache",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-            CacheControlDirective.NO_CACHE);
-    }
-
-    @Test
-    public void testMaxAgeTabNoCache() {
-        this.parseStringAndCheck3("max-age=123,\tno-cache",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-            CacheControlDirective.NO_CACHE);
+    public void testParseMaxAgeSeparatorNoCache() {
+        this.parseStringAndCheck3(
+            "max-age=123,no-cache",
+            CacheControlDirectiveName.MAX_AGE.setParameter(MAX_AGE),
+            CacheControlDirective.NO_CACHE
+        );
     }
 
     @Test
-    public void testMaxAgeSeparatorMaxStale() {
-        this.parseStringAndCheck3("max-age=123,max-stale=456",
-            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-            CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(456L)));
+    public void testParseMaxAgeSpaceNoCache() {
+        this.parseStringAndCheck3(
+            "max-age=123, no-cache",
+            CacheControlDirectiveName.MAX_AGE.setParameter(MAX_AGE),
+            CacheControlDirective.NO_CACHE
+        );
     }
 
     @Test
-    public void testNoCacheSeparatorNoStoreSeparatorNoTransform() {
-        this.parseStringAndCheck3("no-cache,no-store,no-transform",
+    public void testParseMaxAgeTabNoCache() {
+        this.parseStringAndCheck3(
+            "max-age=123,\tno-cache",
+            CacheControlDirectiveName.MAX_AGE.setParameter(MAX_AGE),
+            CacheControlDirective.NO_CACHE
+        );
+    }
+
+    @Test
+    public void testParseMaxAgeSeparatorMaxStale() {
+        this.parseStringAndCheck3(
+            "max-age=123,max-stale=456",
+            CacheControlDirectiveName.MAX_AGE.setParameter(MAX_AGE),
+            CacheControlDirectiveName.MAX_STALE.setParameter(MAX_STALE)
+        );
+    }
+
+    @Test
+    public void testParseNoCacheSeparatorNoStoreSeparatorNoTransform() {
+        this.parseStringAndCheck3(
+            "no-cache,no-store,no-transform",
             CacheControlDirective.NO_CACHE,
             CacheControlDirective.NO_STORE,
-            CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     @Test
-    public void testNoCacheSeparatorSpaceNoStoreSeparatorSpaceNoTransform() {
-        this.parseStringAndCheck3("no-cache, no-store, no-transform",
+    public void testParseNoCacheSeparatorSpaceNoStoreSeparatorSpaceNoTransform() {
+        this.parseStringAndCheck3(
+            "no-cache, no-store, no-transform",
             CacheControlDirective.NO_CACHE,
             CacheControlDirective.NO_STORE,
-            CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     @Test
-    public void testNoCacheSeparatorTabNoStoreSeparatorTabNoTransform() {
-        this.parseStringAndCheck3("no-cache, no-store, no-transform",
+    public void testParseNoCacheSeparatorTabNoStoreSeparatorTabNoTransform() {
+        this.parseStringAndCheck3(
+            "no-cache, no-store, no-transform",
             CacheControlDirective.NO_CACHE,
             CacheControlDirective.NO_STORE,
-            CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     @Test
-    public void testNoCacheSeparatorSpaceTabSpaceTabNoStoreSeparatorNoTransform() {
-        this.parseStringAndCheck3("no-cache, \t \tno-store,no-transform",
+    public void testParseNoCacheSeparatorSpaceTabSpaceTabNoStoreSeparatorNoTransform() {
+        this.parseStringAndCheck3(
+            "no-cache, \t \tno-store,no-transform",
             CacheControlDirective.NO_CACHE,
             CacheControlDirective.NO_STORE,
-            CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     @Test
-    public void testNoCacheSeparatorSpaceCrNlNoStoreSeparatorNoTransform() {
-        this.parseStringAndCheck3("no-cache,\r\n no-store,no-transform",
+    public void testParseNoCacheSeparatorSpaceCrNlNoStoreSeparatorNoTransform() {
+        this.parseStringAndCheck3(
+            "no-cache,\r\n no-store,no-transform",
             CacheControlDirective.NO_CACHE,
             CacheControlDirective.NO_STORE,
-            CacheControlDirective.NO_TRANSFORM);
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     @Test
-    public void testExtensionQuotedParameterSeparatorNoTransform() {
-        this.parseStringAndCheck3("extension=\"abc\",no-transform",
-            CacheControlDirectiveName.with("extension").setParameter(Cast.to(Optional.of("abc"))),
-            CacheControlDirective.NO_TRANSFORM);
+    public void testParseExtensionQuotedParameterSeparatorNoTransform() {
+        this.parseStringAndCheck3(
+            "extension=\"abc\",no-transform",
+            CacheControlDirectiveName.with("extension")
+                .setParameter(
+                    Cast.to(
+                        Optional.of("abc")
+                    )
+                ),
+            CacheControlDirective.NO_TRANSFORM
+        );
     }
 
     // helpers .........................................................................................................
 
     private void parseStringAndCheck2(final String text,
                                       final String directive) {
-        this.parseStringAndCheck3(text,
-            CacheControlDirective.with(CacheControlDirectiveName.with(directive), Optional.empty()));
+        this.parseStringAndCheck3(
+            text,
+            CacheControlDirective.with(
+                CacheControlDirectiveName.with(directive),
+                Optional.empty()
+            )
+        );
     }
 
     private void parseStringAndCheck2(final String text,
                                       final String directive,
                                       final Object value) {
-        this.parseStringAndCheck3(text,
-            CacheControlDirective.with(Cast.to(CacheControlDirectiveName.with(directive)), Optional.of(value)));
+        this.parseStringAndCheck3(
+            text,
+            CacheControlDirective.with(
+                Cast.to(
+                    CacheControlDirectiveName.with(directive)
+                ),
+                Optional.of(value)
+            )
+        );
     }
 
     private void parseStringAndCheck3(final String text,
                                       final CacheControlDirective<?>... directives) {
-        this.parseStringAndCheck(text, CacheControl.with(Lists.of(directives)));
+        this.parseStringAndCheck(
+            text,
+            CacheControl.with(
+                Lists.of(directives)
+            )
+        );
     }
 
     @Override
