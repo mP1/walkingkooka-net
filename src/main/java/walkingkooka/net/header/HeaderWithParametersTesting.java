@@ -17,43 +17,8 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 /**
  * Mixin interface with helpers to assist testing of {@link HeaderWithParameters} implementations.
  */
-public interface HeaderWithParametersTesting<V extends HeaderWithParameters<N>,
-    N extends HeaderParameterName<?>> extends HeaderTesting2<V> {
-
-    // setParameters ...........................................................................................
-
-    @Test
-    default void testSetParametersNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createHeaderWithParameters()
-                .setParameters(null)
-        );
-    }
-
-    @Test
-    default void testSetParametersSame() {
-        final V headerWithParameters = this.createHeaderWithParameters();
-        assertSame(
-            headerWithParameters,
-            headerWithParameters.setParameters(
-                headerWithParameters.parameters()
-            )
-        );
-    }
-
-    V createHeaderWithParameters();
-
-    @Override
-    default V createHeader() {
-        return this.createHeaderWithParameters();
-    }
+public interface HeaderWithParametersTesting extends HeaderTesting {
 }
