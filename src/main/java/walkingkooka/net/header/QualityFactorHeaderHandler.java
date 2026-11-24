@@ -41,12 +41,12 @@ final class QualityFactorHeaderHandler extends HeaderHandlerNonString<Float> {
     @Override
     Float parse0(final String text) {
         final String trimmed = text.trim();
-        CharSequences.failIfNullOrEmpty(trimmed, "text");
+        CharSequences.failIfNullOrEmpty(trimmed, "Q factor");
 
         try {
             return Float.parseFloat(trimmed);
         } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException("Invalid number in " + CharSequences.quoteAndEscape(text));
+            throw new IllegalArgumentException("Invalid \"Q factor\" number in " + CharSequences.quoteAndEscape(text));
         }
     }
 
