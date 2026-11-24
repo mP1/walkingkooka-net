@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -28,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
-    implements ParseStringTesting<ContentEncoding> {
+    implements ParseStringTesting<ContentEncoding>,
+    PublicClassTesting<ContentEncoding> {
 
     @Test
     public void testWithNullValueFails() {
@@ -164,17 +165,13 @@ public final class ContentEncodingTest extends HeaderTestCase<ContentEncoding>
         return true;
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<ContentEncoding> type() {
         return ContentEncoding.class;
     }
 
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     // ParseStringTesting...............................................................................................
 
