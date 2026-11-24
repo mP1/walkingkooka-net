@@ -144,7 +144,7 @@ public abstract class AcceptEncodingValue extends HeaderWithValueAndParameters<A
     }
 
     @Override final String textParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+        return TEXT_PARAMETER_SEPARATOR;
     }
 
     // isXXX...........................................................................................................

@@ -144,7 +144,7 @@ final public class AcceptCharsetValue extends HeaderWithValueAndParameters<Accep
 
     @Override
     String textParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+        return TEXT_PARAMETER_SEPARATOR;
     }
 
     @Override

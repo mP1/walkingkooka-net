@@ -149,7 +149,7 @@ abstract class HeaderWithValueAndParameters<H extends HeaderWithValueAndParamete
     /**
      * The default parameter separator and space.
      */
-    final static String TO_HEADERTEXT_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.character() + " ";
+    final static String TEXT_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.character() + " ";
 
     // Object...........................................................................................................
 

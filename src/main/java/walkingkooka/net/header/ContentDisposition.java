@@ -139,7 +139,7 @@ public final class ContentDisposition extends HeaderWithValueAndParameters<Conte
 
     @Override
     String textParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+        return TEXT_PARAMETER_SEPARATOR;
     }
 
     @Override
