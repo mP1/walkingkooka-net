@@ -459,7 +459,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     public void testParseWhitespaceWithinUnitFails() {
         this.parseStringFails(
             " bytes 100-200/*",
-            "Unit missing from \" bytes 100-200/*\""
+            "Missing unit"
         );
     }
 
@@ -539,7 +539,7 @@ public final class ContentRangeTest extends HeaderTestCase<ContentRange> impleme
     public void testParseInvalidUpperBoundsFails() {
         this.parseStringFails(
             "bytes 100-99/*",
-            "Invalid upper bounds 99 < 100 in \"bytes 100-99/*\""
+            "Invalid upper bounds 99 < 100"
         );
     }
 

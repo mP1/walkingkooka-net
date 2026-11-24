@@ -159,7 +159,7 @@ public final class HttpEntityTest implements ParseStringTesting<HttpEntity>,
     public void testParseHeaderContentRangeFails() {
         this.parseStringFails(
             "Content-Range: ???\r\n",
-            new IllegalArgumentException("Content-Range: Unit missing from \" ???\"")
+            new IllegalArgumentException("Content-Range: Missing unit")
         );
     }
 
