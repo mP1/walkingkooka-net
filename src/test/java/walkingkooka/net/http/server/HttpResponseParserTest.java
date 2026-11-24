@@ -19,7 +19,6 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -69,7 +68,7 @@ public final class HttpResponseParserTest implements ClassTesting2<HttpResponseP
     public void testParseInvalidHeaderFails() {
         this.parseStringFails(
             "HTTP/1.0 200 OK\r\nContent-Length:A",
-            new HeaderException("Content-Length: Invalid number in \"A\"")
+            new IllegalArgumentException("Content-Length: Invalid number in \"A\"")
         );
     }
 

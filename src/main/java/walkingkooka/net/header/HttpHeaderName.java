@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.net.AbsoluteUrl;
@@ -964,9 +965,16 @@ final public class HttpHeaderName<T> extends HeaderNameValueShared<T>
             return this.handler.parse(
                 value
             );
-        } catch (final Exception cause) {
+        } catch (final NullPointerException nullPointerException) {
+            throw nullPointerException;
+        } catch (final InvalidCharacterException invalidCharacterException) {
             // Accept: Invalid character '?' at 1 in " ?"
-            throw new HeaderException(
+            invalidCharacterException.setLabel(
+                Optional.of(this.name)
+            );
+            throw invalidCharacterException;
+        } catch (final RuntimeException cause) {
+            throw new IllegalArgumentException(
                 this.name + HttpEntity.HEADER_NAME_SEPARATOR + " " + cause.getMessage(),
                 cause
             );
