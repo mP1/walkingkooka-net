@@ -22,8 +22,7 @@ import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
 
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
-    ClassTesting<UrlFragment>,
+    PublicClassTesting<UrlFragment>,
     HasTextTesting,
     ComparableTesting2<UrlFragment>,
     CanBeEmptyTesting,
@@ -446,12 +445,7 @@ public final class UrlFragmentTest implements ParseStringTesting<UrlFragment>,
         );
     }
 
-    // ClassTesting....................................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
+    // Class............................................................................................................
 
     @Override
     public Class<UrlFragment> type() {
