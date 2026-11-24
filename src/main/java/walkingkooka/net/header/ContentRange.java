@@ -163,14 +163,6 @@ public final class ContentRange implements Header {
     public static ContentRange parse(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        try {
-            return tryParse(text);
-        } catch (final RuntimeException cause) {
-            throw new HeaderException(cause.getMessage(), cause);
-        }
-    }
-
-    private static ContentRange tryParse(final String text) {
         final char wildcard = WILDCARD.character();
 
         int mode = MODE_UNIT;
