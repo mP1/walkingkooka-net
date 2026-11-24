@@ -35,6 +35,10 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     PredicateTesting2<AcceptLanguageValue, LanguageName>,
     PublicClassTesting<AcceptLanguageValue> {
 
+    private final static LanguageName EN = LanguageName.with("en");
+
+    private final static LanguageName FR = LanguageName.with("fr");
+
     @Test
     public void testWithNullFails() {
         assertThrows(
@@ -45,7 +49,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testWith() {
-        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(EN);
         this.check(language);
     }
 
@@ -78,17 +82,17 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testSetValueSame2() {
-        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
+        final AcceptLanguageValue language = AcceptLanguageValue.with(EN);
         assertSame(
             language,
-            language.setValue(this.en())
+            language.setValue(EN)
         );
     }
 
     @Test
     public void testSetValueDifferent() {
         final AcceptLanguageValue language = AcceptLanguageValue.WILDCARD;
-        final LanguageName name = this.fr();
+        final LanguageName name = FR;
         final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
 
@@ -97,8 +101,8 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testSetValueDifferent2() {
-        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en());
-        final LanguageName name = this.fr();
+        final AcceptLanguageValue language = AcceptLanguageValue.with(EN);
+        final LanguageName name = FR;
         final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
 
@@ -107,9 +111,9 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Test
     public void testSetValueDifferentWithParameters() {
-        final AcceptLanguageValue language = AcceptLanguageValue.with(this.en())
+        final AcceptLanguageValue language = AcceptLanguageValue.with(EN)
             .setParameters(this.parametersWithQFactor());
-        final LanguageName name = this.fr();
+        final LanguageName name = FR;
         final AcceptLanguageValue different = language.setValue(name);
         assertNotSame(language, different);
         this.check(
@@ -122,7 +126,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     private void check(final AcceptLanguageValue language) {
         this.check(
             language,
-            this.en(),
+            EN,
             AcceptLanguageValue.NO_PARAMETERS
         );
     }
@@ -134,7 +138,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
         final AcceptLanguageValue language = this.createHeaderWithParameters();
         final Map<AcceptLanguageParameterName<?>, Object> parameters = this.parametersWithQFactor();
         final AcceptLanguageValue different = language.setParameters(parameters);
-        this.check(different, this.en(), parameters);
+        this.check(different, EN, parameters);
     }
 
     Map<AcceptLanguageParameterName<?>, Object> parametersWithQFactor() {
@@ -168,7 +172,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testParse() {
         this.parseStringAndCheck(
             "en",
-            AcceptLanguageValue.with(this.en())
+            AcceptLanguageValue.with(EN)
         );
     }
 
@@ -176,7 +180,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testParseWithParameters() {
         this.parseStringAndCheck(
             "en; abc=123",
-            AcceptLanguageValue.with(this.en())
+            AcceptLanguageValue.with(EN)
                 .setParameters(
                     Maps.of(
                         AcceptLanguageParameterName.with("abc"),
@@ -197,7 +201,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testTextList() {
         this.textAndCheck(
             AcceptLanguageValue.with(
-                this.en()
+                EN
             ),
             "en"
         );
@@ -209,7 +213,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testHeaderTextListWithParameters() {
         this.toHeaderTextListAndCheck(
             "en; q=0.75",
-            this.en()
+            EN
                 .setParameters(
                     Maps.of(
                         AcceptLanguageParameterName.Q,
@@ -233,7 +237,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testTestWildcard() {
         this.testTrue(
             AcceptLanguageValue.WILDCARD,
-            this.en()
+            EN
         );
     }
 
@@ -241,23 +245,23 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
     public void testTestWildcardNonWildcard() {
         this.testTrue(
             AcceptLanguageValue.WILDCARD,
-            this.fr()
+            FR
         );
     }
 
     @Test
     public void testTestNonWildcardNonWildcard() {
         this.testTrue(
-            AcceptLanguageValue.with(this.en()),
-            this.en()
+            AcceptLanguageValue.with(EN),
+            EN
         );
     }
 
     @Test
     public void testTestNonWildcardNonWildcard2() {
         this.testFalse(
-            AcceptLanguageValue.with(this.en()),
-            this.fr()
+            AcceptLanguageValue.with(EN),
+            FR
         );
     }
 
@@ -331,15 +335,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Override
     public AcceptLanguageValue createHeaderWithParameters() {
-        return AcceptLanguageValue.with(this.en());
-    }
-
-    private LanguageName en() {
-        return LanguageName.with("en");
-    }
-
-    private LanguageName fr() {
-        return LanguageName.with("fr");
+        return AcceptLanguageValue.with(EN);
     }
 
     @Override
@@ -364,7 +360,7 @@ public final class AcceptLanguageValueTest extends HeaderWithParametersTestCase<
 
     @Override
     public AcceptLanguageValue createDifferentHeader() {
-        return AcceptLanguageValue.with(this.fr());
+        return AcceptLanguageValue.with(FR);
     }
 
     // PredicateTesting2................................................................................................
