@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Optional;
 
@@ -27,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControlDirective<?>> {
+public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControlDirective<?>>
+    implements PublicClassTesting<CacheControlDirective<?>> {
 
     // with.............................................................................................................
 
@@ -359,10 +360,5 @@ public final class CacheControlDirectiveTest extends HeaderTestCase<CacheControl
     @Override
     public Class<CacheControlDirective<?>> type() {
         return Cast.to(CacheControlDirective.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
