@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.List;
@@ -27,7 +27,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
-    implements ParseStringTesting<ContentLanguage> {
+    implements ParseStringTesting<ContentLanguage>,
+    PublicClassTesting<ContentLanguage> {
 
     @Test
     public void testWithNullValueFails() {
@@ -149,11 +150,6 @@ public final class ContentLanguageTest extends HeaderTestCase<ContentLanguage>
     @Override
     public Class<ContentLanguage> type() {
         return ContentLanguage.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting...............................................................................................
