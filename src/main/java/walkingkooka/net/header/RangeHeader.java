@@ -133,7 +133,7 @@ public final class RangeHeader implements Header,
     public RangeHeader setUnit(final RangeHeaderUnit unit) {
         return this.unit.equals(unit) ?
             this :
-            this.replace(
+            new RangeHeader(
                 checkUnit(unit),
                 this.ranges
             );
@@ -159,7 +159,10 @@ public final class RangeHeader implements Header,
         final List<Range<Long>> copy = copyAndCheckValue(value);
         return this.ranges.equals(copy) ?
             this :
-            this.replace(this.unit, copy);
+            new RangeHeader(
+                this.unit,
+                copy
+            );
     }
 
     private final List<Range<Long>> ranges;
@@ -208,13 +211,6 @@ public final class RangeHeader implements Header,
                 }
             }
         }
-    }
-
-    // replaceParameters................................................................................................
-
-    private RangeHeader replace(final RangeHeaderUnit unit,
-                                final List<Range<Long>> ranges) {
-        return new RangeHeader(unit, ranges);
     }
 
     // Header...........................................................................................................
