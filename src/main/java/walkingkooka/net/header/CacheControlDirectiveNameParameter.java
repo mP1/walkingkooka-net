@@ -33,7 +33,7 @@ enum CacheControlDirectiveNameParameter {
             if (value.isPresent()) {
                 name.handler.check(value.get());
             } else {
-                fail("Directive " + name + " missing required parameter.");
+                fail("Directive " + CharSequences.quoteAndEscape(name.name) + " missing required parameter.");
             }
             return value;
         }
@@ -50,7 +50,9 @@ enum CacheControlDirectiveNameParameter {
         @Override
         <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
-                fail("Directive " + name + " does not accept parameter " + CharSequences.quoteIfChars(value));
+                fail(
+                    "Directive " + CharSequences.quoteAndEscape(name.name) + " does not accept parameter " + CharSequences.quoteIfChars(value)
+                );
             }
             return value;
         }
@@ -66,6 +68,6 @@ enum CacheControlDirectiveNameParameter {
     abstract <T> Optional<T> check0(Optional<T> value, final CacheControlDirectiveName<T> name);
 
     final <T> Optional<T> fail(final String message) {
-        throw new HeaderException(message);
+        throw new IllegalArgumentException(message);
     }
 }

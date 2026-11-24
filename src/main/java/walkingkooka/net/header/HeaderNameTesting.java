@@ -63,7 +63,7 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     @Test
     default void testCheckValueWithInvalidTypeFails() {
         assertThrows(
-            HeaderException.class,
+            RuntimeException.class,
             () -> this.checkValue(this)
         );
     }

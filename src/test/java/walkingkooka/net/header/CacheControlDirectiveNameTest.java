@@ -170,7 +170,13 @@ final public class CacheControlDirectiveNameTest extends HeaderNameValueSharedTe
 
     @Test
     public void testSetParameterInvalidFails() {
-        assertThrows(HeaderException.class, () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty()));
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty())
+            ),
+            "Directive \"max-age\" missing required parameter."
+        );
     }
 
     @Test
