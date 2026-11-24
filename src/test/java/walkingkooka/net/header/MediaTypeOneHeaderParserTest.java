@@ -25,17 +25,17 @@ import java.util.Optional;
 public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeOneHeaderParser,
     MediaType> {
     @Test
-    public void testParameterSeparatorFails() {
+    public void testParseParameterSeparatorFails() {
         this.parseStringMissingValueFails(";", 0);
     }
 
     @Test
-    public void testTypeSlashSubTypeValueSeparatorFails() {
+    public void testParseTypeSlashSubTypeValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("type/subtype,");
     }
 
     @Test
-    public void testTypeSlashSubTypeParameterSeparatorParameterNameKeyValueSeparatorParameterValueValueSeparatorFails() {
+    public void testParseTypeSlashSubTypeParameterSeparatorParameterNameKeyValueSeparatorParameterValueValueSeparatorFails() {
         this.parseStringInvalidCharacterFails("type/subtype;p=v,");
     }
 
