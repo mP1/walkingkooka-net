@@ -17,9 +17,21 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
 
-public final class HasAbsoluteUrlTestingTest implements PublicClassTesting<HasAbsoluteUrlTesting> {
+public final class HasAbsoluteUrlTestingTest implements HasAbsoluteUrlTesting,
+    PublicClassTesting<HasAbsoluteUrlTesting> {
+
+    @Test
+    public void testConstantsDifferent() {
+        this.checkNotEquals(
+            ABSOLUTE_URL,
+            DIFFERENT_ABSOLUTE_URL
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<HasAbsoluteUrlTesting> type() {
