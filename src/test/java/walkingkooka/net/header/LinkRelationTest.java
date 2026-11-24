@@ -38,14 +38,20 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Test
     public void testWithText() {
-        final LinkRelation<?> linkRelation = LinkRelation.with(TEXT);
-        this.checkEquals(TEXT, linkRelation.value(), "value");
+        this.valueAndCheck(
+            LinkRelation.with(TEXT),
+            Cast.to(TEXT)
+        );
     }
 
     @Test
     public void testWithUrl() {
-        final LinkRelation<?> linkRelation = LinkRelation.with(URL_TEXT);
-        this.checkEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
+        this.valueAndCheck(
+            LinkRelation.with(URL_TEXT),
+            Cast.to(
+                AbsoluteUrl.parse(URL_TEXT)
+            )
+        );
     }
 
     @Override
