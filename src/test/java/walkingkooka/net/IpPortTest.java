@@ -22,9 +22,8 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public final class IpPortTest implements ClassTesting2<IpPort>,
+public final class IpPortTest implements PublicClassTesting<IpPort>,
     ConstantsTesting<IpPort>,
     ComparableTesting2<IpPort>,
     ToStringTesting {
@@ -96,11 +95,6 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     @Override
     public Class<IpPort> type() {
         return IpPort.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
