@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.predicate.PredicateTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Map;
@@ -32,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue> extends HeaderWithParametersTestCase<AcceptEncodingValue, AcceptEncodingValueParameterName<?>>
     implements ComparableTesting2<AcceptEncodingValue>,
     ParseStringTesting<AcceptEncodingValue>,
-    PredicateTesting2<AcceptEncodingValue, ContentEncoding> {
+    PredicateTesting2<AcceptEncodingValue, ContentEncoding>,
+    PackagePrivateClassTesting<AcceptEncodingValue> {
 
     AcceptEncodingValueTestCase() {
         super();
@@ -164,18 +165,6 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         return false;
     }
 
-    // ClassTesting................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public final Class<AcceptEncodingValue> type() {
-        return Cast.to(this.encodingType());
-    }
-
     abstract Class<A> encodingType();
 
     // ComparableTesting................................................................................................
@@ -205,7 +194,12 @@ public abstract class AcceptEncodingValueTestCase<A extends AcceptEncodingValue>
         return this.createHeaderWithParameters();
     }
 
-    // ClassName..Testing...............................................................................................
+    // class............................................................................................................
+
+    @Override
+    public final Class<AcceptEncodingValue> type() {
+        return Cast.to(this.encodingType());
+    }
 
     @Override
     public final String typeNamePrefix() {
