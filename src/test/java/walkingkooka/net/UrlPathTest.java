@@ -24,8 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
@@ -39,7 +38,7 @@ import java.util.stream.StreamSupport;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathTest implements ClassTesting2<UrlPath>,
+public final class UrlPathTest implements PublicClassTesting<UrlPath>,
     IteratorTesting,
     PathTesting<UrlPath, UrlPathName>,
     ParseStringTesting<UrlPath>,
@@ -1307,15 +1306,10 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         );
     }
 
-    // ClassTestCase ...................................................................................................
+    // class........ ...................................................................................................
 
     @Override
     public Class<UrlPath> type() {
         return UrlPath.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
