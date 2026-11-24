@@ -20,8 +20,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.Optional;
@@ -29,7 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting2<UrlPath>,
+public abstract class UrlPathTestCase<P extends UrlPath> implements PackagePrivateClassTesting<UrlPath>,
     ToStringTesting,
     TreePrintableTesting {
 
@@ -273,9 +272,4 @@ public abstract class UrlPathTestCase<P extends UrlPath> implements ClassTesting
     }
 
     abstract Class<P> urlPathType();
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 }
