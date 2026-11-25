@@ -18,18 +18,12 @@
 package walkingkooka.net.convert;
 
 import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class NetConverterTest implements ClassTesting<NetConverter<?>> {
+public final class NetConverterTest implements PackagePrivateClassTesting<NetConverter<?>> {
 
     @Override
     public Class<NetConverter<?>> type() {
         return Cast.to(NetConverter.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
