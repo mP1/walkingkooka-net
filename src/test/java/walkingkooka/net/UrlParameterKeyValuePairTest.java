@@ -19,10 +19,9 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlParameterKeyValuePair>,
+public final class UrlParameterKeyValuePairTest implements PackagePrivateClassTesting<UrlParameterKeyValuePair>,
     ToStringTesting {
 
     @Test
@@ -33,10 +32,5 @@ public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlPara
     @Override
     public Class<UrlParameterKeyValuePair> type() {
         return UrlParameterKeyValuePair.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
