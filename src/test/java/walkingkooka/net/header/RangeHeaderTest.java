@@ -160,7 +160,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
                 () -> this.range()
                     .setValue(Lists.empty())
             ),
-            "Empty ranges"
+            "Missing range"
         );
     }
 
@@ -174,7 +174,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
                         this.rangesWithOverlap()
                     )
             ),
-            "Overlap between (100..200) and (200..300)"
+            "Overlap between 100-200 and 200-300"
         );
     }
 
@@ -188,7 +188,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
                         this.rangesWithOverlap2()
                     )
             ),
-            "Overlap between (100..200) and (200..300)"
+            "Overlap between 100-200 and 200-300"
         );
     }
 
@@ -202,7 +202,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
                         this.rangesWithOverlap3()
                     )
             ),
-            "Overlap between <=100 and (75..150)"
+            "Overlap between 0-100 and 75-150"
         );
     }
 
@@ -266,7 +266,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseWithOverlapFails() {
         this.parseStringFails(
             "bytes=100-150,200-250,225-300",
-            new IllegalArgumentException("Overlap between (200..250) and (225..300)")
+            new IllegalArgumentException("Overlap between 200-250 and 225-300")
         );
     }
 
@@ -274,7 +274,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseWithOverlapFails2() {
         this.parseStringFails(
             "bytes=100-150,200-250,225-",
-            new IllegalArgumentException("Overlap between (200..250) and >=225")
+            new IllegalArgumentException("Overlap between 200-250 and 225-")
         );
     }
 

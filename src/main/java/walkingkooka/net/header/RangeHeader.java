@@ -175,23 +175,9 @@ public final class RangeHeader implements Header,
 
         final List<Range<Long>> copy = Lists.immutable(ranges);
 
-        final int count = ranges.size();
-        if (0 == count) {
-            throw new IllegalArgumentException("Empty ranges");
-        }
-        final int last = count - 1;
-        for (int i = 0; i < last; i++) {
-            final Range<Long> range = copy.get(i);
+        checkValue(copy);
 
-            for (int j = i + 1; j < count; j++) {
-                final Range<Long> other = copy.get(j);
-                if (range.isOverlapping(other)) {
-                    throw new IllegalArgumentException("Overlap between " + range + " and " + other);
-                }
-            }
-        }
-
-        return ranges;
+        return copy;
     }
 
     private static void checkValue(final List<Range<Long>> ranges) {
@@ -204,11 +190,18 @@ public final class RangeHeader implements Header,
             final Range<Long> range = ranges.get(i);
 
             for (int j = i + 1; j < count; j++) {
-                final Range<Long> other = ranges.get(j);
-                if (range.isOverlapping(other)) {
-                    throw new IllegalArgumentException("Overlap between " + range + " and " + other);
-                }
+                rangeOverlapCheck(
+                    range,
+                    ranges.get(j)
+                );
             }
+        }
+    }
+
+    private static void rangeOverlapCheck(final Range<Long> left,
+                                          final Range<Long> right) {
+        if (left.isOverlapping(right)) {
+            throw new IllegalArgumentException("Overlap between " + formatRange(left) + " and " + formatRange(right));
         }
     }
 
@@ -272,16 +265,20 @@ public final class RangeHeader implements Header,
     @Override
     public String toString() {
         return this.unit.text() + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
-            .map(this::toStringRange)
+            .map(RangeHeader::formatRange)
             .collect(Collectors.joining(SEPARATOR + " "));
     }
 
     /**
      * Formats a {@link Range} to match the header format.
      */
-    private String toStringRange(final Range<Long> range) {
+    private static String formatRange(final Range<Long> range) {
         final StringBuilder b = new StringBuilder();
-        b.append(range.lowerBound().value().get());
+        b.append(
+            range.lowerBound()
+                .value()
+                .orElse(0L)
+        );
         b.append(BETWEEN);
 
         final RangeBound<Long> upper = range.upperBound();
