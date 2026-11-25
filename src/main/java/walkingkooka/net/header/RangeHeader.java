@@ -89,11 +89,11 @@ public final class RangeHeader implements Header,
         final int dash = value.indexOf(BETWEEN.character());
         if (-1 == dash) {
             throw new IllegalArgumentException(
-                "Invalid Range: Missing " + CharSequences.quoteIfChars(BETWEEN.character()));
+                "Invalid \"Range\": Missing " + CharSequences.quoteIfChars(BETWEEN.character()));
         }
 
         if (0 == dash) {
-            throw new IllegalArgumentException("Invalid Range: Missing start");
+            throw new IllegalArgumentException("Invalid \"Range\": Missing start");
         }
 
         final Range<Long> from = Range.greaterThanEquals(Long.parseLong(value.substring(0, dash).trim()));

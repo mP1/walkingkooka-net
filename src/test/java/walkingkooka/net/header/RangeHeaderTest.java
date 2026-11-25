@@ -282,7 +282,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseWithOverlapFails3() {
         this.parseStringFails(
             "bytes=-150,200-250,125-175",
-            new IllegalArgumentException("Invalid Range: Missing start")
+            new IllegalArgumentException("Invalid \"Range\": Missing start")
         );
     }
 
@@ -290,7 +290,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseRangeMissingStartFails() {
         this.parseStringFails(
             "bytes=-99",
-            new IllegalArgumentException("Invalid Range: Missing start")
+            new IllegalArgumentException("Invalid \"Range\": Missing start")
         );
     }
 
@@ -298,7 +298,7 @@ public final class RangeHeaderTest extends HeaderTestCase<RangeHeader>
     public void testParseRangeMissingStartFails2() {
         this.parseStringFails(
             "bytes=98-99,-50",
-            new IllegalArgumentException("Invalid Range: Missing start")
+            new IllegalArgumentException("Invalid \"Range\": Missing start")
         );
     }
 
