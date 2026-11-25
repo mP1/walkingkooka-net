@@ -74,7 +74,7 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
             "type1/subtype1;p1=v1, type2/subtype2",
             MediaType.with("type1", "subtype1")
                 .setParameters(
-                    this.parameters("p1", "v1")
+                    parameters("p1", "v1")
                 ),
             MediaType.with("type2", "subtype2")
         );
@@ -86,11 +86,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
             "type1/subtype1;p1=v1,type2/subtype2;p2=v2",
             MediaType.with("type1", "subtype1")
                 .setParameters(
-                    this.parameters("p1", "v1")
+                    parameters("p1", "v1")
                 ),
             MediaType.with("type2", "subtype2")
                 .setParameters(
-                    this.parameters("p2", "v2")
+                    parameters("p2", "v2")
                 )
         );
     }
@@ -101,11 +101,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
             "type1/subtype1;p1=v1, type2/subtype2;p2=v2",
             MediaType.with("type1", "subtype1")
                 .setParameters(
-                    this.parameters("p1", "v1")
+                    parameters("p1", "v1")
                 ),
             MediaType.with("type2", "subtype2")
                 .setParameters(
-                    this.parameters("p2", "v2")
+                    parameters("p2", "v2")
                 )
         );
     }
@@ -116,11 +116,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
             "type1/subtype1; p1=v1, type2/subtype2; p2=v2",
             MediaType.with("type1", "subtype1")
                 .setParameters(
-                    this.parameters("p1", "v1")
+                    parameters("p1", "v1")
                 ),
             MediaType.with("type2", "subtype2")
                 .setParameters(
-                    this.parameters("p2", "v2")
+                    parameters("p2", "v2")
                 )
         );
     }
@@ -131,15 +131,15 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
             "type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
             MediaType.with("type2", "subtype2")
                 .setParameters(
-                    this.parameters("q", 1.0f)
+                    parameters("q", 1.0f)
                 ),
             MediaType.with("type3", "subtype3")
                 .setParameters(
-                    this.parameters("q", 0.5f)
+                    parameters("q", 0.5f)
                 ),
             MediaType.with("type1", "subtype1")
                 .setParameters(
-                    this.parameters("q", 0.25f)
+                    parameters("q", 0.25f)
                 )
         );
     }
