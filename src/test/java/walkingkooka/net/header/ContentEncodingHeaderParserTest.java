@@ -145,7 +145,7 @@ public final class ContentEncodingHeaderParserTest extends HeaderParserTestCase<
     }
 
     @Override
-    ContentEncoding parseHeader(final String text) {
+    public ContentEncoding parseString(final String text) {
         return ContentEncodingHeaderParser.parseContentEncoding(text);
     }
 

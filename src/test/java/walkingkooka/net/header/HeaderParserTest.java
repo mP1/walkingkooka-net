@@ -84,11 +84,15 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     private void whitespaceInvalidCharacterFails(final String text,
                                                  final int invalidCharacterPosition) {
-        final HeaderException expected = assertThrows(HeaderException.class, () -> this.whitespace(text));
         this.getMessageAndCheck(
-            expected,
-            new InvalidCharacterException(text, invalidCharacterPosition)
-                .getMessage()
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> this.whitespace(text)
+            ),
+            new InvalidCharacterException(
+                text,
+                invalidCharacterPosition
+            ).getMessage()
         );
     }
 
@@ -191,27 +195,42 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     @Test
     public void testEncodedTextCharsetInvalidCharacterFails() {
-        assertThrows(HeaderException.class, () -> this.encodedText("utf\08"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> this.encodedText("utf\08")
+        );
     }
 
     @Test
     public void testEncodedTextCharsetEmptyFails() {
-        assertThrows(HeaderException.class, () -> this.encodedText("'en'abc"));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.encodedText("'en'abc")
+        );
     }
 
     @Test
     public void testEncodedTextLanguageInvalidCharacterFails() {
-        assertThrows(HeaderException.class, () -> this.encodedText("utf-8'a\0c'abc"));
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> this.encodedText("utf-8'a\0c'abc")
+        );
     }
 
     @Test
     public void testEncodedTextLanguageUnclosedFails() {
-        assertThrows(InvalidEncodedTextHeaderException.class, () -> this.encodedText("utf-8'en"));
+        assertThrows(
+            InvalidEncodedTextHeaderException.class,
+            () -> this.encodedText("utf-8'en")
+        );
     }
 
     @Test
     public void testEncodedTextStringInvalidCharacterFails() {
-        assertThrows(InvalidEncodedTextHeaderException.class, () -> this.encodedText("utf-8''ab "));
+        assertThrows(
+            InvalidEncodedTextHeaderException.class,
+            () -> this.encodedText("utf-8''ab ")
+        );
     }
 
     @Test
@@ -407,14 +426,14 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void commentFails(final String text) {
-        final HeaderException expected = assertThrows(
-            HeaderException.class,
-            () -> {
-                final HeaderParser parser = new TestHeaderParser(text);
-                parser.comment();
-            });
         this.getMessageAndCheck(
-            expected,
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final HeaderParser parser = new TestHeaderParser(text);
+                    parser.comment();
+                }
+            ),
             HeaderParser.missingClosingParens(text)
         );
     }
@@ -538,7 +557,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     // helpers.................................................................................................
 
     @Override
-    Void parseHeader(final String text) {
+    public Void parseString(final String text) {
         new TestHeaderParser(text);
         return null;
     }

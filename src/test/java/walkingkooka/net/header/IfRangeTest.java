@@ -64,7 +64,7 @@ public final class IfRangeTest extends HeaderTestCase<IfRange<?>> implements Par
     @Test
     public void testParseInvalidFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> IfRange.parse("\"1234567890abcdef")
         );
     }

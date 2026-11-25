@@ -59,7 +59,7 @@ final class RangeHeaderHeaderHandler extends HeaderHandlerNonString<RangeHeader>
     }
 
     @Override
-    String toText0(final RangeHeader value, final Name name) {
+    String toText(final RangeHeader value, final Name name) {
         return value.toString();
     }
 

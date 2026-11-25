@@ -53,7 +53,7 @@ final class HeaderHandlerNonStringRelativeUrl extends HeaderHandlerNonString<Rel
     }
 
     @Override
-    String toText0(final RelativeUrl value, final Name name) {
+    String toText(final RelativeUrl value, final Name name) {
         return value.toString();
     }
 

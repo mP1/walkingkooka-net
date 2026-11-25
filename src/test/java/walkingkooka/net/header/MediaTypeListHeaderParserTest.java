@@ -275,17 +275,10 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     }
 
     @Override
-    List<MediaType> parseHeader(final String text) {
-        try {
-            return listReadOnlyCheck(
-                MediaTypeListHeaderParser.parseMediaTypeList(text)
-            );
-        } catch (final HeaderException headerException) {
-            final RuntimeException cause = (RuntimeException) headerException.getCause();
-            throw null != cause ?
-                cause :
-                headerException;
-        }
+    public List<MediaType> parseString(final String text) {
+        return listReadOnlyCheck(
+            MediaTypeListHeaderParser.parseMediaTypeList(text)
+        );
     }
 
     @Override

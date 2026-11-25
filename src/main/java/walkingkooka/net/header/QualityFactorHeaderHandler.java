@@ -68,7 +68,7 @@ final class QualityFactorHeaderHandler extends HeaderHandlerNonString<Float> {
     }
 
     @Override
-    String toText0(final Float value, final Name name) {
+    String toText(final Float value, final Name name) {
         return value.toString();
     }
 

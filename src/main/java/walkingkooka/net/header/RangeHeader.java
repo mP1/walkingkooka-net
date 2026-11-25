@@ -168,8 +168,7 @@ public final class RangeHeader implements Header,
     private final List<Range<Long>> ranges;
 
     /**
-     * The charsets of ranges must not be empty, contain nulls or overlapping ranges. If any of these tests fail a
-     * {@link HeaderException} will be thrown.
+     * The charsets of ranges must not be empty, contain nulls or overlapping ranges.
      */
     private static List<Range<Long>> copyAndCheckValue(final List<Range<Long>> ranges) {
         Objects.requireNonNull(ranges, "ranges");

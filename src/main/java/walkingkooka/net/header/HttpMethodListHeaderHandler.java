@@ -58,7 +58,7 @@ final class HttpMethodListHeaderHandler extends HeaderHandlerNonString<List<Http
     }
 
     @Override
-    String toText0(final List<HttpMethod> value, final Name name) {
+    String toText(final List<HttpMethod> value, final Name name) {
         return value.stream()
             .map(HttpMethod::value)
             .collect(Collectors.joining(", "));

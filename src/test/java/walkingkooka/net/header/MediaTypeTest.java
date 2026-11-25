@@ -953,7 +953,7 @@ final public class MediaTypeTest extends HeaderWithParametersTestCase<MediaType,
     @Test
     public void testQParameterPresentInvalidFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.mediaType()
                 .setParameters(parameters(
                         MediaTypeParameterName.Q.value(),

@@ -29,7 +29,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.HasOptionalNameTesting;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.HasContentTypeTesting;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.FakeWebFile;
@@ -78,7 +77,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         final HttpEntity entity = this.createHttpEntity();
 
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> entity.setHeaders(
                 map(
                     HttpHeaderName.ACCEPT_CHARSET,
@@ -117,7 +116,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         final HttpHeaderName<?> header = HttpHeaderName.CONTENT_LENGTH;
 
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.createHttpEntity()
                 .setHeader(
                     header,
@@ -179,7 +178,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     @Test
     public final void testAddHeaderInvalidValueFails() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> this.createHttpEntity()
                 .addHeader(
                     (HttpHeaderName<?>)

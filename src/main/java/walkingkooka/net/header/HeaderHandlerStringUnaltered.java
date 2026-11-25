@@ -42,7 +42,7 @@ final class HeaderHandlerStringUnaltered extends HeaderHandlerString {
     }
 
     @Override
-    String toText0(final String value, final Name name) {
+    String toText(final String value, final Name name) {
         return value;
     }
 

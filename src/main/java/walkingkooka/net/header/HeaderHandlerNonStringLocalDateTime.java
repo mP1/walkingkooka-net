@@ -79,7 +79,7 @@ final class HeaderHandlerNonStringLocalDateTime extends HeaderHandlerNonString<L
     }
 
     @Override
-    String toText0(final LocalDateTime value, final Name name) {
+    String toText(final LocalDateTime value, final Name name) {
         return FORMATTER.format(value);
     }
 

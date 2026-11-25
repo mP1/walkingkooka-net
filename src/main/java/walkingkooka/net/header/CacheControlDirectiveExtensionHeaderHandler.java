@@ -43,12 +43,12 @@ final class CacheControlDirectiveExtensionHeaderHandler extends HeaderHandlerNon
      * Try parsing as a {@link Long} and then {@link String}
      */
     @Override
-    Object parse0(final String text) throws HeaderException {
+    Object parse0(final String text) {
         Object value;
 
         try {
             value = LONG.parse(text);
-        } catch (final HeaderException cause) {
+        } catch (final RuntimeException cause) {
             value = QUOTED_UNQUOTED_STRING.parse(text);
         }
 
@@ -62,13 +62,13 @@ final class CacheControlDirectiveExtensionHeaderHandler extends HeaderHandlerNon
     void checkNonNull(final Object value) {
         try {
             LONG.check(value);
-        } catch (final HeaderException cause) {
+        } catch (final RuntimeException cause) {
             QUOTED_UNQUOTED_STRING.check(value);
         }
     }
 
     @Override
-    String toText0(final Object value, final Name name) {
+    String toText(final Object value, final Name name) {
         return value instanceof Long ?
             this.toTextLong((long) value, name) :
             value instanceof String ?

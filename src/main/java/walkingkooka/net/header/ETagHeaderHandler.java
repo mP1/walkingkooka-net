@@ -52,7 +52,7 @@ final class ETagHeaderHandler extends HeaderHandlerNonString<ETag> {
     }
 
     @Override
-    String toText0(final ETag value, final Name name) {
+    String toText(final ETag value, final Name name) {
         return value.toString();
     }
 

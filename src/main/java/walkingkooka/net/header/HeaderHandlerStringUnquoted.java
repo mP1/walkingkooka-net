@@ -47,7 +47,7 @@ final class HeaderHandlerStringUnquoted extends HeaderHandlerStringQuotedOrUnquo
     }
 
     @Override
-    String toText0(final String value, final Name name) {
+    String toText(final String value, final Name name) {
         this.checkText(value);
         return value;
     }

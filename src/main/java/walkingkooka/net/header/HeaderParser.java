@@ -581,8 +581,10 @@ abstract class HeaderParser {
      * Reports an invalid character within the unparsed text.
      */
     final <T> T failInvalidCharacter() {
-        final InvalidCharacterException cause = new InvalidCharacterException(this.text, this.position);
-        throw new HeaderException(cause.getMessage(), cause);
+        throw new InvalidCharacterException(
+            this.text,
+            this.position
+        );
     }
 
     abstract void missingValue();
@@ -635,7 +637,7 @@ abstract class HeaderParser {
      * Reports a failure.
      */
     static <T> T fail(final String message) {
-        throw new HeaderException(message);
+        throw new IllegalArgumentException(message);
     }
 
     /**

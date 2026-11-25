@@ -140,7 +140,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Override
-    ETag parseHeader(final String text) {
+    public ETag parseString(final String text) {
         final List<ETag> tags = ETagListHeaderParser.parseList(text);
         this.checkEquals(
             1,

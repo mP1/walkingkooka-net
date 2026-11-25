@@ -61,7 +61,7 @@ final class AcceptEncodingHeaderHandler extends HeaderHandlerNonString<AcceptEnc
     }
 
     @Override
-    String toText0(final AcceptEncoding acceptEncoding, final Name name) {
+    String toText(final AcceptEncoding acceptEncoding, final Name name) {
         return acceptEncoding.text();
     }
 

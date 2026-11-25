@@ -36,12 +36,28 @@ public final class AcceptLanguageHeaderHandlerTest extends
 
     @Test
     public void testCheckIncludesNullFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.en_10(), null)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.en_10(),
+                    null
+                )
+            )
+        );
     }
 
     @Test
     public void testCheckIncludesWrongTypeFails() {
-        assertThrows(HeaderException.class, () -> this.check(Lists.of(this.en_10(), "WRONG!")));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.check(
+                Lists.of(
+                    this.en_10(),
+                    "WRONG!"
+                )
+            )
+        );
     }
 
     private AcceptLanguageValue en_10() {

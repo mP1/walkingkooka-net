@@ -51,7 +51,7 @@ final class ContentDispositionFileNameEncodedHeaderHandler extends HeaderHandler
     }
 
     @Override
-    String toText0(final ContentDispositionFileName filename, final Name name) {
+    String toText(final ContentDispositionFileName filename, final Name name) {
         return filename.text();
     }
 

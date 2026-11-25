@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.AcceptLanguage;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -37,7 +36,7 @@ public final class HttpEntityHeaderValueListMultiTest extends HttpEntityHeaderVa
     @Test
     public void testWithInvalidValue() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 this
@@ -48,7 +47,7 @@ public final class HttpEntityHeaderValueListMultiTest extends HttpEntityHeaderVa
     @Test
     public void testWithInvalidValue2() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> HttpEntityHeaderValueListMulti.with(
                 HEADER,
                 VALUE1,

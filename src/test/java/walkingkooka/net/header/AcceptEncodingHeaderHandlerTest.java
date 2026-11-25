@@ -45,7 +45,12 @@ public final class AcceptEncodingHeaderHandlerTest extends HeaderHandlerNonStrin
 
     @Test
     public void testCheckEmptyListFails() {
-        assertThrows(HeaderException.class, () -> AcceptEncodingHeaderHandler.INSTANCE.check(Lists.empty()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> AcceptEncodingHeaderHandler.INSTANCE.check(
+                Lists.empty()
+            )
+        );
     }
 
     @Test

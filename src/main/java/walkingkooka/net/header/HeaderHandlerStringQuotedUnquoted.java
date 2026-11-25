@@ -60,11 +60,11 @@ final class HeaderHandlerStringQuotedUnquoted extends HeaderHandlerString {
     }
 
     @Override
-    String toText0(final String value, final Name name) {
+    String toText(final String value, final Name name) {
         String text;
         try {
             text = this.unquoted.toText(value, name);
-        } catch (final HeaderException tryQuoted) {
+        } catch (final RuntimeException tryQuoted) {
             text = this.quoted.toText(value, name);
         }
         return text;

@@ -38,20 +38,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
 
     // parse ...........................................................................................................
 
-    @Override
-    public final V parseString(final String text) {
-        try {
-            return this.parseHeader(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
-    }
-
-    abstract V parseHeader(final String text);
-
     final void parseStringCommentFails(final String text,
                                        final int pos) {
         this.parseStringFails(
@@ -110,7 +96,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
                                 final String message) {
         this.parseStringFails(
             text,
-            new HeaderException(message)
+            new IllegalArgumentException(message)
         );
     }
 

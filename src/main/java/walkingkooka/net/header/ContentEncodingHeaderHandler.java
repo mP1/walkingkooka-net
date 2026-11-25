@@ -61,7 +61,7 @@ final class ContentEncodingHeaderHandler extends HeaderHandlerNonString<ContentE
     }
 
     @Override
-    String toText0(final ContentEncoding contentEncoding, final Name name) {
+    String toText(final ContentEncoding contentEncoding, final Name name) {
         return contentEncoding.text();
     }
 

@@ -20,7 +20,6 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -46,7 +45,7 @@ public final class HttpEntityHeaderValueListOneTest extends HttpEntityHeaderValu
     @Test
     public void testWithInvalidValue() {
         assertThrows(
-            HeaderException.class,
+            IllegalArgumentException.class,
             () -> HttpEntityHeaderValueListOne.with(
                 HEADER,
                 this

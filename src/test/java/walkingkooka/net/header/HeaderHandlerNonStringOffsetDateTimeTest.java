@@ -18,7 +18,6 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.EmptyTextException;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -32,7 +31,7 @@ public final class HeaderHandlerNonStringOffsetDateTimeTest extends
     public void testyParseEmptyFails() {
         this.parseStringFails(
             "",
-            new EmptyTextException("text")
+            new IllegalArgumentException("Invalid date in \"\"")
         );
     }
 
@@ -54,8 +53,10 @@ public final class HeaderHandlerNonStringOffsetDateTimeTest extends
 
     @Test
     public void testDateWithGmtFails() {
-        assertThrows(HeaderException.class, () -> HeaderHandlerNonStringOffsetDateTime.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\""
-        ));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> HeaderHandlerNonStringOffsetDateTime.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"")
+        );
     }
 
     @Test

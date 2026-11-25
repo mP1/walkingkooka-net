@@ -129,14 +129,7 @@ final public class MediaTypeBoundaryTest extends HeaderTestCase<MediaTypeBoundar
 
     @Override
     public MediaTypeBoundary parseString(final String text) {
-        try {
-            return MediaTypeBoundary.parse(text);
-        } catch (final HeaderException headerException) {
-            final RuntimeException runtimeException = (RuntimeException) headerException.getCause();
-            throw null != runtimeException ?
-                runtimeException :
-                headerException;
-        }
+        return MediaTypeBoundary.parse(text);
     }
 
     // text.............................................................................................................
