@@ -17,18 +17,12 @@
 
 package walkingkooka.net;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class UrlPathNotEmptyTest implements ClassTesting2<UrlPathNotEmpty> {
+public final class UrlPathNotEmptyTest implements PackagePrivateClassTesting<UrlPathNotEmpty> {
 
     @Override
     public Class<UrlPathNotEmpty> type() {
         return UrlPathNotEmpty.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
