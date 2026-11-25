@@ -28,8 +28,7 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.net.HasHostAddressTesting;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.HostAddressProblem;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
@@ -42,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+final public class EmailAddressTest implements PublicClassTesting<EmailAddress>,
     HasHostAddressTesting<EmailAddress>,
     HasTextTesting,
     ComparableTesting2<EmailAddress>,
@@ -1802,10 +1801,5 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public Class<EmailAddress> type() {
         return EmailAddress.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
