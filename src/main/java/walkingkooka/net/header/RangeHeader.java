@@ -80,7 +80,7 @@ public final class RangeHeader implements Header,
 
         final RangeHeaderUnit unit = RangeHeaderUnit.parse(header.substring(0, equalsAfterUnit));
         unit.rangeCheck();
-        checkValue(ranges);
+        overlappingRangesCheck(ranges);
 
         return new RangeHeader(unit, ranges);
     }
@@ -110,7 +110,7 @@ public final class RangeHeader implements Header,
                                    final List<Range<Long>> ranges) {
         return new RangeHeader(
             checkUnit(unit),
-            copyAndCheckValue(ranges)
+            copyAndOverlappingRangesCheck(ranges)
         );
     }
 
@@ -156,7 +156,7 @@ public final class RangeHeader implements Header,
     }
 
     public RangeHeader setValue(final List<Range<Long>> value) {
-        final List<Range<Long>> copy = copyAndCheckValue(value);
+        final List<Range<Long>> copy = copyAndOverlappingRangesCheck(value);
         return this.ranges.equals(copy) ?
             this :
             new RangeHeader(
@@ -170,17 +170,17 @@ public final class RangeHeader implements Header,
     /**
      * The charsets of ranges must not be empty, contain nulls or overlapping ranges.
      */
-    private static List<Range<Long>> copyAndCheckValue(final List<Range<Long>> ranges) {
+    private static List<Range<Long>> copyAndOverlappingRangesCheck(final List<Range<Long>> ranges) {
         Objects.requireNonNull(ranges, "ranges");
 
         final List<Range<Long>> copy = Lists.immutable(ranges);
 
-        checkValue(copy);
+        overlappingRangesCheck(copy);
 
         return copy;
     }
 
-    private static void checkValue(final List<Range<Long>> ranges) {
+    private static void overlappingRangesCheck(final List<Range<Long>> ranges) {
         final int count = ranges.size();
         if (0 == count) {
             throw new IllegalArgumentException("Missing range");
