@@ -141,7 +141,13 @@ abstract class HeaderParser {
 
         return tokenText.isEmpty() ?
             Optional.empty() :
-            Optional.of(this.token0(tokenText, factory, start));
+            Optional.of(
+                this.token0(
+                    tokenText,
+                    factory,
+                    start
+                )
+            );
     }
 
     /**
@@ -149,7 +155,11 @@ abstract class HeaderParser {
      */
     final <T> T token(final CharPredicate predicate,
                       final Function<String, T> factory) {
-        return this.token(predicate, false, factory);
+        return this.token(
+            predicate,
+            false,
+            factory
+        );
     }
 
     /**
@@ -157,7 +167,11 @@ abstract class HeaderParser {
      */
     final <N extends HeaderParameterName<?>> N parameterName(final CharPredicate predicate,
                                                              final Function<String, N> factory) {
-        return this.token(predicate, true, factory);
+        return this.token(
+            predicate,
+            true,
+            factory
+        );
     }
 
     /**
@@ -187,11 +201,14 @@ abstract class HeaderParser {
         try {
             return factory.apply(tokenText);
         } catch (final InvalidCharacterException cause) {
-            throw cause.setTextAndPosition(this.text, start + cause.position());
+            throw cause.setTextAndPosition(
+                this.text,
+                start + cause.position()
+            );
         }
     }
 
-    // quoted ...............................................................................................
+    // quoted ..........................................................................................................
 
     final static boolean ESCAPING_SUPPORTED = true;
     final static boolean ESCAPING_UNSUPPORTED = false;
@@ -213,7 +230,8 @@ abstract class HeaderParser {
      *      quoted-pair    = "\" CHAR
      * </pre>
      */
-    final String quotedText(final CharPredicate predicate, final boolean supportEscaping) {
+    final String quotedText(final CharPredicate predicate,
+                            final boolean supportEscaping) {
         final StringBuilder unescaped = new StringBuilder();
         int start = this.position;
         this.position++;
@@ -366,9 +384,15 @@ abstract class HeaderParser {
             this.position++;
         }
 
-        return EncodedText.with(charset,
+        return EncodedText.with(
+            charset,
             languageName,
-            new String(bytes.toByteArray(), charset.charset().get()));
+            new String(
+                bytes.toByteArray(),
+                charset.charset()
+                    .get()
+            )
+        );
     }
 
     private void languageQuoteCharacter() {
@@ -464,10 +488,13 @@ abstract class HeaderParser {
      * </pre>
      */
     final void skipComment() {
-        this.position = HeaderComments.consume(this.text, this.position);
+        this.position = HeaderComments.consume(
+            this.text,
+            this.position
+        );
     }
 
-    // helpers ..................................................................................
+    // helpers .........................................................................................................
 
     /**
      * Tests if there is at least one more character.
@@ -481,7 +508,7 @@ abstract class HeaderParser {
      */
     final char character() {
         final char c = this.text.charAt(this.position);
-        if (!ASCII.test(c)) {
+        if (false == ASCII.test(c)) {
             this.failInvalidCharacter();
         }
         return c;
@@ -500,13 +527,16 @@ abstract class HeaderParser {
         final int start = this.position;
 
         while (this.hasMoreCharacters()) {
-            if (!predicate.test(this.character())) {
+            if (false == predicate.test(this.character())) {
                 break;
             }
             this.position++;
         }
 
-        return this.text.substring(start, this.position);
+        return this.text.substring(
+            start,
+            this.position
+        );
     }
 
     final String rfc2045Token() {
@@ -517,7 +547,7 @@ abstract class HeaderParser {
         return token;
     }
 
-    // whitespace.................................................................................................
+    // whitespace.......................................................................................................
 
     /**
      * Consumes any optional whitespace, including support for CRNLSP<br>
@@ -575,7 +605,7 @@ abstract class HeaderParser {
         return ' ' == c || '\t' == c;
     }
 
-    // error reporting.................................................................................................
+    // error reporting..................................................................................................
 
     /**
      * Reports an invalid character within the unparsed text.
@@ -590,7 +620,13 @@ abstract class HeaderParser {
     abstract void missingValue();
 
     final void failMissingValue(final String label) {
-        fail(emptyToken(label, this.position, this.text));
+        fail(
+            emptyToken(
+                label,
+                this.position,
+                this.text
+            )
+        );
     }
 
     /**
@@ -608,8 +644,13 @@ abstract class HeaderParser {
         fail(missingParameterValue(this.position, this.text));
     }
 
-    static String missingParameterValue(final int start, final String text) {
-        return emptyToken("parameter value", start, text);
+    static String missingParameterValue(final int start,
+                                        final String text) {
+        return emptyToken(
+            "parameter value",
+            start,
+            text
+        );
     }
 
     /**
