@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
@@ -61,7 +62,10 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
-        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(
+            header,
+            Lists.of(value)
+        );
 
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
@@ -79,7 +83,10 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
         final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1");
-        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(
+            header,
+            Lists.of(value)
+        );
 
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
@@ -94,7 +101,7 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         final HttpEntityEmpty entity = this.createHttpEntity();
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
-        final List<Long> value = list(111L);
+        final List<Long> value = Lists.of(111L);
         final HttpEntity added = entity.setHeader(header, value);
 
         assertNotSame(entity, added);
