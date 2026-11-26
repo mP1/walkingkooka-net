@@ -103,7 +103,7 @@ final public class MediaType extends HeaderWithValueAndParameters<MediaType, Med
 
 
     /**
-     * Holds the {@link MediaType} for {@link walkingkooka.tree.expression.Expression}
+     * Holds the {@link MediaType} for <code>walkingkooka.tree.expression.Expression</code>
      */
     public final static MediaType EXPRESSION = registerConstant("text/expression");
 
