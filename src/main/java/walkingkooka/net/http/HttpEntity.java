@@ -314,10 +314,9 @@ public abstract class HttpEntity implements HasHeaders,
      * Would be mutator that sets or replaces the content-length if it is wrong or different from the body's actual length
      */
     public final HttpEntity setContentLength() {
-        return this.setHeader0(
+        return this.setHeader(
             HttpHeaderName.CONTENT_LENGTH,
-            HttpEntityHeaderValueList.one(
-                HttpHeaderName.CONTENT_LENGTH,
+            Lists.of(
                 Long.valueOf(
                     this.contentLength()
                 )
