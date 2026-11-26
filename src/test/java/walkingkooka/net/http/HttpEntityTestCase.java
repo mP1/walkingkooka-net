@@ -33,8 +33,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.FakeWebFile;
 import walkingkooka.net.http.server.WebFileException;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
@@ -56,7 +55,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     HashCodeEqualsDefinedTesting2<H>,
     CanBeEmptyTesting,
     ToStringTesting,
-    ClassTesting<H>,
+    PackagePrivateClassTesting<H>,
     TreePrintableTesting {
 
     HttpEntityTestCase() {
@@ -621,12 +620,5 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     @Override
     public final H createObject() {
         return this.createHttpEntity();
-    }
-
-    // class............................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
