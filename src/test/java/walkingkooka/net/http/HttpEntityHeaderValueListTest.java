@@ -18,35 +18,74 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.header.AcceptLanguage;
+import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.ListTesting2;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
-public final class HttpEntityHeaderValueListTest implements ClassTesting<HttpEntityHeaderValueList> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class HttpEntityHeaderValueListTest implements PackagePrivateClassTesting<HttpEntityHeaderValueList<String>>,
+    ListTesting2<HttpEntityHeaderValueList<String>, String>,
+    ToStringTesting,
+    TypeNameTesting<HttpEntityHeaderValueList<String>> {
+
+    private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
+    private final static String VALUE = "Server 123";
 
     @Test
-    public void testOneNonMultiHeader() {
-        final HttpHeaderName<MediaType> contentType = HttpHeaderName.CONTENT_TYPE;
-        this.checkEquals(false, contentType.isMultiple());
-        this.checkEquals(HttpEntityHeaderValueListOne.class, HttpEntityHeaderValueList.one(contentType, MediaType.TEXT_PLAIN).getClass());
+    public void testWithListNullHeaderFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> HttpEntityHeaderValueList.with(null)
+        );
     }
 
     @Test
-    public void testOneMultiHeader() {
-        final HttpHeaderName<AcceptLanguage> acceptLanguage = HttpHeaderName.ACCEPT_LANGUAGE;
-        this.checkEquals(true, acceptLanguage.isMultiple());
-        this.checkEquals(HttpEntityHeaderValueListMulti.class, HttpEntityHeaderValueList.one(acceptLanguage, AcceptLanguage.parse("EN")).getClass());
+    public void testSetElementsListWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createList()
+                .setElements(
+                    Lists.of(
+                        VALUE,
+                        null
+                    )
+                )
+        );
+    }
+
+    @Test
+    public void testSetElementsListIncludesInvalidValueFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createList()
+                .setElements(
+                    Cast.to(
+                        Lists.of(
+                            VALUE,
+                            500
+                        )
+                    )
+                )
+        );
     }
 
     @Override
-    public Class<HttpEntityHeaderValueList> type() {
-        return HttpEntityHeaderValueList.class;
+    public HttpEntityHeaderValueList<String> createList() {
+        return new HttpEntityHeaderValueList<>(
+            HEADER,
+            Lists.of(VALUE)
+        );
     }
 
+    // class............................................................................................................
+
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<HttpEntityHeaderValueList<String>> type() {
+        return Cast.to(HttpEntityHeaderValueList.class);
     }
 }

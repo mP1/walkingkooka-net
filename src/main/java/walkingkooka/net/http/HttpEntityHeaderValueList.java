@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.ImmutableListDefaults;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractList;
@@ -28,92 +29,75 @@ import java.util.Objects;
 
 /**
  * A read only {@link java.util.List} with operations to append and remove a value returning a new copy.
- * Note it is never
  */
-abstract class HttpEntityHeaderValueList extends AbstractList<Object> implements ImmutableListDefaults<ImmutableList<Object>, Object> {
+final class HttpEntityHeaderValueList<T> extends AbstractList<T>
+    implements ImmutableListDefaults<ImmutableList<T>, T> {
 
-    /**
-     * If the {@link List} is not a {@link HttpEntityHeaderValueList} make a copy of using its values.
-     */
-    static HttpEntityHeaderValueList one(final HttpHeaderName<?> header,
-                                         final Object value) {
-        return header.isMultiple() ?
-            HttpEntityHeaderValueListMulti.with(header, value) :
-            HttpEntityHeaderValueListOne.with(header, value);
+    static <T> HttpEntityHeaderValueList<T> with(final HttpHeaderName<T> header) {
+        Objects.requireNonNull(header, "header");
+
+        return new HttpEntityHeaderValueList<>(
+            header,
+            Lists.empty()
+        );
     }
 
     /**
-     * If the {@link List} is not a {@link HttpEntityHeaderValueList} make a copy of using its values.
+     * Private ctor to limit sub classing.
      */
-    static HttpEntityHeaderValueList copy(final HttpHeaderName<?> header,
-                                          final Collection<?> values) {
-        return values instanceof HttpEntityHeaderValueList ?
-            checkHttpEntityHeaderValueList(header, (HttpEntityHeaderValueList) values) : /* lgtm [java/abstract-to-concrete-cast] */
-            copyAndCreate(header, values.toArray());
-    }
-
-    /**
-     * While taking a copy of the array checks each value using the {@link HttpHeaderName}
-     */
-    private static HttpEntityHeaderValueList checkHttpEntityHeaderValueList(final HttpHeaderName<?> header,
-                                                                            final HttpEntityHeaderValueList values) {
-        return header.isMultiple() == values.isMultipleHeaders() ?
-            checkHttpEntityHeaderList0(header, values) : // already the correct HttpEntityHeaderValueList sub class, simply check values.
-            copyAndCreate(header, values.toArray()); // wrong HttpEntityHeaderValueList copy and create another
-    }
-
-    /**
-     * Checks that the values are correct values for the given header.
-     */
-    private static HttpEntityHeaderValueList checkHttpEntityHeaderList0(final HttpHeaderName<?> header,
-                                                                        final HttpEntityHeaderValueList values) {
-        values.forEach(header::checkValue);
-        return values;
-    }
-
-    /**
-     * While taking a copy of the array checks each value using the {@link HttpHeaderName}
-     */
-    private static HttpEntityHeaderValueList copyAndCreate(final HttpHeaderName<?> header,
-                                                           final Object[] values) {
-        return values.length == 0 ?
-            null :
-            header.isMultiple() ?
-                HttpEntityHeaderValueListMulti.with(header, values) :
-                HttpEntityHeaderValueListOne.with(header, values);
-    }
-
-    /**
-     * Package private ctor to limit sub classing.
-     */
-    HttpEntityHeaderValueList(final HttpHeaderName<?> header) {
+    // @VisibleForTesting
+    HttpEntityHeaderValueList(final HttpHeaderName<T> header,
+                              final List<T> values) {
         super();
         this.header = header;
-    }
-
-    // HttpEntityHeaderValueList..............................................................................................
-
-    /**
-     * Only returns true if a list for holding multiple header values.
-     */
-    final boolean isMultipleHeaders() {
-        return this instanceof HttpEntityHeaderValueListMulti;
+        this.values = values;
     }
 
     // ImmutableListDefaults............................................................................................
 
     @Override
-    public final void elementCheck(final Object value) {
+    public T get(final int index) {
+        return this.values.get(index);
+    }
+
+    @Override
+    public int size() {
+        return this.values.size();
+    }
+
+    final List<T> values;
+
+    @Override
+    public void elementCheck(final Object value) {
         Objects.requireNonNull(value, "value");
     }
 
     @Override
-    public final ImmutableList<Object> setElements(final Collection<Object> values) {
-        final ImmutableList<Object> copy = copy(this.header, values);
-        return this.equals(copy) ?
-            this :
-            copy;
+    public HttpEntityHeaderValueList<T> setElements(final Collection<T> values) {
+        final HttpEntityHeaderValueList<T> httpEntityHeaderValueList;
+
+        if (values instanceof HttpEntityHeaderValueList) {
+            httpEntityHeaderValueList = (HttpEntityHeaderValueList<T>) values;
+        } else {
+            final HttpHeaderName<T> header = this.header;
+            final List<T> copy = Lists.linkedList();
+
+            for (final T value : values) {
+                header.checkValue(value);
+
+                copy.add(value);
+            }
+
+            httpEntityHeaderValueList = this.equals(copy) ?
+                this :
+                new HttpEntityHeaderValueList<>(
+                    header,
+                    copy
+                );
+        }
+
+        return httpEntityHeaderValueList;
     }
 
-    private final HttpHeaderName<?> header;
+    private final HttpHeaderName<T> header;
 }

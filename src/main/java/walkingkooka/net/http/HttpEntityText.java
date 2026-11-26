@@ -28,19 +28,19 @@ import java.util.Map;
  */
 final class HttpEntityText extends HttpEntityNotEmpty {
 
-    static HttpEntityText with(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
+    static HttpEntityText with(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers,
                                final String text) {
         return new HttpEntityText(headers, text);
     }
 
-    private HttpEntityText(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
+    private HttpEntityText(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers,
                            final String text) {
         super(headers);
         this.text = text;
     }
 
     @Override
-    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers) {
         final String text = this.bodyText();
         return headers.isEmpty() && text.isEmpty() ?
             EMPTY :
@@ -70,7 +70,7 @@ final class HttpEntityText extends HttpEntityNotEmpty {
     private final String text;
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers,
                        final Binary body) {
         return headers.isEmpty() && this.bodyText().isEmpty() ?
             EMPTY :
