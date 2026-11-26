@@ -36,20 +36,29 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
 
     @Test
     public void testContentLength() {
-        this.contentLengthAndCheck(this.createHttpEntity(), 0L);
+        this.contentLengthAndCheck(
+            this.createHttpEntity(),
+            0L
+        );
     }
 
-    // setHeaders........................................................................................................
+    // setHeaders.......................................................................................................
 
     @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.createHttpEntity();
 
-        final Map<HttpHeaderName<?>, List<?>> headers = map(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        final Map<HttpHeaderName<?>, List<?>> headers = map(
+            HttpHeaderName.CONTENT_TYPE,
+            MediaType.TEXT_PLAIN
+        );
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
-        this.headersAndCheck(different, headers);
+        this.headersAndCheck(
+            different,
+            headers
+        );
     }
 
     @Test
@@ -70,7 +79,12 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
 
-        this.headersBodyAndTextCheck(set, headers, entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(
+            set,
+            headers,
+            entity.body(),
+            entity.bodyText()
+        );
     }
 
     @Test
@@ -91,7 +105,12 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
 
-        this.headersBodyAndTextCheck(set, headers, entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(
+            set,
+            headers,
+            entity.body(),
+            entity.bodyText()
+        );
     }
 
     // setHeader........................................................................................................
@@ -215,7 +234,7 @@ public final class HttpEntityEmptyTest extends HttpEntityTestCase<HttpEntityEmpt
         );
     }
 
-    // HasOptionalName...................................................................................................
+    // HasOptionalName..................................................................................................
 
     @Test
     public void testName() {
