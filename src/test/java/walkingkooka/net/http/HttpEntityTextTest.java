@@ -82,7 +82,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
-        this.check(different, headers, TEXT);
+        this.headersAndTextCheck(different, headers, TEXT);
     }
 
     @Test
@@ -97,7 +97,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
         final HttpEntity removed = added.removeHeader(header);
         assertNotSame(added, removed);
 
-        this.check(
+        this.headersAndTextCheck(
             removed,
             HttpEntity.NO_HEADERS,
             TEXT
@@ -144,7 +144,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
             .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
-        this.check(different, HttpEntity.NO_HEADERS, DIFFERENT_TEXT);
+        this.headersAndTextCheck(different, HttpEntity.NO_HEADERS, DIFFERENT_TEXT);
     }
 
     @Test
@@ -156,7 +156,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
             .setBodyText(DIFFERENT_TEXT);
         assertNotSame(entity, different);
 
-        this.check(
+        this.headersAndTextCheck(
             entity,
             map(
                 HttpHeaderName.CONTENT_LENGTH,

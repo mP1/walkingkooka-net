@@ -64,7 +64,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
 
-        this.check(set, headers, entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, headers, entity.body(), entity.bodyText());
     }
 
     @Test
@@ -85,7 +85,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
 
-        this.check(set, headers, entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, headers, entity.body(), entity.bodyText());
     }
 
     @Test
@@ -106,7 +106,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
 
-        this.check(set, headers, entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, headers, entity.body(), entity.bodyText());
     }
 
     // set..............................................................................................................
@@ -128,7 +128,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set);
 
-        this.check(set, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -149,7 +149,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set);
 
-        this.check(set, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -170,7 +170,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set);
 
-        this.check(set, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -190,14 +190,14 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set);
 
-        this.check(set, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set, map(header, value), entity.body(), entity.bodyText());
 
         final HttpEntity again = set.setHeader(
             header,
             Lists.of(value)
         );
         assertSame(set, again);
-        this.check(again, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(again, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -217,7 +217,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set1);
 
-        this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set1, map(header1, value1), entity.body(), entity.bodyText());
 
         final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
         final MediaType value2 = MediaType.TEXT_PLAIN;
@@ -228,7 +228,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set2);
 
-        this.check(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -248,7 +248,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set1);
 
-        this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set1, map(header1, value1), entity.body(), entity.bodyText());
 
         final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
         final MediaType value2 = MediaType.TEXT_PLAIN;
@@ -259,7 +259,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set2);
 
-        this.check(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
 
         final MediaType value3 = MediaType.TEXT_XML;
         final HttpEntity set3 = set2.setHeader(
@@ -268,7 +268,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set3);
 
-        this.check(set3, map(header1, value1, header2, value3), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set3, map(header1, value1, header2, value3), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -288,7 +288,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set1);
 
-        this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set1, map(header1, value1), entity.body(), entity.bodyText());
 
         final HttpEntity set2 = set1.setHeader(
             header1,
@@ -321,7 +321,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(entity, set1);
 
-        this.check(set1, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set1, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
 
         final HttpEntity set2 = set1.setHeader(
             header2,
@@ -329,7 +329,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
         assertNotSame(set1, set2);
 
-        this.check(set2, map(header1, value1), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(set2, map(header1, value1), entity.body(), entity.bodyText());
     }
 
     // add..............................................................................................................
@@ -348,7 +348,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -365,7 +365,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
     }
 
     @Test
@@ -382,7 +382,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
 
         final HttpEntity again = added.addHeader(header, value);
         assertSame(added, again);
@@ -402,7 +402,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
 
         assertSame(added, added.addHeader(header, value));
     }
@@ -421,13 +421,13 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added1 = entity.addHeader(header, value1);
         assertNotSame(entity, added1);
 
-        this.check(added1, map(header, value1), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added1, map(header, value1), entity.body(), entity.bodyText());
 
         final AcceptLanguage value2 = AcceptLanguage.parse("FR");
 
         final HttpEntity added2 = added1.addHeader(header, value2);
         assertNotSame(added1, added2);
-        this.check(
+        this.headersBodyAndTextCheck(
             added2,
             Maps.of(
                 header,
@@ -452,13 +452,13 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
 
         final Binary different = Binary.with("xyz".getBytes(HttpEntity.CHARSET));
         final HttpEntity differentBody = added.setBody(different);
         assertNotSame(added, differentBody);
 
-        this.check(differentBody, map(header, value), different);
+        this.headersAndBodyCheck(differentBody, map(header, value), different);
     }
 
     @Test
@@ -475,13 +475,13 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity added = entity.addHeader(header, value);
         assertNotSame(entity, added);
 
-        this.check(added, map(header, value), entity.body(), entity.bodyText());
+        this.headersBodyAndTextCheck(added, map(header, value), entity.body(), entity.bodyText());
 
         final String different = "different-text";
         final HttpEntity differentBody = added.setBodyText(different);
         assertNotSame(added, differentBody);
 
-        this.check(differentBody, map(header, value), different);
+        this.headersAndTextCheck(differentBody, map(header, value), different);
     }
 
     // remove...........................................................................................................
@@ -501,7 +501,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity removed = added.removeHeader(header);
         assertNotSame(added, removed);
 
-        this.check(removed, HttpEntity.NO_HEADERS);
+        this.headersAndCheck(removed, HttpEntity.NO_HEADERS);
     }
 
     @Test
@@ -530,7 +530,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setContentLength();
         assertNotSame(entity, set);
 
-        this.check(set,
+        this.headersBodyAndTextCheck(set,
             map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
             BINARY,
             TEXT);
@@ -543,7 +543,7 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpEntity set = entity.setContentLength();
         assertNotSame(entity, set);
 
-        this.check(set,
+        this.headersBodyAndTextCheck(set,
             map(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(TEXT.length())),
             BINARY,
             TEXT);

@@ -338,7 +338,10 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
     @Test
     public final void testSetBodyTextEmpty() {
         final H entity = this.createHttpEntity();
-        this.checkEquals(HttpEntity.NO_HEADERS, entity.headers());
+        this.headersAndCheck(
+            entity,
+            HttpEntity.NO_HEADERS
+        );
 
         final HttpEntity empty = entity.setBodyText("");
         this.checkEquals(HttpEntity.EMPTY, empty);
@@ -393,9 +396,9 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
                     }
                 },
                 Charset.defaultCharset());
-        this.checkEquals(
-            differentBinary,
-            different.body()
+        this.bodyAndCheck(
+            different,
+            differentBinary
         );
     }
 
@@ -551,48 +554,62 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         );
     }
 
-    final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, List<?>> headers,
-                     final Binary body,
-                     final String text) {
-        this.check(entity, headers, body);
-        this.check(entity, headers, text);
+    final void headersBodyAndTextCheck(final HttpEntity entity,
+                                       final Map<HttpHeaderName<?>, List<?>> headers,
+                                       final Binary body,
+                                       final String text) {
+        this.headersAndBodyCheck(entity, headers, body);
+        this.headersAndTextCheck(entity, headers, text);
     }
 
-    final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, List<?>> headers,
-                     final Binary body) {
-        this.check(entity, headers);
-        this.check(entity, body);
+    final void headersAndBodyCheck(final HttpEntity entity,
+                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                   final Binary body) {
+        this.headersAndCheck(entity, headers);
+        this.bodyAndCheck(entity, body);
     }
 
-    final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, List<?>> headers,
-                     final String text) {
-        this.check(entity, headers);
-        this.check(entity, text);
+    final void headersAndTextCheck(final HttpEntity entity,
+                                   final Map<HttpHeaderName<?>, List<?>> headers,
+                                   final String text) {
+        this.headersAndCheck(
+            entity,
+            headers
+        );
+        this.textAndCheck(
+            entity,
+            text
+        );
     }
 
-    final void check(final HttpEntity entity,
-                     final Map<HttpHeaderName<?>, List<?>> headers) {
-        this.checkEquals(headers, entity.headers(), () -> "" + entity);
+    final void headersAndCheck(final HttpEntity entity,
+                               final Map<HttpHeaderName<?>, List<?>> headers) {
+        this.checkEquals(
+            headers,
+            entity.headers(),
+            () -> "" + entity
+        );
         this.check(entity);
     }
 
-    final void check(final HttpEntity entity,
-                     final Binary body) {
-        this.checkEquals(body, entity.body(), () -> "" + entity);
+    final void bodyAndCheck(final HttpEntity entity,
+                            final Binary body) {
+        this.checkEquals(
+            body,
+            entity.body(),
+            () -> "" + entity
+        );
         this.check(entity);
     }
 
-    final void check(final HttpEntity entity,
-                     final String text) {
+    final void textAndCheck(final HttpEntity entity,
+                            final String text) {
         this.checkEquals(
             text,
             entity.bodyText(),
             () -> "" + entity
         );
-        this.textAndCheck(
+        HasTextTesting.super.textAndCheck(
             entity,
             text
         );
@@ -619,7 +636,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
         );
     }
 
-    // HashCodeEqualsDefinedTesting.....................................................................................
+    // hashCode/equals..................................................................................................
 
     @Override
     public final H createObject() {
