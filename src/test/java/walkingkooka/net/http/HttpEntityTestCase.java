@@ -93,7 +93,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
             () -> this.createHttpEntity()
                 .setHeader(
                     null,
-                    list(1L)
+                    Lists.of(1L)
                 )
         );
     }
@@ -120,7 +120,7 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
                 .setHeader(
                     header,
                     Cast.to(
-                        list("INVALID VALUE requires Long")
+                        Lists.of("INVALID VALUE requires Long")
                     )
                 )
         );
@@ -531,20 +531,24 @@ public abstract class HttpEntityTestCase<H extends HttpEntity> implements HasCon
 
     abstract H createHttpEntity();
 
-    static <T> List<T> list(final T... values) {
-        return Lists.of(values);
-    }
-
     static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header,
                                                final Object value) {
-        return Maps.of(header, list(value));
+        return Maps.of(
+            header,
+            Lists.of(value)
+        );
     }
 
     static Map<HttpHeaderName<?>, List<?>> map(final HttpHeaderName<?> header1,
                                                final Object value1,
                                                final HttpHeaderName<?> header2,
                                                final Object value2) {
-        return Maps.of(header1, list(value1), header2, list(value2));
+        return Maps.of(
+            header1,
+            Lists.of(value1),
+            header2,
+            Lists.of(value2)
+        );
     }
 
     final void check(final HttpEntity entity,

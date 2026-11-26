@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.ClientCookie;
@@ -55,7 +56,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
-        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(
+            header,
+            Lists.of(value)
+        );
 
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
@@ -73,7 +77,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
         final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1");
-        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(
+            header,
+            Lists.of(value)
+        );
 
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
@@ -91,7 +98,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpHeaderName<List<ClientCookie>> header = HttpHeaderName.COOKIE;
         final List<ClientCookie> value = Cookie.parseClientHeader("cookie1=value1;cookie2=value2");
-        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(header, list(value));
+        final Map<HttpHeaderName<?>, List<?>> headers = Maps.of(
+            header,
+            Lists.of(value)
+        );
 
         final HttpEntity set = entity.setHeaders(headers);
         assertNotSame(entity, set);
@@ -112,7 +122,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
 
-        final HttpEntity set = entity.setHeader(header, list(value));
+        final HttpEntity set = entity.setHeader(
+            header,
+            Lists.of(value)
+        );
         assertNotSame(entity, set);
 
         this.check(set, map(header, value), entity.body(), entity.bodyText());
@@ -130,7 +143,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final List<ClientCookie> value = ClientCookie.parseHeader("cookie1=value1");
         this.checkEquals(1, value.size());
 
-        final HttpEntity set = entity.setHeader(header, list(value));
+        final HttpEntity set = entity.setHeader(
+            header,
+            Lists.of(value)
+        );
         assertNotSame(entity, set);
 
         this.check(set, map(header, value), entity.body(), entity.bodyText());
@@ -148,7 +164,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final List<ClientCookie> value = ClientCookie.parseHeader("cookie1=value1;cookie2=value2");
         this.checkEquals(2, value.size());
 
-        final HttpEntity set = entity.setHeader(header, list(value));
+        final HttpEntity set = entity.setHeader(
+            header,
+            Lists.of(value)
+        );
         assertNotSame(entity, set);
 
         this.check(set, map(header, value), entity.body(), entity.bodyText());
@@ -165,12 +184,18 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<Long> header = HttpHeaderName.CONTENT_LENGTH;
         final Long value = 1L;
 
-        final HttpEntity set = entity.setHeader(header, list(value));
+        final HttpEntity set = entity.setHeader(
+            header,
+            Lists.of(value)
+        );
         assertNotSame(entity, set);
 
         this.check(set, map(header, value), entity.body(), entity.bodyText());
 
-        final HttpEntity again = set.setHeader(header, list(value));
+        final HttpEntity again = set.setHeader(
+            header,
+            Lists.of(value)
+        );
         assertSame(set, again);
         this.check(again, map(header, value), entity.body(), entity.bodyText());
     }
@@ -186,7 +211,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
         final Long value1 = 1L;
 
-        final HttpEntity set1 = entity.setHeader(header1, list(value1));
+        final HttpEntity set1 = entity.setHeader(
+            header1,
+            Lists.of(value1)
+        );
         assertNotSame(entity, set1);
 
         this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
@@ -194,7 +222,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
         final MediaType value2 = MediaType.TEXT_PLAIN;
 
-        final HttpEntity set2 = set1.setHeader(header2, list(value2));
+        final HttpEntity set2 = set1.setHeader(
+            header2,
+            Lists.of(value2)
+        );
         assertNotSame(entity, set2);
 
         this.check(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
@@ -211,7 +242,10 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
         final Long value1 = 1L;
 
-        final HttpEntity set1 = entity.setHeader(header1, list(value1));
+        final HttpEntity set1 = entity.setHeader(
+            header1,
+            Lists.of(value1)
+        );
         assertNotSame(entity, set1);
 
         this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
@@ -219,13 +253,19 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
         final MediaType value2 = MediaType.TEXT_PLAIN;
 
-        final HttpEntity set2 = set1.setHeader(header2, list(value2));
+        final HttpEntity set2 = set1.setHeader(
+            header2,
+            Lists.of(value2)
+        );
         assertNotSame(entity, set2);
 
         this.check(set2, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
 
         final MediaType value3 = MediaType.TEXT_XML;
-        final HttpEntity set3 = set2.setHeader(header2, list(value3));
+        final HttpEntity set3 = set2.setHeader(
+            header2,
+            Lists.of(value3)
+        );
         assertNotSame(entity, set3);
 
         this.check(set3, map(header1, value1, header2, value3), entity.body(), entity.bodyText());
@@ -242,12 +282,18 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<Long> header1 = HttpHeaderName.CONTENT_LENGTH;
         final Long value1 = 1L;
 
-        final HttpEntity set1 = entity.setHeader(header1, list(value1));
+        final HttpEntity set1 = entity.setHeader(
+            header1,
+            Lists.of(value1)
+        );
         assertNotSame(entity, set1);
 
         this.check(set1, map(header1, value1), entity.body(), entity.bodyText());
 
-        final HttpEntity set2 = set1.setHeader(header1, list());
+        final HttpEntity set2 = set1.setHeader(
+            header1,
+            Lists.empty()
+        );
         assertNotSame(set1, set2);
         this.checkEquals(entity, set2);
     }
@@ -266,13 +312,21 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         final HttpHeaderName<MediaType> header2 = HttpHeaderName.CONTENT_TYPE;
         final MediaType value2 = MediaType.parse("custom/media-type2");
 
-        final HttpEntity set1 = entity.setHeader(header1, list(value1))
-            .setHeader(header2, list(value2));
+        final HttpEntity set1 = entity.setHeader(
+            header1,
+            Lists.of(value1)
+        ).setHeader(
+            header2,
+            Lists.of(value2)
+        );
         assertNotSame(entity, set1);
 
         this.check(set1, map(header1, value1, header2, value2), entity.body(), entity.bodyText());
 
-        final HttpEntity set2 = set1.setHeader(header2, list());
+        final HttpEntity set2 = set1.setHeader(
+            header2,
+            Lists.empty()
+        );
         assertNotSame(set1, set2);
 
         this.check(set2, map(header1, value1), entity.body(), entity.bodyText());
@@ -373,7 +427,15 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
 
         final HttpEntity added2 = added1.addHeader(header, value2);
         assertNotSame(added1, added2);
-        this.check(added2, Maps.of(header, list(value1, value2)), entity.body(), entity.bodyText());
+        this.check(
+            added2,
+            Maps.of(
+                header,
+                Lists.of(value1, value2)
+            ),
+            entity.body(),
+            entity.bodyText()
+        );
     }
 
     @Test
