@@ -186,7 +186,7 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     }
 
     @Override
-    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
+    HttpEntityText createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers) {
         return HttpEntityText.with(headers, TEXT);
     }
 
@@ -196,23 +196,23 @@ public final class HttpEntityTextTest extends HttpEntityNotEmptyTestCase<HttpEnt
     public void testToString() {
         this.toStringAndCheck(
             HttpEntityText.with(
-                Maps.of(
-                    HttpHeaderName.CONTENT_LENGTH,
-                    HttpEntityHeaderValueList.one(
+                Cast.to(
+                    Maps.of(
                         HttpHeaderName.CONTENT_LENGTH,
-                        257L
-                    ),
-                    HttpHeaderName.CONTENT_TYPE,
-                    HttpEntityHeaderValueList.one(
+                        HttpEntityHeaderValueList.with(
+                            HttpHeaderName.CONTENT_LENGTH
+                        ).concat(257L),
                         HttpHeaderName.CONTENT_TYPE,
-                        MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
-                    ),
-                    HttpHeaderName.SERVER,
-                    HttpEntityHeaderValueList.one(
+                        HttpEntityHeaderValueList.with(HttpHeaderName.CONTENT_TYPE)
+                            .concat(MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8)
+                            ),
                         HttpHeaderName.SERVER,
-                        "Server 123"
+                        HttpEntityHeaderValueList.with(HttpHeaderName.SERVER)
+                            .concat("Server 123")
                     )
-                ), "AB\nC"),
+                ),
+                "AB\nC"
+            ),
             "Content-Length: 257\r\n" +
                 "Content-Type: text/plain; charset=UTF-8\r\n" +
                 "Server: Server 123\r\n" +

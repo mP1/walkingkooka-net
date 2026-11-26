@@ -18,6 +18,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Binary;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -53,12 +54,12 @@ final class HttpEntityEmpty extends HttpEntity {
     // headers..........................................................................................................
 
     @Override //
-    Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers2() {
+    Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers2() {
         return NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST;
     }
 
     @Override
-    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers) {
+    HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers) {
         return HttpEntityInterop.BINARY ?
             HttpEntityBinary.with(headers, Binary.EMPTY) :
             HttpEntityText.with(headers, "");
@@ -66,14 +67,27 @@ final class HttpEntityEmpty extends HttpEntity {
 
     @Override //
     <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                              final HttpEntityHeaderValueList value) {
-        return this.replaceHeaders(Maps.of(header, value));
+                              final HttpEntityHeaderValueList<T> value) {
+        return this.replaceHeaders(
+            Maps.of(
+                header,
+                value
+            )
+        );
     }
 
     @Override //
     <T> HttpEntity addHeader0(final HttpHeaderName<T> header,
                               final T value) {
-        return this.replaceHeaders(Maps.of(header, HttpEntityHeaderValueList.one(header, value)));
+        return this.replaceHeaders(
+            Cast.to(
+                Maps.of(
+                    header,
+                    HttpEntityHeaderValueList.with(header)
+                        .concat(value)
+                )
+            )
+        );
     }
 
     @Override //
@@ -115,7 +129,7 @@ final class HttpEntityEmpty extends HttpEntity {
     }
 
     @Override
-    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
+    HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers,
                        final Binary body) {
         return HttpEntityBinary.with(headers, body);
     }

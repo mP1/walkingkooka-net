@@ -19,6 +19,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.AcceptLanguage;
@@ -610,9 +611,18 @@ public abstract class HttpEntityNotEmptyTestCase<H extends HttpEntityNotEmpty> e
         );
     }
 
-    final <T> H createHttpEntity(final HttpHeaderName<T> header, final T value) {
-        return this.createHttpEntity(Maps.of(header, HttpEntityHeaderValueList.copy(header, list(value))));
+    final <T> H createHttpEntity(final HttpHeaderName<T> header,
+                                 final T value) {
+        return this.createHttpEntity(
+            Cast.to(
+                Maps.of(
+                    header,
+                    HttpEntityHeaderValueList.with(header)
+                        .concat(value)
+                )
+            )
+        );
     }
 
-    abstract H createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers);
+    abstract H createHttpEntity(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers);
 }

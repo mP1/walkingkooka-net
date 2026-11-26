@@ -94,7 +94,7 @@ public abstract class HttpEntity implements HasHeaders,
     /**
      * Internal constant
      */
-    final static Map<HttpHeaderName<?>, HttpEntityHeaderValueList> NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST = Maps.empty();
+    final static Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> NO_HEADERS_HTTP_ENTITY_HEADER_VALUE_LIST = Maps.empty();
 
     /**
      * A {@link HttpEntity} with no headers and no body.
@@ -268,23 +268,45 @@ public abstract class HttpEntity implements HasHeaders,
 
     @Override
     public final Map<HttpHeaderName<?>, List<?>> headers() {
-        return Cast.to(this.headers2());
+        return Cast.to(
+            this.headers2()
+        );
     }
 
-    abstract Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers2();
+    abstract Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers2();
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given headers creating a new instance if necessary.
      */
     public final HttpEntity setHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
-        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> copy = checkHeaders(headers);
+        Objects.requireNonNull(headers, "headers");
+
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> copy = Maps.ordered();
+
+        for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
+            final HttpHeaderName<?> header = nameAndValues.getKey();
+
+            copy.put(
+                header,
+                Cast.to(
+                    HttpEntityHeaderValueList.with(header)
+                        .setElements(
+                            Cast.to(
+                                nameAndValues.getValue()
+                            )
+                        )
+                )
+            );
+        }
 
         return this.headers().equals(copy) ?
             this :
-            this.replaceHeaders(copy);
+            this.replaceHeaders(
+                Maps.immutable(copy)
+            );
     }
 
-    abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers);
+    abstract HttpEntity replaceHeaders(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers);
 
     /**
      * Returns the {@link Accept} if one is present.
@@ -342,17 +364,21 @@ public abstract class HttpEntity implements HasHeaders,
     public final <T> HttpEntity setHeader(final HttpHeaderName<T> header,
                                           final List<T> values) {
         Objects.requireNonNull(header, "header");
+        Objects.requireNonNull(values, "values");
 
-        // will return null to indicate values is empty and should be removed
-        final HttpEntityHeaderValueList copy = HttpEntityHeaderValueList.copy(header, values);
+        final HttpEntityHeaderValueList<T> httpEntityHeaderValueList = HttpEntityHeaderValueList.with(header)
+            .setElements(values);
 
-        return null != copy ?
-            this.setHeader0(header, copy) :
-            this.remove0(header);
+        return httpEntityHeaderValueList.isEmpty() ?
+            this.remove0(header) :
+            this.setHeader0(
+                header,
+                httpEntityHeaderValueList
+            );
     }
 
     abstract <T> HttpEntity setHeader0(final HttpHeaderName<T> header,
-                                       final HttpEntityHeaderValueList value);
+                                       final HttpEntityHeaderValueList<T> value);
 
     /**
      * Conditionally sets the {@link HttpHeaderName#LAST_MODIFIED} header if the value including null given contains a
@@ -412,22 +438,6 @@ public abstract class HttpEntity implements HasHeaders,
 
     abstract HttpEntity remove0(final HttpHeaderName<?> header);
 
-    /**
-     * While checking also make a defensive copy of the given {@link Map}.
-     */
-    static Map<HttpHeaderName<?>, HttpEntityHeaderValueList> checkHeaders(final Map<HttpHeaderName<?>, List<?>> headers) {
-        Objects.requireNonNull(headers, "headers");
-
-        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> copy = Maps.ordered();
-
-        for (final Entry<HttpHeaderName<?>, List<?>> nameAndValues : headers.entrySet()) {
-            final HttpHeaderName<?> header = nameAndValues.getKey();
-
-            copy.put(header, HttpEntityHeaderValueList.copy(header, Cast.to(nameAndValues.getValue())));
-        }
-        return Maps.immutable(copy);
-    }
-
     // body ............................................................................................................
 
     /**
@@ -441,12 +451,15 @@ public abstract class HttpEntity implements HasHeaders,
     public final HttpEntity setBody(final Binary body) {
         Objects.requireNonNull(body, "body");
 
-        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers = this.headers2();
+        final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers = this.headers2();
         return body.isEmpty() && headers.isEmpty() ?
             EMPTY :
             body.equals(this.body()) ?
                 this :
-                this.replace(headers, body);
+                this.replace(
+                    headers,
+                    body
+                );
     }
 
     /**
@@ -505,7 +518,7 @@ public abstract class HttpEntity implements HasHeaders,
 
     // replace..........................................................................................................
 
-    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList> headers,
+    abstract HttpEntity replace(final Map<HttpHeaderName<?>, HttpEntityHeaderValueList<?>> headers,
                                 final Binary body);
 
     // HasText..........................................................................................................
