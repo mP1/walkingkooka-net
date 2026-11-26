@@ -61,7 +61,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final HttpEntity different = entity.setHeaders(headers);
         assertNotSame(entity, different);
 
-        this.check(different, headers, BINARY);
+        this.headersAndBodyCheck(different, headers, BINARY);
     }
 
     @Test
@@ -76,7 +76,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
         final HttpEntity removed = added.removeHeader(header);
         assertNotSame(added, removed);
 
-        this.check(
+        this.headersAndBodyCheck(
             removed,
             HttpEntity.NO_HEADERS,
             BINARY
@@ -120,7 +120,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
 
     @Test
     public void testBodyText() {
-        this.check(
+        this.headersAndTextCheck(
             this.createHttpEntity(),
             HttpEntity.NO_HEADERS,
             TEXT
@@ -134,7 +134,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
                 HttpHeaderName.CONTENT_LENGTH,
                 777L
             ); // ignored
-        this.check(entity, TEXT);
+        this.textAndCheck(entity, TEXT);
     }
 
     @Test
@@ -148,7 +148,7 @@ public final class HttpEntityBinaryTest extends HttpEntityNotEmptyTestCase<HttpE
             different
         );
 
-        this.check(
+        this.textAndCheck(
             different,
             new String(
                 BINARY.value(),
