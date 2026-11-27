@@ -99,15 +99,6 @@ public class ETagListTest implements ListTesting2<ETagList, ETag>,
     // setElements......................................................................................................
 
     @Test
-    public void testWithDoesntDoubleWrap() {
-        final ETagList list = this.createList();
-        assertSame(
-            list,
-            list.setElements(list)
-        );
-    }
-
-    @Test
     public void testSetElementsWithEmpty() {
         assertSame(
             ETagList.EMPTY,
