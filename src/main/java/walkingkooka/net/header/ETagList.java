@@ -66,27 +66,45 @@ public final class ETagList extends AbstractList<ETag> implements ImmutableListD
     }
 
     @Override
-    public ETagList setElements(final Collection<ETag> etags) {
-        Objects.requireNonNull(etags, "etags");
+    public ETagList setElements(final Collection<ETag> eTags) {
+        final ETagList eTagList;
 
-        ETagList eTagList;
-        if (etags instanceof ETagList) {
-            eTagList = (ETagList) etags;
+        if (eTags instanceof ETagList) {
+            eTagList = (ETagList) eTags;
         } else {
-            List<ETag> copy = Lists.array();
-            copy.addAll(etags);
-            switch (etags.size()) {
-                case 0:
-                    eTagList = EMPTY;
-                    break;
-                default:
-                    eTagList = new ETagList(copy);
+            Objects.requireNonNull(eTags, "eTags");
+
+            final List<ETag> copy = Lists.array();
+            for (final ETag etag : eTags) {
+                this.elementCheck(etag);
+                copy.add(etag);
             }
+
+            eTagList = this.equals(copy) ?
+                this :
+                this.replaceETag(copy);
         }
 
-        return this.equals(eTagList) ?
+        return eTagList;
+    }
+
+    @Override
+    public ETagList subList(final int from,
+                            final int to) {
+        return 0 == from && this.size() == to ?
             this :
-            eTagList;
+            this.replaceETag(
+                this.etags.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private ETagList replaceETag(final List<ETag> eTags) {
+        return eTags.isEmpty() ?
+            EMPTY :
+            new ETagList(eTags);
     }
 
     // HasText..........................................................................................................

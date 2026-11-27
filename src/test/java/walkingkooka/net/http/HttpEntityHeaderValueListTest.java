@@ -26,6 +26,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityHeaderValueListTest implements PackagePrivateClassTesting<HttpEntityHeaderValueList<String>>,
@@ -71,6 +73,86 @@ public final class HttpEntityHeaderValueListTest implements PackagePrivateClassT
                         )
                     )
                 )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static String STRING1 = "AAA";
+
+    private final static String STRING2 = "BBB";
+
+    private final static String STRING3 = "CCC";
+
+    private final static String STRING4 = "DDD";
+
+    private final static String STRING5 = "EEE";
+
+    private final static List<String> ELEMENTS = Lists.of(
+        STRING1,
+        STRING2,
+        STRING3,
+        STRING4,
+        STRING5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                ELEMENTS
+            ),
+            0,
+            2,
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                Lists.of(
+                    STRING1,
+                    STRING2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                ELEMENTS
+            ),
+            2,
+            4,
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                Lists.of(
+                    STRING3,
+                    STRING4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                ELEMENTS
+            ).subList(
+                1,
+                4
+            ), // 2, 3, 4
+            1,
+            3,
+            new HttpEntityHeaderValueList<>(
+                HEADER,
+                Lists.of(
+                    STRING3,
+                    STRING4
+                )
+            )
         );
     }
 

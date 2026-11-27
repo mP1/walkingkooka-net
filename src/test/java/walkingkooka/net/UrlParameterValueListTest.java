@@ -23,6 +23,8 @@ import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlParameterValueListTest implements PackagePrivateClassTesting<UrlParameterValueList>,
@@ -104,6 +106,75 @@ public final class UrlParameterValueListTest implements PackagePrivateClassTesti
                         null
                     )
                 )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static String STRING1 = "AAA";
+
+    private final static String STRING2 = "BBB";
+
+    private final static String STRING3 = "CCC";
+
+    private final static String STRING4 = "DDD";
+
+    private final static String STRING5 = "EEE";
+
+    private final static List<String> ELEMENTS = Lists.of(
+        STRING1,
+        STRING2,
+        STRING3,
+        STRING4,
+        STRING5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new UrlParameterValueList(ELEMENTS),
+            0,
+            2,
+            new UrlParameterValueList(
+                Lists.of(
+                    STRING1,
+                    STRING2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new UrlParameterValueList(ELEMENTS),
+            2,
+            4,
+            new UrlParameterValueList(
+                Lists.of(
+                    STRING3,
+                    STRING4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new UrlParameterValueList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            new UrlParameterValueList(
+                Lists.of(
+                    STRING3,
+                    STRING4
+                )
+            )
         );
     }
 
