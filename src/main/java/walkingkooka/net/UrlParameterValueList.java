@@ -70,27 +70,14 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     }
 
     @Override
-    public UrlParameterValueList setElements(final Collection<String> strings) {
-        final UrlParameterValueList stringList;
-
-        if (strings instanceof UrlParameterValueList) {
-            stringList = (UrlParameterValueList) strings;
-        } else {
-            Objects.requireNonNull(strings, "strings");
-
-            final List<String> copy = Lists.array();
-            for (final String string : strings) {
-                copy.add(
-                    Objects.requireNonNull(string, "Includes null")
-                );
-            }
-
-            stringList = this.equals(copy) ?
-                this :
-                this.replaceString(copy);
-        }
-
-        return stringList;
+    public UrlParameterValueList setElements(final Collection<String> elements) {
+        return (UrlParameterValueList)
+            this.setElementsMaybeCreate(
+                elements,
+                (final Collection<String> collection) -> collection instanceof UrlParameterValueList,
+                this::elementCheck,
+                this::replaceStrings
+            );
     }
 
     @Override
@@ -98,7 +85,7 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
                                          final int to) {
         return 0 == from && this.size() == to ?
             this :
-            this.replaceString(
+            this.replaceStrings(
                 this.strings.subList(
                     from,
                     to
@@ -106,7 +93,7 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
             );
     }
 
-    private UrlParameterValueList replaceString(final List<String> strings) {
+    private UrlParameterValueList replaceStrings(final List<String> strings) {
         return strings.isEmpty() ?
             empty() :
             new UrlParameterValueList(strings);

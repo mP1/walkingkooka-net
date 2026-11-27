@@ -69,32 +69,18 @@ final class HttpEntityHeaderValueList<T> extends AbstractList<T>
 
     @Override
     public void elementCheck(final Object value) {
-        Objects.requireNonNull(value, "value");
+        this.header.checkValue(value);
     }
 
     @Override
-    public HttpEntityHeaderValueList<T> setElements(final Collection<T> httpEntityHeaderValues) {
-        final HttpEntityHeaderValueList<T> httpEntityHeaderValueList;
-
-        if (httpEntityHeaderValues instanceof HttpEntityHeaderValueList) {
-            httpEntityHeaderValueList = (HttpEntityHeaderValueList<T>) httpEntityHeaderValues;
-        } else {
-            Objects.requireNonNull(httpEntityHeaderValues, "httpEntityHeaderValues");
-
-            final List<T> copy = Lists.linkedList();
-
-            for (final T value : httpEntityHeaderValues) {
-                this.elementCheck(value);
-                header.checkValue(value);
-                copy.add(value);
-            }
-
-            httpEntityHeaderValueList = this.equals(copy) ?
-                this :
-                this.replaceHttpEntityHeaderValueList(copy);
-        }
-
-        return httpEntityHeaderValueList;
+    public HttpEntityHeaderValueList<T> setElements(final Collection<T> elements) {
+        return (HttpEntityHeaderValueList<T>)
+            this.setElementsMaybeCreate(
+                elements,
+                (final Collection<T> collection) -> collection instanceof HttpEntityHeaderValueList,
+                this::elementCheck,
+                this::replaceHttpEntityHeaderValueLists
+            );
     }
 
     @Override
@@ -102,7 +88,7 @@ final class HttpEntityHeaderValueList<T> extends AbstractList<T>
                                                 final int to) {
         return 0 == from && this.size() == to ?
             this :
-            this.replaceHttpEntityHeaderValueList(
+            this.replaceHttpEntityHeaderValueLists(
                 this.values.subList(
                     from,
                     to
@@ -110,7 +96,7 @@ final class HttpEntityHeaderValueList<T> extends AbstractList<T>
             );
     }
 
-    private HttpEntityHeaderValueList<T> replaceHttpEntityHeaderValueList(final List<T> values) {
+    private HttpEntityHeaderValueList<T> replaceHttpEntityHeaderValueLists(final List<T> values) {
         return new HttpEntityHeaderValueList<>(
             this.header,
             values
