@@ -26,6 +26,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -38,6 +40,12 @@ public class ETagListTest implements ListTesting2<ETagList, ETag>,
     private final static ETag ETAG1 = ETag.strong("strong111");
 
     private final static ETag ETAG2 = ETag.weak("weak222");
+
+    private final static ETag ETAG3 = ETag.weak("weak333");
+
+    private final static ETag ETAG4 = ETag.weak("weak444");
+
+    private final static ETag ETAG5 = ETag.weak("weak555");
 
     // list.............................................................................................................
 
@@ -123,6 +131,65 @@ public class ETagListTest implements ListTesting2<ETagList, ETag>,
             () -> etags.replace(
                 1,
                 null
+            )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static List<ETag> ELEMENTS = Lists.of(
+        ETAG1,
+        ETAG2,
+        ETAG3,
+        ETAG4,
+        ETAG5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new ETagList(ELEMENTS),
+            0,
+            2,
+            new ETagList(
+                Lists.of(
+                    ETAG1,
+                    ETAG2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new ETagList(ELEMENTS),
+            2,
+            4,
+            new ETagList(
+                Lists.of(
+                    ETAG3,
+                    ETAG4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new ETagList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            new ETagList(
+                Lists.of(
+                    ETAG3,
+                    ETAG4
+                )
             )
         );
     }

@@ -32,32 +32,37 @@ import java.util.Objects;
 final class UrlParameterValueList extends AbstractList<String> implements ImmutableListDefaults<ImmutableList<String>, String> {
 
     static UrlParameterValueList empty() {
-        return new UrlParameterValueList();
+        return new UrlParameterValueList(
+            Lists.linkedList()
+        );
     }
 
-    private UrlParameterValueList() {
+    // @VisibleForTesting
+    UrlParameterValueList(final List<String> strings) {
+        super();
+        this.strings = strings;
     }
 
     void addParameterValue(final String value) {
-        this.values.add(value);
+        this.strings.add(value);
     }
 
     void removeParameterValues(final String value) {
         // List.remove only removes the FIRST and not all values...
-        this.values.removeIf(s -> s.equals(value));
+        this.strings.removeIf(s -> s.equals(value));
     }
 
     @Override
     public String get(final int index) {
-        return this.values.get(index);
+        return this.strings.get(index);
     }
 
     @Override
     public int size() {
-        return this.values.size();
+        return this.strings.size();
     }
 
-    private final List<String> values = Lists.array();
+    private final List<String> strings;
 
     @Override
     public void elementCheck(final String value) {
@@ -65,21 +70,45 @@ final class UrlParameterValueList extends AbstractList<String> implements Immuta
     }
 
     @Override
-    public ImmutableList<String> setElements(final Collection<String> values) {
-        return values instanceof UrlParameterValueList ?
-            (UrlParameterValueList) values :
-            this.createAndCopy(values);
+    public UrlParameterValueList setElements(final Collection<String> strings) {
+        final UrlParameterValueList stringList;
+
+        if (strings instanceof UrlParameterValueList) {
+            stringList = (UrlParameterValueList) strings;
+        } else {
+            Objects.requireNonNull(strings, "strings");
+
+            final List<String> copy = Lists.array();
+            for (final String string : strings) {
+                copy.add(
+                    Objects.requireNonNull(string, "Includes null")
+                );
+            }
+
+            stringList = this.equals(copy) ?
+                this :
+                this.replaceString(copy);
+        }
+
+        return stringList;
     }
 
-    private ImmutableList<String> createAndCopy(final Collection<String> values) {
-        final UrlParameterValueList copy = UrlParameterValueList.empty();
-        for (final String value : values) {
-            copy.addParameterValue(
-                Objects.requireNonNull(value, "value")
-            );
-        }
-        return this.equals(copy) ?
+    @Override
+    public UrlParameterValueList subList(final int from,
+                                         final int to) {
+        return 0 == from && this.size() == to ?
             this :
-            copy;
+            this.replaceString(
+                this.strings.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private UrlParameterValueList replaceString(final List<String> strings) {
+        return strings.isEmpty() ?
+            empty() :
+            new UrlParameterValueList(strings);
     }
 }

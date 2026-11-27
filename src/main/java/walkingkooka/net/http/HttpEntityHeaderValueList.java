@@ -73,30 +73,48 @@ final class HttpEntityHeaderValueList<T> extends AbstractList<T>
     }
 
     @Override
-    public HttpEntityHeaderValueList<T> setElements(final Collection<T> values) {
+    public HttpEntityHeaderValueList<T> setElements(final Collection<T> httpEntityHeaderValues) {
         final HttpEntityHeaderValueList<T> httpEntityHeaderValueList;
 
-        if (values instanceof HttpEntityHeaderValueList) {
-            httpEntityHeaderValueList = (HttpEntityHeaderValueList<T>) values;
+        if (httpEntityHeaderValues instanceof HttpEntityHeaderValueList) {
+            httpEntityHeaderValueList = (HttpEntityHeaderValueList<T>) httpEntityHeaderValues;
         } else {
-            final HttpHeaderName<T> header = this.header;
+            Objects.requireNonNull(httpEntityHeaderValues, "httpEntityHeaderValues");
+
             final List<T> copy = Lists.linkedList();
 
-            for (final T value : values) {
+            for (final T value : httpEntityHeaderValues) {
+                this.elementCheck(value);
                 header.checkValue(value);
-
                 copy.add(value);
             }
 
             httpEntityHeaderValueList = this.equals(copy) ?
                 this :
-                new HttpEntityHeaderValueList<>(
-                    header,
-                    copy
-                );
+                this.replaceHttpEntityHeaderValueList(copy);
         }
 
         return httpEntityHeaderValueList;
+    }
+
+    @Override
+    public HttpEntityHeaderValueList<T> subList(final int from,
+                                                final int to) {
+        return 0 == from && this.size() == to ?
+            this :
+            this.replaceHttpEntityHeaderValueList(
+                this.values.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private HttpEntityHeaderValueList<T> replaceHttpEntityHeaderValueList(final List<T> values) {
+        return new HttpEntityHeaderValueList<>(
+            this.header,
+            values
+        );
     }
 
     private final HttpHeaderName<T> header;
